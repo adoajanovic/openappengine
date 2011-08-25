@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richajax="http://richfaces.ajax4jsf.org/rich">
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="body">
+		<rich:panel>
+			<rich:message ajaxRendered="true" />
+			<f:facet name="header">
+				<h:outputText value="Create Sales Order"></h:outputText>
+			</f:facet>
+			<h:form id="formCreateSalesOrder">
+				<a4j:outputPanel id="a4jSalesOrderHdr" ajaxRendered="true">
+				<h:panelGrid id="createSalesOrderHdr" columns="2">
+					<h:outputLabel for="formCreateSalesOrder_ordType">Order Type</h:outputLabel>
+					<rich:select id="formCreateSalesOrder_ordType" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.orderType}" enableManualInput="false">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{listHelperBean.salesOrderTypes}" />
+					</rich:select>
+
+					<h:outputLabel for="formCreateSalesOrder_partyId">Party</h:outputLabel>
+					<h:inputText id="formCreateSalesOrder_partyId" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.partyId}" readonly="true" />
+
+					<h:outputLabel for="formCreateSalesOrder_status">Status</h:outputLabel>
+					<rich:select id="formCreateSalesOrder_status" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.status}" enableManualInput="false">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{listHelperBean.salesOrderStatus}" />
+					</rich:select>
+
+					<h:outputLabel for="formCreateSalesOrder_totalQty">Total Qty</h:outputLabel>
+					<h:inputText id="formCreateSalesOrder_totalQty" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.totalQuantity}" readonly="true" />
+
+					<h:outputLabel for="formCreateSalesOrder_totalAmt">Total Amount</h:outputLabel>
+					<h:inputText id="formCreateSalesOrder_totalAmt" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.totalAmount}" readonly="true" />
+
+					<h:outputLabel for="formCreateSalesOrder_totalTax">Total Tax</h:outputLabel>
+					<h:inputText id="formCreateSalesOrder_totalTax" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.totalTax}" readonly="true" />
+
+					<h:outputLabel for="formCreateSalesOrder_totalWeight">Total Weight</h:outputLabel>
+					<h:inputText id="formCreateSalesOrder_totalWeight" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.totalWeight}" readonly="true" />
+
+					<h:outputLabel for="formCreateSalesOrder_currencyCode">Currency</h:outputLabel>
+					<rich:select id="formCreateSalesOrder_currencyCode" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.currency}" enableManualInput="false">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{listHelperBean.currencies}" />
+					</rich:select>
+
+					<h:outputLabel for="formCreateSalesOrder_orderDate">Order Date</h:outputLabel>
+					<rich:calendar id="formCreateSalesOrder_orderDate" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.orderDate}" showApplyButton="false" cellWidth="24px" cellHeight="22px"
+						style="width:200px" />
+
+					<h:outputLabel for="formCreateSalesOrder_payMode">Mode of Payment</h:outputLabel>
+					<rich:select id="formCreateSalesOrder_payMode" value="#{salesOrderController.formSalesOrderVO.salesOrderHdr.payMode}" enableManualInput="false">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{listHelperBean.paymentModes}" />
+					</rich:select>
+				</h:panelGrid>
+				</a4j:outputPanel>
+
+				<a4j:outputPanel id="a4jSalesOrderDet" ajaxRendered="true">
+					<rich:dataTable id="formCreateSalesOrder_salesDets" value="#{salesOrderController.formSalesOrderVO.salesOrderDets}" var="salesDet">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="Item" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Quantity" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Price" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Weight" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:inputText value="#{salesDet.itemName}" readonly="true" />
+						</rich:column>
+						<rich:column id="formCreateSalesOrder_salesDets_qty">
+							<h:inputText value="#{salesDet.quantity}" readonly="true" />
+						</rich:column>
+						<rich:column id="formCreateSalesOrder_salesDets_price">
+							<h:inputText value="#{salesDet.price}" readonly="true" />
+						</rich:column>
+						<rich:column id="formCreateSalesOrder_salesDets_weight">
+							<h:inputText value="#{salesDet.weight}" readonly="true" />
+						</rich:column>
+					</rich:dataTable>
+				</a4j:outputPanel>
+				<h:commandButton id="btnCreateSalesOrder" value="Save" action="#{salesOrderController.createSalesOrder}" />
+				<a4j:commandButton value="Add Line Item" actionListener="#{salesOrderController.openPopupAddLineItem}" oncomplete="#{rich:component('addItemPopup')}.show()" reRender="addItemPopupouter" />
+			</h:form>
+		</rich:panel>
+
+
+		<a4j:outputPanel layout="block" id="addItemPopupouter">
+			<rich:popupPanel id="addItemPopup" modal="true" resizeable="true" onmaskclick="#{rich:component('addItemPopup')}.hide()">
+				<f:facet name="header">Add user</f:facet>
+				<h:form id="addItemPopupform">
+					<h:messages layout="table" errorClass="errorMessage" />
+					<h:panelGrid id="createSalesOrderHdr" columns="2">
+
+						<h:outputLabel for="formAddLineItem_ItemId">Select</h:outputLabel>
+						<rich:select id="formAddLineItem_ItemId" value="#{salesOrderController.formSalesOrderVO.newSalesOrderDet.itemId}" enableManualInput="false"
+							valueChangeListener="#{salesOrderController.itemChanged}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{salesOrderController.itItemMasterList}" />
+						</rich:select>
+						
+						<h:outputLabel for="formAddLineItem_Qty">Quantity</h:outputLabel>
+						<h:inputText id="formAddLineItem_Qty" value="#{salesOrderController.formSalesOrderVO.newSalesOrderDet.quantity}" />
+
+						<h:outputLabel for="formAddLineItem_Price">Quantity</h:outputLabel>
+						<h:inputText id="formAddLineItem_Price" value="#{salesOrderController.formSalesOrderVO.newSalesOrderDet.price}" />
+
+						<h:outputLabel for="formAddLineItem_Weight">Weight</h:outputLabel>
+						<h:inputText id="formAddLineItem_Weight" value="#{salesOrderController.formSalesOrderVO.newSalesOrderDet.weight}" />
+
+						<a4j:commandButton id="btnAddLineItem" value="Add" actionListener="#{salesOrderController.addLineItem}" oncomplete="#{rich:component('addItemPopup')}.hide()" reRender="a4jSalesOrderHdr,a4jSalesOrderDet" />
+
+					</h:panelGrid>
+				</h:form>
+			</rich:popupPanel>
+		</a4j:outputPanel>
+
+
+	</ui:define>
+</ui:composition>
+</html>

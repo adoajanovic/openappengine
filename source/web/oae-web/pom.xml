@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>web</artifactId>
+		<groupId>openapps</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>openapps</groupId>
+	<artifactId>oae-web</artifactId>
+	<name>OpenAppEngine Web Application</name>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<url>http://jboss.org/richfaces</url>
+
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>Jboss Repository for Maven</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>java-net</id>
+			<name>Java.net Maven Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Setting this property using archetype-metadata.xml requiredPorperty so that generated project uses correct version of richfaces. -->
+		<org.richfaces.bom.version>4.0.0.Final</org.richfaces.bom.version>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+	</properties>
+
+	<build>
+		<finalName>oae-web-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <artifactId>maven-war-plugin</artifactId> <configuration> <webResources> <resource> <directory>${basedir}/src/main/java</directory> <targetPath>/WEB-INF/src</targetPath> </resource> </webResources> 
+				</configuration> </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<additionalProjectFacets>
+						<jst.jsf>2.0</jst.jsf>
+					</additionalProjectFacets>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+					</classpathContainers>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- <profiles> <profile> <id>jee6</id> <build> <plugins> <plugin> <artifactId>maven-war-plugin</artifactId> <configuration> <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> 
+		</configuration> </plugin> </plugins> </build> <dependencies> <dependency> <groupId>com.sun.faces</groupId> <artifactId>jsf-api</artifactId> <scope>provided</scope> </dependency> <dependency> <groupId>com.sun.faces</groupId> 
+		<artifactId>jsf-impl</artifactId> <scope>provided</scope> </dependency> <dependency> <groupId>javax.transaction</groupId> <artifactId>jta</artifactId> <version>1.1</version> <scope>provided</scope> </dependency> 
+		</dependencies> </profile> <profile> <id>release</id> <build> <plugins> <plugin> <artifactId>maven-war-plugin</artifactId> <executions> <execution> <id>jee6</id> <phase>package</phase> <goals> <goal>war</goal> 
+		</goals> <configuration> <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> <classifier>jee6</classifier> <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*</packagingExcludes> 
+		<warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*</warSourceExcludes> </configuration> </execution> </executions> <configuration> <webResources> <resource> <directory>${basedir}/src/main/java</directory> 
+		<targetPath>/WEB-INF/src</targetPath> </resource> </webResources> </configuration> </plugin> </plugins> </build> </profile> </profiles> -->
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.richfaces</groupId>
+				<artifactId>richfaces-bom</artifactId>
+				<version>${org.richfaces.bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>messages</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>oxm</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>service-engine</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>lifecycle</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>utility</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>entity</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>messages</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>web-dto</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openapps</groupId>
+			<artifactId>web-dto-mapper</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-components-ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
+		<!-- Tests -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Expression Language (depends on spring-core) Define this if you use Spring Expression APIs (org.springframework.expression.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define this if you use Spring Bean APIs (org.springframework.beans.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans) This is the central artifact for Spring's Dependency Injection Container and is generally always defined -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Various Application Context utilities, including EhCache, JavaMail, Quartz, and Freemarker integration Define this if you need any of these integrations -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans, spring-context, spring-web) Define this if you use Spring MVC with a Servlet Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, spring-context, spring-web) Define this if you use Spring MVC with a Portlet Container (org.springframework.web.portlet.*) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-portlet</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.3.2</version>
+		</dependency>
+		
+		<!-- JPA Standard Dependencies -->
+		<dependency>
+			<groupId>org.hibernate.java-persistence</groupId>
+			<artifactId>jpa-api</artifactId>
+			<version>2.0-cr-1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.5.0-Beta-2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.11</version>
+		</dependency>
+		
+	</dependencies>
+</project>

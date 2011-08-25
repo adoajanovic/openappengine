@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+	<!-- Service Configs -->
+	<bean id="abstractServiceConfig" class="com.ms.openapps.service.config.ServiceConfig" abstract="true">
+	</bean>
+	
+	<bean id="partyServiceConfig" class="com.ms.openapps.service.config.ServiceConfig" parent="abstractServiceConfig">
+		<property name="configLocation" value="partymanager-services.xml"></property>
+		<property name="aggregateName" value="party"></property>
+	</bean>
+	
+	<bean id="addressbookConfig" class="com.ms.openapps.service.config.ServiceConfig" parent="abstractServiceConfig">
+		<property name="configLocation" value="addressbook-services.xml"></property>
+		<property name="aggregateName" value="contact"></property>
+	</bean>
+	
+	<!-- Add Your Service Configs Here -->
+
+	<!-- Xml Service Configuration : START -->
+
+	<!-- Service Context Provider : Do Not Change -->	
+	<bean id="serviceContextProvider" class="com.ms.openapps.service.context.ServiceContext" >
+	</bean>
+	
+	<!-- Service Context Loader  -->
+	<bean id="serviceContextDefinition" class="com.ms.openapps.service.context.ServiceContextDefinition">
+		<property name="serviceConfigs">
+			<list>
+				<ref local="partyServiceConfig"/>
+				<ref local="addressbookConfig"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Xml Service Definition Reader -->
+	<bean id="xmlServiceDefinitionReader" class="com.ms.openapps.service.reader.XmlServiceDefinitionReader" init-method="loadModelServices">
+		<property name="serviceContextDefinition" ref="serviceContextDefinition"></property>
+	</bean>
+	
+	<!-- Xml Service Configuration : END -->
+	
+	<bean id="modelServiceReader" class="com.ms.openapps.service.reader.ModelServiceReader">
+		<property name="readDBServices" value="true"></property>
+	</bean>
+
+	<!-- Generic Service Engine -->	
+	<bean id="genericServiceEngine" class="com.ms.openapps.service.engine.GenericServiceEngine" scope="singleton" depends-on="xmlServiceDefinitionReader">
+	</bean>
+	
+	<bean id="genericServiceDispatcher" class="com.ms.openapps.service.dispatcher.GenericServiceDispatcher" scope="prototype">
+		<property name="genericServiceEngine" ref="genericServiceEngine"></property>
+	</bean>
+	
+</beans>

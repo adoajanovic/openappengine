@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- DO NOT MODIFY entityContext bean -->
+	<bean id="entityContext" class="com.ms.openapps.entity.context.EntityContext" />
+	<!-- DO NOT MODIFY entityContext bean -->
+	
+	<!-- holding properties for database connectivity / -->
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<!-- enabling annotation driven configuration / -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.ms.openapps.model" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}" p:username="${jdbc.username}" p:password="${jdbc.password}"/>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource" p:jpaVendorAdapter-ref="jpaAdapter">
+		<property name="loadTimeWeaver">
+			<bean
+				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+		<property name="persistenceUnitName" value="jpa"></property>
+	</bean>
+
+	<bean id="jpaAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+		p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
+
+	<!-- JPA Hibernate Generic Dao -->
+	<bean id="genericDaoImpl" class="com.ms.openapps.entity.dao.GenericDaoImpl">
+	</bean>
+
+	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	
+	<!-- JPA Hibernate Generic Dao -->
+	<bean id="genericDao"
+		class="com.ms.openapps.entity.dao.GenericHibernateJpaDaoImpl"
+		abstract="true">
+		<property name="jpaTemplate" ref="jpaTemplate"></property>
+	</bean>
+	
+	<!-- Dao 's '-->
+	
+	<!-- Architecture Dao's : DO NOT UPDATE -->
+	<bean id="archAggregateDao" parent="genericDao" lazy-init="true">
+		<constructor-arg index="0" type="java.lang.Class"
+			value="com.ms.openapps.model.ArchAggregate">
+		</constructor-arg>
+	</bean>
+	
+	<bean id="archAggregateServiceDao" parent="genericDao" lazy-init="true">
+		<constructor-arg index="0" type="java.lang.Class"
+			value="com.ms.openapps.model.ArchAggregateService">
+		</constructor-arg>
+	</bean>
+	
+	<bean id="soSalesOrderDao" parent="genericDao" lazy-init="true">
+		<constructor-arg index="0" type="java.lang.Class"
+			value="com.ms.openapps.model.SoSalesHdr">
+		</constructor-arg>
+	</bean>
+	
+	<bean id="pmPartyDao" parent="genericDao" lazy-init="true">
+		<constructor-arg index="0" type="java.lang.Class"
+			value="com.ms.openapps.model.PmParty">
+		</constructor-arg>
+	</bean>
+	
+	<bean id="itItemMasterDao" parent="genericDao" lazy-init="true">
+		<constructor-arg index="0" type="java.lang.Class"
+			value="com.ms.openapps.model.ItItemMaster">
+		</constructor-arg>
+	</bean>
+	
+	<!-- Architecture Dao's : DO NOT UPDATE -->
+	
+	<!-- Set Dao Factory -->
+	<bean id="daoFactory" class="com.ms.openapps.entity.dao.DaoFactory">
+		<property name="daoMap">
+			<map>
+				<entry key="archAggregateDao" value-ref="archAggregateDao" />
+				<entry key="archAggregateServiceDao" value-ref="archAggregateServiceDao" />
+				<entry key="soSalesOrderDao" value-ref="soSalesOrderDao"/>
+				<entry key="pmPartyDao" value-ref="pmPartyDao"/>
+				<entry key="itItemMasterDao" value-ref="itItemMasterDao"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Delegator's -->
+	<bean id="genericDelegator"
+		class="com.ms.openapps.entity.GenericEntityDelegator"
+		abstract="true">
+	</bean>
+	
+	<bean id="archAggregateDelegator" lazy-init="true" parent="genericDelegator">
+			<constructor-arg  index="0">
+				<ref local="archAggregateDao"/>
+			</constructor-arg>
+	</bean>
+	
+	<bean id="archAggregateServiceDelegator" lazy-init="true" parent="genericDelegator">
+			<constructor-arg  index="0">
+				<ref local="archAggregateServiceDao"/>
+			</constructor-arg>
+	</bean>
+	
+	<bean id="salesOrderDelegator" lazy-init="true" parent="genericDelegator">
+			<constructor-arg  index="0">
+				<ref local="soSalesOrderDao"/>
+			</constructor-arg>
+	</bean>
+	
+	<bean id="pmPartyDelegator" lazy-init="true" parent="genericDelegator">
+			<constructor-arg  index="0">
+				<ref local="pmPartyDao"/>
+			</constructor-arg>
+	</bean>
+	
+	<bean id="itItemMasterDelegator" lazy-init="true" parent="genericDelegator">
+			<constructor-arg  index="0">
+				<ref local="itItemMasterDao"/>
+			</constructor-arg>
+	</bean>
+	
+	<!--  Entity Delegator Factory -->
+	<bean id="entityDelegatorFactory" class="com.ms.openapps.entity.EntityDelegatorFactory">
+		<property name="entityDelegatorMap">
+			<map>
+				<entry key="archAggregate" value-ref="archAggregateDelegator" />
+				<entry key="archAggregateService" value-ref="archAggregateServiceDelegator" />
+				<entry key="SoSalesOrder" value-ref="salesOrderDelegator" />
+				<entry key="ItItemMaster" value-ref="itItemMasterDelegator" />
+			</map>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CreateSalesOrderRequest>
+	<SalesHdr>
+		<OrdType>SV</OrdType>
+		<PartyId>2</PartyId>
+		<Status>ENBL</Status>
+		<TotQty>1</TotQty>
+		<TotAmt>3000</TotAmt>
+		<TotTax>20</TotTax>
+		<TotWeight>2</TotWeight>
+		<CurCode>INR</CurCode>
+		<OrdDate>07/14/2011</OrdDate>
+		<ModePay>CSH</ModePay>
+		<User>TEST.USER</User>
+		<SalesDet>
+			<OrdType>SV</OrdType>
+			<ItemId>1</ItemId>
+			<QtyOrd>1</QtyOrd>
+			<UOM>EACH</UOM>
+			<Weight>1</Weight>
+			<Location />
+			<LotNo />
+			<Price>20</Price>
+			<Cost>20</Cost>
+			<Discount>0</Discount>
+			<User>TEST.USER</User>
+		</SalesDet>
+	</SalesHdr>
+</CreateSalesOrderRequest>

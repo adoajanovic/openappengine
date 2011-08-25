@@ -1,0 +1,17 @@
+<!-- 
+	Builds a Linear Application WorkFlow using the Xml
+-->
+<appflow id="createOrderFlow">
+	<step id="registerUser" sequence="1" stepHandler="" firstStep="true">
+		<params>
+			<param type="in" name="" class=""></param>
+			<param type="out" name="" class=""></param>
+		</params>
+	</step>
+	<step id="checkOrder" sequence="2" stepHandler="">
+		<params>
+			<param type="in" name="" class=""></param>
+			<param type="out" name="" class=""></param>
+		</params>
+	</step>
+</appflow>
