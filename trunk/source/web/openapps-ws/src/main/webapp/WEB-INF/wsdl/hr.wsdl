@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+	name="Hr" 
+	targetNamespace="http://openappengine.com/hr"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://openappengine.com/hr"
+	xmlns:hr="http://openappengine.com/hr/types"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://openappengine.com/hr/types"
+				schemaLocation="hr.xsd" />
+		</xsd:schema>
+	</types>
+
+	<message name="HolidayRequestMessage">
+		<part name="body" element="hr:HolidayRequest" />
+	</message>
+	<message name="HolidayResponseMessage">
+		<part name="body" element="hr:HolidayResponse" />
+	</message>
+ 	
+	
+	<portType name="HrPortType">
+
+		<operation name="Holiday">
+			<input message="tns:HolidayRequestMessage" />
+			<output message="tns:HolidayResponseMessage" />
+		</operation>
+
+	</portType>
+	<binding name="HrSoapBinding" type="tns:HrPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+	
+		<operation name="Holiday">
+			<soap:operation soapAction="Holiday" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		
+	</binding>
+	<service name="HrService">
+		<port name="HrPort" binding="tns:HrSoapBinding">
+			<soap:address location="TODO" />
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:so="http://openappengine.com/salesorder/types"
+           elementFormDefault="qualified"
+           targetNamespace="http://openappengine.com/salesorder/types">
+    <xs:element name="CreateSalesOrderRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SalesHdr" type="so:SalesHdr" maxOccurs="1"/>
+                <xs:element name="SalesDet" type="so:SalesDet" maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateSalesOrderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SalesHdr" type="so:SalesHdr" maxOccurs="1"/>
+                <xs:element name="SalesDet" type="so:SalesDet" maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	<xs:complexType name="SalesHdr">
+        <xs:sequence>
+        	<xs:element name="SalesId" type="xs:integer" default="-999"/>
+        	<xs:element name="OrdType" type="xs:string" />
+        	<xs:element name="PartyId" type="xs:integer" />
+        	<xs:element name="Status" type="xs:string" />
+        	<xs:element name="TotQty" type="xs:decimal"/>
+        	<xs:element name="TotAmt" type="xs:decimal" />
+        	<xs:element name="TotTax" type="xs:decimal" />
+        	<xs:element name="TotWeight" type="xs:decimal" />
+        	<xs:element name="CurCode" type="xs:string" default="INR" />
+        	<xs:element name="OrdDate" type="xs:date" />
+        	<xs:element name="CanDate" type="xs:date" />
+        	<xs:element name="ModePay" type="xs:string" />
+        	<xs:element name="ShipType" type="xs:string" />
+        	<xs:element name="Carrier" type="xs:string" />
+        	<xs:element name="ShipCharg" type="xs:decimal" />
+        	<xs:element name="User" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SalesDet">
+        <xs:sequence>
+        	<xs:element name="SalesId" type="xs:integer" default="-999"/>
+        	<xs:element name="OrdType" type="xs:string" />
+        	<xs:element name="LineNo" type="xs:integer" />
+        	<xs:element name="ItemId" type="xs:integer" />
+        	<xs:element name="QtyOrd" type="xs:decimal"/>
+        	<xs:element name="UOM" type="xs:string" />
+        	<xs:element name="Weight" type="xs:decimal" />
+        	<xs:element name="Location" type="xs:string" />
+        	<xs:element name="LotNo" type="xs:string" />
+        	<xs:element name="Price" type="xs:decimal" />
+        	<xs:element name="Cost" type="xs:decimal" />
+        	<xs:element name="Discount" type="xs:decimal" />
+        	<xs:element name="User" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
