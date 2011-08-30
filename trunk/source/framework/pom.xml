@@ -24,6 +24,7 @@
 	<module>workflow</module>
 	<module>reportengine</module>
 	<module>service-engine</module>
+	<module>service-engine-oxm</module>
 	<module>lifecycle</module>
 	<module>tests</module>
     <module>service-def</module>
