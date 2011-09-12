@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="jpa">
+		<!-- <class>com.ms.openapps.model.ArchAggregate</class>
+		<class>com.ms.openapps.model.ArchAggregateService</class>
+		<class>com.ms.openapps.model.ItItemMaster</class>
+		<class>com.ms.openapps.model.PmParty</class>
+		<class>com.ms.openapps.model.SecAppUser</class>
+		<class>com.ms.openapps.model.SecAuthority</class>
+		<class>com.ms.openapps.model.SecGroup</class>
+		<class>com.ms.openapps.model.SecGroupAuthority</class>
+		<class>com.ms.openapps.model.SoSalesHdr</class>
+		<class>com.ms.openapps.model.SoSalesDet</class> -->
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+		</properties>
+	</persistence-unit>
+</persistence>

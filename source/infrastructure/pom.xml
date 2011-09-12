@@ -45,5 +45,6 @@
   </dependencies>
   <modules>
   	<module>utility</module>
+  	<module>openappengine-factory</module>
   </modules>
 </project>
