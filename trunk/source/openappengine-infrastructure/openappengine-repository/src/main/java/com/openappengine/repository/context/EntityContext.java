@@ -5,6 +5,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import com.openappengine.repository.GenericEntityRepositoryDao;
+
 public class EntityContext implements ApplicationContextAware {
 	
 	private static EntityContextPrvdr entityContextPrvdr;
@@ -33,6 +35,10 @@ public class EntityContext implements ApplicationContextAware {
 	
 	public SessionFactory getSessionFactory() {
 		return (SessionFactory) entityContextPrvdr.getBean("sessionFactory");
+	}
+	
+	public GenericEntityRepositoryDao getGenericEntityRepositoryDAO() {
+		return (GenericEntityRepositoryDao) entityContextPrvdr.getBean("genericEntityRepositoryDao");
 	}
 	
 	private class EntityContextPrvdr {
