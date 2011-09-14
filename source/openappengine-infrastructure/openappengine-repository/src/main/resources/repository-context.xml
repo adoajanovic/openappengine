@@ -34,4 +34,8 @@
 		</property>
 	</bean>
 	<tx:annotation-driven />
+	
+	<bean id="genericEntityRepositoryDao" class="com.openappengine.repository.GenericEntityRepositoryDao">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
 </beans>
