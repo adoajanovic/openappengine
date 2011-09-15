@@ -4,8 +4,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import com.openappengine.repository.GenericEntityRepositoryDao;
+import com.openappengine.repository.GenericRepository;
 
 public class EntityContext implements ApplicationContextAware {
 	
@@ -37,8 +38,8 @@ public class EntityContext implements ApplicationContextAware {
 		return (SessionFactory) entityContextPrvdr.getBean("sessionFactory");
 	}
 	
-	public GenericEntityRepositoryDao getGenericEntityRepositoryDAO() {
-		return (GenericEntityRepositoryDao) entityContextPrvdr.getBean("genericEntityRepositoryDao");
+	public GenericRepository getGenericRepository() {
+		return (GenericRepository) entityContextPrvdr.getBean("genericRepository");
 	}
 	
 	private class EntityContextPrvdr {
