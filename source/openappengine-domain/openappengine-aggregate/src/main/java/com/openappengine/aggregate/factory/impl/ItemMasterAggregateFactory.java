@@ -5,8 +5,8 @@ package com.openappengine.aggregate.factory.impl;
 
 import java.math.BigDecimal;
 
+import com.openappengine.domain.model.ItItemMaster;
 import com.openappengine.factory.GenericAggregateFactory;
-import com.openappengine.repository.model.ItItemMaster;
 
 /**
  * @author hrishikesh.joshi

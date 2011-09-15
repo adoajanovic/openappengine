@@ -1,4 +1,4 @@
-package com.openappengine.repository.model;
+package com.openappengine.domain.model;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.openappengine.repository.model.GenericEntity;
 
 
 /**

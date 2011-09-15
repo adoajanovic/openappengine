@@ -15,8 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openappengine.aggregate.context.AggregateContext;
 import com.openappengine.aggregate.factory.impl.AggregateFactoryNames;
 import com.openappengine.aggregate.factory.impl.ItemMasterAggregateFactory;
+import com.openappengine.domain.model.ItItemMaster;
 import com.openappengine.factory.resolver.GenericAggregateFactoryResolver;
-import com.openappengine.repository.model.ItItemMaster;
+import com.openappengine.repository.GenericRepository;
+import com.openappengine.repository.context.EntityContext;
 
 /**
  * @author hrishi
@@ -39,6 +41,9 @@ public class TestAggregateConfig {
 		ItemMasterAggregateFactory itemMasterAggregateFactory = (ItemMasterAggregateFactory) factoryResolver.getGenericEntityFactory(AggregateFactoryNames.ITEM_MASTER_FACTORY);
 		ItItemMaster itemMaster = itemMasterAggregateFactory.createItemMaster(new BigDecimal("1"), "INR", "Test", "Test", false, "ACTV", "SV", "EACH");
 		Assert.assertNotNull("ItemMasterAggregateFactory returned Null Item", itemMaster);
+		EntityContext instance = EntityContext.getInstance();
+		GenericRepository genericRepository = instance.getGenericRepository();
+		genericRepository.save(itemMaster);
 	}
 
 }

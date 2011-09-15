@@ -1,4 +1,4 @@
-package com.openappengine.repository.model;
+package com.openappengine.domain.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.openappengine.repository.model.GenericEntity;
 
 
 /**

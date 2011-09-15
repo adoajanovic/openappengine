@@ -18,11 +18,10 @@
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-		<property name="packagesToScan" value="com.openappengine.repository.model" />
+		<property name="packagesToScan" value="com.openappengine.domain.model" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
-				<!-- uncomment this for first time run -->
 				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
@@ -33,9 +32,15 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+
 	<tx:annotation-driven />
-	
-	<bean id="genericEntityRepositoryDao" class="com.openappengine.repository.GenericEntityRepositoryDao" scope="singleton">
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<constructor-arg ref="sessionFactory"></constructor-arg>
 	</bean>
+
+	<bean id="genericRepository" class="com.openappengine.repository.GenericRepository">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+
 </beans>

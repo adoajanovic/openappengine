@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -9,12 +10,10 @@ package com.openappengine.repository.context;
  */
 public class EntityContextConstants {
 	
-	public static final String BEAN_DAO_FACTORY = "daoFactory";
+	/* Generic Repository Delegator*/
+	public static final String REPOSITORY_DELEGATOR = "repositoryDelegator";
 	
-	public static final String BEAN_ENTITY_DELEGATOR_FACTORY = "entityDelegatorFactory";
-
-	public static final String BEAN_ENTITY_MANAGER_FACTORY = "entityManagerFactory";
-
-	public static final String BEAN_TRANSACTION_MANAGER = "transactionManager";
+	/* Session Factory*/
+	public static final String SESSION_FACTORY = "sessionFactory";
 
 }
