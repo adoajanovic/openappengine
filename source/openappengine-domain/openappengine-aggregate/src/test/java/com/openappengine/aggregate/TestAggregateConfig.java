@@ -3,6 +3,8 @@
  */
 
 package com.openappengine.aggregate;
+import java.math.BigDecimal;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -11,7 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.openappengine.aggregate.context.AggregateContext;
+import com.openappengine.aggregate.factory.impl.AggregateFactoryNames;
+import com.openappengine.aggregate.factory.impl.ItemMasterAggregateFactory;
 import com.openappengine.factory.resolver.GenericAggregateFactoryResolver;
+import com.openappengine.repository.model.ItItemMaster;
 
 /**
  * @author hrishi
@@ -25,6 +30,15 @@ public class TestAggregateConfig {
 	public void testAggregateConfig() {
 		GenericAggregateFactoryResolver factoryResolver = AggregateContext.getFactoryResolver();
 		Assert.assertNotNull("GenericAggregateFactoryResolver not initialized", factoryResolver);
+	}
+	
+	@Test
+	public void testItemMasterAggregateFactory() {
+		GenericAggregateFactoryResolver factoryResolver = AggregateContext.getFactoryResolver();
+		Assert.assertNotNull("GenericAggregateFactoryResolver not initialized", factoryResolver);
+		ItemMasterAggregateFactory itemMasterAggregateFactory = (ItemMasterAggregateFactory) factoryResolver.getGenericEntityFactory(AggregateFactoryNames.ITEM_MASTER_FACTORY);
+		ItItemMaster itemMaster = itemMasterAggregateFactory.createItemMaster(new BigDecimal("1"), "INR", "Test", "Test", false, "ACTV", "SV", "EACH");
+		Assert.assertNotNull("ItemMasterAggregateFactory returned Null Item", itemMaster);
 	}
 
 }
