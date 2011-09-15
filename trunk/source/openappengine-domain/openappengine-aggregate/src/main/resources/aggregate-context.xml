@@ -10,10 +10,13 @@
 	<!-- Aggregate Factories -->
 	<bean id="itemMasterAggregateFactory" class="com.openappengine.aggregate.factory.impl.ItemMasterAggregateFactory" scope="singleton" />
 	
+	<!-- Aggregate Factory Beans -->
+	
 	<bean id="aggregateFactoryMap" class="java.util.HashMap">
 		<constructor-arg>
 			<map>
 				<entry key="itemMasterAggregateFactory" value-ref="itemMasterAggregateFactory"></entry>
+				<!-- Add Entries for Aggregate Factories Here -->
 			</map>
 		</constructor-arg>
 	</bean>
