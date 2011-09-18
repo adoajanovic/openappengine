@@ -81,7 +81,7 @@ public class CreatePartyService extends GenericServiceDef {
 		
 		pmParty.setPmPartyContactMeches(pmPartyContactMeches);
 		
-		getGenericRepository().save(pmParty);
+		pmParty = (PmParty) getGenericRepository().save(pmParty);
 		
 		party.setPartyId(pmParty.getPartyId());
 		createPartyResponse.setParty(party);

@@ -78,14 +78,8 @@ public class CreateItemMasterService extends GenericServiceDef {
 		itItemMaster.setUom(itemMaster.getUOM());
 		itItemMaster.setWeight(itemMaster.getWeight());
 		
-		/*try {
-			itItemMaster = (ItItemMaster) genericEntityDelegator.createEntity(itItemMaster);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			return ServiceUtil.returnError(salesOrderResponseDoc, "Unable to persist the entity for ItItemMaster");
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-		}*/
+		
+		itItemMaster = (ItItemMaster) getGenericRepository().save(itItemMaster);
 		
 		itemMaster.setItemId(new BigInteger(""+itItemMaster.getItemId()));
 		createItemMasterResponse.setItemMaster(itemMaster);

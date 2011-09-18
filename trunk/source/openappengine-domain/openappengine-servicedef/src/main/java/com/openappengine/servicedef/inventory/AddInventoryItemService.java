@@ -21,6 +21,7 @@ import com.openappengine.oxm.IOxmMapper;
 import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.oxm.converter.UtilXMLGregorianCalendar;
+import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
@@ -59,9 +60,9 @@ public class AddInventoryItemService extends GenericServiceDef {
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("itemId", inventory.getItemId());
-		List items = new ArrayList();//genericEntityDelegator.findByNamedParams("from ItItemMaster where itemId = :itemId", params);
+		List<GenericEntity> items = getGenericRepository().findByNamedParam("from ItItemMaster where itemId = :itemId", "itemId", inventory.getItemId());
 		if(items == null || items.isEmpty()) {
-			return ServiceUtil.returnError(requestDoc, "Item Not Added to ItemMaster.");
+			return ServiceUtil.returnError(requestDoc, "Item Not present in ItemMaster.");
 		}
 		
 		InInventoryMaster inInventoryMaster = new InInventoryMaster();
@@ -76,15 +77,7 @@ public class AddInventoryItemService extends GenericServiceDef {
 		inInventoryMaster.setImStatus(inventory.getStatus());
 		inInventoryMaster.setImUom(inventory.getUom());
 		
-		//TODO
-		/*try {
-			inInventoryMaster = (InInventoryMaster) genericEntityDelegator.createEntity(inInventoryMaster);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			return ServiceUtil.returnError(addInventoryResponseDoc, "Unable to persist the entity for InInventoryMaster");
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-		}*/
+		inInventoryMaster = (InInventoryMaster) getGenericRepository().save(inInventoryMaster);
 		
 		inventory.setInventoryMasterId(inInventoryMaster.getImInventoryMasterId());
 		addInventoryResponse.setInventoryItem(inventory);
