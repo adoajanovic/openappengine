@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycle>
+	<component id="repository"
+		eventHandler="com.openappengine.repository.lifecycle.RepositoryLifecycleHandler"
+		startup-method="startup" shutdown-method="shutdown">
+	</component>
+
+	<component id="oxm"
+		eventHandler="com.openappengine.oxm.lifecycle.OxmLifecycleHandler"
+		startup-method="startup" shutdown-method="shutdown">
+	</component>
+
+	<component id="serviceengine"
+		eventHandler="com.openappengine.serviceengine.lifecycle.ServiceEngineLifecycleHandler"
+		startup-method="startup" shutdown-method="shutdown">
+	</component>
+
+	<component id="aggregate"
+		eventHandler="com.openappengine.aggregate.lifecycle.AggregateLifecycleHandler"
+		startup-method="startup" shutdown-method="shutdown">
+	</component>
+</lifecycle>
