@@ -23,6 +23,7 @@ import com.openappengine.oxm.IOxmMapper;
 import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.oxm.converter.UtilXMLGregorianCalendar;
+import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
@@ -59,10 +60,7 @@ public class CreateContractService extends GenericServiceDef {
 		if(contractHdr == null) {
 			return ServiceUtil.returnError(requestDoc, "Unmarshalled request object either null or empty.");
 		}
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("partyId", contractHdr.getPartyId());
-		List list = new ArrayList();//genericEntityDelegator.findByNamedParams("from PmParty where partyId = :partyId", params );
+		List<GenericEntity> list = getGenericRepository().findByNamedParam("from PmParty where partyId = :partyId", "partyId", contractHdr.getPartyId());
 		PmParty pmParty = null;
 		if(list != null && !list.isEmpty()) {
 			pmParty = (PmParty) list.get(0);
@@ -99,14 +97,7 @@ public class CreateContractService extends GenericServiceDef {
 			cnContractHdr.setCnContractDets(cnContractDets);
 		}
 		
-		/*try {
-			cnContractHdr = (CnContractHdr) genericEntityDelegator.createEntity(cnContractHdr);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			return ServiceUtil.returnError(createContractResponseDoc, "Unable to persist the entity for InInventoryMaster");
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-		}*/
+		cnContractHdr = (CnContractHdr) getGenericRepository().save(cnContractHdr);
 		
 		contractHdr.setCnContractId(cnContractHdr.getCnContractId());
 		contractResponse.setContractHdr(contractHdr);

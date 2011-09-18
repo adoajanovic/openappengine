@@ -66,15 +66,8 @@ public class CreateSalesOrderService extends GenericServiceDef {
 			return ServiceUtil.returnError(salesOrderResponseDoc, "Unable to create SalesHdr / SalesDet entity");
 		}
 
-		/*try {
-			
-			salesHdrEntity = (SoSalesHdr) genericEntityDelegator
-					.createEntity(salesHdrEntity);
-		} catch (DataAccessException e) {
-			return ServiceUtil.returnError(salesOrderResponseDoc, "Unable to persist the entity for SalesHdr");
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-		}*/
+		salesHdrEntity = (SoSalesHdr) getGenericRepository().save(salesHdrEntity);
+		
 		try {
 			salesOrderResponseDoc = oxmMapper.marshalObject(salesHdrEntity);
 		} catch (OxmMappingException e) {

@@ -4,9 +4,7 @@
 package com.openappengine.servicedef.codes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.w3c.dom.Document;
 
@@ -19,6 +17,7 @@ import com.openappengine.messages.codes.GetCodesResponse;
 import com.openappengine.oxm.IOxmMapper;
 import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
+import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
@@ -61,14 +60,7 @@ public class GetCodesService extends GenericServiceDef {
 		if (ApplicationCodeFactory.containsCode(codeType)) {
 			responseDoc = ApplicationCodeFactory.getCode(codeType);
 		} else { //Fetch code from DB
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("codeType", codeType);
-			/*List list = genericEntityDelegator.findByNamedParams(
-					" from CoCodeType where ctCodeTypeValue = :codeType",
-					params);*/
-			
-			List list = new ArrayList();
-
+			List<GenericEntity> list = getGenericRepository().findByNamedParam(" from CoCodeType where ctCodeTypeValue = :codeType", "codeType", codeType);
 			if (list != null && !list.isEmpty()) {
 				CoCodeType coCodeType = (CoCodeType) list.get(0);
 				List<CoCodeMaster> coCodeMasters = coCodeType
