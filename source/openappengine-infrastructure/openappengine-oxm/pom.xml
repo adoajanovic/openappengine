@@ -21,8 +21,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>openapps</groupId>
-			<artifactId>utility</artifactId>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-utility</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
