@@ -18,8 +18,9 @@ public class GenericRepository {
 	
 	private HibernateTemplate hibernateTemplate;
 	
-	public void save(GenericEntity genericEntity) {
+	public GenericEntity save(GenericEntity genericEntity) {
 		Serializable save = hibernateTemplate.save(genericEntity);
+		return genericEntity;
 	}
 	
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {

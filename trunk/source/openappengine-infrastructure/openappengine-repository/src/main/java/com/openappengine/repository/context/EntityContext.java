@@ -4,7 +4,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.openappengine.repository.GenericRepository;
 
