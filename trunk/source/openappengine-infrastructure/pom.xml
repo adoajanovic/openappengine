@@ -47,5 +47,6 @@
   	<module>openappengine-factory</module>
 <!--  	<module>openappengine-process-engine</module> -->
   	<module>openappengine-oxm</module>
+  	<module>openappengine-service-engine</module>
   </modules>
 </project>
