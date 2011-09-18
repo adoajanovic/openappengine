@@ -2,6 +2,7 @@ package com.openappengine.domain.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -222,6 +223,24 @@ public class SoSalesHdr extends GenericEntity implements Serializable {
 
 	public void setPartyId(int partyId) {
 		this.partyId = partyId;
+	}
+	
+	/**
+	 * Add a {@link SoSalesDet} line item to the Sales Order
+	 * @param salesDet
+	 * @return boolean
+	 */
+	public boolean addLineItem(SoSalesDet salesDet) {
+		if(salesDet == null) {
+			return false;
+		}
+		
+		if(this.soSalesDets == null) {
+			soSalesDets = new ArrayList<SoSalesDet>();
+		}
+		
+		soSalesDets.add(salesDet);
+		return true;
 	}
 	
 }
