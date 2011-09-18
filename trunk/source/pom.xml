@@ -104,9 +104,9 @@
 		</repository>
 	</repositories>
 	<modules>
-		<!-- <module>framework</module> <module>web</module> -->
 		<module>openappengine-infrastructure</module>
 		<module>openappengine-domain</module>
 		<module>openappengine-container</module>
+		<module>openappengine-interface</module>
 	</modules>
 </project>
