@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
@@ -546,5 +548,18 @@ public class UtilXml {
             //default to false, ie anything but true is false
             return "true".equals(str);
         }
+    }
+    
+    public static Document removeSingleNode(Document document, String nodeName) {
+    	if(document == null) {
+    		return document;
+    	}
+    	
+    	NodeList nodes = document.getElementsByTagName(nodeName);
+    	if (nodes != null && nodes.getLength() > 0) {
+    		Node item = nodes.item(0);
+    		item.getParentNode().removeChild(item);
+		}
+		return document;
     }
 }
