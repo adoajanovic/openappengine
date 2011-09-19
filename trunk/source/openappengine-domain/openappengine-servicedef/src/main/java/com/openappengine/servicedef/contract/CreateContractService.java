@@ -74,8 +74,6 @@ public class CreateContractService extends GenericServiceDef {
 		cnContractHdr.setCnEndDate(UtilXMLGregorianCalendar.asDate(contractHdr.getCnEndDate()));
 		cnContractHdr.setCnStartDate(UtilXMLGregorianCalendar.asDate(contractHdr.getCnStartDate()));
 		cnContractHdr.setPmParty(pmParty);
-		ArrayList<CnContractDet> cnContractDets = new ArrayList<CnContractDet>();
-		
 		if(contractHdr.getContractDets() != null && !contractHdr.getContractDets().isEmpty()) {
 			List<ContractDet> contractDets = contractHdr.getContractDets();
 			for (ContractDet contractDet : contractDets) {
@@ -91,10 +89,8 @@ public class CreateContractService extends GenericServiceDef {
 				cnContractDet.setCnUom(contractDet.getCnUom());
 				cnContractDet.setCnQtyOrd(contractDet.getCnQtyOrd());
 				cnContractDet.setCnWeight(contractDet.getCnWeight());
-				cnContractDets.add(cnContractDet);
+				cnContractHdr.addLineItem(cnContractDet);
 			}
-			
-			cnContractHdr.setCnContractDets(cnContractDets);
 		}
 		
 		cnContractHdr = (CnContractHdr) getGenericRepository().save(cnContractHdr);

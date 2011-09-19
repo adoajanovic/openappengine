@@ -1,5 +1,6 @@
 package com.openappengine.domain.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,10 +54,23 @@ public class CnContractHdr extends GenericEntity {
     @ManyToOne
 	@JoinColumn(name="CN_PARTY_ID", nullable=false)
 	private PmParty pmParty;
-
+    
     public CnContractHdr() {
     }
-
+    
+    /**
+     * Add a Line Item to the Contract
+     * @param cnContractDet
+     * @return true : if the Contract Det Line Item was added, false otherwise.
+     */
+    public boolean addLineItem(CnContractDet cnContractDet) {
+    	if(this.cnContractDets == null) {
+    		cnContractDets = new ArrayList<CnContractDet>();
+    	}
+    	return cnContractDets.add(cnContractDet);
+    }
+    
+    //Accessors
 	public int getCnContractId() {
 		return this.cnContractId;
 	}
