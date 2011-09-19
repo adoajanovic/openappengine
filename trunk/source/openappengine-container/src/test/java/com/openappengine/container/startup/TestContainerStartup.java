@@ -5,7 +5,7 @@ package com.openappengine.container.startup;
 
 import org.junit.Test;
 
-import com.openappengine.container.OpenAppsLifecycleHandler;
+import com.openappengine.container.OpenAppEngineLifecycleHandler;
 
 /**
  * @author hrishi
@@ -13,10 +13,10 @@ import com.openappengine.container.OpenAppsLifecycleHandler;
  */
 public class TestContainerStartup {
 
-	private OpenAppsLifecycleHandler lifecycleEventHandler;
+	private OpenAppEngineLifecycleHandler lifecycleEventHandler;
 
 	public TestContainerStartup() {
-		lifecycleEventHandler = new OpenAppsLifecycleHandler();
+		lifecycleEventHandler = new OpenAppEngineLifecycleHandler();
 	}
 
 	@Test
