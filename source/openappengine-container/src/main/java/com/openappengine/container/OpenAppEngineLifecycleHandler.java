@@ -15,7 +15,7 @@ import com.ms.openapps.util.UtilLogger;
  * @author hrishi
  *
  */
-public class OpenAppsLifecycleHandler {
+public class OpenAppEngineLifecycleHandler {
 
 	private UtilLogger logger = new UtilLogger(getClass());
 
@@ -23,7 +23,7 @@ public class OpenAppsLifecycleHandler {
 	
 	private Component[] components = new Component[0];
 	
-	public OpenAppsLifecycleHandler() {
+	public OpenAppEngineLifecycleHandler() {
 	}
 	
 	/**
