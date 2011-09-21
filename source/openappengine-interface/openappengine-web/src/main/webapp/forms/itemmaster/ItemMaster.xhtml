@@ -6,73 +6,73 @@
 		<rich:panel>
 			<rich:message ajaxRendered="true" />
 			<f:facet name="header">
-				<h:outputText value="Create Item Master"></h:outputText>
+				<h:outputText value="Item Master"></h:outputText>
 			</f:facet>
 			<h:form id="formCreateItemMaster">
 				<a4j:outputPanel id="a4jSalesOrderHdr" ajaxRendered="true">
 					<h:panelGrid id="CreateItemMasterHdr" columns="2">
 						<h:outputLabel for="formCreateItemMaster_name">Name</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_name" value="#{itemMasterController.formItemMasterVO.itemMasterVO.name}" readonly="false" required="true" />
+						<h:inputText id="formCreateItemMaster_name" value="#{itemMasterController.itemMaster.name}" readonly="false" required="true" />
 
 						<h:outputLabel for="formCreateItemMaster_desc">Description</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_desc" value="#{itemMasterController.formItemMasterVO.itemMasterVO.desc}" readonly="false" required="true" />
+						<h:inputText id="formCreateItemMaster_desc" value="#{itemMasterController.itemMaster.desc}" readonly="false" required="true" />
 
 						<h:outputLabel for="formCreateItemMaster_type">Type</h:outputLabel>
-						<rich:select id="formCreateItemMaster_type" value="#{itemMasterController.formItemMasterVO.itemMasterVO.type}" enableManualInput="false">
+						<rich:select id="formCreateItemMaster_type" value="#{itemMasterController.itemMaster.type}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{listHelperBean.itemMasterTypes}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_uom">UOM</h:outputLabel>
-						<rich:select id="formCreateItemMaster_uom" value="#{itemMasterController.formItemMasterVO.itemMasterVO.uom}" enableManualInput="false">
+						<rich:select id="formCreateItemMaster_uom" value="#{itemMasterController.itemMaster.uom}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{listHelperBean.uomTypes}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_status">Status</h:outputLabel>
-						<rich:select id="formCreateItemMaster_status" value="#{itemMasterController.formItemMasterVO.itemMasterVO.status}" enableManualInput="false">
+						<rich:select id="formCreateItemMaster_status" value="#{itemMasterController.itemMaster.status}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{listHelperBean.itemMasterStatus}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_Cost">Cost</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_Cost" value="#{itemMasterController.formItemMasterVO.itemMasterVO.cost}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_Cost" value="#{itemMasterController.itemMaster.cost}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_Price">Price</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_Price" value="#{itemMasterController.formItemMasterVO.itemMasterVO.price}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_Price" value="#{itemMasterController.itemMaster.price}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_Weight">Weight</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_Weight" value="#{itemMasterController.formItemMasterVO.itemMasterVO.weight}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_Weight" value="#{itemMasterController.itemMaster.weight}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_currencyCode">Currency</h:outputLabel>
-						<rich:select id="formCreateItemMaster_currencyCode" value="#{itemMasterController.formItemMasterVO.itemMasterVO.curCode}" enableManualInput="false">
+						<rich:select id="formCreateItemMaster_currencyCode" value="#{itemMasterController.itemMaster.curCode}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{listHelperBean.currencies}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_shipCharges">Shipping Charges</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_shipCharges" value="#{itemMasterController.formItemMasterVO.itemMasterVO.shipCharge}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_shipCharges" value="#{itemMasterController.itemMaster.shipCharge}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_perishable">Perishabe</h:outputLabel>
-						<rich:select id="formCreateItemMaster_perishable" value="#{itemMasterController.formItemMasterVO.itemMasterVO.perishable}" enableManualInput="false">
+						<rich:select id="formCreateItemMaster_perishable" value="#{itemMasterController.itemMaster.perishable}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{listHelperBean.perishableTypes}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_catCode01">Cat Code 01</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_catCode01" value="#{itemMasterController.formItemMasterVO.itemMasterVO.catCode01}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_catCode01" value="#{itemMasterController.itemMaster.catCode01}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_catCode02">Cat Code 02</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_catCode02" value="#{itemMasterController.formItemMasterVO.itemMasterVO.catCode02}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_catCode02" value="#{itemMasterController.itemMaster.catCode02}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_catCode03">Cat Code 03</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_catCode03" value="#{itemMasterController.formItemMasterVO.itemMasterVO.catCode03}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_catCode03" value="#{itemMasterController.itemMaster.catCode03}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_catCode04">Cat Code 04</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_catCode04" value="#{itemMasterController.formItemMasterVO.itemMasterVO.catCode04}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_catCode04" value="#{itemMasterController.itemMaster.catCode04}" readonly="false" />
 
 						<h:outputLabel for="formCreateItemMaster_catCode05">Cat Code 05</h:outputLabel>
-						<h:inputText id="formCreateItemMaster_catCode05" value="#{itemMasterController.formItemMasterVO.itemMasterVO.catCode05}" readonly="false" />
+						<h:inputText id="formCreateItemMaster_catCode05" value="#{itemMasterController.itemMaster.catCode05}" readonly="false" />
 					</h:panelGrid>
 				</a4j:outputPanel>
 
