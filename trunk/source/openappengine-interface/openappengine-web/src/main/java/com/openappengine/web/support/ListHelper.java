@@ -94,5 +94,17 @@ public class ListHelper {
 		uomTypes.add(new SelectItem("EACH", "EACH"));
 		return uomTypes;
 	}
+	
+	public List<SelectItem> getPartyTypes() {
+		List<SelectItem> uomTypes = new ArrayList<SelectItem>();
+		uomTypes.add(new SelectItem("PRSN", "PRSN"));
+		return uomTypes;
+	}
+	
+	public List<SelectItem> getPartyStatus() {
+		List<SelectItem> uomTypes = new ArrayList<SelectItem>();
+		uomTypes.add(new SelectItem("ACTV", "ACTV"));
+		return uomTypes;
+	}
 
 }

@@ -3,13 +3,13 @@
  */
 package com.openappengine.messages.party;
 
-import java.io.Serializable;
+import com.openappengine.messages.api.MessagePayload;
 
 /**
  * @author hrishi
  *
  */
-public class CreatePartyRequest implements Serializable {
+public class CreatePartyRequest extends MessagePayload {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -1,12 +1,12 @@
 package com.openappengine.messages.itemmaster;
 
-import java.io.Serializable;
+import com.openappengine.messages.api.MessagePayload;
 
 
 
-public class CreateItemMasterResponse implements Serializable {
+public class CreateItemMasterResponse extends MessagePayload {
 
-	private static final long serialVersionUID = 1065486841900335277L;
+	private static final long serialVersionUID = 1L;
 	
 	protected ItemMaster itemMaster;
 

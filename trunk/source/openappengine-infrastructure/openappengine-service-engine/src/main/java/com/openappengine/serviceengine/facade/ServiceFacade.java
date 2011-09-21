@@ -11,6 +11,8 @@ import com.ms.openapps.util.UtilLogger;
 import com.openappengine.serviceengine.context.ServiceContext;
 import com.openappengine.serviceengine.dispatcher.IServiceDispatcher;
 import com.openappengine.serviceengine.engine.GenericServiceException;
+import com.openappengine.serviceengine.message.ServiceRequestMessageWrapper;
+import com.openappengine.serviceengine.message.ServiceResponseMessageWrapper;
 
 /**
  * @author hrishi
@@ -38,16 +40,17 @@ public class ServiceFacade {
 		return output;
 	}
 	
-	public static Document callXmlService(String serviceName,Document parameters) {
+	public static ServiceResponseMessageWrapper callXmlService(String serviceName,ServiceRequestMessageWrapper requestMessageWrapper) {
 		IServiceDispatcher serviceDispatcher = ServiceContext.getServiceDispatcher();
 		Document output = null;
 		logger.logInfo("Invoking Service " + serviceName);
 		try {
-			 output = serviceDispatcher.runXmlService(serviceName, parameters);
+			 output = serviceDispatcher.runXmlService(serviceName, requestMessageWrapper.getXmlRequest());
 		} catch (GenericServiceException e) {
 			e.printStackTrace();
 		}
-		return output;
+		ServiceResponseMessageWrapper serviceResponseMessageWrapper = new ServiceResponseMessageWrapper(output);
+		return serviceResponseMessageWrapper;
 	}
 	
 	
@@ -71,11 +74,11 @@ public class ServiceFacade {
 	 * @param serviceName
 	 * @param parameters
 	 */
-	public static void callXmlServiceIgnoreResult(String serviceName,Document parameters) {
+	public static void callXmlServiceIgnoreResult(String serviceName,ServiceRequestMessageWrapper serviceRequestMessageWrapper) {
 		IServiceDispatcher serviceDispatcher = ServiceContext.getServiceDispatcher();
 		logger.logInfo("Invoking Service " + serviceName);
 		try {
-			 serviceDispatcher.runXmlServiceIgnoreResult(serviceName, parameters);
+			 serviceDispatcher.runXmlServiceIgnoreResult(serviceName, serviceRequestMessageWrapper.getXmlRequest());
 		} catch (GenericServiceException e) {
 			e.printStackTrace();
 		}

@@ -21,6 +21,8 @@ import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.servicedef.ServiceNames;
 import com.openappengine.serviceengine.facade.ServiceFacade;
+import com.openappengine.serviceengine.message.ServiceRequestMessageWrapper;
+import com.openappengine.serviceengine.message.ServiceResponseMessageWrapper;
 
 /**
  * @author hrishi
@@ -42,8 +44,8 @@ public class TestCreateParty {
 		
 		System.out.println(marshalObject.getDocumentElement());
 		
-		Document result = ServiceFacade.callXmlService(ServiceNames.SERVICE_CREATE_PARTY, marshalObject);
-		System.out.println(UtilXml.writeXmlDocument(result));
+		ServiceResponseMessageWrapper result = ServiceFacade.callXmlService(ServiceNames.SERVICE_CREATE_PARTY, new ServiceRequestMessageWrapper(marshalObject));
+		System.out.println(UtilXml.writeXmlDocument(result.getXmlResponse()));
 	}
 
 }
