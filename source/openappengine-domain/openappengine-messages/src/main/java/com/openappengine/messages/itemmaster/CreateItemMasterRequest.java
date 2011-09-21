@@ -1,9 +1,9 @@
 package com.openappengine.messages.itemmaster;
 
-import java.io.Serializable;
+import com.openappengine.messages.api.MessagePayload;
 
 
-public class CreateItemMasterRequest implements Serializable {
+public class CreateItemMasterRequest extends MessagePayload {
 
 	private static final long serialVersionUID = 1L;
 	

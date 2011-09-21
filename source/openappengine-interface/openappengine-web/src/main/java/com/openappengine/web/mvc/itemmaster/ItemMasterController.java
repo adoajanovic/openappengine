@@ -3,27 +3,19 @@
  */
 package com.openappengine.web.mvc.itemmaster;
 
-import org.w3c.dom.Document;
-
 import com.openappengine.messages.itemmaster.CreateItemMasterRequest;
 import com.openappengine.messages.itemmaster.ItemMaster;
-import com.openappengine.oxm.IOxmMapper;
-import com.openappengine.oxm.OxmMapperContext;
-import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.servicedef.ServiceNames;
-import com.openappengine.serviceengine.facade.ServiceFacade;
+import com.openappengine.web.mvc.BaseWebController;
 
 /**
  * @author hrishi
  *
  */
-public class ItemMasterController {
+public class ItemMasterController extends BaseWebController {
 	
 	private ItemMasterModel itemMaster;
 	
-	/**
-	 * 
-	 */
 	public String createItemMaster() {
 		ItemMaster itemMasterReq = new ItemMaster();
 		itemMasterReq.setCatCode01(itemMaster.getCatCode01());
@@ -47,16 +39,7 @@ public class ItemMasterController {
 		
 		CreateItemMasterRequest createItemMasterRequest = new CreateItemMasterRequest();
 		createItemMasterRequest.setItemMaster(itemMasterReq);
-		IOxmMapper oxmMapper = OxmMapperContext.getOxmMapper();
-		try {
-			Document createItemMasterMarshalledObject = oxmMapper.marshalObject(createItemMasterRequest);
-			Document result = ServiceFacade.callXmlService(
-					ServiceNames.SERVICE_CREATE_ITEM_MASTER, createItemMasterMarshalledObject);
-			
-		} catch (OxmMappingException e) {
-			e.printStackTrace();
-			//addErrorMessage("Action Failed : Create Sales Order.");
-		}
+		callServiceFacade(createItemMasterRequest, ServiceNames.SERVICE_CREATE_ITEM_MASTER);
 		return null;
 	}
 
