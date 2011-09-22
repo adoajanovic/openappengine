@@ -46,12 +46,12 @@ public class GetCodesService extends GenericServiceDef {
 			getCodesRequest = (GetCodesRequest) oxmMapper.unmarshal(requestDoc);
 		} catch (OxmMappingException e) {
 			return ServiceUtil
-					.returnError(requestDoc,
+					.returnError(responseDoc,
 							"Unable to unmarshal the request Xml for GetCodesRequest Xml");
 		}
 
 		if (getCodesRequest == null) {
-			return ServiceUtil.returnError(requestDoc,
+			return ServiceUtil.returnError(responseDoc,
 					"Unmarshalled request object either null or empty.");
 		}
 
