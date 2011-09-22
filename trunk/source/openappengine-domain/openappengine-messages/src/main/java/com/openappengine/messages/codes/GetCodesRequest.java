@@ -3,13 +3,13 @@
  */
 package com.openappengine.messages.codes;
 
-import java.io.Serializable;
+import com.openappengine.messages.api.MessagePayload;
 
 /**
  * @author hrishi
  *
  */
-public class GetCodesRequest implements Serializable {
+public class GetCodesRequest extends MessagePayload {
 
 	private static final long serialVersionUID = 1L;
 	

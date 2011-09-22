@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class CoCodeType extends GenericEntity implements Serializable {
 	private String ctCodeTypeValue;
 
 	//bi-directional many-to-one association to CoCodeMaster
-	@OneToMany(mappedBy="coCodeType")
+	@OneToMany(mappedBy="coCodeType",fetch=FetchType.EAGER)
 	private List<CoCodeMaster> coCodeMasters;
 
     public CoCodeType() {

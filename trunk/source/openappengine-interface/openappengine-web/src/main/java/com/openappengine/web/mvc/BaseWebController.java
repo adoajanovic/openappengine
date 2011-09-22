@@ -6,11 +6,10 @@ package com.openappengine.web.mvc;
 import org.w3c.dom.Document;
 
 import com.openappengine.messages.api.MessagePayload;
-import com.openappengine.messages.itemmaster.CreateItemMasterRequest;
 import com.openappengine.oxm.IOxmMapper;
+import com.openappengine.oxm.OxmMapper;
 import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
-import com.openappengine.servicedef.ServiceNames;
 import com.openappengine.serviceengine.facade.ServiceFacade;
 import com.openappengine.serviceengine.message.ServiceRequestMessageWrapper;
 import com.openappengine.serviceengine.message.ServiceResponseMessageWrapper;
@@ -40,6 +39,15 @@ public class BaseWebController {
 			//addErrorMessage("Action Failed : Create Sales Order.");
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * @return {@link OxmMapper}
+	 */
+	protected IOxmMapper getOxmMapper() {
+		IOxmMapper oxmMapper = OxmMapperContext.getOxmMapper();
+		return oxmMapper;
 	}
 
 }

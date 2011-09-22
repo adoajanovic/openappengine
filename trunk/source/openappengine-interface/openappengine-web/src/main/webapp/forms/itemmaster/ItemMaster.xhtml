@@ -20,19 +20,19 @@
 						<h:outputLabel for="formCreateItemMaster_type">Type</h:outputLabel>
 						<rich:select id="formCreateItemMaster_type" value="#{itemMasterController.itemMaster.type}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{listHelperBean.itemMasterTypes}" />
+							<f:selectItems value="#{listHelperBean.getApplicationCodes('ItemMasterType')}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_uom">UOM</h:outputLabel>
 						<rich:select id="formCreateItemMaster_uom" value="#{itemMasterController.itemMaster.uom}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{listHelperBean.uomTypes}" />
+							<f:selectItems value="#{listHelperBean.getApplicationCodes('Uom')}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_status">Status</h:outputLabel>
 						<rich:select id="formCreateItemMaster_status" value="#{itemMasterController.itemMaster.status}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{listHelperBean.itemMasterStatus}" />
+							<f:selectItems value="#{listHelperBean.getApplicationCodes('ItemMasterStatus')}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_Cost">Cost</h:outputLabel>
@@ -47,7 +47,7 @@
 						<h:outputLabel for="formCreateItemMaster_currencyCode">Currency</h:outputLabel>
 						<rich:select id="formCreateItemMaster_currencyCode" value="#{itemMasterController.itemMaster.curCode}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{listHelperBean.currencies}" />
+							<f:selectItems value="#{listHelperBean.getApplicationCodes('Currency')}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_shipCharges">Shipping Charges</h:outputLabel>
@@ -56,7 +56,7 @@
 						<h:outputLabel for="formCreateItemMaster_perishable">Perishabe</h:outputLabel>
 						<rich:select id="formCreateItemMaster_perishable" value="#{itemMasterController.itemMaster.perishable}" enableManualInput="false">
 							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{listHelperBean.perishableTypes}" />
+							<f:selectItems value="#{listHelperBean.yesNoSelect}" />
 						</rich:select>
 
 						<h:outputLabel for="formCreateItemMaster_catCode01">Cat Code 01</h:outputLabel>
