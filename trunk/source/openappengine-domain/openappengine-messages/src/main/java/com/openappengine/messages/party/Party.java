@@ -20,8 +20,6 @@ public class Party implements Serializable {
 
 	private String status;
 
-	private List<PartyContactMech> partyContactMeches;
-
 	public int getPartyId() {
 		return partyId;
 	}
@@ -69,13 +67,4 @@ public class Party implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public List<PartyContactMech> getPartyContactMeches() {
-		return partyContactMeches;
-	}
-
-	public void setPartyContactMeches(List<PartyContactMech> partyContactMeches) {
-		this.partyContactMeches = partyContactMeches;
-	}
-	
 }

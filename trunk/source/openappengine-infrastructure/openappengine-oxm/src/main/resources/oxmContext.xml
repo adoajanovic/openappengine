@@ -19,22 +19,29 @@
 	<bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
 		<property name="aliases">
 			<map>
-				<entry key="SalesHdr" value="com.openappengine.messages.salesorder.SalesHdr" />
-				<entry key="SalesDet" value="com.openappengine.messages.salesorder.SalesDet" />
-				<entry key="ItemMaster" value="com.openappengine.messages.itemmaster.ItemMaster" />
-				<entry key="InventoryItem" value="com.openappengine.messages.inventory.InventoryItem" />
-				<entry key="CreateItemMasterRequest" value="com.openappengine.messages.itemmaster.CreateItemMasterRequest" />
-				<entry key="CreateItemMasterResponse" value="com.openappengine.messages.itemmaster.CreateItemMasterResponse" />
 				<entry key="CreateSalesOrderRequest" value="com.openappengine.messages.salesorder.CreateSalesOrderRequest" />
 				<entry key="CreateSalesOrderResponse" value="com.openappengine.messages.salesorder.CreateSalesOrderResponse" />
+				<entry key="SalesHdr" value="com.openappengine.messages.salesorder.SalesHdr" />
+				<entry key="SalesDet" value="com.openappengine.messages.salesorder.SalesDet" />
+				
+				<entry key="CreateItemMasterRequest" value="com.openappengine.messages.itemmaster.CreateItemMasterRequest" />
+				<entry key="CreateItemMasterResponse" value="com.openappengine.messages.itemmaster.CreateItemMasterResponse" />
+				<entry key="ItemMaster" value="com.openappengine.messages.itemmaster.ItemMaster" />
+				
 				<entry key="AddInventoryRequest" value="com.openappengine.messages.inventory.AddInventoryRequest" />
 				<entry key="AddInventoryResponse" value="com.openappengine.messages.inventory.AddInventoryResponse" />
+				<entry key="InventoryItem" value="com.openappengine.messages.inventory.InventoryItem" />
+				
 				<entry key="GetCodesRequest" value="com.openappengine.messages.codes.GetCodesRequest" />
 				<entry key="GetCodesResponse" value="com.openappengine.messages.codes.GetCodesResponse" />
 				<entry key="Code" value="com.openappengine.messages.codes.Code" />
+				
 				<entry key="CreatePartyRequest" value="com.openappengine.messages.party.CreatePartyRequest" />
 				<entry key="CreatePartyResponse" value="com.openappengine.messages.party.CreatePartyResponse" />
 				<entry key="Party" value="com.openappengine.messages.party.Party" />
+				
+				<entry key="AddPartyContactMechRequest" value="com.openappengine.messages.party.AddPartyContactMechRequest"/>
+				<entry key="AddPartyContactMechResponse" value="com.openappengine.messages.party.AddPartyContactMechResponse"/>
 				<entry key="PartyContactMech" value="com.openappengine.messages.party.PartyContactMech" />
 
 				<entry key="CreateContractRequest" value="com.openappengine.messages.contract.CreateContractRequest" />
@@ -53,6 +60,7 @@
 				<entry key="com.openappengine.messages.party.CreatePartyResponse.party" value="Party" />
 				<entry key="com.openappengine.messages.contract.CreateContractRequest.contractHdr" value="ContractHdr" />
 				<entry key="com.openappengine.messages.contract.CreateContractResponse.contractHdr" value="ContractHdr" />
+				<entry key="com.openappengine.messages.party.AddPartyContactMechRequest.partyId" value="PartyId"/>
 
 				<entry key="com.openappengine.messages.salesorder.SalesHdr.salesId" value="SalesId" />
 				<entry key="com.openappengine.messages.salesorder.SalesHdr.ordType" value="OrdType" />
@@ -163,7 +171,7 @@
 			<map>
 				<entry key="com.openappengine.messages.salesorder.SalesHdr" value="salesDet"></entry>
 				<entry key="com.openappengine.messages.codes.GetCodesResponse" value="codes"></entry>
-				<entry key="com.openappengine.messages.party.Party" value="partyContactMeches"></entry>
+				<entry key="com.openappengine.messages.party.AddPartyContactMechRequest" value="partyContactMeches"></entry>
 			</map>
 		</property>
 		<property name="converters">

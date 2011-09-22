@@ -3,18 +3,13 @@
  */
 package com.openappengine.servicedef.party;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.w3c.dom.Document;
 
 import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.PmParty;
-import com.openappengine.domain.model.PmPartyContactMech;
 import com.openappengine.messages.party.CreatePartyRequest;
 import com.openappengine.messages.party.CreatePartyResponse;
 import com.openappengine.messages.party.Party;
-import com.openappengine.messages.party.PartyContactMech;
 import com.openappengine.oxm.IOxmMapper;
 import com.openappengine.oxm.OxmMapperContext;
 import com.openappengine.oxm.OxmMappingException;
@@ -43,17 +38,17 @@ public class CreatePartyService extends GenericServiceDef {
 		try {
 			createPartyRequest = (CreatePartyRequest) oxmMapper.unmarshal(requestDoc);
 		} catch (OxmMappingException e) {
-			return ServiceUtil.returnError(requestDoc, "Unable to unmarshal the request Xml for CreatePartyRequest Xml");
+			return ServiceUtil.returnError(responseDoc, "Unable to unmarshal the request Xml for CreatePartyRequest Xml");
 		}
 		
 		if(createPartyRequest == null) {
-			return ServiceUtil.returnError(requestDoc, "Unmarshalled request object either null or empty.");
+			return ServiceUtil.returnError(responseDoc, "Unmarshalled request object either null or empty.");
 		}
 		
 		Party party = createPartyRequest.getParty();
 		
 		if(party == null) {
-			return ServiceUtil.returnError(requestDoc, "Party object found null.");
+			return ServiceUtil.returnError(responseDoc, "Party object found null.");
 		}
 		
 		PmParty pmParty = new PmParty();
@@ -64,23 +59,6 @@ public class CreatePartyService extends GenericServiceDef {
 		pmParty.setPreferredCurrencyUom(party.getPreferredCurrencyUom());
 		pmParty.setStatus(party.getStatus());
 		
-		List<PartyContactMech> partyContactMeches = party.getPartyContactMeches();
-		
-		List<PmPartyContactMech> pmPartyContactMeches = new ArrayList<PmPartyContactMech>();
-		
-		if(partyContactMeches != null) {
-			for (PartyContactMech partyContactMech : partyContactMeches) {
-				PmPartyContactMech contactMech = new PmPartyContactMech(); 
-				contactMech.setCmContactMechPurpose(partyContactMech.getContactMechPurpose());
-				contactMech.setCmContactMechType(partyContactMech.getContactMechType());
-				contactMech.setCmInfoString(partyContactMech.getInfoString());
-				contactMech.setPmParty(pmParty);
-				pmPartyContactMeches.add(contactMech);
-			}
-		}
-		
-		pmParty.setPmPartyContactMeches(pmPartyContactMeches);
-		
 		pmParty = (PmParty) getGenericRepository().save(pmParty);
 		
 		party.setPartyId(pmParty.getPartyId());
@@ -90,7 +68,7 @@ public class CreatePartyService extends GenericServiceDef {
 			responseDoc = oxmMapper.marshalObject(createPartyResponse);
 		} catch (OxmMappingException e) {
 			e.printStackTrace();
-			return ServiceUtil.returnError(requestDoc, "Response object cannot be marshalled.");
+			return ServiceUtil.returnError(responseDoc, "Response object cannot be marshalled.");
 		}
 		return responseDoc;
 	}
