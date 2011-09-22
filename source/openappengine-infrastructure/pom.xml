@@ -47,5 +47,6 @@
   	<module>openappengine-factory</module>
   	<module>openappengine-oxm</module>
   	<module>openappengine-service-engine</module>
+  	<module>openappengine-bpm</module>
   </modules>
 </project>
