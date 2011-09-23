@@ -1,4 +1,4 @@
-package com.openappengine.bpm.scxml;
+package com.openappengine.bpm.scxml.model;
 
 import java.util.Map;
 

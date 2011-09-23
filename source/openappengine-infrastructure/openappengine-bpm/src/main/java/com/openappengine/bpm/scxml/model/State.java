@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.scxml;
+package com.openappengine.bpm.scxml.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +22,8 @@ public class State {
 	private boolean finalState = false;
 	
 	private List<Transition> transitions;
+	
+	private State parent;
 	
 	private Map<String, Transition> transitionLookupMap;
 	
@@ -74,5 +76,13 @@ public class State {
 
 	public void setFinalState(boolean finalState) {
 		this.finalState = finalState;
+	}
+
+	public State getParent() {
+		return parent;
+	}
+
+	public void setParent(State parent) {
+		this.parent = parent;
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.scxml;
+package com.openappengine.bpm.scxml.model;
 
 /**
  * @author hrishikesh.joshi
@@ -15,6 +15,7 @@ public class InitialState extends State {
 	public InitialState() {
 		super();
 		this.setInitialState(true);
+		this.setParent(null);
 	}
 
 }
