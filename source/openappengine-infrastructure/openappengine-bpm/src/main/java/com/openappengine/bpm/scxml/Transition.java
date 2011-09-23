@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.state;
+package com.openappengine.bpm.scxml;
 
 /**
  * @author hrishikesh.joshi
@@ -15,7 +15,7 @@ public class Transition {
 	/* A Boolean Expression */
 	private String condition;
 	
-	/* Target State */
+	/* Target State */ 
 	private String target;
 	
 	public String getEvent() {
