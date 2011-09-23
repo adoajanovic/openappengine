@@ -1,4 +1,4 @@
-package com.openappengine.bpm.state;
+package com.openappengine.bpm.scxml;
 
 import java.util.Map;
 

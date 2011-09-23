@@ -1,10 +1,12 @@
 /**
  * 
  */
-package com.openappengine.bpm.state;
+package com.openappengine.bpm.scxml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,6 +22,12 @@ public class State {
 	private boolean finalState = false;
 	
 	private List<Transition> transitions;
+	
+	private Map<String, Transition> transitionLookupMap;
+	
+	public State() {
+		transitionLookupMap = new HashMap<String, Transition>();
+	}
 
 	public String getId() {
 		return id;
@@ -48,6 +56,7 @@ public class State {
 		if(transitions == null) {
 			transitions = new ArrayList<Transition>();
 		}
+		transitionLookupMap.put(transition.getEvent(), transition);
 		return transitions.add(transition);
 	}
 
