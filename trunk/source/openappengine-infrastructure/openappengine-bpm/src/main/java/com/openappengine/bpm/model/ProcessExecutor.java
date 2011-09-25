@@ -25,7 +25,7 @@ public class ProcessExecutor {
 				throw new ProcessConfigurationException("Class : [" + executorClass.getName() + "] should implement IProcessDef or any other subclasses.");
 			}
 		} catch (ClassNotFoundException e) {
-			throw new ProcessConfigurationException("Class : [" + runnerClass.getName() + "] could not be found.");
+			throw new ProcessConfigurationException("Class : [" + executor + "] could not be found.");
 		}
 	}
 

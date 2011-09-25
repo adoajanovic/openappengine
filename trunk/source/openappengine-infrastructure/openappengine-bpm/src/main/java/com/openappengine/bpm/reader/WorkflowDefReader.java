@@ -15,6 +15,7 @@ import com.openappengine.bpm.model.ProcessModel;
 import com.openappengine.bpm.model.State;
 import com.openappengine.bpm.model.Transition;
 import com.openappengine.bpm.model.Workflow;
+import com.openappengine.bpm.model.WorkflowDefinitionException;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
 
@@ -54,14 +55,27 @@ public class WorkflowDefReader {
 		if(UtilString.isEmptyOrBlank(name)) {
 			throw new ProcessDefinitionException("Workflow Name cannot be empty.");	
 		}
+
+		String initProcess = workflowElement.getAttribute("init-process");
 		workflow.setName(name);
+		workflow.setInitProcess(initProcess);
+		if(UtilString.isEmptyOrBlank(initProcess)) {
+			throw new ProcessDefinitionException("Workflow init-process cannot be empty.");	
+		}
 		
+		boolean initProcessDefined = false;
 		List<? extends Element> processDefList = UtilXml.childElementList(workflowElement, "processdef");
 		if(processDefList != null) {
 			for (Element processDefElement : processDefList) {
 				ProcessModel process = readProcessDefElement(processDefElement);
 				workflow.addProcess(process);
+				if(process.getProcessName().equals(workflow.getInitProcess())) {
+					initProcessDefined = true;
+				}
 			}
+		}
+		if(!initProcessDefined) {
+			throw new WorkflowDefinitionException("No Init Process Defined for the Workflow");
 		}
 		return workflow;
 	}
