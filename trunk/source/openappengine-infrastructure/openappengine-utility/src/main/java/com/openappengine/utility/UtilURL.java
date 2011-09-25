@@ -1,4 +1,4 @@
-package com.ms.openapps.util;
+package com.openappengine.utility;
 
 import java.io.BufferedReader;
 import java.io.File;
