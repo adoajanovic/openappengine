@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ms.openapps.util;
+package com.openappengine.utility;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;

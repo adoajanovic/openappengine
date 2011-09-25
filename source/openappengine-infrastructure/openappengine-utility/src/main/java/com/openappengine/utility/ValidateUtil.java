@@ -1,4 +1,4 @@
-package com.ms.openapps.util;
+package com.openappengine.utility;
 
 import java.util.Calendar;
 import java.util.Collection;

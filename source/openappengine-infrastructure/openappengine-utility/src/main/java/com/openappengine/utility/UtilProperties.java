@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ms.openapps.util;
+package com.openappengine.utility;
 
 import java.io.IOException;
 import java.io.InputStream;

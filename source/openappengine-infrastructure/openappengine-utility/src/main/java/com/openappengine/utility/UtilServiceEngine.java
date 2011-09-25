@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ms.openapps.util;
+package com.openappengine.utility;
 
 /**
  * @author hrishi

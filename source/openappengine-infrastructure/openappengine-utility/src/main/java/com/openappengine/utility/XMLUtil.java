@@ -1,9 +1,9 @@
-package com.ms.openapps.util;
-import static com.ms.openapps.util.XMLTagLibrary.XML_ERROR;
-import static com.ms.openapps.util.XMLTagLibrary.XML_ERROR_MESSAGE;
-import static com.ms.openapps.util.XMLTagLibrary.XML_ERROR_PATH;
-import static com.ms.openapps.util.XMLTagLibrary.XML_ERROR_SEVERITY;
-import static com.ms.openapps.util.XMLTagLibrary.XML_ROOT;
+package com.openappengine.utility;
+import static com.openappengine.utility.XMLTagLibrary.XML_ERROR;
+import static com.openappengine.utility.XMLTagLibrary.XML_ERROR_MESSAGE;
+import static com.openappengine.utility.XMLTagLibrary.XML_ERROR_PATH;
+import static com.openappengine.utility.XMLTagLibrary.XML_ERROR_SEVERITY;
+import static com.openappengine.utility.XMLTagLibrary.XML_ROOT;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
