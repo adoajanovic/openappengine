@@ -4,7 +4,9 @@
 package com.openappengine.bpm.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,12 +20,14 @@ public class Workflow implements Serializable {
 	
 	private String name;
 	
+	private List<ProcessModel> processModels;
+	
 	private Map<String, ProcessModel> processModelMap;
 	
 	private String initProcess;
 
 	public Workflow() {
-		setProcessModelMap(new HashMap<String, ProcessModel>());
+		processModels = new ArrayList<ProcessModel>();
 	}
 	
 	public ProcessModel getProcess(String processName) {
@@ -35,7 +39,12 @@ public class Workflow implements Serializable {
 			return false;
 		}
 		
+		if(getProcessModelMap() == null) {
+			setProcessModelMap(new HashMap<String, ProcessModel>());
+		}
+		
 		getProcessModelMap().put(model.getProcessName(), model);
+		processModels.add(model);
 		return true;
 	}
 
@@ -55,19 +64,16 @@ public class Workflow implements Serializable {
 		if(processModelMap == null) {
 			return;
 		}
-		boolean initProcessDefined = false;
-		Set<String> processes = processModelMap.keySet();
-		for (String process : processes) {
-			ProcessModel processModel = processModelMap.get(process);
-			if(processModel.getProcessName().equals(initProcess)) {
-				initProcessDefined = true;
-				break;
-			}
-		}
-		if(!initProcessDefined) {
-			throw new WorkflowDefinitionException("No Init Process Defined for the Workflow");
-		}
+		
 		this.processModelMap = processModelMap;
+	}
+
+	public String getInitProcess() {
+		return initProcess;
+	}
+
+	public void setInitProcess(String initProcess) {
+		this.initProcess = initProcess;
 	}
 
 }

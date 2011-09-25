@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-def>
+	<workflow name="TestWorkflow" init-process="test">
+		<processdef name="test" aggregate="party" executor="com.openappengine.bpm.reader.TestProcessDef">
+			<state id="init" initial="true">
+				<transition target="verifyPartyAddress" />
+			</state>
+			<state id="verifyPartyAddress">
+				<transition action="verificationProcess" target="processdocuments" />
+			</state>
+			<state id="processDocuments" final="true">
+				<transition action="createGLAccount" target="complete" />
+			</state>
+		</processdef>
+	</workflow>
+</workflow-def>
