@@ -7,12 +7,12 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilLogger;
 import com.openappengine.serviceengine.context.ServiceContext;
 import com.openappengine.serviceengine.dispatcher.IServiceDispatcher;
 import com.openappengine.serviceengine.engine.GenericServiceException;
 import com.openappengine.serviceengine.message.ServiceRequestMessageWrapper;
 import com.openappengine.serviceengine.message.ServiceResponseMessageWrapper;
+import com.openappengine.utility.UtilLogger;
 
 /**
  * @author hrishi

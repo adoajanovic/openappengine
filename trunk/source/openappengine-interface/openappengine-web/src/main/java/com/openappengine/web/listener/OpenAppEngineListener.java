@@ -3,8 +3,8 @@ package com.openappengine.web.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.ms.openapps.util.UtilLogger;
 import com.openappengine.container.OpenAppEngineLifecycleHandler;
+import com.openappengine.utility.UtilLogger;
 
 /**
  * Application Lifecycle Listener implementation class OpenAppEngineListener

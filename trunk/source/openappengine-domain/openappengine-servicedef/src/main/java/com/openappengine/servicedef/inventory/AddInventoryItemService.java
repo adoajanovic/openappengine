@@ -12,7 +12,6 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.InInventoryMaster;
 import com.openappengine.messages.inventory.AddInventoryRequest;
 import com.openappengine.messages.inventory.AddInventoryResponse;
@@ -25,6 +24,7 @@ import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

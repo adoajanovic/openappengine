@@ -8,7 +8,6 @@ import java.math.BigInteger;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.ItItemMaster;
 import com.openappengine.messages.itemmaster.CreateItemMasterRequest;
 import com.openappengine.messages.itemmaster.CreateItemMasterResponse;
@@ -19,6 +18,7 @@ import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

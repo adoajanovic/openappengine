@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilLogger;
 import com.openappengine.repository.context.EntityContext;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.context.ServiceContext;
@@ -19,6 +18,7 @@ import com.openappengine.serviceengine.engine.router.XmlServiceRouter;
 import com.openappengine.serviceengine.engine.router.XmlServiceRouterException;
 import com.openappengine.serviceengine.model.GenericServiceModel;
 import com.openappengine.serviceengine.model.ModelServiceRunner;
+import com.openappengine.utility.UtilLogger;
 
 /**
  * @author hrishi

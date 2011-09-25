@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.CnContractDet;
 import com.openappengine.domain.model.CnContractHdr;
 import com.openappengine.domain.model.PmParty;
@@ -27,6 +26,7 @@ import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi
