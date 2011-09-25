@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.PmParty;
 import com.openappengine.domain.model.PmPartyContactMech;
 import com.openappengine.messages.party.AddPartyContactMechRequest;
@@ -22,6 +21,7 @@ import com.openappengine.repository.context.EntityContext;
 import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishikesh.joshi

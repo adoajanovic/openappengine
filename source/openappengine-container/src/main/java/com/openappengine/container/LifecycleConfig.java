@@ -14,9 +14,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.ms.openapps.util.UtilLogger;
-import com.ms.openapps.util.UtilString;
-import com.ms.openapps.util.UtilXml;
+import com.openappengine.utility.UtilLogger;
+import com.openappengine.utility.UtilString;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

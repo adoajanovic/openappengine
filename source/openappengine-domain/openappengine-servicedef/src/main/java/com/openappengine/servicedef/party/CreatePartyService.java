@@ -5,7 +5,6 @@ package com.openappengine.servicedef.party;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.PmParty;
 import com.openappengine.messages.party.CreatePartyRequest;
 import com.openappengine.messages.party.CreatePartyResponse;
@@ -16,6 +15,7 @@ import com.openappengine.oxm.OxmMappingException;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

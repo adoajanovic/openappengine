@@ -3,7 +3,7 @@
  */
 package com.openappengine.serviceengine.reader;
 
-import com.ms.openapps.util.UtilLogger;
+import com.openappengine.utility.UtilLogger;
 
 /**
  * @author hrishi

@@ -11,7 +11,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.SoSalesDet;
 import com.openappengine.domain.model.SoSalesHdr;
 import com.openappengine.messages.salesorder.CreateSalesOrderRequest;
@@ -24,6 +23,7 @@ import com.openappengine.oxm.converter.UtilXMLGregorianCalendar;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

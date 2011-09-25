@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.servicedef.party;
+package com.openappengine.servicedef.codes;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,8 +30,9 @@ import com.openappengine.utility.UtilXml;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/repository-context.xml","/oxmContext.xml","/aggregate-context.xml","/service-engine-context.xml"})
-public class TestCreateParty {
-
+public class TestGetCodesService {
+	
+	
 	@Test
 	public void testCreateParty() throws OxmMappingException, FileNotFoundException, IOException {
 		

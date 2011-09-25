@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import com.ms.openapps.util.UtilLogger;
+import com.openappengine.utility.UtilLogger;
 
 /**
  * @author hrishi

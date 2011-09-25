@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.domain.model.CoCodeMaster;
 import com.openappengine.domain.model.CoCodeType;
 import com.openappengine.messages.codes.Code;
@@ -21,6 +20,7 @@ import com.openappengine.repository.model.GenericEntity;
 import com.openappengine.serviceengine.ServiceUtil;
 import com.openappengine.serviceengine.context.DispatchContext;
 import com.openappengine.serviceengine.definition.GenericServiceDef;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi

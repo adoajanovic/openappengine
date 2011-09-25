@@ -7,12 +7,12 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 
-import com.ms.openapps.util.UtilGenerics;
-import com.ms.openapps.util.UtilXml;
 import com.openappengine.repository.GenericRepository;
 import com.openappengine.repository.context.EntityContext;
 import com.openappengine.serviceengine.constants.ParameterConstants;
 import com.openappengine.serviceengine.context.DispatchContext;
+import com.openappengine.utility.UtilGenerics;
+import com.openappengine.utility.UtilXml;
 
 
 /**

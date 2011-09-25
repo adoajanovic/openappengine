@@ -149,9 +149,6 @@ public class UtilXml {
         return readXmlDocument(url.openStream(), validate, url.toString());
     }
 
-    /**
-     * @deprecated
-     */
     public static Document readXmlDocument(InputStream is)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, null);

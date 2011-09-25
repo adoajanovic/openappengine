@@ -18,7 +18,7 @@ import org.springframework.oxm.XmlMappingException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import com.ms.openapps.util.UtilXml;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi
