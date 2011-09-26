@@ -19,6 +19,10 @@ public class ProcessModel implements Executable {
 	private ProcessExecutor processExecutor;
 	
 	private List<State> states;
+	
+	private List<State> initialStates = new ArrayList<State>();
+	
+	private int sequenceNo;
 
 	public String getProcessName() {
 		return processName;
@@ -51,6 +55,9 @@ public class ProcessModel implements Executable {
 		if(state == null) {
 			return false;
 		}
+		if(state.isInitialState()) {	//If init state is true add to init states.
+			initialStates.add(state);
+		}
 		return states.add(state);
 	}
 
@@ -60,5 +67,13 @@ public class ProcessModel implements Executable {
 
 	public void setProcessExecutor(ProcessExecutor processExecutor) {
 		this.processExecutor = processExecutor;
+	}
+
+	public int getSequenceNo() {
+		return sequenceNo;
+	}
+
+	public void setSequenceNo(int sequenceNo) {
+		this.sequenceNo = sequenceNo;
 	}
 }

@@ -4,7 +4,7 @@
 package com.openappengine.bpm.reader;
 
 import com.openappengine.bpm.model.AbstractProcessDef;
-import com.openappengine.bpm.model.ProcessContext;
+import com.openappengine.bpm.model.WorkflowContext;
 
 /**
  * @author hrishi
@@ -13,10 +13,10 @@ import com.openappengine.bpm.model.ProcessContext;
 public class TestProcessDef extends AbstractProcessDef {
 
 	/* (non-Javadoc)
-	 * @see com.openappengine.bpm.model.IProcessDef#executeProcess(com.openappengine.bpm.model.ProcessContext)
+	 * @see com.openappengine.bpm.model.IProcessDef#executeProcess(com.openappengine.bpm.model.WorkflowContext)
 	 */
 	@Override
-	public ProcessContext executeProcess(ProcessContext processContext) {
+	public WorkflowContext executeProcess(WorkflowContext processContext) {
 		// TODO Auto-generated method stub
 		return processContext;
 	}

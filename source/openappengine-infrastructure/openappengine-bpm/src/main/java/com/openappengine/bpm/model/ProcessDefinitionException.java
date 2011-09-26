@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.reader;
+package com.openappengine.bpm.model;
 
 /**
  * @author hrishi

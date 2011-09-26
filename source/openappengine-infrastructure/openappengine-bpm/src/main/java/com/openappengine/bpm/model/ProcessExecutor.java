@@ -41,11 +41,11 @@ public class ProcessExecutor {
 		return processDef;
 	}
 
-	public ProcessContext execute(ProcessContext ctx) {
+	public WorkflowContext execute(WorkflowContext ctx) {
 		logger.info("Executing Process : [" + runnerClass.getName() + "]...");
 		IProcessDef processDef = instantiateProcessDef();
 		if(processDef != null) {
-			ProcessContext resultContext = processDef.executeProcess(ctx);
+			WorkflowContext resultContext = processDef.executeProcess(ctx);
 			return resultContext;
 		} else {
 			throw new ProcessConfigurationException("Class : [" + runnerClass.getName() + "] could not be instantiated.");
