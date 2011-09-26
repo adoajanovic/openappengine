@@ -9,6 +9,6 @@ package com.openappengine.bpm.model;
  */
 public interface IProcessDef {
 	
-	public ProcessContext executeProcess(ProcessContext processContext);
+	public WorkflowContext executeProcess(WorkflowContext processContext);
 
 }

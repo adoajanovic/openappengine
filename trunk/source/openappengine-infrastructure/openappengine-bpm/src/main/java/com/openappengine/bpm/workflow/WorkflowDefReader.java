@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.reader;
+package com.openappengine.bpm.workflow;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -10,12 +10,14 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.openappengine.bpm.model.ProcessDefinitionException;
 import com.openappengine.bpm.model.ProcessExecutor;
 import com.openappengine.bpm.model.ProcessModel;
 import com.openappengine.bpm.model.State;
 import com.openappengine.bpm.model.Transition;
 import com.openappengine.bpm.model.Workflow;
 import com.openappengine.bpm.model.WorkflowDefinitionException;
+import com.openappengine.bpm.workflow.WorkflowDefinitionRegistry;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
 
@@ -55,7 +57,7 @@ public class WorkflowDefReader {
 		if(UtilString.isEmptyOrBlank(name)) {
 			throw new ProcessDefinitionException("Workflow Name cannot be empty.");	
 		}
-
+		
 		String initProcess = workflowElement.getAttribute("init-process");
 		workflow.setName(name);
 		workflow.setInitProcess(initProcess);
@@ -86,6 +88,10 @@ public class WorkflowDefReader {
 		if(processName == null) {
 			throw new ProcessDefinitionException("Process Name cannot be null.");
 		}
+		
+		String sequenceNo = processDefElement.getAttribute("sequence");
+		processModel.setSequenceNo(Integer.parseInt(sequenceNo));
+		
 		processModel.setProcessName(processName);
 		
 		String aggregate = processDefElement.getAttribute("aggregate");

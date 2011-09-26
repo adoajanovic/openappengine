@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author hrishi
  *
@@ -25,6 +27,11 @@ public class Workflow implements Serializable {
 	private Map<String, ProcessModel> processModelMap;
 	
 	private String initProcess;
+	
+	private final Logger logger = Logger.getLogger(getClass());
+	
+	//TODO
+	private List<String> initProcesses;
 
 	public Workflow() {
 		processModels = new ArrayList<ProcessModel>();
@@ -42,8 +49,13 @@ public class Workflow implements Serializable {
 		if(getProcessModelMap() == null) {
 			setProcessModelMap(new HashMap<String, ProcessModel>());
 		}
-		
 		getProcessModelMap().put(model.getProcessName(), model);
+		
+		if(model.getSequenceNo() == 0) {
+			int size;
+			size = processModels.size();
+			model.setSequenceNo(size);
+		}
 		processModels.add(model);
 		return true;
 	}
@@ -74,6 +86,14 @@ public class Workflow implements Serializable {
 
 	public void setInitProcess(String initProcess) {
 		this.initProcess = initProcess;
+	}
+
+	public List<String> getInitProcesses() {
+		return initProcesses;
+	}
+
+	public void setInitProcesses(List<String> initProcesses) {
+		this.initProcesses = initProcesses;
 	}
 
 }
