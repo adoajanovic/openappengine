@@ -22,9 +22,9 @@ public class Workflow implements Serializable {
 	
 	private String name;
 	
-	private List<ProcessModel> processModels;
+	private List<Process> processModels;
 	
-	private Map<String, ProcessModel> processModelMap;
+	private Map<String, Process> processModelMap;
 	
 	private String initProcess;
 	
@@ -34,28 +34,23 @@ public class Workflow implements Serializable {
 	private List<String> initProcesses;
 
 	public Workflow() {
-		processModels = new ArrayList<ProcessModel>();
+		processModels = new ArrayList<Process>();
 	}
 	
-	public ProcessModel getProcess(String processName) {
+	public Process getProcess(String processName) {
 		return getProcessModelMap().get(processName);
 	}
 	
-	public boolean addProcess(ProcessModel model) {
+	public boolean addProcess(Process model) {
 		if(model == null) {
 			return false;
 		}
 		
 		if(getProcessModelMap() == null) {
-			setProcessModelMap(new HashMap<String, ProcessModel>());
+			setProcessModelMap(new HashMap<String, Process>());
 		}
 		getProcessModelMap().put(model.getProcessName(), model);
 		
-		if(model.getSequenceNo() == 0) {
-			int size;
-			size = processModels.size();
-			model.setSequenceNo(size);
-		}
 		processModels.add(model);
 		return true;
 	}
@@ -68,11 +63,11 @@ public class Workflow implements Serializable {
 		this.name = name;
 	}
 
-	public Map<String, ProcessModel> getProcessModelMap() {
+	public Map<String, Process> getProcessModelMap() {
 		return processModelMap;
 	}
 
-	public void setProcessModelMap(Map<String, ProcessModel> processModelMap) {
+	public void setProcessModelMap(Map<String, Process> processModelMap) {
 		if(processModelMap == null) {
 			return;
 		}

@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 
 import com.openappengine.bpm.model.ProcessDefinitionException;
 import com.openappengine.bpm.model.ProcessExecutor;
-import com.openappengine.bpm.model.ProcessModel;
+import com.openappengine.bpm.model.Process;
 import com.openappengine.bpm.model.State;
 import com.openappengine.bpm.model.Transition;
 import com.openappengine.bpm.model.Workflow;
@@ -69,7 +69,7 @@ public class WorkflowDefReader {
 		List<? extends Element> processDefList = UtilXml.childElementList(workflowElement, "processdef");
 		if(processDefList != null) {
 			for (Element processDefElement : processDefList) {
-				ProcessModel process = readProcessDefElement(processDefElement);
+				Process process = readProcessDefElement(processDefElement);
 				workflow.addProcess(process);
 				if(process.getProcessName().equals(workflow.getInitProcess())) {
 					initProcessDefined = true;
@@ -82,37 +82,44 @@ public class WorkflowDefReader {
 		return workflow;
 	}
 
-	private static ProcessModel readProcessDefElement(Element processDefElement) {
-		ProcessModel processModel = new ProcessModel();
+	private static Process readProcessDefElement(Element processDefElement) {
+		Process processModel = new Process();
 		String processName = processDefElement.getAttribute("name");
 		if(processName == null) {
 			throw new ProcessDefinitionException("Process Name cannot be null.");
 		}
 		
-		String sequenceNo = processDefElement.getAttribute("sequence");
-		processModel.setSequenceNo(Integer.parseInt(sequenceNo));
+		//TODO - Remove the attribute
+		/*String sequenceNo = processDefElement.getAttribute("sequence");
+		processModel.setSequenceNo(Integer.parseInt(sequenceNo));*/
 		
 		processModel.setProcessName(processName);
 		
-		String aggregate = processDefElement.getAttribute("aggregate");
-		processModel.setAggregateRoot(aggregate);
+		//TODO - Remove the attribute
+		/*String aggregate = processDefElement.getAttribute("aggregate");
+		processModel.setAggregateRoot(aggregate);*/
 		
-		String executor = processDefElement.getAttribute("executor");
+		//TODO - Remove the attribute
+		/*String executor = processDefElement.getAttribute("executor");
 		if(executor == null) {
 			throw new ProcessDefinitionException("Executor cannot be null for Process: [" + processName + "].");
 		}
-		processModel.setProcessExecutor(new ProcessExecutor(executor));
+		processModel.setProcessExecutor(new ProcessExecutor(executor));*/
 		
-		List<? extends Element> stateList = UtilXml.childElementList(processDefElement, "state");
+		//TODO - Remove the attribute
+		/*List<? extends Element> stateList = UtilXml.childElementList(processDefElement, "state");
 		if(stateList != null) {
 			for (Element stateElement : stateList) {
 				State state = readStateElement(processName,stateElement);
 				processModel.addState(state);
 			}
-		}
+		}*/
 		return processModel;
 	}
 
+	/**
+	 * TODO - Remove the method
+	 */
 	private static State readStateElement(String processName,
 			Element stateElement) {
 		State state = new State();

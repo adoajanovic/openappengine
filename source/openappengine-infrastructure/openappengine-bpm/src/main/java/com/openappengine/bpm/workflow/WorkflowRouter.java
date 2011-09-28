@@ -6,7 +6,7 @@ package com.openappengine.bpm.workflow;
 import org.apache.log4j.Logger;
 
 import com.openappengine.bpm.model.ProcessExecutor;
-import com.openappengine.bpm.model.ProcessModel;
+import com.openappengine.bpm.model.Process;
 import com.openappengine.bpm.model.Workflow;
 import com.openappengine.bpm.model.WorkflowContext;
 
@@ -34,16 +34,5 @@ public class WorkflowRouter {
 		if(workflow == null) {
 			throw new WorkflowRouterException("Workflow cannot be null. WorkflowRouter cannot be instantiated.");
 		}
-	}
-	
-	public void runSync(WorkflowContext ctx) {
-		logger .info("Invoking Workflow [" + workflow.getName() + "]...");
-		
-		//Get Init Process and execute process
-		String initProcess = workflow.getInitProcess();
-		ProcessModel runningProcessModel = workflow.getProcess(initProcess);
-		ProcessExecutor processExecutor = runningProcessModel.getProcessExecutor();
-		WorkflowContext context = processExecutor.execute(ctx);
-		
 	}
 }
