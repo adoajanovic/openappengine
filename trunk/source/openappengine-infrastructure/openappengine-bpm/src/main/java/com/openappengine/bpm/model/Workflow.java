@@ -29,9 +29,6 @@ public class Workflow implements Serializable {
 	
 	private final Logger logger = Logger.getLogger(getClass());
 	
-	//TODO
-	private List<String> initProcesses;
-
 	public Workflow() {
 		processModels = new ArrayList<Process>();
 	}
@@ -81,13 +78,5 @@ public class Workflow implements Serializable {
 	public void setInitProcess(String initProcess) {
 		this.initProcess = initProcess;
 	}
-
-	public List<String> getInitProcesses() {
-		return initProcesses;
-	}
-
-	public void setInitProcesses(List<String> initProcesses) {
-		this.initProcesses = initProcesses;
-	}
-
+	
 }
