@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.workflow;
 
 /**
  * @author hrishi
