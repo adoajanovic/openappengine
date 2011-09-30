@@ -5,7 +5,6 @@ package com.openappengine.bpm.workflow;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.bpm.model.Workflow;
 
 /**
  * @author hrishi

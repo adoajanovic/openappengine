@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.workflow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
+import com.openappengine.bpm.model.State;
 
 /**
  * @author hrishi

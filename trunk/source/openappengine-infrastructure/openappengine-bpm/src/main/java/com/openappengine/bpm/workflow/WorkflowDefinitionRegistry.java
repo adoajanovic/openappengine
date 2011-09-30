@@ -6,7 +6,6 @@ package com.openappengine.bpm.workflow;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.openappengine.bpm.model.Workflow;
 
 /**
  * @author hrishi
