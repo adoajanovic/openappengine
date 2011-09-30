@@ -6,7 +6,7 @@ package com.openappengine.bpm.reader;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.openappengine.bpm.model.Workflow;
+import com.openappengine.bpm.workflow.Workflow;
 import com.openappengine.bpm.workflow.WorkflowDefReader;
 import com.openappengine.bpm.workflow.WorkflowDefinitionRegistry;
 

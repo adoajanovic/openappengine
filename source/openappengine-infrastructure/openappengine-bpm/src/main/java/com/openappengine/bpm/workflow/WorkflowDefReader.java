@@ -11,7 +11,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.openappengine.bpm.model.State;
-import com.openappengine.bpm.model.Workflow;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
 
