@@ -7,14 +7,14 @@ package com.openappengine.bpm.model;
  * @author hrishikesh.joshi
  *
  */
-public class FinalState extends Process {
+public class FinalState extends State {
 	
 	/**
 	 *  Sets the final state field to True.
 	 */
 	public FinalState() {
 		super();
-		this.setFinalProcess(true);
+		this.setFinalState(true);
 	}
 
 }

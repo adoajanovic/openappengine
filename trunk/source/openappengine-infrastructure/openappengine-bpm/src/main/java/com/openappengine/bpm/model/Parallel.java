@@ -15,26 +15,27 @@ public class Parallel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Set<Process> processes;
+	private Set<State> states;
 	
-	public void addParellelProcess(Process process) {
-		if(process == null) {
+	public void addParellelState(State state) {
+		if(state == null) {
 			return;
 		}
 		
-		if(processes == null) {
-			processes = new HashSet<Process>();
+		if(getStates() == null) {
+			setStates(new HashSet<State>());
 		}
 		
-		processes.add(process);
+		getStates().add(state);
 	}
 
-	public Set<Process> getProcesses() {
-		return processes;
+	public Set<State> getStates() {
+		return states;
 	}
 
-	public void setProcesses(Set<Process> processes) {
-		this.processes = processes;
+	public void setStates(Set<State> states) {
+		this.states = states;
 	}
+
 
 }

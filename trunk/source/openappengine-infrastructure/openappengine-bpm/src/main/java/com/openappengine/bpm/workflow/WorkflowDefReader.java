@@ -10,7 +10,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.bpm.model.Process;
+import com.openappengine.bpm.model.State;
 import com.openappengine.bpm.model.Workflow;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
@@ -76,26 +76,26 @@ public class WorkflowDefReader {
 		List<? extends Element> processElementList = UtilXml.childElementList(workflowElement, "process");
 		if(processElementList != null) {
 			for (Element processElement : processElementList) {
-				Process process = readProcessElement(processElement);
+				State process = readProcessElement(processElement);
 				workflow.addProcess(process);
-				if(process.getProcessName().equals(workflow.getInitProcess())) {
+				if(process.getName().equals(workflow.getInitProcess())) {
 					initProcessDefined = true;
 				}
 			}
 		}
 		if(!initProcessDefined) {
-			throw new WorkflowDefinitionException("No Init Process Defined for the Workflow");
+			throw new WorkflowDefinitionException("No Init State Defined for the Workflow");
 		}
 	}
 
-	private static Process readProcessElement(Element processDefElement) {
-		Process processModel = new Process();
+	private static State readProcessElement(Element processDefElement) {
+		State processModel = new State();
 		String processName = processDefElement.getAttribute("name");
 		if(processName == null) {
-			throw new ProcessDefinitionException("Process Name cannot be null.");
+			throw new ProcessDefinitionException("State Name cannot be null.");
 		}
 		
-		processModel.setProcessName(processName);
+		processModel.setName(processName);
 		
 		return processModel;
 	}

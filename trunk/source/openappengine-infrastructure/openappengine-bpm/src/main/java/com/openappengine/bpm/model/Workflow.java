@@ -21,31 +21,31 @@ public class Workflow implements Serializable {
 	
 	private String name;
 	
-	private List<Process> processModels;
+	private List<State> processModels;
 	
-	private Map<String, Process> processModelMap;
+	private Map<String, State> processModelMap;
 	
 	private String initProcess;
 	
 	private final Logger logger = Logger.getLogger(getClass());
 	
 	public Workflow() {
-		processModels = new ArrayList<Process>();
+		processModels = new ArrayList<State>();
 	}
 	
-	public Process getProcess(String processName) {
+	public State getProcess(String processName) {
 		return getProcessModelMap().get(processName);
 	}
 	
-	public boolean addProcess(Process model) {
+	public boolean addProcess(State model) {
 		if(model == null) {
 			return false;
 		}
 		
 		if(getProcessModelMap() == null) {
-			setProcessModelMap(new HashMap<String, Process>());
+			setProcessModelMap(new HashMap<String, State>());
 		}
-		getProcessModelMap().put(model.getProcessName(), model);
+		getProcessModelMap().put(model.getName(), model);
 		
 		processModels.add(model);
 		return true;
@@ -59,11 +59,11 @@ public class Workflow implements Serializable {
 		this.name = name;
 	}
 
-	public Map<String, Process> getProcessModelMap() {
+	public Map<String, State> getProcessModelMap() {
 		return processModelMap;
 	}
 
-	public void setProcessModelMap(Map<String, Process> processModelMap) {
+	public void setProcessModelMap(Map<String, State> processModelMap) {
 		if(processModelMap == null) {
 			return;
 		}

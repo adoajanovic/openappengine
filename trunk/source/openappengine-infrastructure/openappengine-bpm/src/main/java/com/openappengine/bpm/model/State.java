@@ -9,20 +9,20 @@ import java.util.Map;
  * @author hrishi
  *
  */
-public class Process {
+public class State extends Target {
 	
 	/**
-	 *  Process Name
+	 *  State Name
 	 */
-	private String processName;
+	private String name;
 	
 	/*
 	 *  A map of child processes. Used if the process has any subprocesses and itself acts as a ProcessEngine itself.
 	 */
-	private Map<String,Process> children;
+	private Map<String,State> children;
 	
 	/**
-	 * 	A Set of Parallel Processes to be executed when this {@link Process} is triggered.
+	 * 	A Set of Parallel Processes to be executed when this {@link State} is triggered.
 	 */
 	private Parallel parallel;
 	
@@ -32,19 +32,19 @@ public class Process {
 	private Invoke invoke;
 	
 	/**
-	 *  Is Process Final.
+	 *  Is State Final.
 	 */
-	private boolean finalProcess;
+	private boolean finalState;
 	
 	/**
-	 *  Is Initial Process.
+	 *  Is Initial State.
 	 */
-	private boolean initialProcess;
+	private boolean initialState;
 	
 	/**
-	 *  Parent Process
+	 *  Parent State
 	 */
-	private Process parent;
+	private State parent;
 	
 	
 	/**
@@ -71,19 +71,11 @@ public class Process {
         return true;
     }
     
-	public String getProcessName() {
-		return processName;
-	}
-
-	public void setProcessName(String processName) {
-		this.processName = processName;
-	}
-
-	public Map<String,Process> getChildren() {
+	public Map<String,State> getChildren() {
 		return children;
 	}
 
-	public void setChildren(Map<String,Process> children) {
+	public void setChildren(Map<String,State> children) {
 		this.children = children;
 	}
 
@@ -103,27 +95,35 @@ public class Process {
 		this.invoke = invoke;
 	}
 
-	public boolean isFinalProcess() {
-		return finalProcess;
-	}
-
-	public void setFinalProcess(boolean finalProcess) {
-		this.finalProcess = finalProcess;
-	}
-
-	public boolean isInitialProcess() {
-		return initialProcess;
-	}
-
-	public void setInitialProcess(boolean initialProcess) {
-		this.initialProcess = initialProcess;
-	}
-
-	public Process getParent() {
+	public State getParent() {
 		return parent;
 	}
 
-	public void setParent(Process parent) {
+	public void setParent(State parent) {
 		this.parent = parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isFinalState() {
+		return finalState;
+	}
+
+	public void setFinalState(boolean finalState) {
+		this.finalState = finalState;
+	}
+
+	public boolean isInitialState() {
+		return initialState;
+	}
+
+	public void setInitialState(boolean initialState) {
+		this.initialState = initialState;
 	}
 }
