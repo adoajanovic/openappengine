@@ -15,10 +15,13 @@ public class Transition {
 	/* A Boolean Expression -- Guard Condition */
 	private String condition = "true";
 	
-	private String action;
-	
 	/* Target State - Target Event to */ 
 	private String target;
+	
+	/**
+	 *  Parent state having this as an outgoing transition.
+	 */
+	private Target parent;
 	
 	public String getEvent() {
 		return event;
@@ -44,11 +47,11 @@ public class Transition {
 		this.target = target;
 	}
 
-	public String getAction() {
-		return action;
+	public Target getParent() {
+		return parent;
 	}
 
-	public void setAction(String action) {
-		this.action = action;
+	public void setParent(Target parent) {
+		this.parent = parent;
 	}
 }
