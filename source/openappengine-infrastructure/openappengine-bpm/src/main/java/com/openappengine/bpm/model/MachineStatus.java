@@ -12,7 +12,7 @@ import java.util.Set;
  * @author hrishikesh.joshi
  *
  */
-public class MachineState {
+public class MachineStatus {
 	
 	/**
 	 *  The States of the State Machine which are currently active.
@@ -27,7 +27,7 @@ public class MachineState {
 	/**
 	 *  Default Constructor.
 	 */
-	public MachineState() {
+	public MachineStatus() {
 		activeStates = new HashSet<State>();
 		queuedEvents = new ArrayList<Event>();
 	}
