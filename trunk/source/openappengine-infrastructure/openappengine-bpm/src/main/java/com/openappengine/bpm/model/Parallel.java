@@ -3,7 +3,6 @@
  */
 package com.openappengine.bpm.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,10 +10,8 @@ import java.util.Set;
  * @author hrishikesh.joshi
  *
  */
-public class Parallel implements Serializable {
+public class Parallel extends Target {
 
-	private static final long serialVersionUID = 1L;
-	
 	private Set<State> states;
 	
 	public void addParellelState(State state) {

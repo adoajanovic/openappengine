@@ -10,8 +10,6 @@ package com.openappengine.bpm.model;
  */
 public class History extends Target {
 
-	private static final long serialVersionUID = 1L;
-	
 	private Transition transition;
 	
 	public History(Transition transition) {
