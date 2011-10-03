@@ -88,6 +88,14 @@ public class Target {
 		return transitionMap.get(eventName);
 	}
 	
+	/**
+	 * @param eventName
+	 * @return boolean - Whether the Target has any transitions waiting for the input event.
+	 */
+	public boolean containsTransitionsWaitingForEvent(String eventName) {
+		return transitionMap.containsKey(eventName);
+	}
+	
 	public DataModel getDataModel() {
 		return dataModel;
 	}

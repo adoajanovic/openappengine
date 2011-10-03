@@ -25,6 +25,7 @@ public class MachineStatus {
 	private List<Event> queuedEvents;
 	
 	/**
+	 *  For a StateMachine in Init State, the Active States and the Queued Events will be empty.
 	 *  Default Constructor.
 	 */
 	public MachineStatus() {
@@ -46,6 +47,16 @@ public class MachineStatus {
 
 	public void setQueuedEvents(List<Event> queuedEvents) {
 		this.queuedEvents = queuedEvents;
+	}
+	
+	/**
+	 * @return boolean - Is the <b>StateMachine</b> in an init state.
+	 */
+	public boolean isInitState() {
+		if(activeStates.isEmpty() && queuedEvents.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 	
 }
