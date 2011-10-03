@@ -38,12 +38,18 @@ public class StateMachine implements Serializable {
 	private Map<String, Target> stateMap;
 	
 	/**
+	 * 	<code>MachineStatus</code> gives the current state of the StateMachine.
+	 */
+	private MachineStatus machineStatus;
+	
+	/**
 	 * Default Constructor. 
 	 */
 	public StateMachine() {
 		super();
 		stateMap = new HashMap<String, Target>();
 		listenerRegistry = new ListenerRegistry();
+		machineStatus = new MachineStatus();
 	}
 	
 	/**
@@ -84,6 +90,14 @@ public class StateMachine implements Serializable {
 
 	public void setDataModel(DataModel dataModel) {
 		this.dataModel = dataModel;
+	}
+
+	public MachineStatus getMachineStatus() {
+		return machineStatus;
+	}
+
+	public void setMachineStatus(MachineStatus machineStatus) {
+		this.machineStatus = machineStatus;
 	}
 
 }

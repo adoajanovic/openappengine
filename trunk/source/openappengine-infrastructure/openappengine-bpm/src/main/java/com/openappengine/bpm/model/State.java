@@ -71,6 +71,10 @@ public class State extends Target {
         return true;
     }
     
+    public State getState(String name) {
+    	return children.get(name);
+    }
+    
 	public Map<String,State> getChildren() {
 		return children;
 	}
