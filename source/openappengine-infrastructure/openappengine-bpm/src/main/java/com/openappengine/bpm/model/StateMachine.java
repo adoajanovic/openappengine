@@ -37,6 +37,7 @@ public class StateMachine implements Serializable {
 	 */
 	private Map<String, Target> stateMap;
 	
+	//TODO - Move to an Executor.
 	/**
 	 * 	<code>MachineStatus</code> gives the current state of the StateMachine.
 	 */
