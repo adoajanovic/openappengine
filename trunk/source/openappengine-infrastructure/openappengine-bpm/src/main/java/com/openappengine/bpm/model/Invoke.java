@@ -1,5 +1,5 @@
 /**
- * <b><invoke></b> offers a more tightly coupled form of communication, 
+ * <b>invoke</b> offers a more tightly coupled form of communication, 
  * specifically the ability to trigger a platform-defined service 
  * and pass data to it. 
  */
@@ -13,6 +13,7 @@ import java.util.Set;
  * @author hrishikesh.joshi
  *
  */
+//TODO - Implement Action
 public class Invoke implements Serializable {
 
 	private static final long serialVersionUID = 1L;
