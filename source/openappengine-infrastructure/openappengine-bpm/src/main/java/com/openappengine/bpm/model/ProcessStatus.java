@@ -12,7 +12,7 @@ import java.util.Set;
  * @author hrishikesh.joshi
  *
  */
-public class MachineStatus {
+public class ProcessStatus {
 	
 	/**
 	 *  The States of the State Machine which are currently active.
@@ -25,10 +25,10 @@ public class MachineStatus {
 	private List<Event> queuedEvents;
 	
 	/**
-	 *  For a StateMachine in Init State, the Active States and the Queued Events will be empty.
+	 *  For a ProcessInstance in Init State, the Active States and the Queued Events will be empty.
 	 *  Default Constructor.
 	 */
-	public MachineStatus() {
+	public ProcessStatus() {
 		activeStates = new HashSet<State>();
 		queuedEvents = new ArrayList<Event>();
 	}
@@ -50,7 +50,7 @@ public class MachineStatus {
 	}
 	
 	/**
-	 * @return boolean - Is the <b>StateMachine</b> in an init state.
+	 * @return boolean - Is the <b>ProcessInstance</b> in an init state.
 	 */
 	public boolean isInitState() {
 		if(activeStates.isEmpty() && queuedEvents.isEmpty()) {

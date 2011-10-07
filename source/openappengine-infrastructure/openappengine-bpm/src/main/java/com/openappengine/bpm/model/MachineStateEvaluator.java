@@ -21,20 +21,20 @@ public class MachineStateEvaluator {
 	}
 
 	/**
-	 * If the StateMachine is in INIT state, return the InitialTarget as the Next State.
+	 * If the ProcessInstance is in INIT state, return the InitialTarget as the Next State.
 	 * 
 	 * @return {@link Target} - Evaluate the Next State of the Machine 
 	 */
-	public List<Target> evaluateTarget(StateMachine stateMachine) {
-		MachineStatus machineStatus = stateMachine.getMachineStatus();
+	public List<Target> evaluateTarget(ProcessInstance processInstance) {
+		ProcessStatus processStatus = processInstance.getMachineStatus();
 		List<Target> targets = new ArrayList<Target>();
 		Target target = null;
-		if(machineStatus.isInitState()) {	//StateMachine is in InitState --> The Init State is the Next Target. 
-			target = stateMachine.getInitialTarget();
+		if(processStatus.isInitState()) {	//ProcessInstance is in InitState --> The Init State is the Next Target. 
+			target = processInstance.getInitialTarget();
 			targets.add(target);
 		} else {
-			List<Event> queuedEvents = machineStatus.getQueuedEvents();
-			Set<? extends State> activeStates = machineStatus.getActiveStates();
+			List<Event> queuedEvents = processStatus.getQueuedEvents();
+			Set<? extends State> activeStates = processStatus.getActiveStates();
 			if(queuedEvents != null && !queuedEvents.isEmpty()) {
 				for (Event event : queuedEvents) {
 					for (State state : activeStates) {

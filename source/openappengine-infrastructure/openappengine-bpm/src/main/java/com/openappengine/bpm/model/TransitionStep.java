@@ -4,54 +4,60 @@
 package com.openappengine.bpm.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
- * @author hrishikesh.joshi
+ * @author hrishi
  *
  */
 public class TransitionStep implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private MachineStatus currentStatus;
-	
-	private Set<State> statesEntered;
-	
-	private Set<State> statesExit;
+	/**
+	 *  The Transitions taken during this step.
+	 */
+	private List<Transition> transitions;
 	
 	/**
-	 *  Default Constructor.
+	 *  Targets Entered
 	 */
-	public TransitionStep(MachineStatus machineStatus) {
-		statesEntered = new HashSet<State>();
-		statesExit = new HashSet<State>();
-		this.currentStatus = machineStatus;
+	private List<Target> targetsEntered;
+	
+	/**
+	 *  Targets Exit
+	 */
+	private List<Target> targetsExit;
+	
+	private ProcessStatus processStatus;
+	
+	public TransitionStep(ProcessStatus processStatus) {
+		super();
+		this.processStatus = processStatus;
 	}
 
-	public MachineStatus getCurrentStatus() {
-		return currentStatus;
+	//Accessors
+	public List<Transition> getTransitions() {
+		return transitions;
 	}
 
-	public void setCurrentStatus(MachineStatus currentStatus) {
-		this.currentStatus = currentStatus;
+	public void setTransitions(List<Transition> transitions) {
+		this.transitions = transitions;
 	}
 
-	public Set<State> getStatesEntered() {
-		return statesEntered;
+	public List<Target> getTargetsEntered() {
+		return targetsEntered;
 	}
 
-	public void setStatesEntered(Set<State> statesEntered) {
-		this.statesEntered = statesEntered;
+	public void setTargetsEntered(List<Target> targetsEntered) {
+		this.targetsEntered = targetsEntered;
 	}
 
-	public Set<State> getStatesExit() {
-		return statesExit;
+	public List<Target> getTargetsExit() {
+		return targetsExit;
 	}
 
-	public void setStatesExit(Set<State> statesExit) {
-		this.statesExit = statesExit;
+	public void setTargetsExit(List<Target> targetsExit) {
+		this.targetsExit = targetsExit;
 	}
-
 }
