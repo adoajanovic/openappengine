@@ -3,7 +3,7 @@
  * specifically the ability to trigger a platform-defined service 
  * and pass data to it. 
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.procmod;
 
 import java.io.Serializable;
 import java.util.HashSet;

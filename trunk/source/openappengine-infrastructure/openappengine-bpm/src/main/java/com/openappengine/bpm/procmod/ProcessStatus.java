@@ -1,7 +1,7 @@
 /**
  *  <b>MachineCode</b> encapsulates the overall state of the State Machine.
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.procmod;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +22,7 @@ public class ProcessStatus {
 	/**
 	 *  Events that are queued.
 	 */
-	private List<Event> queuedEvents;
+	private List<TriggerEvent> queuedEvents;
 	
 	/**
 	 *  For a ProcessInstance in Init State, the Active States and the Queued Events will be empty.
@@ -30,7 +30,7 @@ public class ProcessStatus {
 	 */
 	public ProcessStatus() {
 		activeStates = new HashSet<State>();
-		queuedEvents = new ArrayList<Event>();
+		queuedEvents = new ArrayList<TriggerEvent>();
 	}
 	
 	public Set<? extends State> getActiveStates() {
@@ -41,11 +41,11 @@ public class ProcessStatus {
 		this.activeStates = activeStates;
 	}
 
-	public List<Event> getQueuedEvents() {
+	public List<TriggerEvent> getQueuedEvents() {
 		return queuedEvents;
 	}
 
-	public void setQueuedEvents(List<Event> queuedEvents) {
+	public void setQueuedEvents(List<TriggerEvent> queuedEvents) {
 		this.queuedEvents = queuedEvents;
 	}
 	

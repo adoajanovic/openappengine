@@ -1,7 +1,7 @@
 /**
  * 	Represents a Single Process Instance.
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.procmod;
 
 import java.io.Serializable;
 import java.util.HashMap;
