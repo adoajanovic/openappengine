@@ -20,7 +20,7 @@ public interface IStateMachineRouter {
 	public void registerStateMachineListener(IStateMachineListener iStateMachineListener);
 	
 	/**
-	 * Add an ErrorReporter for the StateMachine being executed.
+	 * Add an ErrorReporter for the ProcessInstance being executed.
 	 * @param errorReporter
 	 */
 	public void registerErrorReporter(IErrorReporter errorReporter);
@@ -32,7 +32,7 @@ public interface IStateMachineRouter {
 	public void triggerEvent(Event event);
 	
 	/**
-	 *  Reset the StateMachine to its initial event
+	 *  Reset the ProcessInstance to its initial event
 	 */
 	public void resetStateMachine();
 	

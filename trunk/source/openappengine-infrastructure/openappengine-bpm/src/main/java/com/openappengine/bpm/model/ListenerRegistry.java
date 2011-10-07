@@ -18,15 +18,15 @@ public class ListenerRegistry implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 	The <code>IStateMachineListeners</code> registered with the StateMachine are registered with this class. 
+	 * 	The <code>IStateMachineListeners</code> registered with the ProcessInstance are registered with this class. 
 	 */
 	private List<IStateMachineListener> listeners;
 	
 	/**
-	 * 	The owning <code>StateMachine</code> for this ListenerRegistry.
+	 * 	The owning <code>ProcessInstance</code> for this ListenerRegistry.
 	 * 
 	 */
-	private StateMachine stateMachine;
+	private ProcessInstance processInstance;
 	
 
 	public ListenerRegistry() {
@@ -54,7 +54,7 @@ public class ListenerRegistry implements Serializable {
 	}
 	
 	/**
-	 * Notify All the Listeners of this <code>StateMachine</code> on a transition event.
+	 * Notify All the Listeners of this <code>ProcessInstance</code> on a transition event.
 	 * @param previousState
 	 * @param newState
 	 * @param transition
@@ -65,12 +65,12 @@ public class ListenerRegistry implements Serializable {
 		}
 	}
 	
-	public StateMachine getStateMachine() {
-		return stateMachine;
+	public ProcessInstance getStateMachine() {
+		return processInstance;
 	}
 
-	public void setStateMachine(StateMachine stateMachine) {
-		this.stateMachine = stateMachine;
+	public void setStateMachine(ProcessInstance processInstance) {
+		this.processInstance = processInstance;
 	}
 	
 
