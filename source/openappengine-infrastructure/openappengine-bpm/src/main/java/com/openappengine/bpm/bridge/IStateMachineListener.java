@@ -3,8 +3,8 @@
  */
 package com.openappengine.bpm.bridge;
 
-import com.openappengine.bpm.model.State;
-import com.openappengine.bpm.model.Transition;
+import com.openappengine.bpm.procmod.State;
+import com.openappengine.bpm.procmod.Transition;
 
 /**
  * @author hrishikesh.joshi

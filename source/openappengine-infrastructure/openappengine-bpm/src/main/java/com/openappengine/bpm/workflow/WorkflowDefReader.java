@@ -10,7 +10,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.bpm.model.State;
+import com.openappengine.bpm.procmod.State;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
 

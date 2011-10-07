@@ -1,7 +1,7 @@
 /**
  * 	Processes to be executed in parallel when the parent process is triggered.
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.procmod;
 
 import java.util.HashSet;
 import java.util.Set;

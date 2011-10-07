@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.bpm.model.State;
+import com.openappengine.bpm.procmod.State;
 
 /**
  * @author hrishi

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.model;
+package com.openappengine.bpm.procmod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
