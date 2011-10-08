@@ -28,6 +28,11 @@ public class ProcessStatus {
 	private List<TriggerEvent> queuedEvents;
 	
 	/**
+	 *  Current State
+	 */
+	private int currentState;
+	
+	/**
 	 *  For a ProcessInstance in Init State, the Active States and the Queued Events will be empty.
 	 *  Default Constructor.
 	 */
@@ -60,6 +65,20 @@ public class ProcessStatus {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @return the currentState
+	 */
+	public int getCurrentState() {
+		return currentState;
+	}
+
+	/**
+	 * @param currentState the currentState to set
+	 */
+	public void setCurrentState(int currentState) {
+		this.currentState = currentState;
 	}
 	
 }
