@@ -15,39 +15,39 @@ public class ProcessMonitor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static Map<String, RunningProcessInstance> runningProcesses = new HashMap<String, RunningProcessInstance>();
+	private static Map<String, ProcessInstance> runningProcesses = new HashMap<String, ProcessInstance>();
 	
 	/**
 	 * Add the <code>RunningProcess</code> to the ProcessMonitor.
-	 * @param runningProcessInstance
+	 * @param processInstance
 	 * @throws ProcessMonitorException 
 	 */
-	public static void registerNewRunningProcessInstance(RunningProcessInstance runningProcessInstance) throws ProcessMonitorException { 
-		if(runningProcessInstance == null) {
+	public static void registerNewRunningProcessInstance(ProcessInstance processInstance) throws ProcessMonitorException { 
+		if(processInstance == null) {
 			throw new ProcessMonitorException("New Instance found to be null..");
 		}
-		runningProcesses.put(runningProcessInstance.getPid(), runningProcessInstance);
+		runningProcesses.put(processInstance.getPid(), processInstance);
 	}
 	
 	/**
 	 * Get the running process instance by its pid.
 	 * @param pid
-	 * @return {@link RunningProcessInstance}
+	 * @return {@link ProcessInstance}
 	 */
-	public static RunningProcessInstance getRunningProcessInstanceByPid(String pid) {
+	public static Execution getRunningProcessInstanceByPid(String pid) {
 		return runningProcesses.get(pid);
 	}
 	
 	/**
-	 * Update the <code>ProcessStatus</code> of the ProcessInstance specified by its pid.
+	 * Update the <code>ProcessStatus</code> of the ProcessDefinition specified by its pid.
 	 * @param pid
 	 * @param processStatus
 	 * @throws ProcessMonitorException
 	 */
 	public static void updateRunningProcessInstanceStatusByPid(String pid,ProcessStatus processStatus) throws ProcessMonitorException {
 		validateRunningProcessInstance(pid);
-		RunningProcessInstance runningProcessInstance = runningProcesses.get(pid);
-		runningProcessInstance.setProcessStatus(processStatus);
+		ProcessInstance processInstance = runningProcesses.get(pid);
+		processInstance.setProcessStatus(processStatus);
 	}
 
 	/**
@@ -69,8 +69,8 @@ public class ProcessMonitor implements Serializable {
 	 */
 	public static void unregisterRunningProcessInstance(String pid) throws ProcessMonitorException {
 		validateRunningProcessInstance(pid);
-		RunningProcessInstance runningProcessInstance = runningProcesses.get(pid);
-		runningProcesses.remove(runningProcessInstance);
+		Execution processInstance = runningProcesses.get(pid);
+		runningProcesses.remove(processInstance);
 	}
 
 }

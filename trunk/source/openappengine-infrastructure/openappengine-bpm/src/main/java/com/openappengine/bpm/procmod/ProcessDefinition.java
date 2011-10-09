@@ -11,7 +11,7 @@ import java.util.Map;
  * @author hrishikesh.joshi
  *
  */
-public class ProcessInstance implements Serializable {
+public class ProcessDefinition implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -27,11 +27,6 @@ public class ProcessInstance implements Serializable {
 	private State initialState;
 	
 	/**
-	 *  The data model for this finite state machine.
-	 */
-	private DataModel dataModel;
-	
-	/**
 	 *  A map of all the target State's mapped by their Id's.
 	 */
 	private Map<String, State> stateMap;
@@ -39,7 +34,7 @@ public class ProcessInstance implements Serializable {
 	/**
 	 * Default Constructor. 
 	 */
-	public ProcessInstance() {
+	public ProcessDefinition() {
 		super();
 		stateMap = new HashMap<String, State>();
 	}
@@ -65,14 +60,6 @@ public class ProcessInstance implements Serializable {
 	 */
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public DataModel getDataModel() {
-		return dataModel;
-	}
-
-	public void setDataModel(DataModel dataModel) {
-		this.dataModel = dataModel;
 	}
 
 	/**
