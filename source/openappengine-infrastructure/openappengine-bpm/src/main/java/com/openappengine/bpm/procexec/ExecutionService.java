@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.proceng;
+package com.openappengine.bpm.procexec;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +14,7 @@ import com.openappengine.bpm.procmon.ProcessInstance;
  * @author hrishi
  *
  */
-public interface ProcessExecutionService {
+public interface ExecutionService {
 	
 	/**
 	 * Start the ProcessInstance by its unique ProcessId.
