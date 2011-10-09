@@ -10,24 +10,24 @@ package com.openappengine.bpm.proceng;
 public class ProcessEngine {
 	
 	/**
-	 *  <code>ProcessExecutionService</code> 
+	 *  <code>ExecutionService</code> 
 	 */
-	private ProcessExecutionService processExecutionService;
+	private ExecutionService executionService;
 	
 	
 
 	/**
-	 * @return the processExecutionService
+	 * @return the executionService
 	 */
-	public ProcessExecutionService getProcessExecutionService() {
-		return processExecutionService;
+	public ExecutionService getProcessExecutionService() {
+		return executionService;
 	}
 
 	/**
-	 * @param processExecutionService the processExecutionService to set
+	 * @param executionService the executionService to set
 	 */
-	public void setProcessExecutionService(ProcessExecutionService processExecutionService) {
-		this.processExecutionService = processExecutionService;
+	public void setProcessExecutionService(ExecutionService executionService) {
+		this.executionService = executionService;
 	}
 
 }
