@@ -24,7 +24,7 @@ public class ProcessInstance extends Execution {
 	private String processDefinitionId;
 	
 	/**
-	 *  ContextInstance associated with the ProcessInstance.
+	 *  ContextInstance associated with the ProcessInstance. (Variables)
 	 */
 	private ContextInstance contextInstance;
 

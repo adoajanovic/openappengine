@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.procdef;
+package com.openappengine.bpm.executable;
 
 /**
  * @author hrishi
