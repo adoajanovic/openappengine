@@ -11,11 +11,6 @@ import java.util.Map;
  */
 public class State extends Target {
 	
-	/**
-	 *  State Name
-	 */
-	private String name;
-	
 	/*
 	 *  A map of child processes. Used if the process has any subprocesses and itself acts as a ProcessEngine itself.
 	 */
@@ -105,14 +100,6 @@ public class State extends Target {
 
 	public void setParent(State parent) {
 		this.parent = parent;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean isFinalState() {

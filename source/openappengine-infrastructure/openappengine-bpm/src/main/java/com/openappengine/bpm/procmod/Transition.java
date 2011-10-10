@@ -16,7 +16,7 @@ public class Transition {
 	private String condition = "true";
 	
 	/* Target State - Target Event to */ 
-	private String target;
+	private String to;
 	
 	/**
 	 *  Parent state having this as an outgoing transition.
@@ -39,19 +39,25 @@ public class Transition {
 		this.condition = condition;
 	}
 
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
 	public Target getParent() {
 		return parent;
 	}
 
 	public void setParent(Target parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * @return the to
+	 */
+	public String getTo() {
+		return to;
+	}
+
+	/**
+	 * @param to the to to set
+	 */
+	public void setTo(String to) {
+		this.to = to;
 	}
 }

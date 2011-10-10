@@ -41,6 +41,10 @@ public class ProcessDefinition implements Serializable {
 	
 	public void addState(String id, State state) {
 		stateMap.put(id, state);
+		
+		if(state.isInitialState()) {
+			this.initialState = state;
+		}
 	}
 	
 	public State getState(String id) {

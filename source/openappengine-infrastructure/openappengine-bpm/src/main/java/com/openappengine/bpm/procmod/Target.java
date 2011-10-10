@@ -15,11 +15,6 @@ import java.util.Map;
 public class Target {
 	
 	/**
-	 *  Optional Data Model to be associated
-	 */
-	private DataModel dataModel;
-	
-	/**
 	 *  Id
 	 */
 	private String id;
@@ -96,14 +91,6 @@ public class Target {
 		return transitionMap.containsKey(eventName);
 	}
 	
-	public DataModel getDataModel() {
-		return dataModel;
-	}
-
-	public void setDataModel(DataModel dataModel) {
-		this.dataModel = dataModel;
-	}
-
 	public String getId() {
 		return id;
 	}
