@@ -3,6 +3,8 @@
  */
 package com.openappengine.bpm.proceng;
 
+import com.openappengine.bpm.procexec.ExecutionService;
+
 /**
  * @author hrishi
  *

@@ -3,13 +3,24 @@
  */
 package com.openappengine.bpm.procreader;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.bpm.procmod.ProcessDefinition;
-import com.openappengine.bpm.procmod.State;
-import com.openappengine.bpm.procmod.Transition;
+import com.openappengine.bpm.action.Action;
+import com.openappengine.bpm.event.Event;
+import com.openappengine.bpm.executable.ActionHandler;
+import com.openappengine.bpm.graph.EndState;
+import com.openappengine.bpm.graph.Node;
+import com.openappengine.bpm.graph.ProcessDefinition;
+import com.openappengine.bpm.graph.StartState;
+import com.openappengine.bpm.graph.State;
+import com.openappengine.bpm.graph.Transition;
+import com.openappengine.bpm.xml.Problem;
+import com.openappengine.bpm.xml.problem.IProblemListener;
 import com.openappengine.utility.UtilString;
 import com.openappengine.utility.UtilXml;
 
@@ -17,94 +28,240 @@ import com.openappengine.utility.UtilXml;
  * @author hrishi
  *
  */
-public class ProcessDefReader implements IProcessDefReader {
-
-	//TODO - Supports reading only one level deep simple process definitions right now.
+public class ProcessDefReader implements IProcessDefReader,IProblemListener {
+	
+	protected ProcessDefinition processDefinition;
+	
+	protected InputStream inputStream;
+	
+	protected Document document;
+	
+	protected List<Problem> problems; 
+	
+	public ProcessDefReader(InputStream inputStream) throws ProcessDefinitionException {
+		super();
+		this.inputStream = inputStream;
+		readSetXmlDocumentNode();
+		problems = new ArrayList<Problem>();
+	}
+	
+	private void readSetXmlDocumentNode() throws ProcessDefinitionException { 
+		try {
+			document = UtilXml.readXmlDocument(inputStream);
+		} catch (Exception e) {
+			throw new ProcessDefinitionException("Unable to create the Document from the InputStream.", e);
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.openappengine.bpm.procreader.IProcessDefReader#readProcessDefinition(org.w3c.dom.Element)
 	 */
-	public ProcessDefinition readProcessDefinition(Element element) throws ProcessDefinitionException{
-		if(element == null) {
+	public ProcessDefinition readProcessDefinition()
+			throws ProcessDefinitionException {
+		ProcessDefinition processDefinition = new ProcessDefinition();
+
+		if (document == null ||document.getDocumentElement() == null) {
 			return null;
 		}
+
+		Element documentElement = document.getDocumentElement();
 		
-		ProcessDefinition processDefinition = new ProcessDefinition();
-		
-		String id = UtilXml.childElementValue(element, "id");
-		if(UtilString.isEmptyOrBlank(id)) {
-			throw new ProcessDefinitionException("ProcessDefinition : " + "id" + " cannot be empty.");
+		if(!"process-definition".equalsIgnoreCase(documentElement.getNodeName())) {
+			addProblem(new Problem("Incorrect Root Object", Problem.LEVEL_ERROR));
 		}
 		
-		processDefinition.setId(id);
-		
-		List<? extends Element> stateElements = UtilXml.childElementList(element, "state");
-		if(stateElements == null || stateElements.isEmpty()) {
-			throw new ProcessDefinitionException("ProcessDefinition :" + "state" + " cannot be empty.");
+		String processName = documentElement.getAttribute("name");
+		if(UtilString.isEmptyOrBlank(processName)) {
+			addProblem(new Problem("[process-definition] : Attribute name cannot be empty.", Problem.LEVEL_ERROR));
 		}
+		processDefinition.setName(processName);
 		
-		for (Element stateElement : stateElements) {
-			State state = readStateElement(element, stateElement);
-			processDefinition.addState(state.getId(), state);
+		StartState startState = readStartState(documentElement);
+		processDefinition.setStartState(startState);
+
+		List<EndState> endStates = readEndState(documentElement);
+		processDefinition.setEndStates(endStates);
+
+		List<? extends Element> stateElementList = UtilXml.childElementList(
+				documentElement, "state");
+		if (stateElementList != null && !stateElementList.isEmpty()) {
+			for (Element stateElement : stateElementList) {
+				State state = new State();
+				state.read(stateElement, this);
+			}
 		}
-		
 		return processDefinition;
 	}
 
 	/**
-	 * @param element
-	 * @param stateElement
-	 * @return {@link State}
+	 * @param documentElement
+	 * @return
 	 * @throws ProcessDefinitionException
 	 */
-	private State readStateElement(Element element, Element stateElement)
+	private StartState readStartState(Element documentElement)
 			throws ProcessDefinitionException {
-		State state = new State();
+		List<? extends Element> startStateElements = UtilXml.childElementList(documentElement, "start-state");
+		if(startStateElements == null || startStateElements.size() != 1) {
+			throw new ProcessDefinitionException("[start-state] : Only One Expected");
+		}
+		Element startStateElement = startStateElements.get(0);
+		StartState startState = readStartStateElement(startStateElement);
+		return startState;
+	}
+	
+	/**
+	 * @param documentElement
+	 * @return
+	 * @throws ProcessDefinitionException
+	 */
+	public List<EndState> readEndState(Element documentElement)
+			throws ProcessDefinitionException {
+		List<EndState> endStates = new ArrayList<EndState>();
+		List<? extends Element> endStateElements = UtilXml.childElementList(documentElement, "end-state");
+		for (Element endStateElement : endStateElements) {
+			EndState endState = new EndState();
+			endState.read(endStateElement, this);
+			endStates.add(endState);
+		}
+		return endStates;
+	}
+
+	/**
+	 * @param reader
+	 * @param transitionElement
+	 * @return TODO
+	 */
+	public Transition readTransition(Element transitionElement) {
+		Transition transition = new Transition();
+		String name = transitionElement.getAttribute("name");
+		if (!UtilString.isEmptyOrBlank(name)) {
+			this.addProblem(new Problem(
+					"'from' attribute should not be present in the transition element in start-start",
+					Problem.LEVEL_ERROR));
+		}
+		transition.setName(name);
 		
-		state.setParent(null);
-		
-		String stateId = UtilXml.childElementValue(element, "id");
-		if(UtilString.isEmptyOrBlank(stateId)) {
-			throw new ProcessDefinitionException("ProcessDefinition : " + "id" + " cannot be empty.");
+		String from = transitionElement.getAttribute("from");
+		if (!UtilString.isEmptyOrBlank(from)) {
+			this.addProblem(new Problem(
+					"'from' attribute should not be present in the transition element in start-start",
+					Problem.LEVEL_ERROR));
 		}
 		
-		state.setId(stateId);
+		String to = transitionElement.getAttribute("to");
+		if (UtilString.isEmptyOrBlank(to)) {
+			this.addProblem(new Problem(
+					"'to' attribute not present on the transition element in start-start",
+					Problem.LEVEL_ERROR));
+		}
+		transition.setToNode(to);
 		
-		String initState = UtilXml.childElementValue(stateElement, "initial");
-		if(!UtilString.isEmptyOrBlank(initState)) {
-			Boolean init = Boolean.valueOf(initState);
-			if(init != null && init.booleanValue() == true) {
-				state.setInitialState(init.booleanValue());
+		String condition = transitionElement.getAttribute("condition");
+		if (!UtilString.isEmptyOrBlank(condition)) {
+			transition.setCondition(condition);	
+		}
+		return transition;
+	}
+	
+	/**
+	 * Read a Event Node from 
+	 * @param element
+	 * @return {@link Event}
+	 */
+	public Event readEvent(Element element) {
+		Event event = new Event();
+		String eventType = element.getAttribute("eventType");
+		if(UtilString.isEmptyOrBlank(eventType)) {
+			addProblem(new Problem("[event] : Attribute eventType cannot be blank.", Problem.LEVEL_ERROR));
+		}
+		
+		event.setEventType(eventType);
+		
+		List<? extends Element> actionElementList = UtilXml.childElementList(element, "action");
+		if(actionElementList != null && !actionElementList.isEmpty()) {
+			for (Element actionElement : actionElementList) {
+				Action action = readActionElement(actionElement);
+				event.addAction(action);
 			}
 		}
-		
-		String finalState = UtilXml.childElementValue(stateElement, "final");
-		if(!UtilString.isEmptyOrBlank(finalState)) {
-			Boolean finalSt = Boolean.valueOf(finalState);
-			if(finalSt != null && finalSt.booleanValue() == true) {
-				state.setInitialState(finalSt.booleanValue());
+		return event;
+	}
+
+	/**
+	 * @param actionElement
+	 * @return {@link Action}
+	 */
+	private Action readActionElement(Element actionElement) {
+		String name = actionElement.getAttribute("name");
+		if(UtilString.isEmptyOrBlank(name)) {
+			addProblem(new Problem("[action] : Attribute name cannot be blank.", Problem.LEVEL_ERROR));
+		}
+		String src = actionElement.getAttribute("src");
+		if(UtilString.isEmptyOrBlank(src)) {
+			addProblem(new Problem("[action] : Attribute src cannot be blank.", Problem.LEVEL_ERROR));
+		}
+		Class<?> actionCls = null;
+		try {
+			actionCls = Class.forName(src);
+			if(!ActionHandler.class.isAssignableFrom(actionCls)) {
+				addProblem(new Problem("[action] " + src + " : Should implement ActionHandler interface.", Problem.LEVEL_ERROR));	
 			}
+		} catch (ClassNotFoundException e) {
+			addProblem(new Problem("[action] " + src + " : Could not be instantiated.", Problem.LEVEL_ERROR));
+		}
+		Action action = new Action(name, actionCls);
+		return action;
+	}
+	
+	
+	/**
+	 * @param element
+	 * @param processDefReader
+	 * @return TODO
+	 */
+	public void readNode(Element element, Node node) {
+		String name = element.getAttribute("name");
+		if (UtilString.isEmptyOrBlank(name)) {
+			this.addProblem(new Problem(
+					"[state] : Attribute name cannot be blank.",
+					Problem.LEVEL_ERROR));
 		}
 		
-		List<? extends Element> transitions = UtilXml.childElementList(stateElement, "transition");
-		if(transitions != null && !transitions.isEmpty()) {
-			for (Element transitionElement : transitions) {
-				String event = UtilXml.childElementValue(transitionElement, "event");
-				
-				String condition = UtilXml.childElementValue(transitionElement, "condition");
-				
-				String to = UtilXml.childElementValue(transitionElement, "to");
-				
-				//TODO - Validate these three.
-				Transition transition = new Transition();
-				transition.setParent(state);
-				transition.setTo(to);
-				transition.setEvent(event);
-				transition.setCondition(condition);
-				
-				state.addTransition(transition);
+		node.setName(name);
+
+		List<? extends Element> transitionElementList = UtilXml
+				.childElementList(element, "transition");
+		if (transitionElementList != null && !transitionElementList.isEmpty()) {
+			for (Element transitionElement : transitionElementList) {
+				Transition transition = this.readTransition(transitionElement);
+				node.addTransition(transition);
 			}
 		}
-		return state;
+
+		List<? extends Element> eventElementList = UtilXml.childElementList(
+				element, "event");
+		for (Element eventElement : eventElementList) {
+			Event event = this.readEvent(eventElement);
+			node.addEvent(event);
+		}
+	}
+	
+	/**
+	 * @param startStateElement
+	 * @return
+	 */
+	private StartState readStartStateElement(Element startStateElement) {
+		StartState startState = new StartState();
+		startState.read(startStateElement, this);
+		return startState;
+	}
+	
+	public void addProblem(Problem problem) {
+		if(problem == null) {
+			return;
+		}
+		
+		this.problems.add(problem);
 	}
 
 }

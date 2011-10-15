@@ -1,7 +1,7 @@
 /**
  * 	Processes to be executed in parallel when the parent process is triggered.
  */
-package com.openappengine.bpm.procmod;
+package com.openappengine.bpm.graph;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.Set;
  * @author hrishikesh.joshi
  *
  */
-public class Parallel extends Target {
+public class Parallel extends Node {
 
 	private Set<State> states;
 	
