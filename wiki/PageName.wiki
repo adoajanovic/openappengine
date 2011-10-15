@@ -1,11 +1,10 @@
-
 =Document High Level Process=
 
 
 
-Sales Order Inventory - 
+==Sales Order Inventory== 
 
-Inventory - Add Maintain Inventory
+===Inventory - Add Maintain Inventory===
 
 1. When we create Sales Order Detail Lines - Validation ---
 
@@ -20,8 +19,3 @@ If you get more than 1 line from Invetory Master -- Get Item from Max Availabili
 	
 	
 
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
