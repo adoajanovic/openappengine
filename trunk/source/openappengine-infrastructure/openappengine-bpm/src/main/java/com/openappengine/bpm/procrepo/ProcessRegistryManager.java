@@ -4,15 +4,8 @@
 package com.openappengine.bpm.procrepo;
 
 import java.io.File;
-import java.io.FileInputStream;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.openappengine.bpm.graph.ProcessDefinition;
-import com.openappengine.bpm.procreader.IProcessDefReader;
 import com.openappengine.bpm.procreader.ProcessDefReader;
-import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishi
@@ -24,7 +17,7 @@ public class ProcessRegistryManager implements IProcessRegistryManager {
 	/**
 	 * {@link ProcessDefReader} to read the process registry.
 	 */
-	private IProcessDefReader processDefReader;
+	private ProcessDefReader processDefReader;
 	
 	public ProcessRegistryManager() {
 	}
@@ -57,7 +50,7 @@ public class ProcessRegistryManager implements IProcessRegistryManager {
 	/**
 	 * @param processDefReader the processDefReader to set
 	 */
-	public void setProcessDefReader(IProcessDefReader processDefReader) {
+	public void setProcessDefReader(ProcessDefReader processDefReader) {
 		this.processDefReader = processDefReader;
 	}
 

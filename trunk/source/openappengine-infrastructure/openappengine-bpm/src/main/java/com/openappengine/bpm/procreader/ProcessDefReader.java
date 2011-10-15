@@ -28,7 +28,7 @@ import com.openappengine.utility.UtilXml;
  * @author hrishi
  *
  */
-public class ProcessDefReader implements IProcessDefReader,IProblemListener {
+public class ProcessDefReader implements IProblemListener {
 	
 	protected ProcessDefinition processDefinition;
 	
