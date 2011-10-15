@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.openappengine.bpm.procreg;
+package com.openappengine.bpm.procrepo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.openappengine.bpm.procmod.ProcessDefinition;
+import com.openappengine.bpm.graph.ProcessDefinition;
 import com.openappengine.utility.UtilString;
 
 /**
@@ -31,11 +31,11 @@ public class ProcessRegistry {
 			return false;
 		}
 		
-		if(UtilString.isEmptyOrBlank(processDefinition.getId())) {
+		if(UtilString.isEmptyOrBlank(processDefinition.getName())) {
 			return false;
 		}
 		
-		processRegistryCache.put(processDefinition.getId(), processDefinition);
+		processRegistryCache.put(processDefinition.getName(), processDefinition);
 		return true;
 	}
 	

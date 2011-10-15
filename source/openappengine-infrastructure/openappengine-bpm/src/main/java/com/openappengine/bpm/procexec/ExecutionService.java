@@ -43,11 +43,11 @@ public interface ExecutionService {
 	/**
 	 * Signal an Event to the Running ProcessInstance.
 	 * @param pid
-	 * @param event
+	 * @param eventName
 	 * @param parameters
 	 * @return {@link ProcessInstance} - Running ProcessInstance
 	 */
-	public ProcessInstance signalProcessInstanceByProcessId(String pid,String event,Map<String,Object> parameters);
+	public ProcessInstance signalProcessInstanceByProcessId(String pid,String eventName,Map<String,Object> parameters);
 
 	/**
 	 * Set variable in the running {@link ProcessInstance}.

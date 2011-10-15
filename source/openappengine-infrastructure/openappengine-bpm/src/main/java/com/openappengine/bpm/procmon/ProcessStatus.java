@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.openappengine.bpm.procmod.State;
-import com.openappengine.bpm.procmod.TriggerEvent;
+import com.openappengine.bpm.event.Event;
+import com.openappengine.bpm.graph.State;
 
 /**
  * @author hrishikesh.joshi
@@ -25,7 +25,7 @@ public class ProcessStatus {
 	/**
 	 *  Events that are queued.
 	 */
-	private List<TriggerEvent> queuedEvents;
+	private List<Event> queuedEvents;
 	
 	/**
 	 *  For a ProcessDefinition in Init State, the Active States and the Queued Events will be empty.
@@ -33,7 +33,7 @@ public class ProcessStatus {
 	 */
 	public ProcessStatus() {
 		activeStates = new HashSet<State>();
-		queuedEvents = new ArrayList<TriggerEvent>();
+		queuedEvents = new ArrayList<Event>();
 	}
 	
 	public Set<? extends State> getActiveStates() {
@@ -44,11 +44,11 @@ public class ProcessStatus {
 		this.activeStates = activeStates;
 	}
 
-	public List<TriggerEvent> getQueuedEvents() {
+	public List<Event> getQueuedEvents() {
 		return queuedEvents;
 	}
 
-	public void setQueuedEvents(List<TriggerEvent> queuedEvents) {
+	public void setQueuedEvents(List<Event> queuedEvents) {
 		this.queuedEvents = queuedEvents;
 	}
 	

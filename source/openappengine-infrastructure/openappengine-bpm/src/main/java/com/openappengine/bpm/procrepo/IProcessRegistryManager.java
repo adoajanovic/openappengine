@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.bpm.procreg;
+package com.openappengine.bpm.procrepo;
 
 import java.io.File;
 
