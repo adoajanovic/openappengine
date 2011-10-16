@@ -3,7 +3,7 @@ package com.openappengine.messages.salesorder;
 
 
 public class CreateSalesOrderRequest {
-	
+	/*
     protected SalesHdr salesHdr;
 
     public SalesHdr getSalesHdr() {
@@ -12,6 +12,6 @@ public class CreateSalesOrderRequest {
 
     public void setSalesHdr(SalesHdr value) {
         this.salesHdr = value;
-    }
+    }*/
 
 }

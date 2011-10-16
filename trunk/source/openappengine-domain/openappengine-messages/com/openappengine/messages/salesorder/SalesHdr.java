@@ -1,11 +1,7 @@
 package com.openappengine.messages.salesorder;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import src.main.java.com.openappengine.messages.salesorder.SalesDet;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 
 public class SalesHdr {
 
