@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import com.openappengine.repository.model.GenericEntity;
+import com.openappengine.repository.entity.GenericEntity;
 
 
 /**

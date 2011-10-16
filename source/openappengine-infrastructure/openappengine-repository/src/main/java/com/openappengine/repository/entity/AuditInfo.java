@@ -1,7 +1,7 @@
 /**
  * 	Audit Class to be Embedded in other entities
  */
-package com.openappengine.repository.model;
+package com.openappengine.repository.entity;
 
 import java.io.Serializable;
 import java.util.Date;
