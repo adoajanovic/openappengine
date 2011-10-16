@@ -131,7 +131,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-aggregate</artifactId>
+			<artifactId>openappengine-model</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<!-- <dependency> <groupId>openapps</groupId> <artifactId>web-dto</artifactId> 

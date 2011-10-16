@@ -5,8 +5,8 @@ package com.openappengine.web.mvc.itemmaster;
 
 import com.openappengine.messages.itemmaster.CreateItemMasterRequest;
 import com.openappengine.messages.itemmaster.ItemMaster;
-import com.openappengine.servicedef.ServiceNames;
 import com.openappengine.web.mvc.BaseWebController;
+import com.openappengine.web.service.ServiceNames;
 
 /**
  * @author hrishi
