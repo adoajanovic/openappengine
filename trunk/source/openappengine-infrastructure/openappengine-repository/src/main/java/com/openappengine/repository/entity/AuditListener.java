@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.repository.model;
+package com.openappengine.repository.entity;
 
 import java.util.Date;
 

@@ -18,7 +18,7 @@
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-		<property name="packagesToScan" value="com.openappengine.domain.model" />
+		<property name="packagesToScan" value="com.openappengine.repository.entity" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
