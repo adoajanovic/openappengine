@@ -5,7 +5,6 @@ package com.openappengine.web.mvc.party;
 
 import com.openappengine.messages.party.CreatePartyRequest;
 import com.openappengine.messages.party.Party;
-import com.openappengine.servicedef.ServiceNames;
 import com.openappengine.web.mvc.BaseWebController;
 
 /**
@@ -27,7 +26,6 @@ public class PartyController extends BaseWebController {
 		
 		CreatePartyRequest createPartyRequest = new CreatePartyRequest();
 		createPartyRequest.setParty(party);
-		callServiceFacade(createPartyRequest, ServiceNames.SERVICE_CREATE_PARTY);
 		return null;
 	}
 
