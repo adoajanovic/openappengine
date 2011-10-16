@@ -15,10 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.openappengine.aggregate.context.AggregateContext;
 import com.openappengine.aggregate.factory.impl.AggregateFactoryNames;
 import com.openappengine.aggregate.factory.impl.ItemMasterAggregateFactory;
-import com.openappengine.domain.model.ItItemMaster;
 import com.openappengine.factory.resolver.GenericAggregateFactoryResolver;
 import com.openappengine.repository.GenericRepository;
 import com.openappengine.repository.context.EntityContext;
+import com.openappengine.repository.entity.ItItemMaster;
 
 /**
  * @author hrishi
