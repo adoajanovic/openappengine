@@ -3,7 +3,7 @@
  */
 package com.openappengine.bpm.procrepo;
 
-import java.io.File;
+import com.openappengine.bpm.graph.ProcessDefinition;
 
 /**
  * @author hrishi
@@ -16,13 +16,15 @@ public interface IProcessRegistryManager {
 	 * @param definitionFiles
 	 * @throws ProcessRegistryException 
 	 */
-	public void loadProcessRegistry(File[] definitionFiles) throws ProcessRegistryException;
+	public void loadProcessRegistry(String[] definitionFiles) throws ProcessRegistryException;
 	
 	/**
 	 * Load the {@link ProcessRegistry} from the given definition file.
 	 * @param definitionFile
 	 * @throws ProcessRegistryException 
 	 */
-	public void loadProcessRegistry(File definitionFile) throws ProcessRegistryException;
+	public void loadProcessRegistry(String definitionFile) throws ProcessRegistryException;
+	
+	public ProcessDefinition getProcessInstanceByProcessId(String processId) throws ProcessRegistryException;
 
 }
