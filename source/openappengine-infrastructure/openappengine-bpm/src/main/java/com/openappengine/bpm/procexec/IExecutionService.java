@@ -14,7 +14,7 @@ import com.openappengine.bpm.procmon.ProcessInstance;
  * @author hrishi
  *
  */
-public interface ExecutionService {
+public interface IExecutionService {
 	
 	/**
 	 * Start the ProcessInstance by its unique ProcessId.
