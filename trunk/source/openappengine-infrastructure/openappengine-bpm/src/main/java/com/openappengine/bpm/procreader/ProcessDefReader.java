@@ -92,7 +92,9 @@ public class ProcessDefReader implements IProblemListener {
 			}
 		}
 		
-		validateProcessDefinition();
+		if(!isValidProcessDefinition()) {
+			throw new ProcessDefinitionException(prettyPrintProblem());
+		}
 		
 		return processDefinition;
 	}
@@ -100,14 +102,26 @@ public class ProcessDefReader implements IProblemListener {
 	/**
 	 * @throws ProcessDefinitionException
 	 */
-	protected void validateProcessDefinition() throws ProcessDefinitionException {
+	public boolean isValidProcessDefinition() {
 		if(!problems.isEmpty()) {
-			StringBuffer probDescs = new StringBuffer(); 
-			for (Problem problem : problems) {
-				probDescs.append("["+ problem.getLevel() + "] : [" +  problem.getDescription() + "]\n");
-			}
-			throw new ProcessDefinitionException(probDescs.toString());
+			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * @return 
+	 * 
+	 */
+	public String prettyPrintProblem() {
+		if(problems.isEmpty()) {
+			return "[ No Problems Found..]";
+		}
+		StringBuffer probDescs = new StringBuffer(); 
+		for (Problem problem : problems) {
+			probDescs.append("["+ problem.getLevel() + "] : [" +  problem.getDescription() + "]\n");
+		}
+		return probDescs.toString();
 	}
 
 	/**
@@ -148,12 +162,13 @@ public class ProcessDefReader implements IProblemListener {
 	 * @param transitionElement
 	 * @return TODO
 	 */
-	public Transition readTransition(Element transitionElement) {
+	public Transition readTransition(Element transitionElement,Node node) {
 		Transition transition = new Transition();
+		
 		String name = transitionElement.getAttribute("name");
 		if (UtilString.isEmptyOrBlank(name)) {
 			this.addProblem(new Problem(
-					"'from' attribute should not be present in the transition element in start-start",
+					"[transition] : attribute name cannot be empty.",
 					Problem.LEVEL_ERROR));
 		}
 		transition.setName(name);
@@ -161,7 +176,7 @@ public class ProcessDefReader implements IProblemListener {
 		String to = transitionElement.getAttribute("to");
 		if (UtilString.isEmptyOrBlank(to)) {
 			this.addProblem(new Problem(
-					"'to' attribute not present on the transition element in start-start",
+					"[transition] : 'to' attribute not present on the transition element.",
 					Problem.LEVEL_ERROR));
 		}
 		transition.setToNode(to);
@@ -258,7 +273,7 @@ public class ProcessDefReader implements IProblemListener {
 				.childElementList(element, "transition");
 		if (transitionElementList != null && !transitionElementList.isEmpty()) {
 			for (Element transitionElement : transitionElementList) {
-				Transition transition = this.readTransition(transitionElement);
+				Transition transition = this.readTransition(transitionElement,node);
 				node.addTransition(transition);
 			}
 		}

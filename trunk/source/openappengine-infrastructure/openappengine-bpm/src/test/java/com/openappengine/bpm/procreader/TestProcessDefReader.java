@@ -16,6 +16,8 @@ import com.openappengine.bpm.graph.ProcessDefinition;
  */
 public class TestProcessDefReader {
 	
+	private ProcessDefReader processDefReader;
+	
 	@Test
 	public void testReadProcessDefinition() throws ProcessDefinitionException {
 		String name = "TestProcessDef.xml";
@@ -30,12 +32,18 @@ public class TestProcessDefReader {
 	 */
 	private ProcessDefinition readProcessDefinition(String name)
 			throws ProcessDefinitionException {
-		ProcessDefReader processDefReader = new ProcessDefReader(getClass().getClassLoader().getResourceAsStream(name));
+		processDefReader = new ProcessDefReader(getClass().getClassLoader().getResourceAsStream(name));
 		ProcessDefinition processDefinition = processDefReader.readProcessDefinition();
 		return processDefinition;
 	}
 	
+	@Test
 	public void testReadProcessDefinitionIncorrectStartState() {
-		
+		try {
+			ProcessDefinition processDefinition = readProcessDefinition("TestProcessDef_IncorrectStartState.xml");
+			Assert.assertNotNull("ProcessDefinition found null..", processDefinition);
+		} catch (ProcessDefinitionException e) {
+			Assert.assertFalse("ProcessDefReader did not catch the incorrect start-state",processDefReader.isValidProcessDefinition());
+		}
 	}
 }
