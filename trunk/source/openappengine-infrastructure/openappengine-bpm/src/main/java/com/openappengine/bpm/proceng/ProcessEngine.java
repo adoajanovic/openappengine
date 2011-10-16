@@ -3,7 +3,7 @@
  */
 package com.openappengine.bpm.proceng;
 
-import com.openappengine.bpm.procexec.ExecutionService;
+import com.openappengine.bpm.procexec.IExecutionService;
 
 /**
  * @author hrishi
@@ -12,24 +12,24 @@ import com.openappengine.bpm.procexec.ExecutionService;
 public class ProcessEngine {
 	
 	/**
-	 *  <code>ExecutionService</code> 
+	 *  <code>IExecutionService</code> 
 	 */
-	private ExecutionService executionService;
+	private IExecutionService iExecutionService;
 	
 	
 
 	/**
-	 * @return the executionService
+	 * @return the iExecutionService
 	 */
-	public ExecutionService getProcessExecutionService() {
-		return executionService;
+	public IExecutionService getProcessExecutionService() {
+		return iExecutionService;
 	}
 
 	/**
-	 * @param executionService the executionService to set
+	 * @param iExecutionService the iExecutionService to set
 	 */
-	public void setProcessExecutionService(ExecutionService executionService) {
-		this.executionService = executionService;
+	public void setProcessExecutionService(IExecutionService iExecutionService) {
+		this.iExecutionService = iExecutionService;
 	}
 
 }
