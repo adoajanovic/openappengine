@@ -120,4 +120,11 @@ public class Node {
 		this.events = events;
 	}
 
+	
+	/**
+	 * @return - Support Event Types
+	 */
+	public String[] supportedEventTypes() {
+		return this.supportedEventTypes;
+	}
 }

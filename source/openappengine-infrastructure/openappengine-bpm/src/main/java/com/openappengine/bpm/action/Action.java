@@ -9,24 +9,15 @@ package com.openappengine.bpm.action;
  */
 public class Action {
 	
-	private String name;
-	
 	private Class<?> src;
 	
 	private boolean async = false;
 	
-	public Action(String name, Class<?> src) {
+	private String name;
+	
+	public Action(Class<?> src) {
 		super();
-		this.name = name;
 		this.src = src;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean isAsync() {
@@ -49,6 +40,20 @@ public class Action {
 	 */
 	public void setSrc(Class<?> src) {
 		this.src = src;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
