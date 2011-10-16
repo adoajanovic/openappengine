@@ -4,7 +4,9 @@
 package com.openappengine.bpm.procrepo;
 
 import java.io.File;
+import java.io.FileInputStream;
 
+import com.openappengine.bpm.graph.ProcessDefinition;
 import com.openappengine.bpm.procreader.ProcessDefReader;
 
 /**
@@ -12,12 +14,6 @@ import com.openappengine.bpm.procreader.ProcessDefReader;
  *
  */
 public class ProcessRegistryManager implements IProcessRegistryManager {
-	
-	//Set from Spring Context.
-	/**
-	 * {@link ProcessDefReader} to read the process registry.
-	 */
-	private ProcessDefReader processDefReader;
 	
 	public ProcessRegistryManager() {
 	}
@@ -39,19 +35,14 @@ public class ProcessRegistryManager implements IProcessRegistryManager {
 	public void loadProcessRegistry(File definitionFile) throws ProcessRegistryException {
 		if(definitionFile!=null && definitionFile.exists()) {
 			try {
-				//TODO
+				ProcessDefReader defReader = new ProcessDefReader(new FileInputStream(definitionFile));
+				ProcessDefinition processDefinition = defReader.readProcessDefinition();
+				ProcessRegistry.registerProcessInstance(processDefinition);
 			} catch (Exception e) {
 				throw new ProcessRegistryException(e);
 			}
 			
 		}
-	}
-
-	/**
-	 * @param processDefReader the processDefReader to set
-	 */
-	public void setProcessDefReader(ProcessDefReader processDefReader) {
-		this.processDefReader = processDefReader;
 	}
 
 }

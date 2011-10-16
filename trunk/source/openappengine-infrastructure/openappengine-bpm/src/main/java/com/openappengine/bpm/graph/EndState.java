@@ -44,7 +44,7 @@ public class EndState extends State implements Parseable{
 		List<? extends Element> eventElementList = UtilXml.childElementList(element,"event");
 		if(eventElementList != null && eventElementList.size() == 1) {
 			Element eventElement = eventElementList.get(0);
-			Event event = processDefReader.readEvent(eventElement);
+			Event event = processDefReader.readEvent(eventElement,this);
 			this.addEvent(event);
 		}
 	}

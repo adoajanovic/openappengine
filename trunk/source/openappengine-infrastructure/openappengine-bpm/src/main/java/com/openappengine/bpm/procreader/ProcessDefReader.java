@@ -5,6 +5,7 @@ package com.openappengine.bpm.procreader;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -90,7 +91,23 @@ public class ProcessDefReader implements IProblemListener {
 				state.read(stateElement, this);
 			}
 		}
+		
+		validateProcessDefinition();
+		
 		return processDefinition;
+	}
+
+	/**
+	 * @throws ProcessDefinitionException
+	 */
+	protected void validateProcessDefinition() throws ProcessDefinitionException {
+		if(!problems.isEmpty()) {
+			StringBuffer probDescs = new StringBuffer(); 
+			for (Problem problem : problems) {
+				probDescs.append("["+ problem.getLevel() + "] : [" +  problem.getDescription() + "]\n");
+			}
+			throw new ProcessDefinitionException(probDescs.toString());
+		}
 	}
 
 	/**
@@ -134,19 +151,12 @@ public class ProcessDefReader implements IProblemListener {
 	public Transition readTransition(Element transitionElement) {
 		Transition transition = new Transition();
 		String name = transitionElement.getAttribute("name");
-		if (!UtilString.isEmptyOrBlank(name)) {
+		if (UtilString.isEmptyOrBlank(name)) {
 			this.addProblem(new Problem(
 					"'from' attribute should not be present in the transition element in start-start",
 					Problem.LEVEL_ERROR));
 		}
 		transition.setName(name);
-		
-		String from = transitionElement.getAttribute("from");
-		if (!UtilString.isEmptyOrBlank(from)) {
-			this.addProblem(new Problem(
-					"'from' attribute should not be present in the transition element in start-start",
-					Problem.LEVEL_ERROR));
-		}
 		
 		String to = transitionElement.getAttribute("to");
 		if (UtilString.isEmptyOrBlank(to)) {
@@ -168,21 +178,32 @@ public class ProcessDefReader implements IProblemListener {
 	 * @param element
 	 * @return {@link Event}
 	 */
-	public Event readEvent(Element element) {
+	public Event readEvent(Element element,Node node) {
 		Event event = new Event();
-		String eventType = element.getAttribute("eventType");
+		String eventType = element.getAttribute("type");
 		if(UtilString.isEmptyOrBlank(eventType)) {
-			addProblem(new Problem("[event] : Attribute eventType cannot be blank.", Problem.LEVEL_ERROR));
+			addProblem(new Problem("[event] : Attribute type cannot be blank.", Problem.LEVEL_ERROR));
 		}
 		
-		event.setEventType(eventType);
-		
-		List<? extends Element> actionElementList = UtilXml.childElementList(element, "action");
-		if(actionElementList != null && !actionElementList.isEmpty()) {
-			for (Element actionElement : actionElementList) {
-				Action action = readActionElement(actionElement);
-				event.addAction(action);
+		if(node.supportedEventTypes() != null && node.supportedEventTypes().length != 0) {
+			List<String> supportedEventTypes = Arrays.asList(node.supportedEventTypes());
+			
+			if(supportedEventTypes.contains(eventType)) {
+				event.setEventType(eventType);
+				
+				List<? extends Element> actionElementList = UtilXml.childElementList(element, "action");
+				if(actionElementList != null && !actionElementList.isEmpty()) {
+					for (Element actionElement : actionElementList) {
+						Action action = readActionElement(actionElement);
+						event.addAction(action);
+					}
+				}
+			} else {
+				addProblem(new Problem("[event] : Unsupported event-type.", Problem.LEVEL_ERROR));	
 			}
+			
+		} else {
+			addProblem(new Problem("[event] : No event-type supported.", Problem.LEVEL_ERROR));
 		}
 		return event;
 	}
@@ -192,10 +213,6 @@ public class ProcessDefReader implements IProblemListener {
 	 * @return {@link Action}
 	 */
 	private Action readActionElement(Element actionElement) {
-		String name = actionElement.getAttribute("name");
-		if(UtilString.isEmptyOrBlank(name)) {
-			addProblem(new Problem("[action] : Attribute name cannot be blank.", Problem.LEVEL_ERROR));
-		}
 		String src = actionElement.getAttribute("src");
 		if(UtilString.isEmptyOrBlank(src)) {
 			addProblem(new Problem("[action] : Attribute src cannot be blank.", Problem.LEVEL_ERROR));
@@ -209,7 +226,12 @@ public class ProcessDefReader implements IProblemListener {
 		} catch (ClassNotFoundException e) {
 			addProblem(new Problem("[action] " + src + " : Could not be instantiated.", Problem.LEVEL_ERROR));
 		}
-		Action action = new Action(name, actionCls);
+		Action action = new Action(actionCls);
+		
+		String name = actionElement.getAttribute("name");
+		if(!UtilString.isEmptyOrBlank(name)) {
+			action.setName(name);
+		}
 		return action;
 	}
 	
@@ -221,10 +243,13 @@ public class ProcessDefReader implements IProblemListener {
 	 */
 	public void readNode(Element element, Node node) {
 		String name = element.getAttribute("name");
-		if (UtilString.isEmptyOrBlank(name)) {
-			this.addProblem(new Problem(
-					"[state] : Attribute name cannot be blank.",
-					Problem.LEVEL_ERROR));
+		
+		if(node instanceof State) {
+			if (UtilString.isEmptyOrBlank(name)) {
+				this.addProblem(new Problem(
+						"[state] : Attribute name cannot be blank.",
+						Problem.LEVEL_ERROR));
+			}
 		}
 		
 		node.setName(name);
@@ -241,7 +266,7 @@ public class ProcessDefReader implements IProblemListener {
 		List<? extends Element> eventElementList = UtilXml.childElementList(
 				element, "event");
 		for (Element eventElement : eventElementList) {
-			Event event = this.readEvent(eventElement);
+			Event event = this.readEvent(eventElement,node);
 			node.addEvent(event);
 		}
 	}
