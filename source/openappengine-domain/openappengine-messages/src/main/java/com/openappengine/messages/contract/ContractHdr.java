@@ -4,7 +4,6 @@
 package com.openappengine.messages.contract;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
