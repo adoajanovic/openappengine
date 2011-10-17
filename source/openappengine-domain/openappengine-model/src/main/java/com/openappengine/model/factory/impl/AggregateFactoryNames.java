@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.aggregate.factory.impl;
+package com.openappengine.model.factory.impl;
 
 /**
  * @author hrishikesh.joshi

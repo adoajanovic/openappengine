@@ -1,7 +1,7 @@
 /**
  *  Item Master Aggregate Factory
  */
-package com.openappengine.aggregate.factory.impl;
+package com.openappengine.model.factory.impl;
 
 import java.math.BigDecimal;
 
