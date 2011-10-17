@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		
+	<bean id="aggregateContext" class="com.openappengine.model.context.AggregateContext"></bean>	
+	
+	<!-- Aggregate Factories -->
+	<bean id="itemMasterAggregateFactory" class="com.openappengine.model.factory.impl.ItemMasterAggregateFactory" scope="singleton" />
+	
+	<!-- Aggregate Factory Beans -->
+	
+	<bean id="aggregateFactoryMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="itemMasterAggregateFactory" value-ref="itemMasterAggregateFactory"></entry>
+				<!-- Add Entries for Aggregate Factories Here -->
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<!-- Aggregate Factory Resolver -->
+	<bean id="genericAggregateFactoryResolver" class="com.openappengine.factory.resolver.GenericAggregateFactoryResolver" scope="singleton">
+		<constructor-arg ref="aggregateFactoryMap" />
+	</bean>
+	
+</beans>
