@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.aggregate.context;
+package com.openappengine.model.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

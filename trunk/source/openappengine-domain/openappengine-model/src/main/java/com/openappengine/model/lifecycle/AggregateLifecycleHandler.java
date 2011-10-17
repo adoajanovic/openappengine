@@ -1,4 +1,4 @@
-package com.openappengine.aggregate.lifecycle;
+package com.openappengine.model.lifecycle;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
