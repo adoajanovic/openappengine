@@ -1,6 +1,7 @@
 package com.openappengine.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,17 @@ public class ContractHdr implements Serializable {
 
 	private Date startDate;
 
-	private List<ContractDet> contractDets;
+	private List<ContractDet> contractDets = new ArrayList<ContractDet>();
 
 	private Party party;
+	
+	public boolean addContractDetLineItem(ContractDet contractDet) {
+		if(contractDet == null) {
+			return false;
+		}
+		
+		return contractDets.add(contractDet);
+	}
     
     public ContractHdr() {
     }
