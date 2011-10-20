@@ -1,4 +1,4 @@
-package com.openappengine.model;
+package com.openappengine.model.inventory;
 
 import java.io.Serializable;
 import java.util.Date;

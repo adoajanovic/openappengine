@@ -1,9 +1,11 @@
-package com.openappengine.model;
+package com.openappengine.model.contract;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.openappengine.model.party.Party;
 
 
 public class ContractHdr implements Serializable {

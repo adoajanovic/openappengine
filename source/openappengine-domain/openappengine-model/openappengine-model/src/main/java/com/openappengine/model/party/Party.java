@@ -1,7 +1,9 @@
-package com.openappengine.model;
+package com.openappengine.model.party;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.openappengine.model.contract.ContractHdr;
 
 
 public class Party implements Serializable {
