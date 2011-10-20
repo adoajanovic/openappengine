@@ -1,8 +1,10 @@
-package com.openappengine.model;
+package com.openappengine.model.salesorder;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import com.openappengine.model.party.Party;
 
 public class SalesHdr  implements Serializable {
 
@@ -38,7 +40,7 @@ public class SalesHdr  implements Serializable {
 
 	private Double totWeight;
 
-	private List<SoSalesDet> soSalesDets;
+	private List<SalesDet> salesDets;
 
 	private Party party;
 
@@ -165,12 +167,12 @@ public class SalesHdr  implements Serializable {
 		this.totWeight = totWeight;
 	}
 
-	public List<SoSalesDet> getSoSalesDets() {
-		return soSalesDets;
+	public List<SalesDet> getSoSalesDets() {
+		return salesDets;
 	}
 
-	public void setSoSalesDets(List<SoSalesDet> soSalesDets) {
-		this.soSalesDets = soSalesDets;
+	public void setSoSalesDets(List<SalesDet> salesDets) {
+		this.salesDets = salesDets;
 	}
 
 	public Party getParty() {

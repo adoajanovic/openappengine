@@ -1,4 +1,4 @@
-package com.openappengine.model;
+package com.openappengine.model.contract;
 
 import java.io.Serializable;
 

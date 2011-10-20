@@ -1,9 +1,11 @@
-package com.openappengine.model;
+package com.openappengine.model.salesorder;
 
 import java.io.Serializable;
 
+import com.openappengine.model.itemmaster.ItemMaster;
 
-public class SoSalesDet implements Serializable {
+
+public class SalesDet implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +35,7 @@ public class SoSalesDet implements Serializable {
 
 	private SalesHdr salesHdr;
 
-    public SoSalesDet() {
+    public SalesDet() {
     }
 
 	public int getSalesDetId() {
