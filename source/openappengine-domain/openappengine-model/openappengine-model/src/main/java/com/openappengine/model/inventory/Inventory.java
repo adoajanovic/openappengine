@@ -1,13 +1,14 @@
 package com.openappengine.model.inventory;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class InventoryMaster implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+import com.openappengine.model.entity.Entity;
+import com.openappengine.model.entity.Identity;
 
-	private int inventoryMasterId;
+public class Inventory implements Entity<Inventory, Integer> {
+
+	@Identity
+	private int inventoryId;
 
 	private Date dateLr;
 
@@ -27,15 +28,15 @@ public class InventoryMaster implements Serializable {
 
 	private String uom;
 
-    public InventoryMaster() {
+    public Inventory() {
     }
 
-	public int getInventoryMasterId() {
-		return inventoryMasterId;
+	public int getInventoryId() {
+		return inventoryId;
 	}
 
-	public void setInventoryMasterId(int inventoryMasterId) {
-		this.inventoryMasterId = inventoryMasterId;
+	public void setInventoryId(int inventoryId) {
+		this.inventoryId = inventoryId;
 	}
 
 	public Date getDateLr() {
@@ -109,5 +110,14 @@ public class InventoryMaster implements Serializable {
 	public void setUom(String uom) {
 		this.uom = uom;
 	}
-    
+
+	@Override
+	public boolean sameIdentityAs(Inventory other) {
+		return false;
+	}
+
+	@Override
+	public Integer identity() {
+		return inventoryId;
+	}
 }

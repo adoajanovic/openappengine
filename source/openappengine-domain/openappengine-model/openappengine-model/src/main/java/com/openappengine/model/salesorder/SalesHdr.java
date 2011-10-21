@@ -1,14 +1,12 @@
 package com.openappengine.model.salesorder;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.openappengine.model.entity.Entity;
 import com.openappengine.model.party.Party;
 
-public class SalesHdr  implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class SalesHdr implements Entity<SalesHdr, Integer> {
 
 	private int salesId;
 
@@ -181,6 +179,63 @@ public class SalesHdr  implements Serializable {
 
 	public void setParty(Party party) {
 		this.party = party;
+	}
+
+	@Override
+	public boolean sameIdentityAs(SalesHdr other) {
+		return this.equals(other);
+	}
+
+	@Override
+	public Integer identity() {
+		return salesId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ordDate == null) ? 0 : ordDate.hashCode());
+		result = prime * result + ((ordtype == null) ? 0 : ordtype.hashCode());
+		result = prime * result + ((party == null) ? 0 : party.hashCode());
+		result = prime * result
+				+ ((salesDets == null) ? 0 : salesDets.hashCode());
+		result = prime * result + salesId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SalesHdr other = (SalesHdr) obj;
+		if (ordDate == null) {
+			if (other.ordDate != null)
+				return false;
+		} else if (!ordDate.equals(other.ordDate))
+			return false;
+		if (ordtype == null) {
+			if (other.ordtype != null)
+				return false;
+		} else if (!ordtype.equals(other.ordtype))
+			return false;
+		if (party == null) {
+			if (other.party != null)
+				return false;
+		} else if (!party.equals(other.party))
+			return false;
+		if (salesDets == null) {
+			if (other.salesDets != null)
+				return false;
+		} else if (!salesDets.equals(other.salesDets))
+			return false;
+		if (salesId != other.salesId)
+			return false;
+		return true;
 	}
     
 }
