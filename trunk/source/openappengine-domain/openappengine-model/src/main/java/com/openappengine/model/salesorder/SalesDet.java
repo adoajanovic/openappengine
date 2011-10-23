@@ -1,39 +1,68 @@
 package com.openappengine.model.salesorder;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.openappengine.model.itemmaster.Item;
 import com.openappengine.model.valueobject.ValueObject;
+import com.openappengine.repository.entity.SoSalesHdr;
 
-
+@Entity
+@Table(name="SO_SALES_DET")
 public class SalesDet implements ValueObject<SalesDet> {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="SO_DET_ID",nullable=false)
 	private int salesDetId;
 	
-	private Double cost;
+	@Column(name="SO_COST", precision=10, scale=2)
+	private BigDecimal cost;
 
-	private Double discount;
+	@Column(name="SO_DISCOUNT", precision=10, scale=2)
+	private BigDecimal discount;
 
+	@Column(name="SO_LINE_NO", nullable=false)
 	private int lineNo;
 
+	@Column(name="SO_LOCATION", nullable=true, length=255)
 	private String location;
 
+	@Column(name="SO_LOT_NO", nullable=true, length=255)
 	private String lotNo;
 
+	@Column(name="SO_ORD_TYPE", nullable=false, length=10)
 	private String ordType;
 
-	private Double price;
+	@Column(name="SO_PRICE", precision=10, scale=2)
+	private BigDecimal price;
 
-	private Double qtyOrd;
+	@Column(name="SO_QTY_ORD", precision=10, scale=2)
+	private BigDecimal qtyOrd;
 
+	@Column(name="SO_UOM", nullable=false, length=5)
 	private String uom;
 
-	private Double weight;
+	@Column(name="SO_WEIGHT", precision=10, scale=2)
+	private BigDecimal weight;
 
-	private Item item;
+	@Column(name="SO_ITEM_ID", nullable=false)
+	private int itemMasterId;
 
+	//bi-directional many-to-one association to SoSalesHdr
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="SO_SALES_ID", nullable=false)
 	private SalesHdr salesHdr;
-
+	
     public SalesDet() {
     }
 
@@ -43,22 +72,6 @@ public class SalesDet implements ValueObject<SalesDet> {
 
 	public void setSalesDetId(int salesDetId) {
 		this.salesDetId = salesDetId;
-	}
-
-	public Double getCost() {
-		return cost;
-	}
-
-	public void setCost(Double cost) {
-		this.cost = cost;
-	}
-
-	public Double getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Double discount) {
-		this.discount = discount;
 	}
 
 	public int getLineNo() {
@@ -93,22 +106,6 @@ public class SalesDet implements ValueObject<SalesDet> {
 		this.ordType = ordType;
 	}
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Double getQtyOrd() {
-		return qtyOrd;
-	}
-
-	public void setQtyOrd(Double qtyOrd) {
-		this.qtyOrd = qtyOrd;
-	}
-
 	public String getUom() {
 		return uom;
 	}
@@ -117,31 +114,6 @@ public class SalesDet implements ValueObject<SalesDet> {
 		this.uom = uom;
 	}
 
-	public Double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
-
-	public Item getItemMaster() {
-		return item;
-	}
-
-	public void setItemMaster(Item item) {
-		this.item = item;
-	}
-
-	public SalesHdr getSalesHdr() {
-		return salesHdr;
-	}
-
-	public void setSalesHdr(SalesHdr salesHdr) {
-		this.salesHdr = salesHdr;
-	}
-
-	@Override
 	public boolean sameValueAs(SalesDet other) {
 		return this.equals(other);
 	}
@@ -153,7 +125,7 @@ public class SalesDet implements ValueObject<SalesDet> {
 		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
 		result = prime * result
 				+ ((discount == null) ? 0 : discount.hashCode());
-		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		result = prime * result + itemMasterId;
 		result = prime * result + lineNo;
 		result = prime * result
 				+ ((location == null) ? 0 : location.hashCode());
@@ -161,8 +133,6 @@ public class SalesDet implements ValueObject<SalesDet> {
 		result = prime * result + ((ordType == null) ? 0 : ordType.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((qtyOrd == null) ? 0 : qtyOrd.hashCode());
-		result = prime * result
-				+ ((salesHdr == null) ? 0 : salesHdr.hashCode());
 		result = prime * result + ((uom == null) ? 0 : uom.hashCode());
 		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
 		return result;
@@ -187,10 +157,7 @@ public class SalesDet implements ValueObject<SalesDet> {
 				return false;
 		} else if (!discount.equals(other.discount))
 			return false;
-		if (item == null) {
-			if (other.item != null)
-				return false;
-		} else if (!item.equals(other.item))
+		if (itemMasterId != other.itemMasterId)
 			return false;
 		if (lineNo != other.lineNo)
 			return false;
@@ -219,11 +186,6 @@ public class SalesDet implements ValueObject<SalesDet> {
 				return false;
 		} else if (!qtyOrd.equals(other.qtyOrd))
 			return false;
-		if (salesHdr == null) {
-			if (other.salesHdr != null)
-				return false;
-		} else if (!salesHdr.equals(other.salesHdr))
-			return false;
 		if (uom == null) {
 			if (other.uom != null)
 				return false;
@@ -235,5 +197,13 @@ public class SalesDet implements ValueObject<SalesDet> {
 		} else if (!weight.equals(other.weight))
 			return false;
 		return true;
+	}
+
+	public SalesHdr getSalesHdr() {
+		return salesHdr;
+	}
+
+	public void setSalesHdr(SalesHdr salesHdr) {
+		this.salesHdr = salesHdr;
 	}
 }

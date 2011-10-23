@@ -1,31 +1,53 @@
 package com.openappengine.model.inventory;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-import com.openappengine.model.entity.Entity;
-import com.openappengine.model.entity.Identity;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import com.openappengine.model.entity.Entity;
+
+@javax.persistence.Entity
+@Table(name="IN_INVENTORY_MASTER")
 public class Inventory implements Entity<Inventory, Integer> {
 
-	@Identity
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="IM_INVENTORY_MASTER_ID")
 	private int inventoryId;
 
+	@Temporal( TemporalType.TIMESTAMP)
+	@Column(name="IM_DATE_LR")
 	private Date dateLr;
 
+	@Column(name="IM_ITEM_ID")
 	private int itemId;
 
+	@Column(name="IM_LOCATION")
 	private String location;
 
+	@Column(name="IM_LOT_NO")
 	private String lotNo;
 
-	private Double qtyAv;
+	@Column(name="IM_QTY_AV")
+	private BigDecimal qtyAv;
 
-	private Double qtyCm;
+	@Column(name="IM_QTY_CM")
+	private BigDecimal qtyCm;
 
-	private Double qtyPo;
+	@Column(name="IM_QTY_PO")
+	private BigDecimal qtyPo;
 
+	@Column(name="IM_STATUS")
 	private String status;
 
+	@Column(name="IM_UOM")
 	private String uom;
 
     public Inventory() {
@@ -71,27 +93,27 @@ public class Inventory implements Entity<Inventory, Integer> {
 		this.lotNo = lotNo;
 	}
 
-	public Double getQtyAv() {
+	public BigDecimal getQtyAv() {
 		return qtyAv;
 	}
 
-	public void setQtyAv(Double qtyAv) {
+	public void setQtyAv(BigDecimal qtyAv) {
 		this.qtyAv = qtyAv;
 	}
 
-	public Double getQtyCm() {
+	public BigDecimal getQtyCm() {
 		return qtyCm;
 	}
 
-	public void setQtyCm(Double qtyCm) {
+	public void setQtyCm(BigDecimal qtyCm) {
 		this.qtyCm = qtyCm;
 	}
 
-	public Double getQtyPo() {
+	public BigDecimal getQtyPo() {
 		return qtyPo;
 	}
 
-	public void setQtyPo(Double qtyPo) {
+	public void setQtyPo(BigDecimal qtyPo) {
 		this.qtyPo = qtyPo;
 	}
 
@@ -110,13 +132,13 @@ public class Inventory implements Entity<Inventory, Integer> {
 	public void setUom(String uom) {
 		this.uom = uom;
 	}
+	
+	public void doNothing(){}
 
-	@Override
 	public boolean sameIdentityAs(Inventory other) {
 		return false;
 	}
 
-	@Override
 	public Integer identity() {
 		return inventoryId;
 	}

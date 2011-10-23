@@ -62,7 +62,6 @@ public class ServiceContext implements ApplicationContextAware {
 	/* (non-Javadoc)
 	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
 	 */
-	@Override
 	public void setApplicationContext(ApplicationContext context)
 			throws BeansException {
 		ServiceContext.serviceContextProvider = new ServiceContextProvider(context);

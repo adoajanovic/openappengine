@@ -3,34 +3,23 @@
  */
 package com.openappengine.repository;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.springframework.orm.hibernate3.HibernateTemplate;
-
-import com.openappengine.repository.entity.GenericEntity;
 
 
 /**
  * @author hrishi
  *
  */
-public class GenericRepository {
+public class GenericRepository<T> {
 	
-	private HibernateTemplate hibernateTemplate;
-	
-	public GenericEntity save(GenericEntity genericEntity) {
-		Serializable save = hibernateTemplate.save(genericEntity);
-		return genericEntity;
-	}
-	
-	public List<GenericEntity> findByNamedParam(String queryString, String paramName, Object value) {
-		List list = hibernateTemplate.findByNamedParam(queryString, paramName, value);
-		return list;
-	}
+	protected HibernateTemplate hibernateTemplate;
 	
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
+	}
+	
+	public void store(T t) {
+		hibernateTemplate.save(t);
 	}
 	
 }

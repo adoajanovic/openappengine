@@ -7,9 +7,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.openappengine</groupId>
 	<artifactId>openappengine-utility</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>openappengine-utility</name>
 	<description>openappengine-utility</description>
 	<dependencies>

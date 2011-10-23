@@ -2,28 +2,43 @@ package com.openappengine.model.party;
 
 import java.util.List;
 
-import com.openappengine.model.contract.ContractHdr;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.openappengine.model.entity.Entity;
-import com.openappengine.model.entity.Identity;
 
-
+@javax.persistence.Entity
+@Table(name="PM_PARTY")
 public class Party implements Entity<Party, Integer> {
 
-	@Identity
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="PM_PARTY_ID", unique=true, nullable=false)
 	private int partyId;
 
+	@Lob()
+	@Column(name="PM_DESCRIPTION")
 	private String description;
 
+	@Column(name="PM_EXTERNAL_ID", length=20)
 	private String externalId;
 
+	@Column(name="PM_PARTY_TYPE", nullable=false, length=100)
 	private String partyType;
 
+	@Column(name="PM_PREFERRED_CURRENCY_UOM", length=5)
 	private String preferredCurrencyUom;
 
+	@Column(name="PM_STATUS",nullable=false, length=50)
 	private String status;
 
-	private List<ContractHdr> contractHdrs;
-
+	//bi-directional many-to-one association to CnContractHdr
+	@OneToMany(mappedBy="party")
 	private List<PartyContactMech> partyContactMeches;
 
     public Party() {
@@ -77,30 +92,12 @@ public class Party implements Entity<Party, Integer> {
 		this.status = status;
 	}
 
-	public List<ContractHdr> getContractHdrs() {
-		return contractHdrs;
-	}
-
-	public void setContractHdrs(List<ContractHdr> contractHdrs) {
-		this.contractHdrs = contractHdrs;
-	}
-
 	public List<PartyContactMech> getPartyContactMeches() {
 		return partyContactMeches;
 	}
 
 	public void setPartyContactMeches(List<PartyContactMech> partyContactMeches) {
 		this.partyContactMeches = partyContactMeches;
-	}
-
-	@Override
-	public boolean sameIdentityAs(Party other) {
-		return this.sameIdentityAs(other);
-	}
-
-	@Override
-	public Integer identity() {
-		return partyId;
 	}
 
 	@Override
@@ -159,6 +156,14 @@ public class Party implements Entity<Party, Integer> {
 		} else if (!status.equals(other.status))
 			return false;
 		return true;
+	}
+
+	public boolean sameIdentityAs(Party other) {
+		return this.equals(other);
+	}
+
+	public Integer identity() {
+		return partyId;
 	}
 
 }

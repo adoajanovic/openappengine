@@ -5,18 +5,9 @@
 		startup-method="startup" shutdown-method="shutdown">
 	</component>
 
-	<component id="oxm"
-		eventHandler="com.openappengine.oxm.lifecycle.OxmLifecycleHandler"
+	<component id="model"
+		eventHandler="com.openappengine.model.lifecycle.ModelLifecycleHandler"
 		startup-method="startup" shutdown-method="shutdown">
-	</component>
-
-	<component id="serviceengine"
-		eventHandler="com.openappengine.serviceengine.lifecycle.ServiceEngineLifecycleHandler"
-		startup-method="startup" shutdown-method="shutdown">
-	</component>
-
-	<component id="aggregate"
-		eventHandler="com.openappengine.aggregate.lifecycle.AggregateLifecycleHandler"
-		startup-method="startup" shutdown-method="shutdown">
-	</component>
+	</component> 
+	
 </lifecycle>
