@@ -6,9 +6,7 @@
 		<groupId>com.openappengine</groupId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.openappengine</groupId>
 	<artifactId>openappengine-model</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>openappengine-model</name>
 	<description>openappengine-model</description>
 	<dependencies>

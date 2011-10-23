@@ -1,46 +1,82 @@
 package com.openappengine.model.salesorder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.openappengine.model.entity.Entity;
 import com.openappengine.model.party.Party;
 
+@javax.persistence.Entity
+@Table(name="so_sales_hdr")
 public class SalesHdr implements Entity<SalesHdr, Integer> {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="SO_SALES_ID", unique=true, nullable=false)
 	private int salesId;
 
+	@Temporal( TemporalType.TIMESTAMP)
+	@Column(name="SO_CAN_DATE")
 	private Date canDate;
 
+	@Column(name="SO_CARRIER", nullable=true, length=15)
 	private String carrier;
 
+	@Column(name="SO_CUR_CODE", nullable=false, length=5)
 	private String curCode;
 
+	@Column(name="SO_MODE_PAY", nullable=true, length=5)
 	private String modePay;
 
+	@Temporal( TemporalType.TIMESTAMP)
+	@Column(name="SO_ORD_DATE", nullable=false)
 	private Date ordDate;
 
+	@Column(name="SO_ORD_TYPE", nullable=false, length=10)
 	private String ordtype;
 
+	@Column(name="SO_SHIP_CHARGES", precision=10, scale=2)
 	private Double shipCharges;
 
+	@Temporal( TemporalType.TIMESTAMP)
+	@Column(name="SO_SHIP_DATE")
 	private Date shipDate;
 
+	@Column(name="SO_SHIP_TYPE", nullable=true, length=5)
 	private String shipType;
 
+	@Column(name="SO_STATUS", nullable=false, length=5)
 	private String status;
 
+	@Column(name="SO_TOT_AMT", precision=10, scale=2)
 	private Double totAmt;
 
+	@Column(name="SO_TOT_QTY", precision=10, scale=2)
 	private Double totQty;
 
+	@Column(name="SO_TOT_TAX", precision=10, scale=2)
 	private Double totTax;
 
+	@Column(name="SO_TOT_WEIGHT", precision=10, scale=2)
 	private Double totWeight;
 
-	private List<SalesDet> salesDets;
+	//bi-directional many-to-one association to SoSalesDet
+	@OneToMany(mappedBy="salesHdr",cascade=CascadeType.ALL)
+	private List<SalesDet> salesDetLineItems = new ArrayList<SalesDet>();
 
-	private Party party;
+	@Column(name="SO_PARTY_ID", nullable=false, length=5)
+	private int partyId;
 
     public SalesHdr() {
     }
@@ -164,29 +200,30 @@ public class SalesHdr implements Entity<SalesHdr, Integer> {
 	public void setTotWeight(Double totWeight) {
 		this.totWeight = totWeight;
 	}
+	
+	/**
+	 * Add a new line item to the Sales Order.
+	 * @param det
+	 */
+	public void addLineItem(SalesDet det) {
+		if(det == null) {
+			return;
+		}
+		salesDetLineItems.add(det);
+	}
 
 	public List<SalesDet> getSoSalesDets() {
-		return salesDets;
+		return salesDetLineItems;
 	}
 
 	public void setSoSalesDets(List<SalesDet> salesDets) {
-		this.salesDets = salesDets;
+		this.salesDetLineItems = salesDets;
 	}
 
-	public Party getParty() {
-		return party;
-	}
-
-	public void setParty(Party party) {
-		this.party = party;
-	}
-
-	@Override
 	public boolean sameIdentityAs(SalesHdr other) {
 		return this.equals(other);
 	}
 
-	@Override
 	public Integer identity() {
 		return salesId;
 	}
@@ -197,9 +234,9 @@ public class SalesHdr implements Entity<SalesHdr, Integer> {
 		int result = 1;
 		result = prime * result + ((ordDate == null) ? 0 : ordDate.hashCode());
 		result = prime * result + ((ordtype == null) ? 0 : ordtype.hashCode());
-		result = prime * result + ((party == null) ? 0 : party.hashCode());
+		result = prime * result + partyId;
 		result = prime * result
-				+ ((salesDets == null) ? 0 : salesDets.hashCode());
+				+ ((salesDetLineItems == null) ? 0 : salesDetLineItems.hashCode());
 		result = prime * result + salesId;
 		return result;
 	}
@@ -223,15 +260,12 @@ public class SalesHdr implements Entity<SalesHdr, Integer> {
 				return false;
 		} else if (!ordtype.equals(other.ordtype))
 			return false;
-		if (party == null) {
-			if (other.party != null)
-				return false;
-		} else if (!party.equals(other.party))
+		if (partyId != other.partyId)
 			return false;
-		if (salesDets == null) {
-			if (other.salesDets != null)
+		if (salesDetLineItems == null) {
+			if (other.salesDetLineItems != null)
 				return false;
-		} else if (!salesDets.equals(other.salesDets))
+		} else if (!salesDetLineItems.equals(other.salesDetLineItems))
 			return false;
 		if (salesId != other.salesId)
 			return false;

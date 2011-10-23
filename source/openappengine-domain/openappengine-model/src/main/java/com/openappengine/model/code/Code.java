@@ -1,20 +1,34 @@
 package com.openappengine.model.code;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.openappengine.model.valueobject.ValueObject;
 
-
+@Entity
+@Table(name="CO_CODE_MASTER")
 public class Code implements ValueObject<Code> {
 	
-	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="CM_CODE_MASTER_ID")
 	private int codeId;
 	
+	@Column(name="CM_CODE_LABEL", nullable=false, length=15)
 	private String codeLabel;
 	
+	@Column(name="CM_CODE_VALUE", nullable=false, length=15)
 	private String codeValue;
 	
+	//bi-directional many-to-one association to CoCodeType
+    @ManyToOne
+	@JoinColumn(name="CM_CODE_TYPE_ID", nullable=false)
 	private CodeType codeType;
 	
 	public int getCodeId() {
@@ -85,7 +99,6 @@ public class Code implements ValueObject<Code> {
 		return true;
 	}
 
-	@Override
 	public boolean sameValueAs(Code other) {
 		return this.equals(other);
 	}

@@ -1,12 +1,36 @@
 package com.openappengine.model.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.openappengine.model.valueobject.ValueObject;
 
+@Entity
+@Embeddable
+@Table(name="CO_CODE_TYPE")
 public class CodeType implements ValueObject<CodeType> {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="CT_CODE_TYPE_ID", unique=true, nullable=false)
 	private int codeTypeId;
 
+	@Column(name="CT_CODE_TYPE_VALUE", nullable=false, length=15)
 	private String codeTypeValue;
+	
+	//bi-directional many-to-one association to SoSalesDet
+	@OneToMany(mappedBy="codeType",cascade=CascadeType.ALL)
+	private List<Code> codes = new ArrayList<Code>();
 
     public CodeType() {
     }
@@ -27,7 +51,6 @@ public class CodeType implements ValueObject<CodeType> {
 		this.codeTypeValue = codeTypeValue;
 	}
 
-	@Override
 	public boolean sameValueAs(CodeType other) {
 		return other != null && this.equals(other);
 	}
@@ -56,6 +79,22 @@ public class CodeType implements ValueObject<CodeType> {
 		} else if (!codeTypeValue.equals(other.codeTypeValue))
 			return false;
 		return true;
+	}
+
+	public List<Code> getCodes() {
+		return codes;
+	}
+
+	public void setCodes(List<Code> codes) {
+		this.codes = codes;
+	}
+	
+	public void addCode(Code code) {
+		if(code == null) {
+			return;
+		}
+		
+		this.addCode(code);
 	}
 	
 }

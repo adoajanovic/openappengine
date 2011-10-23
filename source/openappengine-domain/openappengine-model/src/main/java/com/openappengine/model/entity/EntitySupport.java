@@ -10,12 +10,10 @@ public abstract class EntitySupport<T extends Entity, ID> implements Entity<T, I
 
     private static Field identityField;
 
-    @Override
     public final boolean sameIdentityAs(final T other) {
         return other != null && this.identity().equals(other.identity());
     }
 
-    @Override
     public final ID identity() {
         if (identityField == null) {
             identityField = identityFieldLazyDetermination(this.getClass());

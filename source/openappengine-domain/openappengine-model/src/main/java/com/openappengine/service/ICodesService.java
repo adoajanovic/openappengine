@@ -22,7 +22,7 @@ public interface ICodesService {
 	 * @param codeType
 	 * @return {@link List}<{@link Code}>
 	 */
-	public List<Code> getCodeMasterByCodeType(String codeType);
+	public List<Code> getCodesByCodeType(String codeType);
 	
 	/**
 	 *  Add {@link CodeType}

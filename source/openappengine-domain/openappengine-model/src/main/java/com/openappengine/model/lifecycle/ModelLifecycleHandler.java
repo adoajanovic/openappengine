@@ -6,9 +6,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author hrishi
  * 
  */
-public class AggregateLifecycleHandler {
+public class ModelLifecycleHandler {
 
-	private static final String AGGREGATE_CONTEXT_LOCATION = "aggregate-context.xml";
+	private static final String AGGREGATE_CONTEXT_LOCATION = "model-context.xml";
 
 	public void startup() {
 		new ClassPathXmlApplicationContext(AGGREGATE_CONTEXT_LOCATION);
