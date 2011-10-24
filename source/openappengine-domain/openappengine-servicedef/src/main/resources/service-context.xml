@@ -4,14 +4,19 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-		
-	<bean id="modelContext" class="com.openappengine.model.context.ModelContext"></bean>	
+	
+	<import resource="repository-context.xml"/>
+	
+	<bean id="serviceContext" class="com.openappengine.service.context.ServiceContext"></bean>	
 	
 	<!-- Model Repository -->	
-	<bean id="codeRepository" class="com.openappengine.repository.CodeRepository" scope="singleton"></bean>
+	<bean id="codeRepository" class="com.openappengine.repository.CodeRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
 	
-	<bean id="salesOrderRepository" class="com.openappengine.repository.SalesOrderRepository" scope="singleton"></bean>
-	
+	<bean id="salesOrderRepository" class="com.openappengine.repository.SalesOrderRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
 	
 	<!-- Model Service -->
 	<bean id="codeService" class="com.openappengine.service.impl.CodeServiceImpl" >
@@ -20,6 +25,9 @@
 	
 	<bean id="salesOrderService" class="com.openappengine.service.impl.SalesOrderServiceImpl" >
 		<property name="salesOrderRepository" ref="salesOrderRepository"></property>
+	</bean>
+	
+	<bean id="partyManagerService" class="com.openappengine.service.impl.PartyManagerServiceImpl">
 	</bean>
 	
 </beans>

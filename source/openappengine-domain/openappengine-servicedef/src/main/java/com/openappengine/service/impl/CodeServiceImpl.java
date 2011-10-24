@@ -14,7 +14,7 @@ import com.openappengine.service.ICodesService;
  * @author hrishi
  *
  */
-public class CodeServiceImpl implements ICodesService {
+public class CodeServiceImpl extends ModelService implements ICodesService {
 
 	private CodeRepository codeRepository;
 	

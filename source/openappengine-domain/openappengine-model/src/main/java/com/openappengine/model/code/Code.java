@@ -20,10 +20,10 @@ public class Code implements ValueObject<Code> {
 	@Column(name="CM_CODE_MASTER_ID")
 	private int codeId;
 	
-	@Column(name="CM_CODE_LABEL", nullable=false, length=15)
+	@Column(name="CM_CODE_LABEL", nullable=false, length=100)
 	private String codeLabel;
 	
-	@Column(name="CM_CODE_VALUE", nullable=false, length=15)
+	@Column(name="CM_CODE_VALUE", nullable=false, length=100)
 	private String codeValue;
 	
 	//bi-directional many-to-one association to CoCodeType
@@ -65,6 +65,12 @@ public class Code implements ValueObject<Code> {
 
     public Code() {
     }
+
+	public Code(String codeLabel, String codeValue) {
+		super();
+		this.codeLabel = codeLabel;
+		this.codeValue = codeValue;
+	}
 
 	@Override
 	public int hashCode() {

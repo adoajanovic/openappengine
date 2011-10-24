@@ -20,25 +20,25 @@ public class Item implements ValueObject<Item> {
 	@Column(name="ITEM_ID", unique=true, nullable=false)
 	private int itemId;
 
-	@Column(name="IT_CAT01", nullable=true, length=15)
+	@Column(name="IT_CAT01", nullable=true, length=50)
 	private String cat01;
 
-	@Column(name="IT_CAT02", nullable=true, length=15)
+	@Column(name="IT_CAT02", nullable=true, length=50)
 	private String cat02;
 
-	@Column(name="IT_CAT03", nullable=true, length=15)
+	@Column(name="IT_CAT03", nullable=true, length=50)
 	private String cat03;
 
-	@Column(name="IT_CAT04", nullable=true, length=15)
+	@Column(name="IT_CAT04", nullable=true, length=50)
 	private String cat04;
 
-	@Column(name="IT_CAT05", nullable=true, length=15)
+	@Column(name="IT_CAT05", nullable=true, length=50)
 	private String cat05;
 	
 	@Column(name="IT_COST", precision=10, scale=2)
 	private BigDecimal cost;
 
-	@Column(name="IT_CURCODE", nullable=false, length=5)
+	@Column(name="IT_CURCODE", nullable=false, length=50)
 	private String curcode;
 
 	@Column(name="IT_DESCRIPTION", nullable=false, length=255)
@@ -56,13 +56,13 @@ public class Item implements ValueObject<Item> {
 	@Column(name="IT_SHIP_CHARGES", precision=10, scale=2)
 	private BigDecimal shipCharges;
 
-	@Column(name="IT_STATUS", nullable=false, length=5)
+	@Column(name="IT_STATUS", nullable=false, length=50)
 	private String status;
 
-	@Column(name="IT_TYPE", nullable=false, length=5)
+	@Column(name="IT_TYPE", nullable=false, length=50)
 	private String type;
 
-	@Column(name="IT_UOM", nullable=false, length=5)
+	@Column(name="IT_UOM", nullable=false, length=50)
 	private String uom;
 
 	@Column(name="IT_WEIGHT", precision=10, scale=2)

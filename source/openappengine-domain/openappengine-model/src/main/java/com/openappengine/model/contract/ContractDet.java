@@ -47,7 +47,7 @@ public class ContractDet implements Serializable {
 	@Column(name="CN_QTY_ORD", precision=10, scale=2)
 	private BigDecimal qtyOrd;
 
-	@Column(name="CN_UOM", nullable=false, length=5)
+	@Column(name="CN_UOM", nullable=false, length=50)
 	private String uom;
 
 	@Column(name="CN_WEIGHT", precision=10, scale=2)

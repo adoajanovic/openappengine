@@ -45,5 +45,6 @@
 	</dependencies>
 	<modules>
 		<module>openappengine-web</module>
+		<module>openappengine-facade</module>
 	</modules>
 </project>

@@ -33,8 +33,16 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
     @ManyToOne
 	@JoinColumn(name="PM_PARTY_ID", nullable=false)
 	private Party party;
+    
+    public PartyContactMech(String contactMechPurpose, String contactMechType,
+			String infoString) {
+		super();
+		this.contactMechPurpose = contactMechPurpose;
+		this.contactMechType = contactMechType;
+		this.infoString = infoString;
+	}
 
-    public PartyContactMech() {
+	public PartyContactMech() {
     }
 
 	public int getContactMechId() {
