@@ -12,9 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.openappengine.model.itemmaster.Item;
 import com.openappengine.model.valueobject.ValueObject;
-import com.openappengine.repository.entity.SoSalesHdr;
 
 @Entity
 @Table(name="SO_SALES_DET")
@@ -40,7 +38,7 @@ public class SalesDet implements ValueObject<SalesDet> {
 	@Column(name="SO_LOT_NO", nullable=true, length=255)
 	private String lotNo;
 
-	@Column(name="SO_ORD_TYPE", nullable=false, length=10)
+	@Column(name="SO_ORD_TYPE", nullable=false, length=50)
 	private String ordType;
 
 	@Column(name="SO_PRICE", precision=10, scale=2)
@@ -49,14 +47,14 @@ public class SalesDet implements ValueObject<SalesDet> {
 	@Column(name="SO_QTY_ORD", precision=10, scale=2)
 	private BigDecimal qtyOrd;
 
-	@Column(name="SO_UOM", nullable=false, length=5)
+	@Column(name="SO_UOM", nullable=false, length=50)
 	private String uom;
 
 	@Column(name="SO_WEIGHT", precision=10, scale=2)
 	private BigDecimal weight;
 
 	@Column(name="SO_ITEM_ID", nullable=false)
-	private int itemMasterId;
+	private int itemId;
 
 	//bi-directional many-to-one association to SoSalesHdr
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -125,7 +123,7 @@ public class SalesDet implements ValueObject<SalesDet> {
 		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
 		result = prime * result
 				+ ((discount == null) ? 0 : discount.hashCode());
-		result = prime * result + itemMasterId;
+		result = prime * result + getItemId();
 		result = prime * result + lineNo;
 		result = prime * result
 				+ ((location == null) ? 0 : location.hashCode());
@@ -157,7 +155,7 @@ public class SalesDet implements ValueObject<SalesDet> {
 				return false;
 		} else if (!discount.equals(other.discount))
 			return false;
-		if (itemMasterId != other.itemMasterId)
+		if (getItemId() != other.getItemId())
 			return false;
 		if (lineNo != other.lineNo)
 			return false;
@@ -205,5 +203,13 @@ public class SalesDet implements ValueObject<SalesDet> {
 
 	public void setSalesHdr(SalesHdr salesHdr) {
 		this.salesHdr = salesHdr;
+	}
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 }

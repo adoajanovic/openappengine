@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,11 +26,11 @@ public class CodeType implements ValueObject<CodeType> {
 	@Column(name="CT_CODE_TYPE_ID", unique=true, nullable=false)
 	private int codeTypeId;
 
-	@Column(name="CT_CODE_TYPE_VALUE", nullable=false, length=15)
+	@Column(name="CT_CODE_TYPE_VALUE", nullable=false, length=100)
 	private String codeTypeValue;
 	
 	//bi-directional many-to-one association to SoSalesDet
-	@OneToMany(mappedBy="codeType",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="codeType",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Code> codes = new ArrayList<Code>();
 
     public CodeType() {

@@ -15,7 +15,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.openappengine.model.entity.Entity;
-import com.openappengine.model.party.Party;
 
 @javax.persistence.Entity
 @Table(name="so_sales_hdr")
@@ -30,20 +29,20 @@ public class SalesHdr implements Entity<SalesHdr, Integer> {
 	@Column(name="SO_CAN_DATE")
 	private Date canDate;
 
-	@Column(name="SO_CARRIER", nullable=true, length=15)
+	@Column(name="SO_CARRIER", nullable=true, length=50)
 	private String carrier;
 
-	@Column(name="SO_CUR_CODE", nullable=false, length=5)
+	@Column(name="SO_CUR_CODE", nullable=false, length=50)
 	private String curCode;
 
-	@Column(name="SO_MODE_PAY", nullable=true, length=5)
+	@Column(name="SO_MODE_PAY", nullable=true, length=50)
 	private String modePay;
 
 	@Temporal( TemporalType.TIMESTAMP)
 	@Column(name="SO_ORD_DATE", nullable=false)
 	private Date ordDate;
 
-	@Column(name="SO_ORD_TYPE", nullable=false, length=10)
+	@Column(name="SO_ORD_TYPE", nullable=false, length=50)
 	private String ordtype;
 
 	@Column(name="SO_SHIP_CHARGES", precision=10, scale=2)
@@ -53,10 +52,10 @@ public class SalesHdr implements Entity<SalesHdr, Integer> {
 	@Column(name="SO_SHIP_DATE")
 	private Date shipDate;
 
-	@Column(name="SO_SHIP_TYPE", nullable=true, length=5)
+	@Column(name="SO_SHIP_TYPE", nullable=true, length=50)
 	private String shipType;
 
-	@Column(name="SO_STATUS", nullable=false, length=5)
+	@Column(name="SO_STATUS", nullable=false, length=50)
 	private String status;
 
 	@Column(name="SO_TOT_AMT", precision=10, scale=2)

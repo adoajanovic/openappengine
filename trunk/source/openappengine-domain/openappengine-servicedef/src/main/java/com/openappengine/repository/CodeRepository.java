@@ -6,6 +6,7 @@ package com.openappengine.repository;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.openappengine.model.code.Code;
@@ -17,7 +18,6 @@ import com.openappengine.model.code.CodeType;
  */
 public class CodeRepository extends GenericRepository<CodeType>{
 	
-
 	/**
 	 * @return List of All {@link CodeType}.
 	 */
@@ -31,9 +31,9 @@ public class CodeRepository extends GenericRepository<CodeType>{
 	 * @return List of all {@link Code} by Code Type.
 	 */
 	public List<Code> getCodesByCodeType(String codeType) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Code.class)
-				.createAlias("codeType", "codeType")
-				.add(Restrictions.eq("codeTypeValue", codeType));
+		DetachedCriteria criteria = DetachedCriteria.forClass(CodeType.class)
+				.add(Restrictions.eq("codeTypeValue", codeType))
+				.setProjection(Projections.property("codes"));
 		List list = hibernateTemplate.findByCriteria(criteria);
 		return list;
 	}

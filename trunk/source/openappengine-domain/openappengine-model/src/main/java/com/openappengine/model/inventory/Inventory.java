@@ -29,10 +29,10 @@ public class Inventory implements Entity<Inventory, Integer> {
 	@Column(name="IM_ITEM_ID")
 	private int itemId;
 
-	@Column(name="IM_LOCATION")
+	@Column(name="IM_LOCATION",length=50)
 	private String location;
 
-	@Column(name="IM_LOT_NO")
+	@Column(name="IM_LOT_NO",length=50)
 	private String lotNo;
 
 	@Column(name="IM_QTY_AV")
@@ -44,10 +44,10 @@ public class Inventory implements Entity<Inventory, Integer> {
 	@Column(name="IM_QTY_PO")
 	private BigDecimal qtyPo;
 
-	@Column(name="IM_STATUS")
+	@Column(name="IM_STATUS",length=50)
 	private String status;
 
-	@Column(name="IM_UOM")
+	@Column(name="IM_UOM",length=50)
 	private String uom;
 
     public Inventory() {

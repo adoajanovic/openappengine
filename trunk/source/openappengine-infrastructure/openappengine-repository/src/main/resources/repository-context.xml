@@ -39,7 +39,7 @@
 		<constructor-arg ref="sessionFactory"></constructor-arg>
 	</bean>
 
-	<bean id="genericRepository" class="com.openappengine.repository.GenericRepository">
+	<bean id="genericRepository" class="com.openappengine.repository.GenericRepository" scope="singleton">
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 

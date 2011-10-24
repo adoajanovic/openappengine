@@ -22,16 +22,16 @@ public class Party implements Entity<Party, Integer> {
 	private int partyId;
 
 	@Lob()
-	@Column(name="PM_DESCRIPTION")
+	@Column(name="PM_DESCRIPTION",length=50)
 	private String description;
 
-	@Column(name="PM_EXTERNAL_ID", length=20)
+	@Column(name="PM_EXTERNAL_ID", length=50)
 	private String externalId;
 
 	@Column(name="PM_PARTY_TYPE", nullable=false, length=100)
 	private String partyType;
 
-	@Column(name="PM_PREFERRED_CURRENCY_UOM", length=5)
+	@Column(name="PM_PREFERRED_CURRENCY_UOM", length=50)
 	private String preferredCurrencyUom;
 
 	@Column(name="PM_STATUS",nullable=false, length=50)
