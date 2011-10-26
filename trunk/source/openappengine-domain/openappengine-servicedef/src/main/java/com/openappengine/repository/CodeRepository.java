@@ -31,9 +31,8 @@ public class CodeRepository extends GenericRepository<CodeType>{
 	 * @return List of all {@link Code} by Code Type.
 	 */
 	public List<Code> getCodesByCodeType(String codeType) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(CodeType.class)
-				.add(Restrictions.eq("codeTypeValue", codeType))
-				.setProjection(Projections.property("codes"));
+		DetachedCriteria criteria = DetachedCriteria.forClass(Code.class).createAlias("codeType", "codeType")
+				.add(Restrictions.eq("codeType.codeTypeValue", codeType));
 		List list = hibernateTemplate.findByCriteria(criteria);
 		return list;
 	}

@@ -46,7 +46,7 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 	 * @see com.openappengine.facade.party.PartyManagerFacade#createParty(com.openappengine.facade.party.dto.PartyDTO)
 	 */
 	public String createParty(PartyDTO partyDTO) {
-		Party party = partyManagerService.createParty(partyDTO.getDescription(),
+		Party party = partyManagerService.createNewParty(partyDTO.getDescription(),
 				partyDTO.getPartyType(), partyDTO.getPreferredCurrencyUom());
 		if(party != null) {
 			return party.getExternalId();

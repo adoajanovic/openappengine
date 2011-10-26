@@ -5,8 +5,10 @@ package com.openappengine.service.impl;
 
 import java.util.List;
 
+import com.openappengine.factory.party.PartyAggregateFactory;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
+import com.openappengine.repository.PartyManagerRepository;
 import com.openappengine.service.IPartyManagerService;
 
 /**
@@ -14,14 +16,27 @@ import com.openappengine.service.IPartyManagerService;
  *
  */
 public class PartyManagerServiceImpl implements IPartyManagerService {
-
+	
+	private PartyManagerRepository partyManagerRepository;
+	
+	private PartyAggregateFactory partyAggregateFactory;
+	
 	/* (non-Javadoc)
 	 * @see com.openappengine.service.IPartyManagerService#creatParty(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public Party createParty(String description, String partyType,
+	public Party createNewParty(String description, String partyType,
 			String currencyUom) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Long sequenceId = partyManagerRepository.nextSequenceId();
+		if(sequenceId == null) {
+			sequenceId = Party.DEFAULT_START_EXTERNAL_ID;
+		}
+		
+		Party partyModel = partyAggregateFactory.setupNewParty(description, partyType, currencyUom);
+		partyModel.setExternalId(sequenceId.toString());
+		
+		partyManagerRepository.store(partyModel);
+		return partyModel;
 	}
 
 	/* (non-Javadoc)
@@ -40,6 +55,14 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 			List<PartyContactMech> partyContactMechs) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setPartyManagerRepository(PartyManagerRepository partyManagerRepository) {
+		this.partyManagerRepository = partyManagerRepository;
+	}
+
+	public void setPartyAggregateFactory(PartyAggregateFactory partyAggregateFactory) {
+		this.partyAggregateFactory = partyAggregateFactory;
 	}
 
 }
