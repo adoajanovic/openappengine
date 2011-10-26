@@ -8,7 +8,7 @@
 		<managed-bean-class>com.openappengine.web.support.ListHelper</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
-
+	
 	<!-- Model -->
 	<managed-bean>
 		<managed-bean-name>itemMasterModel</managed-bean-name>
@@ -35,7 +35,7 @@
 	
 	<managed-bean>
 		<managed-bean-name>partyController</managed-bean-name>
-		<managed-bean-class>com.openappengine.web.mvc.party.PartyController</managed-bean-class>
+		<managed-bean-class>com.openappengine.web.mvc.party.PartyManagerController</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
 			<property-name>partyModel</property-name>

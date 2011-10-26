@@ -16,6 +16,8 @@ import com.openappengine.oxm.OxmMappingException;
  */
 public class ListHelper {
 
+	
+
 	public List<SelectItem> getApplicationCodes(String codeType) throws OxmMappingException {
 		List<SelectItem> codes = new ArrayList<SelectItem>();
 		return codes;

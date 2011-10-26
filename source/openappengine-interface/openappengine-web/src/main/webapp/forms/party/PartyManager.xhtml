@@ -20,19 +20,20 @@
 					<h:outputLabel for="formCreateParty_partyType">Type</h:outputLabel>
 					<rich:select id="formCreateParty_partyType" value="#{partyController.partyModel.partyType}" enableManualInput="false">
 						<f:selectItem itemLabel="" itemValue="" />
-						<f:selectItems value="#{listHelperBean.getApplicationCodes('PartyType')}" />
+						<f:selectItems value="#{partyController.partyTypes}" />
 					</rich:select>
 					
 					<h:outputLabel for="formCreateParty_currencyCode">Currency</h:outputLabel>
 					<rich:select id="formCreateParty_currencyCode" value="#{partyController.partyModel.preferredCurrencyUom}" enableManualInput="false">
 						<f:selectItem itemLabel="" itemValue="" />
-						<f:selectItems value="#{listHelperBean.getApplicationCodes('Currency')}" />
+						<f:selectItem itemLabel="INR" itemValue="INR" />
+						<!-- TODO -->
 					</rich:select>
 
 					<h:outputLabel for="formCreateParty_status">Status</h:outputLabel>
 					<rich:select id="formCreateParty_status" value="#{partyController.partyModel.status}" enableManualInput="false">
 						<f:selectItem itemLabel="" itemValue="" />
-						<f:selectItems value="#{listHelperBean.getApplicationCodes('PartyStatus')}" />
+						<!-- TODO -->
 					</rich:select>
 				</h:panelGrid>
 				</a4j:outputPanel>
