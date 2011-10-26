@@ -18,7 +18,7 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 	/* (non-Javadoc)
 	 * @see com.openappengine.service.IPartyManagerService#creatParty(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public Party creatParty(String description, String partyType,
+	public Party createParty(String description, String partyType,
 			String currencyUom) {
 		// TODO Auto-generated method stub
 		return null;

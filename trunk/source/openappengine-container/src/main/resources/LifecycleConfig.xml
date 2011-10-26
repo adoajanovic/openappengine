@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lifecycle>
-	<component id="repository"
-		eventHandler="com.openappengine.repository.lifecycle.RepositoryLifecycleHandler"
-		startup-method="startup" shutdown-method="shutdown">
-	</component>
-
-	<component id="model"
-		eventHandler="com.openappengine.model.lifecycle.ModelLifecycleHandler"
+	<component id="servicedef"
+		eventHandler="com.openappengine.facade.lifecycle.FacadeLifecycleHandler"
 		startup-method="startup" shutdown-method="shutdown">
 	</component> 
-	
 </lifecycle>
