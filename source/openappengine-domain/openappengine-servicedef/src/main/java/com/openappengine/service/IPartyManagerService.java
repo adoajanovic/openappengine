@@ -14,7 +14,7 @@ import com.openappengine.model.party.PartyContactMech;
  */
 public interface IPartyManagerService {
 
-	Party createParty(String description,String partyType,String currencyUom);
+	Party createNewParty(String description,String partyType,String currencyUom);
 	
 	void assignContactMechToParty(String externalId, PartyContactMech partyContactMech);
 	

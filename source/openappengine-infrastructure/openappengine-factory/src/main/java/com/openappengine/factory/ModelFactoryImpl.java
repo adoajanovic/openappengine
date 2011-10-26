@@ -6,8 +6,11 @@ package com.openappengine.factory;
 
 /**
  * @author hrishikesh.joshi
- * 
+ *
  */
-public interface IGenericAggregateFactory {
+public class ModelFactoryImpl implements ModelFactory {
+	
+	public ModelFactoryImpl() {
+	}
 
 }

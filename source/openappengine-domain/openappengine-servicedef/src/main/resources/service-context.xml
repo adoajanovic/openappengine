@@ -7,6 +7,8 @@
 	
 	<import resource="repository-context.xml"/>
 	
+	<import resource="factory-context.xml"/>
+	
 	<bean id="serviceContext" class="com.openappengine.service.context.ServiceContext"></bean>	
 	
 	<!-- Model Repository -->	
@@ -15,6 +17,10 @@
 	</bean>
 	
 	<bean id="salesOrderRepository" class="com.openappengine.repository.SalesOrderRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="partyManagerRepository" class="com.openappengine.repository.PartyManagerRepository" scope="singleton">
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
@@ -28,6 +34,8 @@
 	</bean>
 	
 	<bean id="partyManagerService" class="com.openappengine.service.impl.PartyManagerServiceImpl">
+		<property name="partyManagerRepository" ref="partyManagerRepository"></property>
+		<property name="partyAggregateFactory" ref="partyAggregateFactory"></property>
 	</bean>
 	
 </beans>

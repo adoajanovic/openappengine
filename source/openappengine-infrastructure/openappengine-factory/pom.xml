@@ -19,7 +19,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-oxm</artifactId>
+			<artifactId>openappengine-model</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

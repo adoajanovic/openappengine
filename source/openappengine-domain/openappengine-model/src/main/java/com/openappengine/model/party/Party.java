@@ -15,6 +15,24 @@ import com.openappengine.model.entity.Entity;
 @javax.persistence.Entity
 @Table(name="PM_PARTY")
 public class Party implements Entity<Party, Integer> {
+	
+	//TODO - Needs to be configurable.
+	public static final Long DEFAULT_START_EXTERNAL_ID = new Long("1000000");
+	
+	/**
+	 *  Active Party.
+	 */
+	public static final String PARTY_STATUS_ACTIVE = "Active";
+	
+	/**
+	 *  Suspended Party.
+	 */
+	public static final String PARTY_STATUS_SUSPENDED = "Suspended";
+	
+	/**
+	 *  Terminated Party.
+	 */
+	public static final String PARTY_STATUS_TERMINATED = "Terminated";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
