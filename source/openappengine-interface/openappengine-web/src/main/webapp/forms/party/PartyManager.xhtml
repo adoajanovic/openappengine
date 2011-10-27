@@ -1,6 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richajax="http://richfaces.ajax4jsf.org/rich">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richajax="http://richfaces.ajax4jsf.org/rich">
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="body">
 		<rich:panel>
@@ -10,39 +15,47 @@
 			</f:facet>
 			<h:form id="formCreateParty">
 				<a4j:outputPanel id="a4jPartyHdr" ajaxRendered="true">
-				<h:panelGrid id="createSalesOrderHdr" columns="2">
-					<h:outputLabel for="formCreateParty_description">Description</h:outputLabel>
-					<h:inputText id="formCreateParty_description" value="#{partyController.partyModel.description}" readonly="false" required="true"/>
-					
-					<!-- 
-					<h:outputLabel for="formCreateParty_externalId">External Id</h:outputLabel>
-					<h:inputText id="formCreateParty_externalId" value="#{partyController.partyModel.externalId}" readonly="false" />
-					 -->
-					
-					<h:outputLabel for="formCreateParty_partyType">Type</h:outputLabel>
-					<rich:select id="formCreateParty_partyType" value="#{partyController.partyModel.partyType}" enableManualInput="false" required="true">
-						<f:selectItem itemLabel="" itemValue="" />
-						<f:selectItem itemLabel="CUSTOMER" itemValue="CUSTOMER" />
-					</rich:select>
-					
-					<h:outputLabel for="formCreateParty_currencyCode">Currency</h:outputLabel>
-					<rich:select id="formCreateParty_currencyCode" value="#{partyController.partyModel.preferredCurrencyUom}" enableManualInput="false" required="true">
-						<f:selectItem itemLabel="" itemValue="" />
-						<f:selectItem itemLabel="INR" itemValue="INR" />
-						<!-- TODO -->
-					</rich:select>
+					<h:panelGrid id="createSalesOrderHdr" columns="3">
+						<h:column>
+							<h:outputLabel for="formCreateParty_description">Description</h:outputLabel>
+						</h:column>
+						<h:column>
+							<h:inputText id="formCreateParty_description"
+								value="#{partyController.partyModel.description}"
+								readonly="false" required="true" />
+						</h:column>
 
-					<!-- 
-					<h:outputLabel for="formCreateParty_status">Status</h:outputLabel>
-					<rich:select id="formCreateParty_status" value="#{partyController.partyModel.status}" enableManualInput="false" >
-						<f:selectItem itemLabel="" itemValue="" />
-					</rich:select>
-					 -->
-					<!-- TODO -->
-					
-				</h:panelGrid>
+						<h:column />
+
+						<h:column>
+							<h:outputLabel for="formCreateParty_partyType">Type</h:outputLabel>
+						</h:column>
+						<h:column>
+							<rich:select id="formCreateParty_partyType"
+								value="#{partyController.partyModel.partyType}"
+								enableManualInput="false" required="true">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="CUSTOMER" itemValue="CUSTOMER" />
+							</rich:select>
+						</h:column>
+						<h:column />
+
+						<h:column>
+							<h:outputLabel for="formCreateParty_currencyCode">Currency</h:outputLabel>
+						</h:column>
+						<h:column>
+							<rich:select id="formCreateParty_currencyCode"
+								value="#{partyController.partyModel.preferredCurrencyUom}"
+								enableManualInput="false" required="true">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="INR" itemValue="INR" />
+							</rich:select>
+						</h:column>
+						<h:column />
+					</h:panelGrid>
 				</a4j:outputPanel>
-				<h:commandButton id="btnCreateParty" value="Save" action="#{partyController.createParty}" />
+				<h:commandButton id="btnCreateParty" value="Save"
+					action="#{partyController.createParty}" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

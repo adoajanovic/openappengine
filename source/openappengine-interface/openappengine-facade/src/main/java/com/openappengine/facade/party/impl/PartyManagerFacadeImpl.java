@@ -10,7 +10,7 @@ import com.openappengine.facade.code.dto.CodesDTOAssembler;
 import com.openappengine.facade.party.PartyManagerFacade;
 import com.openappengine.facade.party.dto.ContactMechDTO;
 import com.openappengine.facade.party.dto.ContactMechDTOAssembler;
-import com.openappengine.facade.party.dto.PartyDTO;
+import com.openappengine.facade.party.dto.PartyCommand;
 import com.openappengine.model.code.Code;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
@@ -43,11 +43,11 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.openappengine.facade.party.PartyManagerFacade#createParty(com.openappengine.facade.party.dto.PartyDTO)
+	 * @see com.openappengine.facade.party.PartyManagerFacade#createParty(com.openappengine.facade.party.dto.PartyCommand)
 	 */
-	public String createParty(PartyDTO partyDTO) {
-		Party party = partyManagerService.createNewParty(partyDTO.getDescription(),
-				partyDTO.getPartyType(), partyDTO.getPreferredCurrencyUom());
+	public String createParty(PartyCommand partyCommand) {
+		Party party = partyManagerService.createNewParty(partyCommand.getDescription(),
+				partyCommand.getPartyType(), partyCommand.getPreferredCurrencyUom());
 		if(party != null) {
 			return party.getExternalId();
 		}

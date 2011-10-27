@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.openappengine.facade.code.dto.CodeDTO;
 import com.openappengine.facade.party.dto.ContactMechDTO;
-import com.openappengine.facade.party.dto.PartyDTO;
+import com.openappengine.facade.party.dto.PartyCommand;
 
 /**
  * @author hrishi
@@ -23,10 +23,10 @@ public interface PartyManagerFacade {
 	
 	/**
 	 * Create a new Party and return the External Id (Tracking Id) of the created party.
-	 * @param partyDTO
+	 * @param partyCommand
 	 * @return
 	 */
-	String createParty(PartyDTO partyDTO);
+	String createParty(PartyCommand partyCommand);
 	
 	/**
 	 * Assign the Contact Mech to the party.

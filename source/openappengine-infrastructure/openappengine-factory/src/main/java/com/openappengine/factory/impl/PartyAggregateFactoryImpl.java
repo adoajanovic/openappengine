@@ -14,7 +14,6 @@ import com.openappengine.model.party.Party;
  */
 public class PartyAggregateFactoryImpl implements PartyAggregateFactory {
 	
-	
 
 	/* (non-Javadoc)
 	 * @see com.openappengine.factory.party.PartyAggregateFactory#createModel(java.lang.String, java.lang.String, java.lang.String)

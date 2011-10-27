@@ -6,11 +6,13 @@ package com.openappengine.facade.party.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * @author hrishi
  *
  */
-public class PartyDTO implements Serializable {
+public class PartyCommand implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,9 +24,13 @@ public class PartyDTO implements Serializable {
 	
 	private String partyType;
 	
-	public PartyDTO(String description, String preferredCurrencyUom, String partyType,
+	public PartyCommand(String description, String preferredCurrencyUom, String partyType,
 			List<ContactMechDTO> partyContactMechs) {
 		super();
+		Validate.notNull(description, "Description cannot be null");
+		Validate.notNull(preferredCurrencyUom, "Description cannot be null");
+		Validate.notNull(partyType, "Description cannot be null");
+		
 		this.description = description;
 		this.preferredCurrencyUom = preferredCurrencyUom;
 		this.setPartyType(partyType);
