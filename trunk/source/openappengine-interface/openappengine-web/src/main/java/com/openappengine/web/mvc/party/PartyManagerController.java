@@ -11,7 +11,7 @@ import javax.faces.model.SelectItem;
 import com.openappengine.facade.code.dto.CodeDTO;
 import com.openappengine.facade.context.FacadeContext;
 import com.openappengine.facade.party.PartyManagerFacade;
-import com.openappengine.facade.party.dto.PartyDTO;
+import com.openappengine.facade.party.dto.PartyCommand;
 import com.openappengine.model.code.CodeTypeConstants;
 import com.openappengine.web.mvc.BaseWebController;
 
@@ -44,7 +44,7 @@ public class PartyManagerController extends BaseWebController {
 	}
 	
 	public String createParty() {
-		partyManagerFacade.createParty(new PartyDTO(partyModel.getDescription(), partyModel.getPreferredCurrencyUom(), partyModel.getPartyType(), null));
+		partyManagerFacade.createParty(new PartyCommand(partyModel.getDescription(), partyModel.getPreferredCurrencyUom(), partyModel.getPartyType(), null));
 		return null;
 	}
 
