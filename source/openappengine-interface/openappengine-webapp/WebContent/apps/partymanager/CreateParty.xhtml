@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ui:composition template="/templates/main.xhtml">
+		<ui:define name="body">
+			<ice:panelGroup>
+			<ice:messages />
+			<f:facet name="header">
+				<ice:outputText value="Party"></ice:outputText>
+			</f:facet>
+			<ice:form id="formCreateParty">
+				<h:panelGrid id="createSalesOrderHdr" columns="3">
+					<ice:column>
+						<ice:outputLabel for="formCreateParty_description">Description</ice:outputLabel>
+					</ice:column>
+					<ice:column>
+						<h:inputText id="formCreateParty_description"
+							value="#{partyManagerController.partyBean.description}"
+							readonly="false" required="true" />
+					</ice:column>
+
+					<ice:column />
+
+					<ice:column>
+						<ice:outputLabel for="formCreateParty_partyType">Type</ice:outputLabel>
+					</ice:column>
+					<ice:column>
+						<ice:selectOneMenu id="formCreateParty_partyType"
+							value="#{partyManagerController.partyBean.partyType}"
+							required="true">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="CUSTOMER" itemValue="CUSTOMER" />
+						</ice:selectOneMenu>
+					</ice:column>
+					<ice:column />
+
+					<ice:column>
+						<ice:outputLabel for="formCreateParty_currencyCode">Currency</ice:outputLabel>
+					</ice:column>
+					<ice:column>
+						<ice:selectOneMenu id="formCreateParty_currencyCode"
+							value="#{partyManagerController.partyBean.preferredCurrencyUom}"
+							required="true">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="INR" itemValue="INR" />
+						</ice:selectOneMenu>
+					</ice:column>
+					<ice:column />
+				</h:panelGrid>
+
+				<ice:dataTable id="formCreateParty_ContactMechs"
+					value="#{partyManagerController.partyBean.partyContactMechs}"
+					var="contactMech">
+
+				</ice:dataTable>
+
+				<ice:commandButton value="Add Contact"
+					actionListener="#{partyManagerController.openContactMechPopup}">
+				</ice:commandButton>
+
+				<ice:commandButton id="btnCreateParty" value="Save"
+					action="#{partyManagerController.createParty}" />
+			</ice:form>
+			</ice:panelGroup>
+		</ui:define>
+	</ui:composition>
+</f:view>
