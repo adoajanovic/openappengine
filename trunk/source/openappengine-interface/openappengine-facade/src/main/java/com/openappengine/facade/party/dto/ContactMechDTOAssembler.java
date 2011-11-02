@@ -11,9 +11,9 @@ import com.openappengine.model.party.PartyContactMech;
  */
 public class ContactMechDTOAssembler {
 	
-	public PartyContactMech fromDTO(ContactMechDTO contactMechDTO){
-		PartyContactMech partyContactMech = new PartyContactMech(contactMechDTO.getContactMechPurpose(),
-				contactMechDTO.getContactMechType(), contactMechDTO
+	public PartyContactMech fromDTO(PartyContactMechCommand partyContactMechCommand){
+		PartyContactMech partyContactMech = new PartyContactMech(partyContactMechCommand.getContactMechPurpose(),
+				partyContactMechCommand.getContactMechType(), partyContactMechCommand
 						.getInfoString());
 		return partyContactMech;
 	}

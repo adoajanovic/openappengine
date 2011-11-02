@@ -6,7 +6,7 @@ package com.openappengine.facade.party;
 import java.util.List;
 
 import com.openappengine.facade.code.dto.CodeDTO;
-import com.openappengine.facade.party.dto.ContactMechDTO;
+import com.openappengine.facade.party.dto.PartyContactMechCommand;
 import com.openappengine.facade.party.dto.PartyCommand;
 
 /**
@@ -31,8 +31,8 @@ public interface PartyManagerFacade {
 	/**
 	 * Assign the Contact Mech to the party.
 	 * @param partyExternal
-	 * @param contactMechDTO
+	 * @param partyContactMechCommand
 	 */
-	void assignContactMechToParty(String partyExternal,ContactMechDTO contactMechDTO);
+	void assignContactMechToParty(String partyExternal,PartyContactMechCommand partyContactMechCommand);
 	
 }

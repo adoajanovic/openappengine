@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author hrishi
  *
  */
-public class ContactMechDTO implements Serializable {
+public class PartyContactMechCommand implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
