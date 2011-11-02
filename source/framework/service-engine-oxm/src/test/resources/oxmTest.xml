@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<RequestEnvelope>
-  <RequestMetaData/>
-  <RequestPayload>
-    <payloadData class="CreateEmployeeRequest">
-      <name>Hrishi</name>
-    </payloadData>
-  </RequestPayload>
-</RequestEnvelope>
