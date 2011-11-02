@@ -16,16 +16,18 @@ public class PartyCommand implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final Long PARTY_VALIDATION_ERROR = -999999L;
+	
 	private String description;
 	
 	private String preferredCurrencyUom;
 	
-	private List<ContactMechDTO> partyContactMechs;
+	private List<PartyContactMechCommand> partyContactMechs;
 	
 	private String partyType;
 	
 	public PartyCommand(String description, String preferredCurrencyUom, String partyType,
-			List<ContactMechDTO> partyContactMechs) {
+			List<PartyContactMechCommand> partyContactMechs) {
 		super();
 		Validate.notNull(description, "Description cannot be null");
 		Validate.notNull(preferredCurrencyUom, "Description cannot be null");
@@ -53,11 +55,11 @@ public class PartyCommand implements Serializable {
 		this.preferredCurrencyUom = preferredCurrencyUom;
 	}
 
-	public List<ContactMechDTO> getPartyContactMechs() {
+	public List<PartyContactMechCommand> getPartyContactMechs() {
 		return partyContactMechs;
 	}
 
-	public void setPartyContactMechs(List<ContactMechDTO> partyContactMechs) {
+	public void setPartyContactMechs(List<PartyContactMechCommand> partyContactMechs) {
 		this.partyContactMechs = partyContactMechs;
 	}
 

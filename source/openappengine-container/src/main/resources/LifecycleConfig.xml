@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lifecycle>
-	<component id="servicedef"
+	<component id="facade"
 		eventHandler="com.openappengine.facade.lifecycle.FacadeLifecycleHandler"
 		startup-method="startup" shutdown-method="shutdown">
 	</component> 
