@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import com.openappengine.model.entity.Entity;
 
 @javax.persistence.Entity
-@Table(name="so_sales_hdr")
+@Table(name="SO_SALES_HDR")
 public class SalesHdr implements Entity<SalesHdr, Integer> {
 
 	@Id
