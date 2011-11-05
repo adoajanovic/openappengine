@@ -3,6 +3,7 @@
  */
 package com.openappengine.model.addressbook;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -63,7 +64,7 @@ public class Address implements ValueObject<Address>{
 	
 	@OneToMany
 	@JoinTable(name= "AB_ADDRESS_ROLE", joinColumns = { @JoinColumn(name = "AR_ADDRESS_BOOK_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AR_ADDRESS_ROLE_ID") })
-	private Set<AddressRole> addressRoles;
+	private Set<AddressRole> addressRoles = new HashSet<AddressRole>();
 	
 	public int getAddressBookId() {
 		return addressBookId;
@@ -240,6 +241,14 @@ public class Address implements ValueObject<Address>{
 
 	public void setAddressRoles(Set<AddressRole> addressRoles) {
 		this.addressRoles = addressRoles;
+	}
+	
+	public void addAddressRole(AddressRole addressRole) {
+		if(addressRole == null) {
+			return;
+		}
+		
+		this.addressRoles.add(addressRole);
 	}
 
 }
