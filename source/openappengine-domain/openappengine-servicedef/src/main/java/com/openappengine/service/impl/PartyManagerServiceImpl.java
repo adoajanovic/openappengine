@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.openappengine.factory.party.PartyAggregateFactory;
 import com.openappengine.model.addressbook.Address;
+import com.openappengine.model.addressbook.AddressRole;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.PartySpecification;
@@ -73,12 +74,12 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 	}
 
 	@Override
-	public void createAddress(String externalId, Address address, String role) {
+	public void createAddress(String externalId, Address address, AddressRole role) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public List<Address> getAddressByType(String externalId, String type) {
+	public List<Address> getAddressByRole(String externalId, AddressRole role) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,5 +1,7 @@
 package com.openappengine.model.party;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -64,7 +66,7 @@ public class Party implements Entity<Party, Integer> {
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
-	private List<PartyContactMech> partyContactMechs;
+	private List<PartyContactMech> partyContactMechs = new ArrayList<PartyContactMech>();
 
 	@OneToOne
 	@PrimaryKeyJoinColumn
@@ -72,7 +74,7 @@ public class Party implements Entity<Party, Integer> {
 
 	@OneToMany
 	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
-	private Set<Address> addresses;
+	private Set<Address> addresses = new HashSet<Address>();
 
 	public Party() {
 	}

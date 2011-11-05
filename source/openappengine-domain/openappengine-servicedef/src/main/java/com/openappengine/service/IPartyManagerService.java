@@ -6,6 +6,7 @@ package com.openappengine.service;
 import java.util.List;
 
 import com.openappengine.model.addressbook.Address;
+import com.openappengine.model.addressbook.AddressRole;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.PartySpecification;
@@ -63,7 +64,7 @@ public interface IPartyManagerService {
 	 * @param address
 	 * @param role
 	 */
-	void createAddress(String externalId, Address address, String role);
+	void createAddress(String externalId, Address address, AddressRole role);
 	
 	/**
 	 * Find Address by Address Type.
@@ -71,5 +72,5 @@ public interface IPartyManagerService {
 	 * @param type
 	 * @return
 	 */
-	List<Address> getAddressByType(String externalId, String type);
+	List<Address> getAddressByRole(String externalId, AddressRole addressRole);
 }
