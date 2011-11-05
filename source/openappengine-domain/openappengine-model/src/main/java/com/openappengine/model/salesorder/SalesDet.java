@@ -20,40 +20,40 @@ public class SalesDet implements ValueObject<SalesDet> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="SO_DET_ID",nullable=false)
+	@Column(name="SD_DET_ID",nullable=false)
 	private int salesDetId;
 	
-	@Column(name="SO_COST", precision=10, scale=2)
+	@Column(name="SD_COST", precision=10, scale=2)
 	private BigDecimal cost;
 
-	@Column(name="SO_DISCOUNT", precision=10, scale=2)
+	@Column(name="SD_DISCOUNT", precision=10, scale=2)
 	private BigDecimal discount;
 
-	@Column(name="SO_LINE_NO", nullable=false)
+	@Column(name="SD_LINE_NO", nullable=false)
 	private int lineNo;
 
-	@Column(name="SO_LOCATION", nullable=true, length=255)
+	@Column(name="SD_LOCATION", nullable=true, length=255)
 	private String location;
 
-	@Column(name="SO_LOT_NO", nullable=true, length=255)
+	@Column(name="SD_LOT_NO", nullable=true, length=255)
 	private String lotNo;
 
-	@Column(name="SO_ORD_TYPE", nullable=false, length=50)
+	@Column(name="SD_ORD_TYPE", nullable=false, length=50)
 	private String ordType;
 
-	@Column(name="SO_PRICE", precision=10, scale=2)
+	@Column(name="SD_PRICE", precision=10, scale=2)
 	private BigDecimal price;
 
-	@Column(name="SO_QTY_ORD", precision=10, scale=2)
+	@Column(name="SD_QTY_ORD", precision=10, scale=2)
 	private BigDecimal qtyOrd;
 
-	@Column(name="SO_UOM", nullable=false, length=50)
+	@Column(name="SD_UOM", nullable=false, length=50)
 	private String uom;
 
-	@Column(name="SO_WEIGHT", precision=10, scale=2)
+	@Column(name="SD_WEIGHT", precision=10, scale=2)
 	private BigDecimal weight;
 
-	@Column(name="SO_ITEM_ID", nullable=false)
+	@Column(name="SD_ITEM_ID", nullable=false)
 	private int itemId;
 
 	//bi-directional many-to-one association to SoSalesHdr

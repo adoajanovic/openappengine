@@ -6,8 +6,8 @@ package com.openappengine.facade.party;
 import java.util.List;
 
 import com.openappengine.facade.code.dto.CodeDTO;
-import com.openappengine.facade.party.dto.PartyContactMechCommand;
 import com.openappengine.facade.party.dto.PartyCommand;
+import com.openappengine.facade.party.dto.PartyContactMechCommand;
 
 /**
  * @author hrishi

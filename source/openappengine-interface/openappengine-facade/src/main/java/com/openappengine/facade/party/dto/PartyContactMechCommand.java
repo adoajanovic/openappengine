@@ -18,7 +18,7 @@ public class PartyContactMechCommand implements Serializable {
 	private String contactMechType;
 	
 	private String infoString;
-
+	
 	public String getContactMechPurpose() {
 		return contactMechPurpose;
 	}
@@ -42,5 +42,5 @@ public class PartyContactMechCommand implements Serializable {
 	public void setInfoString(String infoString) {
 		this.infoString = infoString;
 	}
-
+	
 }

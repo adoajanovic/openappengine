@@ -11,13 +11,14 @@ import org.springframework.validation.Errors;
 import com.openappengine.facade.code.dto.CodeDTO;
 import com.openappengine.facade.code.dto.CodesDTOAssembler;
 import com.openappengine.facade.party.PartyManagerFacade;
-import com.openappengine.facade.party.dto.PartyContactMechCommand;
 import com.openappengine.facade.party.dto.ContactMechDTOAssembler;
 import com.openappengine.facade.party.dto.PartyCommand;
 import com.openappengine.facade.party.dto.PartyCommandValidator;
+import com.openappengine.facade.party.dto.PartyContactMechCommand;
 import com.openappengine.model.code.Code;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
+import com.openappengine.model.party.PartySpecification;
 import com.openappengine.repository.CodeRepository;
 import com.openappengine.service.IPartyManagerService;
 
@@ -55,13 +56,13 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 		validator.validate(partyCommand,errors);
 		
 		if(!errors.hasErrors()) {
-			Party party = partyManagerService.createNewParty(partyCommand.getDescription(),
+			PartySpecification partySpecification = new PartySpecification(partyCommand.getDescription(),
 					partyCommand.getPartyType(), partyCommand.getPreferredCurrencyUom());
+			Party party = partyManagerService.createNewParty(partySpecification);
 			if(party != null) {
 				return party.getExternalId();
 			}
 		} 
-		
 		return "" + PartyCommand.PARTY_VALIDATION_ERROR;
 	}
 
@@ -71,7 +72,7 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 	public void assignContactMechToParty(String partyExternalId,
 			PartyContactMechCommand partyContactMechCommand) {
 		PartyContactMech partyContactMech = new ContactMechDTOAssembler().fromDTO(partyContactMechCommand);
-		partyManagerService.assignContactMechToParty(partyExternalId,partyContactMech);
+		partyManagerService.createContactMech(partyExternalId,partyContactMech);
 	}
 
 	public void setPartyManagerService(IPartyManagerService partyManagerService) {
