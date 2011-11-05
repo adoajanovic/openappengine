@@ -3,11 +3,16 @@
  */
 package com.openappengine.model.addressbook;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.openappengine.model.valueobject.ValueObject;
@@ -55,6 +60,10 @@ public class Address implements ValueObject<Address>{
 	
 	@Column(name="AB_STATE_PROVINCE", nullable=false, length=100)
 	private String stateProvince;
+	
+	@OneToMany
+	@JoinTable(name= "AB_ADDRESS_ROLE", joinColumns = { @JoinColumn(name = "AR_ADDRESS_BOOK_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AR_ADDRESS_ROLE_ID") })
+	private Set<AddressRole> addressRoles;
 	
 	public int getAddressBookId() {
 		return addressBookId;
@@ -223,6 +232,14 @@ public class Address implements ValueObject<Address>{
 	@Override
 	public boolean sameValueAs(Address other) {
 		return this.equals(other);
+	}
+
+	public Set<AddressRole> getAddressRoles() {
+		return addressRoles;
+	}
+
+	public void setAddressRoles(Set<AddressRole> addressRoles) {
+		this.addressRoles = addressRoles;
 	}
 
 }
