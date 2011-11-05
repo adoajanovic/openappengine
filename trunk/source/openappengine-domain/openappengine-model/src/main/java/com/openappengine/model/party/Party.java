@@ -1,66 +1,81 @@
 package com.openappengine.model.party;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.entity.Entity;
 
 @javax.persistence.Entity
-@Table(name="PM_PARTY")
+@Table(name = "PM_PARTY")
 public class Party implements Entity<Party, Integer> {
-	
-	//TODO - Needs to be configurable.
+
+	// TODO - Needs to be configurable.
 	public static final Long DEFAULT_START_EXTERNAL_ID = new Long("1000000");
-	
+
 	/**
-	 *  Active Party.
+	 * Active Party.
 	 */
 	public static final String PARTY_STATUS_ACTIVE = "Active";
-	
+
 	/**
-	 *  Suspended Party.
+	 * Suspended Party.
 	 */
 	public static final String PARTY_STATUS_SUSPENDED = "Suspended";
-	
+
 	/**
-	 *  Terminated Party.
+	 * Terminated Party.
 	 */
 	public static final String PARTY_STATUS_TERMINATED = "Terminated";
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PM_PARTY_ID", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PM_PARTY_ID", unique = true, nullable = false)
 	private int partyId;
 
 	@Lob()
-	@Column(name="PM_DESCRIPTION",length=50)
+	@Column(name = "PM_DESCRIPTION", length = 100)
 	private String description;
 
-	@Column(name="PM_EXTERNAL_ID", length=50)
+	@Column(name = "PM_EXTERNAL_ID", length = 50)
 	private String externalId;
 
-	@Column(name="PM_PARTY_TYPE", nullable=false, length=100)
+	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100)
 	private String partyType;
 
-	@Column(name="PM_PREFERRED_CURRENCY_UOM", length=50)
+	@Column(name = "PM_PREFERRED_CURRENCY_UOM", length = 50)
 	private String preferredCurrencyUom;
 
-	@Column(name="PM_STATUS",nullable=false, length=50)
+	@Column(name = "PM_STATUS", nullable = false, length = 50)
 	private String status;
 
-	//bi-directional many-to-one association to CnContractHdr
-	@OneToMany(mappedBy="party")
-	private List<PartyContactMech> partyContactMeches;
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
+	private List<PartyContactMech> partyContactMechs;
 
-    public Party() {
-    }
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private Person person;
+
+	@OneToMany
+	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
+	private Set<Address> addresses;
+
+	public Party() {
+	}
 
 	public int getPartyId() {
 		return partyId;
@@ -110,12 +125,20 @@ public class Party implements Entity<Party, Integer> {
 		this.status = status;
 	}
 
-	public List<PartyContactMech> getPartyContactMeches() {
-		return partyContactMeches;
+	public List<PartyContactMech> getPartyContactMechs() {
+		return partyContactMechs;
 	}
 
-	public void setPartyContactMeches(List<PartyContactMech> partyContactMeches) {
-		this.partyContactMeches = partyContactMeches;
+	public void setPartyContactMechs(List<PartyContactMech> partyContactMeches) {
+		this.partyContactMechs = partyContactMeches;
+	}
+
+	public void addPartyContactMech(PartyContactMech contactMech) {
+		if (contactMech == null) {
+			return;
+		}
+
+		this.partyContactMechs.add(contactMech);
 	}
 
 	@Override
@@ -182,6 +205,29 @@ public class Party implements Entity<Party, Integer> {
 
 	public Integer identity() {
 		return partyId;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+	
+	public void addAddress(Address address) {
+		if(address == null) {
+			return;
+		}
+		addresses.add(address);
 	}
 
 }

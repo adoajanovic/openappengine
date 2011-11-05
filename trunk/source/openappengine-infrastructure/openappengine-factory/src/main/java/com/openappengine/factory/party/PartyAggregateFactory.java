@@ -5,6 +5,7 @@ package com.openappengine.factory.party;
 
 import com.openappengine.factory.ModelFactory;
 import com.openappengine.model.party.Party;
+import com.openappengine.model.party.PartySpecification;
 
 /**
  * @author hrishi
@@ -14,12 +15,10 @@ public interface PartyAggregateFactory extends ModelFactory{
 	
 	/**
 	 * Create a Party Model.
-	 * @param description
-	 * @param partyType
-	 * @param currencyUom
+	 * @param partySpecification
 	 * @return {@link Party}
 	 */
-	Party setupNewParty(String description, String partyType,String currencyUom);
+	Party setupNewParty(PartySpecification partySpecification);
 	
 
 }

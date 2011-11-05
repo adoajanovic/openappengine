@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.openappengine.model.valueobject.ValueObject;
@@ -17,41 +15,37 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PM_CONTACT_MECH_ID", unique=true, nullable=false)
-	private int contactMechId;
-
-	@Column(name="PM_CONTACT_MECH_PURPOSE", nullable=false, length=50)
+	@Column(name="CM_CONTACT_MECH_ID")
+	private int partyContactMechId;
+	
+	@Column(name="CM_CONTACT_MECH_PURPOSE", nullable=false, length=50)
 	private String contactMechPurpose;
 
-	@Column(name="PM_CONTACT_MECH_TYPE", nullable=false, length=50)
+	@Column(name="CM_CONTACT_MECH_TYPE", nullable=false, length=50)
 	private String contactMechType;
 
-	@Column(name="PM_INFO_STRING", nullable=false, length=100)
+	@Column(name="CM_INFO_STRING", nullable=false, length=100)
 	private String infoString;
 
-	//bi-directional many-to-one association to PmParty
-    @ManyToOne
-	@JoinColumn(name="PM_PARTY_ID", nullable=false)
-	private Party party;
-    
-    public PartyContactMech(String contactMechPurpose, String contactMechType,
+	public PartyContactMech(String contactMechPurpose, String contactMechType,
 			String infoString) {
 		super();
 		this.contactMechPurpose = contactMechPurpose;
 		this.contactMechType = contactMechType;
 		this.infoString = infoString;
 	}
+	
+	public int getPartyContactMechId() {
+		return partyContactMechId;
+	}
+
+	public void setPartyContactMechId(int partyContactMechId) {
+		this.partyContactMechId = partyContactMechId;
+	}
+
 
 	public PartyContactMech() {
     }
-
-	public int getContactMechId() {
-		return contactMechId;
-	}
-
-	public void setContactMechId(int contactMechId) {
-		this.contactMechId = contactMechId;
-	}
 
 	public String getContactMechPurpose() {
 		return contactMechPurpose;
@@ -75,14 +69,6 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 
 	public void setInfoString(String infoString) {
 		this.infoString = infoString;
-	}
-
-	public Party getParty() {
-		return party;
-	}
-
-	public void setParty(Party party) {
-		this.party = party;
 	}
 
 	public boolean sameValueAs(PartyContactMech other) {
