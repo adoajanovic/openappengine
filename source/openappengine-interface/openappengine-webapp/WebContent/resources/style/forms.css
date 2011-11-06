@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.errorMessage{
+	color: red;
+	font-family: Verdana;
+	font-size: 9px;
+	font-style: italic;
+}
+
+.successMessage{
+	color: green;
+	font-family: Verdana;
+	font-size: 9px;
+	font-style: italic;
+}

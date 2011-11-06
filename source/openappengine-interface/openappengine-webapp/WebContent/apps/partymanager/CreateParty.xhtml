@@ -9,63 +9,276 @@
 	<ui:composition template="/templates/main.xhtml">
 		<ui:define name="body">
 			<ice:panelGroup>
-			<ice:messages />
-			<f:facet name="header">
-				<ice:outputText value="Party"></ice:outputText>
-			</f:facet>
-			<ice:form id="formCreateParty">
-				<h:panelGrid id="createSalesOrderHdr" columns="3">
-					<ice:column>
-						<ice:outputLabel for="formCreateParty_description">Description</ice:outputLabel>
-					</ice:column>
-					<ice:column>
-						<h:inputText id="formCreateParty_description"
-							value="#{partyManagerController.partyBean.description}"
-							readonly="false" required="true" />
-					</ice:column>
+				<ice:messages />
+				<ice:form id="formCreateParty_Main">
+					<ice:panelTabSet>
+						<ice:panelTab label="Party">
+							<h3>
+								<ice:outputText value="Party"></ice:outputText>
+							</h3>
 
-					<ice:column />
+							<h:panelGrid id="formCreateParty" columns="3">
+								<ice:column>
+									<ice:outputLabel for="formCreateParty_description">Description</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<h:inputText id="formCreateParty_description"
+										value="#{partyManagerController.partyBean.description}"
+										readonly="false" required="true" />
+								</ice:column>
 
-					<ice:column>
-						<ice:outputLabel for="formCreateParty_partyType">Type</ice:outputLabel>
-					</ice:column>
-					<ice:column>
-						<ice:selectOneMenu id="formCreateParty_partyType"
-							value="#{partyManagerController.partyBean.partyType}"
-							required="true">
-							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItem itemLabel="CUSTOMER" itemValue="CUSTOMER" />
-						</ice:selectOneMenu>
-					</ice:column>
-					<ice:column />
+								<ice:column />
 
-					<ice:column>
-						<ice:outputLabel for="formCreateParty_currencyCode">Currency</ice:outputLabel>
-					</ice:column>
-					<ice:column>
-						<ice:selectOneMenu id="formCreateParty_currencyCode"
-							value="#{partyManagerController.partyBean.preferredCurrencyUom}"
-							required="true">
-							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItem itemLabel="INR" itemValue="INR" />
-						</ice:selectOneMenu>
-					</ice:column>
-					<ice:column />
-				</h:panelGrid>
+								<ice:column>
+									<ice:outputLabel for="formCreateParty_partyType">Type</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:selectOneMenu id="formCreateParty_partyType"
+										value="#{partyManagerController.partyBean.partyType}"
+										required="true">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="CUSTOMER" itemValue="CUSTOMER" />
+									</ice:selectOneMenu>
+								</ice:column>
+								<ice:column />
 
-				<ice:dataTable id="formCreateParty_ContactMechs"
-					value="#{partyManagerController.partyBean.partyContactMechs}"
-					var="contactMech">
+								<ice:column>
+									<ice:outputLabel for="formCreateParty_currencyCode">Currency</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:selectOneMenu id="formCreateParty_currencyCode"
+										value="#{partyManagerController.partyBean.preferredCurrencyUom}"
+										required="true">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="INR" itemValue="INR" />
+									</ice:selectOneMenu>
+								</ice:column>
+								<ice:column />
+							</h:panelGrid>
+						</ice:panelTab>
 
-				</ice:dataTable>
+						<ice:panelTab label="Contact Mech">
+							<h3>
+								<ice:outputText value="Contact Mech"></ice:outputText>
+							</h3>
 
-				<ice:commandButton value="Add Contact"
-					actionListener="#{partyManagerController.openContactMechPopup}">
-				</ice:commandButton>
+							<h:panelGrid id="addContactMech" columns="2">
+								<ice:commandButton value="Add Contact Mech"
+									actionListener="#{partyManagerController.openContactMechForm}"
+									partialSubmit="true"
+									rendered="#{not partyManagerController.renderContactMechForm}" />
+							</h:panelGrid>
 
-				<ice:commandButton id="btnCreateParty" value="Save"
-					action="#{partyManagerController.createParty}" />
-			</ice:form>
+							<h:panelGrid id="formCreateContactMech" columns="3"
+								rendered="#{partyManagerController.renderContactMechForm}">
+
+								<ice:column>
+									<ice:outputLabel for="formCreateContactMech_Type">Type</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:selectOneMenu id="formCreateContactMech_Type"
+										value="#{partyManagerController.partyContactMechBean.contactMechType}"
+										required="true">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="PHONE" itemValue="PHONE" />
+										<f:selectItem itemLabel="EMAIL" itemValue="EMAIL" />
+										<f:selectItem itemLabel="FAX" itemValue="FAX" />
+									</ice:selectOneMenu>
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formCreateContactMech_Purpose">Purpose</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:selectOneMenu id="formCreateContactMech_Purpose"
+										value="#{partyManagerController.partyContactMechBean.contactMechPurpose}"
+										required="true">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="BILLING" itemValue="BILLING" />
+									</ice:selectOneMenu>
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formCreateContactMech_Value">Value</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formCreateContactMech_Value"
+										value="#{partyManagerController.partyContactMechBean.infoString}"
+										required="true" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:commandButton id="formCreateContactMech_AddContact"
+										value="Add"
+										actionListener="#{partyManagerController.addContactMech}"
+										partialSubmit="true" />
+								</ice:column>
+								<ice:column />
+								<ice:column />
+							</h:panelGrid>
+
+							<ice:dataTable id="ContactMech_DataTable"
+								value="#{partyManagerController.contactMechs}" var="contactMech"
+								rendered="#{partyManagerController.contactMechs.size() != 0}">
+								<f:facet name="header">
+									<ice:column>
+										<ice:outputLabel value="Type" />
+									</ice:column>
+									<ice:column>
+										<ice:outputLabel value="Purpose" />
+									</ice:column>
+									<ice:column>
+										<ice:outputLabel value="Value" />
+									</ice:column>
+								</f:facet>
+								<ice:column>
+									<ice:outputLabel value="#{contactMech.contactMechType}" />
+								</ice:column>
+								<ice:column>
+									<ice:outputLabel value="#{contactMech.contactMechPurpose}" />
+								</ice:column>
+								<ice:column>
+									<ice:outputLabel value="#{contactMech.infoString}" />
+								</ice:column>
+							</ice:dataTable>
+						</ice:panelTab>
+
+						<ice:panelTab label="Postal Address">
+							<h3>
+								<ice:outputText value="Address"></ice:outputText>
+							</h3>
+
+							<h:panelGrid id="addAddress" columns="2">
+								<ice:commandButton value="Add"
+									actionListener="#{partyManagerController.openAddressForm}"
+									partialSubmit="true"
+									rendered="#{not partyManagerController.renderAddressForm}" />
+							</h:panelGrid>
+
+							<h:panelGrid id="formAddress_Grid" columns="3"
+								rendered="#{partyManagerController.renderAddressForm}">
+								<ice:column>
+									<ice:outputLabel for="formAddress_Address1">Address 1</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_Address1"
+										value="#{partyManagerController.addressBean.address1}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_Address2">Address 2</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_Address2"
+										value="#{partyManagerController.addressBean.address2}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_Directions">Directions</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_Directions"
+										value="#{partyManagerController.addressBean.directions}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_City">City</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_City"
+										value="#{partyManagerController.addressBean.city}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_PostalCode">Postal Code</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_PostalCode"
+										value="#{partyManagerController.addressBean.postalCode}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_PostalCodeExt">Postal Code Ext</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_PostalCodeExt"
+										value="#{partyManagerController.addressBean.postalCodeExt}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_Country">Country</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_Country"
+										value="#{partyManagerController.addressBean.country}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_StateProvince">State/Province</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:inputText id="formAddress_StateProvince"
+										value="#{partyManagerController.addressBean.stateProvince}" />
+								</ice:column>
+								<ice:column />
+
+								<ice:column>
+									<ice:outputLabel for="formAddress_Role">Role</ice:outputLabel>
+								</ice:column>
+								<ice:column>
+									<ice:selectOneMenu id="formAddress_Role"
+										value="#{partyManagerController.partyContactMechBean.contactMechPurpose}"
+										required="true">
+										<f:selectItem itemLabel="" itemValue="" />
+										<f:selectItem itemLabel="BILLING_ADDRESS"
+											itemValue="BILLING_ADDRESS" />
+										<f:selectItem itemLabel="SHIPPING_ADDRESS"
+											itemValue="SHIPPING_ADDRESS" />
+									</ice:selectOneMenu>
+								</ice:column>
+								<ice:column />
+							</h:panelGrid>
+
+							<h:panelGrid columns="4"
+								rendered="#{partyManagerController.renderAddressForm}">
+								<ice:column>
+									<ice:commandButton id="formAddress_Add"
+										action="#{partyManagerController.addAddress}"
+										value="Add Address" />
+								</ice:column>
+								<ice:column />
+								<ice:column />
+							</h:panelGrid>
+
+							<ice:dataTable id="address_Grid"
+								value="#{partyManagerController.partyAddresses}" var="address"
+								rendered="#{partyManagerController.partyAddresses.size() != 0}">
+								<f:facet name="header">
+									<ice:column>
+										<ice:outputLabel value="Address" />
+									</ice:column>
+								</f:facet>
+								<ice:column>
+									<ice:outputText value="#{address}"></ice:outputText>
+								</ice:column>
+							</ice:dataTable>
+						</ice:panelTab>
+
+					</ice:panelTabSet>
+
+					<ice:commandButton id="btnCreateParty" value="Save"
+						action="#{partyManagerController.createParty}" />
+				</ice:form>
 			</ice:panelGroup>
 		</ui:define>
 	</ui:composition>
