@@ -64,7 +64,7 @@ public interface IPartyManagerService {
 	 * @param address
 	 * @param role
 	 */
-	void createAddress(String externalId, Address address, AddressRole role);
+	void createAddress(String externalId, Address address);
 	
 	/**
 	 * Find Address by Address Type.

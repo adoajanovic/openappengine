@@ -7,14 +7,20 @@ import java.util.List;
 
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 
 import com.openappengine.facade.code.dto.CodeDTO;
 import com.openappengine.facade.code.dto.CodesDTOAssembler;
 import com.openappengine.facade.party.PartyManagerFacade;
+import com.openappengine.facade.party.dto.AddressCommand;
+import com.openappengine.facade.party.dto.AddressCommandValidator;
+import com.openappengine.facade.party.dto.AddressDTOAssembler;
 import com.openappengine.facade.party.dto.ContactMechDTOAssembler;
 import com.openappengine.facade.party.dto.PartyCommand;
 import com.openappengine.facade.party.dto.PartyCommandValidator;
 import com.openappengine.facade.party.dto.PartyContactMechCommand;
+import com.openappengine.facade.party.dto.PartyContactMechValidator;
+import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.code.Code;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
@@ -67,12 +73,32 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.openappengine.facade.party.PartyManagerFacade#assignContactMechToParty(java.lang.String, com.openappengine.facade.party.dto.PartyContactMechCommand)
+	 * @see com.openappengine.facade.party.PartyManagerFacade#storeContactMech(java.lang.String, com.openappengine.facade.party.dto.PartyContactMechCommand)
 	 */
-	public void assignContactMechToParty(String partyExternalId,
+	public void storeContactMech(String partyExternalId,
 			PartyContactMechCommand partyContactMechCommand) {
-		PartyContactMech partyContactMech = new ContactMechDTOAssembler().fromDTO(partyContactMechCommand);
-		partyManagerService.createContactMech(partyExternalId,partyContactMech);
+		PartyContactMech partyContactMech = new ContactMechDTOAssembler()
+				.fromDTO(partyContactMechCommand);
+		PartyContactMechValidator partyContactMechValidator = new PartyContactMechValidator();
+		Errors errors = new BeanPropertyBindingResult(partyContactMechCommand, "partyContactMechCommand");
+		ValidationUtils.invokeValidator(partyContactMechValidator,partyContactMechCommand, errors);
+		partyManagerService.createContactMech(partyExternalId, partyContactMech);
+	}
+	
+	/**
+	 * Create Address for the Party with the given Party - ExternalId
+	 * @param externalId
+	 * @param addressCommand
+	 */
+	public void storeAddress(String externalId,AddressCommand addressCommand) {
+		AddressCommandValidator validator = new AddressCommandValidator();
+		Errors errors = new BeanPropertyBindingResult(addressCommand, "addressCommand");
+		validator.validate(addressCommand,errors);
+		
+		if(!errors.hasErrors()) {
+			Address address = new AddressDTOAssembler().fromDTO(addressCommand);
+			partyManagerService.createAddress(externalId, address);
+		}
 	}
 
 	public void setPartyManagerService(IPartyManagerService partyManagerService) {

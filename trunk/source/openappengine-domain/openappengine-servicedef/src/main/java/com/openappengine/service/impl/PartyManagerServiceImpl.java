@@ -74,7 +74,7 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 	}
 
 	@Override
-	public void createAddress(String externalId, Address address, AddressRole role) {
+	public void createAddress(String externalId, Address address) {
 		// TODO Auto-generated method stub
 	}
 

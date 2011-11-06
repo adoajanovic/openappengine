@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-	version="2.0">
-
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 	<!-- Support Beans -->
 	<managed-bean>
 		<managed-bean-name>listHelperBean</managed-bean-name>
 		<managed-bean-class>com.openappengine.web.support.ListHelper</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
-
 	<!-- Model -->
-	<managed-bean>
-		<managed-bean-name>itemMasterModel</managed-bean-name>
-		<managed-bean-class>com.openappengine.web.mvc.itemmaster.ItemMasterModel</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-
+	<!-- Party Manager App. -->
 	<managed-bean>
 		<managed-bean-name>partyBean</managed-bean-name>
 		<managed-bean-class>com.openappengine.web.mvc.party.PartyBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>partyContactMechBean</managed-bean-name>
+		<managed-bean-class>com.openappengine.web.mvc.party.PartyContactMechBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>addressBean</managed-bean-name>
+		<managed-bean-class>com.openappengine.web.mvc.party.PartyAddressBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!-- Party Manager App. -->
+
 
 	<!-- Controller -->
+	<!-- Party Manager App. -->
 	<managed-bean>
 		<managed-bean-name>partyManagerController</managed-bean-name>
 		<managed-bean-class>com.openappengine.web.mvc.party.PartyManagerController</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 		<managed-property>
 			<property-name>partyBean</property-name>
 			<value>#{partyBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>partyContactMechBean</property-name>
+			<value>#{partyContactMechBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>addressBean</property-name>
+			<value>#{addressBean}</value>
+		</managed-property>
 	</managed-bean>
-
 </faces-config>

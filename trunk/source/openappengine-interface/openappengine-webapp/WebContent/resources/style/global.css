@@ -1,0 +1,43 @@
+/*
+ * Global CSS styles.
+ */
+
+/* General ------------------------------------------------------------------------------------- */
+
+body {
+    font: normal 8pt verdana, helvetica, sans-serif;
+}
+
+/* Tables -------------------------------------------------------------------------------------- */
+
+table, th, td {
+    margin: 1px;
+    padding: 2px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+tr.row1 {
+    background-color: #eee;
+}
+
+tr.row2 {
+    background-color: #ccc;
+}
+
+table.none, table.none td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* Forms --------------------------------------------------------------------------------------- */
+
+form input {
+    margin: 1px;
+    padding: 1px;
+}
+
+form .message {
+    color: red;
+}

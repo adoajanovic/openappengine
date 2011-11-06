@@ -2,19 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
 <f:view contentType="text/html">
 	<h:head>
-		<title>
-			OpenAppEngine WebApp |
-		</title>
+		<title>OpenAppEngine WebApp |</title>
+		<ice:outputStyle href="/resources/style/rime/rime.css" />
+		<ice:outputStyle href="/resources/style/style.css"></ice:outputStyle>
+		<ice:outputStyle href="/resources/style/form.css"></ice:outputStyle>
 		<h:outputStylesheet library="css" name="application.css" />
-		<link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css" />
 	</h:head>
 	<h:body>
 		<div id="page">
 			<div id="header">
-				<a href="#" class="logo"><img
+				<a href="#" class="logo"> <img
 					src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
 					alt="RF logo" /> </a>
 				<div class="right-controls">

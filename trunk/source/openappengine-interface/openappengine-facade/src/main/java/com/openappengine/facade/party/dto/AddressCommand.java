@@ -4,11 +4,13 @@
 package com.openappengine.facade.party.dto;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author hrishi
  *
  */
+@SuppressWarnings("unused")
 public class AddressCommand implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,6 +34,8 @@ public class AddressCommand implements Serializable {
 	private String country;
 	
 	private String stateProvince;
+	
+	private Set<String> roles;
 
 	public String getToName() {
 		return toName;
@@ -111,6 +115,14 @@ public class AddressCommand implements Serializable {
 
 	public void setStateProvince(String stateProvince) {
 		this.stateProvince = stateProvince;
+	}
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
 	}
 	
 }
