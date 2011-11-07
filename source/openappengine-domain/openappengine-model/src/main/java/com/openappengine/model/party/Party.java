@@ -66,7 +66,7 @@ public class Party implements Entity<Party, Integer> {
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
-	private List<PartyContactMech> partyContactMechs = new ArrayList<PartyContactMech>();
+	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
 
 	@OneToOne
 	@PrimaryKeyJoinColumn
@@ -127,11 +127,11 @@ public class Party implements Entity<Party, Integer> {
 		this.status = status;
 	}
 
-	public List<PartyContactMech> getPartyContactMechs() {
+	public Set<PartyContactMech> getPartyContactMechs() {
 		return partyContactMechs;
 	}
 
-	public void setPartyContactMechs(List<PartyContactMech> partyContactMeches) {
+	public void setPartyContactMechs(Set<PartyContactMech> partyContactMeches) {
 		this.partyContactMechs = partyContactMeches;
 	}
 
