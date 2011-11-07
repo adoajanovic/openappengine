@@ -4,6 +4,8 @@
 package com.openappengine.facade.party.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
@@ -22,6 +24,10 @@ public class PartyCommand implements Serializable {
 	private String preferredCurrencyUom;
 	
 	private String partyType;
+	
+	private List<PartyContactMechCommand> contactMechs = new ArrayList<PartyContactMechCommand>();
+	
+	private List<AddressCommand> addresses = new ArrayList<AddressCommand>();
 	
 	public PartyCommand(String description, String preferredCurrencyUom, String partyType) {
 		super();
@@ -56,6 +62,36 @@ public class PartyCommand implements Serializable {
 
 	public void setPartyType(String partyType) {
 		this.partyType = partyType;
+	}
+
+	public List<PartyContactMechCommand> getContactMechs() {
+		return contactMechs;
+	}
+
+	public void setContactMechs(List<PartyContactMechCommand> contactMechs) {
+		this.contactMechs = contactMechs;
+	}
+	
+	public void addContactMech(PartyContactMechCommand partyContactMechCommand) {
+		if(partyContactMechCommand == null) {
+			return;
+		}
+		this.contactMechs.add(partyContactMechCommand);
+	}
+
+	public List<AddressCommand> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<AddressCommand> addresses) {
+		this.addresses = addresses;
+	}
+	
+	public void addAddress(AddressCommand addressCommand) {
+		if(addressCommand == null) {
+			return;
+		}
+		this.addresses.add(addressCommand);
 	}
 
 }

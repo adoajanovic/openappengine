@@ -41,9 +41,6 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 	public PartyManagerFacadeImpl() {
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.openappengine.facade.party.PartyManagerFacade#listAllCodes(java.lang.String)
-	 */
 	public List<CodeDTO> listAllCodes(String codeType) {
 		List<Code> codes = codeRepository.getCodesByCodeType(codeType);
 		return new CodesDTOAssembler().toDTOList(codes);
@@ -53,9 +50,6 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 		this.codeRepository = codeRepository;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.openappengine.facade.party.PartyManagerFacade#createParty(com.openappengine.facade.party.dto.PartyCommand)
-	 */
 	public String createParty(PartyCommand partyCommand) {
 		PartyCommandValidator validator = new PartyCommandValidator();
 		Errors errors = new BeanPropertyBindingResult(partyCommand, "partyCommand");
@@ -64,7 +58,7 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 		if(!errors.hasErrors()) {
 			PartySpecification partySpecification = new PartySpecification(partyCommand.getDescription(),
 					partyCommand.getPartyType(), partyCommand.getPreferredCurrencyUom());
-			Party party = partyManagerService.createNewParty(partySpecification);
+			Party party = partyManagerService.createNewParty(partySpecification,null,null);
 			if(party != null) {
 				return party.getExternalId();
 			}

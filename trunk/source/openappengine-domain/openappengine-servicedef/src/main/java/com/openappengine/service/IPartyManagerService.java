@@ -4,6 +4,7 @@
 package com.openappengine.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.addressbook.AddressRole;
@@ -23,7 +24,7 @@ public interface IPartyManagerService {
 	 * @param partySpecification
 	 * @return
 	 */
-	Party createNewParty(PartySpecification partySpecification);
+	Party createNewParty(PartySpecification partySpecification,Set<PartyContactMech> partyContactMechs,Set<Address> address);
 	
 	/**
 	 * Create Person by Person Specification.

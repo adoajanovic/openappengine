@@ -4,6 +4,9 @@
 package com.openappengine.service.impl;
 
 import java.util.List;
+import java.util.Set;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.factory.party.PartyAggregateFactory;
 import com.openappengine.model.addressbook.Address;
@@ -26,11 +29,15 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 	private PartyAggregateFactory partyAggregateFactory;
 	
 	public void createContactMech(String externalId,PartyContactMech partyContactMech) {
-		// TODO Auto-generated method stub
+		List<Party> partyById = this.findPartyById(externalId);
+		if(partyById != null && !partyById.isEmpty()) {
+			Party party = partyById.get(0);
+			party.addPartyContactMech(partyContactMech);
+			partyManagerRepository.store(party);
+		}	
 	}
 
-	public void createContactMech(String externalId,
-			List<PartyContactMech> partyContactMechs) {
+	public void createContactMech(String externalId,List<PartyContactMech> partyContactMechs) {
 	}
 
 	public void setPartyManagerRepository(PartyManagerRepository partyManagerRepository) {
@@ -42,7 +49,8 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 	}
 
 	@Override
-	public Party createNewParty(PartySpecification partySpecification) {
+	@Transactional
+	public Party createNewParty(PartySpecification partySpecification,Set<PartyContactMech> partyContactMeches,Set<Address> addresses) {
 		Long sequenceId = partyManagerRepository.nextSequenceId();
 		if(sequenceId == null) {
 			sequenceId = Party.DEFAULT_START_EXTERNAL_ID;
@@ -50,7 +58,9 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 		
 		Party partyModel = partyAggregateFactory.setupNewParty(partySpecification);
 		partyModel.setExternalId(sequenceId.toString());
-		
+		partyModel.setAddresses(addresses);
+		partyManagerRepository.store(partyModel);
+		partyModel.setPartyContactMechs(partyContactMeches);
 		partyManagerRepository.store(partyModel);
 		return partyModel;
 	}
@@ -63,8 +73,8 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 
 	@Override
 	public List<Party> findPartyById(String externalId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Party> parties = partyManagerRepository.lookupPartyByExternalId(externalId);
+		return parties;
 	}
 
 	@Override
@@ -75,7 +85,12 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 
 	@Override
 	public void createAddress(String externalId, Address address) {
-		// TODO Auto-generated method stub
+		List<Party> list = this.findPartyById(externalId);
+		if(list != null && !list.isEmpty()) {
+			Party party = list.get(0);
+			party.addAddress(address);
+			partyManagerRepository.store(party);
+		}
 	}
 
 	@Override
