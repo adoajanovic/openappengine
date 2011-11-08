@@ -23,4 +23,9 @@ public class ServiceNames implements Serializable {
 	 */
 	public static final String SALES_ORDER_SERVICE = "salesOrderService";
 
+	/**
+	 * 
+	 */
+	public static final String PARTY_MANAGER_SERVICE = "partyManagerService";
+
 }
