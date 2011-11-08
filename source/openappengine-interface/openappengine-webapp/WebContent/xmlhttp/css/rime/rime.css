@@ -180,7 +180,7 @@ table.iceSelInpDate tbody tr td table{
     display: inline;
     text-decoration: none;
     background-color: transparent;
-    background-image: url( "./css-images/cal_button.gif" );
+    background-image: url( "css-images/cal_button.gif" );
     background-repeat: no-repeat;
     text-align: center;
     border: none;
@@ -193,7 +193,7 @@ table.iceSelInpDate tbody tr td table{
     display: inline;
     text-decoration: none;
     background-color: transparent;
-    background-image: url( "./css-images/cal_off.gif" );
+    background-image: url( "css-images/cal_off.gif" );
     background-repeat: no-repeat;
     text-align: center;
     border: none;
@@ -236,7 +236,7 @@ table.iceSelInpDate tbody tr td table{
     text-decoration: none;
     display: inline;
     background-color: transparent;
-    background-image: url( "./css-images/cal_arrow_left.gif" );
+    background-image: url( "css-images/cal_arrow_left.gif" );
     background-repeat: no-repeat;
     text-align: center;
     border: none;
@@ -248,7 +248,7 @@ table.iceSelInpDate tbody tr td table{
     text-decoration: none;
     display: inline;
     background-color: transparent;
-    background-image: url( "./css-images/cal_arrow_right.gif" );
+    background-image: url( "css-images/cal_arrow_right.gif" );
     background-repeat: no-repeat;
     text-align: center;
     border: none;
@@ -410,7 +410,7 @@ table.iceSelInpDate tbody tr td table{
     color: #484848;
     padding: 5px;
     font-weight: bold;
-    background: #FFF url( './css-images/table_col_header.gif' ) repeat-x bottom left;
+    background: #FFF url( 'css-images/table_col_header.gif' ) repeat-x bottom left;
     border: 1px solid #d9d9d9;
 }
 
@@ -474,7 +474,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .iceDatTblScrlSpr{ 
-    background: url( './css-images/table_col_header.gif' ) repeat-x bottom left; 
+    background: url( 'css-images/table_col_header.gif' ) repeat-x bottom left; 
     border-top: 1px solid #d9d9d9; 
     border-right: 1px solid #d9d9d9;
 }
@@ -585,10 +585,10 @@ table.iceSelInpDate tbody tr td table{
     height:10px;
 }
 .iceCmdSrtHdrAsc{
-    background-image: url('./css-images/column_sort_asc.gif');
+    background-image: url('css-images/column_sort_asc.gif');
 }
 .iceCmdSrtHdrDesc{
-    background-image: url('./css-images/column_sort_desc.gif');
+    background-image: url('css-images/column_sort_desc.gif');
 }
 
 /*
@@ -608,7 +608,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .LftTop {
-    background: url( './css-images/Tab_LftTop.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_LftTop.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -617,7 +617,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .MidTop {
-    background: url( './css-images/Tab_MidTop.gif' ) repeat-x top left;
+    background: url( 'css-images/Tab_MidTop.gif' ) repeat-x top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -625,7 +625,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .RtTop {
-    background: url( './css-images/Tab_RtTop.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_RtTop.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -634,7 +634,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .LftMid {
-    background: url( './css-images/Tab_LftMid.gif' ) repeat top left;
+    background: url( 'css-images/Tab_LftMid.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -642,14 +642,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .MidMid {
-    background: url( './css-images/Tab_MidMid.gif' ) repeat top left;
+    background: url( 'css-images/Tab_MidMid.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOn .MidMid a, .icePnlTbOn .MidMid div.ptfd {
-    background: url( './css-images/Tab_MidMid_bullet.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet.gif' ) no-repeat top left;
     border: none;
     padding: 4px 8px 5px 28px;
     margin: 3px;
@@ -665,7 +665,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOn .RtMid {
-    background: url( './css-images/Tab_RtMid.gif' ) repeat top left;
+    background: url( 'css-images/Tab_RtMid.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -713,7 +713,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .LftTop {
-    background: url( './css-images/Tab_LftTop_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_LftTop_off.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -722,7 +722,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .MidTop {
-    background: url( './css-images/Tab_MidTop_off.gif' ) repeat-x top left;
+    background: url( 'css-images/Tab_MidTop_off.gif' ) repeat-x top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -730,7 +730,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .RtTop {
-    background: url( './css-images/Tab_RtTop_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_RtTop_off.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -739,7 +739,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .LftMid {
-    background: url( './css-images/Tab_LftMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_LftMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -747,14 +747,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .MidMid {
-    background: url( './css-images/Tab_MidMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_MidMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOff .MidMid a, .icePnlTbOff .MidMid div.ptfd {
-    background: url( './css-images/Tab_MidMid_bullet_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet_off.gif' ) no-repeat top left;
     border: none;
     padding: 4px 8px 5px 28px;
     margin: 3px;
@@ -777,7 +777,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOff .RtMid {
-    background: url( './css-images/Tab_RtMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_RtMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -828,7 +828,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .LftTop {
-    background: url( './css-images/Tab_LftTop_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_LftTop_off.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -837,7 +837,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .MidTop {
-    background: url( './css-images/Tab_MidTop_off.gif' ) repeat-x top left;
+    background: url( 'css-images/Tab_MidTop_off.gif' ) repeat-x top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -845,7 +845,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .RtTop {
-    background: url( './css-images/Tab_RtTop_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_RtTop_off.gif' ) no-repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -854,7 +854,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .LftMid {
-    background: url( './css-images/Tab_LftMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_LftMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -862,14 +862,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .MidMid {
-    background: url( './css-images/Tab_MidMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_MidMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOver .MidMid a, .icePnlTbOver .MidMid div.ptfd {
-    background: url( './css-images/Tab_MidMid_bullet_over.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet_over.gif' ) no-repeat top left;
     border: none;
     padding: 4px 8px 5px 28px;
     margin: 3px;
@@ -890,7 +890,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOver .RtMid {
-    background: url( './css-images/Tab_RtMid_off.gif' ) repeat top left;
+    background: url( 'css-images/Tab_RtMid_off.gif' ) repeat top left;
     border: none;
     padding: 0;
     text-align: center;
@@ -942,7 +942,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbSetCnt {
 /*newly added class*/
-    background: #FFF url( './css-images/contentContainer_bg.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/contentContainer_bg.gif' ) repeat-x top left;
     border-bottom: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
@@ -951,7 +951,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbSetCntBtm {
 /*was iceTabSetBottom*/
-    background: url( './css-images/contentContainer_bg_up.gif' ) repeat-x top left;
+    background: url( 'css-images/contentContainer_bg_up.gif' ) repeat-x top left;
     border-top: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
@@ -995,7 +995,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOnBtm .LftMid {
-    background: url( './css-images/Tab_Btm_LftMid.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftMid.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1003,14 +1003,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOnBtm .MidMid {
-    background: url( './css-images/Tab_Btm_MidMid.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_MidMid.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOnBtm .MidMid a, .icePnlTbOnBtm .MidMid div.ptfd{
-    background: url( './css-images/Tab_MidMid_bullet.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet.gif' ) no-repeat top left;
     border: none;
     padding: 3px 8px 2px 28px;
     margin: 3px;
@@ -1027,7 +1027,7 @@ table.iceSelInpDate tbody tr td table{
 
 
 .icePnlTbOnBtm .RtMid {
-    background: url( './css-images/Tab_Btm_RtMid.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtMid.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1035,7 +1035,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOnBtm .LftBtm {
-    background: url( './css-images/Tab_Btm_LftBtm.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftBtm.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1044,7 +1044,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOnBtm .MidBtm {
-    background: url( './css-images/Tab_Btm_MidBtm.gif' ) repeat-x bottom left;
+    background: url( 'css-images/Tab_Btm_MidBtm.gif' ) repeat-x bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1052,7 +1052,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOnBtm .RtBtm {
-    background: url( './css-images/Tab_Btm_RtBtm.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtBtm.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1103,7 +1103,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .LftMid {
-    background: url( './css-images/Tab_Btm_LftMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1111,14 +1111,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .MidMid {
-    background: url( './css-images/Tab_Btm_MidMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_MidMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOffBtm .MidMid a, .icePnlTbOffBtm .MidMid div.ptfd {
-    background: url( './css-images/Tab_MidMid_bullet_off.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet_off.gif' ) no-repeat top left;
     border: none;
     padding: 3px 8px 2px 28px;
     margin: 3px;
@@ -1138,7 +1138,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .RtMid {
-    background: url( './css-images/Tab_Btm_RtMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1146,7 +1146,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .LftBtm {
-    background: url( './css-images/Tab_Btm_LftBtm_off.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftBtm_off.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1155,7 +1155,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .MidBtm {
-    background: url( './css-images/Tab_Btm_MidBtm_off.gif' ) repeat-x bottom left;
+    background: url( 'css-images/Tab_Btm_MidBtm_off.gif' ) repeat-x bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1163,7 +1163,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOffBtm .RtBtm {
-    background: url( './css-images/Tab_Btm_RtBtm_off.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtBtm_off.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1215,7 +1215,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .LftMid {
-    background: url( './css-images/Tab_Btm_LftMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1223,14 +1223,14 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .MidMid {
-    background: url( './css-images/Tab_Btm_MidMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_MidMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
 }
 
 .icePnlTbOverBtm .MidMid a, .icePnlTbOverBtm .MidMid div.ptfd {
-    background: url( './css-images/Tab_MidMid_bullet_over.gif' ) no-repeat top left;
+    background: url( 'css-images/Tab_MidMid_bullet_over.gif' ) no-repeat top left;
     border: none;
     padding: 3px 8px 2px 28px;    
     margin: 3px;
@@ -1250,7 +1250,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .RtMid {
-    background: url( './css-images/Tab_Btm_RtMid_off.gif' ) repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtMid_off.gif' ) repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1258,7 +1258,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .LftBtm {
-    background: url( './css-images/Tab_Btm_LftBtm_off.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_LftBtm_off.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1267,7 +1267,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .MidBtm {
-    background: url( './css-images/Tab_Btm_MidBtm_off.gif' ) repeat-x bottom left;
+    background: url( 'css-images/Tab_Btm_MidBtm_off.gif' ) repeat-x bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1275,7 +1275,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .icePnlTbOverBtm .RtBtm {
-    background: url( './css-images/Tab_Btm_RtBtm_off.gif' ) no-repeat bottom left;
+    background: url( 'css-images/Tab_Btm_RtBtm_off.gif' ) no-repeat bottom left;
     border: none;
     padding: 0;
     text-align: center;
@@ -1436,7 +1436,7 @@ table.iceSelInpDate tbody tr td table{
     width: 100%;
     background-color: #2A6CC2;
     color: #FFFFFF;
-    background-image: url( ./css-images/cal_arrow_right.gif );
+    background-image: url( css-images/cal_arrow_right.gif );
     background-position: center right;
     background-repeat: no-repeat;
 }
@@ -1468,7 +1468,7 @@ table.iceSelInpDate tbody tr td table{
     display: block;
     margin: 1px;
     height: 17px;
-    background: url( './css-images/ProgFill_bg.gif' ) repeat-x top left;
+    background: url( 'css-images/ProgFill_bg.gif' ) repeat-x top left;
 }
 
 .iceOutProgTxt {
@@ -1687,11 +1687,11 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .iceMnuBarItem a, .iceMnuBarVrtItem a {
-    background-image: url( "./css-images/bottom_menu_bg.png" );
+    background-image: url( "css-images/bottom_menu_bg.png" );
 }
 
 .iceMnuBarItem a:hover, .iceMnuBarVrtItem a:hover {
-    background-image: url( "./css-images/bottom_menu_btn_bg_on.png" );
+    background-image: url( "css-images/bottom_menu_btn_bg_on.png" );
 }
 
 .iceMnuItmSep {
@@ -1903,7 +1903,7 @@ table.iceSelInpDate tbody tr td table{
 .icePnlPopHdr, .icePnlTlTipHdr {
     height: 2.0em;
     font-weight: bold;
-    background: #FFF url( './css-images/PnlHdr_bgslice.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/PnlHdr_bgslice.gif' ) repeat-x top left;
     border-bottom: 1px solid #d9d9d9;
 }
 
@@ -1950,13 +1950,13 @@ table.iceSelInpDate tbody tr td table{
 .iceOutProgIndetActv {
     margin: 1px;
     height: 17px;
-    background: url( './css-images/ProgFill_Indet_Bg_active.gif' ) repeat-x top left;
+    background: url( 'css-images/ProgFill_Indet_Bg_active.gif' ) repeat-x top left;
 }
 
 .iceOutProgIndetInactv {
     margin: 1px;
     height: 17px;
-    background: url( './css-images/ProgFill_Indet_Bg_inactive.gif' ) repeat-x top left;
+    background: url( 'css-images/ProgFill_Indet_Bg_inactive.gif' ) repeat-x top left;
 }
 
 /*
@@ -1979,19 +1979,19 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .iceOutConStatInactv {
-    background: url( './css-images/connect_idle.gif' ) no-repeat center top;
+    background: url( 'css-images/connect_idle.gif' ) no-repeat center top;
 }
 
 .iceOutConStatActv {
-    background: url( './css-images/connect_active.gif' ) no-repeat center top;
+    background: url( 'css-images/connect_active.gif' ) no-repeat center top;
 }
 
 .iceOutConStatCaution {
-    background: url( './css-images/connect_caution.gif' ) no-repeat center top;
+    background: url( 'css-images/connect_caution.gif' ) no-repeat center top;
 }
 
 .iceOutConStatDisconnect {
-    background: url( './css-images/connect_disconnected.gif' ) no-repeat center top;
+    background: url( 'css-images/connect_disconnected.gif' ) no-repeat center top;
 }
 
 /* XP Disabled styles CSS Document  v1.0 mar 31 2006 */
@@ -2122,7 +2122,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .LftTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-image: url( "css-images/off-left-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2133,7 +2133,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .MidTop-dis {
     background-color: #DEDEDE;
-    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-image: url( 'css-images/off-mid-top-dis.gif' );
     background-repeat: repeat-x;
     text-align: center;
     padding-top: 1px;
@@ -2142,7 +2142,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .RtTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-image: url( "css-images/off-right-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2152,7 +2152,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .LftMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-left-mid.gif");
+    /*    background-image: url("css-images/off-left-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2161,7 +2161,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .MidMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-mid-mid.gif");
+    /*    background-image: url("css-images/off-mid-mid.gif");
     background-repeat:repeat-x;*/
     text-align: center;
     padding-top: 5px;
@@ -2181,7 +2181,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .RtMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-right-mid.gif");
+    /*    background-image: url("css-images/off-right-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2190,21 +2190,21 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOff .LftBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-bot.gif" );
+    background-image: url( "css-images/off-left-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
 
 .icePnlTbOff .MidBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-image: url( "css-images/off-mid-bot.gif" );
     background-repeat: repeat-x;
     border: none;
 }
 
 .icePnlTbOff .RtBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-bot.gif" );
+    background-image: url( "css-images/off-right-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
@@ -2212,7 +2212,7 @@ table.iceSelInpDate tbody tr td table{
 /* disabled bottom tab off */
 .icePnlTbOffBtm .LftBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-image: url( "css-images/off-left-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2223,7 +2223,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .MidBtm-dis {
     background-color: #DEDEDE;
-    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-image: url( 'css-images/off-mid-top-dis.gif' );
     background-repeat: repeat-x;
     text-align: center;
     padding-top: 1px;
@@ -2232,7 +2232,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .RtBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-image: url( "css-images/off-right-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2242,7 +2242,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .LftMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-left-mid.gif");
+    /*    background-image: url("css-images/off-left-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2251,7 +2251,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .MidMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-mid-mid.gif");
+    /*    background-image: url("css-images/off-mid-mid.gif");
     background-repeat:repeat-x;*/
     text-align: center;
     padding-top: 5px;
@@ -2271,7 +2271,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .RtMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-right-mid.gif");
+    /*    background-image: url("css-images/off-right-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2280,21 +2280,21 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOffBtm .LftTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-bot.gif" );
+    background-image: url( "css-images/off-left-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
 
 .icePnlTbOffBtm .MidTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-image: url( "css-images/off-mid-bot.gif" );
     background-repeat: repeat-x;
     border: none;
 }
 
 .icePnlTbOffBtm .RtTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-bot.gif" );
+    background-image: url( "css-images/off-right-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
@@ -2303,7 +2303,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .LftBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-image: url( "css-images/off-left-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2314,7 +2314,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .MidBtm-dis {
     background-color: #DEDEDE;
-    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-image: url( 'css-images/off-mid-top-dis.gif' );
     background-repeat: repeat-x;
     text-align: center;
     padding-top: 1px;
@@ -2323,7 +2323,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .RtBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-image: url( "css-images/off-right-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2333,7 +2333,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .LftMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-left-mid.gif");
+    /*    background-image: url("css-images/off-left-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2342,7 +2342,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .MidMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-mid-mid.gif");
+    /*    background-image: url("css-images/off-mid-mid.gif");
     background-repeat:repeat-x;*/
     text-align: center;
     padding-top: 5px;
@@ -2361,7 +2361,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .RtMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-right-mid.gif");
+    /*    background-image: url("css-images/off-right-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2370,21 +2370,21 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOnBtm .LftTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-bot.gif" );
+    background-image: url( "css-images/off-left-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
 
 .icePnlTbOnBtm .MidTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-image: url( "css-images/off-mid-bot.gif" );
     background-repeat: repeat-x;
     border: none;
 }
 
 .icePnlTbOnBtm .RtTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-bot.gif" );
+    background-image: url( "css-images/off-right-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
@@ -2396,7 +2396,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .LftTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-image: url( "css-images/off-left-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2407,7 +2407,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .MidTop-dis {
     background-color: #DEDEDE;
-    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-image: url( 'css-images/off-mid-top-dis.gif' );
     background-repeat: repeat-x;
     text-align: center;
     padding-top: 1px;
@@ -2416,7 +2416,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .RtTop-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-image: url( "css-images/off-right-top-dis.gif" );
     background-repeat: no-repeat;
     background-position: bottom;
     text-align: center;
@@ -2426,7 +2426,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .LftMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-left-mid.gif");
+    /*    background-image: url("css-images/off-left-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2435,7 +2435,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .MidMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-mid-mid.gif");
+    /*    background-image: url("css-images/off-mid-mid.gif");
     background-repeat:repeat-x;*/
     text-align: center;
     padding-top: 5px;
@@ -2454,7 +2454,7 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .RtMid-dis {
     background-color: #DEDEDE;
-    /*    background-image: url("./css-images/off-right-mid.gif");
+    /*    background-image: url("css-images/off-right-mid.gif");
     background-repeat:no-repeat;*/
     text-align: center;
     padding-top: 15px;
@@ -2463,21 +2463,21 @@ table.iceSelInpDate tbody tr td table{
 
 .icePnlTbOn .LftBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-left-bot.gif" );
+    background-image: url( "css-images/off-left-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
 
 .icePnlTbOn .MidBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-image: url( "css-images/off-mid-bot.gif" );
     background-repeat: repeat-x;
     border: none;
 }
 
 .icePnlTbOn .RtBtm-dis {
     background-color: transparent;
-    background-image: url( "./css-images/off-right-bot.gif" );
+    background-image: url( "css-images/off-right-bot.gif" );
     background-repeat: no-repeat;
     border: none;
 }
@@ -2541,7 +2541,7 @@ Disabled classes for the calendar controls
 
 .iceSelInpDateMonthYear-dis {
     background-color: #EFEFEF;
-    /*    background-image: url("./css-images/table_col_header.gif");
+    /*    background-image: url("css-images/table_col_header.gif");
     background-position:bottom;
     background-repeat:repeat-x;*/
     font-weight: normal;
@@ -2857,12 +2857,12 @@ Disabled classes for the calendar controls
     padding: 3px 0 1px 4px;
     font-weight: bold;
     height: 20px;
-    background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/table_col_header.gif' ) repeat-x top left;
     border-bottom: 1px solid #d9d9d9;
 }
 
 .icePnlClpsblHdr-dis {
-    background: #FFF url( './css-images/table_col_header_dis.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/table_col_header_dis.gif' ) repeat-x top left;
 }
 
 .icePnlClpsblHdr .iceCmdLnk, .icePnlClpsblColpsdHdr .iceCmdLnk {
@@ -2933,12 +2933,12 @@ Disabled classes for the calendar controls
     padding: 3px 0 1px 4px;
     font-weight: bold;
     height: 20px;
-    background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/table_col_header.gif' ) repeat-x top left;
     border-bottom: none;
 }
 
 .icePnlClpsblColpsdHdr-dis {
-    background: #FFF url( './css-images/table_col_header_dis.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/table_col_header_dis.gif' ) repeat-x top left;
 }
 
 .icePnlClpsblColpsdHdr .iceOutTxt, .icePnlClpsblHdr .iceOutTxt, 
@@ -2965,28 +2965,28 @@ Disabled classes for the calendar controls
 }
 
 .icePnlClpsblHdr div {
-    background: url( './css-images/PnlHdr_down.gif' ) no-repeat top left;
+    background: url( 'css-images/PnlHdr_down.gif' ) no-repeat top left;
     padding: 5px 0 0 5px;
     margin: -2px 0 0 -2px;
     background-position: 3px 2px;   
 }
 
 .icePnlClpsblHdr-dis div {
-    background: url( './css-images/PnlHdr_down_dis.gif' ) no-repeat top left;
+    background: url( 'css-images/PnlHdr_down_dis.gif' ) no-repeat top left;
     padding: 5px 0 0 5px;
     margin: -2px 0 0 -2px;
     background-position: 3px 2px;     
 }
 
 .icePnlClpsblColpsdHdr div {
-    background: url( './css-images/PnlHdr_collapsed.gif' ) no-repeat top left;
+    background: url( 'css-images/PnlHdr_collapsed.gif' ) no-repeat top left;
     padding: 5px 0 0 5px;
     margin: -2px 0 0 -2px;
     background-position: 3px 2px;     
 }
 
 .icePnlClpsblColpsdHdr-dis div {
-    background: url( './css-images/PnlHdr_collapsed_dis.gif' ) no-repeat top left;
+    background: url( 'css-images/PnlHdr_collapsed_dis.gif' ) no-repeat top left;
     padding: 5px 0 0 5px;
     margin: -2px 0 0 -2px;
     background-position: 3px 2px;    
@@ -3095,7 +3095,7 @@ Disabled classes for the calendar controls
 }
 
 .icePnlCnfHdr {
-    background: #FFF url( './css-images/PnlHdr_bgslice.gif' ) repeat-x top left;
+    background: #FFF url( 'css-images/PnlHdr_bgslice.gif' ) repeat-x top left;
     border-bottom: 1px solid #d9d9d9;
     height: 2.0em;
     padding: 4px;

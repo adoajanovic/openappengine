@@ -120,27 +120,25 @@
 								<ice:column />
 							</h:panelGrid>
 
-							<ice:dataTable id="ContactMech_DataTable"
+							<ice:dataTable id="ContactMech_DataTable" width="100%"
 								value="#{partyManagerController.contactMechs}" var="contactMech"
 								rendered="#{partyManagerController.contactMechs.size() != 0}">
-								<f:facet name="header">
-									<ice:column>
-										<ice:outputLabel value="Type" />
-									</ice:column>
-									<ice:column>
-										<ice:outputLabel value="Purpose" />
-									</ice:column>
-									<ice:column>
-										<ice:outputLabel value="Value" />
-									</ice:column>
-								</f:facet>
 								<ice:column>
+									<f:facet name="header">
+										<ice:outputLabel value="Type" />
+									</f:facet>
 									<ice:outputLabel value="#{contactMech.contactMechType}" />
 								</ice:column>
 								<ice:column>
+									<f:facet name="header">
+										<ice:outputLabel value="Purpose" />
+									</f:facet>
 									<ice:outputLabel value="#{contactMech.contactMechPurpose}" />
 								</ice:column>
 								<ice:column>
+									<f:facet name="header">
+										<ice:outputLabel value="Value" />
+									</f:facet>
 									<ice:outputLabel value="#{contactMech.infoString}" />
 								</ice:column>
 							</ice:dataTable>
@@ -260,15 +258,13 @@
 								<ice:column />
 							</h:panelGrid>
 
-							<ice:dataTable id="address_Grid"
+							<ice:dataTable id="address_Grid" width="100%"
 								value="#{partyManagerController.partyAddresses}" var="address"
 								rendered="#{partyManagerController.partyAddresses.size() != 0}">
-								<f:facet name="header">
-									<ice:column>
-										<ice:outputLabel value="Address" />
-									</ice:column>
-								</f:facet>
 								<ice:column>
+									<f:facet name="header">
+										<ice:outputLabel value="Address" />
+									</f:facet>
 									<ice:outputText value="#{address}"></ice:outputText>
 								</ice:column>
 							</ice:dataTable>
