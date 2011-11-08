@@ -1,8 +1,6 @@
 package com.openappengine.model.party;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -64,7 +62,7 @@ public class Party implements Entity<Party, Integer> {
 	@Column(name = "PM_STATUS", nullable = false, length = 50)
 	private String status;
 
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
 	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
 	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
 
@@ -72,7 +70,7 @@ public class Party implements Entity<Party, Integer> {
 	@PrimaryKeyJoinColumn
 	private Person person;
 
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
 	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
 	private Set<Address> addresses = new HashSet<Address>();
 

@@ -22,7 +22,7 @@ import com.openappengine.service.IPartyManagerService;
  * @author hrishi
  *
  */
-public class PartyManagerServiceImpl implements IPartyManagerService {
+public class PartyManagerServiceImpl extends ModelService implements IPartyManagerService {
 	
 	private PartyManagerRepository partyManagerRepository;
 	
@@ -59,7 +59,6 @@ public class PartyManagerServiceImpl implements IPartyManagerService {
 		Party partyModel = partyAggregateFactory.setupNewParty(partySpecification);
 		partyModel.setExternalId(sequenceId.toString());
 		partyModel.setAddresses(addresses);
-		partyManagerRepository.store(partyModel);
 		partyModel.setPartyContactMechs(partyContactMeches);
 		partyManagerRepository.store(partyModel);
 		return partyModel;
