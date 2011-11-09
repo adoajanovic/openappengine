@@ -25,13 +25,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-factory</artifactId>
+			<artifactId>openappengine-utility</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-utility</artifactId>
+			<artifactId>openappengine-factory</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
