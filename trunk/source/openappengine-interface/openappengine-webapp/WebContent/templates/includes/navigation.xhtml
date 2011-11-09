@@ -2,8 +2,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	
-	<h:outputText value="Navigation" />
-	
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<h:outputText value="Navigation Links" />
+	<br/><br />
+	<ice:form>
+		<ice:outputLink value="#{facesContext.externalContext.requestContextPath}/apps/partymanager/PartyInfo.iface">
+			<h5><ice:outputText value="Party Manager" /></h5>
+		</ice:outputLink>
+	</ice:form>
 </ui:composition>
