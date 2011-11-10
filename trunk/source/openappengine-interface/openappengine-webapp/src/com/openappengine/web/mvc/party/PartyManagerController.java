@@ -24,8 +24,10 @@ import com.openappengine.web.mvc.BaseWebController;
  * @author hrishi
  *
  */
-public class PartyManagerController extends BaseWebController {
+public class PartyManagerController extends BaseWebController implements IPartyManagerController {
 	
+	private static final long serialVersionUID = 1L;
+
 	private PartyBean partyBean;
 	
 	private PartyContactMechBean partyContactMechBean;
