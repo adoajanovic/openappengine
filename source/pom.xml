@@ -108,5 +108,6 @@
 		<module>openappengine-domain</module>
 		<module>openappengine-container</module>
 		<module>openappengine-interface</module>
+		<module>openappengine-build</module>
 	</modules>
 </project>
