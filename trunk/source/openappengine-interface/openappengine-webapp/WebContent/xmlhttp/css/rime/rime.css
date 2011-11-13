@@ -1672,9 +1672,9 @@ table.iceSelInpDate tbody tr td table{
 
 .iceMnuBarItem a, .iceMnuBarItem span, .iceMnuBarItem a:hover, .iceMnuBarVrtItem a, .iceMnuBarVrtItem span, .iceMnuBarVrtItem a:hover {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: normal;
     display: block;
-    font-size: 1.0em;
+    font-size: 0.95em;
     color: #000000;
 }
 
@@ -1760,7 +1760,6 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .iceMnuItmLabel, .iceMnuBarItemLabel {
-    font-size: 1.0em;
     /*width: 100%;*/
     vertical-align: top;
 }
@@ -1847,7 +1846,7 @@ table.iceSelInpDate tbody tr td table{
     padding-top: 3px;
     padding-bottom: 3px;
     color: #333333;
-    font-size: 1.1em;
+    font-size: 0.95em;
     margin-bottom: 1px;
     float: none;
     display: block;

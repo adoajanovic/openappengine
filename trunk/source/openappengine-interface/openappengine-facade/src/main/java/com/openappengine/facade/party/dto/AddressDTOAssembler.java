@@ -9,7 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang.time.DateUtils;
 
 import com.openappengine.model.addressbook.Address;
-import com.openappengine.model.addressbook.AddressRole;
+import com.openappengine.model.addressbook.AddressType;
 
 /**
  * @author hrishi
@@ -39,8 +39,8 @@ public class AddressDTOAssembler {
 		for (String role : roles) {
 			Date startDate = new Date();
 			//TODO
-			AddressRole addressRole = new AddressRole(role, startDate, DateUtils.addYears(startDate, 100));
-			address.addAddressRole(addressRole);
+			AddressType addressType = new AddressType(role, startDate, DateUtils.addYears(startDate, 100));
+			address.addAddressType(addressType);
 		}
 		return address;
 	}

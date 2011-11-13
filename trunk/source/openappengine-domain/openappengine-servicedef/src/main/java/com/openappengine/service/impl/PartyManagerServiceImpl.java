@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.factory.party.PartyAggregateFactory;
 import com.openappengine.model.addressbook.Address;
-import com.openappengine.model.addressbook.AddressRole;
+import com.openappengine.model.addressbook.AddressType;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.PartySpecification;
@@ -93,7 +93,7 @@ public class PartyManagerServiceImpl extends ModelService implements IPartyManag
 	}
 
 	@Override
-	public List<Address> getAddressByRole(String externalId, AddressRole role) {
+	public List<Address> getAddressByRole(String externalId, AddressType role) {
 		// TODO Auto-generated method stub
 		return null;
 	}

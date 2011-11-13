@@ -63,8 +63,8 @@ public class Address implements ValueObject<Address>{
 	private String stateProvince;
 	
 	@OneToMany
-	@JoinTable(name= "AB_ADDRESS_ROLE", joinColumns = { @JoinColumn(name = "AR_ADDRESS_BOOK_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AR_ADDRESS_ROLE_ID") })
-	private Set<AddressRole> addressRoles = new HashSet<AddressRole>();
+	@JoinTable(name= "AB_ADDRESS_TYPE", joinColumns = { @JoinColumn(name = "AT_ADDRESS_BOOK_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AT_ADDRESS_TYPE_ID") })
+	private Set<AddressType> addressTypes = new HashSet<AddressType>();
 	
 	public int getAddressBookId() {
 		return addressBookId;
@@ -235,20 +235,20 @@ public class Address implements ValueObject<Address>{
 		return this.equals(other);
 	}
 
-	public Set<AddressRole> getAddressRoles() {
-		return addressRoles;
+	public Set<AddressType> getAddressTypes() {
+		return addressTypes;
 	}
 
-	public void setAddressRoles(Set<AddressRole> addressRoles) {
-		this.addressRoles = addressRoles;
+	public void setAddressTypes(Set<AddressType> addressTypes) {
+		this.addressTypes = addressTypes;
 	}
 	
-	public void addAddressRole(AddressRole addressRole) {
-		if(addressRole == null) {
+	public void addAddressType(AddressType addressType) {
+		if(addressType == null) {
 			return;
 		}
 		
-		this.addressRoles.add(addressRole);
+		this.addressTypes.add(addressType);
 	}
 
 }

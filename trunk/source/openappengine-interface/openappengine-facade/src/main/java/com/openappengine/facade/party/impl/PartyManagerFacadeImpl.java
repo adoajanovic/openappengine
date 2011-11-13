@@ -26,7 +26,7 @@ import com.openappengine.facade.party.dto.PartyCommandValidator;
 import com.openappengine.facade.party.dto.PartyContactMechCommand;
 import com.openappengine.facade.party.dto.PartyContactMechValidator;
 import com.openappengine.model.addressbook.Address;
-import com.openappengine.model.addressbook.AddressRole;
+import com.openappengine.model.addressbook.AddressType;
 import com.openappengine.model.code.Code;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
@@ -81,7 +81,7 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 					address.setToName(addressCmd.getToName());
 					
 					Set<String> roles = addressCmd.getRoles();
-					Set<AddressRole> addressRoles = new HashSet<AddressRole>();
+					Set<AddressType> addressTypes = new HashSet<AddressType>();
 					if(roles != null && !roles.isEmpty()) {
 						for (String role : roles) {
 							Date fromDate = new Date();
@@ -90,12 +90,12 @@ public class PartyManagerFacadeImpl implements PartyManagerFacade {
 							Date endDate = calendar.getTime();
 							
 							calendar.set(9999, 11, 31);
-							AddressRole addressRole = new AddressRole(role, fromDate, endDate);
-							addressRoles.add(addressRole);
+							AddressType addressType = new AddressType(role, fromDate, endDate);
+							addressTypes.add(addressType);
 						}
 					}
 					
-					address.setAddressRoles(addressRoles);
+					address.setAddressTypes(addressTypes);
 					addresses.add(address);
 				}
 			}
