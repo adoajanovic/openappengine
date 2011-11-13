@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.openappengine.model.addressbook.Address;
-import com.openappengine.model.addressbook.AddressRole;
+import com.openappengine.model.addressbook.AddressType;
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.PartySpecification;
@@ -73,5 +73,5 @@ public interface IPartyManagerService {
 	 * @param type
 	 * @return
 	 */
-	List<Address> getAddressByRole(String externalId, AddressRole addressRole);
+	List<Address> getAddressByRole(String externalId, AddressType addressType);
 }

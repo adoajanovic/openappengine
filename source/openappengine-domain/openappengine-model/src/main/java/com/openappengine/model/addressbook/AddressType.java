@@ -19,39 +19,39 @@ import com.openappengine.model.valueobject.ValueObject;
  *
  */
 @Entity
-@Table(name="AB_ROLE")
-public class AddressRole implements ValueObject<AddressRole> {
+@Table(name="AB_TYPE")
+public class AddressType implements ValueObject<AddressType> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="AB_ADDRESS_ROLE_ID")
+	@Column(name="AB_ADDRESS_TYPE_ID")
 	private int addressRoleId;
 
-	@Column(name="AB_ROLE_VALUE", nullable=false, length=100)
-	private String role;
+	@Column(name="AB_TYPE_VALUE", nullable=false, length=100)
+	private String type;
 	
-	@Column(name="AB_ROLE_FROM_DATE", nullable=false, length=100)
+	@Column(name="AB_TYPE_FROM_DATE", nullable=false, length=100)
 	private Date fromDate;
 	
-	@Column(name="AB_ROLE_TO_DATE", nullable=false, length=100)
+	@Column(name="AB_TYPE_TO_DATE", nullable=false, length=100)
 	private Date toDate;
 	
-	public AddressRole(){
+	public AddressType(){
 	}
 	
-	public AddressRole(String role, Date fromDate, Date toDate) {
+	public AddressType(String role, Date fromDate, Date toDate) {
 		super();
-		this.role = role;
+		this.type = role;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 	}
 
-	public String getRole() {
-		return role;
+	public String getType() {
+		return type;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setType(String role) {
+		this.type = role;
 	}
 
 	public Date getFromDate() {
@@ -76,7 +76,7 @@ public class AddressRole implements ValueObject<AddressRole> {
 		int result = 1;
 		result = prime * result
 				+ ((fromDate == null) ? 0 : fromDate.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((toDate == null) ? 0 : toDate.hashCode());
 		return result;
 	}
@@ -89,16 +89,16 @@ public class AddressRole implements ValueObject<AddressRole> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AddressRole other = (AddressRole) obj;
+		AddressType other = (AddressType) obj;
 		if (fromDate == null) {
 			if (other.fromDate != null)
 				return false;
 		} else if (!fromDate.equals(other.fromDate))
 			return false;
-		if (role == null) {
-			if (other.role != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!role.equals(other.role))
+		} else if (!type.equals(other.type))
 			return false;
 		if (toDate == null) {
 			if (other.toDate != null)
@@ -109,7 +109,7 @@ public class AddressRole implements ValueObject<AddressRole> {
 	}
 
 	@Override
-	public boolean sameValueAs(AddressRole other) {
+	public boolean sameValueAs(AddressType other) {
 		return this.equals(other);
 	}
 
