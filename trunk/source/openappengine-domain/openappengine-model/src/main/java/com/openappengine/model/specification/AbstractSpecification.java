@@ -1,5 +1,8 @@
 package com.openappengine.model.specification;
 
+import com.openappengine.model.party.PartySpecification;
+import com.openappengine.model.party.PersonSpecification;
+
 
 /**
  * Abstract base implementation of composite {@link Specification} with default
@@ -32,4 +35,22 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
   public Specification<T> not(final Specification<T> specification) {
     return new NotSpecification<T>(specification);
   }
+
+/**
+ * @param other
+ * @return
+ */
+public boolean sameValueAs(PartySpecification other) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+/**
+ * @param other
+ * @return
+ */
+public boolean sameValueAs(PersonSpecification other) {
+	// TODO Auto-generated method stub
+	return false;
+}
 }

@@ -251,12 +251,10 @@ public class Person implements com.openappengine.model.entity.Entity<Person, Int
 		this.personId = personId;
 	}
 
-	@Override
 	public boolean sameIdentityAs(Person other) {
 		return this.equals(other);
 	}
 
-	@Override
 	public Integer identity() {
 		return this.personId;
 	}
