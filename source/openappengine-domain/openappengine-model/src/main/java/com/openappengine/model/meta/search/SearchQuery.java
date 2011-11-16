@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.openappengine.model.meta.ADTable;
+import com.openappengine.model.valueobject.ValueObject;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 
@@ -31,7 +32,7 @@ import com.truemesh.squiggle.output.Outputable;
  */
 @Entity
 @Table(name="AD_SEARCH_QUERY")
-public class SearchQuery implements Serializable,Outputable {
+public class SearchQuery implements Serializable,Outputable,ValueObject<SearchQuery> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -57,7 +58,8 @@ public class SearchQuery implements Serializable,Outputable {
 	@JoinTable(name = "AD_SEARCHQUERY_ORDER", joinColumns = { @JoinColumn(name = "SO_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SO_ORDER_BY_ID") })
 	private List<Order> order = new ArrayList<Order>();
 	
-	@Transient
+	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@JoinTable(name = "AD_SEARCHQUERY_REFERENCED_TABLES", joinColumns = { @JoinColumn(name = "SR_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SR_AD_TABLE_ID") })
 	private Set<ADTable> referencedTables = new HashSet<ADTable>();
 	
 	public int getAdSearchQueryId() {
@@ -163,5 +165,61 @@ public class SearchQuery implements Serializable,Outputable {
 	public void setOrder(List<Order> order) {
 		this.order = order;
 	}
+
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((criteria == null) ? 0 : criteria.hashCode());
+		result = prime * result + (isDistinct ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + ((referencedTables == null) ? 0 : referencedTables.hashCode());
+		result = prime * result + ((selection == null) ? 0 : selection.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SearchQuery other = (SearchQuery) obj;
+		if (criteria == null) {
+			if (other.criteria != null)
+				return false;
+		} else if (!criteria.equals(other.criteria))
+			return false;
+		if (isDistinct != other.isDistinct)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (order == null) {
+			if (other.order != null)
+				return false;
+		} else if (!order.equals(other.order))
+			return false;
+		if (referencedTables == null) {
+			if (other.referencedTables != null)
+				return false;
+		} else if (!referencedTables.equals(other.referencedTables))
+			return false;
+		if (selection == null) {
+			if (other.selection != null)
+				return false;
+		} else if (!selection.equals(other.selection))
+			return false;
+		return true;
+	}
+
+	public boolean sameValueAs(SearchQuery other) {
+		return this.equals(other);
+	}
 }
