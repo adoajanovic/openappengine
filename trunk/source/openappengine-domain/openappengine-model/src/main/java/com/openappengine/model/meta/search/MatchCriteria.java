@@ -8,14 +8,13 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.openappengine.model.meta.ADColumn;
 import com.openappengine.model.meta.ADTable;
+import com.truemesh.squiggle.output.Output;
 
 /**
  * @author hrishikesh.joshi
@@ -23,12 +22,11 @@ import com.openappengine.model.meta.ADTable;
  */
 @Entity
 @Table(name="AD_MATCH_CRITERIA")
-public class MatchCriteria implements Serializable {
+public class MatchCriteria extends Criteria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MC_COLUMN_ID", unique=true, nullable=false)
 	private int adSearchColumnId;
 	
@@ -133,4 +131,7 @@ public class MatchCriteria implements Serializable {
 		return true;
 	}
 	
+	public void write(Output out) {
+    	out.print(adTable + "." + adColumn + " " + "=" + " " + ":" + name);
+    }
 }
