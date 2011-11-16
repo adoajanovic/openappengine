@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.openappengine.model.valueobject.ValueObject;
+import com.truemesh.squiggle.output.Output;
+import com.truemesh.squiggle.output.Outputable;
 
 /**
  * @author hrishikesh.joshi
@@ -24,7 +26,7 @@ import com.openappengine.model.valueobject.ValueObject;
  */
 @Entity
 @Table(name="AD_TABLE")
-public class ADTable implements ValueObject<ADTable> {
+public class ADTable implements ValueObject<ADTable>,Outputable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -178,5 +180,9 @@ public class ADTable implements ValueObject<ADTable> {
 		}
 		
 		this.adColumns.add(adColumn);
+	}
+
+	public void write(Output out) {
+		out.print(getTableName());
 	}
 }
