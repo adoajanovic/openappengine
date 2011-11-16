@@ -40,6 +40,9 @@ public class Selection implements Serializable,Outputable {
 	@OneToOne
 	@Column(name="SL_TABLE_ID", nullable=false)
 	private ADTable adTable;
+	
+	@Column(name="SL_DISPLAY_NAME", nullable=false)
+	private String displayName;
 
 	public int getSelectionId() {
 		return selectionId;
@@ -67,6 +70,14 @@ public class Selection implements Serializable,Outputable {
 
 	public void write(Output out) {
 		out.print(adTable.getTableName() + "." + adColumn.getColumnName());
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	
 }
