@@ -39,9 +39,9 @@ public class Criteria implements Serializable,Outputable {
 	@PrimaryKeyJoinColumn
 	private MatchCriteria matchCriteria;
 
-	@OneToOne
+	/*@OneToOne
 	@PrimaryKeyJoinColumn
-	private LogicCriteria logicCriteria;
+	private LogicCriteria logicCriteria;*/
 	
 	public int getCriteriaId() {
 		return criteriaId;
@@ -60,29 +60,21 @@ public class Criteria implements Serializable,Outputable {
 	}
 
 	public void write(Output out) {
-		if(this instanceof MatchCriteria) {
-			((MatchCriteria)this).write(out);
-		} else if(this instanceof MatchCriteria) {
-			((LogicCriteria)this).write(out);
-		} 
+		
 	}
 	
 	public Set<ADTable> getReferenceTables() {
 		Set<ADTable> adTables = new HashSet<ADTable>();
-		if(this instanceof MatchCriteria) {
-			adTables.add(((MatchCriteria)this).getAdTable());
-		} else if(this instanceof LogicCriteria) {
-			//TODO
-		} 
+		 
 		return adTables;
 	}
 
-	public LogicCriteria getLogicCriteria() {
+/*	public LogicCriteria getLogicCriteria() {
 		return logicCriteria;
 	}
 
 	public void setLogicCriteria(LogicCriteria logicCriteria) {
 		this.logicCriteria = logicCriteria;
-	}
+	}*/
 	
 }

@@ -17,9 +17,8 @@ import com.truemesh.squiggle.output.Output;
  * @author hrishikesh.joshi
  * 
  */
-@Entity
-@Table(name = "AD_LOGIC_CRITERIA")
-public class LogicCriteria extends Criteria implements Serializable {
+
+public class LogicCriteria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,11 +34,9 @@ public class LogicCriteria extends Criteria implements Serializable {
 	private Operator operator;
 
 	@OneToOne
-	@Column(name = "LC_LEFT_OPERAND", nullable = false, length = 50)
 	private Criteria leftOperand;
 
 	@OneToOne
-	@Column(name = "LC_RIGHT_OPERAND", nullable = false, length = 50)
 	private Criteria rightOperand;
 	
 	//TODO

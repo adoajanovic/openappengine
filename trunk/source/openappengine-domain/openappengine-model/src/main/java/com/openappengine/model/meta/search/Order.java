@@ -38,11 +38,9 @@ public class Order implements Serializable, Outputable {
 	private int orderbyId;
 	
 	@OneToOne
-	@Column(name="OB_COLUMN_ID", nullable=false)
 	private ADColumn orderByColumn;
 	
 	@OneToOne
-	@Column(name="OB_TABLE_ID", nullable=false)
 	private ADTable orderTable;
 	
 	@Column(name="OB_ASCDESC_ID", nullable=false)
