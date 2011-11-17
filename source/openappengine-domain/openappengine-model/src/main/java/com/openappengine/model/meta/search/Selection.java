@@ -34,11 +34,9 @@ public class Selection implements Serializable,Outputable {
 	private int selectionId;
 	
 	@OneToOne
-	@Column(name="SL_COLUMN_ID", nullable=false)
 	private ADColumn adColumn;
 	
 	@OneToOne
-	@Column(name="SL_TABLE_ID", nullable=false)
 	private ADTable adTable;
 	
 	@Column(name="SL_DISPLAY_NAME", nullable=false)

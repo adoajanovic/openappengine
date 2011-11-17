@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,36 +24,28 @@ import com.truemesh.squiggle.output.Output;
  */
 @Entity
 @Table(name="AD_MATCH_CRITERIA")
-public class MatchCriteria extends Criteria implements Serializable {
+public class MatchCriteria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="MC_COLUMN_ID", unique=true, nullable=false)
-	private int adSearchColumnId;
+	private int adMatchCriteriaId;
 	
 	@Column(name="MC_NAME", nullable=false, length=50)
 	private String name;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@Column(name="MC_AD_COLUMN_ID")
+	@JoinTable(name = "AD_CRITERIA_COLUMN", joinColumns = { @JoinColumn(name = "CC_CRITERIA_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "CC_COLUMN_ID") })
 	private ADColumn adColumn;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@Column(name="MC_AD_TABLE_ID")
+	@JoinTable(name = "AD_CRITERIA_TABLE", joinColumns = { @JoinColumn(name = "CC_CRITERIA_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "CC_TABLE_ID") })
 	private ADTable adTable;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@Column(name="MC_OPERATOR_ID")
+	@JoinTable(name = "AD_CRITERIA_OPERATOR", joinColumns = { @JoinColumn(name = "CC_CRITERIA_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "CC_OPERATOR_ID") })
 	private Operator operator;
-
-	public int getAdSearchColumnId() {
-		return adSearchColumnId;
-	}
-
-	public void setAdSearchColumnId(int adSearchColumnId) {
-		this.adSearchColumnId = adSearchColumnId;
-	}
 
 	public String getName() {
 		return name;
@@ -134,4 +128,12 @@ public class MatchCriteria extends Criteria implements Serializable {
 	public void write(Output out) {
     	out.print(adTable + "." + adColumn + " " + "=" + " " + ":" + name);
     }
+
+	public int getAdMatchCriteriaId() {
+		return adMatchCriteriaId;
+	}
+
+	public void setAdMatchCriteriaId(int adMatchCriteriaId) {
+		this.adMatchCriteriaId = adMatchCriteriaId;
+	}
 }
