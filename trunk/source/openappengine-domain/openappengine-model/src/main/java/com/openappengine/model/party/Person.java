@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,12 +19,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="PM_PERSON")
-public class Person implements com.openappengine.model.entity.Entity<Person, Integer> {
+public class Person extends Party {
 	
-	@Id
-	@Column(name="PM_PERSON_ID")
-	private int personId;
-
 	@Column(name = "PM_SALUTAION", length = 100, nullable = true)
 	private String salutation;
 
@@ -242,21 +237,4 @@ public class Person implements com.openappengine.model.entity.Entity<Person, Int
 			return false;
 		return true;
 	}
-
-	public int getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(int personId) {
-		this.personId = personId;
-	}
-
-	public boolean sameIdentityAs(Person other) {
-		return this.equals(other);
-	}
-
-	public Integer identity() {
-		return this.personId;
-	}
-
 }

@@ -8,12 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.openappengine.model.addressbook.Address;
@@ -21,6 +21,7 @@ import com.openappengine.model.entity.Entity;
 
 @javax.persistence.Entity
 @Table(name = "PM_PARTY")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Party implements Entity<Party, Integer> {
 
 	// TODO - Needs to be configurable.
@@ -53,7 +54,7 @@ public class Party implements Entity<Party, Integer> {
 	@Column(name = "PM_EXTERNAL_ID", length = 50)
 	private String externalId;
 
-	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100)
+	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100,insertable=false,updatable=false)
 	private String partyType;
 
 	@Column(name = "PM_PREFERRED_CURRENCY_UOM", length = 50)
@@ -65,10 +66,6 @@ public class Party implements Entity<Party, Integer> {
 	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
 	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
 	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
-
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private Person person;
 
 	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
 	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
@@ -205,14 +202,6 @@ public class Party implements Entity<Party, Integer> {
 
 	public Integer identity() {
 		return partyId;
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 	public Set<Address> getAddresses() {
