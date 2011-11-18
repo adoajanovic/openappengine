@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -26,6 +28,7 @@ import com.truemesh.squiggle.output.Outputable;
  */
 @Entity
 @Table(name="AD_CRITERIA")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Criteria implements Serializable,Outputable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,28 +38,12 @@ public class Criteria implements Serializable,Outputable {
 	@Column(name = "CR_CRITERIA_ID", unique = true, nullable = false)
 	private int criteriaId;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private MatchCriteria matchCriteria;
-
-	/*@OneToOne
-	@PrimaryKeyJoinColumn
-	private LogicCriteria logicCriteria;*/
-	
 	public int getCriteriaId() {
 		return criteriaId;
 	}
 
 	public void setCriteriaId(int criteriaId) {
 		this.criteriaId = criteriaId;
-	}
-
-	public MatchCriteria getMatchCriteria() {
-		return matchCriteria;
-	}
-
-	public void setMatchCriteria(MatchCriteria matchCriteria) {
-		this.matchCriteria = matchCriteria;
 	}
 
 	public void write(Output out) {
@@ -68,13 +55,5 @@ public class Criteria implements Serializable,Outputable {
 		 
 		return adTables;
 	}
-
-/*	public LogicCriteria getLogicCriteria() {
-		return logicCriteria;
-	}
-
-	public void setLogicCriteria(LogicCriteria logicCriteria) {
-		this.logicCriteria = logicCriteria;
-	}*/
 	
 }
