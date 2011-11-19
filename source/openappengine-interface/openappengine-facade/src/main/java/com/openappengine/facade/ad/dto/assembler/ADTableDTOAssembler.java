@@ -5,6 +5,8 @@ package com.openappengine.facade.ad.dto.assembler;
 
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+
 import com.openappengine.facade.ad.dto.ADColumnDTO;
 import com.openappengine.facade.ad.dto.ADTableDTO;
 import com.openappengine.model.ad.ADColumn;
@@ -21,6 +23,8 @@ public class ADTableDTOAssembler {
 			return null;
 		}
 		
+		Validate.notEmpty(adTableDTO.getName());
+		
 		ADTable adTable = new ADTable();
 		adTable.setDeleteable(adTableDTO.isDeleteable());
 		adTable.setDescription(adTableDTO.getDescription());
@@ -35,6 +39,8 @@ public class ADTableDTOAssembler {
 		List<ADColumnDTO> adColumnDTOs = adTableDTO.getAdColumnDTOs();
 		if(adColumnDTOs != null && !adColumnDTOs.isEmpty()) {
 			for (ADColumnDTO adColumnDTO : adColumnDTOs) {
+				Validate.notEmpty(adColumnDTO.getName());
+				
 				ADColumn adColumn = new ADColumn();
 				adColumn.setColumnName(adColumnDTO.getColumnName());
 				adColumn.setDescription(adColumnDTO.getDescription());
@@ -44,6 +50,7 @@ public class ADTableDTOAssembler {
 				adColumn.setName(adColumnDTO.getName());
 				adColumn.setSelectionColumn(adColumnDTO.isSelectionColumn());
 				adColumn.setUpdateable(adColumnDTO.isUpdateable());
+				adColumn.setAdTable(adTable);
 				adTable.addAdColumn(adColumn);
 			}
 		}

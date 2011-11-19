@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
@@ -28,8 +29,6 @@ public class ApplicationDictionaryControllerImpl extends BaseWebController
 	private ApplicationDictionaryFacade applicationDictionaryFacade;
 
 	private ADTableBean adTableBean;
-
-	private ADTableDTO selectedADTableDTO;
 
 	private List<SelectItem> adTableDTOs = new ArrayList<SelectItem>();
 
@@ -79,20 +78,38 @@ public class ApplicationDictionaryControllerImpl extends BaseWebController
 	}
 
 	public String save() {
+		List<ADColumnDTO> adColumnDTOs = new ArrayList<ADColumnDTO>();
+		if(adColumns != null && !adColumns.isEmpty()) {
+			for (ADColumnBean adColumnBean : adColumns) {
+				if(adColumnBean.isChecked()) {
+					ADColumnDTO adColumnDTO = new ADColumnDTO(adColumnBean.getColumnName());
+					adColumnDTO.setColumnName(adColumnBean.getColumnName());
+					if(adColumnBean.getName().isEmpty()) {
+						adColumnDTO.setName(adColumnBean.getColumnName());
+					} else {
+						adColumnDTO.setName(adColumnBean.getName());
+					}
+					adColumnDTO.setDescription(adColumnBean.getDescription());
+					adColumnDTO.setHelpText(adColumnBean.getHelpText());
+					adColumnDTOs.add(adColumnDTO);
+				}
+			}
+			
+			if(!adColumnDTOs.isEmpty()) {
+				ADTableDTO adTableDTO = new ADTableDTO(adTableBean.getTableName());
+				adTableDTO.setEntityClassName(adTableBean.getEntityClassName());
+				adTableDTO.setAdColumnDTOs(adColumnDTOs);
+				applicationDictionaryFacade.addADTable(adTableDTO);
+			} else {
+				//TODO - Add Message
+			}
+		}
 		return null;
 	}
 	
 	
 	public void setAdTableDTOs(List<SelectItem> adTableDTOs) {
 		this.adTableDTOs = adTableDTOs;
-	}
-
-	public ADTableDTO getSelectedADTableDTO() {
-		return selectedADTableDTO;
-	}
-
-	public void setSelectedADTableDTO(ADTableDTO selectedADTableDTO) {
-		this.selectedADTableDTO = selectedADTableDTO;
 	}
 
 	public List<ADColumnBean> getAdColumns() {

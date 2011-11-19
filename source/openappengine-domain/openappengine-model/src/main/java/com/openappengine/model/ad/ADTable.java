@@ -62,8 +62,7 @@ public class ADTable implements ValueObject<ADTable>,Outputable {
 	@Column(name="T_IMPORTABLE", nullable=false)
 	private boolean importable;
 	
-	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
-	@JoinColumn(name="C_TABLE_ID")
+	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true,mappedBy="adTable")
 	private List<ADColumn> adColumns = new ArrayList<ADColumn>();
 	
 	public String getName() {

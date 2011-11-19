@@ -38,6 +38,7 @@ public class ADTableDTO {
 	public ADTableDTO(String tableName) {
 		super();
 		this.tableName = tableName;
+		this.name = tableName;
 		Validate.notEmpty(tableName);
 	}
 
