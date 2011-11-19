@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.openappengine.model.valueobject.ValueObject;
@@ -49,6 +51,10 @@ public class ADColumn implements ValueObject<ADColumn> {
 	
 	@Column(name="C_IS_SELECTION_COLUMN", nullable=false)
 	private boolean selectionColumn;
+	
+	@ManyToOne
+	@JoinColumn(name="C_TABLE_ID")
+	private ADTable adTable;
 	
 	public boolean sameValueAs(ADColumn other) {
 		return false;
@@ -124,5 +130,13 @@ public class ADColumn implements ValueObject<ADColumn> {
 
 	public void setSelectionColumn(boolean selectionColumn) {
 		this.selectionColumn = selectionColumn;
+	}
+
+	public ADTable getAdTable() {
+		return adTable;
+	}
+
+	public void setAdTable(ADTable adTable) {
+		this.adTable = adTable;
 	}
 }

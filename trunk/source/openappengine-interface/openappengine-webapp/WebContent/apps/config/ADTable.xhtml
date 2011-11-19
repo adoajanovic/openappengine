@@ -21,6 +21,10 @@
 						<ice:commandLink id="ADTableName_SelectLink" action="#{applicationDictionaryController.adTableSelected}" >
 							<ice:graphicImage id="ADTableName_Icon" url="/images/icons/repeat.gif" />
 						</ice:commandLink>
+						
+						<ice:outputLabel id="ADTable_EntityClass_Label" value="Class" />
+						
+						<ice:inputText id="ADTable_EntityClass_Value" value="#{applicationDictionaryController.adTableBean.entityClassName}"/>
 					</ice:panelGrid>
 					
 					<ice:panelGroup style="text-align:left;float:left;">
