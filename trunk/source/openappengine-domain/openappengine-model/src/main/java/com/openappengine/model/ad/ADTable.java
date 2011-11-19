@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.model.meta;
+package com.openappengine.model.ad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,8 @@ import com.truemesh.squiggle.output.Outputable;
 @Entity
 @Table(name="AD_TABLE")
 public class ADTable implements ValueObject<ADTable>,Outputable {
+	
+	public static final String AD_MODULE_PREFIX = "AD";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -61,7 +63,7 @@ public class ADTable implements ValueObject<ADTable>,Outputable {
 	private boolean importable;
 	
 	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
-	@JoinColumn(name = "C_TABLE_ID", nullable = false)
+	@JoinColumn(name="C_TABLE_ID")
 	private List<ADColumn> adColumns = new ArrayList<ADColumn>();
 	
 	public String getName() {
