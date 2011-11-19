@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.model.meta;
+package com.openappengine.model.ad;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -125,5 +125,4 @@ public class ADColumn implements ValueObject<ADColumn> {
 	public void setSelectionColumn(boolean selectionColumn) {
 		this.selectionColumn = selectionColumn;
 	}
-
 }
