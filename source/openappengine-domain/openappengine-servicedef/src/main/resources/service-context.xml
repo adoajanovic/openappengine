@@ -24,6 +24,10 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
+	<bean id="applicationDictionaryRepository" class="com.openappengine.repository.ApplicationDictionaryRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
 	<!-- Model Service -->
 	<bean id="codeService" class="com.openappengine.service.impl.CodeServiceImpl" >
 		<property name="codeRepository" ref="codeRepository"></property>
@@ -36,6 +40,10 @@
 	<bean id="partyManagerService" class="com.openappengine.service.impl.PartyManagerServiceImpl">
 		<property name="partyManagerRepository" ref="partyManagerRepository"></property>
 		<property name="partyAggregateFactory" ref="partyAggregateFactory"></property>
+	</bean>
+	
+	<bean id="applicationDictionaryService" class="com.openappengine.service.impl.ApplicationDictionaryServiceImpl">
+		<property name="applicationDictionaryRepository" ref="applicationDictionaryRepository"></property>
 	</bean>
 	
 </beans>

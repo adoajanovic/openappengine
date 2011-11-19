@@ -14,4 +14,9 @@
 		<property name="partyManagerService" ref="partyManagerService"></property>
 		<property name="codeRepository" ref="codeRepository"></property>
 	</bean>
+	
+	<bean name="applicationDictionaryFacade" class="com.openappengine.facade.ad.ApplicationDictionaryFacadeImpl">
+		<property name="applicationDictionaryService" ref="applicationDictionaryService"></property>
+	</bean>
+	
 </beans>

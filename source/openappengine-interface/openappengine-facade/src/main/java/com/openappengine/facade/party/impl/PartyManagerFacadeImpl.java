@@ -5,7 +5,6 @@ package com.openappengine.facade.party.impl;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
