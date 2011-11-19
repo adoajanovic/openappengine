@@ -9,7 +9,6 @@
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	<!-- Model -->
-	<!-- Party Manager App. -->
 	<managed-bean>
 		<managed-bean-name>partyBean</managed-bean-name>
 		<managed-bean-class>com.openappengine.web.mvc.party.PartyBean</managed-bean-class>
@@ -25,11 +24,28 @@
 		<managed-bean-class>com.openappengine.web.mvc.party.PartyAddressBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-	<!-- Party Manager App. -->
-
-
+	<managed-bean>
+		<managed-bean-name>adTableBean</managed-bean-name>
+		<managed-bean-class>com.openappengine.web.mvc.ad.ADTableBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>adColumnBean</managed-bean-name>
+		<managed-bean-class>com.openappengine.web.mvc.ad.ADTableBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
 	<!-- Controller -->
-	<!-- Party Manager App. -->
+	<managed-bean>
+		<managed-bean-name>applicationDictionaryController</managed-bean-name>
+		<managed-bean-class>com.openappengine.web.mvc.ad.ApplicationDictionaryControllerImpl</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>adTableBean</property-name>
+			<value>#{adTableBean}</value>
+		</managed-property>
+	</managed-bean>
+
 	<managed-bean>
 		<managed-bean-name>partyManagerController</managed-bean-name>
 		<managed-bean-class>com.openappengine.web.mvc.party.PartyManagerController</managed-bean-class>

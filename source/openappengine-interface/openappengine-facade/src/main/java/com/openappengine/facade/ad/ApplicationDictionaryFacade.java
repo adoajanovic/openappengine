@@ -5,7 +5,8 @@ package com.openappengine.facade.ad;
 
 import java.util.List;
 
-import com.openappengine.model.ad.ADTable;
+import com.openappengine.facade.ad.dto.ADColumnDTO;
+import com.openappengine.facade.ad.dto.ADTableDTO;
 
 /**
  * @author hrishi
@@ -13,10 +14,10 @@ import com.openappengine.model.ad.ADTable;
  */
 public interface ApplicationDictionaryFacade {
 	
-	public List<String> listAllApplicationTableNames();
+	public List<ADTableDTO> listAllApplicationTableNames();
 	
-	public List<String> listAllApplicationTableColumnNames(String tableName);
+	public List<ADColumnDTO> listAllApplicationTableColumnNames(String tableName);
 	
-	public void addADTable(ADTable adTable);
+	public void addADTable(ADTableDTO adTable);
 
 }
