@@ -3,12 +3,17 @@
  */
 package com.openappengine.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
+import com.openappengine.model.ad.ADColumn;
 import com.openappengine.model.ad.ADTable;
 
 /**
@@ -29,16 +34,50 @@ public class ApplicationDictionaryRepository extends GenericRepository<ADTable> 
 		return tables;
 	}
 	
+	public ADTable getAdTable(String adTableName) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ADTable.class).add(Restrictions.eq("tableName", adTableName));
+		List list = hibernateTemplate.findByCriteria(criteria);
+		if(list != null && !list.isEmpty()) {
+			return (ADTable) list.get(0);
+		}
+		return null;
+	}
+	
 
-	public List<String> listAllColumns(String applicationTableName) {
+	public List<ADColumn> listAllColumns(String applicationTableName) {
 		String query = "SELECT column_name FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME LIKE :tableName";
 		SessionFactory sessionFactory = hibernateTemplate.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		SQLQuery sqlQuery = session.createSQLQuery(query);
 		sqlQuery.setString("tableName", applicationTableName);
-		List columns = sqlQuery.list();
+		List columnNames = sqlQuery.list();
+		
+		Criteria criteria = session.createCriteria(ADTable.class)
+				.add(Restrictions.eq("tableName", applicationTableName));
+				
+		ADTable adTable = (ADTable) criteria.uniqueResult();
+		
+		List<ADColumn> storedADColumns = new ArrayList<ADColumn>();
+		if(adTable != null) {
+			storedADColumns = adTable.getAdColumns();
+		}
+		
+		List<ADColumn> adColumns = new ArrayList<ADColumn>();
+		adColumns.addAll(storedADColumns);
+		
+		if(columnNames != null && !columnNames.isEmpty()) {
+			for (Object column : columnNames) {
+				String columnName = (String) column;
+				ADColumn adColumn = new ADColumn();
+				adColumn.setColumnName(columnName);
+				
+				if(!storedADColumns.contains(adColumn)) {
+					adColumns.add(adColumn);
+				}
+			}
+		}
 		session.close();
-		return columns;
+		return adColumns;
 	}
 
 }

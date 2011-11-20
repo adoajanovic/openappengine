@@ -19,5 +19,7 @@ public interface ApplicationDictionaryFacade {
 	public List<ADColumnDTO> listAllApplicationTableColumnNames(String tableName);
 	
 	public void addADTable(ADTableDTO adTable);
+	
+	public ADTableDTO getAdTableDTO(String tableName);
 
 }

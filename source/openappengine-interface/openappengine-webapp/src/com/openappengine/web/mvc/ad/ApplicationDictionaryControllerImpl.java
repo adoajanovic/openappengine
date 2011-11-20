@@ -41,8 +41,25 @@ public class ApplicationDictionaryControllerImpl extends BaseWebController
 
 	public String adTableSelected() {
 		final String tableName = adTableBean.getTableName();
+		ADTableDTO adTableDTO = applicationDictionaryFacade.getAdTableDTO(tableName);
+		
+		adTableBean = new ADTableBean();
+		adTableBean.setEntityClassName(adTableDTO.getEntityClassName());
+		
 		populateADColumns(tableName);
 		return null;
+	}
+	
+	public void toggleSelection(ActionEvent actionEvent) {
+		if(adColumns != null && !adColumns.isEmpty()) {
+			for (ADColumnBean adColumnBean : adColumns) {
+				if(!adColumnBean.isChecked()) {
+					adColumnBean.setChecked(true);
+				} else {
+					adColumnBean.setChecked(false);
+				}
+			}
+		}
 	}
 
 	private void populateADColumns(final String tableName) {

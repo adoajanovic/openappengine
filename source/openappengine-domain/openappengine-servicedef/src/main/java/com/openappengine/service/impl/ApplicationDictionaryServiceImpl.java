@@ -5,6 +5,7 @@ package com.openappengine.service.impl;
 
 import java.util.List;
 
+import com.openappengine.model.ad.ADColumn;
 import com.openappengine.model.ad.ADTable;
 import com.openappengine.repository.ApplicationDictionaryRepository;
 import com.openappengine.service.IApplicationDictionaryService;
@@ -42,14 +43,20 @@ public class ApplicationDictionaryServiceImpl implements
 	 * @see com.openappengine.service.IApplicationDictionaryService#getApplicationColumns(java.lang.String)
 	 */
 	@Override
-	public List<String> getApplicationColumns(String tableName) {
-		List<String> columns = applicationDictionaryRepository.listAllColumns(tableName);
+	public List<ADColumn> getApplicationColumns(String tableName) {
+		List<ADColumn> columns = applicationDictionaryRepository.listAllColumns(tableName);
 		return columns;
 	}
 
 	public void setApplicationDictionaryRepository(
 			ApplicationDictionaryRepository applicationDictionaryRepository) {
 		this.applicationDictionaryRepository = applicationDictionaryRepository;
+	}
+
+	@Override
+	public ADTable getAdTable(String adTableName) {
+		ADTable adTable = applicationDictionaryRepository.getAdTable(adTableName);
+		return adTable;
 	}
 
 }
