@@ -24,10 +24,14 @@
 						
 						<ice:outputLabel id="ADTable_EntityClass_Label" value="Class" />
 						
-						<ice:inputText id="ADTable_EntityClass_Value" value="#{applicationDictionaryController.adTableBean.entityClassName}"/>
+						<ice:inputText id="ADTable_EntityClass_Value" value="#{applicationDictionaryController.adTableBean.entityClassName}" required="true" requiredMessage="EntityClassName cannot be empty."/>
 					</ice:panelGrid>
 					
 					<ice:panelGroup style="text-align:left;float:left;">
+						<ice:commandLink id="ADTable_ToggleSelection" actionListener="#{applicationDictionaryController.toggleSelection}" rendered="#{not applicationDictionaryController.adColumns.isEmpty()}" >
+							<ice:graphicImage id="ADTable_ToggleSelection_Icon" url="/images/icons/select_all.png" style="width:20px;height:20px;margin-right:5px;"/>
+						</ice:commandLink>
+						
 						<ice:commandLink id="ADTable_Save" action="#{applicationDictionaryController.save()}" rendered="#{not applicationDictionaryController.adColumns.isEmpty()}" >
 							<ice:graphicImage id="ADTableName_Save_Icon" url="/images/icons/save.png" style="width:20px;height:20px;"/>
 						</ice:commandLink>

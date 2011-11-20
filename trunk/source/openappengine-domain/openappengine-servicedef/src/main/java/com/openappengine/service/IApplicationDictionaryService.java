@@ -25,12 +25,14 @@ public interface IApplicationDictionaryService {
 	 * @param tableName
 	 * @return List of {@link ADColumn}
 	 */
-	public List<String> getApplicationColumns(String tableName);
+	public List<ADColumn> getApplicationColumns(String tableName);
 
 	/**
 	 * List all the Application Table Names.
 	 * @return
 	 */
 	List<String> listApplicationTableNames();
+	
+	ADTable getAdTable(String adTableName);
 
 }

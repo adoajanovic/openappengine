@@ -18,6 +18,24 @@ import com.openappengine.model.ad.ADTable;
  */
 public class ADTableDTOAssembler {
 	
+	public ADTableDTO toDTO(ADTable adTable) {
+		if(adTable ==  null) {
+			return null;
+		}
+		
+		ADTableDTO adTableDTO = new ADTableDTO(adTable.getTableName());
+		adTableDTO.setDeleteable(adTable.isDeleteable());
+		adTableDTO.setDescription(adTable.getDescription());
+		adTableDTO.setEntityClassName(adTable.getEntityClassName());
+		adTableDTO.setHelpText(adTable.getHelpText());
+		adTableDTO.setHighVolume(adTable.isHighVolume());
+		adTableDTO.setImportable(adTable.isImportable());
+		adTableDTO.setName(adTable.getName());
+		adTableDTO.setWindow(adTable.getWindow());
+		
+		return adTableDTO;
+	}
+	
 	public ADTable fromDTO(ADTableDTO adTableDTO) {
 		if(adTableDTO == null) {
 			return null;
