@@ -63,11 +63,11 @@ public class Party implements Entity<Party, Integer> {
 	@Column(name = "PM_STATUS", nullable = false, length = 50)
 	private String status;
 
-	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
 	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
 
-	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
 	private Set<Address> addresses = new HashSet<Address>();
 

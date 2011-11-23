@@ -13,8 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.openappengine.model.meta.ADColumn;
-import com.openappengine.model.meta.ADTable;
+import com.openappengine.model.ad.ADColumn;
+import com.openappengine.model.ad.ADTable;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 
