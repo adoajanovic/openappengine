@@ -230,7 +230,6 @@ public class Address implements ValueObject<Address>{
 		return true;
 	}
 
-	@Override
 	public boolean sameValueAs(Address other) {
 		return this.equals(other);
 	}

@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -63,7 +62,7 @@ public class ADTable implements ValueObject<ADTable>,Outputable {
 	@Column(name="T_IMPORTABLE", nullable=false)
 	private boolean importable;
 	
-	@OneToMany(cascade = {CascadeType.ALL},orphanRemoval=true,mappedBy="adTable",fetch=FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.ALL},mappedBy="adTable",fetch=FetchType.EAGER)
 	private List<ADColumn> adColumns = new ArrayList<ADColumn>();
 	
 	public String getName() {

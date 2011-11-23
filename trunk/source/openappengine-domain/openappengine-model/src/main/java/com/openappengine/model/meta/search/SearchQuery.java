@@ -20,7 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.openappengine.model.meta.ADTable;
+import com.openappengine.model.ad.ADTable;
 import com.openappengine.model.valueobject.ValueObject;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
@@ -45,19 +45,19 @@ public class SearchQuery implements Serializable,Outputable,ValueObject<SearchQu
 	@Column(name="SQ_SEARCH_QUERY_NAME", nullable=false, length=50)
 	private String name;
 
-	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "AD_SEARCHQUERY_SELECTION", joinColumns = { @JoinColumn(name = "SS_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SS_SELECTION_ID") })
 	private List<Selection> selection = new ArrayList<Selection>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "AD_SEARCHQUERY_CRITERIA", joinColumns = { @JoinColumn(name = "SC_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SC_CRITERIA_ID") })
 	private List<Criteria> criteria = new ArrayList<Criteria>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "AD_SEARCHQUERY_ORDER", joinColumns = { @JoinColumn(name = "SO_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SO_ORDER_BY_ID") })
 	private List<Order> order = new ArrayList<Order>();
 	
-	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "AD_SEARCHQUERY_REFERENCED_TABLES", joinColumns = { @JoinColumn(name = "SR_SEARCH_QUERY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "SR_AD_TABLE_ID") })
 	private Set<ADTable> referencedTables = new HashSet<ADTable>();
 	

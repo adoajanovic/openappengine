@@ -14,11 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.openappengine.model.meta.ADTable;
+import com.openappengine.model.ad.ADTable;
 import com.truemesh.squiggle.output.Output;
 import com.truemesh.squiggle.output.Outputable;
 
