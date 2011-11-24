@@ -63,8 +63,6 @@ public class TagUtils {
 		if(propertyName == null) {
 			throw new ComponentRenderException("Field must not be null");
 		}
-		
-		LOG.info("IsRequired called..");
 		Field field = getField(type, propertyName);
 		if(field == null) {
 			throw new ComponentRenderException("Field must not be null");
