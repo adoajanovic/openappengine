@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ice="http://www.icesoft.com/icefaces/component"
+     xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:panelGroup styleClass="synopsisBox" layout="block">
+        <h:outputText styleClass="iceOutTxt" value="#{msgs['content.fileEntry.text']}"/>
+        <h:outputText styleClass="iceOutTxt" value="#{msgs['content.fileEntry.instructions']}"/>
+    </h:panelGroup>
+    
+  <h:form id="fileform">
+    <h:panelGroup id="fileOuterPanel" styleClass="exampleBox" layout="block">
+      <h3><h:outputText id="fileMessagesLabel" value="#{msgs['content.fileEntry.messages.label']}"/></h3>
+      <h:messages id="fileMessages"
+                  layout="table"
+                  globalOnly="false"
+                  showDetail="true"
+                  showSummary="false"/>
+      <ace:fileEntry id="fileEntryComp"
+                     label="#{msgs['content.fileEntry.comp.label']}"
+                     relativePath="uploaded"
+                     fileEntryListener="#{fileEntryController.listener}"/>
+      <h:commandButton id="fileUploadButton" value="#{msgs['content.fileEntry.upload.label']}"/>
+    </h:panelGroup>
+  </h:form>
+</ui:composition>
