@@ -36,7 +36,7 @@
   
   	<managed-bean>
   		<managed-bean-name>loginFormBean</managed-bean-name>
-  		<managed-bean-class>com.openappengine.forms.LoginFormBean</managed-bean-class>
+  		<managed-bean-class>com.openappengine.web.apps.login.LoginFormBean</managed-bean-class>
   		<managed-bean-scope>request</managed-bean-scope>
   	</managed-bean>
   
