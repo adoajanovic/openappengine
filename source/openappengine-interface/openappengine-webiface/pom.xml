@@ -30,7 +30,7 @@
         </repository>
     </repositories>
     <dependencies>
-      <dependency>
+	  <dependency>
     	<groupId>org.icefaces</groupId>
     	<artifactId>icefaces-ace</artifactId>
     	<version>${ice.version}</version>

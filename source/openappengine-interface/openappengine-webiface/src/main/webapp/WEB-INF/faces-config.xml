@@ -34,4 +34,10 @@
         <message-bundle>messages</message-bundle>
     </application>
   
+  	<managed-bean>
+  		<managed-bean-name>loginFormBean</managed-bean-name>
+  		<managed-bean-class>com.openappengine.forms.LoginFormBean</managed-bean-class>
+  		<managed-bean-scope>request</managed-bean-scope>
+  	</managed-bean>
+  
 </faces-config>
