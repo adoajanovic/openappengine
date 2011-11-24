@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:ice="http://www.icesoft.com/icefaces/component"
+     xmlns:ace="http://www.icefaces.org/icefaces/components">
+ <ice:panelGroup id="content2Panel">
+    <ice:panelGroup styleClass="synopsisBox" layout="block">
+           <ice:outputText styleClass="iceOutTxt" value="#{msgs['content.content2.tabset.text']}"/>
+           <ice:outputText styleClass="iceOutTxt" value="#{msgs['content.content2.title']}"/>
+    </ice:panelGroup>
+    <h:panelGroup styleClass="exampleBox" layout="block">
+      <ice:panelGrid  id="tabSetPanelGroupId" styleClass="exampleBox" columns="2" >
+        <ace:tabSet clientSide="true" orientation="left" styleClass="tabSetDemo">
+             <ace:tabPane label="Client" >
+                <p>
+                     <h:outputText value="When used in client mode, all tabPanes are rendered to the client, and the visibilty of each tabPane is managed by the tabSet without requiring a server round-trip."/>
+                </p>
+                <p>
+                     <ice:outputText value="Using the ace tabSet in client mode allows developers to have more control with forms within the panes themselves"/>
+                </p>
+ 
+             </ace:tabPane>
+             <ace:tabPane label="Drag Drop" >
+                   <ui:include src="dragDropInsert.xhtml"/>
+             </ace:tabPane>
+             <ace:tabPane label="Tree" >
+                <h:panelGroup id="treeContentpanel">
+                    <ui:include src="treeInsert.xhtml"/>
+                 </h:panelGroup>
+             </ace:tabPane>
+          </ace:tabSet>
+       </ice:panelGrid>
+     </h:panelGroup>
+    <h:messages/>
+ </ice:panelGroup>
+</ui:composition>

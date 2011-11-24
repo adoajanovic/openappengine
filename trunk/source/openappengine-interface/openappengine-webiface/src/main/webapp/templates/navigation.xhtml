@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:ice="http://www.icesoft.com/icefaces/component"
+          xmlns:ace="http://www.icefaces.org/icefaces/components">
+  
+ <h:panelGroup id="panelNavigation">
+    <f:facet name="header">
+        <h:panelGroup id="nav1pane">
+            <h:outputText value="#{msgs['navigation.panelCollapsible1.header']}"/>
+        </h:panelGroup>
+    </f:facet>
+    <h:form id="navForm">
+      <ace:linkButton id="contentHomeLink" value="#{msgs['navigation.main.label']}"
+                         href="/openappengine-webiface/main.jsf"
+                         actionListener="#{navigation.contentHomePathChange}">
+     </ace:linkButton>
+      <br />
+       <ace:linkButton id="content1NavLink" value="#{msgs['navigation.content1.label']}"
+                         href="/openappengine-webiface/main.jsf"
+                         actionListener="#{navigation.content1PathChange}">
+     </ace:linkButton>
+      <br />
+       <ace:linkButton id="content2NavLink" value="#{msgs['navigation.content2.label']}"
+                         actionListener="#{navigation.content2PathChange}">       
+     </ace:linkButton>
+    </h:form>
+ </h:panelGroup>
+</ui:composition>
