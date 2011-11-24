@@ -1,0 +1,31 @@
+<f:view
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:ice="http://www.icesoft.com/icefaces/component"
+ 	  xmlns:c="http://java.sun.com/jstl/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:ui="http://www.openui.com/ui" >
+	
+	<c:set var="color" value="#222" />
+	
+	<c:set var="required" value="${ui:isRequired(type,fieldName)}" />
+	
+	<c:if test="${required}">
+    	<c:set var="suffix" value="*" />
+    	<c:set var="color" value="red" />
+    </c:if>
+    
+    <c:set var="labelText" value="${fieldName}${suffix}" />
+		
+	<ice:outputLabel value="${labelText}" id="${fieldName}_Label"
+		for="${fieldName}_Input"
+		style="font:Calibri;font-size:11px;color:${color};"
+		required="${required}" />
+	
+	<c:set var="isText" value="${ui:isText(type,fieldName)}" />
+	<c:if test="${isText}">
+		<ice:inputText id="${fieldName}_Input" required="${required}" />
+	</c:if>
+	
+	<ice:message for="${fieldName}_Input" />
+		
+</f:view>

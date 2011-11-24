@@ -1,0 +1,26 @@
+<span xmlns:c="http://java.sun.com/jstl/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:ui="http://www.openui.com/ui" 
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:openui="http://www.openui.com/ui" 
+	  xmlns:ice="http://www.icesoft.com/icefaces/component">
+	  
+	<c:set var="columns" value="${formColumns}" />
+	  
+	<ice:form id="${id}">
+		<ice:panelGrid id="${formId}_Grid" columns="${columns}">
+			<c:if test="${not empty propertyNames}">
+				<c:set var="pNames" value="${fn:split(propertyNames, ',')}" />
+				<c:forEach items="${pNames}" var="property">
+					<ice:column>
+						<ui:field type="#{type}" fieldName="${property}" />
+					</ice:column>
+				</c:forEach>
+			</c:if>
+		</ice:panelGrid>
+		<ice:panelGrid id="${formId}_Bottom_Action" columns="${formButtonColumns}">
+			<ice:commandButton value="Save" action="${saveAction}"/>
+			<ice:commandButton value="Cancel" />
+		</ice:panelGrid>	
+	</ice:form>
+</span>

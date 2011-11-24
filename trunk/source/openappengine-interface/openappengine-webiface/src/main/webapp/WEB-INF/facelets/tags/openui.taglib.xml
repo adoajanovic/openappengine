@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<facelet-taglib>
+    <namespace>http://www.openui.com/ui</namespace>
+    
+    <tag>
+        <tag-name>field</tag-name>
+        <source>../../inc-templates/field.xhtml</source>
+    </tag>
+    
+    <tag>
+        <tag-name>form</tag-name>
+        <source>../../inc-templates/form.xhtml</source>
+    </tag>
+    
+    <function>
+		<function-name>isRequired</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isRequired(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isText</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isText(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isTextArea</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isTextArea(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isRichTextArea</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isRichTextArea(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>currentDateAsString</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			java.lang.String currentDateAsString()
+		</function-signature>
+	</function>
+	
+</facelet-taglib>
