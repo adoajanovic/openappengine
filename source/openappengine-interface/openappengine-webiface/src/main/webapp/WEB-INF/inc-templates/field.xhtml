@@ -7,7 +7,7 @@
 	
 	<c:set var="color" value="#222" />
 	
-	<c:set var="required" value="${true}" />
+	<c:set var="required" value="${ui:isRequired(type,fieldName)}" />
 	
 	<c:if test="${required}">
     	<c:set var="suffix" value="*" />
