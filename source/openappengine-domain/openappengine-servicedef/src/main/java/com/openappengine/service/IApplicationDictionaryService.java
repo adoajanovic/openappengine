@@ -6,6 +6,7 @@ package com.openappengine.service;
 import java.util.List;
 
 import com.openappengine.model.ad.ADColumn;
+import com.openappengine.model.ad.ADDataList;
 import com.openappengine.model.ad.ADTable;
 
 /**
@@ -34,5 +35,7 @@ public interface IApplicationDictionaryService {
 	List<String> listApplicationTableNames();
 	
 	ADTable getAdTable(String adTableName);
+	
+	List<ADDataList> listADDataList(String type);
 
 }

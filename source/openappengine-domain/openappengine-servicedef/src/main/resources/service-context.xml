@@ -24,7 +24,11 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
-	<bean id="applicationDictionaryRepository" class="com.openappengine.repository.ApplicationDictionaryRepository" scope="singleton">
+	<bean id="adTableRepository" class="com.openappengine.repository.ADTableRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="adDataListRepository" class="com.openappengine.repository.ADDataListRepository">
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
@@ -43,7 +47,8 @@
 	</bean>
 	
 	<bean id="applicationDictionaryService" class="com.openappengine.service.impl.ApplicationDictionaryServiceImpl">
-		<property name="applicationDictionaryRepository" ref="applicationDictionaryRepository"></property>
+		<property name="adTableRepository" ref="adTableRepository"></property>
+		<property name="adDataListRepository" ref="adDataListRepository"></property>
 	</bean>
 	
 </beans>

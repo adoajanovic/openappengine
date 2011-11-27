@@ -33,6 +33,14 @@ public class ADTableDTOAssembler {
 		adTableDTO.setName(adTable.getName());
 		adTableDTO.setWindow(adTable.getWindow());
 		
+		List<ADColumn> adColumns = adTable.getAdColumns();
+		if(adColumns != null && !adColumns.isEmpty()) {
+			for(ADColumn adColumn : adColumns) {
+				ADColumnDTO adColumnDTO = new ADColumnDTOAssembler().toDTO(adColumn);
+				adTableDTO.addAdColumn(adColumnDTO);
+			}
+		}
+		
 		return adTableDTO;
 	}
 	

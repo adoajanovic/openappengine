@@ -48,7 +48,6 @@ public class PartyManagerServiceImpl extends ModelService implements IPartyManag
 		this.partyAggregateFactory = partyAggregateFactory;
 	}
 
-	@Override
 	@Transactional
 	public Party createNewParty(PartySpecification partySpecification,Set<PartyContactMech> partyContactMeches,Set<Address> addresses) {
 		Long sequenceId = partyManagerRepository.nextSequenceId();
@@ -64,25 +63,21 @@ public class PartyManagerServiceImpl extends ModelService implements IPartyManag
 		return partyModel;
 	}
 
-	@Override
 	public Party createPerson(PersonSpecification personSpecification) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<Party> findPartyById(String externalId) {
 		List<Party> parties = partyManagerRepository.lookupPartyByExternalId(externalId);
 		return parties;
 	}
 
-	@Override
 	public List<Party> findPerson(PersonSpecification personSpecification) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void createAddress(String externalId, Address address) {
 		List<Party> list = this.findPartyById(externalId);
 		if(list != null && !list.isEmpty()) {
@@ -92,7 +87,6 @@ public class PartyManagerServiceImpl extends ModelService implements IPartyManag
 		}
 	}
 
-	@Override
 	public List<Address> getAddressByRole(String externalId, AddressType role) {
 		// TODO Auto-generated method stub
 		return null;

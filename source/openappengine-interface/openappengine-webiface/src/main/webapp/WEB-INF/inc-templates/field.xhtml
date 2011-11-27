@@ -21,10 +21,16 @@
 		style="font:Calibri;font-size:11px;color:${color};"
 		required="${required}" />
 	
-	<c:set var="isText" value="${true}" />
+	<c:set var="isText" value="${ui:isText(type,fieldName)}" />
 	<c:if test="${isText}">
 		<ice:inputText id="${fieldName}_Input" required="${required}" />
 	</c:if>
+	
+	<c:set var="isEnumDataList" value="${ui:isEnumDataList(type,fieldName)}" />
+	<c:if test="${isEnumDataList}">
+		<ice:inputText id="${fieldName}_Input" required="${required}" />
+	</c:if>
+	
 	
 	<ice:message for="${fieldName}_Input" />
 		

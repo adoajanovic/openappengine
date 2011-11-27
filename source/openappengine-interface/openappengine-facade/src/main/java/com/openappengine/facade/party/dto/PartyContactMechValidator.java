@@ -13,12 +13,10 @@ import org.springframework.validation.Validator;
  */
 public class PartyContactMechValidator implements Validator {
 
-	@Override
 	public boolean supports(Class<?> cls) {
 		return PartyContactMechCommand.class.isAssignableFrom(cls);
 	}
 
-	@Override
 	public void validate(Object partyContactMech, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "contactMechPurpose", "partyCommand.contactMechPurpose.required");
 		ValidationUtils.rejectIfEmpty(errors, "contactMechType", "partyCommand.contactMechType.required");
