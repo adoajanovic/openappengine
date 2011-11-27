@@ -39,5 +39,17 @@
   		<managed-bean-class>com.openappengine.web.apps.login.LoginFormBean</managed-bean-class>
   		<managed-bean-scope>request</managed-bean-scope>
   	</managed-bean>
+  	
+  	<managed-bean>
+  		<managed-bean-name>testDataListAdapter</managed-bean-name>
+  		<managed-bean-class>com.openappengine.crud.list.TestDataListAdapter</managed-bean-class>
+  		<managed-bean-scope>request</managed-bean-scope>
+  	</managed-bean>
+  	
+  	<managed-bean>
+  		<managed-bean-name>adListDataSource</managed-bean-name>
+  		<managed-bean-class>com.openappengine.crud.datasource.ADListDataSource</managed-bean-class>
+  		<managed-bean-scope>request</managed-bean-scope>
+  	</managed-bean>
   
 </faces-config>

@@ -13,12 +13,10 @@ import org.springframework.validation.Validator;
  */
 public class AddressCommandValidator implements Validator {
 
-	@Override
 	public boolean supports(Class<?> clazz) {
 		return AddressCommand.class.isAssignableFrom(clazz);
 	}
 
-	@Override
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "address1", "AddressCommand.contactMechPurpose.required");
 		ValidationUtils.rejectIfEmpty(errors, "postalCode", "partyCommand.contactMechType.required");

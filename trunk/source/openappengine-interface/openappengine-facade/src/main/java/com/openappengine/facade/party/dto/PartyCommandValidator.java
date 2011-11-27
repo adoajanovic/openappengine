@@ -13,12 +13,10 @@ import org.springframework.validation.Validator;
  */
 public class PartyCommandValidator implements Validator {
 
-	@Override
 	public boolean supports(Class<?> cls) {
 		return PartyCommand.class.isAssignableFrom(cls);
 	}
 
-	@Override
 	public void validate(Object command, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "partyCommand.description.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "preferredCurrencyUom", "partyCommand.preferredCurrencyUom.required");

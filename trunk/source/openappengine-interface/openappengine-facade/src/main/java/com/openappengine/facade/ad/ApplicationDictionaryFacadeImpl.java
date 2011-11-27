@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.ad.dto.ADColumnDTO;
+import com.openappengine.facade.ad.dto.ADListItemDTO;
 import com.openappengine.facade.ad.dto.ADTableDTO;
 import com.openappengine.facade.ad.dto.assembler.ADColumnDTOAssembler;
+import com.openappengine.facade.ad.dto.assembler.ADDataListAssembler;
 import com.openappengine.facade.ad.dto.assembler.ADTableDTOAssembler;
 import com.openappengine.model.ad.ADColumn;
+import com.openappengine.model.ad.ADDataList;
 import com.openappengine.model.ad.ADTable;
 import com.openappengine.service.IApplicationDictionaryService;
 
@@ -26,7 +29,6 @@ public class ApplicationDictionaryFacadeImpl implements
 	/* (non-Javadoc)
 	 * @see com.openappengine.facade.ad.ApplicationDictionaryFacade#listAllApplicationTableNames()
 	 */
-	@Override
 	public List<ADTableDTO> listAllApplicationTableNames() {
 		List<String> tableNames = applicationDictionaryService.listApplicationTableNames();
 		List<ADTableDTO> adTableDTOs = new ArrayList<ADTableDTO>();
@@ -42,7 +44,6 @@ public class ApplicationDictionaryFacadeImpl implements
 	/* (non-Javadoc)
 	 * @see com.openappengine.facade.ad.ApplicationDictionaryFacade#listAllApplicationTableColumnNames(java.lang.String)
 	 */
-	@Override
 	public List<ADColumnDTO> listAllApplicationTableColumnNames(String tableName) {
 		List<ADColumn> applicationColumns = applicationDictionaryService.getApplicationColumns(tableName);
 		
@@ -58,7 +59,6 @@ public class ApplicationDictionaryFacadeImpl implements
 	/* (non-Javadoc)
 	 * @see com.openappengine.facade.ad.ApplicationDictionaryFacade#addADTable(com.openappengine.model.ad.ADTable)
 	 */
-	@Override
 	public void addADTable(ADTableDTO adTableDTO) {
 		applicationDictionaryService.addApplicationDictionaryTable(new ADTableDTOAssembler().fromDTO(adTableDTO));
 	}
@@ -68,10 +68,18 @@ public class ApplicationDictionaryFacadeImpl implements
 		this.applicationDictionaryService = applicationDictionaryService;
 	}
 
-	@Override
 	public ADTableDTO getAdTableDTO(String tableName) {
 		ADTable adTable = applicationDictionaryService.getAdTable(tableName);
 		return new ADTableDTOAssembler().toDTO(adTable);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.openappengine.facade.ad.ApplicationDictionaryFacade#getADListItems(java.lang.String)
+	 */
+	public List<ADListItemDTO> getADListItems(String type) {
+	    List<ADDataList> adDataList = this.applicationDictionaryService.listADDataList(type);
+	    List<ADListItemDTO> adListItemDTOs = new ADDataListAssembler().toDTOList(adDataList);
+	    return adListItemDTOs;
 	}
 
 }

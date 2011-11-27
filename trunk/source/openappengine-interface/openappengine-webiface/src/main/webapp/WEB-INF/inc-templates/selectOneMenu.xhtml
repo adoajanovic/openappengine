@@ -1,0 +1,13 @@
+<f:view
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:ice="http://www.icesoft.com/icefaces/component"
+ 	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:ui="http://www.openui.com/ui" >
+	
+	<ice:selectOneMenu id="SelectOneMenu_${id}" value="${value}">
+		<f:selectItem value=" " />
+		<f:selectItems value="#{adListDataSource.data}"/>
+	</ice:selectOneMenu>
+		
+</f:view>

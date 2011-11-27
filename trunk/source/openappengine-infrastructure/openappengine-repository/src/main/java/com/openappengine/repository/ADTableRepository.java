@@ -20,7 +20,7 @@ import com.openappengine.model.ad.ADTable;
  * @author hrishi
  *
  */
-public class ApplicationDictionaryRepository extends GenericRepository<ADTable> {
+public class ADTableRepository extends GenericRepository<ADTable> {
 	
 	public List<String> listAllApplicationTableNames() {
 		String fetchAllTablesQuery = "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME NOT LIKE :prefix";
@@ -35,12 +35,18 @@ public class ApplicationDictionaryRepository extends GenericRepository<ADTable> 
 	}
 	
 	public ADTable getAdTable(String adTableName) {
+		List<ADColumn> columns = listAllColumns(adTableName);
 		DetachedCriteria criteria = DetachedCriteria.forClass(ADTable.class).add(Restrictions.eq("tableName", adTableName));
 		List list = hibernateTemplate.findByCriteria(criteria);
+		ADTable adTable;
 		if(list != null && !list.isEmpty()) {
-			return (ADTable) list.get(0);
-		}
-		return null;
+			adTable = (ADTable) list.get(0);
+			return adTable;
+		} 
+		adTable = new ADTable();
+		adTable.setTableName(adTableName);
+		adTable.setAdColumns(columns);
+		return adTable;
 	}
 	
 

@@ -12,9 +12,12 @@
 		<title><ui:insert name="title">Login</ui:insert></title>
 	</h:head>
 	<h:body>
+		
 		<openui:form propertyNames="username,password"
 			type="${loginFormBean.getClass()}" id="LoginForm" formColumns="1"
-			formButtonColumns="2" saveAction="${loginFormBean.login}" />    	
+			formButtonColumns="2" saveAction="${loginFormBean.login}" />
+			
+		<openui:listing dataListAdapter="#{testDataListAdapter}" columns="username,password" id="loginDataTable"/>	    	
 	</h:body>
 </f:view>
 </html>
