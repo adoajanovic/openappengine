@@ -12,6 +12,11 @@
         <source>../../inc-templates/form.xhtml</source>
     </tag>
     
+    <tag>
+        <tag-name>listing</tag-name>
+        <source>../../inc-templates/listing.xhtml</source>
+    </tag>
+    
     <function>
 		<function-name>isRequired</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
