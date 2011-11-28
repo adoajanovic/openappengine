@@ -20,6 +20,12 @@
 	<description>
         OpenAppEngine Web IFace
     </description>
+    
+    <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/applicationContext.xml</param-value>
+	</context-param>
+    
     <context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>server</param-value>
@@ -60,6 +66,13 @@
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/xmlhttp/*</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Spring Context Listener -->
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
 	
 	<!-- Welcome File Configuration -->
 
