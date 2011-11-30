@@ -68,11 +68,11 @@
 	</servlet-mapping>
 	
 	<!-- Spring Context Listener -->
-	<listener>
+	<!-- <listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
-	</listener>
+	</listener> -->
 	
 	<!-- Welcome File Configuration -->
 
