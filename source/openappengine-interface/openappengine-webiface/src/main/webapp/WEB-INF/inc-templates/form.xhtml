@@ -1,12 +1,11 @@
-<f:view
-	  xmlns:f="http://java.sun.com/jsf/core" 
-	  xmlns:ice="http://www.icesoft.com/icefaces/component"
- 	  xmlns:c="http://java.sun.com/jsp/jstl/core"
-	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	  xmlns:ui="http://www.openui.com/ui" >
-	  
-	  <c:set
-		var="columns" value="${formColumns}" /> 
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://www.openui.com/ui">
+
+	<c:set var="columns" value="${formColumns}" />
+	
 	<ice:form id="${id}">
 		<ice:panelGrid id="${formId}_Grid" columns="${columns}">
 			<c:set var="pNames" value="${fn:split(propertyNames, ',')}" />
@@ -21,5 +20,5 @@
 			<ice:commandButton value="Save" action="${saveAction}" />
 			<ice:commandButton value="Cancel" />
 		</ice:panelGrid>
-	</ice:form> 
+	</ice:form>
 </f:view>

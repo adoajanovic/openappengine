@@ -1,26 +1,34 @@
 /**
  * 
  */
-package com.openappengine.web.apps.login;
+package com.openappengine.forms;
 
 import java.io.Serializable;
 
-import com.openappengine.web.annotations.ADDataList;
+import com.openappengine.web.annotations.Required;
 
 /**
- * @author hrishi
+ * @author hrishikesh.joshi
  *
  */
 public class LoginFormBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Required
 	private String username;
 	
+	@Required
 	private String password;
 	
-	@ADDataList(type="currency")
-	private String preferredCurrency;
+	private Long age;
+	
+	private String mobileNo;
+	
+	public String save() {
+		System.out.println("asasas");
+		return null;
+	}
 
 	public String getUsername() {
 		return username;
@@ -37,17 +45,20 @@ public class LoginFormBean implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String login() {
-		return null;
+
+	public Long getAge() {
+		return age;
 	}
 
-	public String getPreferredCurrency() {
-		return preferredCurrency;
+	public void setAge(Long age) {
+		this.age = age;
 	}
 
-	public void setPreferredCurrency(String preferredCurrency) {
-		this.preferredCurrency = preferredCurrency;
+	public String getMobileNo() {
+		return mobileNo;
 	}
 
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
 }

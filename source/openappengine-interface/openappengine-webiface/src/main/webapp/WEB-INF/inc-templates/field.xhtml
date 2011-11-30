@@ -26,11 +26,10 @@
 		<ice:inputText id="${fieldName}_Input" required="${required}" />
 	</c:if>
 	
-	<c:set var="isEnumDataList" value="${ui:isEnumDataList(type,fieldName)}" />
-	<c:if test="${isEnumDataList}">
-		<ice:inputText id="${fieldName}_Input" required="${required}" />
+	<c:set var="isADDataList" value="${ui:isADDataList(type,fieldName)}" />
+	<c:if test="${isADDataList}">
+		<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
 	</c:if>
-	
 	
 	<ice:message for="${fieldName}_Input" />
 		

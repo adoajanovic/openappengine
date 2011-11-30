@@ -17,6 +17,11 @@
         <source>../../inc-templates/listing.xhtml</source>
     </tag>
     
+    <tag>
+        <tag-name>adDataList</tag-name>
+        <source>../../inc-templates/adDataList.xhtml</source>
+    </tag>
+    
     <function>
 		<function-name>isRequired</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -53,7 +58,7 @@
 		<function-name>isADDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
-			boolean isTextArea(java.lang.Class,java.lang.String)
+			boolean isADDataList(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
 	
@@ -61,7 +66,23 @@
 		<function-name>isDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
-			boolean isTextArea(java.lang.Class,java.lang.String)
+			boolean isDataList(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getAnnotedADDataListType</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			String getAnnotedADDataListType(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getADDataList</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			List getADDataList(java.lang.String)
 		</function-signature>
 	</function>
 	
