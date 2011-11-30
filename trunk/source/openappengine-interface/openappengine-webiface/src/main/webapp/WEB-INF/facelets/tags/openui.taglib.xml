@@ -42,6 +42,30 @@
 	</function>
 	
 	<function>
+		<function-name>isEnumDataList</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isTextArea(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isADDataList</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isTextArea(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isDataList</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isTextArea(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
 		<function-name>isRichTextArea</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
