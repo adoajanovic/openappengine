@@ -6,6 +6,8 @@ package com.openappengine.web.utils;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.el.MethodExpression;
@@ -64,6 +67,22 @@ public class TagUtils {
 		} catch (Exception ex) {
 			throw new ComponentRenderException("Unable to get property " + propertyName + " for class " + type, ex);
 		}
+	}
+	
+	public static String getLabelText(Class<?> type,String propertyName) {
+		String messageBundleKey = type.getName() + "." + propertyName;
+		InputStream inputStream = TagUtils.class.getClassLoader().getResourceAsStream("messages_en.properties");
+		Properties properties = new Properties();
+		try {
+			properties.load(inputStream);
+			String message = (String) properties.get(messageBundleKey);
+			if(message != null) {
+				return message;
+			}
+		} catch (IOException e) {
+			return propertyName;
+		}
+		return propertyName;
 	}
 
 	public static String currentDateAsString() {
@@ -200,8 +219,7 @@ public class TagUtils {
 			throw new ComponentRenderException("Class type and propertyName must not be null");
 		}
 		
-		Field field = getField(type, propertyName);
-		if(field.getAnnotation(ADDataList.class) != null) {
+		if(isADDataList(type, propertyName)) {
 			return false;
 		}
 		
@@ -409,7 +427,7 @@ public class TagUtils {
 	private static Field doGetField(Class<?> clazz, String fieldName) {
 		Field field = null;
 		try {
-			field = clazz.getDeclaredField(fieldName);
+			field = clazz.getField(fieldName);
 		} catch (SecurityException se) {
 			field = null;
 		} catch (NoSuchFieldException nsfe) {

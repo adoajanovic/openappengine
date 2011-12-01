@@ -13,24 +13,27 @@
     	<c:set var="suffix" value="*" />
     	<c:set var="color" value="red" />
     </c:if>
+    <c:set var="labelText" value="${ui:getLabelText(type,fieldName)}" />
     
-    <c:set var="labelText" value="${fieldName}${suffix}" />
+    <c:set var="labelText" value="${labelText}${suffix}" />
+	
+	<ice:column>	
+		<ice:outputLabel value="${labelText}" id="${fieldName}_Label" for="${fieldName}_Input" style="font:Calibri;font-size:11px;color:${color};" required="${required}" />
+	</ice:column>
+	
+	<ice:column>
+		<c:set var="isText" value="${ui:isText(type,fieldName)}" />
+		<c:if test="${isText}">
+			<ice:inputText id="${fieldName}_Input" required="${required}" />
+		</c:if>
 		
-	<ice:outputLabel value="${labelText}" id="${fieldName}_Label"
-		for="${fieldName}_Input"
-		style="font:Calibri;font-size:11px;color:${color};"
-		required="${required}" />
+		<c:set var="isADDataList" value="${ui:isADDataList(type,fieldName)}" />
+		<c:if test="${isADDataList}">
+			<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
+		</c:if>
+	</ice:column>
 	
-	<c:set var="isText" value="${ui:isText(type,fieldName)}" />
-	<c:if test="${isText}">
-		<ice:inputText id="${fieldName}_Input" required="${required}" />
-	</c:if>
-	
-	<c:set var="isADDataList" value="${ui:isADDataList(type,fieldName)}" />
-	<c:if test="${isADDataList}">
-		<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
-	</c:if>
-	
-	<ice:message for="${fieldName}_Input" />
-		
+	<ice:column>
+		<ice:message for="${fieldName}_Input" />
+	</ice:column>	
 </f:view>
