@@ -102,4 +102,12 @@
 		</function-signature>
 	</function>
 	
+	<function>
+		<function-name>getLabelText</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			java.lang.String getLabelText(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
 </facelet-taglib>

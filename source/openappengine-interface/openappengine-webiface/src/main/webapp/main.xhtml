@@ -4,16 +4,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      template="templates/page-template.xhtml"
+      template="./templates/page-template.xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-     xmlns:ace="http://www.icefaces.com/openappengine/components">
+      xmlns:openui="http://www.openui.com/ui">
   
       <ui:define name="page-content">
-           <h:panelGroup id="aceMaincontent">
-                 <ui:include src="#{navigation.selectedIncludePath}"/>
+           <h:panelGroup id="loginFormDiv">
+                 <openui:form propertyNames="username,password,preferredCurrency"
+					type="${loginFormBean.getClass()}" id="LoginForm" formColumns="1"
+					formButtonColumns="2" saveAction="${loginFormBean.login}" />
            </h:panelGroup>
-   </ui:define>
+      </ui:define>
    
 </ui:composition>
 
