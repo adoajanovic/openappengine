@@ -24,7 +24,7 @@
 	<ice:column>
 		<c:set var="isText" value="${ui:isText(type,fieldName)}" />
 		<c:if test="${isText}">
-			<ice:inputText id="${fieldName}_Input" required="${required}" />
+			<ice:inputText id="${fieldName}_Input" required="${required}" styleClass="inputText"/>
 		</c:if>
 		
 		<c:set var="isADDataList" value="${ui:isADDataList(type,fieldName)}" />
