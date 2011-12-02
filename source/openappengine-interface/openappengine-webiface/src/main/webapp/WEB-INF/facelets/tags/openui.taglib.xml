@@ -22,6 +22,11 @@
         <source>../../inc-templates/adDataList.xhtml</source>
     </tag>
     
+    <tag>
+        <tag-name>adAutocomplete</tag-name>
+        <source>../../inc-templates/adAutocomplete.xhtml</source>
+    </tag>
+    
     <function>
 		<function-name>isRequired</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -63,6 +68,14 @@
 	</function>
 	
 	<function>
+		<function-name>isADAutocompleteField</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isADAutocompleteField(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
 		<function-name>isDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
@@ -75,6 +88,14 @@
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			String getAnnotedADDataListType(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getADAutocompleteListType</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			String getADAutocompleteListType(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
 	

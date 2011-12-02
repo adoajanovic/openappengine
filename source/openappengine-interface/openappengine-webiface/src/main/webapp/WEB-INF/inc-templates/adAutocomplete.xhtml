@@ -1,0 +1,23 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:ice="http://www.icesoft.com/icefaces/component"
+ 	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:ui="http://www.openui.com/ui" >
+	
+	<c:if test="${empty listType}">
+		<c:set var="listType" value="${ui:getADAutocompleteListType(type,fieldName)}" />
+	</c:if>
+	
+	<c:if test="${empty disabled}">
+		<c:set var="disabled" value="#{false}" />
+	</c:if>
+	
+	<c:if test="${empty required}">
+		<c:set var="required" value="#{false}" />
+	</c:if>
+	  
+	<ice:selectInputText rows="10" disabled="#{disabled}" required="#{required}" valueChangeListener="#{autocompleteBean.handleTextChange}" style="z-index:1000;" >
+         <f:selectItems value="#{autocompleteBean.getADList(listType)}"/>
+    </ice:selectInputText>
+		
+</f:view>

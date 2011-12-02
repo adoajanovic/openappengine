@@ -5,7 +5,7 @@ package com.openappengine.web.apps.login;
 
 import java.io.Serializable;
 
-import com.openappengine.web.annotations.ADDataList;
+import com.openappengine.web.annotations.ADAutocomplete;
 import com.openappengine.web.annotations.Required;
 
 /**
@@ -20,7 +20,7 @@ public class LoginFormBean implements Serializable {
 	
 	private String password;
 	
-	@ADDataList(type="currency")
+	@ADAutocomplete(type="currency")
 	@Required
 	private String preferredCurrency;
 
