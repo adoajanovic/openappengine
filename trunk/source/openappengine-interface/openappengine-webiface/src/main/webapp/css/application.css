@@ -11,14 +11,15 @@ body{
 
 form{
     margin:0;
-    padding:0;
     /*background:#94aebc url('images/page-bg.png') left bottom repeat;*/
     background-color: #EEE;
     font:normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva,Verdana,Arial,sans-serif;
     border:1px;
     color: #222;
     border-color: #000;
-    width: 80%;
+    width: auto;
+    padding: 2em;
+    overflow: visible;
 }
 
 /* form inputs */
@@ -263,4 +264,32 @@ a.cssSubmitButton:hover {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;	
+}
+
+.button {
+	float: left;
+	clear: both;
+	background: url(images/btn_left.png) no-repeat;
+	padding: 0 0 0 10px;
+	margin: 5px 0;
+}
+.button a{
+	float: left;
+	height: 40px;
+	background: url(images/btn_stretch.png) repeat-x left top;
+	line-height: 40px;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 1em;
+	text-decoration: none;
+}
+.button span {
+	background: url(images/btn_right.png) no-repeat;
+	float: left;
+	width: 10px;
+	height: 40px;
+}
+.submitButton { background-color: #002c85; }
+.clear {
+	clear: both;
 }
