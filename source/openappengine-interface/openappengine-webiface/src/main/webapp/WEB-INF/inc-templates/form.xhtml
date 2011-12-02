@@ -1,23 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:ui="http://www.openui.com/ui"
-	xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:ui="http://www.openui.com/ui" xmlns:h="http://java.sun.com/jsf/html">
 <f:view>
 	<h:head>
-		<!-- <link rel="stylesheet" href="./js/jqtransformplugin/jqtransform.css" type="text/css" media="all" />
-		<link rel="stylesheet" href="demo.css" type="text/css" media="all" />
-
 		<script type="text/javascript" src="./js/jquery.js"></script>
-		<script type="text/javascript" src="./js/jqtransformplugin/jquery.jqtransform.js"></script>
-		<script language="javascript">
-			$(function() {
-				$('form').jqTransform({imgPath : './jqtransformplugin/img/'});
+		<script type="text/javascript">
+			$(document).ready(function () {
+		
+				var value = $('#button input').val();
+				var name = $('#button input').attr('name');
+				
+				$('#button input').remove();
+				$('#button').html('<a href="#" class="cssSubmitButton" rel=' + name + '>' + value + '</a>');	
 			});
-		</script> -->
+		</script>
 	</h:head>
 
 	<c:set var="columns" value="${formColumns}" />
@@ -29,8 +25,7 @@
 				<ui:field type="#{type}" fieldName="${property}" />
 			</c:forEach>
 		</ice:panelGrid>
-		<ice:panelGrid id="${formId}_Bottom_Action"
-			columns="${formButtonColumns}">
+		<ice:panelGrid id="${formId}_Bottom_Action" columns="${formButtonColumns}">
 			<ice:commandButton value="Save" action="${saveAction}" />
 			<ice:commandButton value="Cancel" />
 		</ice:panelGrid>
