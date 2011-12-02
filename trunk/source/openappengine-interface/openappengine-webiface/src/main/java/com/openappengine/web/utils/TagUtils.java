@@ -31,6 +31,7 @@ import com.openappengine.crud.datasource.DataSource;
 import com.openappengine.crud.datasource.DataSourceException;
 import com.openappengine.crud.datasource.EnumDataSource;
 import com.openappengine.web.ad.ADListItem;
+import com.openappengine.web.annotations.ADAutocomplete;
 import com.openappengine.web.annotations.ADDataList;
 import com.openappengine.web.annotations.EnumDataList;
 import com.openappengine.web.annotations.ListItem;
@@ -105,6 +106,26 @@ public class TagUtils {
 		}
 		if (field.isAnnotationPresent(ADDataList.class)) {
 			ADDataList annotation = field.getAnnotation(ADDataList.class);
+			return annotation.type();
+		}
+		return null;
+	}
+	
+	public static String getADAutocompleteListType(Class<?> type,String propertyName) {
+		if (propertyName == null) {
+			throw new ComponentRenderException("Field must not be null");
+		}
+		
+		if(!isADAutocompleteField(type, propertyName)) {
+			throw new ComponentRenderException("Component is not a ADDataList");
+		}
+		
+		Field field = getField(type, propertyName);
+		if (field == null) {
+			throw new ComponentRenderException("Field must not be null");
+		}
+		if (field.isAnnotationPresent(ADAutocomplete.class)) {
+			ADAutocomplete annotation = field.getAnnotation(ADAutocomplete.class);
 			return annotation.type();
 		}
 		return null;
@@ -185,6 +206,20 @@ public class TagUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isADAutocompleteField(Class<?> type, String propertyName) {
+		if (propertyName == null) {
+			throw new ComponentRenderException("Field must not be null");
+		}
+		Field field = getField(type, propertyName);
+		if (field == null) {
+			throw new ComponentRenderException("Field must not be null");
+		}
+		if (field.isAnnotationPresent(ADAutocomplete.class)) {
+			return true;
+		}
+		return false;
+	}
 
 	public static boolean isEnumDataList(Class<?> type, String propertyName) {
 		if (propertyName == null) {
@@ -219,7 +254,7 @@ public class TagUtils {
 			throw new ComponentRenderException("Class type and propertyName must not be null");
 		}
 		
-		if(isADDataList(type, propertyName)) {
+		if(isADDataList(type, propertyName) || isADAutocompleteField(type, propertyName)) {
 			return false;
 		}
 		

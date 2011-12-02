@@ -31,6 +31,12 @@
 		<c:if test="${isADDataList}">
 			<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
 		</c:if>
+		
+		<c:set var="isADAutocompleteField" value="${ui:isADAutocompleteField(type,fieldName)}" />
+		<c:if test="${isADAutocompleteField}">
+			<ui:adAutocomplete listType="${listType}" type="${type}" fieldName="${fieldName}" />
+		</c:if>
+		
 	</ice:column>
 	
 	<ice:column>

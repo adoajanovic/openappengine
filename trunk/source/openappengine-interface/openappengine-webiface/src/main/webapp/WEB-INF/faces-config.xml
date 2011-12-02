@@ -33,7 +33,14 @@
         </locale-config>
         <message-bundle>messages</message-bundle>
     </application>
-  
+    
+    <!-- Autocomplete Bean  -->
+  	<managed-bean>
+  		<managed-bean-name>autocompleteBean</managed-bean-name>
+  		<managed-bean-class>com.openappengine.autocomplete.AutocompleteBean</managed-bean-class>
+  		<managed-bean-scope>view</managed-bean-scope>
+  	</managed-bean>
+  	
   	<managed-bean>
   		<managed-bean-name>loginFormBean</managed-bean-name>
   		<managed-bean-class>com.openappengine.web.apps.login.LoginFormBean</managed-bean-class>
