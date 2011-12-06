@@ -16,7 +16,7 @@
 		<c:set var="required" value="#{false}" />
 	</c:if>
 	  
-	<ice:selectInputText rows="10" disabled="#{disabled}" required="#{required}" valueChangeListener="#{autocompleteBean.handleTextChange}" style="z-index:1000;" >
+	<ice:selectInputText rows="10" disabled="#{disabled}" required="#{required}" value="#{formController.formBeanInstance.formBean[fieldName]}" valueChangeListener="#{autocompleteBean.handleTextChange}" style="z-index:1000;" >
          <f:selectItems value="#{autocompleteBean.getADList(listType)}"/>
     </ice:selectInputText>
 		

@@ -11,8 +11,8 @@
   
       <ui:define name="page-content">
            <h:panelGroup id="loginFormDiv">
-                 <openui:form propertyNames="username,password,preferredCurrency"
-					type="${loginFormBean.getClass()}" id="LoginForm" formColumns="1"
+                 <openui:form propertyNames="username,password"
+					formClassName="com.openappengine.web.apps.login.LoginFormBean" id="LoginForm" formColumns="2"
 					formButtonColumns="2" saveAction="${loginFormBean.login}" />
            </h:panelGroup>
       </ui:define>

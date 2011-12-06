@@ -22,24 +22,25 @@
 	</ice:column>
 	
 	<ice:column>
-		<c:set var="isText" value="${ui:isText(type,fieldName)}" />
-		<c:if test="${isText}">
-			<ice:inputText id="${fieldName}_Input" required="${required}" styleClass="inputText"/>
-		</c:if>
-		
-		<c:set var="isADDataList" value="${ui:isADDataList(type,fieldName)}" />
-		<c:if test="${isADDataList}">
-			<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
-		</c:if>
-		
-		<c:set var="isADAutocompleteField" value="${ui:isADAutocompleteField(type,fieldName)}" />
-		<c:if test="${isADAutocompleteField}">
-			<ui:adAutocomplete listType="${listType}" type="${type}" fieldName="${fieldName}" />
-		</c:if>
-		
+		<c:choose>
+          <c:when test="${ui:isText(type,fieldName)}">
+          		<ice:inputText id="${fieldName}_Input" required="${required}" styleClass="inputText" value="#{formController.formBean.formBean[property]}"/>
+          </c:when>
+          <c:otherwise>
+          	<c:when test="${ui:isADDataList(type,fieldName)}">
+          		<ice:inputTextarea id="${fieldName}_Input" required="${required}" styleClass="inputText" value="#{formController.formBeanInstance.formBean[property]}"/>
+          	</c:when>
+          	<c:otherwise>
+	          	<c:when test="${ui:isADDataList(type,fieldName)}" formBeanInstance="#{formBeanInstance}">
+	          		<ui:adDataList listType="${listType}" type="${type}" fieldName="${fieldName}" />
+	          	</c:when>
+	          	<c:otherwise>
+	          		<c:when test="${ui:isADAutocompleteField(type,fieldName)}">
+						<ui:adAutocomplete listType="${listType}" type="${type}" fieldName="${fieldName}" formBeanInstance="#{formBeanInstance}"/>
+					</c:when>
+	          	</c:otherwise>
+          	</c:otherwise>	
+          </c:otherwise>
+         </c:choose> 
 	</ice:column>
-	
-	<ice:column>
-		<ice:message for="${fieldName}_Input" />
-	</ice:column>	
 </f:view>

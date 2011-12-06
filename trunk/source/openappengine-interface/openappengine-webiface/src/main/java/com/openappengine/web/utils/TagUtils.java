@@ -30,6 +30,8 @@ import com.openappengine.crud.datasource.ADListDataSource;
 import com.openappengine.crud.datasource.DataSource;
 import com.openappengine.crud.datasource.DataSourceException;
 import com.openappengine.crud.datasource.EnumDataSource;
+import com.openappengine.form.UIForm;
+import com.openappengine.form.UIFormBeanWrapper;
 import com.openappengine.web.ad.ADListItem;
 import com.openappengine.web.annotations.ADAutocomplete;
 import com.openappengine.web.annotations.ADDataList;
@@ -53,6 +55,52 @@ public class TagUtils {
 
 	public static ValueExpression createValueExpression(FacesContext context, String expr, Class value) {
 		return context.getApplication().getExpressionFactory().createValueExpression(context.getELContext(), expr, value);
+	}
+	
+	public static Class getUIFormClass(String className) {
+		if(!StringUtils.hasText(className)) {
+			throw new ComponentRenderException("Classname is required to create the UIForm instance.");
+		}
+		
+		Class<?> uiFormClass;
+		try {
+			uiFormClass = Class.forName(className);
+			if(uiFormClass == null) {
+				throw new ComponentRenderException("Class : [" + className + "] not found.");	
+			}
+			if(!UIForm.class.isAssignableFrom(uiFormClass)) {
+				throw new ComponentRenderException("Class : [" + className + "] should extend the com.openappengine.form.UIForm class.");
+			}
+			return uiFormClass;
+		} catch (ClassNotFoundException e) {
+			throw new ComponentRenderException("Class : [" + className + "] not found.",e);
+		}
+	}
+	
+	public static UIFormBeanWrapper getUIFormBeanWrapper(String className) {
+		if(!StringUtils.hasText(className)) {
+			throw new ComponentRenderException("Classname is required to create the UIForm instance.");
+		}
+		
+		Class<?> uiFormInstance;
+		try {
+			uiFormInstance = Class.forName(className);
+			if(uiFormInstance == null) {
+				throw new ComponentRenderException("Class : [" + className + "] not found.");	
+			}
+			if(!UIForm.class.isAssignableFrom(uiFormInstance)) {
+				throw new ComponentRenderException("Class : [" + className + "] should extend the com.openappengine.form.UIForm class.");
+			}
+			UIForm uiform = (UIForm) uiFormInstance.newInstance();
+			UIFormBeanWrapper formBeanWrapper = new UIFormBeanWrapper(uiform);
+			return formBeanWrapper;
+		} catch (ClassNotFoundException e) {
+			throw new ComponentRenderException("Class : [" + className + "] not found.",e);
+		} catch (InstantiationException e) {
+			throw new ComponentRenderException("Class : [" + className + "] cannot be initialized.",e);
+		} catch (IllegalAccessException e) {
+			throw new ComponentRenderException("Illegal access to instance of Class : [" + className + "].",e);
+		}
 	}
 
 	private static PropertyDescriptor doGetPropertyDescriptor(final Class<?> type, final String propertyName) {
@@ -239,6 +287,7 @@ public class TagUtils {
 		if (propertyName == null) {
 			throw new ComponentRenderException("Field must not be null");
 		}
+		
 		Field field = getField(type, propertyName);
 		if (field == null) {
 			throw new ComponentRenderException("Field must not be null");
