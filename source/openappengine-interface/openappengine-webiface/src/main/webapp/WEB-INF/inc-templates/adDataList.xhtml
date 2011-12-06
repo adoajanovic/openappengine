@@ -10,7 +10,7 @@
 	  
 	<c:set var="dataList" value="${ui:getADDataList(listType)}" />
 	
-	<ice:selectOneMenu id="SelectOneMenu_${id}" value="#{formController.formBeanInstance.formBean[fieldName]}" >
+	<ice:selectOneMenu id="SelectOneMenu_${id}" value="#{formController.formBean.formBean[fieldName]}" >
 		<f:selectItem value=" " />
 		<f:selectItems value="#{dataList}"/>
 	</ice:selectOneMenu>
