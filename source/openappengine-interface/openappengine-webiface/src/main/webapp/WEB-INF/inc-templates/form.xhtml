@@ -18,16 +18,28 @@
 	</h:head>
 
 	<c:set var="columns" value="${formColumns}" />
-
+	
+	<c:if test="${empty formController}">
+		<c:set var="formController" value="#{formController}" />
+	</c:if>
+	
+	<c:if test="${not empty formClassName}">
+		<c:set var="formInstance" value="#{ui:getUIFormBeanWrapper(formClassName)}" />
+		<c:set var="formClass" value="#{ui:getUIFormClass(formClassName)}" />
+	</c:if>
+	
+	#{formController.setFormBean(formInstance)}
+	
 	<ice:form id="${id}">
+		<ice:messages />
 		<ice:panelGrid id="${formId}_Grid" columns="${columns}">
 			<c:set var="pNames" value="${fn:split(propertyNames, ',')}" />
 			<c:forEach items="${pNames}" var="property">
-				<ui:field type="#{type}" fieldName="${property}" />
+				<ui:field type="#{formClass}" fieldName="${property}" formBeanInstance="${formInstance}"/>
 			</c:forEach>
 		</ice:panelGrid>
 		<ice:panelGrid id="${formId}_Bottom_Action" columns="${formButtonColumns}">
-			<ice:commandButton value="Save" action="${saveAction}"/>
+			<ice:commandButton value="Save" action="#{formController.save}"/>
 			<ice:commandButton value="Cancel" />
 		</ice:panelGrid>
 	</ice:form>

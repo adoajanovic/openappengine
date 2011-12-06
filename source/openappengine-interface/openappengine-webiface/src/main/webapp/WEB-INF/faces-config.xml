@@ -41,6 +41,13 @@
   		<managed-bean-scope>view</managed-bean-scope>
   	</managed-bean>
   	
+  	<!-- UI Form Controller  -->
+  	<managed-bean>
+  		<managed-bean-name>formController</managed-bean-name>
+  		<managed-bean-class>com.openappengine.form.controller.FormController</managed-bean-class>
+  		<managed-bean-scope>view</managed-bean-scope>
+  	</managed-bean>
+  	
   	<managed-bean>
   		<managed-bean-name>loginFormBean</managed-bean-name>
   		<managed-bean-class>com.openappengine.web.apps.login.LoginFormBean</managed-bean-class>

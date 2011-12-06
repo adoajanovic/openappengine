@@ -36,6 +36,22 @@
 	</function>
 	
 	<function>
+		<function-name>getUIFormClass</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			java.lang.Class getUIFormClass(java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getUIFormBeanWrapper</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			UIFormBeanWrapper getUIFormBeanWrapper(java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
 		<function-name>isText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>

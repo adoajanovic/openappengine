@@ -3,8 +3,7 @@
  */
 package com.openappengine.web.apps.login;
 
-import java.io.Serializable;
-
+import com.openappengine.form.UIForm;
 import com.openappengine.web.annotations.ADAutocomplete;
 import com.openappengine.web.annotations.Required;
 
@@ -12,16 +11,17 @@ import com.openappengine.web.annotations.Required;
  * @author hrishi
  *
  */
-public class LoginFormBean implements Serializable {
+public class LoginFormBean extends UIForm {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Required
 	private String username;
 	
+	@Required
 	private String password;
 	
 	@ADAutocomplete(type="currency")
-	@Required
 	private String preferredCurrency;
 
 	public String getUsername() {
