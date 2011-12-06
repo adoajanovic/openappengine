@@ -3,36 +3,38 @@
  */
 package com.openappengine.crud;
 
+import com.openappengine.data.DataBeanWrapper;
+
 /**
  * @author hrishi
- *
+ * 
  */
 public class Row extends DataBeanWrapper {
-    
-    private Object object;
-    
-    private boolean selectable = true;
 
-    public Row(Object object) {
-	super(object);
-	this.setObject(object);
-    }
+	private Object object;
 
-    public Object getObject() {
-	return object;
-    }
+	private boolean selectable = true;
 
-    public void setObject(Object object) {
-	this.object = object;
-	super.init(object);
-    }
+	public Row(Object object) {
+		super(object);
+		this.setObject(object);
+	}
 
-    public boolean isSelectable() {
-	return selectable;
-    }
+	public Object getObject() {
+		return object;
+	}
 
-    public void setSelectable(boolean selectable) {
-	this.selectable = selectable;
-    }
-    
+	public void setObject(Object object) {
+		this.object = object;
+		super.init(object);
+	}
+
+	public boolean isSelectable() {
+		return selectable;
+	}
+
+	public void setSelectable(boolean selectable) {
+		this.selectable = selectable;
+	}
+
 }

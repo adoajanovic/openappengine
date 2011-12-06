@@ -11,6 +11,8 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.springframework.util.StringUtils;
+
 import com.icesoft.faces.component.selectinputtext.SelectInputText;
 import com.openappengine.web.utils.TagUtils;
 
@@ -24,37 +26,47 @@ public class AutocompleteBean implements Serializable {
 	
 	private List adList = new ArrayList();
 	
+	private List adMatches = new ArrayList();
+	
+	private boolean filteredList;
+	
 	public AutocompleteBean() {
 	}
 	
 	public List getADList(String listType) {
-		if(adList == null || adList.isEmpty()) {
+		if(!filteredList) {
 			adList = TagUtils.getADDataList(listType);
+			adMatches = adList;
+			setFilteredList(false);
 		}
-		return adList;
+		return adMatches;
 	}
 	
 	public void handleTextChange(ValueChangeEvent event) {
 		SelectInputText selectInputText = (SelectInputText) event.getComponent();
 		int maxMatches = selectInputText.getRows();
 		List matchList = new ArrayList(maxMatches);
-		String search = (String) event.getNewValue();
-		//List listValue = selectInputText.getListValue();
 		
-		Iterator itemListIterator = selectInputText.getItemList();
-		if(itemListIterator != null) {
-			while(itemListIterator.hasNext()) {
-				Object listItem = itemListIterator.next();
-				if(listItem instanceof SelectItem) {
-					SelectItem selectItem = (SelectItem) listItem;
-					if(selectItem.getLabel().startsWith(search)) {
-						matchList.add(selectItem);
+		String search = (String) event.getNewValue();
+		if(StringUtils.hasText(search)) {
+			setFilteredList(true);
+			Iterator adListIterator = adList.iterator();
+			if(adListIterator != null) {
+				while(adListIterator.hasNext()) {
+					Object listItem = adListIterator.next();
+					if(listItem instanceof SelectItem) {
+						SelectItem selectItem = (SelectItem) listItem;
+						if(selectItem.getLabel().startsWith(search)) {
+							matchList.add(selectItem);
+						}
 					}
 				}
 			}
+			adMatches = matchList;
+		} else {
+			setFilteredList(false);
+			adMatches = adList;
 		}
-		
-		setAdList(matchList);
 	}
 
 	public List getAdList() {
@@ -63,6 +75,22 @@ public class AutocompleteBean implements Serializable {
 
 	public void setAdList(List adList) {
 		this.adList = adList;
+	}
+
+	public boolean isFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(boolean filteredList) {
+		this.filteredList = filteredList;
+	}
+
+	public List getAdMatches() {
+		return adMatches;
+	}
+
+	public void setAdMatches(List adMatches) {
+		this.adMatches = adMatches;
 	}
 
 }
