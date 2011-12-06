@@ -52,4 +52,9 @@ public class LoginFormBean extends UIForm {
 		this.preferredCurrency = preferredCurrency;
 	}
 
+	@Override
+	public void preRenderAction() {
+		this.preferredCurrency = "INR";
+	}
+
 }

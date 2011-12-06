@@ -32,6 +32,8 @@ public class FormController implements Serializable {
 
 	public void setFormBean(UIFormBeanWrapper formBean) {
 		this.formBean = formBean;
+		UIForm uiForm = (UIForm) this.formBean.getFormBean();
+		uiForm.preRenderAction();
 	}
 	
 	public String save() {

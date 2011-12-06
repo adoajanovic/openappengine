@@ -23,4 +23,6 @@ public abstract class UIForm implements Serializable {
 		this.renderMode = renderMode;
 	}
 	
+	public abstract void preRenderAction();
+	
 }

@@ -3,14 +3,18 @@
  */
 package com.openappengine.form;
 
+import java.io.Serializable;
+
 import com.openappengine.data.DataBeanWrapper;
 
 /**
  * @author hrishikesh.joshi
  *
  */
-public class UIFormBeanWrapper extends DataBeanWrapper {
+public class UIFormBeanWrapper extends DataBeanWrapper implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	public Object formBean;
 	
 	/**
