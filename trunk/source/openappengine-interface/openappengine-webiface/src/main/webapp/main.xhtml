@@ -13,7 +13,16 @@
            <h:panelGroup id="loginFormDiv">
                  <openui:form propertyNames="username,password,preferredCurrency"
 					formClassName="com.openappengine.web.apps.login.LoginFormBean" id="LoginForm" formColumns="2"
-					formButtonColumns="2" saveAction="${loginFormBean.login}" />
+					formButtonColumns="2" saveAction="${loginFormBean.login}" >
+					
+					<ui:define name="ActionButtons">
+						<ice:panelGrid id="LoginForm_Bottom_Action" columns="2">
+							<ice:commandButton value="Save" action="#{formController.save}"/>
+							<ice:commandButton value="Cancel" />
+						</ice:panelGrid>
+					</ui:define>
+						
+				</openui:form>
            </h:panelGroup>
       </ui:define>
    

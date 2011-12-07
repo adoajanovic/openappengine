@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:ui="http://www.openui.com/ui" xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:ui="http://www.openui.com/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:fac="http://java.sun.com/jsf/facelets">
 <f:view>
 	<h:head>
 		<link rel="stylesheet" href="./css/themes/base/jquery.ui.all.css" />
@@ -28,7 +28,12 @@
 		<c:set var="formClass" value="#{ui:getUIFormClass(formClassName)}" />
 	</c:if>
 	
-	#{formController.setFormBean(formInstance)}
+	<c:if test="#{formController.formBean == null}">
+		#{formController.setFormBean(formInstance)}
+	</c:if>
+	
+	<!-- PreRender Form -->
+	#{formController.performPreRenderActions()}
 	
 	<ice:form id="${id}">
 		<ice:messages />
@@ -38,10 +43,7 @@
 				<ui:field type="#{formClass}" fieldName="${property}" formBeanInstance="${formInstance}"/>
 			</c:forEach>
 		</ice:panelGrid>
-		<ice:panelGrid id="${formId}_Bottom_Action" columns="${formButtonColumns}">
-			<ice:commandButton value="Save" action="#{formController.save}"/>
-			<ice:commandButton value="Cancel" />
-		</ice:panelGrid>
+		<fac:insert name="ActionButtons"/>
 	</ice:form>
 </f:view>
 </html>
