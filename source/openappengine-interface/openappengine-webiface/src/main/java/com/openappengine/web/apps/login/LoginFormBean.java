@@ -9,52 +9,52 @@ import com.openappengine.web.annotations.Required;
 
 /**
  * @author hrishi
- *
+ * 
  */
 public class LoginFormBean extends UIForm {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Required
-	private String username;
-	
-	@Required
-	private String password;
-	
-	@ADAutocomplete(type="currency")
-	private String preferredCurrency;
+    @Required
+    private String username;
 
-	public String getUsername() {
-		return username;
-	}
+    @Required
+    private String password;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @ADAutocomplete(type = "currency")
+    private String preferredCurrency;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+	return username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String login() {
-		return null;
-	}
+    public void setUsername(String username) {
+	this.username = username;
+    }
 
-	public String getPreferredCurrency() {
-		return preferredCurrency;
-	}
+    public String getPassword() {
+	return password;
+    }
 
-	public void setPreferredCurrency(String preferredCurrency) {
-		this.preferredCurrency = preferredCurrency;
-	}
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-	@Override
-	public void preRenderAction() {
-		this.preferredCurrency = "INR";
-	}
+    public String login() {
+	return null;
+    }
+
+    public String getPreferredCurrency() {
+	return preferredCurrency;
+    }
+
+    public void setPreferredCurrency(String preferredCurrency) {
+	this.preferredCurrency = preferredCurrency;
+    }
+
+    @Override
+    public void preRenderAction() {
+	this.preferredCurrency = "INR";
+    }
 
 }
