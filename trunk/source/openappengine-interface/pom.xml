@@ -45,7 +45,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>openappengine-facade</module>
 		<module>openappengine-webiface</module>
 	</modules>
 </project>
