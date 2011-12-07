@@ -18,8 +18,22 @@ public class EntityFacadeDelegator {
 			throw new EntityValueException("Entity : " + entityClassName + " cannot be empty.");
 		}
 		
-		//TODO
-		return null;
+		try {
+			Class<?> entityClass = Class.forName(entityClassName);
+			if(entityClass == null) {
+				throw new EntityValueException("Entity : " + entityClassName + " not found.");	
+			}
+			
+			Object newInstance = entityClass.newInstance();
+			EntityDataHolder entityDataHolder = new EntityDataHolder(newInstance);
+			return entityDataHolder;
+		} catch (ClassNotFoundException e) {
+			throw new EntityValueException("Entity : " + entityClassName + " not found.");
+		} catch (InstantiationException e) {
+			throw new EntityValueException("Entity : " + entityClassName + " cannot be instantiated.");
+		} catch (IllegalAccessException e) {
+			throw new EntityValueException("Illegal Access to Entity : " + entityClassName + ".");
+		}
 	}
 	
 
