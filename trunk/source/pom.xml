@@ -102,11 +102,17 @@
 			<name>Springframework Maven Repository</name>
 			<url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
 		</repository>
+		<repository>
+			<id>Maven Repo 1</id>
+			<name>Maven Repo1</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
 	</repositories>
 	<modules>
 		<module>openappengine-infrastructure</module>
 		<module>openappengine-domain</module>
 		<module>openappengine-container</module>
+		<module>openappengine-facade</module>
 		<module>openappengine-interface</module>
 		<module>openappengine-build</module>
 	</modules>
