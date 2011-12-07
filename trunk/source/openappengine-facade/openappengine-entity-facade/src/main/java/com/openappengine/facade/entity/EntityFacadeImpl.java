@@ -19,8 +19,8 @@ public class EntityFacadeImpl implements EntityFacade {
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
 		String entityClassName = entityDefinition.getEntityClassName();
-		
-		return null;
+		EntityDataHolder entityDataHolder = new EntityFacadeDelegator().createNewEntityDataHolder(entityClassName);
+		return new EntityValue(entityDataHolder);
 	}
 
 	/* (non-Javadoc)
