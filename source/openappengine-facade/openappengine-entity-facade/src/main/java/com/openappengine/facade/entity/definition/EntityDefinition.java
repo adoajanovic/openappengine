@@ -19,6 +19,8 @@ public class EntityDefinition implements Serializable {
 	
 	private Class<?> entityClass;
 	
+	private boolean deleteable;
+	
 	private Set<FieldDefinition> fields = new HashSet<FieldDefinition>();
 
 	public String getEntityName() {
@@ -43,6 +45,14 @@ public class EntityDefinition implements Serializable {
 
 	public void setEntityClass(Class entityClass) {
 		this.entityClass = entityClass;
+	}
+
+	public boolean isDeleteable() {
+		return deleteable;
+	}
+
+	public void setDeleteable(boolean deleteable) {
+		this.deleteable = deleteable;
 	}
 
 }

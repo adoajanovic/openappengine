@@ -15,15 +15,15 @@ public class FieldDefinition implements Serializable {
 	
 	private String name;
 
-	private String type;
+	private String property;
 	
-	private boolean primaryKey;
+	private boolean pk;
 	
-	public FieldDefinition(String name, String type) {
-		super();
-		this.name = name;
-		this.type = type;
-	}
+	private boolean updatable;
+	
+	private boolean required;
+	
+	private UIDescriptor uiDescriptor;
 
 	public String getName() {
 		return name;
@@ -33,20 +33,44 @@ public class FieldDefinition implements Serializable {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getProperty() {
+		return property;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
-	public boolean isPrimaryKey() {
-		return primaryKey;
+	public boolean isPk() {
+		return pk;
 	}
 
-	public void setPrimaryKey(boolean primaryKey) {
-		this.primaryKey = primaryKey;
+	public void setPk(boolean pk) {
+		this.pk = pk;
+	}
+
+	public boolean isUpdatable() {
+		return updatable;
+	}
+
+	public void setUpdatable(boolean updatable) {
+		this.updatable = updatable;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
+	}
+
+	public UIDescriptor getUiDescriptor() {
+		return uiDescriptor;
+	}
+
+	public void setUiDescriptor(UIDescriptor uiDescriptor) {
+		this.uiDescriptor = uiDescriptor;
 	}
 	
 }
