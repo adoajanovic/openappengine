@@ -13,7 +13,7 @@ import com.openappengine.facade.entity.exception.EntityValueException;
  */
 public class EntityFacadeDelegator {
 	
-	public EntityDataHolder createNewEntityDataHolder(String entityClassName) {
+	public EntityValue createEntityValue(String entityClassName) {
 		if(!StringUtils.hasText(entityClassName)) {
 			throw new EntityValueException("Entity : " + entityClassName + " cannot be empty.");
 		}
@@ -25,8 +25,8 @@ public class EntityFacadeDelegator {
 			}
 			
 			Object newInstance = entityClass.newInstance();
-			EntityDataHolder entityDataHolder = new EntityDataHolder(newInstance);
-			return entityDataHolder;
+			EntityValue entityValue = new EntityValue(newInstance);
+			return entityValue;
 		} catch (ClassNotFoundException e) {
 			throw new EntityValueException("Entity : " + entityClassName + " not found.");
 		} catch (InstantiationException e) {

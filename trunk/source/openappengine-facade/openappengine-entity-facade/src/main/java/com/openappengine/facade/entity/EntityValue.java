@@ -9,14 +9,12 @@ import java.io.Serializable;
  * @author hrishikesh.joshi
  *
  */
-public class EntityValue implements Serializable {
+public class EntityValue extends DataBeanWrapper implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private EntityDataHolder entityDataHolder;
-	
-	public EntityValue(EntityDataHolder entityDataHolder) {
-		this.entityDataHolder = entityDataHolder;
+	public EntityValue(Object object) {
+	    super(object);
 	}
 	
 	public boolean isModified() {
@@ -24,6 +22,8 @@ public class EntityValue implements Serializable {
 		return false;
 	}
 	
+	public Object getInstance() {
+	    return getWrappedInstance();
+	}
 	
-
 }
