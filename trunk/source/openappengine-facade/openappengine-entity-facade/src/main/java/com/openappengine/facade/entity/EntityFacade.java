@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.entity;
 
-import com.openappengine.facade.entity.api.EntityDefinition;
+import com.openappengine.facade.entity.definition.EntityDefinition;
 
 /**
  * @author hrishikesh.joshi

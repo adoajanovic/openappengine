@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.entity.api;
+package com.openappengine.facade.entity.definition;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class EntityDefinition implements Serializable {
 	
 	private String entityName;
 	
-	private String entityClassName;
+	private Class<?> entityClass;
 	
 	private Set<FieldDefinition> fields = new HashSet<FieldDefinition>();
 
@@ -37,12 +37,12 @@ public class EntityDefinition implements Serializable {
 		this.fields = fields;
 	}
 
-	public String getEntityClassName() {
-		return entityClassName;
+	public Class getEntityClass() {
+		return entityClass;
 	}
 
-	public void setEntityClassName(String entityClassName) {
-		this.entityClassName = entityClassName;
+	public void setEntityClass(Class entityClass) {
+		this.entityClass = entityClass;
 	}
 
 }

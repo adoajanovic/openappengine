@@ -3,8 +3,6 @@
  */
 package com.openappengine.facade.entity;
 
-import org.springframework.util.StringUtils;
-
 import com.openappengine.facade.entity.exception.EntityValueException;
 
 /**
@@ -13,28 +11,16 @@ import com.openappengine.facade.entity.exception.EntityValueException;
  */
 public class EntityFacadeDelegator {
 	
-	public EntityValue createEntityValue(String entityClassName) {
-		if(!StringUtils.hasText(entityClassName)) {
-			throw new EntityValueException("Entity : " + entityClassName + " cannot be empty.");
-		}
-		
+	public EntityValue createEntityValue(Class<?> entityClass) {
 		try {
-			Class<?> entityClass = Class.forName(entityClassName);
-			if(entityClass == null) {
-				throw new EntityValueException("Entity : " + entityClassName + " not found.");	
-			}
-			
 			Object newInstance = entityClass.newInstance();
 			EntityValue entityValue = new EntityValue(newInstance);
 			return entityValue;
-		} catch (ClassNotFoundException e) {
-			throw new EntityValueException("Entity : " + entityClassName + " not found.");
 		} catch (InstantiationException e) {
-			throw new EntityValueException("Entity : " + entityClassName + " cannot be instantiated.");
+			throw new EntityValueException("Entity : " + entityClass + " cannot be instantiated.");
 		} catch (IllegalAccessException e) {
-			throw new EntityValueException("Illegal Access to Entity : " + entityClassName + ".");
+			throw new EntityValueException("Illegal Access to Entity : " + entityClass + ".");
 		}
 	}
-	
 
 }
