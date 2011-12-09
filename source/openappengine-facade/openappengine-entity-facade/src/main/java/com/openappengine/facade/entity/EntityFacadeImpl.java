@@ -3,7 +3,8 @@
  */
 package com.openappengine.facade.entity;
 
-import com.openappengine.facade.entity.api.EntityDefinition;
+import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.EntityDefinitionCache;
 
 /**
  * @author hrishikesh.joshi
@@ -18,8 +19,8 @@ public class EntityFacadeImpl implements EntityFacade {
 	 */
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
-		String entityClassName = entityDefinition.getEntityClassName();
-		EntityValue entityValue = new EntityFacadeDelegator().createEntityValue(entityClassName);
+		Class entityClass = entityDefinition.getEntityClass();
+		EntityValue entityValue = new EntityFacadeDelegator().createEntityValue(entityClass);
 		return entityValue;
 	}
 

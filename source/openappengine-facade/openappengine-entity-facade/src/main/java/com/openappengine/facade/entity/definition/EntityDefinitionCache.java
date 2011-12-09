@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.openappengine.facade.entity;
+package com.openappengine.facade.entity.definition;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.openappengine.facade.entity.api.EntityDefinition;
+import com.openappengine.facade.entity.definition.EntityDefinition;
 
 /**
  * @author hrishikesh.joshi

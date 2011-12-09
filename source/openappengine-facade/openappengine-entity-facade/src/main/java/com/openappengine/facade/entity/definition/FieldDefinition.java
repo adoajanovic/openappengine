@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.entity.api;
+package com.openappengine.facade.entity.definition;
 
 import java.io.Serializable;
 
