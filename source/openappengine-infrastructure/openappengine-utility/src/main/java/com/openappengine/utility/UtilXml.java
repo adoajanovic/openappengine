@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +18,7 @@ import javolution.util.FastList;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
@@ -558,5 +558,13 @@ public class UtilXml {
     		item.getParentNode().removeChild(item);
 		}
 		return document;
+    }
+    
+    public static String readElementAttribute(Element element,String attrName) {
+	if(element == null || !StringUtils.hasText(attrName)) {
+	    return null;
+	}
+	
+	return element.getAttribute(attrName);
     }
 }
