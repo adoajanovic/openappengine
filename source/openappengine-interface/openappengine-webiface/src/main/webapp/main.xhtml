@@ -7,10 +7,12 @@
       template="./templates/page-template.xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:openui="http://www.openui.com/ui">
+      xmlns:openui="http://www.openui.com/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
   
       <ui:define name="page-content">
            <h:panelGroup id="loginFormDiv">
+                 <!-- 
                  <openui:form propertyNames="username,password,preferredCurrency"
 					formClassName="com.openappengine.web.apps.login.LoginFormBean" id="LoginForm" formColumns="2"
 					formButtonColumns="2" saveAction="${loginFormBean.login}" >
@@ -21,8 +23,10 @@
 							<ice:commandButton value="Cancel" />
 						</ice:panelGrid>
 					</ui:define>
-						
 				</openui:form>
+                -->
+				<openui:form entityName="CodeType" id="CodeTypeForm" formColumns="2">
+				</openui:form>	
            </h:panelGroup>
       </ui:define>
    

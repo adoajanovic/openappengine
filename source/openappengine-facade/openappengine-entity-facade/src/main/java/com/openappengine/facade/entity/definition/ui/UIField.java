@@ -13,11 +13,18 @@ import com.openappengine.utility.UtilXml;
  */
 public class UIField {
 	
-	private Element uiFieldElement;
+	private String fieldType;
 	
 	public UIField(Element uiFieldElement) {
-	    String uiFieldType = UtilXml.readElementAttribute(uiFieldElement, "fieldType");
-	    this.uiFieldElement = uiFieldElement;
+	    this.setFieldType(UtilXml.readElementAttribute(uiFieldElement, "fieldType"));
+	}
+
+	public String getFieldType() {
+	    return fieldType;
+	}
+
+	public void setFieldType(String fieldType) {
+	    this.fieldType = fieldType;
 	}
 	
 	//TODO - Add more subclasses each corresponding to a Custom UIField.

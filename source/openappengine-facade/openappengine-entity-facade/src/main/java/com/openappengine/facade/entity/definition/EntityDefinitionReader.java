@@ -68,7 +68,7 @@ public class EntityDefinitionReader {
 
 		    EntityDefinition entityDefinition = new EntityDefinition();
 		    entityDefinition.setDeleteable(Boolean
-			    .getBoolean(isDeleteable));
+			    .parseBoolean(isDeleteable));
 		    entityDefinition.setEntityClass(entityClass);
 		    entityDefinition.setEntityName(name);
 
@@ -122,25 +122,27 @@ public class EntityDefinitionReader {
 	if (StringUtils.isBlank(isPK)) {
 	    fieldDefinition.setPk(false);
 	} else {
-	    fieldDefinition.setPk(Boolean.getBoolean(isPK));
+	    fieldDefinition.setPk(Boolean.parseBoolean(isPK));
 	}
 
 	if (StringUtils.isBlank(isRequired)) {
 	    fieldDefinition.setRequired(false);
 	} else {
-	    fieldDefinition.setRequired(Boolean.getBoolean(isRequired));
+	    fieldDefinition.setRequired(Boolean.parseBoolean(isRequired));
 	}
 
 	if (StringUtils.isBlank(isUpdatable)) {
 	    fieldDefinition.setUpdatable(false);
 	} else {
-	    fieldDefinition.setUpdatable(Boolean.getBoolean(isUpdatable));
+	    fieldDefinition.setUpdatable(Boolean.parseBoolean(isUpdatable));
 	}
 
-	Element uiDescriptorElement = UtilXml.firstChildElement(fieldElement);
+	List<? extends Element> uiFieldList = UtilXml.childElementList(fieldElement,"uiField");
+	Element uiFieldElement = uiFieldList.get(0);
+	
 	UIField uiField;
-	if (uiDescriptorElement != null) {
-	    uiField = UIFieldFactory.getUIField(uiDescriptorElement);
+	if (uiFieldElement != null) {
+	    uiField = UIFieldFactory.getUIField(uiFieldElement);
 	    fieldDefinition.setUiField(uiField);
 	} else {
 	    // TODO - Handle as a TextField.

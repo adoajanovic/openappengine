@@ -16,34 +16,106 @@
 		</script>
 		 -->
 	</h:head>
+	
+	<c:set var="columns" value="2" />
+	
+	<c:if test='${not empty entityName}'>
+		<c:set var="columns" value="${formColumns}" />
+	</c:if>
+	
+	<c:choose>
+	    <c:when test='${not empty entityName}'>
+	        <c:set var="entityValue" value="${ui:createEntityValue(entityName)}" />
+			<c:set var="entityInstance" value="${entityValue.getInstance()}" />
+			<c:set var="entityDefinition" value="${ui:getEntityDefinition(entityName)}" />
+			<c:set var="fields" value="${entityDefinition.getFields()}" />
+			
+			<c:if test="${empty entityController}">
+				<c:set var="entityFormController" value="${entityFormController}" />
+			</c:if>
+			
+			<c:if test="#{entityFormController.entityValue == null}">
+				<c:set property="entityValue" target="${entityFormController}" value="${entityValue}"/>
+			</c:if>
+			
+			<ice:form id="${id}">
+						<f:facet name="header">
+							<h:outputText value="${entityDefinition.entityClass}"/>
+						</f:facet>
+						<ice:messages />
+						<ice:panelGrid id="${formId}_Grid" columns="${columns}">
+							<c:forEach items="${fields}" var="field">
+								<!-- TODO : create custom tags called entityField -->
+								<c:set var="color" value="#222" />
+	
+								<c:set var="required" value="${field.required}" />
+								
+								<c:set var="updatable" value="${field.updatable}" />
+								
+								<c:if test="${required}">
+							    	<c:set var="suffix" value="*" />
+							    	<c:set var="color" value="red" />
+							    </c:if>
+							    
+							    <c:set var="labelText" value="${ui:getLabelText(entityName,field.property)}"/>
+								
+								<ice:column>	
+									<ice:outputLabel value="${labelText}" id="${field.name}_Label" for="${field.name}_Input" style="font:Calibri;font-size:11px;color:${color};" required="${required}" />
+								</ice:column>
+								
+								<ice:column>
+									<c:choose>
+										  
+										  <c:set var="uiField" value="${field.uiField}" />
+										  
+										  <c:when test="${uiField == null}">
+										  		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
+										  </c:when>
+								          <c:when test="${ui:isText(uiField)}">
+								          		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
+								          </c:when>
+								          <!-- TODO Add Other Fields -->
+							         </c:choose> 
+								</ice:column>
+								
+							</c:forEach>
+						</ice:panelGrid>
+						<ice:panelGrid id="Action" columns="2">
+							<ice:commandButton id="${entityName}_Save" action="#{entityFormController.performSaveAction}" value="Save"/>	
+						</ice:panelGrid>
+						<fac:insert name="ActionButtons" />
+			</ice:form>
+	    </c:when>
+	    <c:otherwise>
+			<c:when test="${not empty formClassName}">
 
-	<c:set var="columns" value="${formColumns}" />
-	
-	<c:if test="${empty formController}">
-		<c:set var="formController" value="#{formController}" />
-	</c:if>
-	
-	<c:if test="${not empty formClassName}">
-		<c:set var="formInstance" value="#{ui:getUIFormBeanWrapper(formClassName)}" />
-		<c:set var="formClass" value="#{ui:getUIFormClass(formClassName)}" />
-	</c:if>
-	
-	<c:if test="#{formController.formBean == null}">
-		#{formController.setFormBean(formInstance)}
-	</c:if>
-	
-	<!-- PreRender Form -->
-	#{formController.performPreRenderActions()}
-	
-	<ice:form id="${id}">
-		<ice:messages />
-		<ice:panelGrid id="${formId}_Grid" columns="${columns}">
-			<c:set var="pNames" value="${fn:split(propertyNames, ',')}" />
-			<c:forEach items="${pNames}" var="property">
-				<ui:field type="#{formClass}" fieldName="${property}" formBeanInstance="${formInstance}"/>
-			</c:forEach>
-		</ice:panelGrid>
-		<fac:insert name="ActionButtons"/>
-	</ice:form>
+				<c:if test="${empty formController}">
+					<c:set var="formController" value="#{formController}" />
+				</c:if>
+
+				<c:set var="formInstance" value="#{ui:getUIFormBeanWrapper(formClassName)}" />
+				<c:set var="formClass" value="#{ui:getUIFormClass(formClassName)}" />
+
+				<c:if test="#{formController.formBean == null}">
+					#{formController.setFormBean(formInstance)}
+				</c:if>
+
+				<!-- PreRender Form -->
+				#{formController.performPreRenderActions()}
+				
+				<ice:form id="${id}">
+						<ice:messages />
+						<ice:panelGrid id="${formId}_Grid" columns="${columns}">
+							<c:set var="pNames" value="${fn:split(propertyNames, ',')}" />
+							<c:forEach items="${pNames}" var="property">
+								<ui:field type="#{formClass}" fieldName="${property}" formBeanInstance="${formInstance}" />
+							</c:forEach>
+						</ice:panelGrid>
+					<fac:insert name="ActionButtons" />
+				</ice:form>
+
+			</c:when>
+		</c:otherwise>
+	</c:choose>
 </f:view>
 </html>
