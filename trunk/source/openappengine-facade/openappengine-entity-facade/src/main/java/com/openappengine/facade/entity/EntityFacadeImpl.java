@@ -19,7 +19,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	 */
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
-		Class entityClass = entityDefinition.getEntityClass();
+		Class<?> entityClass = entityDefinition.getEntityClass();
 		EntityValue entityValue = new EntityFacadeDelegator().createEntityValue(entityClass);
 		return entityValue;
 	}
@@ -31,7 +31,7 @@ public class EntityFacadeImpl implements EntityFacade {
 		EntityDefinition entityDefinition = entityDefinitionCache.getEntityDefinition(entityName);
 		return entityDefinition;
 	}
-
+	
 	public void setEntityDefinitionCache(EntityDefinitionCache entityDefinitionCache) {
 		this.entityDefinitionCache = entityDefinitionCache;
 	}
