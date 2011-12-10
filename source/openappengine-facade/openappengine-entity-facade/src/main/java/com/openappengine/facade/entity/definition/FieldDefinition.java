@@ -5,6 +5,8 @@ package com.openappengine.facade.entity.definition;
 
 import java.io.Serializable;
 
+import com.openappengine.facade.entity.definition.ui.UIField;
+
 /**
  * @author hrishikesh.joshi
  *
@@ -23,7 +25,7 @@ public class FieldDefinition implements Serializable {
 	
 	private boolean required;
 	
-	private UIDescriptor uiDescriptor;
+	private UIField uiField;
 
 	public String getName() {
 		return name;
@@ -65,12 +67,11 @@ public class FieldDefinition implements Serializable {
 		this.required = required;
 	}
 
-	public UIDescriptor getUiDescriptor() {
-		return uiDescriptor;
+	public UIField getUiField() {
+	    return uiField;
 	}
 
-	public void setUiDescriptor(UIDescriptor uiDescriptor) {
-		this.uiDescriptor = uiDescriptor;
+	public void setUiField(UIField uiField) {
+	    this.uiField = uiField;
 	}
-	
 }
