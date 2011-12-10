@@ -27,6 +27,27 @@
         <source>../../inc-templates/adAutocomplete.xhtml</source>
     </tag>
     
+    <tag>
+        <tag-name>entity</tag-name>
+        <source>../../inc-templates/entityForm.xhtml</source>
+    </tag>
+    
+    <function>
+		<function-name>createEntityValue</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			com.openappengine.facade.entity.EntityValue createEntityValue(java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getEntityDefinition</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			com.openappengine.facade.entity.definition.EntityDefinition getEntityDefinition(java.lang.String)
+		</function-signature>
+	</function>
+    
     <function>
 		<function-name>isRequired</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -56,6 +77,14 @@
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			boolean isText(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isText</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isText(com.openappengine.facade.entity.definition.ui.UIField)
 		</function-signature>
 	</function>
 	
@@ -144,6 +173,14 @@
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			java.lang.String getLabelText(java.lang.Class,java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>getLabelText</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			java.lang.String getLabelText(java.lang.String,java.lang.String)
 		</function-signature>
 	</function>
 	

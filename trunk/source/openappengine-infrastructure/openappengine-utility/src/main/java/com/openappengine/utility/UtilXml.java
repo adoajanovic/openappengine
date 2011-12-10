@@ -567,4 +567,35 @@ public class UtilXml {
 	
 	return element.getAttribute(attrName);
     }
+    
+    public static Long readLongElementAttribute(Element element,String attrName) {
+	if(element == null || !StringUtils.hasText(attrName)) {
+	    return null;
+	}
+	
+	String attribute = element.getAttribute(attrName);
+	return Long.valueOf(attribute);
+    }
+    
+    public static Boolean readBooleanElementAttribute(Element element,String attrName) {
+	if(element == null || !StringUtils.hasText(attrName)) {
+	    return null;
+	}
+	
+	String attribute = element.getAttribute(attrName);
+	return Boolean.valueOf(attribute);
+    }
+    
+    public static Integer readIntegerElementAttribute(Element element,String attrName) {
+	if(element == null || !StringUtils.hasText(attrName)) {
+	    return null;
+	}
+	
+	String attribute = element.getAttribute(attrName);
+	if(StringUtils.hasText(attribute)) {
+	    return Integer.valueOf(attribute);
+	}
+	
+	return null;
+    }
 }

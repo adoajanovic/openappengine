@@ -32,16 +32,16 @@
             <supported-locale>en</supported-locale>
         </locale-config>
         <message-bundle>messages</message-bundle>
+        <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
     </application>
     
-    <!-- Autocomplete Bean  -->
+    <!-- 
   	<managed-bean>
   		<managed-bean-name>autocompleteBean</managed-bean-name>
   		<managed-bean-class>com.openappengine.autocomplete.AutocompleteBean</managed-bean-class>
   		<managed-bean-scope>view</managed-bean-scope>
   	</managed-bean>
   	
-  	<!-- UI Form Controller  -->
   	<managed-bean>
   		<managed-bean-name>formController</managed-bean-name>
   		<managed-bean-class>com.openappengine.form.controller.FormController</managed-bean-class>
@@ -65,5 +65,6 @@
   		<managed-bean-class>com.openappengine.crud.datasource.ADListDataSource</managed-bean-class>
   		<managed-bean-scope>request</managed-bean-scope>
   	</managed-bean>
+     -->
   
 </faces-config>
