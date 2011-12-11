@@ -1,12 +1,15 @@
 /**
  * 
  */
-package com.openappengine.form.controller;
+package com.openappengine.entity;
 
 import java.io.Serializable;
 
+import javax.faces.event.ActionEvent;
+
 import org.apache.log4j.Logger;
 
+import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 
 /**
@@ -22,6 +25,12 @@ public class EntityFormController implements Serializable {
     private EntityValue entityValue;
     
     protected Logger logger = Logger.getLogger(getClass());
+    
+    private EntityFacade entityFacade;
+    
+    public static final String SAVE_OR_UPDATE = "SAVE_OR_UPDATE";
+    
+    public static final String SAVE = "SAVE";
 
     public void performPreRenderActions() {
 	if (!isFormRendered()) {
@@ -46,10 +55,22 @@ public class EntityFormController implements Serializable {
 	this.entityValue = entityValue;
     }
     
-    public String performSaveAction() {
-	Object instance = entityValue.getInstance();
-	logger.info("Saving the EntityValue : " + instance);
-	return null;
+    public void processEntityAction(ActionEvent actionEvent) {
+	
+	if(actionEvent == null) {
+	    return;
+	}
+	String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
+	if(SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
+	    //TODO 
+	    Object instance = entityValue.getInstance();
+	    logger.info("Saving the EntityValue : " + instance);
+	    entityFacade.saveEntityValue(entityValue);
+	}
+    }
+
+    public void setEntityFacade(EntityFacade entityFacade) {
+	this.entityFacade = entityFacade;
     }
     
 }

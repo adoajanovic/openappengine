@@ -39,63 +39,66 @@
 			
 			<c:set var="formHeader" value="${ui:getEntityFormHeader(entityName)}"/>
 			
-			<ice:form id="${id}">
-						<ice:messages />
-						<ice:panelGrid id="${formId}_Grid" columns="${columns}">
-							<f:facet name="header">
-								<ice:outputText value="${formHeader}"/>
-							</f:facet>
-							<c:forEach items="${fields}" var="field">
-								<!-- TODO : create custom tags called entityField -->
-								<c:set var="color" value="#222" />
-	
-								<c:set var="required" value="${field.required}" />
-								
-								<c:set var="updatable" value="${field.updatable}" />
-								
-								<c:set var="autoincrement" value="${field.autoincrement}" />
-								
-								<c:set var="pk" value="${field.pk}" />
-								
-								<c:if test="${required}">
-							    	<c:set var="suffix" value="*" />
-							    	<c:set var="color" value="red" />
-							    </c:if>
-							    
-							    <c:set var="labelText" value="${ui:getLabelText(entityName,field.property)}"/>
-								
-								<ice:column>
-									<c:if test="${not autoincrement}">
-										<ice:outputLabel value="${labelText}" id="${field.name}_Label" for="${field.name}_Input" style="font:Calibri;font-size:11px;color:${color};" required="${required}" />
-									</c:if>	
-								</ice:column>
-								
-								<ice:column>
-									<c:choose>
-										  <c:set var="uiField" value="${field.uiField}" />
-										  
-										  <c:when test="${autoincrement}">
-										  		<ice:inputHidden id="${field.name}_Input" value="#{entityFormController.entityValue.instance[field.property]}" />
-										  </c:when>
-										  <c:when test="${uiField == null}">
-										  		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
-										  </c:when>
-										  <c:otherwise>
-									          <c:when test="${ui:isText(uiField)}">
-									          		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
-									          </c:when>
-										  </c:otherwise>
-								          <!-- TODO Add Other Fields -->
-							         </c:choose> 
-								</ice:column>
-								
-							</c:forEach>
-						</ice:panelGrid>
-						<ice:panelGrid id="Action" columns="2">
-							<ice:commandButton id="${entityName}_Save" action="#{entityFormController.performSaveAction}" value="Save"/>	
-						</ice:panelGrid>
-						<fac:insert name="ActionButtons" />
-			</ice:form>
+			<ice:panelGroup styleClass="entity-form-box">
+				<ice:form id="${id}">
+							<ice:messages />
+							<ice:panelGrid id="${formId}_Grid" columns="${columns}">
+								<f:facet name="header">
+									<ice:outputText value="${formHeader}"/>
+								</f:facet>
+								<c:forEach items="${fields}" var="field">
+									<!-- TODO : create custom tags called entityField -->
+									<c:set var="color" value="#222" />
+		
+									<c:set var="required" value="${field.required}" />
+									
+									<c:set var="updatable" value="${field.updatable}" />
+									
+									<c:set var="autoincrement" value="${field.autoincrement}" />
+									
+									<c:set var="pk" value="${field.pk}" />
+									
+									<c:if test="${required}">
+								    	<c:set var="suffix" value="*" />
+								    	<c:set var="color" value="red" />
+								    </c:if>
+								    
+								    <c:set var="labelText" value="${ui:getLabelText(entityName,field.property)}${suffix}"/>
+									
+									<ice:column>
+										<c:if test="${not autoincrement}">
+											<ice:outputLabel value="${labelText}" id="${field.name}_Label" for="${field.name}_Input" style="font:Calibri;font-size:11px;color:${color};" required="${required}" />
+										</c:if>	
+									</ice:column>
+									
+									<ice:column>
+										<c:choose>
+											  <c:set var="uiField" value="${field.uiField}" />
+											  
+											  <c:when test="${autoincrement}">
+											  		<ice:inputHidden id="${field.name}_Input" value="#{entityFormController.entityValue.instance[field.property]}" />
+											  </c:when>
+											  <c:when test="${uiField == null}">
+											  		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
+											  </c:when>
+											  <c:otherwise>
+										          <c:when test="${ui:isText(uiField)}">
+										          		<ice:inputText id="${field.name}_Input" required="${required}" styleClass="inputText" value="#{entityFormController.entityValue.instance[field.property]}" readonly="${not updatable}"/>
+										          </c:when>
+											  </c:otherwise>
+									          <!-- TODO Add Other Fields -->
+								         </c:choose> 
+									</ice:column>
+								</c:forEach>
+							</ice:panelGrid>
+							<ice:panelGrid id="Action" columns="2">
+								<ice:commandButton id="${entityName}_Save" actionListener="#{entityFormController.processEntityAction}" value="Save">
+									<f:attribute name="ACTION" value="SAVE_OR_UPDATE"/>
+								</ice:commandButton>	
+							</ice:panelGrid>
+							<fac:insert name="ActionButtons" />
+				</ice:form>
+			</ice:panelGroup>
 	    </c:when>
 	    <c:otherwise>
 			<c:when test="${not empty formClassName}">

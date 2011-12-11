@@ -14,7 +14,7 @@ import com.openappengine.utility.UtilXml;
 public class UIFieldFactory {
     
     public static UIField getUIField(Element element) {
-	String fieldType = UtilXml.readElementAttribute(element, "uiType");
+	String fieldType = UtilXml.readElementAttribute(element, "fieldType");
 	if("textField".equals(fieldType)) {
 	    return new UITextField(element);
 	}
