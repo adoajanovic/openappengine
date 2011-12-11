@@ -293,3 +293,10 @@ a.cssSubmitButton:hover {
 .clear {
 	clear: both;
 }
+
+.entity-form-box{
+	margin: 12px 0 0;
+	padding: 20px 25px 15px;
+	background: whiteSmoke;
+	border: 1px solid #E5E5E5;
+}

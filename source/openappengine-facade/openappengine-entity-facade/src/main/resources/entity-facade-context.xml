@@ -20,7 +20,8 @@
 	</bean>
 	
 	<bean id="entityFacade" class="com.openappengine.facade.entity.EntityFacadeImpl" >
-		<property name="entityDefinitionCache" ref="entityDefinitionCache" />	
+		<property name="entityDefinitionCache" ref="entityDefinitionCache" />
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
 	<bean name="entityFacadeContext" class="com.openappengine.facade.entity.context.EntityFacadeContext">

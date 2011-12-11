@@ -5,14 +5,15 @@
 
 	<!-- Wire Facade Context -->
 	
-	<import resource="facade-context.xml"/>
+	<import resource="entity-facade-context.xml"/>
 	
 	<!-- ========== Controller ===================== -->
 	<bean id="autocompleteBean" class="com.openappengine.autocomplete.AutocompleteBean" scope="session"/>
 	
 	<bean id="formController" class="com.openappengine.form.controller.FormController" scope="session"/>
 	
-	<bean id="entityFormController" class="com.openappengine.form.controller.EntityFormController" scope="session">
+	<bean id="entityFormController" class="com.openappengine.entity.EntityFormController" scope="session">
+		<property name="entityFacade" ref="entityFacade"></property>
 	</bean>
 	
 </beans>
