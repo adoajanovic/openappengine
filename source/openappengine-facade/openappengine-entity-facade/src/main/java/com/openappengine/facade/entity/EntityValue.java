@@ -5,6 +5,8 @@ package com.openappengine.facade.entity;
 
 import java.io.Serializable;
 
+import com.openappengine.facade.entity.definition.EntityDefinition;
+
 /**
  * @author hrishikesh.joshi
  *
@@ -15,8 +17,14 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 	
 	private Object instance;
 	
-	public EntityValue(Object object) {
+	private String entityName;
+	
+	private EntityDefinition entityDefinition;
+	
+	public EntityValue(String entityName,EntityDefinition entityDefinition,Object object) {
 	    super(object);
+	    this.entityName = entityName;
+	    this.entityDefinition = entityDefinition;
 	    this.setInstance(object);
 	}
 	
@@ -32,5 +40,12 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 	public void setInstance(Object instance) {
 	    this.instance = instance;
 	}
-	
+
+	public String getEntityName() {
+	    return entityName;
+	}
+
+	public EntityDefinition getEntityDefinition() {
+	    return entityDefinition;
+	}
 }
