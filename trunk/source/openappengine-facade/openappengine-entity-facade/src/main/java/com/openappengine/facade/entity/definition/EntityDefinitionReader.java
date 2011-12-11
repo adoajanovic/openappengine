@@ -98,43 +98,53 @@ public class EntityDefinitionReader {
 
     protected FieldDefinition readFieldDefinition(Element fieldElement) {
 	FieldDefinition fieldDefinition = new FieldDefinition();
+	
 	String name = UtilXml.readElementAttribute(fieldElement, "name");
-	String property = UtilXml
-		.readElementAttribute(fieldElement, "property");
-	String isPK = UtilXml.readElementAttribute(fieldElement, "is-pk");
-	String isRequired = UtilXml.readElementAttribute(fieldElement,
-		"is-required");
-	String isUpdatable = UtilXml.readElementAttribute(fieldElement,
-		"is-updatable");
-
 	if (StringUtils.isBlank(name)) {
 	    throw new EntityDefinitionReaderException(
 		    "Attribute name cannot be empty.");
 	}
 	fieldDefinition.setName(name);
 
+	String property = UtilXml.readElementAttribute(fieldElement, "property");
 	if (StringUtils.isBlank(property)) {
 	    throw new EntityDefinitionReaderException(
 		    "Attribute name cannot be empty.");
 	}
 	fieldDefinition.setProperty(property);
-
+	
+	String isPK = UtilXml.readElementAttribute(fieldElement, "is-pk");
 	if (StringUtils.isBlank(isPK)) {
 	    fieldDefinition.setPk(false);
 	} else {
-	    fieldDefinition.setPk(Boolean.parseBoolean(isPK));
+	    boolean pk = Boolean.parseBoolean(isPK);
+	    if(pk) {
+		String isAutoincrement = UtilXml.readElementAttribute(fieldElement,"is-autoincrement");
+		boolean autoincrement = Boolean.parseBoolean(isAutoincrement);
+		fieldDefinition.setAutoincrement(autoincrement);
+		
+		fieldDefinition.setRequired(true);
+	    }
+	    fieldDefinition.setPk(pk);
 	}
 
+	String isRequired = UtilXml.readElementAttribute(fieldElement,"is-required");
+	boolean required = Boolean.parseBoolean(isRequired);
 	if (StringUtils.isBlank(isRequired)) {
 	    fieldDefinition.setRequired(false);
 	} else {
-	    fieldDefinition.setRequired(Boolean.parseBoolean(isRequired));
+	    fieldDefinition.setRequired(required);
 	}
-
-	if (StringUtils.isBlank(isUpdatable)) {
-	    fieldDefinition.setUpdatable(false);
+	
+	if(required) {
+	    fieldDefinition.setUpdatable(true);
 	} else {
-	    fieldDefinition.setUpdatable(Boolean.parseBoolean(isUpdatable));
+	    String isUpdatable = UtilXml.readElementAttribute(fieldElement,"is-updatable");
+	    if (StringUtils.isBlank(isUpdatable)) {
+		fieldDefinition.setUpdatable(false);
+	    } else {
+		fieldDefinition.setUpdatable(Boolean.parseBoolean(isUpdatable));
+	    }
 	}
 
 	List<? extends Element> uiFieldList = UtilXml.childElementList(fieldElement,"uiField");
