@@ -607,8 +607,7 @@ public class TagUtils {
     }
 
     public static EntityValue createEntityValue(String entityName) {
-	logger.info("Creating EntityValue");
-	System.out.println("aasasas");
+	logger.info("Creating EntityValue for Entity :" + entityName);
 	if (!StringUtils.hasText(entityName)) {
 	    throw new ComponentRenderException("Entity Name cannot be empty.");
 	}

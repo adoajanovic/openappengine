@@ -26,8 +26,7 @@
 	<c:choose>
 	    <c:when test='${not empty entityName}'>
 	        <c:set var="entityValue" value="${ui:createEntityValue(entityName)}" />
-			<c:set var="entityInstance" value="${entityValue.getInstance()}" />
-			<c:set var="entityDefinition" value="${ui:getEntityDefinition(entityName)}" />
+			<c:set var="entityDefinition" value="${entityValue.entityDefinition}" />
 			<c:set var="fields" value="${entityDefinition.getFields()}" />
 			
 			<c:if test="${empty entityController}">

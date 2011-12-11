@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 
 /**
