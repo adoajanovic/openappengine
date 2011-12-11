@@ -21,6 +21,9 @@ public class EntityDefinition implements Serializable {
 	
 	private boolean deleteable;
 	
+	//TODO
+	private FieldDefinition pkField;
+	
 	private Set<FieldDefinition> fields = new HashSet<FieldDefinition>();
 
 	public String getEntityName() {
@@ -53,6 +56,14 @@ public class EntityDefinition implements Serializable {
 
 	public void setDeleteable(boolean deleteable) {
 		this.deleteable = deleteable;
+	}
+
+	public FieldDefinition getPkField() {
+	    return pkField;
+	}
+
+	public void setPkField(FieldDefinition pkField) {
+	    this.pkField = pkField;
 	}
 
 }

@@ -21,6 +21,8 @@ public class FieldDefinition implements Serializable {
 	
 	private boolean pk;
 	
+	private boolean autoincrement;
+	
 	private boolean updatable;
 	
 	private boolean required;
@@ -73,5 +75,13 @@ public class FieldDefinition implements Serializable {
 
 	public void setUiField(UIField uiField) {
 	    this.uiField = uiField;
+	}
+
+	public boolean isAutoincrement() {
+	    return autoincrement;
+	}
+
+	public void setAutoincrement(boolean autoincrement) {
+	    this.autoincrement = autoincrement;
 	}
 }

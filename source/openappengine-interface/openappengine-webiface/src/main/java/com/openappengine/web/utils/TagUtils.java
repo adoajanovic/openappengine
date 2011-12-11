@@ -173,6 +173,11 @@ public class TagUtils {
 	String messageBundleKey = entityName + "." + propertyName;
 	return messageBundle.getProperty(messageBundleKey);
     }
+    
+    public static String getEntityFormHeader(String entityName) {
+	String messageBundleKey = entityName;
+	return messageBundle.getProperty(messageBundleKey);
+    }
 
     public static String currentDateAsString() {
 	DateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");

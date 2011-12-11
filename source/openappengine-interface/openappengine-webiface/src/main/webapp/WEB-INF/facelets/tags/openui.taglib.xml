@@ -184,4 +184,12 @@
 		</function-signature>
 	</function>
 	
+	<function>
+		<function-name>getEntityFormHeader</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			java.lang.String getEntityFormHeader(java.lang.String)
+		</function-signature>
+	</function>
+	
 </facelet-taglib>
