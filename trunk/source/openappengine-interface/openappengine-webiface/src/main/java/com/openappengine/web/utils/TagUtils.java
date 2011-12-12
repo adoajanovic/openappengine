@@ -34,7 +34,6 @@ import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.entity.definition.EntityDefinition;
-import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.entity.definition.ui.UIField;
 import com.openappengine.form.UIForm;
 import com.openappengine.form.UIFormBeanWrapper;

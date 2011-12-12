@@ -11,15 +11,30 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
       
       <ui:define name="page-content">
-      	   <!-- As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
-      	   we expect that the EntityName and EntityId is passed as request params -->
-      	   
-      	   <c:set var="entityName" value="#{entityFormController.entityName}" />
-      	   
-           <h:panelGroup id="EntityFormDiv">
-                <openui:form entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
-				</openui:form>	
-           </h:panelGroup>
+      		<f:view>
+      			<!-- Register Entity Form Phase Listener -->
+      			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
+      			
+      			<!--  Metadata Params for this View -->
+      			<f:metadata>
+		      		<!-- 
+			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
+			      	   we expect that the EntityName and EntityId is passed as request params 
+		      	   -->
+					<f:viewParam name="entityName" value="#{entityFormController.entityName}" 
+						required="true"
+						requiredMessage="Request Parameter : entityName expected">
+					</f:viewParam>
+					<f:viewParam name="entityId" value="#{entityFormController.entityId}"/>
+				</f:metadata>
+	      	   
+	      	   <c:set var="entityName" value="#{entityFormController.entityName}" />
+	      	   
+	           <h:panelGroup id="EntityFormDiv">
+	                <openui:form entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
+					</openui:form>	
+	           </h:panelGroup>
+      		</f:view>
       </ui:define>
    
 </ui:composition>

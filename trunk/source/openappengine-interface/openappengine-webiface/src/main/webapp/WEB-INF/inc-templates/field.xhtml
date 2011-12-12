@@ -9,11 +9,13 @@
 	
 	<c:set var="required" value="${ui:isRequired(type,fieldName)}" />
 	
+    <c:set var="labelText" value="${ui:getLabelText(type,fieldName)}" />
+    
 	<c:if test="${required}">
     	<c:set var="suffix" value="*" />
     	<c:set var="color" value="red" />
+    	<c:set var="requiredMessage" value="${labelText} cannot be empty."/>
     </c:if>
-    <c:set var="labelText" value="${ui:getLabelText(type,fieldName)}" />
     
     <c:set var="labelText" value="${labelText}${suffix}" />
 	
@@ -24,7 +26,7 @@
 	<ice:column>
 		<c:choose>
 	          <c:when test="${ui:isText(type,fieldName)}">
-	          		<ice:inputText id="${fieldName}_Input" required="${required}" styleClass="inputText" value="#{formController.formBean.formBean[property]}"/>
+	          		<ice:inputText id="${fieldName}_Input" required="${required}" styleClass="inputText" value="#{formController.formBean.formBean[property]}" requiredMessage="#{requiredMessage}"/>
 	          </c:when>
 	          <c:when test="${ui:isTextArea(type,fieldName)}">
 	          		<ice:inputTextarea id="${fieldName}_Input" required="${required}" styleClass="inputText" value="#{formController.formBean.formBean[property]}"/>
