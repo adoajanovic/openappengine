@@ -5,6 +5,8 @@ package com.openappengine.web.render;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author hrishikesh.joshi
  *
@@ -45,6 +47,22 @@ public class RenderMode implements Serializable {
 	public void changeToReadOnlyMode() {
 		this.currentMode = READ_ONLY;
 	}
+	
+	public boolean isReadOnlyMode(String mode) {
+		if(StringUtils.isEmpty(mode)) {
+			return false;
+		}
+		
+		return StringUtils.equals(mode, READ_ONLY);
+	}
+	
+	public boolean isReadWriteMode(String mode) {
+		if(StringUtils.isEmpty(mode)) {
+			return false;
+		}
+		
+		return StringUtils.equals(mode, READ_WRITE);
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,7 +85,7 @@ public class RenderMode implements Serializable {
 			if (other.currentMode != null)
 				return false;
 		} else if (!currentMode.equals(other.currentMode))
-			return false;
+			return false; 
 		return true;
 	}
 
