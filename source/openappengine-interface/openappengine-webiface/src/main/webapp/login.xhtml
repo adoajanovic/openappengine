@@ -13,12 +13,18 @@
 	</h:head>
 	<h:body>
 		
+		<!--  
 		<openui:form propertyNames="username,password,preferredCurrency"
 			type="${loginFormBean.getClass()}" id="LoginForm" formColumns="1"
 			formButtonColumns="2" saveAction="${loginFormBean.login}" />
-		<!--  
 		<openui:listing dataListAdapter="#{testDataListAdapter}" columns="username,password" id="loginDataTable" width="50%"/>
 		-->	
+		
+		<ice:form>
+			<ice:commandLink action="EntityForm">
+				<ice:outputText value="Create Code Type"/>
+			</ice:commandLink>
+		</ice:form>
 
 	</h:body>
 </f:view>

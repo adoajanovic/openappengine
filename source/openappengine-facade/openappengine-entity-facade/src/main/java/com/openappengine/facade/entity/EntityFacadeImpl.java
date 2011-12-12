@@ -5,7 +5,15 @@ package com.openappengine.facade.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.FlushModeType;
+
+import org.apache.commons.collections.Factory;
+import org.apache.commons.collections.functors.CloneTransformer;
+import org.apache.commons.collections.functors.PrototypeFactory;
+import org.hibernate.FlushMode;
+import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
@@ -23,14 +31,22 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	private UtilLogger logger = new UtilLogger(getClass());
 	
-	/* (non-Javadoc)
-	 * @see com.openappengine.facade.entity.EntityFacade#createEntityValue(java.lang.String)
-	 */
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
 		Class<?> entityClass = entityDefinition.getEntityClass();
 		EntityValue entityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
 		return entityValue;
+	}
+	
+	public EntityValue createEntityValue(String entityName,Serializable id) {
+	    EntityValue entityValue = createEntityValue(entityName);
+	    if(id != null) {
+		    Session session = hibernateTemplate.getSessionFactory().openSession();
+        	    Object attachedInstance = hibernateTemplate.load(entityValue.getEntityDefinition().getEntityClass(),id);
+        	    entityValue.setInstance(attachedInstance);
+        	    session.flush();
+	    }
+	    return entityValue;
 	}
 	
 	public Serializable saveEntityValue(EntityValue entityValue) {
@@ -39,6 +55,7 @@ public class EntityFacadeImpl implements EntityFacade {
 		return null;
 	    }
 	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
+	    hibernateTemplate.merge(entityValue.getInstance());
 	    return hibernateTemplate.save(entityValue.getInstance());
 	}
 

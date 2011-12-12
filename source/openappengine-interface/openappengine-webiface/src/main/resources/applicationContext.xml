@@ -13,7 +13,6 @@
 	<bean id="formController" class="com.openappengine.form.controller.FormController" scope="session"/>
 	
 	<bean id="entityFormController" class="com.openappengine.entity.EntityFormController" scope="session">
-		<property name="entityFacade" ref="entityFacade"></property>
 	</bean>
 	
 </beans>
