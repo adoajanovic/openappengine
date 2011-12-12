@@ -44,6 +44,10 @@
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
 	
 	<!-- Faces Servlet -->
 	<servlet>
@@ -66,6 +70,16 @@
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/xmlhttp/*</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+	  <filter-name>sessionFilter</filter-name>
+	  <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	        
+	<filter-mapping>
+	  <filter-name>sessionFilter</filter-name>
+	  <url-pattern>*.iface</url-pattern>
+	</filter-mapping>
 	
 	<!-- Spring Context Listener -->
 	<listener>

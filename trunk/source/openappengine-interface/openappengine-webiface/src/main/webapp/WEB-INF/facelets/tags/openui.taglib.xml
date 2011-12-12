@@ -28,7 +28,7 @@
     </tag>
     
     <tag>
-        <tag-name>entity</tag-name>
+        <tag-name>entityForm</tag-name>
         <source>../../inc-templates/entityForm.xhtml</source>
     </tag>
     

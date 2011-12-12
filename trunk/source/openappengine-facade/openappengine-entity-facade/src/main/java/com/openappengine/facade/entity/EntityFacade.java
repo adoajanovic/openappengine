@@ -27,6 +27,13 @@ public interface EntityFacade {
 	EntityValue createEntityValue(String entityName);
 	
 	/**
+	 * @param entityName
+	 * @param id
+	 * @return
+	 */
+	EntityValue createEntityValue(String entityName,Serializable id);
+	
+	/**
 	 * Save {@link EntityValue}.
 	 * @param entityValue
 	 * @return
