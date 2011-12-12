@@ -59,21 +59,8 @@ public class EntityFormController implements Serializable {
 
 	@PreRenderView
 	public void processRequestParameters() {
-		/*String entityName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-				.get("entityName");
-		if (!StringUtils.isEmpty(entityName)) {
-			this.entityName = entityName;
-
-			String entityId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-					.get("entityId");
-			Integer id = null;
-			if (!StringUtils.isEmpty(entityId)) {
-				id = Integer.parseInt(entityId);
-			}
-			entityValue = entityFacade.createEntityValue(entityName, id);
-			setFormRendered(true);
-		}*/
 		entityValue = entityFacade.createEntityValue(entityName, entityId);
+		renderMode.changeToReadOnlyMode();
 	}
 
 	public void performPreRenderActions() {
