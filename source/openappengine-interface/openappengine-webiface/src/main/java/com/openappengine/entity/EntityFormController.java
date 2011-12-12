@@ -5,16 +5,15 @@ package com.openappengine.entity;
 
 import java.io.Serializable;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.web.annotations.PreRenderView;
+import com.openappengine.web.render.RenderMode;
 
 /**
  * @author hrishi
@@ -28,43 +27,61 @@ public class EntityFormController implements Serializable {
     
     private String entityName;
     
+    private Integer entityId;
+    
     private EntityValue entityValue;
     
-    protected Logger logger = Logger.getLogger(getClass());
+    protected final Logger logger = Logger.getLogger(getClass());
     
     private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
     
-    public static final String SAVE_OR_UPDATE = "SAVE_OR_UPDATE";
+    public static final String ACTION_SAVE_OR_UPDATE = "ACTION_SAVE_OR_UPDATE";
     
-    public static final String SAVE = "SAVE";
+    public static final String ACTION_SAVE = "ACTION_SAVE";
+    
+    private RenderMode renderMode;
+    
+    private EntityFormPhaseListener entityFormPhaseListener;
     
     public EntityFormController() {
-	processRequestParameters();
+    	registerEntityFormLifecycleListener();
+    	setDefaultRenderMode();
+    	//processRequestParameters();
     }
 
-    private void processRequestParameters() {
-	String entityName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("entityName");
-	if(!StringUtils.isEmpty(entityName)) {
-	    this.entityName = entityName; 
-	    
-	    String entityId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("entityId");
-	    Integer id = null;
-	    if(!StringUtils.isEmpty(entityId)) {
-		id = Integer.parseInt(entityId);
-	    }
-	    entityValue = entityFacade.createEntityValue(entityName,id);
-	    setFormRendered(true);
+	protected void registerEntityFormLifecycleListener() {
+		setEntityFormPhaseListener(new EntityFormPhaseListener(this));
 	}
-	
-    }
 
-    public void performPreRenderActions() {
-	
-	if (!isFormRendered()) {
-	    //TODO
-	    setFormRendered(true);
+	protected void setDefaultRenderMode() {
+		setRenderMode(new RenderMode(RenderMode.READ_WRITE));
 	}
-    }
+
+	@PreRenderView
+	public void processRequestParameters() {
+		/*String entityName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+				.get("entityName");
+		if (!StringUtils.isEmpty(entityName)) {
+			this.entityName = entityName;
+
+			String entityId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
+					.get("entityId");
+			Integer id = null;
+			if (!StringUtils.isEmpty(entityId)) {
+				id = Integer.parseInt(entityId);
+			}
+			entityValue = entityFacade.createEntityValue(entityName, id);
+			setFormRendered(true);
+		}*/
+		entityValue = entityFacade.createEntityValue(entityName, entityId);
+	}
+
+	public void performPreRenderActions() {
+		if (!isFormRendered()) {
+			// TODO
+			setFormRendered(true);
+		}
+	}
 
     public boolean isFormRendered() {
 	return formRendered;
@@ -82,19 +99,19 @@ public class EntityFormController implements Serializable {
 	this.entityValue = entityValue;
     }
     
-    public void processEntityAction(ActionEvent actionEvent) {
-	
-	if(actionEvent == null) {
-	    return;
+	public void processEntityAction(ActionEvent actionEvent) {
+		if (actionEvent == null) {
+			return;
+		}
+		String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
+		if (ACTION_SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
+			// TODO
+			Object instance = entityValue.getInstance();
+			logger.info("Saving the EntityValue : " + instance);
+			entityFacade.saveEntityValue(entityValue);
+		}
+		
 	}
-	String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
-	if(SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
-	    //TODO 
-	    Object instance = entityValue.getInstance();
-	    logger.info("Saving the EntityValue : " + instance);
-	    entityFacade.saveEntityValue(entityValue);
-	}
-    }
 
     public void setEntityFacade(EntityFacade entityFacade) {
 	this.entityFacade = entityFacade;
@@ -107,5 +124,29 @@ public class EntityFormController implements Serializable {
     public void setEntityName(String entityName) {
 	this.entityName = entityName;
     }
+
+	public RenderMode getRenderMode() {
+		return renderMode;
+	}
+
+	public void setRenderMode(RenderMode renderMode) {
+		this.renderMode = renderMode;
+	}
+
+	public EntityFormPhaseListener getEntityFormPhaseListener() {
+		return entityFormPhaseListener;
+	}
+
+	protected void setEntityFormPhaseListener(EntityFormPhaseListener entityFormPhaseListener) {
+		this.entityFormPhaseListener = entityFormPhaseListener;
+	}
+
+	public Integer getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(Integer entityId) {
+		this.entityId = entityId;
+	}
     
 }
