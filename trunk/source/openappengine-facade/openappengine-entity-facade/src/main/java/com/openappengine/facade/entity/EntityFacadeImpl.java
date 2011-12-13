@@ -5,15 +5,8 @@ package com.openappengine.facade.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.FlushModeType;
-
-import org.apache.commons.collections.Factory;
-import org.apache.commons.collections.functors.CloneTransformer;
-import org.apache.commons.collections.functors.PrototypeFactory;
-import org.hibernate.FlushMode;
 import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
@@ -49,14 +42,14 @@ public class EntityFacadeImpl implements EntityFacade {
 	    return entityValue;
 	}
 	
-	public Serializable saveEntityValue(EntityValue entityValue) {
+	public EntityValue saveEntityValue(EntityValue entityValue) {
 	    if(entityValue == null || entityValue.getInstance() == null) {
 		logger.logDebug("EntityValue found null. EntityValue cannot be persisted.");
 		return null;
 	    }
 	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
-	    hibernateTemplate.merge(entityValue.getInstance());
-	    return hibernateTemplate.save(entityValue.getInstance());
+	    hibernateTemplate.save(entityValue.getInstance());
+	    return entityValue;
 	}
 
 	/* (non-Javadoc)
