@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.web.annotations.PostRestoreView;
 import com.openappengine.web.annotations.PreRenderView;
-import com.openappengine.web.render.RenderMode;
 
 /**
  * @author hrishi
@@ -21,103 +21,53 @@ import com.openappengine.web.render.RenderMode;
  */
 public class EntityFormController implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private boolean formRendered;
-    
-    private String entityName;
-    
-    private Integer entityId;
-    
-    private EntityValue entityValue;
-    
-    protected final Logger logger = Logger.getLogger(getClass());
-    
-    private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
-    
-    public static final String ACTION_SAVE_OR_UPDATE = "ACTION_SAVE_OR_UPDATE";
-    
-    public static final String ACTION_SAVE = "ACTION_SAVE";
-    
-    private RenderMode renderMode;
-    
-    private EntityFormPhaseListener entityFormPhaseListener;
-    
-    public EntityFormController() {
-    	registerEntityFormLifecycleListener();
-    	setDefaultRenderMode();
-    	//processRequestParameters();
-    }
+	protected final Logger logger = Logger.getLogger(getClass());
+
+	public static final String ACTION_SAVE_OR_UPDATE = "ACTION_SAVE_OR_UPDATE";
+
+	public static final String ACTION_SAVE = "ACTION_SAVE";
+
+	private EntityForm entityForm;
+
+	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+
+	/**
+	 * Entity Form Per-View Listener
+	 */
+	private EntityFormPhaseListener entityFormPhaseListener;
+
+	public EntityFormController() {
+		registerEntityFormLifecycleListener();
+		entityForm = new EntityForm();
+	}
 
 	protected void registerEntityFormLifecycleListener() {
 		setEntityFormPhaseListener(new EntityFormPhaseListener(this));
 	}
 
-	protected void setDefaultRenderMode() {
-		setRenderMode(new RenderMode(RenderMode.READ_WRITE));
-	}
-
 	@PreRenderView
 	public void processRequestParameters() {
-		entityValue = entityFacade.createEntityValue(entityName, entityId);
-		renderMode.changeToReadOnlyMode();
+		EntityValue entityValue = entityFacade.createEntityValue(entityForm.getEntityName(), entityForm.getId());
+		this.getEntityForm().setEntityValue(entityValue);
 	}
 
-	public void performPreRenderActions() {
-		if (!isFormRendered()) {
-			// TODO
-			setFormRendered(true);
-		}
-	}
-
-    public boolean isFormRendered() {
-	return formRendered;
-    }
-
-    public void setFormRendered(boolean formRendered) {
-	this.formRendered = formRendered;
-    }
-    
-    public EntityValue getEntityValue() {
-	return entityValue;
-    }
-
-    public void setEntityValue(EntityValue entityValue) {
-	this.entityValue = entityValue;
-    }
-    
 	public void processEntityAction(ActionEvent actionEvent) {
 		if (actionEvent == null) {
 			return;
 		}
 		String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
 		if (ACTION_SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
-			// TODO
-			Object instance = entityValue.getInstance();
+			Object instance = entityForm.getEntityValue().getInstance();
 			logger.info("Saving the EntityValue : " + instance);
-			entityFacade.saveEntityValue(entityValue);
+			entityFacade.saveEntityValue(entityForm.getEntityValue());
 		}
-		
+
 	}
 
-    public void setEntityFacade(EntityFacade entityFacade) {
-	this.entityFacade = entityFacade;
-    }
-
-    public String getEntityName() {
-	return entityName;
-    }
-
-    public void setEntityName(String entityName) {
-	this.entityName = entityName;
-    }
-
-	public RenderMode getRenderMode() {
-		return renderMode;
-	}
-
-	public void setRenderMode(RenderMode renderMode) {
-		this.renderMode = renderMode;
+	public void setEntityFacade(EntityFacade entityFacade) {
+		this.entityFacade = entityFacade;
 	}
 
 	public EntityFormPhaseListener getEntityFormPhaseListener() {
@@ -128,12 +78,12 @@ public class EntityFormController implements Serializable {
 		this.entityFormPhaseListener = entityFormPhaseListener;
 	}
 
-	public Integer getEntityId() {
-		return entityId;
+	public EntityForm getEntityForm() {
+		return entityForm;
 	}
 
-	public void setEntityId(Integer entityId) {
-		this.entityId = entityId;
+	public void setEntityForm(EntityForm entityForm) {
+		this.entityForm = entityForm;
 	}
-    
+
 }

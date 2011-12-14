@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
@@ -42,6 +44,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	    return entityValue;
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public EntityValue saveEntityValue(EntityValue entityValue) {
 	    if(entityValue == null || entityValue.getInstance() == null) {
 		logger.logDebug("EntityValue found null. EntityValue cannot be persisted.");

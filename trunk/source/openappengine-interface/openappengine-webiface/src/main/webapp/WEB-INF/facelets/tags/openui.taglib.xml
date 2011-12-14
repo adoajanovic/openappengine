@@ -1,45 +1,53 @@
 <?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "facelet-taglib_1_0.dtd">
 <facelet-taglib>
-    <namespace>http://www.openui.com/ui</namespace>
-    
-    <tag>
-        <tag-name>field</tag-name>
-        <source>../../inc-templates/field.xhtml</source>
-    </tag>
-    
-    <tag>
-        <tag-name>form</tag-name>
-        <source>../../inc-templates/form.xhtml</source>
-    </tag>
-    
-    <tag>
-        <tag-name>listing</tag-name>
-        <source>../../inc-templates/listing.xhtml</source>
-    </tag>
-    
-    <tag>
-        <tag-name>adDataList</tag-name>
-        <source>../../inc-templates/adDataList.xhtml</source>
-    </tag>
-    
-    <tag>
-        <tag-name>adAutocomplete</tag-name>
-        <source>../../inc-templates/adAutocomplete.xhtml</source>
-    </tag>
-    
-    <tag>
-        <tag-name>entityForm</tag-name>
-        <source>../../inc-templates/entityForm.xhtml</source>
-    </tag>
-    
-    <function>
+	<namespace>http://www.openappengine.com/tags/ui</namespace>
+
+	<tag>
+		<tag-name>field</tag-name>
+		<source>../../inc-templates/field.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>form</tag-name>
+		<source>../../inc-templates/form.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>listing</tag-name>
+		<source>../../inc-templates/listing.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>adDataList</tag-name>
+		<source>../../inc-templates/adDataList.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>adAutocomplete</tag-name>
+		<source>../../inc-templates/adAutocomplete.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>entityForm</tag-name>
+		<source>../../inc-templates/entity/entityForm.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>entityField</tag-name>
+		<source>../../inc-templates/entity/entityField.xhtml</source>
+	</tag>
+
+	<function>
 		<function-name>createEntityValue</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			com.openappengine.facade.entity.EntityValue createEntityValue(java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getEntityDefinition</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -47,15 +55,15 @@
 			com.openappengine.facade.entity.definition.EntityDefinition getEntityDefinition(java.lang.String)
 		</function-signature>
 	</function>
-    
-    <function>
+
+	<function>
 		<function-name>isRequired</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			boolean isRequired(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getUIFormClass</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -63,7 +71,7 @@
 			java.lang.Class getUIFormClass(java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getUIFormBeanWrapper</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -71,7 +79,7 @@
 			UIFormBeanWrapper getUIFormBeanWrapper(java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -79,7 +87,7 @@
 			boolean isText(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -87,7 +95,7 @@
 			boolean isText(com.openappengine.facade.entity.definition.ui.UIField)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isTextArea</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -95,7 +103,7 @@
 			boolean isTextArea(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isEnumDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -103,7 +111,7 @@
 			boolean isTextArea(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isADDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -111,7 +119,7 @@
 			boolean isADDataList(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isADAutocompleteField</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -119,7 +127,7 @@
 			boolean isADAutocompleteField(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -127,7 +135,7 @@
 			boolean isDataList(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getAnnotedADDataListType</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -135,7 +143,7 @@
 			String getAnnotedADDataListType(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getADAutocompleteListType</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -143,7 +151,7 @@
 			String getADAutocompleteListType(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getADDataList</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -151,7 +159,7 @@
 			List getADDataList(java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>isRichTextArea</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -159,7 +167,7 @@
 			boolean isRichTextArea(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>currentDateAsString</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -167,7 +175,7 @@
 			java.lang.String currentDateAsString()
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getLabelText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -175,7 +183,7 @@
 			java.lang.String getLabelText(java.lang.Class,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getLabelText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -183,7 +191,7 @@
 			java.lang.String getLabelText(java.lang.String,java.lang.String)
 		</function-signature>
 	</function>
-	
+
 	<function>
 		<function-name>getEntityFormHeader</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -191,5 +199,4 @@
 			java.lang.String getEntityFormHeader(java.lang.String)
 		</function-signature>
 	</function>
-	
 </facelet-taglib>
