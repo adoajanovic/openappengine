@@ -5,9 +5,7 @@ package com.openappengine.facade.entity.definition;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
@@ -75,7 +73,7 @@ public class EntityDefinitionReader {
 		    List<? extends Element> fieldElements = UtilXml
 			    .childElementList(entityElement, "field");
 		    if (fieldElements != null && !fieldElements.isEmpty()) {
-			Set<FieldDefinition> fieldDefinitions = new HashSet<FieldDefinition>();
+			List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
 			for (Element fieldElement : fieldElements) {
 			    FieldDefinition fieldDefinition = readFieldDefinition(fieldElement);
 			    fieldDefinitions.add(fieldDefinition);

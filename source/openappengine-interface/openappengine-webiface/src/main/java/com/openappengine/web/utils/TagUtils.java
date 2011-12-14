@@ -624,7 +624,10 @@ public class TagUtils {
     }
     
     public static boolean isText(UIField uiField) {
-	return uiField.getFieldType().equalsIgnoreCase("textField");
+    	if(uiField == null) {
+    		return false;
+    	}
+    	return uiField.getFieldType().equalsIgnoreCase("textField");
     }
 
 }

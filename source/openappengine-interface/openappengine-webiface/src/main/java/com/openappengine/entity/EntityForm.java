@@ -6,6 +6,7 @@ package com.openappengine.entity;
 import java.io.Serializable;
 
 import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.web.render.RenderMode;
 
 /**
  * @author hrishi
@@ -18,6 +19,12 @@ public class EntityForm {
     private EntityValue entityValue;
     
     private String entityName;
+    
+    private RenderMode renderMode;
+    
+    public EntityForm() {
+    	setRenderMode(new RenderMode());
+    }
 
     public EntityValue getEntityValue() {
         return entityValue;
@@ -42,5 +49,13 @@ public class EntityForm {
     public void setEntityName(String entityName) {
 	this.entityName = entityName;
     }
+
+	public RenderMode getRenderMode() {
+		return renderMode;
+	}
+
+	public void setRenderMode(RenderMode renderMode) {
+		this.renderMode = renderMode;
+	}
 
 }

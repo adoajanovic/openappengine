@@ -7,7 +7,7 @@
       template="/templates/page-template.xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:openui="http://www.openui.com/ui"
+      xmlns:openui="http://www.openappengine.com/tags/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
       
       <ui:define name="page-content">
@@ -21,17 +21,17 @@
 			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
 			      	   we expect that the EntityName and EntityId is passed as request params 
 		      	   -->
-					<f:viewParam name="entityName" value="#{entityFormController.entityName}" 
+					<f:viewParam name="entityName" value="#{entityFormController.entityForm.entityName}" 
 						required="true"
 						requiredMessage="Request Parameter : entityName expected">
 					</f:viewParam>
-					<f:viewParam name="entityId" value="#{entityFormController.entityId}"/>
+					<f:viewParam name="entityId" value="#{entityFormController.entityForm.id}"/>
 				</f:metadata>
 	      	   
-	      	   <c:set var="entityName" value="#{entityFormController.entityName}" />
+	      	   <c:set var="entityName" value="#{entityFormController.entityForm.entityName}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
-	                <openui:entityForm entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
+	           		<openui:entityForm entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
 					</openui:entityForm>	
 	           </h:panelGroup>
       		</f:view>

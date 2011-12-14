@@ -4,8 +4,8 @@
 package com.openappengine.facade.entity.definition;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hrishikesh.joshi
@@ -24,7 +24,7 @@ public class EntityDefinition implements Serializable {
 	//TODO
 	private FieldDefinition pkField;
 	
-	private Set<FieldDefinition> fields = new HashSet<FieldDefinition>();
+	private List<FieldDefinition> fields = new ArrayList<FieldDefinition>();
 
 	public String getEntityName() {
 		return entityName;
@@ -34,19 +34,19 @@ public class EntityDefinition implements Serializable {
 		this.entityName = entityName;
 	}
 
-	public Set<FieldDefinition> getFields() {
+	public List<FieldDefinition> getFields() {
 		return fields;
 	}
 
-	public void setFields(Set<FieldDefinition> fields) {
+	public void setFields(List<FieldDefinition> fields) {
 		this.fields = fields;
 	}
 
-	public Class getEntityClass() {
+	public Class<?> getEntityClass() {
 		return entityClass;
 	}
 
-	public void setEntityClass(Class entityClass) {
+	public void setEntityClass(Class<?> entityClass) {
 		this.entityClass = entityClass;
 	}
 
