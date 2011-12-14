@@ -89,14 +89,6 @@
 	</function>
 
 	<function>
-		<function-name>isText</function-name>
-		<function-class>com.openappengine.web.utils.TagUtils</function-class>
-		<function-signature>
-			boolean isText(com.openappengine.facade.entity.definition.ui.UIField)
-		</function-signature>
-	</function>
-
-	<function>
 		<function-name>isTextArea</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
@@ -184,6 +176,15 @@
 		</function-signature>
 	</function>
 
+	<!-- Entity Tags -->
+	<function>
+		<function-name>isAutoIncrement</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isAutoIncrement(com.openappengine.facade.entity.definition.FieldDefinition)
+		</function-signature>
+	</function>
+	
 	<function>
 		<function-name>getLabelText</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
@@ -191,12 +192,20 @@
 			java.lang.String getLabelText(java.lang.String,java.lang.String)
 		</function-signature>
 	</function>
-
+	
 	<function>
 		<function-name>getEntityFormHeader</function-name>
 		<function-class>com.openappengine.web.utils.TagUtils</function-class>
 		<function-signature>
 			java.lang.String getEntityFormHeader(java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<function-name>isText</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isText(com.openappengine.facade.entity.definition.FieldDefinition)
 		</function-signature>
 	</function>
 </facelet-taglib>
