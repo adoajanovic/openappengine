@@ -2,18 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:ui="http://www.openui.com/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:entity="http://www.openappengine.com/tags/entity">
-	
+<f:view>
+	<h:head>
+		<link rel="stylesheet" href="/css/themes/base/jquery.ui.all.css" />
+		<script src="/js/jquery-1.6.2.js"></script>
+		<script src="/js/ui/jquery.ui.core.js"></script>
+		<script src="/js/ui/jquery.ui.widget.js"></script>
+		<script src="/js/ui/jquery.ui.button.js"></script>
+		<!-- 
+		 <script>
+		$(function() {
+			$( "input:submit, a, button").button();
+		});
+		</script>
+		 -->
+	</h:head>
+
+	<c:set var="columns" value="2" />
+
+	<c:if test='${not empty entityName}'>
+		<c:set var="columns" value="${formColumns}" />
+	</c:if>
+
 	<c:if test="${empty entityController}">
 		<c:set var="entityFormController" value="${entityFormController}" />
 	</c:if>
-	
+
 	<c:set var="entityValue" value="${entityFormController.entityValue}" />
 
 	<c:if test="#{not entityFormController.formRendered}">
 		<c:set var="entityValue" value="${ui:createEntityValue(entityName)}" />
 		<c:set property="entityValue" target="${entityFormController}" value="${entityValue}" />
 	</c:if>
-	
+
 	<c:set var="entityDefinition" value="${entityValue.entityDefinition}" />
 	<c:set var="fields" value="${entityDefinition.getFields()}" />
 
@@ -72,7 +93,7 @@
 				</c:forEach>
 			</ice:panelGrid>
 			<ice:panelGrid id="Action" columns="2">
-				<c:if test="#{not entityFormController.renderMode.isReadOnly()}">
+				<c:if test="#{not entityFormController.renderMode.isReadOnlyMode()}">
 					<ice:commandButton id="${entityName}_Save" actionListener="#{entityFormController.processEntityAction}" value="Save">
 						<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
 					</ice:commandButton>
@@ -81,4 +102,5 @@
 			<fac:insert name="ActionButtons" />
 		</ice:form>
 	</ice:panelGroup>
+</f:view>
 </html>
