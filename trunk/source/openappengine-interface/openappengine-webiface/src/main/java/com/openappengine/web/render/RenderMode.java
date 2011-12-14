@@ -48,20 +48,12 @@ public class RenderMode implements Serializable {
 		this.currentMode = READ_ONLY;
 	}
 	
-	public boolean isReadOnlyMode(String mode) {
-		if(StringUtils.isEmpty(mode)) {
-			return false;
-		}
-		
-		return StringUtils.equals(mode, READ_ONLY);
+	public boolean isReadOnlyMode() {
+	    return StringUtils.equals(currentMode, READ_ONLY);
 	}
 	
-	public boolean isReadWriteMode(String mode) {
-		if(StringUtils.isEmpty(mode)) {
-			return false;
-		}
-		
-		return StringUtils.equals(mode, READ_WRITE);
+	public boolean isReadWriteMode() {
+	    return StringUtils.equals(currentMode, READ_WRITE);
 	}
 
 	@Override
