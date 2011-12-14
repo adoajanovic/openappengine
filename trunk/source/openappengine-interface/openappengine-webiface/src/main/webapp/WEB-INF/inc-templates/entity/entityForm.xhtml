@@ -46,9 +46,7 @@
 				
 				<!-- TODO -->
 				<ice:repeat value="#{fields}" var="field">
-					<fac:fragment rendered="#{ui:isText(field.uiField)}">
-						<ice:inputText id="#{field.name}_Input" value="#{entityFormController.entityForm.entityValue.instance[field.property]}" />
-					</fac:fragment>
+					<ui:entityField entityName="#{entityName}" field="#{field}" />
 				</ice:repeat>
 			</ice:panelGrid>
 
