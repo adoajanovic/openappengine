@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
-import com.openappengine.web.annotations.PostRestoreView;
 import com.openappengine.web.annotations.PreRenderView;
 
 /**

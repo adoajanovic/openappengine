@@ -28,7 +28,7 @@
 					<f:viewParam name="entityId" value="#{entityFormController.entityForm.id}"/>
 				</f:metadata>
 	      	   
-	      	   <c:set var="entityName" value="#{entityFormController.entityForm.entityName}" />
+	      	   <f:viewParam name="entityName" value="#{entityFormController.entityForm.entityName}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
 	           		<openui:entityForm entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
