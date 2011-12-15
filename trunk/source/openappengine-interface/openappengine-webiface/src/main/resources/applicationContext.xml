@@ -5,7 +5,7 @@
 
 	<!-- Wire Facade Context -->
 	
-	<import resource="entity-facade-context.xml"/>
+	<import resource="ui-facade-context.xml"/>
 	
 	<!-- ========== Custom Scope Implementations ===================== -->
 	<bean id="viewScope" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
