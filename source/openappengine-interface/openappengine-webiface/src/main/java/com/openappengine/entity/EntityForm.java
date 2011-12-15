@@ -16,9 +16,9 @@ public class EntityForm {
     
     private Serializable id;
     
-    private EntityValue entityValue;
-    
     private String entityName;
+    
+    private EntityValue entityValue;
     
     private RenderMode renderMode;
     
@@ -57,5 +57,4 @@ public class EntityForm {
 	public void setRenderMode(RenderMode renderMode) {
 		this.renderMode = renderMode;
 	}
-
 }

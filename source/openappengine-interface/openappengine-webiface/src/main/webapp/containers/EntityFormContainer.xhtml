@@ -21,21 +21,23 @@
 			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
 			      	   we expect that the EntityName and EntityId is passed as request params 
 		      	   -->
-					<f:viewParam name="entityName" value="#{entityFormController.entityForm.entityName}" 
+					<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}" 
 						required="true"
 						requiredMessage="Request Parameter : entityName expected">
 					</f:viewParam>
-					<f:viewParam name="entityId" value="#{entityFormController.entityForm.id}"/>
+					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
 				</f:metadata>
 	      	   
-	      	   <f:viewParam name="entityName" value="#{entityFormController.entityForm.entityName}" />
+	      	   <f:viewParam name="formInstance" value="#{entityFormController.formInstance}" />
+	      	   <f:viewParam name="formDefinition" value="#{formInstance.formDefinition}" />
+	      	   <f:viewParam name="entityValue" value="#{formInstance.entityValue}" />
+	      	   <f:viewParam name="formLayout" value="#{formDefinition.formLayout}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
-	           		<openui:entityForm entityName="${entityName}" id="${entityName}_EntityForm" formColumns="2">
+	           		<openui:entityForm entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{formLayout.columns}">
 					</openui:entityForm>	
 	           </h:panelGroup>
+	      	   
       		</f:view>
       </ui:define>
-   
 </ui:composition>
-
