@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form-definitions>
+	<form-definition name="CodeType_RW">
+		<entity-reference entityName="CodeType"/>
+		<form-layout>
+				<columns>2</columns>		
+		</form-layout>
+		<render-mode>READ_WRITE</render-mode>
+		<form-type>SIMPLE</form-type>
+	</form-definition>
+</form-definitions>
