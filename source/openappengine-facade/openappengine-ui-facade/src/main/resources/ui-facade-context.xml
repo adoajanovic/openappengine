@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<import resource="entity-facade-context.xml"/>
+	
+	<bean id="formDefinitionReader" class="com.openappengine.facade.ui.form.FormDefinitionReader">
+		<property name="locations">
+			<array>
+				<value>FormDefinitions.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="formDefinitionCache" class="com.openappengine.facade.ui.form.FormDefinitionCache" init-method="initCache" scope="singleton">
+		<property name="formDefinitionReader" ref="formDefinitionReader" />
+	</bean>
+	
+	<bean id="formFacade" class="com.openappengine.facade.ui.facade.FormFacadeImpl">
+		<property name="formDefinitionCache" ref="formDefinitionCache"></property>
+	</bean>
+	
+	<bean name="uiFacadeContext" class="com.openappengine.facade.ui.context.UIFacadeContext">
+	</bean>
+
+</beans>
