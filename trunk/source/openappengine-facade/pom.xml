@@ -41,23 +41,29 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-repository</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-model</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-servicedef</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.2.2</version>
 		</dependency>
 		
 		<dependency>
@@ -68,5 +74,6 @@
 	</dependencies>
 	<modules>
 		<module>openappengine-entity-facade</module>
+		<module>openappengine-ui-facade</module>
 	</modules>
 </project>
