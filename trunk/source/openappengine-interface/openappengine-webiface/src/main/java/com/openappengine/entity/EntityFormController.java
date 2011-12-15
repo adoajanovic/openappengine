@@ -10,8 +10,10 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.entity.EntityFacade;
-import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.facade.ui.context.UIFacadeContext;
+import com.openappengine.facade.ui.facade.FormFacade;
+import com.openappengine.facade.ui.form.instance.FormInstance;
 import com.openappengine.web.annotations.PreRenderView;
 
 /**
@@ -27,10 +29,16 @@ public class EntityFormController implements Serializable {
 	public static final String ACTION_SAVE_OR_UPDATE = "ACTION_SAVE_OR_UPDATE";
 
 	public static final String ACTION_SAVE = "ACTION_SAVE";
+	
+	private EntityFormRequest entityFormRequest;
 
 	private EntityForm entityForm;
 
 	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+	
+	protected FormFacade formFacade = UIFacadeContext.getUIFacade();
+	
+	private FormInstance formInstance;
 
 	/**
 	 * Entity Form Per-View Listener
@@ -39,6 +47,7 @@ public class EntityFormController implements Serializable {
 
 	public EntityFormController() {
 		registerEntityFormLifecycleListener();
+		entityFormRequest = new EntityFormRequest();
 		entityForm = new EntityForm();
 	}
 
@@ -48,8 +57,7 @@ public class EntityFormController implements Serializable {
 
 	@PreRenderView
 	public void processRequestParameters() {
-		EntityValue entityValue = entityFacade.createEntityValue(entityForm.getEntityName(), entityForm.getId());
-		this.getEntityForm().setEntityValue(entityValue);
+		formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
 	}
 
 	public void processEntityAction(ActionEvent actionEvent) {
@@ -83,6 +91,22 @@ public class EntityFormController implements Serializable {
 
 	public void setEntityForm(EntityForm entityForm) {
 		this.entityForm = entityForm;
+	}
+
+	public FormInstance getFormInstance() {
+		return formInstance;
+	}
+
+	public void setFormInstance(FormInstance formInstance) {
+		this.formInstance = formInstance;
+	}
+
+	public EntityFormRequest getEntityFormRequest() {
+		return entityFormRequest;
+	}
+
+	public void setEntityFormRequest(EntityFormRequest entityFormRequest) {
+		this.entityFormRequest = entityFormRequest;
 	}
 
 }

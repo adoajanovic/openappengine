@@ -13,15 +13,7 @@ public class EntityFormRequest {
 
     private Serializable entityId;
 
-    private String entityName;
-
-    public String getEntityName() {
-	return entityName;
-    }
-
-    public void setEntityName(String entityName) {
-	this.entityName = entityName;
-    }
+    private String formName;
 
     public Serializable getEntityId() {
 	return entityId;
@@ -30,5 +22,13 @@ public class EntityFormRequest {
     public void setEntityId(Serializable entityId) {
 	this.entityId = entityId;
     }
+
+	public String getFormName() {
+		return formName;
+	}
+
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
 
 }
