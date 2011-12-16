@@ -28,10 +28,10 @@
 					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
 				</f:metadata>
 	      	   
-	      	   <f:viewParam name="formInstance" value="#{entityFormController.formInstance}" />
-	      	   <f:viewParam name="formDefinition" value="#{formInstance.formDefinition}" />
-	      	   <f:viewParam name="entityValue" value="#{formInstance.entityValue}" />
-	      	   <f:viewParam name="formLayout" value="#{formDefinition.formLayout}" />
+	      	   <c:set var="formInstance" value="#{entityFormController.formInstance}" />
+	      	   <c:set var="formDefinition" value="#{formInstance.formDefinition}" />
+	      	   <c:set var="entityValue" value="#{formInstance.entityValue}" />
+	      	   <c:set var="formLayout" value="#{formDefinition.formLayout}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
 	           		<openui:entityForm entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{formLayout.columns}">
