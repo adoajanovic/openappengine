@@ -6,6 +6,7 @@
 	<import resource="entity-facade-context.xml"/>
 	
 	<bean id="formDefinitionReader" class="com.openappengine.facade.ui.form.FormDefinitionReader">
+		<property name="validate" value="true"></property>
 		<property name="locations">
 			<array>
 				<value>FormDefinitions.xml</value>

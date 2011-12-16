@@ -24,14 +24,13 @@
 				</f:facet>
 
 				<!-- TODO -->
-				<ice:repeat value="#{fields}" var="field">
-					<ui:entityField entityName="#{entityName}" field="#{field}" />
+				<ice:repeat value="#{fields}" var="fieldDefinition">
+					<ui:entityField entityName="#{entityName}" field="#{fieldDefinition}" />
 				</ice:repeat>
 			</ice:panelGrid>
 
 			<ice:panelGrid id="Action" columns="2">
-				<ice:commandButton id="#{entityName}_Save"
-					actionListener="#{entityFormController.processEntityAction}"
+				<ice:commandButton id="#{entityName}_Save" actionListener="#{entityFormController.processEntityAction}"
 					value="Save">
 					<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
 				</ice:commandButton>

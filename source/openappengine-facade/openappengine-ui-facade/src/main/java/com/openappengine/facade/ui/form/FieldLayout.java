@@ -4,6 +4,10 @@
 package com.openappengine.facade.ui.form;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.openappengine.facade.ui.common.FieldReference;
 
 /**
  * @author hrishikesh.joshi
@@ -14,6 +18,8 @@ public class FieldLayout implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int columns;
+	
+	private List<FieldReference> fieldReferences = new ArrayList<FieldReference>();
 	
 	private static FieldLayout defaultLayout;
 	
@@ -32,5 +38,13 @@ public class FieldLayout implements Serializable {
 
 	public void setColumns(int columns) {
 		this.columns = columns;
+	}
+
+	public List<FieldReference> getFieldReferences() {
+		return fieldReferences;
+	}
+
+	public void setFieldReferences(List<FieldReference> fieldReferences) {
+		this.fieldReferences = fieldReferences;
 	}
 }

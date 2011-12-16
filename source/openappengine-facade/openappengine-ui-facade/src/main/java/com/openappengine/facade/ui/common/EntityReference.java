@@ -16,7 +16,10 @@ public class EntityReference implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum IncludeFields {
-		ALL,PK_FIELDS,NON_PK_FIELDS,REFERENCED;
+		ALL,	//Include All the fields given in the referenced entity definition.
+		PK_FIELDS, //Include All the PK-Fields given in the referenced entity definition.
+		NON_PK_FIELDS, //Include All the Non-PK Fields given in the referenced entity definition.
+		REFERENCED; //Include All the fields referenced entity definition in the field-layout.
 	}
 	
 	/**
@@ -24,6 +27,9 @@ public class EntityReference implements Serializable {
 	 */
 	private String entityName;
 	
+	/**
+	 *  Fields to be included in this form.
+	 */
 	private IncludeFields includeFields = IncludeFields.ALL;
 	
 	public EntityReference(String entityName) {

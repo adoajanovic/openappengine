@@ -4,8 +4,11 @@
 package com.openappengine.facade.ui.form.instance;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.ui.form.FormDefinition;
 
 /**
@@ -26,6 +29,12 @@ public class FormInstance implements Serializable {
 	 */
 	private EntityValue entityValue;
 	
+	/**
+	 *  The actual fieldDefinitions fetched based all the include-mode.
+	 *  //TODO - Handle logic in the Component - entityForm.
+	 */
+	private List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
+	
 	public FormInstance(FormDefinition formDefinition) {
 		this.setFormDefinition(formDefinition);
 	}
@@ -44,6 +53,14 @@ public class FormInstance implements Serializable {
 
 	public void setFormDefinition(FormDefinition formDefinition) {
 		this.formDefinition = formDefinition;
+	}
+
+	public List<FieldDefinition> getFieldDefinitions() {
+		return fieldDefinitions;
+	}
+
+	public void setFieldDefinitions(List<FieldDefinition> fieldDefinitions) {
+		this.fieldDefinitions = fieldDefinitions;
 	}
 	
 }
