@@ -34,7 +34,7 @@
 	      	   <c:set var="formLayout" value="#{formDefinition.formLayout}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
-	           		<openui:entityForm entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{formLayout.columns}">
+	           		<openui:entityForm formInstance="#{formInstance}" entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{formLayout.columns}">
 					</openui:entityForm>	
 	           </h:panelGroup>
 	      	   

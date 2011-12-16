@@ -9,10 +9,9 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:entity="http://www.openappengine.com/tags/entity">
 <f:view>
-	<c:set var="formInstance" value="#{entityFormController.formInstance}" />
 	<c:set var="entityValue" value="#{formInstance.entityValue}" />
+	<c:set var="fields" value="#{formInstance.fieldDefinitions}" />
 	<c:set var="entityDefinition" value="#{entityValue.entityDefinition}" />
-	<c:set var="fields" value="#{entityDefinition.fields}" />
 	<c:set var="formHeader" value="#{ui:getEntityFormHeader(entityName)}" />
 
 	<ice:panelGroup styleClass="entity-form-box">
