@@ -9,41 +9,20 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:entity="http://www.openappengine.com/tags/entity">
 <f:view>
-	<h:head>
-		<link rel="stylesheet" href="/css/themes/base/jquery.ui.all.css" />
-		<script src="/js/jquery-1.6.2.js"></script>
-		<script src="/js/ui/jquery.ui.core.js"></script>
-		<script src="/js/ui/jquery.ui.widget.js"></script>
-		<script src="/js/ui/jquery.ui.button.js"></script>
-	</h:head>
-
-	<c:set var="columns" value="2" />
-
-	<c:if test='#{not empty entityName}'>
-		<c:set var="columns" value="#{formColumns}" />
-	</c:if>
-
-	<c:if test="#{empty entityController}">
-		<c:set var="entityFormController" value="#{entityFormController}" />
-	</c:if>
-
-	<c:set var="entityForm" value="#{entityFormController.entityForm}" />
-
-	<c:set var="entityValue" value="#{entityForm.entityValue}" />
-
+	<c:set var="formInstance" value="#{entityFormController.formInstance}" />
+	<c:set var="entityValue" value="#{formInstance.entityValue}" />
 	<c:set var="entityDefinition" value="#{entityValue.entityDefinition}" />
-	<c:set var="fields" value="#{entityDefinition.getFields()}" />
-
+	<c:set var="fields" value="#{entityDefinition.fields}" />
 	<c:set var="formHeader" value="#{ui:getEntityFormHeader(entityName)}" />
 
 	<ice:panelGroup styleClass="entity-form-box">
 		<ice:form id="#{id}">
 			<ice:messages />
-			<ice:panelGrid id="#{formId}_Grid" columns="#{columns}">
+			<ice:panelGrid id="#{id}_Grid" columns="#{columns}">
 				<f:facet name="header">
 					<ice:outputText value="#{formHeader}" />
 				</f:facet>
-				
+
 				<!-- TODO -->
 				<ice:repeat value="#{fields}" var="field">
 					<ui:entityField entityName="#{entityName}" field="#{field}" />
@@ -51,15 +30,12 @@
 			</ice:panelGrid>
 
 			<ice:panelGrid id="Action" columns="2">
-				<c:if test="#{not entityForm.renderMode.isReadOnlyMode()}">
-					<ice:commandButton id="#{entityName}_Save"
-						actionListener="#{entityFormController.processEntityAction}"
-						value="Save">
-						<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
-					</ice:commandButton>
-				</c:if>
+				<ice:commandButton id="#{entityName}_Save"
+					actionListener="#{entityFormController.processEntityAction}"
+					value="Save">
+					<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
+				</ice:commandButton>
 			</ice:panelGrid>
-			<fac:insert name="ActionButtons" />
 		</ice:form>
 	</ice:panelGroup>
 </f:view>

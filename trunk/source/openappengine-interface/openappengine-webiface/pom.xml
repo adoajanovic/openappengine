@@ -5,6 +5,7 @@
 		<artifactId>openappengine-interface</artifactId>
 		<groupId>com.openappengine</groupId>
 		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.openappengine</groupId>
 	<artifactId>openappengine-webiface</artifactId>
@@ -44,7 +45,7 @@
 			<artifactId>openappengine-ui-facade</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		<!-- 
+		
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-servicedef</artifactId>
@@ -68,8 +69,7 @@
 			<artifactId>openappengine-model</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		 -->
-		
+
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
@@ -127,6 +127,7 @@
 			<version>2.0</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

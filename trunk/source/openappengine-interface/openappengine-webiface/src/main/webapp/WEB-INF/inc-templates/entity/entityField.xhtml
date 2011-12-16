@@ -6,6 +6,7 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:ui="http://www.openappengine.com/tags/ui">
 
+	<!-- UI Text -->
 	<fac:fragment rendered="#{ui:isText(field)}">
 		<ice:column>
 			<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}"
@@ -16,7 +17,7 @@
 			<ice:inputText id="#{field.name}_Input"
 				required="#{field.required}"
 				requiredMessage="#{field.name} cannot be empty."
-				value="#{entityFormController.entityForm.entityValue.instance[field.property]}" />
+				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
 	
