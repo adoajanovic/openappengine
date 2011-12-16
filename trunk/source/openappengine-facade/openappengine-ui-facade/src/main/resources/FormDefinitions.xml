@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form-definitions>
-	<form-definition name="CodeType_RW">
+	<form-definition name="CodeType">
 		<entity-reference entityName="CodeType"/>
 		<form-layout>
 				<columns>2</columns>		

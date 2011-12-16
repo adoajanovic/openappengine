@@ -40,7 +40,7 @@ public class FormFacadeImpl implements FormFacade {
 	
 	protected FormInstance getEmptyValueFormInstance(String formName) {
 		FormDefinition formDefinition = getFormDefinition(formName);
-		Assert.notNull(formDefinition,"FormDefinition not found for :" + formName);
+		Assert.notNull(formDefinition,"FormDefinition not found for form-name:" + formName);
 		
 		FormInstance formInstance = new FormInstance(formDefinition);
 		return formInstance;
