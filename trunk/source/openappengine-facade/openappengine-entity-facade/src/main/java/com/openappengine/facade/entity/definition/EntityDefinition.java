@@ -5,7 +5,9 @@ package com.openappengine.facade.entity.definition;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hrishikesh.joshi
@@ -22,6 +24,8 @@ public class EntityDefinition implements Serializable {
 	private boolean deleteable;
 	
 	private List<FieldDefinition> fields = new ArrayList<FieldDefinition>();
+	
+	private Map<String,FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 
 	public String getEntityName() {
 		return entityName;
@@ -37,6 +41,16 @@ public class EntityDefinition implements Serializable {
 
 	public void setFields(List<FieldDefinition> fields) {
 		this.fields = fields;
+		initFieldDefinitionMap(fields);
+	}
+
+	/**
+	 * @param fields
+	 */
+	protected void initFieldDefinitionMap(List<FieldDefinition> fields) {
+		for (FieldDefinition fieldDefinition : fields) {
+			fieldDefinitionMap.put(fieldDefinition.getName(), fieldDefinition);
+		}
 	}
 
 	public Class<?> getEntityClass() {
@@ -55,4 +69,15 @@ public class EntityDefinition implements Serializable {
 		this.deleteable = deleteable;
 	}
 
+	protected Map<String,FieldDefinition> getFieldDefinitionMap() {
+		return fieldDefinitionMap;
+	}
+
+	protected void setFieldDefinitionMap(Map<String,FieldDefinition> fieldDefinitionMap) {
+		this.fieldDefinitionMap = fieldDefinitionMap;
+	}
+
+	public FieldDefinition getFieldDefinition(String fieldName) {
+		return fieldDefinitionMap.get(fieldName);
+	}
 }

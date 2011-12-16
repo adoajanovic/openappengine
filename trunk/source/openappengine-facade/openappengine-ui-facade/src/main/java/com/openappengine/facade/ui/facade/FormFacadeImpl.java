@@ -4,12 +4,18 @@
 package com.openappengine.facade.ui.facade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.FieldDefinition;
+import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
+import com.openappengine.facade.ui.common.FieldReference;
 import com.openappengine.facade.ui.form.FormDefinition;
 import com.openappengine.facade.ui.form.FormDefinitionCache;
 import com.openappengine.facade.ui.form.instance.FormInstance;
@@ -43,6 +49,19 @@ public class FormFacadeImpl implements FormFacade {
 		Assert.notNull(formDefinition,"FormDefinition not found for form-name:" + formName);
 		
 		FormInstance formInstance = new FormInstance(formDefinition);
+		
+		List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
+		EntityDefinition entityDefinition = entityFacade.findEntityDefinition(formName);
+		if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.REFERENCED)) {
+			List<FieldReference> fieldReferences = formDefinition.getFieldLayout().getFieldReferences();
+			for (FieldReference fieldReference : fieldReferences) {
+				FieldDefinition fieldDefinition = entityDefinition.getFieldDefinition(fieldReference.getFieldName());
+				fieldDefinitions.add(fieldDefinition);
+			}
+		} else if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.ALL)) {
+			fieldDefinitions.addAll(entityDefinition.getFields());
+		} //TODO - Add PK and Non-PK logic
+		formInstance.setFieldDefinitions(fieldDefinitions);
 		return formInstance;
 	}
 
