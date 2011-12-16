@@ -16,7 +16,7 @@ public class FormDefinition {
 	
 	private EntityReference entityReference;
 	
-	private FormLayout formLayout = FormLayout.getDefault();
+	private FieldLayout fieldLayout = FieldLayout.getDefault();
 	
 	private RenderMode renderMode = RenderMode.READ_ONLY;
 	
@@ -36,14 +36,6 @@ public class FormDefinition {
 
 	public void setEntityReference(EntityReference entityReference) {
 		this.entityReference = entityReference;
-	}
-
-	public FormLayout getFormLayout() {
-		return formLayout;
-	}
-
-	public void setFormLayout(FormLayout formLayout) {
-		this.formLayout = formLayout;
 	}
 
 	public RenderMode getRenderMode() {
@@ -85,5 +77,13 @@ public class FormDefinition {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public FieldLayout getFieldLayout() {
+		return fieldLayout;
+	}
+
+	public void setFieldLayout(FieldLayout fieldLayout) {
+		this.fieldLayout = fieldLayout;
 	}
 }

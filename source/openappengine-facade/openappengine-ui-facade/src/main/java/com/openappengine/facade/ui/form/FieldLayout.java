@@ -9,19 +9,19 @@ import java.io.Serializable;
  * @author hrishikesh.joshi
  * @Dec 15, 2011
  */
-public class FormLayout implements Serializable {
+public class FieldLayout implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private int columns;
 	
-	private static FormLayout defaultLayout;
+	private static FieldLayout defaultLayout;
 	
 	/**
-	 * @return {@link FormLayout}
+	 * @return {@link FieldLayout}
 	 */
-	public static FormLayout getDefault() {
-		defaultLayout = new FormLayout();
+	public static FieldLayout getDefault() {
+		defaultLayout = new FieldLayout();
 		defaultLayout.setColumns(2);
 		return defaultLayout;
 	}

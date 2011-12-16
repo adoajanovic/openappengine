@@ -16,8 +16,14 @@ public class FormInstance implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 *  The FormDefinition from which this FormInstance was created.
+	 */
 	private FormDefinition formDefinition;
 	
+	/**
+	 *  The actual entity value.
+	 */
 	private EntityValue entityValue;
 	
 	public FormInstance(FormDefinition formDefinition) {

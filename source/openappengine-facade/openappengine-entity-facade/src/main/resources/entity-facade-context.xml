@@ -7,7 +7,10 @@
 	
 	<import resource="repository-context.xml"/>
 	
-	<bean id="entityDefinitionReader" class="com.openappengine.facade.entity.definition.EntityDefinitionReader">
+	<bean id="fieldTypeDefinitionReader" class="com.openappengine.facade.entity.definition.reader.FieldTypeDefinitionReader"/>
+	
+	<bean id="entityDefinitionReader" class="com.openappengine.facade.entity.definition.reader.EntityDefinitionReader">
+		<property name="fieldTypeDefinitionReader" ref="fieldTypeDefinitionReader"></property>
 		<property name="locations">
 			<array>
 				<value>EntityDefinitions.xml</value>

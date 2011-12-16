@@ -7,9 +7,6 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.Validate;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-
 /**
  * @author hrishikesh.joshi
  * @Dec 15, 2011
@@ -19,9 +16,12 @@ public class EntityReference implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum IncludeFields {
-		ALL,PK_FIELDS,NON_PK_FIELDS;
+		ALL,PK_FIELDS,NON_PK_FIELDS,REFERENCED;
 	}
 	
+	/**
+	 *  Used as a reference to the EntityDefinition keyed by their entity-names. 
+	 */
 	private String entityName;
 	
 	private IncludeFields includeFields = IncludeFields.ALL;

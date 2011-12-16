@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.entity.definition;
+package com.openappengine.facade.entity.definition.reader;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -11,8 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.EntityDefinitionReaderException;
+import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.entity.definition.ui.UIField;
-import com.openappengine.facade.entity.definition.ui.UIFieldFactory;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -22,6 +24,7 @@ import com.openappengine.utility.UtilXml;
 public class EntityDefinitionReader {
 
     private String[] locations;
+	private FieldTypeDefinitionReader fieldTypeDefinitionReader;
 
     /**
      * Init the Reader
@@ -145,12 +148,12 @@ public class EntityDefinitionReader {
 	    }
 	}
 
-	List<? extends Element> uiFieldList = UtilXml.childElementList(fieldElement,"uiField");
-	Element uiFieldElement = uiFieldList.get(0);
+	List<? extends Element> fieldTypeElementList = UtilXml.childElementList(fieldElement,"field-type");
+	Element fieldTypeElement = fieldTypeElementList.get(0);
 	
 	UIField uiField;
-	if (uiFieldElement != null) {
-	    uiField = UIFieldFactory.getUIField(uiFieldElement);
+	if (fieldTypeElement != null) {
+	    uiField = getFieldTypeDefinitionReader().getUIField(fieldTypeElement);
 	    fieldDefinition.setUiField(uiField);
 	} else {
 	    // TODO - Handle as a TextField.
@@ -162,4 +165,12 @@ public class EntityDefinitionReader {
     public void setLocations(String[] locations) {
 	this.locations = locations;
     }
+
+	protected FieldTypeDefinitionReader getFieldTypeDefinitionReader() {
+		return fieldTypeDefinitionReader;
+	}
+
+	public void setFieldTypeDefinitionReader(FieldTypeDefinitionReader fieldTypeDefinitionReader) {
+		this.fieldTypeDefinitionReader = fieldTypeDefinitionReader;
+	}
 }
