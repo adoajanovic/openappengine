@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.openappengine.facade.entity.definition.reader.EntityDefinitionReader;
+
 /**
  * @author hrishikesh.joshi
  *

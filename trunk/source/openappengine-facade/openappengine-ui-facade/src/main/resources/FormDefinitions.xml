@@ -2,9 +2,9 @@
 <form-definitions>
 	<form-definition name="CodeType">
 		<entity-reference entityName="CodeType"/>
-		<form-layout>
+		<field-layout>
 				<columns>2</columns>		
-		</form-layout>
+		</field-layout>
 		<render-mode>READ_WRITE</render-mode>
 		<form-type>SIMPLE</form-type>
 	</form-definition>

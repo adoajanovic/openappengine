@@ -33,19 +33,22 @@ public class FormDefinitionReader {
 		xStream.aliasType("form-definition", FormDefinition.class);
 		xStream.aliasType("render-mode", RenderMode.class);
 		xStream.aliasType("form-type", FormType.class);
-		xStream.aliasType("form-layout", FormLayout.class);
+		xStream.aliasType("form-layout", FieldLayout.class);
 		
 		xStream.addImplicitCollection(FormDefinitionContext.class, "formDefinitions");
 		
 		xStream.aliasField("entity-reference", FormDefinition.class, "entityReference");
-		xStream.aliasField("form-layout", FormDefinition.class, "formLayout");
+		xStream.aliasField("field-layout", FormDefinition.class, "fieldLayout");
 		xStream.aliasField("form-type", FormDefinition.class, "formType");
 		xStream.aliasField("render-mode", FormDefinition.class, "renderMode");
 		
 		xStream.useAttributeFor(FormDefinition.class, "name");
 		xStream.useAttributeFor(EntityReference.class, "entityName");
+		xStream.useAttributeFor(EntityReference.class, "includeFields");
+		
         xStream.aliasField("name", FormDefinition.class, "name");
         xStream.aliasField("entityName", EntityReference.class, "entityName");
+        xStream.aliasField("includeFields", EntityReference.class, "include-fields");
         
 		for (String location : getLocations()) {
 			FormDefinitionContext formDefinitionContext = readFormDefinition(xStream, location);
@@ -78,7 +81,7 @@ public class FormDefinitionReader {
 	protected void test() {
 		FormDefinition formDefinition = new FormDefinition();
 		formDefinition.setEntityReference(new EntityReference("CodeType"));
-		formDefinition.setFormLayout(FormLayout.getDefault());
+		formDefinition.setFieldLayout(FieldLayout.getDefault());
 		formDefinition.setFormType(FormType.SIMPLE);
 		formDefinition.setRenderMode(RenderMode.READ_WRITE);
 
@@ -91,7 +94,7 @@ public class FormDefinitionReader {
 		xStream.addImplicitCollection(FormDefinitionContext.class, "formDefinitions");
 		xStream.aliasType("form-definition", FormDefinition.class);
 		xStream.aliasType("entity-reference", EntityReference.class);
-		xStream.aliasType("form-layout", FormLayout.class);
+		xStream.aliasType("form-layout", FieldLayout.class);
 		xStream.aliasType("render-mode", RenderMode.class);
 		xStream.aliasType("form-type", FormType.class);
 
