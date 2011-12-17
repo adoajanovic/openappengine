@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <groupId>com.openappengine.facade.ui</groupId>
+  <groupId>com.openappengine</groupId>
   <artifactId>openappengine-ui-facade</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>openappengine-ui-facade</name>
