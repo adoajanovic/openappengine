@@ -89,6 +89,11 @@ public class FormDefinitionReader {
 							EntityReference entityReference = formDefinition.getEntityReference();
 							if(entityReference != null) {
 								IncludeFields includeFields = entityReference.getIncludeFields();
+								if(includeFields == null) {
+									includeFields = IncludeFields.ALL;
+									entityReference.setIncludeFields(IncludeFields.ALL);
+								}
+								
 								if(includeFields.equals(IncludeFields.REFERENCED)) {
 									if (formDefinition.getFieldLayout() == null || formDefinition.getFieldLayout().getFieldReferences().isEmpty()) {
 										throw new FormDefinitionException(
