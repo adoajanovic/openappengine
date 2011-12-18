@@ -9,7 +9,7 @@ package com.openappengine.web.annotations;
  */
 public @interface TextArea {
 
-	public int length = 255;
+	public int length = 1000;
 	
 	public boolean richText = false;
 }

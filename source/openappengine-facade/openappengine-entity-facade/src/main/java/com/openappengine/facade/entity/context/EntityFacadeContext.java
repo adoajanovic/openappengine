@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.openappengine.facade.entity.context;
 
 import org.springframework.beans.BeansException;

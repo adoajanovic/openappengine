@@ -9,12 +9,14 @@
 	
 	<!-- Field Type Definition Reader -->
 	<bean id="textFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextFieldDefinitionReader"/>
+	<bean id="textAreaDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextAreaDefinitionReader"/>
 	
 	<bean id="fieldTypeDefinitionReader" class="com.openappengine.facade.entity.definition.reader.FieldTypeDefinitionReader">
 		<property name="uiDefinitionReaders">
 			<map>
 				<entry key="text-field" value-ref="textFieldDefinitionReader"></entry>
-			</map>
+				<entry key="text-area" value-ref="textAreaDefinitionReader"></entry>
+			</map> 
 		</property>
 	</bean>
 	

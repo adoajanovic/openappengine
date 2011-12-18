@@ -20,5 +20,18 @@
 				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
+	<fac:fragment rendered="#{ui:isTextArea(field)}">
+		<ice:column>
+			<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}" id="${fieldName}_LabelTextArea" for="${fieldName}_Input" styleClass="label_Required_#{field.required}"/>
+		</ice:column>
+
+		<ice:column>
+			<ice:inputTextarea id="#{field.name}_InputTextArea"
+				styleClass="inputText"
+				required="#{field.required}"
+				requiredMessage="#{field.name} cannot be empty."
+				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
+		</ice:column>
+	</fac:fragment>
 	
 </f:view>
