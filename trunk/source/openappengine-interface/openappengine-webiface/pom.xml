@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>openappengine-interface</artifactId>
@@ -21,7 +22,7 @@
 		<netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>snapshots</id>
@@ -32,7 +33,7 @@
 			<url>http://download.java.net/maven/2</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.openappengine</groupId>
@@ -45,25 +46,25 @@
 			<artifactId>openappengine-ui-facade</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-servicedef</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-repository</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-utility</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-model</artifactId>
@@ -75,7 +76,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.icefaces</groupId>
 			<artifactId>icefaces-ace</artifactId>
@@ -127,13 +128,13 @@
 			<version>2.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
-		
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -215,7 +216,7 @@
 			<version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -238,6 +239,11 @@
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<inherited>true</inherited>
 				<configuration>
+					<buildcommands>
+					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
+					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
+					</buildcommands>
 					<additionalProjectFacets>
 						<jst.jsf>2.0</jst.jsf>
 					</additionalProjectFacets>
@@ -246,7 +252,11 @@
 					<classpathContainers>
 						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
 						<classpathContainer>org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER</classpathContainer>
+						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container/artifact</classpathContainer>
 					</classpathContainers>
+					<additionalProjectnatures>
+					   <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
 				</configuration>
 			</plugin>
 		</plugins>
