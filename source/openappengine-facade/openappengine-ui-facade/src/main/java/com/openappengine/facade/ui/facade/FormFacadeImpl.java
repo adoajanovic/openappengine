@@ -52,6 +52,7 @@ public class FormFacadeImpl implements FormFacade {
 		
 		List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
 		EntityDefinition entityDefinition = entityFacade.findEntityDefinition(formName);
+		
 		if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.REFERENCED)) {
 			List<FieldReference> fieldReferences = formDefinition.getFieldLayout().getFieldReferences();
 			for (FieldReference fieldReference : fieldReferences) {
@@ -61,6 +62,7 @@ public class FormFacadeImpl implements FormFacade {
 		} else if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.ALL)) {
 			fieldDefinitions.addAll(entityDefinition.getFields());
 		} //TODO - Add PK and Non-PK logic
+		
 		formInstance.setFieldDefinitions(fieldDefinitions);
 		return formInstance;
 	}
