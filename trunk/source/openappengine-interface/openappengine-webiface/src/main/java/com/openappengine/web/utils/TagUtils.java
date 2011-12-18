@@ -35,6 +35,7 @@ import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
+import com.openappengine.facade.entity.definition.ui.UIField;
 import com.openappengine.form.UIForm;
 import com.openappengine.form.UIFormBeanWrapper;
 import com.openappengine.web.ad.ADListItem;
@@ -630,7 +631,14 @@ public class TagUtils {
 		if (field == null || field.getUiField() == null) {
 			return false;
 		}
-		return field.getUiField().getFieldType().equalsIgnoreCase("text-field");
+		return field.getUiField().getFieldType().equalsIgnoreCase(UIField.TEXT_FIELD);
+	}
+	
+	public static boolean isTextArea(FieldDefinition field) {
+		if (field == null || field.getUiField() == null) {
+			return false;
+		}
+		return field.getUiField().getFieldType().equalsIgnoreCase(UIField.TEXT_AREA);
 	}
 
 	public static boolean isAutoIncrement(FieldDefinition fieldDefinition) {

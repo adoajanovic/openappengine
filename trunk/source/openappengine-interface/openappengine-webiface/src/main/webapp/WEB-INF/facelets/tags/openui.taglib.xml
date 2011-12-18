@@ -208,4 +208,12 @@
 			boolean isText(com.openappengine.facade.entity.definition.FieldDefinition)
 		</function-signature>
 	</function>
+		<function>
+		<function-name>isTextArea</function-name>
+		<function-class>com.openappengine.web.utils.TagUtils</function-class>
+		<function-signature>
+			boolean isTextArea(com.openappengine.facade.entity.definition.FieldDefinition)
+		</function-signature>
+	</function>
+	
 </facelet-taglib>

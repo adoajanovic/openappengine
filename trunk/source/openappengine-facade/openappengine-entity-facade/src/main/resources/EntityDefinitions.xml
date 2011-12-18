@@ -7,7 +7,7 @@
 			<field-type type="text-field" />
 		</field>
 		<field name="codeTypeValue" property="codeTypeValue" is-required="true" is-updatable="true" >
-			<field-type type="text-field" length="50"/>
+			<field-type type="text-area" length="50"/>
 		</field>
 	</entity>
 </entities>
