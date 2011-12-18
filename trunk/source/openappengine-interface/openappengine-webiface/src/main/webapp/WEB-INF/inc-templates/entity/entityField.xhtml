@@ -6,6 +6,16 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:ui="http://www.openappengine.com/tags/ui">
 
+	<!-- Is Autoincrement -->	
+	<fac:fragment rendered="#{field.autoincrement}">
+		<ice:column>
+		</ice:column>
+
+		<ice:column>
+			<ice:inputHidden id="#{field.name}_Hidden" value="#{entityFormController.formInstance.entityValue.instance[field.property]}"/>
+		</ice:column>
+	</fac:fragment>
+
 	<!-- UI Text Field -->
 	<fac:fragment rendered="#{ui:isText(field)}">
 		<ice:column>
@@ -13,7 +23,7 @@
 		</ice:column>
 
 		<ice:column>
-			<ice:inputText id="#{field.name}_Input"
+			<ice:inputText id="#{field.name}_TextField"
 				styleClass="inputText"
 				required="#{field.required}"
 				requiredMessage="#{field.name} cannot be empty."

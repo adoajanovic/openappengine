@@ -19,6 +19,8 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 	
 	private String entityName;
 	
+	private Serializable entityId;
+	
 	private EntityDefinition entityDefinition;
 	
 	public EntityValue(String entityName,EntityDefinition entityDefinition,Object object) {
@@ -47,5 +49,13 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 
 	public EntityDefinition getEntityDefinition() {
 	    return entityDefinition;
+	}
+
+	public Serializable getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(Serializable entityId) {
+		this.entityId = entityId;
 	}
 }

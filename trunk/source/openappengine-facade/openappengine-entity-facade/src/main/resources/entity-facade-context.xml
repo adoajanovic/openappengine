@@ -7,14 +7,18 @@
 	
 	<import resource="repository-context.xml"/>
 	
-	<!-- Field Type Definition Reader -->
+	<!-- Start : Custom Field Type Definition Reader -->
+	
 	<bean id="textFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextFieldDefinitionReader"/>
+	<bean id="hiddenFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UIHiddenFieldDefinitionReader"/>
 	<bean id="textAreaDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextAreaDefinitionReader"/>
+	<!-- End : Custom Field Type Definition Reader -->
 	
 	<bean id="fieldTypeDefinitionReader" class="com.openappengine.facade.entity.definition.reader.FieldTypeDefinitionReader">
 		<property name="uiDefinitionReaders">
 			<map>
 				<entry key="text-field" value-ref="textFieldDefinitionReader"></entry>
+				<entry key="hidden-field" value-ref="hiddenFieldDefinitionReader"></entry>
 				<entry key="text-area" value-ref="textAreaDefinitionReader"></entry>
 			</map> 
 		</property>
