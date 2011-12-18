@@ -5,6 +5,7 @@ package com.openappengine.entity;
 
 import java.io.Serializable;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
@@ -58,21 +59,27 @@ public class EntityFormController implements Serializable {
 		formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
 	}
 
-	public void processEntityAction(ActionEvent actionEvent) {
-		if (actionEvent == null) {
-			return;
-		}
-		String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
-		//TODO - Use an ActionDelegator to perform these actions according to the configuration.
-		if (ACTION_SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
-			Object instance = formInstance.getEntityValue().getInstance();
-			logger.info("Saving the EntityValue : " + instance);
-			EntityValue entityValue = (EntityValue) entityFacade.saveEntityValue(formInstance.getEntityValue());
-			formInstance.setEntityValue(entityValue);
-		}
-
+	public String formSubmit() {
+		Object instance = formInstance.getEntityValue().getInstance();
+		logger.info("Saving the EntityValue : " + instance);
+		EntityValue entityValue = (EntityValue) entityFacade.saveEntityValue(formInstance.getEntityValue());
+		formInstance.setEntityValue(entityValue);
+		
+		//"request" is the current HttpServletRequest
+		/*
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    Map<String, String[]> extraParams = new TreeMap<String, String[]>();
+	    extraParams.put("entityId", new String[]{""+entityValue.getEntityId()});
+	    extraParams.put("entityName", new String[]{entityValue.getEntityName()});
+	    HttpServletRequest wrappedRequest = new WebRequestWrapper(request, extraParams);
+	    FacesContext.getCurrentInstance().getExternalContext().setRequest(wrappedRequest);
+	    */
+	    //view.xhtml?faces-redirect=true&includeViewParams=true
+		String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+		viewId += "?faces-redirect=true&includeViewParams=true";
+		return null;
 	}
-
+	
 	public void setEntityFacade(EntityFacade entityFacade) {
 		this.entityFacade = entityFacade;
 	}

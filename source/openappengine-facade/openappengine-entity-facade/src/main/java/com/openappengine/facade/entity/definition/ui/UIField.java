@@ -16,6 +16,11 @@ public class UIField {
 	public static final String TEXT_FIELD = "text-field";
 	public static final String TEXT_AREA = "text-area";
 	
+	/**
+	 *  Hidden Field.
+	 */
+	public static final String HIDDEN_FIELD = "hidden-field";
+	
 	private String fieldType;
 	
 	public UIField(String fieldType) {

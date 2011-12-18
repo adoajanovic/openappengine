@@ -30,12 +30,11 @@
 				</ice:repeat>
 			</ice:panelGrid>
 
-			<ice:panelGrid id="Action" columns="2">
-				<ice:commandButton id="#{entityName}_Save" actionListener="#{entityFormController.processEntityAction}"
-					value="Save">
-					<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
-					<f:param name="formName" value="#{formInstance.formDefinition.name}"></f:param>
-				</ice:commandButton>
+			<ice:panelGrid id="Action_Grid" columns="2">
+				<ice:panelGroup>
+					<ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save" partialSubmit="true">
+					</ice:commandButton>
+				</ice:panelGroup>
 			</ice:panelGrid>
 		</ice:form>
 	</ice:panelGroup>

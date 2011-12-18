@@ -37,9 +37,9 @@ public class EntityFacadeImpl implements EntityFacade {
 	    EntityValue entityValue = createEntityValue(entityName);
 	    if(id != null) {
 		    Session session = hibernateTemplate.getSessionFactory().openSession();
-        	    Object attachedInstance = hibernateTemplate.load(entityValue.getEntityDefinition().getEntityClass(),id);
-        	    entityValue.setInstance(attachedInstance);
-        	    session.flush();
+        	Object attachedInstance = hibernateTemplate.load(entityValue.getEntityDefinition().getEntityClass(),id);
+        	entityValue.setInstance(attachedInstance);
+        	session.flush();
 	    }
 	    return entityValue;
 	}
@@ -51,7 +51,7 @@ public class EntityFacadeImpl implements EntityFacade {
 		return null;
 	    }
 	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
-	    hibernateTemplate.save(entityValue.getInstance());
+	    hibernateTemplate.saveOrUpdate(entityValue.getInstance());
 	    return entityValue;
 	}
 

@@ -25,6 +25,8 @@ public class EntityDefinition implements Serializable {
 	
 	private List<FieldDefinition> fields = new ArrayList<FieldDefinition>();
 	
+	private FieldDefinition primaryKeyField = null;
+	
 	private Map<String,FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 
 	public String getEntityName() {
@@ -79,5 +81,21 @@ public class EntityDefinition implements Serializable {
 
 	public FieldDefinition getFieldDefinition(String fieldName) {
 		return fieldDefinitionMap.get(fieldName);
+	}
+
+	public FieldDefinition getPrimaryKeyField() {
+		if(primaryKeyField == null) {
+			for(FieldDefinition fieldDefinition : fields) {
+				if(fieldDefinition.getUiField() != null && fieldDefinition.isAutoincrement()) {
+					primaryKeyField = fieldDefinition;
+					break;
+				}
+			}
+		}
+		return primaryKeyField;
+	}
+
+	public void setPrimaryKeyField(FieldDefinition primaryKeyField) {
+		this.primaryKeyField = primaryKeyField;
 	}
 }

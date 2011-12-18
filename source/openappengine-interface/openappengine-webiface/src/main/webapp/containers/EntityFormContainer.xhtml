@@ -27,14 +27,14 @@
 					</f:viewParam>
 					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
 				</f:metadata>
-	      	   
+	      	   <!-- 
 	      	   <c:set var="formInstance" value="#{entityFormController.formInstance}" />
 	      	   <c:set var="formDefinition" value="#{formInstance.formDefinition}" />
 	      	   <c:set var="entityValue" value="#{formInstance.entityValue}" />
 	      	   <c:set var="fieldLayout" value="#{formDefinition.fieldLayout}" />
-	      	   
+	      	    -->
 	           <h:panelGroup id="EntityFormDiv">
-	           		<openui:entityForm formInstance="#{formInstance}" entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{fieldLayout.columns}">
+	           		<openui:entityForm formInstance="#{entityFormController.formInstance}" entityName="#{entityFormController.formInstance.entityValue.entityName}" id="#{entityFormController.formInstance.formDefinition.name}_Form" columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
 					</openui:entityForm>	
 	           </h:panelGroup>
 	      	   
