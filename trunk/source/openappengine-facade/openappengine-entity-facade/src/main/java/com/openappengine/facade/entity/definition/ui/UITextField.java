@@ -1,31 +1,24 @@
 package com.openappengine.facade.entity.definition.ui;
 
-import org.w3c.dom.Element;
-
-import com.openappengine.utility.UtilXml;
 
 public class UITextField extends UIField {
 
-    private int length = 10; //TODO DEFAULT
-    
-    /**
-     * @param uiFieldElement
-     */
-    public UITextField(Element uiFieldElement) {
-	super(uiFieldElement);
-	Integer length = UtilXml.readIntegerElementAttribute(uiFieldElement, "length");
-	if(length != null) {
-	    this.length = length.intValue();
+	// TODO - Read default values from a properties file/xml. 
+	private int length = 50; 
+
+	/**
+	 * @param uiFieldElement
+	 */
+	public UITextField() {
+		super(TEXT_FIELD);
 	}
-    }
 
-    public int getLength() {
-	return length;
-    }
+	public int getLength() {
+		return length;
+	}
 
-    public void setLength(int length) {
-	this.length = length;
-    }
-    
-    
+	public void setLength(int length) {
+		this.length = length;
+	}
+
 }

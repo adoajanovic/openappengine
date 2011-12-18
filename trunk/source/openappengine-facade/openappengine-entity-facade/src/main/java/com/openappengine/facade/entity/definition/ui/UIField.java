@@ -3,9 +3,6 @@
  */
 package com.openappengine.facade.entity.definition.ui;
 
-import org.w3c.dom.Element;
-
-import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishikesh.joshi
@@ -13,10 +10,15 @@ import com.openappengine.utility.UtilXml;
  */
 public class UIField {
 	
+	/**
+	 *  Text Field.
+	 */
+	public static final String TEXT_FIELD = "text-field";
+	
 	private String fieldType;
 	
-	public UIField(Element uiFieldElement) {
-	    this.setFieldType(UtilXml.readElementAttribute(uiFieldElement, "type"));
+	public UIField(String fieldType) {
+		this.fieldType = fieldType;
 	}
 
 	public String getFieldType() {

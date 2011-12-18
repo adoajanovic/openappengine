@@ -4,7 +4,7 @@
 	<!-- Code Type -->
 	<entity name="CodeType" class="com.openappengine.model.code.CodeType" is-deleteable="true">
 		<field name="codeTypeId" property="codeTypeId" is-pk="true" is-autoincrement="true" is-required="true" is-updatable="false" >
-			<field-type type="hidden" />
+			<field-type type="text-field" />
 		</field>
 		<field name="codeTypeValue" property="codeTypeValue" is-required="true" is-updatable="true" >
 			<field-type type="text-field" length="50"/>
