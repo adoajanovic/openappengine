@@ -66,9 +66,9 @@ public class EntityFormController implements Serializable {
 		}
 		String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
 		if (ACTION_SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
-			Object instance = entityForm.getEntityValue().getInstance();
+			Object instance = formInstance.getEntityValue().getInstance();
 			logger.info("Saving the EntityValue : " + instance);
-			entityFacade.saveEntityValue(entityForm.getEntityValue());
+			entityFacade.saveEntityValue(formInstance.getEntityValue());
 		}
 
 	}

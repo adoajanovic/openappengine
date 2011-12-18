@@ -14,9 +14,11 @@
 	<c:set var="entityDefinition" value="#{entityValue.entityDefinition}" />
 	<c:set var="formHeader" value="#{ui:getEntityFormHeader(entityName)}" />
 
-	<ice:panelGroup styleClass="entity-form-box">
+	<ice:panelGroup>
 		<ice:form id="#{id}">
-			<ice:messages />
+			<ice:panelGroup>
+				<ice:messages />
+			</ice:panelGroup>
 			<ice:panelGrid id="#{id}_Grid" columns="#{columns}">
 				<f:facet name="header">
 					<ice:outputText value="#{formHeader}" />

@@ -23,7 +23,7 @@
 		      	   -->
 					<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}" 
 						required="true"
-						requiredMessage="Request Parameter : entityName expected">
+						requiredMessage="Request Parameter : formName expected">
 					</f:viewParam>
 					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
 				</f:metadata>
@@ -31,10 +31,10 @@
 	      	   <c:set var="formInstance" value="#{entityFormController.formInstance}" />
 	      	   <c:set var="formDefinition" value="#{formInstance.formDefinition}" />
 	      	   <c:set var="entityValue" value="#{formInstance.entityValue}" />
-	      	   <c:set var="formLayout" value="#{formDefinition.formLayout}" />
+	      	   <c:set var="fieldLayout" value="#{formDefinition.fieldLayout}" />
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
-	           		<openui:entityForm formInstance="#{formInstance}" entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{formLayout.columns}">
+	           		<openui:entityForm formInstance="#{formInstance}" entityName="#{entityValue.entityName}" id="#{formDefinition.name}_Form" columns="#{fieldLayout.columns}">
 					</openui:entityForm>	
 	           </h:panelGroup>
 	      	   

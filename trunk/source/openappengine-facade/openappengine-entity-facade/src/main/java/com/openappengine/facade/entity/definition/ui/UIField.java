@@ -16,7 +16,7 @@ public class UIField {
 	private String fieldType;
 	
 	public UIField(Element uiFieldElement) {
-	    this.setFieldType(UtilXml.readElementAttribute(uiFieldElement, "fieldType"));
+	    this.setFieldType(UtilXml.readElementAttribute(uiFieldElement, "type"));
 	}
 
 	public String getFieldType() {
