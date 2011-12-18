@@ -34,6 +34,7 @@
 				<ice:commandButton id="#{entityName}_Save" actionListener="#{entityFormController.processEntityAction}"
 					value="Save">
 					<f:attribute name="ACTION" value="ACTION_SAVE_OR_UPDATE" />
+					<f:param name="formName" value="#{formInstance.formDefinition.name}"></f:param>
 				</ice:commandButton>
 			</ice:panelGrid>
 		</ice:form>

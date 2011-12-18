@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.entity.EntityFacade;
+import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.ui.context.UIFacadeContext;
 import com.openappengine.facade.ui.facade.FormFacade;
@@ -32,8 +33,6 @@ public class EntityFormController implements Serializable {
 	
 	private EntityFormRequest entityFormRequest;
 
-	private EntityForm entityForm;
-
 	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
 	protected FormFacade formFacade = UIFacadeContext.getUIFacade();
@@ -48,7 +47,6 @@ public class EntityFormController implements Serializable {
 	public EntityFormController() {
 		registerEntityFormLifecycleListener();
 		entityFormRequest = new EntityFormRequest();
-		entityForm = new EntityForm();
 	}
 
 	protected void registerEntityFormLifecycleListener() {
@@ -65,10 +63,12 @@ public class EntityFormController implements Serializable {
 			return;
 		}
 		String action = (String) actionEvent.getComponent().getAttributes().get("ACTION");
+		//TODO - Use an ActionDelegator to perform these actions according to the configuration.
 		if (ACTION_SAVE_OR_UPDATE.equalsIgnoreCase(action)) {
 			Object instance = formInstance.getEntityValue().getInstance();
 			logger.info("Saving the EntityValue : " + instance);
-			entityFacade.saveEntityValue(formInstance.getEntityValue());
+			EntityValue entityValue = (EntityValue) entityFacade.saveEntityValue(formInstance.getEntityValue());
+			formInstance.setEntityValue(entityValue);
 		}
 
 	}
@@ -83,14 +83,6 @@ public class EntityFormController implements Serializable {
 
 	protected void setEntityFormPhaseListener(EntityFormPhaseListener entityFormPhaseListener) {
 		this.entityFormPhaseListener = entityFormPhaseListener;
-	}
-
-	public EntityForm getEntityForm() {
-		return entityForm;
-	}
-
-	public void setEntityForm(EntityForm entityForm) {
-		this.entityForm = entityForm;
 	}
 
 	public FormInstance getFormInstance() {
