@@ -13,7 +13,9 @@
       <ui:define name="page-content">
       		<f:view>
       			<!-- Register Entity Form Phase Listener -->
+      			<!-- 
       			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
+      			 -->
       			
       			<!--  Metadata Params for this View -->
       			<f:metadata>
@@ -26,15 +28,15 @@
 						requiredMessage="Request Parameter : formName expected">
 					</f:viewParam>
 					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
+					<f:event listener="#{entityFormController.processRequestParameters}" type="preRenderView"></f:event>
 				</f:metadata>
-	      	   <!-- 
-	      	   <c:set var="formInstance" value="#{entityFormController.formInstance}" />
-	      	   <c:set var="formDefinition" value="#{formInstance.formDefinition}" />
-	      	   <c:set var="entityValue" value="#{formInstance.entityValue}" />
-	      	   <c:set var="fieldLayout" value="#{formDefinition.fieldLayout}" />
-	      	    -->
+	      	   
 	           <h:panelGroup id="EntityFormDiv">
 	           		<openui:entityForm formInstance="#{entityFormController.formInstance}" entityName="#{entityFormController.formInstance.entityValue.entityName}" id="#{entityFormController.formInstance.formDefinition.name}_Form" columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
+	           			<ui:define name="actions">
+	           				<ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save" partialSubmit="true">
+							</ice:commandButton>
+	           			</ui:define>
 					</openui:entityForm>	
 	           </h:panelGroup>
 	      	   
