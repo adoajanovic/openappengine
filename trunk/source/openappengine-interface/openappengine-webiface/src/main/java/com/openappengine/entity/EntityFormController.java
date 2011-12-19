@@ -4,6 +4,7 @@
 package com.openappengine.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.context.FacesContext;
 
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.ui.context.UIFacadeContext;
 import com.openappengine.facade.ui.facade.FormFacade;
 import com.openappengine.facade.ui.form.instance.FormInstance;
@@ -48,12 +50,7 @@ public class EntityFormController implements Serializable {
 
 	public EntityFormController() {
 		registerEntityFormLifecycleListener();
-		if(state.equals("draft")) {
-			entityFormRequest = new EntityFormRequest();
-			entityFormRequest.setFormName("CodeType");
-			formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
-			state= "modified";
-		}
+		entityFormRequest = new EntityFormRequest();
 	}
 
 	protected void registerEntityFormLifecycleListener() {
@@ -84,9 +81,18 @@ public class EntityFormController implements Serializable {
 	    FacesContext.getCurrentInstance().getExternalContext().setRequest(wrappedRequest);
 	    */
 	    //view.xhtml?faces-redirect=true&includeViewParams=true
+		
+		List<FieldDefinition> pkFields = entityValue.getEntityDefinition().getPKFields();
+		StringBuffer sb = new StringBuffer();
+	    for (FieldDefinition pkField : pkFields) {
+	    	sb.append(pkField.getName() + "=" + entityValue.get(pkField.getName()));
+		}
+		
+	    //TODO - Move to a delegate/NavigationHandler.
 		String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-		viewId += "?faces-redirect=true&includeViewParams=true";
-		return null;
+		viewId += "?faces-redirect=true&formName="+formInstance.getFormDefinition().getName();
+		viewId += "&" + sb.toString();
+		return viewId;
 	}
 	
 	public void setEntityFacade(EntityFacade entityFacade) {

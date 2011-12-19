@@ -23,7 +23,11 @@
 	
 	<bean id="formController" class="com.openappengine.form.controller.FormController" scope="session"/>
 	
+	<bean id="formInstance" class="com.openappengine.facade.ui.form.instance.FormInstance" scope="session">
+	</bean>
+	
 	<bean id="entityFormController" class="com.openappengine.entity.EntityFormController" scope="session">
+		<property name="formInstance" ref="formInstance"></property>
 	</bean>
 	
 </beans>
