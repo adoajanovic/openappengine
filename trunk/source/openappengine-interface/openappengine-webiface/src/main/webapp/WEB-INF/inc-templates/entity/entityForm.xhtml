@@ -9,11 +9,6 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:entity="http://www.openappengine.com/tags/entity">
 <f:view>
-	<c:set var="entityValue" value="#{formInstance.entityValue}" />
-	<c:set var="fields" value="#{formInstance.fieldDefinitions}" />
-	<c:set var="entityDefinition" value="#{entityValue.entityDefinition}" />
-	<c:set var="formHeader" value="#{ui:getEntityFormHeader(entityName)}" />
-
 	<ice:panelGroup>
 		<ice:form id="#{id}">
 			<ice:panelGroup>
@@ -21,21 +16,17 @@
 			</ice:panelGroup>
 			<ice:panelGrid id="#{id}_Grid" columns="#{columns}">
 				<f:facet name="header">
-					<ice:outputText value="#{formHeader}" />
+					<ice:outputText value="#{ui:getEntityFormHeader(entityName)}" />
 				</f:facet>
 
 				<!-- TODO -->
-				<ice:repeat value="#{fields}" var="fieldDefinition">
+				<ice:repeat value="#{formInstance.fieldDefinitions}" var="fieldDefinition">
 					<ui:entityField entityName="#{entityName}" field="#{fieldDefinition}" />
 				</ice:repeat>
 			</ice:panelGrid>
-
-			<ice:panelGrid id="Action_Grid" columns="2">
-				<ice:panelGroup>
-					<ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save" partialSubmit="true">
-					</ice:commandButton>
-				</ice:panelGroup>
-			</ice:panelGrid>
+			
+			<fac:insert name="actions"/>
+			
 		</ice:form>
 	</ice:panelGroup>
 </f:view>

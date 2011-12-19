@@ -6,7 +6,6 @@ package com.openappengine.entity;
 import java.io.Serializable;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
@@ -32,6 +31,8 @@ public class EntityFormController implements Serializable {
 
 	public static final String ACTION_SAVE = "ACTION_SAVE";
 	
+	private String state = "draft";
+	
 	private EntityFormRequest entityFormRequest;
 
 	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
@@ -47,16 +48,24 @@ public class EntityFormController implements Serializable {
 
 	public EntityFormController() {
 		registerEntityFormLifecycleListener();
-		entityFormRequest = new EntityFormRequest();
+		if(state.equals("draft")) {
+			entityFormRequest = new EntityFormRequest();
+			entityFormRequest.setFormName("CodeType");
+			formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
+			state= "modified";
+		}
 	}
 
 	protected void registerEntityFormLifecycleListener() {
 		setEntityFormPhaseListener(new EntityFormPhaseListener(this));
 	}
 
-	@PreRenderView
+	//@PreRenderView
 	public void processRequestParameters() {
-		formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
+		if(state.equals("draft")) {
+			formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
+			state= "modified";
+		}
 	}
 
 	public String formSubmit() {

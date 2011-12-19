@@ -5,12 +5,13 @@
 	xmlns:entity="http://www.openappengine.com/tags/entity"
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:ui="http://www.openappengine.com/tags/ui">
-
+	
+	<ice:column rendered="#{not field.autoincrement}">
+			<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}" id="${fieldName}_Label" for="${fieldName}_Input" styleClass="label_Required_#{field.required}"/>
+	</ice:column>
+		
 	<!-- Is Autoincrement -->	
 	<fac:fragment rendered="#{field.autoincrement}">
-		<ice:column>
-		</ice:column>
-
 		<ice:column>
 			<ice:inputHidden id="#{field.name}_Hidden" value="#{entityFormController.formInstance.entityValue.instance[field.property]}"/>
 		</ice:column>
@@ -19,10 +20,6 @@
 	<!-- UI Text Field -->
 	<fac:fragment rendered="#{ui:isText(field)}">
 		<ice:column>
-			<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}" id="${fieldName}_Label" for="${fieldName}_Input" styleClass="label_Required_#{field.required}"/>
-		</ice:column>
-
-		<ice:column>
 			<ice:inputText id="#{field.name}_TextField"
 				styleClass="inputText"
 				required="#{field.required}"
@@ -30,11 +27,9 @@
 				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
+	
+	<!-- UI Text Area -->
 	<fac:fragment rendered="#{ui:isTextArea(field)}">
-		<ice:column>
-			<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}" id="${fieldName}_LabelTextArea" for="${fieldName}_Input" styleClass="label_Required_#{field.required}"/>
-		</ice:column>
-
 		<ice:column>
 			<ice:inputTextarea id="#{field.name}_InputTextArea"
 				styleClass="inputText"
