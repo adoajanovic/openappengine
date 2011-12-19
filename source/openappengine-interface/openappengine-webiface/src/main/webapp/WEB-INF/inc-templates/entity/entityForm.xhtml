@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<f:subview id="form_#{entityName}" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -8,26 +8,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:entity="http://www.openappengine.com/tags/entity">
-<f:view>
 	<ice:panelGroup>
 		<ice:form id="#{id}">
 			<ice:panelGroup>
 				<ice:messages />
 			</ice:panelGroup>
+			
 			<ice:panelGrid id="#{id}_Grid" columns="#{columns}">
 				<f:facet name="header">
 					<ice:outputText value="#{ui:getEntityFormHeader(entityName)}" />
 				</f:facet>
 
 				<!-- TODO -->
-				<ice:repeat value="#{formInstance.fieldDefinitions}" var="fieldDefinition">
-					<ui:entityField entityName="#{entityName}" field="#{fieldDefinition}" />
+				<ice:repeat value="#{formInstance.fieldDefinitions}"
+					var="fieldDefinition">
+					<ui:entityField entityName="#{entityName}"
+						field="#{fieldDefinition}" />
 				</ice:repeat>
 			</ice:panelGrid>
-			
-			<fac:insert name="actions"/>
-			
+
+			<fac:insert name="actions" />
+
 		</ice:form>
 	</ice:panelGroup>
-</f:view>
-</html>
+</f:subview>

@@ -13,33 +13,31 @@
       <ui:define name="page-content">
       		<f:view>
       			<!-- Register Entity Form Phase Listener -->
-      			<!-- 
-      			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
-      			 -->
       			
-      			<!--  Metadata Params for this View -->
+      			<!-- TODO : Find an alternative to this. -->
+      			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
+      			
+      			<!-- Metadata Params for this View -->
       			<f:metadata>
 		      		<!-- 
 			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
 			      	   we expect that the EntityName and EntityId is passed as request params 
-		      	   -->
+		      	    -->
 					<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}" 
 						required="true"
 						requiredMessage="Request Parameter : formName expected">
 					</f:viewParam>
 					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
-					<f:event listener="#{entityFormController.processRequestParameters}" type="preRenderView"></f:event>
 				</f:metadata>
 	      	   
 	           <h:panelGroup id="EntityFormDiv">
 	           		<openui:entityForm formInstance="#{entityFormController.formInstance}" entityName="#{entityFormController.formInstance.entityValue.entityName}" id="#{entityFormController.formInstance.formDefinition.name}_Form" columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
 	           			<ui:define name="actions">
-	           				<ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save" partialSubmit="true">
-							</ice:commandButton>
+			   <ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save">
+			   </ice:commandButton>
 	           			</ui:define>
 					</openui:entityForm>	
 	           </h:panelGroup>
-	      	   
       		</f:view>
       </ui:define>
 </ui:composition>
