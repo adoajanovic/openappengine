@@ -4,6 +4,7 @@
 package com.openappengine.facade.entity;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 
@@ -32,6 +33,13 @@ public interface EntityFacade {
 	 * @return
 	 */
 	EntityValue createEntityValue(String entityName,Serializable id);
+	
+	/**
+	 * @param entityName
+	 * @param parameters
+	 * @return
+	 */
+	public EntityValue createEntityValue(String entityName,Map<String,Object> parameters);
 	
 	/**
 	 * Save {@link EntityValue}.

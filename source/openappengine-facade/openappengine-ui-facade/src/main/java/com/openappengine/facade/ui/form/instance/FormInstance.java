@@ -5,7 +5,9 @@ package com.openappengine.facade.ui.form.instance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.FieldDefinition;
@@ -34,6 +36,8 @@ public class FormInstance implements Serializable {
 	 *  //TODO - Handle logic in the Component - entityForm.
 	 */
 	private List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
+	
+	private Map<String, FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 	
 	public FormInstance(FormDefinition formDefinition) {
 		this.setFormDefinition(formDefinition);
@@ -67,6 +71,23 @@ public class FormInstance implements Serializable {
 
 	public void setFieldDefinitions(List<FieldDefinition> fieldDefinitions) {
 		this.fieldDefinitions = fieldDefinitions;
+		if(fieldDefinitions != null) {
+			for (FieldDefinition fieldDefinition : fieldDefinitions) {
+				fieldDefinitionMap.put(fieldDefinition.getName(), fieldDefinition);
+			}
+		}
+	}
+
+	public Map<String, FieldDefinition> getFieldDefinitionMap() {
+		return fieldDefinitionMap;
+	}
+
+	protected void setFieldDefinitionMap(Map<String, FieldDefinition> fieldDefinitionMap) {
+		this.fieldDefinitionMap = fieldDefinitionMap;
+	}
+	
+	public FieldDefinition getFieldDefinition(String fieldName) {
+		return fieldDefinitionMap.get(fieldName);
 	}
 	
 }

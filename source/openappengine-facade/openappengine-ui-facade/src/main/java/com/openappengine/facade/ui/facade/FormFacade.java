@@ -4,6 +4,7 @@
 package com.openappengine.facade.ui.facade;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.openappengine.facade.ui.form.FormDefinition;
 import com.openappengine.facade.ui.form.instance.FormInstance;
@@ -32,4 +33,11 @@ public interface FormFacade extends Serializable {
 	 * @return
 	 */
 	FormInstance getFormInstance(String formName,Serializable entityId);
+	
+	/**
+	 * @param formName
+	 * @param properties
+	 * @return
+	 */
+	FormInstance getFormInstance(String formName,Map<String,Object> properties);
 }
