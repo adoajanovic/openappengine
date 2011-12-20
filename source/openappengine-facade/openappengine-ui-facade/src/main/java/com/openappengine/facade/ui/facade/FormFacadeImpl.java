@@ -79,7 +79,7 @@ public class FormFacadeImpl implements FormFacade {
 	
 	public FormInstance getFormInstance(String formName,Map<String,Object> properties) {
 		FormInstance formInstance = getFormInstance(formName);
-		EntityValue entityValue = entityFacade.createEntityValue(formInstance.getFormDefinition().getName(), properties);
+		EntityValue entityValue = entityFacade.findUniqueEntityValue(formInstance.getFormDefinition().getName(), properties);
 		formInstance.setEntityValue(entityValue);
 		return formInstance;
 	}

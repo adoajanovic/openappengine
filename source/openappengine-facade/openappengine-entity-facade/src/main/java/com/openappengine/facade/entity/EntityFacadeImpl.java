@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.classic.Session;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,11 +53,43 @@ public class EntityFacadeImpl implements EntityFacade {
 	    return entityValue;
 	}
 	
-	public EntityValue createEntityValue(String entityName,Map<String,Object> parameters) {
+	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
 	    EntityValue entityValue = createEntityValue(entityName);
 	    EntityDefinition entityDefinition = entityValue.getEntityDefinition();
 	    Class<?> entityClass = entityDefinition.getEntityClass();
-	    StringBuffer hql = new StringBuffer("from " + entityName);
+		List list = findByPropertyValues(entityClass, parameters);
+	    
+	    List<EntityValue> entityValues = new ArrayList<EntityValue>();
+	    if(list != null && !list.isEmpty()) {
+	    	for(Object object : list) {
+	    		entityValue = createEntityValue(entityName);
+	    		entityValue.setInstance(object);
+	    		entityValues.add(entityValue);
+	    	}
+	    }
+	    return entityValues;
+	}
+	
+	public EntityValue findUniqueEntityValue(String entityName,Map<String,Object> parameters) {
+	    EntityValue entityValue = createEntityValue(entityName);
+	    EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+	    Class<?> entityClass = entityDefinition.getEntityClass();
+	    List list = findByPropertyValues(entityClass, parameters);
+	    if(list != null && !list.isEmpty()) {
+	    	Object instance = list.get(0);
+	    	entityValue.setInstance(instance);
+	    }
+	    return entityValue;
+	}
+
+	/**
+	 * @param entityName
+	 * @param parameters
+	 * @return
+	 * @throws DataAccessException
+	 */
+	protected List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException {
+	    StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName());
 	    List list;
 	    if(parameters != null) {
 	    	hql.append(" where ");
@@ -66,7 +99,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	    	
 	    	Iterator<String> iterator = params.iterator();
 	    	boolean hasNext = iterator.hasNext();
-	    	if(hasNext) {
+	    	while(hasNext) {
 	    		String param = iterator.next();
 	    		paramList.add(param);
 	    		
@@ -100,11 +133,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	    } else {
 	    	list = hibernateTemplate.find(hql.toString());
 	    }
-	    if(list != null && !list.isEmpty()) {
-	    	Object instance = list.get(0);
-	    	entityValue.setInstance(instance);
-	    }
-	    return entityValue;
+		return list;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)

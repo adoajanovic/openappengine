@@ -5,6 +5,7 @@ package com.openappengine.entity;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,21 +88,19 @@ public class EntityFormController implements Serializable {
 		EntityValue entityValue = (EntityValue) entityFacade.saveEntityValue(formInstance.getEntityValue());
 		formInstance.setEntityValue(entityValue);
 		
-		//"request" is the current HttpServletRequest
-		/*
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-	    Map<String, String[]> extraParams = new TreeMap<String, String[]>();
-	    extraParams.put("entityId", new String[]{""+entityValue.getEntityId()});
-	    extraParams.put("entityName", new String[]{entityValue.getEntityName()});
-	    HttpServletRequest wrappedRequest = new WebRequestWrapper(request, extraParams);
-	    FacesContext.getCurrentInstance().getExternalContext().setRequest(wrappedRequest);
-	    */
-	    //view.xhtml?faces-redirect=true&includeViewParams=true
-		
 		List<FieldDefinition> pkFields = entityValue.getEntityDefinition().getPKFields();
 		StringBuffer sb = new StringBuffer();
-	    for (FieldDefinition pkField : pkFields) {
-	    	sb.append(pkField.getName() + "=" + entityValue.get(pkField.getName()));
+		
+		Iterator<FieldDefinition> iterator = pkFields.iterator();
+		boolean hasNext = iterator.hasNext();
+		while(hasNext) {
+			FieldDefinition pkField = iterator.next();
+			sb.append(pkField.getName() + "=" + entityValue.get(pkField.getName()));
+			
+			hasNext = iterator.hasNext();
+			if(hasNext) {
+				sb.append("&");
+			}
 		}
 		
 	    //TODO - Move to a delegate/NavigationHandler.

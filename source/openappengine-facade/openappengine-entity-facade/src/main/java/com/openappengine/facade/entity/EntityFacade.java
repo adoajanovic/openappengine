@@ -39,7 +39,7 @@ public interface EntityFacade {
 	 * @param parameters
 	 * @return
 	 */
-	public EntityValue createEntityValue(String entityName,Map<String,Object> parameters);
+	public EntityValue findUniqueEntityValue(String entityName,Map<String,Object> parameters);
 	
 	/**
 	 * Save {@link EntityValue}.
