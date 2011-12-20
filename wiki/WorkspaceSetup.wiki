@@ -22,8 +22,7 @@
   # Create a New Launch Configuration from the top and name it "Full Build"
   # In the window, enter the location of your base directory, where your parent pom.xml is present.
   # In the goals enter *clean install eclipse:clean eclipse:eclipse* 
-(if running from CMD enter 
-*mvn clean install eclipse:clean eclipse:eclipse -DskipTests=true -Declipse.workspace=<Path>*)
+(if running from CMD enter mvn clean install eclipse:clean eclipse:eclipse -DskipTests=true -Declipse.workspace=<Path>*)
   # Check the 'Skip Tests' box.
   # Click on Apply and then click on Debug.
   # All the projects will be built, now refresh the workspace.
