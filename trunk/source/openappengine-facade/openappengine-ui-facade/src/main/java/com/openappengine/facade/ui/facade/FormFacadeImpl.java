@@ -6,6 +6,7 @@ package com.openappengine.facade.ui.facade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.util.Assert;
 
@@ -72,6 +73,13 @@ public class FormFacadeImpl implements FormFacade {
 		FormInstance formInstance = getEmptyValueFormInstance(formName);
 		String entityName = formInstance.getFormDefinition().getEntityReference().getEntityName();
 		EntityValue entityValue = entityFacade.createEntityValue(entityName);
+		formInstance.setEntityValue(entityValue);
+		return formInstance;
+	}
+	
+	public FormInstance getFormInstance(String formName,Map<String,Object> properties) {
+		FormInstance formInstance = getFormInstance(formName);
+		EntityValue entityValue = entityFacade.createEntityValue(formInstance.getFormDefinition().getName(), properties);
 		formInstance.setEntityValue(entityValue);
 		return formInstance;
 	}

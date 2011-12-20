@@ -4,7 +4,10 @@
 package com.openappengine.entity;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
@@ -60,7 +63,20 @@ public class EntityFormController implements Serializable {
 	@PreRenderView
 	public void processRequestParameters() {
 		if(state.equals("draft")) {
-			formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());
+			Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+			Map<String,Object> entityRequestParams = new HashMap<String, Object>();
+			if(requestParameterMap != null) {
+				String formName = requestParameterMap.get("formName");
+				formInstance = formFacade.getFormInstance(formName);
+				Set<String> requestParams = requestParameterMap.keySet();
+				for (String requestParam : requestParams) {
+					if(formInstance.getFieldDefinition(requestParam) != null) {
+						FieldDefinition fieldDefinition = formInstance.getFieldDefinition(requestParam);
+						entityRequestParams.put(fieldDefinition.getName(), requestParameterMap.get(requestParam));
+					}
+				}
+				formInstance = formFacade.getFormInstance(formName, entityRequestParams);
+			}
 			state= "modified";
 		}
 	}

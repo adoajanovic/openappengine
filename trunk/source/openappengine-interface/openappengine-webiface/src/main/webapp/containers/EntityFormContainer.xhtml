@@ -15,18 +15,15 @@
 		<!-- Metadata Params for this View -->
 		<f:metadata>
 			<!-- 
-			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
-			      	   we expect that the EntityName and EntityId is passed as request params 
-		      	    -->
-			<f:viewParam name="formName"
-				value="#{entityFormController.entityFormRequest.formName}">
+			   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
+			   we expect that the EntityName and EntityId is passed as request params 
+		     -->
+			<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}">
 			</f:viewParam>
-			<f:viewParam name="entityId"
-				value="#{entityFormController.entityFormRequest.entityId}" />
+			<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}" />
 
 			<!-- TODO : Find an alternative to this. -->
-			<f:phaseListener
-				binding="#{entityFormController.entityFormPhaseListener}" />
+			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
 		</f:metadata>
 
 		<h:panelGroup id="EntityFormDiv">
