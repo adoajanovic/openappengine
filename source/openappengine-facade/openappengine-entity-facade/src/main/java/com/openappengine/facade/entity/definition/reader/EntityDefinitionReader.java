@@ -88,9 +88,7 @@ public class EntityDefinitionReader {
 		}
 	    }
 	} catch (Exception e) {
-	    throw new EntityDefinitionReaderException(
-		    "Exception encountered while reading from the classpath location : "
-			    + location);
+	    throw new EntityDefinitionReaderException("Exception encountered while reading from the classpath location : "+ location,e);
 	}
 	
 	return entityDefinitions;

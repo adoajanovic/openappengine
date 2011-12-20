@@ -25,7 +25,7 @@ public class EntityDefinition implements Serializable {
 	
 	private List<FieldDefinition> fields = new ArrayList<FieldDefinition>();
 	
-	private FieldDefinition primaryKeyField = null;
+	private List<FieldDefinition> pkFields = new ArrayList<FieldDefinition>();
 	
 	private Map<String,FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 
@@ -43,15 +43,25 @@ public class EntityDefinition implements Serializable {
 
 	public void setFields(List<FieldDefinition> fields) {
 		this.fields = fields;
-		initFieldDefinitionMap(fields);
+		processFieldDefinitions(fields);
 	}
 
 	/**
 	 * @param fields
 	 */
-	protected void initFieldDefinitionMap(List<FieldDefinition> fields) {
+	protected void processFieldDefinitions(List<FieldDefinition> fields) {
 		for (FieldDefinition fieldDefinition : fields) {
 			fieldDefinitionMap.put(fieldDefinition.getName(), fieldDefinition);
+			addPKFields(fieldDefinition);
+		}
+	}
+
+	/**
+	 * @param fieldDefinition
+	 */
+	protected void addPKFields(FieldDefinition fieldDefinition) {
+		if(fieldDefinition.isPk()) {
+			pkFields.add(fieldDefinition);
 		}
 	}
 
@@ -83,19 +93,11 @@ public class EntityDefinition implements Serializable {
 		return fieldDefinitionMap.get(fieldName);
 	}
 
-	public FieldDefinition getPrimaryKeyField() {
-		if(primaryKeyField == null) {
-			for(FieldDefinition fieldDefinition : fields) {
-				if(fieldDefinition.getUiField() != null && fieldDefinition.isAutoincrement()) {
-					primaryKeyField = fieldDefinition;
-					break;
-				}
-			}
-		}
-		return primaryKeyField;
+	public List<FieldDefinition> getPKFields() {
+		return pkFields;
 	}
 
-	public void setPrimaryKeyField(FieldDefinition primaryKeyField) {
-		this.primaryKeyField = primaryKeyField;
+	public void setPrimaryKeyField(List<FieldDefinition> primaryKeyFields) {
+		this.pkFields = primaryKeyFields;
 	}
 }

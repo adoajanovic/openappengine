@@ -4,6 +4,7 @@
 package com.openappengine.facade.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
+import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.utility.UtilLogger;
 
 /**
@@ -46,12 +48,14 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public EntityValue saveEntityValue(EntityValue entityValue) {
-	    if(entityValue == null || entityValue.getInstance() == null) {
+	    Object instance = entityValue.getInstance();
+		if(entityValue == null || instance == null) {
 		logger.logDebug("EntityValue found null. EntityValue cannot be persisted.");
 		return null;
 	    }
 	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
-	    hibernateTemplate.saveOrUpdate(entityValue.getInstance());
+	    hibernateTemplate.saveOrUpdate(instance);
+	    entityValue.setInstance(instance);
 	    return entityValue;
 	}
 
