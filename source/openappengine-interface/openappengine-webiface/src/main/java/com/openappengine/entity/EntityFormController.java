@@ -57,7 +57,7 @@ public class EntityFormController implements Serializable {
 		setEntityFormPhaseListener(new EntityFormPhaseListener(this));
 	}
 
-	//@PreRenderView
+	@PreRenderView
 	public void processRequestParameters() {
 		if(state.equals("draft")) {
 			formInstance = formFacade.getFormInstance(entityFormRequest.getFormName(), entityFormRequest.getEntityId());

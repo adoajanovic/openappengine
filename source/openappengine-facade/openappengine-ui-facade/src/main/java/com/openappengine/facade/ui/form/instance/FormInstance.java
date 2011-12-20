@@ -39,6 +39,12 @@ public class FormInstance implements Serializable {
 		this.setFormDefinition(formDefinition);
 	}
 
+	/**
+	 * 
+	 */
+	public FormInstance() {
+	}
+
 	public EntityValue getEntityValue() {
 		return entityValue;
 	}
