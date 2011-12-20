@@ -2,42 +2,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      template="/templates/page-template.xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:openui="http://www.openappengine.com/tags/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-      
-      <ui:define name="page-content">
-      		<f:view>
-      			<!-- Register Entity Form Phase Listener -->
-      			
-      			<!-- TODO : Find an alternative to this. -->
-      			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
-      			
-      			<!-- Metadata Params for this View -->
-      			<f:metadata>
-		      		<!-- 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/page-template.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:openui="http://www.openappengine.com/tags/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="page-content">
+		<f:subview id="EntityFormContainer" >
+		<!-- Metadata Params for this View -->
+		<f:metadata>
+			<!-- 
 			      	   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
 			      	   we expect that the EntityName and EntityId is passed as request params 
 		      	    -->
-					<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}" 
-						required="true"
-						requiredMessage="Request Parameter : formName expected">
-					</f:viewParam>
-					<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}"/>
-				</f:metadata>
-	      	   
-	           <h:panelGroup id="EntityFormDiv">
-	           		<openui:entityForm formInstance="#{entityFormController.formInstance}" entityName="#{entityFormController.formInstance.entityValue.entityName}" id="#{entityFormController.formInstance.formDefinition.name}_Form" columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
-	           			<ui:define name="actions">
-			   <ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save">
-			   </ice:commandButton>
-	           			</ui:define>
-					</openui:entityForm>	
-	           </h:panelGroup>
-      		</f:view>
-      </ui:define>
+			<f:viewParam name="formName"
+				value="#{entityFormController.entityFormRequest.formName}">
+			</f:viewParam>
+			<f:viewParam name="entityId"
+				value="#{entityFormController.entityFormRequest.entityId}" />
+
+			<!-- TODO : Find an alternative to this. -->
+			<f:phaseListener
+				binding="#{entityFormController.entityFormPhaseListener}" />
+		</f:metadata>
+
+		<h:panelGroup id="EntityFormDiv">
+			<openui:entityForm
+				formInstance="#{entityFormController.formInstance}"
+				entityName="#{entityFormController.formInstance.entityValue.entityName}"
+				id="#{entityFormController.formInstance.formDefinition.name}_Form"
+				columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
+				<ui:define name="actions">
+					<ice:commandButton id="#{entityName}_Save"
+						action="#{entityFormController.formSubmit}" value="Save">
+					</ice:commandButton>
+				</ui:define>
+			</openui:entityForm>
+		</h:panelGroup>
+		</f:subview>
+	</ui:define>
 </ui:composition>

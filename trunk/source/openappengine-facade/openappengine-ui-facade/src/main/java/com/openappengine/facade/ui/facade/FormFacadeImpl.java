@@ -48,7 +48,8 @@ public class FormFacadeImpl implements FormFacade {
 		FormDefinition formDefinition = getFormDefinition(formName);
 		Assert.notNull(formDefinition,"FormDefinition not found for form-name:" + formName);
 		
-		FormInstance formInstance = new FormInstance(formDefinition);
+		FormInstance formInstance = new FormInstance();
+		formInstance.setFormDefinition(formDefinition);
 		
 		List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
 		EntityDefinition entityDefinition = entityFacade.findEntityDefinition(formName);

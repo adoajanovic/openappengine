@@ -10,39 +10,17 @@ import org.springframework.beans.factory.config.Scope;
 
 public class ViewScope implements Scope {
 
-	public final String VIEW_SCOPE_KEY = "VIEW_SCOPE";
-	
 	public Object get(String name, ObjectFactory<?> objectFactory) {
 		
-		if (FacesContext.getCurrentInstance().getViewRoot() != null) {
-			Map<String, Object> viewScope = extractViewScope();
-			
-			if (viewScope.get(name) == null) {
-				Object object = objectFactory.getObject();
-				viewScope.put(name, object);
-				return object;
-			} else {
-				return viewScope.get(name);
-			}
+		Map<String,Object> viewMap = FacesContext.getCurrentInstance().getViewRoot().getViewMap();
+		
+		if(viewMap.containsKey(name)) {
+			return viewMap.get(name);
 		} else {
-			return null;
+			Object object = objectFactory.getObject();
+			viewMap.put(name, object);
+			return object;
 		}
-		
-	}
-
-	@SuppressWarnings("unchecked")
-	private Map<String, Object> extractViewScope() {
-		Map<String, Object> attributes = FacesContext.getCurrentInstance().getViewRoot().getAttributes();
-		
-		Map<String, Object> viewScope = null;
-		
-		if (attributes.get(VIEW_SCOPE_KEY)==null) {
-			viewScope = new HashMap<String, Object>();
-			attributes.put(VIEW_SCOPE_KEY, viewScope);
-		} else {
-			viewScope = (Map<String, Object>) attributes.get(VIEW_SCOPE_KEY);
-		}
-		return viewScope;
 	}
 
 	public String getConversationId() {
@@ -50,15 +28,11 @@ public class ViewScope implements Scope {
 	}
 
 	public void registerDestructionCallback(String name, Runnable callback) {
+		// Not supported
 	}
 
 	public Object remove(String name) {
-		if (FacesContext.getCurrentInstance().getViewRoot() != null) {
-			Map<String, Object> viewScope = extractViewScope();
-			return viewScope.remove(name);
-		} else {
-			return null;
-		}
+		return FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove(name);
 	}
 
 	/* (non-Javadoc)
@@ -66,7 +40,6 @@ public class ViewScope implements Scope {
 	 */
 	@Override
 	public Object resolveContextualObject(String key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
