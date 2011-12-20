@@ -6,6 +6,7 @@ package com.openappengine.facade.entity;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,7 +63,11 @@ public class EntityFacadeImpl implements EntityFacade {
 	    	Set<String> params = parameters.keySet();
 	    	List<String> paramList = new ArrayList<String>();
 	    	List<Object> valueList = new ArrayList<Object>();
-	    	for (String param : params) {
+	    	
+	    	Iterator<String> iterator = params.iterator();
+	    	boolean hasNext = iterator.hasNext();
+	    	if(hasNext) {
+	    		String param = iterator.next();
 	    		paramList.add(param);
 	    		
 	    		Field field = ReflectionUtils.findField(entityClass, param);
@@ -83,9 +88,15 @@ public class EntityFacadeImpl implements EntityFacade {
 	    		Object paramValue = ObjectConverter.convert(parameters.get(param), type);
 	    		valueList.add(paramValue);
 	    		
+	    		//TODO - Make Configurable by changing = with an operator and allowing any criteria.
 				hql.append(param + "=" + ":" + param);
-			}
-			list = hibernateTemplate.findByNamedParam(hql.toString(), paramList.toArray(new String[0]), valueList.toArray());
+				
+				hasNext = iterator.hasNext();
+				if(hasNext) {
+					hql.append(" and ");
+				}
+	    	}
+	    	list = hibernateTemplate.findByNamedParam(hql.toString(), paramList.toArray(new String[0]), valueList.toArray());
 	    } else {
 	    	list = hibernateTemplate.find(hql.toString());
 	    }
