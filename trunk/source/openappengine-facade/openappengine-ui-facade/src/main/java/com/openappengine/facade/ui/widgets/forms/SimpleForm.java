@@ -1,9 +1,8 @@
 /**
  * 
  */
-package com.openappengine.facade.ui.form.instance;
+package com.openappengine.facade.ui.widgets.forms;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +15,16 @@ import com.openappengine.facade.ui.widgets.Widget;
 
 /**
  * @author hrishikesh.joshi
- * @Dec 15, 2011
+ * @Dec 21, 2011
  */
-public class FormInstance extends Widget implements Serializable {
+public class SimpleForm extends Widget {
 
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 *  Form Name.
+	 */
+	private String formName;
 	
 	/**
 	 *  The FormDefinition from which this FormInstance was created.
@@ -33,24 +37,19 @@ public class FormInstance extends Widget implements Serializable {
 	private EntityValue entityValue;
 	
 	/**
-	 *  The actual fieldDefinitions fetched based all the include-mode.
-	 *  //TODO - Handle logic in the Component - entityForm.
+	 *  The actual fieldDefinitions fetched based on the include-mode.
 	 */
 	private List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
 	
+	/**
+	 *  Field Definition Map keyed by FormNames.
+	 */
 	private Map<String, FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 	
-	public FormInstance(FormDefinition formDefinition) {
-		this.setFormDefinition(formDefinition);
-		this.setName("simple-form");
+	public SimpleForm(String formName) {
+		this.setFormName(formName);
 	}
-
-	/**
-	 * 
-	 */
-	public FormInstance() {
-	}
-
+	
 	public EntityValue getEntityValue() {
 		return entityValue;
 	}
@@ -91,5 +90,13 @@ public class FormInstance extends Widget implements Serializable {
 	public FieldDefinition getFieldDefinition(String fieldName) {
 		return fieldDefinitionMap.get(fieldName);
 	}
-	
+
+	public String getFormName() {
+		return formName;
+	}
+
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
+
 }
