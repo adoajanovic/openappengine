@@ -21,6 +21,8 @@ import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.ui.context.UIFacadeContext;
 import com.openappengine.facade.ui.facade.FormFacade;
 import com.openappengine.facade.ui.form.instance.FormInstance;
+import com.openappengine.facade.ui.widgets.container.Container;
+import com.openappengine.facade.ui.widgets.container.ContainerPanel;
 import com.openappengine.web.annotations.PreRenderView;
 
 /**
@@ -39,13 +41,14 @@ public class EntityFormController implements Serializable {
 	
 	private String state = "draft";
 	
-	private EntityFormRequest entityFormRequest;
-
 	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
 	protected FormFacade formFacade = UIFacadeContext.getUIFacade();
 	
+	//TODO - Change to Simple Form or accessed from Screen.
 	private FormInstance formInstance;
+	
+	private ContainerPanel containerPanel = new ContainerPanel();
 
 	/**
 	 * Entity Form Per-View Listener
@@ -54,7 +57,6 @@ public class EntityFormController implements Serializable {
 
 	public EntityFormController() {
 		registerEntityFormLifecycleListener();
-		entityFormRequest = new EntityFormRequest();
 	}
 
 	protected void registerEntityFormLifecycleListener() {
@@ -76,7 +78,15 @@ public class EntityFormController implements Serializable {
 						entityRequestParams.put(fieldDefinition.getName(), requestParameterMap.get(requestParam));
 					}
 				}
-				formInstance = formFacade.getFormInstance(formName, entityRequestParams);
+				
+				if(!entityRequestParams.isEmpty()) {
+					formInstance = formFacade.getFormInstance(formName, entityRequestParams);
+				}
+				
+				//TODO - Read the widgets from XML.
+				Container centerPanel = new Container();
+				centerPanel.addWidget(formInstance);
+				containerPanel.setCenterPanel(centerPanel);
 			}
 			state= "modified";
 		}
@@ -130,12 +140,12 @@ public class EntityFormController implements Serializable {
 		this.formInstance = formInstance;
 	}
 
-	public EntityFormRequest getEntityFormRequest() {
-		return entityFormRequest;
+	public ContainerPanel getContainerPanel() {
+		return containerPanel;
 	}
 
-	public void setEntityFormRequest(EntityFormRequest entityFormRequest) {
-		this.entityFormRequest = entityFormRequest;
+	public void setContainerPanel(ContainerPanel containerPanel) {
+		this.containerPanel = containerPanel;
 	}
 
 }
