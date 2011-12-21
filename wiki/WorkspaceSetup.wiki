@@ -19,13 +19,16 @@
   # All projects *except* for openappengine-webapp is a Maven Project.
   # Go to the tool bar and click on debug configurations.
   # Click on maven build.
-  # Create a New Launch Configuration from the top and name it "Full Build"
-  # In the window, enter the location of your base directory, where your parent pom.xml is present.
+  # Create a New Maven Build - Launch Configuration from the top and name it "Full Build"
+  # In the window, enter the location of your base directory as - ${workspace_loc:/openappengine-parent} . This can be done by clicking on *Browse Workspace* and then select the project *openappengine-parent*.
   # In the goals enter *clean install eclipse:clean eclipse:eclipse* 
-(if running from CMD enter mvn clean install eclipse:clean eclipse:eclipse -DskipTests=true -Declipse.workspace=<Path>)
-  # Check the 'Skip Tests' box.
+(if running from CMD enter mvn clean install eclipse:clean eclipse:eclipse -DskipTests=true -Declipse.workspace=_*<Workspace_Location>*_)
+  # Make sure that the 'Skip Tests','Update Snapshots','Resolve Workspace Artifacts' check boxes are checked.
+  # Click on Add below to add a parameter.
+  # Enter name as eclipse.workspace and value as *${workspace_loc}*
+  # Note that ${workspace_loc} is a variable internal to Eclipse IDE.
   # Click on Apply and then click on Debug.
   # All the projects will be built, now refresh the workspace.
-  # Create a user library and place all the files under the lib folder into that library. Make sure that the library is reference from the project openappengine-webapp and it is checked for Export like the other projects.
-  # Create a new Tomcat 7 server instance and debug the openappengine-webapp on this. 
-  # Right click on the project openappengine-webapp and click on debug on server.
+  # Right click on the project *openappengine-webiface*, and click on properties.
+  # In the left split click on *Deployment Assembly*, make sure that all the project dependencies like openappengine-utility are refered from Eclipse Projects and not from the location such as *M2_REPO/something....*
+  # Create a new Tomcat 7 server instance and debug the openappengine-webiface on this. 
