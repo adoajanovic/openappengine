@@ -11,34 +11,33 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="page-content">
-		<f:subview id="EntityFormContainer" >
-		<!-- Metadata Params for this View -->
-		<f:metadata>
-			<!-- 
-			   As we are using this container for loading Entity Forms (Either New/Restoring from DB based on PK's), 
-			   we expect that the EntityName and EntityId is passed as request params 
-		     -->
-			<f:viewParam name="formName" value="#{entityFormController.entityFormRequest.formName}">
-			</f:viewParam>
-			<f:viewParam name="entityId" value="#{entityFormController.entityFormRequest.entityId}" />
+		<f:subview id="EntityFormContainer">
+			<!-- Metadata Params for this View -->
+			<f:metadata>
+				<!-- TODO : Find an alternative to this. -->
+				<f:phaseListener
+					binding="#{entityFormController.entityFormPhaseListener}" />
+			</f:metadata>
 
-			<!-- TODO : Find an alternative to this. -->
-			<f:phaseListener binding="#{entityFormController.entityFormPhaseListener}" />
-		</f:metadata>
+			<h:panelGroup id="EntityFormDiv">
+				<ui:repeat var="widget"
+					value="#{entityFormController.containerPanel.centerPanel.widgets}">
+					<ui:fragment>
+						<openui:entityForm
+							formInstance="#{entityFormController.formInstance}"
+							entityName="#{entityFormController.formInstance.entityValue.entityName}"
+							id="#{entityFormController.formInstance.formDefinition.name}_Form"
+							columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
+							<ui:define name="actions">
+								<ice:commandButton id="#{entityName}_Save"
+									action="#{entityFormController.formSubmit}" value="Save">
+								</ice:commandButton>
+							</ui:define>
+						</openui:entityForm>
+					</ui:fragment>
+				</ui:repeat>
+			</h:panelGroup>
 
-		<h:panelGroup id="EntityFormDiv">
-			<openui:entityForm
-				formInstance="#{entityFormController.formInstance}"
-				entityName="#{entityFormController.formInstance.entityValue.entityName}"
-				id="#{entityFormController.formInstance.formDefinition.name}_Form"
-				columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
-				<ui:define name="actions">
-					<ice:commandButton id="#{entityName}_Save"
-						action="#{entityFormController.formSubmit}" value="Save">
-					</ice:commandButton>
-				</ui:define>
-			</openui:entityForm>
-		</h:panelGroup>
 		</f:subview>
 	</ui:define>
 </ui:composition>
