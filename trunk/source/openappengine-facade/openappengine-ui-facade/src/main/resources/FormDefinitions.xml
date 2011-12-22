@@ -18,4 +18,5 @@
 		<render-mode>READ_WRITE</render-mode>
 		<form-type>SIMPLE</form-type>
 	</form-definition>
+	
 </form-definitions>

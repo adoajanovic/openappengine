@@ -16,10 +16,24 @@ public class EntityReference implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum IncludeFields {
-		ALL,	//Include All the fields given in the referenced entity definition.
-		PK_FIELDS, //Include All the PK-Fields given in the referenced entity definition.
-		NON_PK_FIELDS, //Include All the Non-PK Fields given in the referenced entity definition.
-		REFERENCED; //Include All the fields referenced entity definition in the field-layout.
+		AUTO("auto"),	//Include All the fields given in the referenced entity definition.
+		PK_FIELDS("pk-fields"), //Include All the PK-Fields given in the referenced entity definition.
+		NON_PK_FIELDS("non-pk-fields"), //Include All the Non-PK Fields given in the referenced entity definition.
+		REFERENCED("referenced"); //Include All the fields referenced entity definition in the field-layout.
+		
+		IncludeFields(String type) {
+			this.type = type;
+		}
+		
+		IncludeFields() {
+			this.type = "auto";
+		}
+		
+		String getType() {
+			return type;
+		}
+		
+		private String type;
 	}
 	
 	/**
@@ -30,7 +44,7 @@ public class EntityReference implements Serializable {
 	/**
 	 *  Fields to be included in this form.
 	 */
-	private IncludeFields includeFields = IncludeFields.ALL;
+	private IncludeFields includeFields = IncludeFields.AUTO;
 	
 	public EntityReference(String entityName) {
 		super();

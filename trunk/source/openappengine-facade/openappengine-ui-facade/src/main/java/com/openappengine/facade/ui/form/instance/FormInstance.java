@@ -42,7 +42,7 @@ public class FormInstance extends Widget implements Serializable {
 	
 	public FormInstance(FormDefinition formDefinition) {
 		this.setFormDefinition(formDefinition);
-		this.setName("simple-form");
+		this.setType("simple-form");
 	}
 
 	/**

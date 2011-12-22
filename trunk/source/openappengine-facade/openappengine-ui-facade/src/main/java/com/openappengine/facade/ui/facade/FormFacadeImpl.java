@@ -61,7 +61,7 @@ public class FormFacadeImpl implements FormFacade {
 				FieldDefinition fieldDefinition = entityDefinition.getFieldDefinition(fieldReference.getFieldName());
 				fieldDefinitions.add(fieldDefinition);
 			}
-		} else if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.ALL)) {
+		} else if(formDefinition.getEntityReference().getIncludeFields().equals(IncludeFields.AUTO)) {
 			fieldDefinitions.addAll(entityDefinition.getFields());
 		} //TODO - Add PK and Non-PK logic
 		

@@ -15,7 +15,7 @@ public class Widget implements Serializable {
 
 	private String id;
 	
-	private String name;
+	private String type;
 	
 	//TODO - Add base properties to this class.
 
@@ -27,11 +27,11 @@ public class Widget implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getType() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setType(String type) {
+		this.type = type;
 	}
 }
