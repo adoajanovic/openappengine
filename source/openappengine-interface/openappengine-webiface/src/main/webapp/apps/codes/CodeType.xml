@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen>
+	<container-panel>
+		<center-panel id="ContainerPanel_Center">
+			<widgets>
+				<!-- Adding A Form Widget -->
+				<form name="CodeType">
+					<entity-ref entity-name="CodeType" include-fields="auto" />
+					<field-layout>
+						<columns>2</columns>
+					</field-layout>
+					<render-mode>READ_WRITE</render-mode>
+					<form-type>SIMPLE</form-type>
+				</form>
+			</widgets>
+		</center-panel>
+	</container-panel>
+</screen>
