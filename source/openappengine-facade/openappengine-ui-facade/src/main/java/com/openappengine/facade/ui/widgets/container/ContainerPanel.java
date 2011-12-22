@@ -3,24 +3,29 @@
  */
 package com.openappengine.facade.ui.widgets.container;
 
+import java.io.Serializable;
+
 
 /**
  * @author hrishikesh.joshi
  * @Dec 21, 2011
  */
-public class ContainerPanel extends Container {
+public class ContainerPanel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Container headerPanel;
+	private Container headerPanel = new Container();
 	
-	private Container leftPanel;
+	private Container leftPanel= new Container();
 	
 	private Container centerPanel;
 	
-	private Container rightPanel;
+	private Container rightPanel = new Container();
 	
-	private Container footerPanel;
+	private Container footerPanel = new Container();
+	
+	public ContainerPanel() {
+	}
 
 	public Container getHeaderPanel() {
 		return headerPanel;
