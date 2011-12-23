@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,8 +29,6 @@ public class XmlScreenProcessingFilter implements Filter {
 	private final Logger logger = Logger.getLogger(getClass());
 	
 	private FilterConfig filterConfig;
-	
-	private ThreadLocal<Screen> screenParam;
 	
     /**
      * Default constructor. 
@@ -63,6 +62,7 @@ public class XmlScreenProcessingFilter implements Filter {
 			requestURI = requestURI.substring(0, requestURI.indexOf('?')!=-1?requestURI.indexOf('?'):requestURI.length());
 		}
 		
+		//TODO - Configurable extension
 		requestURI = requestURI.replace(".screen", ".xml");
 		String realPath;
 		Screen screen = null;
@@ -75,10 +75,17 @@ public class XmlScreenProcessingFilter implements Filter {
 				screen = reader.readScreenDefinition(is);
 			}
 		} catch(Exception e) {
-			//TODO
+			logger.error("Exception encountered while reading the screen at the URI:" + requestURI);
 		}
-		screenParam = new ThreadLocal<Screen>();
-		screenParam.set(screen);
+		
+		//TODO - Handle Request Params for this screen and set the Query Params on individual forms by name.
+		Map requestParameterMap = httpServletRequest.getParameterMap();
+		if(screen != null) {
+			screen.setRequestParameters(requestParameterMap);
+		}
+		
+		ScreenThreadLocalContext.set(screen);
+		//TODO - Configurable Container XHTML location
 		httpServletRequest.getRequestDispatcher("/containers/ScreenContainer.iface").forward(httpServletRequest, httpServletResponse);
 		
 		// pass the request along the filter chain

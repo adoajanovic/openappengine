@@ -81,6 +81,15 @@ public class EntityFacadeImpl implements EntityFacade {
 	    }
 	    return entityValue;
 	}
+	
+	public Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException {
+		List list = findByPropertyValues(entityClass, parameters);
+		if(list != null && list.size() != 1) {
+			//TODO
+		} 
+		
+		return (Serializable) list.get(0);
+	}
 
 	/**
 	 * @param entityName
@@ -88,10 +97,10 @@ public class EntityFacadeImpl implements EntityFacade {
 	 * @return
 	 * @throws DataAccessException
 	 */
-	protected List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException {
+	public List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException {
 	    StringBuffer hql = new StringBuffer("from " + entityClass.getSimpleName());
 	    List list;
-	    if(parameters != null) {
+	    if(parameters != null && !parameters.isEmpty()) {
 	    	hql.append(" where ");
 	    	Set<String> params = parameters.keySet();
 	    	List<String> paramList = new ArrayList<String>();
@@ -118,7 +127,9 @@ public class EntityFacadeImpl implements EntityFacade {
 	    			}
 	    			//TODO - Add more primitive types here.
 	    		}
-	    		Object paramValue = ObjectConverter.convert(parameters.get(param), type);
+	    		Object from = parameters.get(param);
+	    		
+				Object paramValue = ObjectConverter.convert(from, type);
 	    		valueList.add(paramValue);
 	    		
 	    		//TODO - Make Configurable by changing = with an operator and allowing any criteria.
