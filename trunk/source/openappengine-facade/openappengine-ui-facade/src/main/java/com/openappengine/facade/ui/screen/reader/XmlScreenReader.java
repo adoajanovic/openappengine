@@ -21,7 +21,9 @@ import com.openappengine.facade.ui.common.EntityReference;
 import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
 import com.openappengine.facade.ui.form.FieldLayout;
 import com.openappengine.facade.ui.screen.Screen;
+import com.openappengine.facade.ui.widgets.Widget;
 import com.openappengine.facade.ui.widgets.container.Container;
+import com.openappengine.facade.ui.widgets.container.ContainerPanel;
 import com.openappengine.facade.ui.widgets.forms.Form;
 import com.openappengine.utility.UtilXml;
 
@@ -59,6 +61,8 @@ public class XmlScreenReader {
 			}
 
 			documentElement.normalize();
+			
+			//TODO Read Actions
 
 			// Read Container-Panel Element
 			Element containerPanelElement = DomUtils.getChildElementByTagName(documentElement, "container-panel");
@@ -66,6 +70,9 @@ public class XmlScreenReader {
 				logger.error("One <container-panel> tag element required.");
 				return null;
 			} else {
+				
+				ContainerPanel containerPanel = new ContainerPanel();
+				
 				// Center-Panel
 				Element centerContainerElement = DomUtils.getChildElementByTagName(containerPanelElement, "center-panel");
 				if (centerContainerElement != null) {
@@ -84,12 +91,12 @@ public class XmlScreenReader {
 						if (widgetElements != null) {
 
 							for (Element widgetElement : widgetElements) {
+								
 								// Read Form Element
 								if (DomUtils.nodeNameEquals(widgetElement, "form")) {
-									// TODO - Call a Form Xml Reader element
-									// here.
-
+									// TODO - Call a Form Xml Reader element here.
 									Form form = new Form();
+									form.setParentScreen(screen);
 
 									// EntityReference Object
 									Element entityRefElement = DomUtils
@@ -146,10 +153,17 @@ public class XmlScreenReader {
 										}
 									}
 									form.setFieldLayout(fieldLayout);
-
+									
 									// Add form to the center container.
+									screen.setContainerPanel(containerPanel);
 									centerContainer.addWidget(form);
+									containerPanel.setCenterPanel(centerContainer);
+									
+									//Add Widget to the main screen.
+									//TODO - Handle in the individual Widget API Class.
+									screen.addWidget(attrId, form);
 								}
+								
 
 								// TODO Other Widgets.
 							}

@@ -7,6 +7,7 @@
 	xmlns:fac="http://java.sun.com/jsf/facelets"
 	xmlns:ui="http://www.openappengine.com/tags/ui">
 
+	<!-- Label -->
 	<ice:column rendered="#{not field.autoincrement}">
 		<ice:outputLabel value="${ui:getLabelText(entityName,field.name)}"
 			id="${fieldName}_Label" for="${fieldName}_Input"
@@ -17,7 +18,7 @@
 	<fac:fragment rendered="#{field.autoincrement}">
 		<ice:column>
 			<ice:inputHidden id="#{field.name}_Hidden"
-				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
+				value="#{form.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
 
@@ -27,7 +28,7 @@
 			<ice:inputText id="#{field.name}_TextField" styleClass="inputText"
 				required="#{field.required}"
 				requiredMessage="#{field.name} cannot be empty."
-				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
+				value="#{form.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
 
@@ -37,7 +38,8 @@
 			<ice:inputTextarea id="#{field.name}_InputTextArea"
 				styleClass="inputText" required="#{field.required}"
 				requiredMessage="#{field.name} cannot be empty."
-				value="#{entityFormController.formInstance.entityValue.instance[field.property]}" />
+				value="#{form.entityValue.instance[field.property]}" />
 		</ice:column>
 	</fac:fragment>
+	
 </f:subview>

@@ -8,21 +8,25 @@
 		<f:subview id="EntityFormContainer">
 
 			<f:metadata>
-				<!-- TODO : Find an alternative to this. -->
-				<f:phaseListener binding="#{screenRenderer.phaseListener}" />
+				<f:phaseListener binding="#{xmlScreenRenderer.phaseListener}" />
 			</f:metadata>
 
-			<h:panelGroup id="EntityFormDiv">
-				<ui:repeat var="widget" value="#{entityFormController.containerPanel.centerPanel.widgets}">
+			<h:panelGroup id="CenterPanel">
+				<ui:repeat var="widget" value="#{xmlScreenRenderer.screen.containerPanel.centerPanel.widgets}">
+				
+					<!-- TODO First Check whether this is an entity referenced form or a service referenced form -->
 					<ui:fragment>
-						<openui:entityForm formInstance="#{entityFormController.formInstance}" entityName="#{entityFormController.formInstance.entityValue.entityName}"
-							id="#{entityFormController.formInstance.formDefinition.name}_Form" columns="#{entityFormController.formInstance.formDefinition.fieldLayout.columns}">
+						<openui:entityForm formInstance="#{widget}" entityName="#{widget.entityValue.entityName}"
+							id="#{widget.id}_Form" columns="#{widget.fieldLayout.columns}">
 							<ui:define name="actions">
-								<ice:commandButton id="#{entityName}_Save" action="#{entityFormController.formSubmit}" value="Save">
+								<!-- 
+								<ice:commandButton id="#{widget.entityValue.entityName}_Save" action="#{entityFormController.formSubmit}" value="Save">
 								</ice:commandButton>
+								 -->
 							</ui:define>
 						</openui:entityForm>
 					</ui:fragment>
+					
 				</ui:repeat>
 			</h:panelGroup>
 		</f:subview>

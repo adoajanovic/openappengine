@@ -71,6 +71,7 @@ public class EntityFormController implements Serializable {
 			if(requestParameterMap != null) {
 				String formName = requestParameterMap.get("formName");
 				formInstance = formFacade.getFormInstance(formName);
+				
 				Set<String> requestParams = requestParameterMap.keySet();
 				for (String requestParam : requestParams) {
 					if(formInstance.getFieldDefinition(requestParam) != null) {

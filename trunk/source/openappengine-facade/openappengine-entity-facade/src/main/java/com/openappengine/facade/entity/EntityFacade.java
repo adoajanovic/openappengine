@@ -4,7 +4,10 @@
 package com.openappengine.facade.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
+
+import org.springframework.dao.DataAccessException;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 
@@ -47,5 +50,9 @@ public interface EntityFacade {
 	 * @return
 	 */
 	Serializable saveEntityValue(EntityValue entityValue);
+	
+	List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
+	
+	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
 
 }
