@@ -30,4 +30,7 @@
 		<property name="formInstance" ref="formInstance"></property>
 	</bean>
 	
+	<!-- Screen Renderer -->
+	<bean id="xmlScreenRenderer" class="com.openappengine.web.ui.screen.XmlScreenRenderer" scope="view">
+	</bean>
 </beans>
