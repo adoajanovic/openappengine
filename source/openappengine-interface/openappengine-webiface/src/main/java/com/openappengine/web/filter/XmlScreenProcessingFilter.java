@@ -8,14 +8,12 @@ import java.io.InputStream;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.util.WebUtils;
 
@@ -30,6 +28,8 @@ public class XmlScreenProcessingFilter implements Filter {
 	private final Logger logger = Logger.getLogger(getClass());
 	
 	private FilterConfig filterConfig;
+	
+	private ThreadLocal<Screen> screenParam;
 	
     /**
      * Default constructor. 
@@ -65,19 +65,22 @@ public class XmlScreenProcessingFilter implements Filter {
 		
 		requestURI = requestURI.replace(".screen", ".xml");
 		String realPath;
+		Screen screen = null;
 		try {
 			realPath = WebUtils.getRealPath(filterConfig.getServletContext(), requestURI);
 			File f = new File(realPath);
 			if(f.exists()) {
 				InputStream is = new FileInputStream(f);
 				XmlScreenReader reader = new XmlScreenReader();
-				Screen screen = reader.readScreenDefinition(is);
+				screen = reader.readScreenDefinition(is);
 			}
 		} catch(Exception e) {
 			//TODO
 		}
+		screenParam = new ThreadLocal<Screen>();
+		screenParam.set(screen);
+		httpServletRequest.getRequestDispatcher("/containers/ScreenContainer.iface").forward(httpServletRequest, httpServletResponse);
 		
-		httpServletRequest.getRequestDispatcher("/containers/EntityFormContainer.iface?formName=CodeType").forward(httpServletRequest, httpServletResponse);
 		// pass the request along the filter chain
 		//chain.doFilter(request, response);
 	}
