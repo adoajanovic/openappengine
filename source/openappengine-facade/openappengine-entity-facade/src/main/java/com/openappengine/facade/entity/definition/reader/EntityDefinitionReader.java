@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -24,7 +25,10 @@ import com.openappengine.utility.UtilXml;
 public class EntityDefinitionReader {
 
     private String[] locations;
+    
 	private FieldTypeDefinitionReader fieldTypeDefinitionReader;
+	
+	private final Logger logger = Logger.getLogger(getClass());
 
     /**
      * Init the Reader
@@ -76,12 +80,14 @@ public class EntityDefinitionReader {
 		    List<? extends Element> fieldElements = UtilXml
 			    .childElementList(entityElement, "field");
 		    if (fieldElements != null && !fieldElements.isEmpty()) {
-			List<FieldDefinition> fieldDefinitions = new ArrayList<FieldDefinition>();
 			for (Element fieldElement : fieldElements) {
 			    FieldDefinition fieldDefinition = readFieldDefinition(fieldElement);
-			    fieldDefinitions.add(fieldDefinition);
+			    if(!entityDefinition.containsFieldDefinitionByFieldName(fieldDefinition.getName()) && !entityDefinition.containsFieldDefinitionByFieldRef(fieldDefinition)) {
+			    	entityDefinition.addFieldDefinition(fieldDefinition);
+			    } else {
+			    	throw new EntityDefinitionReaderException("FieldDefinition name =" + fieldDefinition.getName() + " OR fieldDefinition property = " + fieldDefinition.getProperty() + " already configured !!");	    	
+			    }
 			}
-			entityDefinition.setFields(fieldDefinitions);
 		    }
 
 		    entityDefinitions.add(entityDefinition);
