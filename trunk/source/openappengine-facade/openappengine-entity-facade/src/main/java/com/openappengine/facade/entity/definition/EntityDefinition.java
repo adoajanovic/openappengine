@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author hrishikesh.joshi
  *
@@ -44,6 +46,14 @@ public class EntityDefinition implements Serializable {
 	public void setFields(List<FieldDefinition> fields) {
 		this.fields = fields;
 		processFieldDefinitions(fields);
+	}
+	
+	public void addFieldDefinition(FieldDefinition field) {
+		if(field == null) {
+			return;
+		}
+		fields.add(field);
+		fieldDefinitionMap.put(field.getName(), field);
 	}
 
 	/**
@@ -91,6 +101,21 @@ public class EntityDefinition implements Serializable {
 
 	public FieldDefinition getFieldDefinition(String fieldName) {
 		return fieldDefinitionMap.get(fieldName);
+	}
+	
+	public boolean containsFieldDefinitionByFieldName(String fieldName) {
+		return fieldDefinitionMap.containsKey(fieldName);
+	}
+	
+	public boolean containsFieldDefinitionByFieldRef(FieldDefinition field) {
+		if(fields != null) {
+			for (FieldDefinition fieldDef : fields) {
+				if(StringUtils.equals(fieldDef.getProperty(),field.getProperty())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public List<FieldDefinition> getPKFields() {
