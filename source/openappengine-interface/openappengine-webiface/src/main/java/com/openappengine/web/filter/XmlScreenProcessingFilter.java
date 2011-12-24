@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.util.WebUtils;
 
+import com.openappengine.facade.ui.params.Param;
+import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.screen.Screen;
 import com.openappengine.facade.ui.screen.reader.XmlScreenReader;
 
@@ -80,8 +83,23 @@ public class XmlScreenProcessingFilter implements Filter {
 		
 		//TODO - Handle Request Params for this screen and set the Query Params on individual forms by name.
 		Map requestParameterMap = httpServletRequest.getParameterMap();
+		
+		//TODO - Handle Screen Parameters 
 		if(screen != null) {
-			screen.setRequestParameters(requestParameterMap);
+			Parameters screenParameters = screen.getScreenParameters();
+			if(screenParameters != null && !screenParameters.isEmpty()) {
+				if(screenParameters.getParameterNames() != null) {
+					for(Param screenParam : screenParameters.getParameterNames()) {
+						if(screenParam.isRequired()) {
+							String[] value = (String[]) requestParameterMap.get(screenParam.getName());
+							if(value == null) {
+								//TODO - Handle required field missing condition.
+							}
+							screenParameters.setParam(screenParam, value[0]);
+						}
+					}
+				}
+			}
 		}
 		
 		ScreenThreadLocalContext.set(screen);

@@ -9,7 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.openappengine.facade.ui.params.Params;
+import com.openappengine.facade.ui.params.Param;
+import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.widgets.SubScreen;
 import com.openappengine.facade.ui.widgets.Widget;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
@@ -28,10 +29,8 @@ public class Screen implements Serializable {
 	
 	private Map<String, Widget> containerWidgetMap = new HashMap<String, Widget>();
 	
-	private Params screenParameters;
+	private Parameters screenParameters = new Parameters();
 	
-	private Map<String,String[]> requestParameters;
-
 	public ContainerPanel getContainerPanel() {
 		return containerPanel;
 	}
@@ -64,19 +63,20 @@ public class Screen implements Serializable {
 		this.containerWidgetMap.put(containerId, widget);
 	}
 
-	public Params getScreenParameters() {
+	public Parameters getScreenParameters() {
 		return screenParameters;
 	}
 
-	public void setScreenParameters(Params screenParameters) {
+	public void setScreenParameters(Parameters screenParameters) {
 		this.screenParameters = screenParameters;
 	}
-
-	public Map<String, String[]> getRequestParameters() {
-		return requestParameters;
+	
+	public void addScreenParameter(Param param,Object value) {
+		if(param == null) {
+			return;
+		}
+		
+		screenParameters.setParam(param, value);
 	}
 
-	public void setRequestParameters(Map<String, String[]> requestParameters) {
-		this.requestParameters = requestParameters;
-	}
 }

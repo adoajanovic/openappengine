@@ -20,8 +20,9 @@ import org.xml.sax.SAXException;
 import com.openappengine.facade.ui.common.EntityReference;
 import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
 import com.openappengine.facade.ui.form.FieldLayout;
+import com.openappengine.facade.ui.params.Param;
+import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.screen.Screen;
-import com.openappengine.facade.ui.widgets.Widget;
 import com.openappengine.facade.ui.widgets.container.Container;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
 import com.openappengine.facade.ui.widgets.forms.Form;
@@ -63,6 +64,35 @@ public class XmlScreenReader {
 			documentElement.normalize();
 			
 			//TODO Read Actions
+			//Read Params Tag.
+			Element paramsElement = DomUtils.getChildElementByTagName(documentElement, "parameter");
+			if(paramsElement != null) {
+				Parameters parameters = new Parameters();
+				List<Element> paramElements = DomUtils.getChildElements(paramsElement);
+				if(paramElements != null) {
+					for (Element paramElement : paramElements) {
+						String name = paramElement.getAttribute("name");
+						if(StringUtils.isEmpty(name)) {
+							//TODO - Throw Exception
+						}
+						
+						String required = paramElement.getAttribute("required");
+						boolean isRequired = false;
+						if(!StringUtils.isEmpty(required)) {
+							isRequired = Boolean.valueOf(required);
+						}
+						
+						String valueRef = paramElement.getAttribute("value-ref");
+						if(StringUtils.isEmpty(valueRef)) {
+							//TODO - Throw Exception
+						}
+						
+						Param param = new Param(name,isRequired,valueRef);
+						parameters.setParam(param, null);
+					}
+				}
+ 				screen.setScreenParameters(parameters);
+			}
 
 			// Read Container-Panel Element
 			Element containerPanelElement = DomUtils.getChildElementByTagName(documentElement, "container-panel");
