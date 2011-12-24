@@ -20,7 +20,8 @@ import com.openappengine.facade.ui.common.FieldReference;
 import com.openappengine.facade.ui.common.RenderMode;
 import com.openappengine.facade.ui.form.FieldLayout;
 import com.openappengine.facade.ui.form.FormType;
-import com.openappengine.facade.ui.params.Params;
+import com.openappengine.facade.ui.params.Param;
+import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.widgets.Widget;
 
 /**
@@ -41,7 +42,7 @@ public class Form extends Widget implements Serializable {
 	
 	private FormValueHolder formValueHolder;
 	
-	private Params formParams = new Params();
+	private Parameters formParams = new Parameters();
 	
 	private EntityValue entityValue;
 	
@@ -88,7 +89,7 @@ public class Form extends Widget implements Serializable {
 
 	public EntityValue getEntityValue() {
 		if(entityValue == null) {
-			Map<String, Object> entityRequestParams = extractFormParameters();
+			Map<Param, Object> entityRequestParams = extractFormParameters();
 			formParams.setParameterMap(entityRequestParams);
 			entityValue = (EntityValue) formValueHolder.getValue();
 		}
@@ -99,20 +100,19 @@ public class Form extends Widget implements Serializable {
 	/**
 	 * @return
 	 */
-	protected Map<String, Object> extractFormParameters() {
-		Map<String, String[]> requestParameterMap = getParentScreen().getRequestParameters();
-		Map<String,Object> entityRequestParams = new HashMap<String, Object>();
+	protected Map<Param, Object> extractFormParameters() {
+		Map<Param, Object> screenParameters = getParentScreen().getScreenParameters().getParameterMap();
+		Map<Param,Object> entityRequestParams = new HashMap<Param, Object>();
 		
-		if(requestParameterMap != null) {
+		if(screenParameters != null) {
 			EntityDefinition ed = entityFacade.findEntityDefinition(entityReference.getEntityName());
 			Assert.notNull(ed,"Entity Definition not found for entity-name " + entityReference.getEntityName());
-			Set<String> requestParams = requestParameterMap.keySet();
-			for (String requestParam : requestParams) {
-				if(ed.getFieldDefinition(requestParam) != null) {
-					FieldDefinition fieldDefinition = ed.getFieldDefinition(requestParam);
+			Set<Param> requestParams = screenParameters.keySet();
+			for (Param requestParam : requestParams) {
+				if(ed.getFieldDefinition(requestParam.getName()) != null) {
+					FieldDefinition fieldDefinition = ed.getFieldDefinition(requestParam.getName());
 					Assert.notNull(fieldDefinition,"Field Definition not found for field-ref:" + requestParam);
-					String[] values = requestParameterMap.get(requestParam);
-					entityRequestParams.put(fieldDefinition.getName(), values[0]);
+					entityRequestParams.put(new Param(fieldDefinition.getName()), screenParameters.get(requestParam));
 				}
 			}
 		}
@@ -154,11 +154,11 @@ public class Form extends Widget implements Serializable {
 		this.fields = fields;
 	}
 
-	public Params getFormParams() {
+	public Parameters getFormParams() {
 		return formParams;
 	}
 
-	public void setFormParams(Params formParams) {
+	public void setFormParams(Parameters formParams) {
 		this.formParams = formParams;
 	}
 }

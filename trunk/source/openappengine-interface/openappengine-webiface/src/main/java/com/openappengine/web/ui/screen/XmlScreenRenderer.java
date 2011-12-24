@@ -4,9 +4,6 @@
 package com.openappengine.web.ui.screen;
 
 import java.io.Serializable;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -30,8 +27,6 @@ public class XmlScreenRenderer implements Serializable {
 	
 	private Screen screen;
 	
-	private Map requestParams;
-	
 	public XmlScreenRenderer(){
 		phaseListener = new PerViewPhaseListener(this);
 		setScreen(ScreenThreadLocalContext.get());
@@ -51,9 +46,6 @@ public class XmlScreenRenderer implements Serializable {
 		if(screen == null) {
 			logger.error("No Screen found..Aborting Screen Processing");
 		}
-		
-		//Set Request Params to the Xml Screen Renderer.
-		requestParams = screen.getRequestParameters();
 	}	
 
 	public Screen getScreen() {
