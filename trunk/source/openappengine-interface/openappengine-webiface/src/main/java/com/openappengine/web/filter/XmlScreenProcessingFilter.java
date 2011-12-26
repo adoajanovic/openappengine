@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.util.WebUtils;
 
+import com.openappengine.facade.ui.context.ScreenContext;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
+import com.openappengine.facade.ui.resolver.ScreenContextVariableResolver;
 import com.openappengine.facade.ui.screen.Screen;
 import com.openappengine.facade.ui.screen.reader.XmlScreenReader;
 
@@ -68,41 +70,50 @@ public class XmlScreenProcessingFilter implements Filter {
 		//TODO - Configurable extension
 		requestURI = requestURI.replace(".screen", ".xml");
 		String realPath;
-		Screen screen = null;
 		try {
 			realPath = WebUtils.getRealPath(filterConfig.getServletContext(), requestURI);
 			File f = new File(realPath);
 			if(f.exists()) {
 				InputStream is = new FileInputStream(f);
 				XmlScreenReader reader = new XmlScreenReader();
-				screen = reader.readScreenDefinition(is);
+				final Screen screen = reader.readScreenDefinition(is);
+				//TODO - Handle Request Params for this screen and set the Query Params on individual forms by name.
+				Map requestParameterMap = httpServletRequest.getParameterMap();
+				
+				// TODO - Set the current instance from a sub-class such that
+				// getCurrentInstance would return the same instance in one
+				// thread.
+				ScreenContext screenContext = new ScreenContext() ;
+				
+				//TODO - Handle Screen Parameters 
+				if(screen != null) {
+					Parameters screenParameters = screen.getScreenParameters();
+					if(screenParameters != null && !screenParameters.isEmpty()) {
+						if(screenParameters.getParameterNames() != null) {
+							for(Param screenParam : screenParameters.getParameterNames()) {
+								if(screenParam.isRequired()) {
+									String[] value = (String[]) requestParameterMap.get(screenParam.getName());
+									if(value != null) {
+										screenParameters.setParam(screenParam, value[0]);
+										screenContext.putVariable(screenParam.getName(), value[0]);
+									} else {
+										//TODO - Handle required field missing condition.
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				screenContext.setScreen(screen);
+				ScreenContext.setCurrentInstance(screenContext);
+				
+				ScreenContextThreadLocal.set(screenContext);
 			}
 		} catch(Exception e) {
 			logger.error("Exception encountered while reading the screen at the URI:" + requestURI);
 		}
 		
-		//TODO - Handle Request Params for this screen and set the Query Params on individual forms by name.
-		Map requestParameterMap = httpServletRequest.getParameterMap();
-		
-		//TODO - Handle Screen Parameters 
-		if(screen != null) {
-			Parameters screenParameters = screen.getScreenParameters();
-			if(screenParameters != null && !screenParameters.isEmpty()) {
-				if(screenParameters.getParameterNames() != null) {
-					for(Param screenParam : screenParameters.getParameterNames()) {
-						if(screenParam.isRequired()) {
-							String[] value = (String[]) requestParameterMap.get(screenParam.getName());
-							if(value == null) {
-								//TODO - Handle required field missing condition.
-							}
-							screenParameters.setParam(screenParam, value[0]);
-						}
-					}
-				}
-			}
-		}
-		
-		ScreenThreadLocalContext.set(screen);
 		//TODO - Configurable Container XHTML location
 		httpServletRequest.getRequestDispatcher("/containers/ScreenContainer.iface").forward(httpServletRequest, httpServletResponse);
 		
