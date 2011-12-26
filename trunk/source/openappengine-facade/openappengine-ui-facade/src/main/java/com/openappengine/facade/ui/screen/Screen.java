@@ -5,12 +5,15 @@ package com.openappengine.facade.ui.screen;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.openappengine.facade.ui.action.PreActionHandler;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
+import com.openappengine.facade.ui.preaction.PreAction;
 import com.openappengine.facade.ui.widgets.SubScreen;
 import com.openappengine.facade.ui.widgets.Widget;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
@@ -30,6 +33,8 @@ public class Screen implements Serializable {
 	private Map<String, Widget> containerWidgetMap = new HashMap<String, Widget>();
 	
 	private Parameters screenParameters = new Parameters();
+	
+	private PreActionHandler preActionHandler;
 	
 	public ContainerPanel getContainerPanel() {
 		return containerPanel;
@@ -77,6 +82,14 @@ public class Screen implements Serializable {
 		}
 		
 		screenParameters.setParam(param, value);
+	}
+
+	public PreActionHandler getPreActionHandler() {
+		return preActionHandler;
+	}
+
+	public void setPreActionHandler(PreActionHandler preActionHandler) {
+		this.preActionHandler = preActionHandler;
 	}
 
 }

@@ -10,6 +10,6 @@ package com.openappengine.facade.ui.resolver;
  */
 public interface ValueResolver {
 	
-	Object getValue();
+	Object resolveValue();
 
 }

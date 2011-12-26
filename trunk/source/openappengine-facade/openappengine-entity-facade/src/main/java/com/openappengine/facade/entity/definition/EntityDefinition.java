@@ -119,6 +119,13 @@ public class EntityDefinition implements Serializable {
 	}
 
 	public List<FieldDefinition> getPKFields() {
+		if(pkFields != null) {
+			for (FieldDefinition field : fields) {
+				if(field.isPk()) {
+					pkFields.add(field);
+				}
+			}
+		}
 		return pkFields;
 	}
 
