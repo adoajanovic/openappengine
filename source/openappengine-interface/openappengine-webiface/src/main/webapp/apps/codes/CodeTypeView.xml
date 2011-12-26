@@ -5,31 +5,21 @@
 		<param name="codeTypeId" value-ref="codeTypeId" required="true"/>
 	</parameter>
 	
-	<pre-actions>
-		<!-- Entity Actions. -->
-		<entity-find-one entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true">
-			<!-- 
-			<field-map field-name="" from="codeTypeId" />
-			 -->
-		</entity-find-one>		
-	</pre-actions>
-	
 	<container-panel>
 		<center-panel id="ContainerPanel_Center">
 			<widgets>
 				<!-- Adding A Form Widget -->
-				
-				<!-- TODO : Convert into an Entity Action : entity-find-one -->
-				<form name="CodeType" entity-value-ref="codeTypeValue">
+				<form name="CodeType">
+					<!-- TODO : Convert into an Entity Action : entity-find-one -->
 					<entity-ref entity-name="CodeType" include-fields="auto" />
 					<field-layout>
 						<columns>2</columns>
 					</field-layout>
 					<render-mode>READ_WRITE</render-mode>
 					<form-type>SIMPLE</form-type>
+					<!-- TODO : Convert into an Entity Action : entity-find-one -->
+					
 				</form>
-				<!-- TODO : Convert into an Entity Action : entity-find-one -->
-				
 			</widgets>
 		</center-panel>
 	</container-panel>

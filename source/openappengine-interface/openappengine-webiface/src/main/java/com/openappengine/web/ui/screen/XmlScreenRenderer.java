@@ -7,10 +7,11 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
+import com.openappengine.facade.ui.context.ScreenContext;
 import com.openappengine.facade.ui.screen.Screen;
 import com.openappengine.web.annotations.PreRenderView;
 import com.openappengine.web.filter.PerViewPhaseListener;
-import com.openappengine.web.filter.ScreenThreadLocalContext;
+import com.openappengine.web.filter.ScreenContextThreadLocal;
 
 
 /**
@@ -26,10 +27,13 @@ public class XmlScreenRenderer implements Serializable {
 	private PerViewPhaseListener phaseListener;
 	
 	private Screen screen;
+
+	private ScreenContext screenContext;
 	
 	public XmlScreenRenderer(){
 		phaseListener = new PerViewPhaseListener(this);
-		setScreen(ScreenThreadLocalContext.get());
+		screenContext = ScreenContextThreadLocal.get();
+		screen = screenContext.getScreen();
 	}
 
 	public PerViewPhaseListener getPhaseListener() {
@@ -46,6 +50,9 @@ public class XmlScreenRenderer implements Serializable {
 		if(screen == null) {
 			logger.error("No Screen found..Aborting Screen Processing");
 		}
+		
+		//Handle Pre-Actions.
+		screen.getPreActionHandler().execute(screenContext);
 	}	
 
 	public Screen getScreen() {
