@@ -6,12 +6,14 @@
 	</parameter>
 	
 	<pre-actions>
-		<!-- Entity Actions. -->
-		<entity-find-one entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true">
-			<!-- 
-			<field-map field-name="" from="codeTypeId" />
-			 -->
-		</entity-find-one>		
+		<pre-action>
+		
+			<!-- Entity Actions. -->
+			<entity-find-one entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
+				<!-- <field-map field-name="" from="codeTypeId" /> -->
+			</entity-find-one>
+					
+		</pre-action>
 	</pre-actions>
 	
 	<container-panel>

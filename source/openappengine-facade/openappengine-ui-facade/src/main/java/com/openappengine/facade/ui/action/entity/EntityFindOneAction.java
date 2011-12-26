@@ -9,9 +9,9 @@ import java.util.Set;
 
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.context.ScreenContext;
-import com.openappengine.facade.ui.params.Value;
 import com.openappengine.facade.ui.preaction.PreAction;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
+import com.openappengine.facade.ui.resolver.ValueRef;
 import com.openappengine.facade.ui.resolver.ValueResolver;
 
 /**
@@ -22,11 +22,13 @@ public class EntityFindOneAction extends PreAction {
 	
 	private String entityName;
 	
-	private Map<String,Value> andParameterMap = new HashMap<String,Value>();
+	private Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
 	
 	private boolean autoFieldMap = false;
 	
 	private String valueField;
+	
+	private String conditionExpression;
 	
 	public EntityFindOneAction(String entityName) {
 		this.setEntityName(entityName);
@@ -39,11 +41,9 @@ public class EntityFindOneAction extends PreAction {
 			Set<String> paramKeys = andParameterMap.keySet();
 			if(paramKeys != null) {
 				for (String paramKey : paramKeys) {
-					Value value = andParameterMap.get(paramKey);
-					if(value != null) {
-						Object val = value.getValue();
-						params.put(paramKey,val);
-					}
+					ValueRef<Object> valueRef = andParameterMap.get(paramKey);
+					Object val = valueRef.getActualValue();
+					params.put(paramKey,val);
 				}
 			}
 		}
@@ -60,15 +60,15 @@ public class EntityFindOneAction extends PreAction {
 		this.entityName = entityName;
 	}
 
-	public Map<String,Value> getAndParameterMap() {
+	public Map<String, ValueRef<Object>> getAndParameterMap() {
 		return andParameterMap;
 	}
 
-	public void setAndParameterMap(Map<String,Value> andParameterMap) {
+	public void setAndParameterMap(Map<String, ValueRef<Object>> andParameterMap) {
 		this.andParameterMap = andParameterMap;
 	}
 	
-	public void addAndParameter(String fieldName,Value value) {
+	public void addAndParameter(String fieldName,ValueRef<Object> value) {
 		this.andParameterMap.put(fieldName, value);
 	}
 
@@ -86,6 +86,14 @@ public class EntityFindOneAction extends PreAction {
 
 	public void setValueField(String valueField) {
 		this.valueField = valueField;
+	}
+
+	public String getConditionExpression() {
+		return conditionExpression;
+	}
+
+	public void setConditionExpression(String conditionExpression) {
+		this.conditionExpression = conditionExpression;
 	}
 
 }

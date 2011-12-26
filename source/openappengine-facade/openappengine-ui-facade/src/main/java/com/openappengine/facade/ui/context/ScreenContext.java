@@ -3,8 +3,10 @@
  */
 package com.openappengine.facade.ui.context;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -40,6 +42,10 @@ public class ScreenContext {
 
 	public Map<String,Variable> getVariableMap() {
 		return variableMap;
+	}
+	
+	public Collection<Variable> getScreenVariables() {
+		return variableMap.values();
 	}
 
 	public void putVariable(String variableName, Object object) {

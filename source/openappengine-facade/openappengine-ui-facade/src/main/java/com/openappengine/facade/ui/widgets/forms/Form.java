@@ -94,10 +94,17 @@ public class Form extends Widget implements Serializable {
 
 	public EntityValue getEntityValue() {
 		if(entityValue == null) {
-			entityValue = (EntityValue) formValueHolder.getValue();
+			initEntityValue();
 		}
 		
 		return entityValue;
+	}
+
+	/**
+	 * 
+	 */
+	protected void initEntityValue() {
+		entityValue = (EntityValue) formValueHolder.getValue();
 	}
 
 	//TODO - Move this to an action.
@@ -129,24 +136,31 @@ public class Form extends Widget implements Serializable {
 	}
 	
 	private List<FieldDefinition> getFieldDefinitions() {
-		List<FieldDefinition> fields = null;
+		List<FieldDefinition> fields = new ArrayList<FieldDefinition>();
 		//TODO first do a null check for entity value.
-		EntityDefinition entityDefinition = getEntityValue().getEntityDefinition();
-		fields = entityDefinition.getFields();
-		if(entityReference != null) {
-			if(entityReference.getIncludeFields().equals(IncludeFields.AUTO)) {
-				//TODO - Add a delegate to fetch all the entities from hibernate.
-				return fields;
-			} else if(entityReference.getIncludeFields().equals(IncludeFields.REFERENCED)) {
-				fields = new ArrayList<FieldDefinition>();
-				List<FieldReference> fieldReferences = getFieldLayout().getFieldReferences();
-				if(fieldReferences != null) {
-					for (FieldReference fieldReference : fieldReferences) {
-						String fieldName = fieldReference.getFieldName();
-						fields.add(entityDefinition.getFieldDefinition(fieldName));
+		if(entityValue == null) {
+			initEntityValue();
+		}
+		
+		//TODO - Ugly Implementation. EntityValue should be create irrespective of params. TO BE CORRECTED!!
+		if(entityValue != null) {
+			EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+			fields = entityDefinition.getFields();
+			if(entityReference != null) {
+				if(entityReference.getIncludeFields().equals(IncludeFields.AUTO)) {
+					//TODO - Add a delegate to fetch all the entities from hibernate.
+					return fields;
+				} else if(entityReference.getIncludeFields().equals(IncludeFields.REFERENCED)) {
+					fields = new ArrayList<FieldDefinition>();
+					List<FieldReference> fieldReferences = getFieldLayout().getFieldReferences();
+					if(fieldReferences != null) {
+						for (FieldReference fieldReference : fieldReferences) {
+							String fieldName = fieldReference.getFieldName();
+							fields.add(entityDefinition.getFieldDefinition(fieldName));
+						}
 					}
-				}
-			} //TODO - Handle PK and non-pk conditions.
+				} //TODO - Handle PK and non-pk conditions.
+			}
 		}
 		return fields;
 	}
