@@ -48,6 +48,11 @@ public class Form extends Widget implements Serializable {
 	
 	private List<FieldDefinition> fields;
 	
+	private String entityValueRef;
+	
+	//TODO - Use this instead of Entity Ref
+	private String entityName;
+	
 	private transient EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
 	public Form() {
@@ -89,14 +94,13 @@ public class Form extends Widget implements Serializable {
 
 	public EntityValue getEntityValue() {
 		if(entityValue == null) {
-			Map<Param, Object> entityRequestParams = extractFormParameters();
-			formParams.setParameterMap(entityRequestParams);
 			entityValue = (EntityValue) formValueHolder.getValue();
 		}
 		
 		return entityValue;
 	}
 
+	//TODO - Move this to an action.
 	/**
 	 * @return
 	 */
@@ -105,8 +109,9 @@ public class Form extends Widget implements Serializable {
 		Map<Param,Object> entityRequestParams = new HashMap<Param, Object>();
 		
 		if(screenParameters != null) {
-			EntityDefinition ed = entityFacade.findEntityDefinition(entityReference.getEntityName());
-			Assert.notNull(ed,"Entity Definition not found for entity-name " + entityReference.getEntityName());
+			String entityNm = entityReference.getEntityName();
+			EntityDefinition ed = entityFacade.findEntityDefinition(entityNm);
+			Assert.notNull(ed,"Entity Definition not found for entity-name " + entityNm);
 			Set<Param> requestParams = screenParameters.keySet();
 			for (Param requestParam : requestParams) {
 				if(ed.getFieldDefinition(requestParam.getName()) != null) {
@@ -125,21 +130,24 @@ public class Form extends Widget implements Serializable {
 	
 	private List<FieldDefinition> getFieldDefinitions() {
 		List<FieldDefinition> fields = null;
+		//TODO first do a null check for entity value.
 		EntityDefinition entityDefinition = getEntityValue().getEntityDefinition();
 		fields = entityDefinition.getFields();
-		if(entityReference.getIncludeFields().equals(IncludeFields.AUTO)) {
-			//TODO - Add a delegate to fetch all the entities from hibernate.
-			return fields;
-		} else if(entityReference.getIncludeFields().equals(IncludeFields.REFERENCED)) {
-			fields = new ArrayList<FieldDefinition>();
-			List<FieldReference> fieldReferences = getFieldLayout().getFieldReferences();
-			if(fieldReferences != null) {
-				for (FieldReference fieldReference : fieldReferences) {
-					String fieldName = fieldReference.getFieldName();
-					fields.add(entityDefinition.getFieldDefinition(fieldName));
+		if(entityReference != null) {
+			if(entityReference.getIncludeFields().equals(IncludeFields.AUTO)) {
+				//TODO - Add a delegate to fetch all the entities from hibernate.
+				return fields;
+			} else if(entityReference.getIncludeFields().equals(IncludeFields.REFERENCED)) {
+				fields = new ArrayList<FieldDefinition>();
+				List<FieldReference> fieldReferences = getFieldLayout().getFieldReferences();
+				if(fieldReferences != null) {
+					for (FieldReference fieldReference : fieldReferences) {
+						String fieldName = fieldReference.getFieldName();
+						fields.add(entityDefinition.getFieldDefinition(fieldName));
+					}
 				}
-			}
-		} //TODO - Handle PK and non-pk conditions.
+			} //TODO - Handle PK and non-pk conditions.
+		}
 		return fields;
 	}
 
@@ -160,5 +168,21 @@ public class Form extends Widget implements Serializable {
 
 	public void setFormParams(Parameters formParams) {
 		this.formParams = formParams;
+	}
+
+	public String getEntityValueRef() {
+		return entityValueRef;
+	}
+
+	public void setEntityValueRef(String entityValueRef) {
+		this.entityValueRef = entityValueRef;
+	}
+
+	public String getEntityName() {
+		return entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
 	}
 }

@@ -26,8 +26,7 @@ public class EntityValueResolver implements ValueResolver {
 	}
 
 	@Override
-	public Object getValue() {
-		// TODO Resolve Entity Value - May have a call to the Entity Facade.
+	public Object resolveValue() {
 		EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 		EntityValue entityValue = entityFacade.findUniqueEntityValue(entityName, queryParams);
 		return entityValue;
