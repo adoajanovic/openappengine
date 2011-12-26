@@ -91,13 +91,14 @@ public class XmlScreenProcessingFilter implements Filter {
 					if(screenParameters != null && !screenParameters.isEmpty()) {
 						if(screenParameters.getParameterNames() != null) {
 							for(Param screenParam : screenParameters.getParameterNames()) {
-								if(screenParam.isRequired()) {
 									String[] value = (String[]) requestParameterMap.get(screenParam.getName());
 									if(value != null) {
 										screenParameters.setParam(screenParam, value[0]);
 										screenContext.putVariable(screenParam.getName(), value[0]);
 									} else {
 										//TODO - Handle required field missing condition.
+										if(screenParam.isRequired()) {
+											throw new RuntimeException("Missing required parameter " + screenParam.getName() + " for screen: " + requestURI + ".");
 									}
 								}
 							}

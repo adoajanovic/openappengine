@@ -29,9 +29,7 @@ import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
 import com.openappengine.facade.ui.form.FieldLayout;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
-import com.openappengine.facade.ui.params.Value;
-import com.openappengine.facade.ui.resolver.ScreenContextVariableResolver;
-import com.openappengine.facade.ui.resolver.ValueResolver;
+import com.openappengine.facade.ui.resolver.ValueRef;
 import com.openappengine.facade.ui.screen.Screen;
 import com.openappengine.facade.ui.widgets.container.Container;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
@@ -75,7 +73,6 @@ public class XmlScreenReader {
 
 			documentElement.normalize();
 			
-			//TODO Read Actions
 			//Read Params Tag.
 			Element paramsElement = DomUtils.getChildElementByTagName(documentElement, "parameter");
 			if(paramsElement != null) {
@@ -106,64 +103,24 @@ public class XmlScreenReader {
  				screen.setScreenParameters(parameters);
 			}
 			
-			Element preActionElements = DomUtils.getChildElementByTagName(documentElement, "pre-actions");
+			Element preActionsElement = DomUtils.getChildElementByTagName(documentElement, "pre-actions");
 			PreActionHandler preActionHandler = new PreActionHandler();
-			if(preActionElements != null) {
-				//Handle entity-find-one tags.
-				List<Element> entityFindOneElements = DomUtils.getChildElementsByTagName(preActionElements, "entity-find-one");
-				if(entityFindOneElements != null && !entityFindOneElements.isEmpty()) {
-					for (Element entityFindOneElement : entityFindOneElements) {
-						//Scan Each Find One Element
-						String attrFindOneEntityName = entityFindOneElement.getAttribute("entity-name");
-						EntityFindOneAction entityFindOneAction = new EntityFindOneAction(attrFindOneEntityName);
-						
-						if(StringUtils.isEmpty(attrFindOneEntityName)) {
-							throw new RuntimeException("entity-name is a required attribute for action : <entity-find-one> ");
-						}
-						
-						
-						String attrValueField = entityFindOneElement.getAttribute("value-field");
-						if(StringUtils.isEmpty(attrValueField)) {
-							throw new RuntimeException("value-field is a required attribute for action : <entity-find-one> ");
-						}
-						entityFindOneAction.setValueField(attrValueField);
-						
-						String attrAutoFieldMap = entityFindOneElement.getAttribute("auto-field-map");
-						boolean autoFieldMap = false;
-						if(StringUtils.isEmpty(attrAutoFieldMap)) {
-							autoFieldMap = false;
-						} else {
-							autoFieldMap = Boolean.valueOf(attrAutoFieldMap);
-						}
-						
-						entityFindOneAction.setAutoFieldMap(autoFieldMap);
-						
-						if(!autoFieldMap) {
-							List<Element> fieldMaps = DomUtils.getChildElementsByTagName(entityFindOneElement, "field-map");
-							if(fieldMaps != null && !fieldMaps.isEmpty()) {
-								for (Element fieldMap : fieldMaps) {
-									String fieldName = fieldMap.getAttribute("field-name");
-									String valueRef = fieldMap.getAttribute("value-ref");
-									//TODO - We can also have a value and a value-ref
-									ScreenContextVariableResolver valueResolver = new ScreenContextVariableResolver(valueRef);
-									entityFindOneAction.addAndParameter(fieldName, new Value(valueResolver));
-								}
-							}
-						} else {
-							//Since auto-field-map = false; get the pk-fields for this entity and resolve them from the screen context.
-							EntityDefinition entityDefinition = entityFacade.findEntityDefinition(attrFindOneEntityName);
-							Assert.notNull(entityDefinition,"Entity Definition not found for " + attrFindOneEntityName);
-							List<FieldDefinition> pkFields = entityDefinition.getPKFields();
-							for (FieldDefinition pkField : pkFields) {
-								String fieldName = pkField.getName();
-								ScreenContextVariableResolver valueResolver = new ScreenContextVariableResolver(fieldName);
-								entityFindOneAction.addAndParameter(fieldName, new Value(valueResolver));
+			
+			List<Element> preActionElementList = DomUtils.getChildElementsByTagName(preActionsElement, "pre-action");
+			if(preActionsElement != null) {
+				if (preActionElementList != null && !preActionElementList.isEmpty()) {
+					for (Element preActionElement : preActionElementList) {
+						// Handle entity-find-one tags.
+						List<Element> entityFindOneElements = DomUtils.getChildElementsByTagName(preActionElement,"entity-find-one");
+						if (entityFindOneElements != null && !entityFindOneElements.isEmpty()) {
+							for (Element entityFindOneElement : entityFindOneElements) {
+								EntityFindOneAction entityFindOneAction = processEntityFindOneActionTag(entityFindOneElement);
+								preActionHandler.addPreAction(entityFindOneAction);
 							}
 						}
-						preActionHandler.addPreAction(entityFindOneAction);
+						// Handle entity-find-one tags.
 					}
 				}
-				//Handle entity-find-one tags.
 			}
 			
 			screen.setPreActionHandler(preActionHandler);
@@ -227,24 +184,13 @@ public class XmlScreenReader {
 											throw new UnsupportedOperationException("<form> element should have an entity-value-ref attribute or <entity-ref> sub-element.");
 										}
 									} else {
-										//TODO - entity-value-ref is specified. So resolve the entity value from the context.
-										/*String attrEntityName = widgetElement.getAttribute("entity-name");
-										ValueResolver valueResolver = new ScreenContextVariableResolver(attrValueRef);
-										if(StringUtils.isEmpty(attrEntityName)) {
-											throw new RuntimeException("Either an entity-value-ref or an entity-name element should be given to the form element");
-										} else {
-											//TODO - When entity-name is set, load the entity based upon the pre-actions. 
-											form.setEntityName(attrEntityName);
-										}*/
 										form.setEntityValueRef(attrValueRef);
 									}
 
-									Element fieldLayoutElement = DomUtils.getChildElementByTagName(widgetElement,
-											"field-layout");
+									Element fieldLayoutElement = DomUtils.getChildElementByTagName(widgetElement,"field-layout");
 									FieldLayout fieldLayout = new FieldLayout();
 									if (fieldLayoutElement != null) {
-										Element columnElement = DomUtils.getChildElementByTagName(fieldLayoutElement,
-												"column");
+										Element columnElement = DomUtils.getChildElementByTagName(fieldLayoutElement,"column");
 										if (columnElement != null) {
 											String columns = DomUtils.getTextValue(columnElement);
 											Integer col = Integer.valueOf(columns);
@@ -260,8 +206,7 @@ public class XmlScreenReader {
 										// TODO - Check Default settings.
 										fieldLayout.setColumns(2);
 										if (form.getEntityReference().getIncludeFields() != IncludeFields.AUTO) {
-											throw new RuntimeException(
-													"If include-fields = auto, then field-layout should be specified.");
+											throw new RuntimeException("If include-fields = auto, then field-layout should be specified.");
 										}
 									}
 									form.setFieldLayout(fieldLayout);
@@ -295,6 +240,56 @@ public class XmlScreenReader {
 		}
 
 		return screen;
+	}
+
+	/**
+	 * @param entityFindOneElement
+	 * @return
+	 */
+	protected EntityFindOneAction processEntityFindOneActionTag(Element entityFindOneElement) {
+		// Scan Each Find One Element
+		String attrFindOneEntityName = entityFindOneElement.getAttribute("entity-name");
+		Validate.notEmpty(attrFindOneEntityName, "entity-name is a required attribute for action : <entity-find-one>.");
+		String attrValueField = entityFindOneElement.getAttribute("value-field");
+		String attrAutoFieldMap = entityFindOneElement.getAttribute("auto-field-map");
+		boolean autoFieldMap = false;
+		if (StringUtils.isEmpty(attrAutoFieldMap)) {
+			autoFieldMap = false;
+		} else {
+			autoFieldMap = Boolean.valueOf(attrAutoFieldMap);
+		}
+		
+		EntityFindOneAction entityFindOneAction = new EntityFindOneAction(attrFindOneEntityName);
+		entityFindOneAction.setValueField(attrValueField);
+		entityFindOneAction.setAutoFieldMap(autoFieldMap);
+		
+		if (!autoFieldMap) {
+			List<Element> fieldMaps = DomUtils.getChildElementsByTagName(entityFindOneElement,"field-map");
+			Validate.notEmpty(fieldMaps,"Since attribute auto-field-map = false; you need to specify the fields using the child tag <field-name>.");
+			for (Element fieldMap : fieldMaps) {
+				String fieldName = fieldMap.getAttribute("field-name");
+				String valueRef = fieldMap.getAttribute("value-ref");
+				// TODO - We can also have a value and a value-ref
+				entityFindOneAction.addAndParameter(fieldName, new ValueRef<Object>(valueRef));
+			}
+		} else {
+			// Since auto-field-map = false;
+			// Get the pk-fields for this entity and resolve them from the screen context.
+			EntityDefinition entityDefinition = entityFacade.findEntityDefinition(attrFindOneEntityName);
+			Assert.notNull(entityDefinition, "Entity Definition not found for " + attrFindOneEntityName);
+			List<FieldDefinition> pkFields = entityDefinition.getPKFields();
+			for (FieldDefinition pkField : pkFields) {
+				String fieldName = pkField.getName();
+				entityFindOneAction.addAndParameter(fieldName, new ValueRef<Object>(fieldName));
+			}
+		}
+		
+		//Optional Attribute.
+		//If specified, this condition is evaluated and if this returns true the entity-find-one action is evaluated.
+		String conditionExpression = entityFindOneElement.getAttribute("condition");
+		entityFindOneAction.setConditionExpression(conditionExpression);
+		
+		return entityFindOneAction;
 	}
 
 }
