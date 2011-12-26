@@ -50,7 +50,6 @@
 	</dependencies>
 	<modules>
 		<module>openappengine-model</module>
-		<module>openappengine-messages</module>
 		<module>openappengine-servicedef</module>
 	</modules>
 </project>
