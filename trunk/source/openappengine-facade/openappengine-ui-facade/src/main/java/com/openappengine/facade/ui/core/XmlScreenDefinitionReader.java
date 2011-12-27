@@ -68,7 +68,11 @@ public class XmlScreenDefinitionReader {
 	 */
 	public void readScreenDefinition(Resource resource) throws IOException{
 		InputStream inputStream = resource.getInputStream();
-		
+		//TODO - read from resource.
+		//1. Create a valid DOM from the resource.
+		//2. Create a XmlScreenReaderContext and set this instance in the reader.
+		//3. Pass the reader to the Xml Screen Parser.
+		//4. In the parser read individual nodes and using a handle to the registry from the reader; register the screen definition.
 	}
 
 	public Screen readScreenDefinition(InputStream inputStream) {
