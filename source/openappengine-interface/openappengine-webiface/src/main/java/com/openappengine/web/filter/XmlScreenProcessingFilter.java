@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.util.WebUtils;
 
 import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.core.XmlScreenDefinitionReader;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
-import com.openappengine.facade.ui.resolver.ScreenContextVariableResolver;
 import com.openappengine.facade.ui.screen.Screen;
-import com.openappengine.facade.ui.screen.reader.XmlScreenReader;
 
 /**
  * Servlet Filter implementation class XmlScreenProcessingFilter
@@ -48,6 +48,21 @@ public class XmlScreenProcessingFilter implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
+	
+	/**
+	 * Create a {@link UrlResource} instance from the request. Used by the {@link XmlScreenDefinitionReader}
+	 * @param request
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	protected UrlResource createXmlScreenUrlResouce(HttpServletRequest request) throws MalformedURLException {
+		String requestURI = request.getRequestURI();
+		requestURI = requestURI.replace(".screen", ".xml");
+		StringBuffer path = request.getRequestURL();
+		String xmlScreenUrl = path.toString().replace(".screen", ".xml");
+		UrlResource urlResource = new UrlResource(xmlScreenUrl);
+		return urlResource;
+	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -55,6 +70,7 @@ public class XmlScreenProcessingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+
 		
 		// TODO - Handle Input XML Processing and create a Screen
 		// Definition/Screen Renderer so that the JSF Servlet can render the
@@ -62,21 +78,31 @@ public class XmlScreenProcessingFilter implements Filter {
 		
 		//TODO - Delegate Handle Request URI to XML Screen Location Mapping in a seperate class.
 		String requestURI = httpServletRequest.getRequestURI();
+		
+		requestURI = requestURI.replace(".screen", ".xml");
+		
+		//Create the Resource instance.
+		UrlResource urlResource = createXmlScreenUrlResouce(httpServletRequest);
+		
+		urlResource.toString();
+		
 		if(requestURI.startsWith("/openappengine-webiface")) {
 			requestURI = requestURI.replace("/openappengine-webiface", "");
 			requestURI = requestURI.substring(0, requestURI.indexOf('?')!=-1?requestURI.indexOf('?'):requestURI.length());
 		}
 		
 		//TODO - Configurable extension
-		requestURI = requestURI.replace(".screen", ".xml");
 		String realPath;
+		
 		try {
 			realPath = WebUtils.getRealPath(filterConfig.getServletContext(), requestURI);
 			File f = new File(realPath);
 			if(f.exists()) {
 				InputStream is = new FileInputStream(f);
-				XmlScreenReader reader = new XmlScreenReader();
+				XmlScreenDefinitionReader reader = new XmlScreenDefinitionReader();
 				final Screen screen = reader.readScreenDefinition(is);
+				is.close();
+				
 				//TODO - Handle Request Params for this screen and set the Query Params on individual forms by name.
 				Map requestParameterMap = httpServletRequest.getParameterMap();
 				
