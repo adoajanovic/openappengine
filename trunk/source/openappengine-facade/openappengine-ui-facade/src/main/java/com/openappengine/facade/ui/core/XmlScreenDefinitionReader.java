@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.ui.screen.reader;
+package com.openappengine.facade.ui.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
+import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
@@ -40,13 +41,34 @@ import com.openappengine.utility.UtilXml;
  * @author hrishikesh.joshi
  * @Dec 22, 2011
  */
-public class XmlScreenReader {
+public class XmlScreenDefinitionReader {
 
 	private final Logger logger = Logger.getLogger(getClass());
 	
-	private final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+	private transient final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+	
+	private XmlScreenDefinitionFactory factory;
 
-	public XmlScreenReader() {
+	public XmlScreenDefinitionReader(XmlScreenDefinitionFactory factory) {
+		this.factory = factory;
+	}
+	
+	/**
+	 * 
+	 */
+	//TODO - REMOVE THIS!! CALLED FROM FACTORY
+	public XmlScreenDefinitionReader() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Read Screen Definition from an Input Resource.
+	 * @param resource
+	 * @throws IOException
+	 */
+	public void readScreenDefinition(Resource resource) throws IOException{
+		InputStream inputStream = resource.getInputStream();
+		
 	}
 
 	public Screen readScreenDefinition(InputStream inputStream) {
