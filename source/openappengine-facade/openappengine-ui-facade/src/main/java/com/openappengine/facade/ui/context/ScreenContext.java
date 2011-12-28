@@ -3,12 +3,6 @@
  */
 package com.openappengine.facade.ui.context;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.openappengine.facade.ui.screen.Screen;
 
 /**
@@ -18,8 +12,6 @@ import com.openappengine.facade.ui.screen.Screen;
 public class ScreenContext {
 	
 	private Screen screen;
-	
-	private Map<String,Variable> variableMap = new HashMap<String, Variable>();
 	
 	private static ScreenContext currentInstance;
 	
