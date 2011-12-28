@@ -35,7 +35,7 @@ public class PreActionHandler implements Executable {
 					String conditionExpression = entityFindOneAction.getConditionExpression();
 					if(!StringUtils.isEmpty(conditionExpression)) {
 						ConditionExpressionEvaluator evaluator = new ConditionExpressionEvaluator();
-						Boolean conditionEvaluation = evaluator.evaluate(screenContext,conditionExpression);
+						Boolean conditionEvaluation = evaluator.evaluate(conditionExpression,screenContext.getScreen().getScreenVariables());
 						if(BooleanUtils.isFalse(conditionEvaluation)) {
 							//Expression returned false.
 							logger.info("Expression : {" + conditionExpression + "} returned false. Action will not be executed.");
@@ -45,7 +45,7 @@ public class PreActionHandler implements Executable {
 					Object returnVal = preAction.execute(screenContext);
 					//If Action has a value-field hold the return value from the action in that value field in the ScreenContext.
 					if(!StringUtils.isEmpty(entityFindOneAction.getValueField())) {
-						screenContext.putVariable(entityFindOneAction.getValueField(), returnVal);
+						screenContext.getScreen().putVariable(entityFindOneAction.getValueField(), returnVal);
 					}
 				}
 			}

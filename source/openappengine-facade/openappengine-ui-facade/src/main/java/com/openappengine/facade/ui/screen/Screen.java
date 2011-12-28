@@ -3,7 +3,8 @@
  */
 package com.openappengine.facade.ui.screen;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,14 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.ui.action.PreActionHandler;
+import com.openappengine.facade.ui.context.Variable;
+import com.openappengine.facade.ui.fsm.Node;
+import com.openappengine.facade.ui.fsm.ScreenTransitionEventListener;
+import com.openappengine.facade.ui.fsm.Transition;
+import com.openappengine.facade.ui.fsm.TransitionEvent;
+import com.openappengine.facade.ui.fsm.TransitionEventListener;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
-import com.openappengine.facade.ui.preaction.PreAction;
 import com.openappengine.facade.ui.widgets.SubScreen;
 import com.openappengine.facade.ui.widgets.Widget;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
@@ -22,10 +28,8 @@ import com.openappengine.facade.ui.widgets.container.ContainerPanel;
  * @author hrishikesh.joshi
  * @Dec 21, 2011
  */
-public class Screen implements Serializable {
+public class Screen implements Node {
 
-	private static final long serialVersionUID = 1L;
-	
 	private ContainerPanel containerPanel;
 	
 	private SubScreen activeSubScreen;
@@ -34,7 +38,13 @@ public class Screen implements Serializable {
 	
 	private Parameters screenParameters = new Parameters();
 	
+	private Map<String,Variable> variableMap = new HashMap<String, Variable>();
+	
 	private PreActionHandler preActionHandler;
+	
+	private List<Transition> transitions;
+	
+	private TransitionEventListener listener = new ScreenTransitionEventListener(this); 
 	
 	public ContainerPanel getContainerPanel() {
 		return containerPanel;
@@ -90,6 +100,68 @@ public class Screen implements Serializable {
 
 	public void setPreActionHandler(PreActionHandler preActionHandler) {
 		this.preActionHandler = preActionHandler;
+	}
+	
+	//Implementations of a Node.
+	@Override
+	public Collection<Variable> getNodeVariables() {
+		return variableMap.values();
+	}
+
+	@Override
+	public List<Transition> getTransitions() {
+		return getTransitions();
+	}
+
+	@Override
+	public List<Transition> getTransitionsListeningToEvent(TransitionEvent event) {
+		if(transitions == null || event == null) {
+			return null;
+		}
+		
+		final List<Transition> transitionsListeningToEvent = new ArrayList<Transition>();
+		String eventName = event.getEventName();
+		for(Transition t : getTransitions()) {
+			if(StringUtils.equals(eventName, t.getName())) {
+				transitionsListeningToEvent.add(t);
+			}
+		}
+		
+		return transitionsListeningToEvent;
+	}
+
+	public void setTransitions(List<Transition> transitions) {
+		this.transitions = transitions;
+	}
+	
+	public Map<String,Variable> getVariableMap() {
+		return variableMap;
+	}
+	
+	public Collection<Variable> getScreenVariables() {
+		return variableMap.values();
+	}
+
+	public void putVariable(String variableName, Object object) {
+		if (!StringUtils.isEmpty(variableName) && object != null) {
+			Variable value = new Variable();
+			value.setName(variableName);
+			value.setValue(object);
+			this.variableMap.put(variableName, value);
+		}
+	}
+	
+	public Object getVariable(String name) {
+		if(StringUtils.isEmpty(name)) {
+			return null;
+		}
+		
+		Variable variable = variableMap.get(name);
+		if(variable != null) {
+			return variable.getValue();
+		}
+		
+		return null;
 	}
 
 }

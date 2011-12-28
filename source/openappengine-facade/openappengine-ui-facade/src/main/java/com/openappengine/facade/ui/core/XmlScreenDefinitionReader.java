@@ -47,9 +47,9 @@ public class XmlScreenDefinitionReader implements ScreenDefinitionReader {
 	
 	private transient final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
-	private ScreenDefinitionRegistry registry;
+	private XmlScreenDefinitionRegistry registry;
 
-	public XmlScreenDefinitionReader(ScreenDefinitionRegistry registry) {
+	public XmlScreenDefinitionReader(XmlScreenDefinitionRegistry registry) {
 		this.registry = registry;
 	}
 	
