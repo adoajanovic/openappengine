@@ -6,7 +6,6 @@ package com.openappengine.facade.ui.context;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -38,35 +37,5 @@ public class ScreenContext {
 
 	public void setScreen(Screen screen) {
 		this.screen = screen;
-	}
-
-	public Map<String,Variable> getVariableMap() {
-		return variableMap;
-	}
-	
-	public Collection<Variable> getScreenVariables() {
-		return variableMap.values();
-	}
-
-	public void putVariable(String variableName, Object object) {
-		if (!StringUtils.isEmpty(variableName) && object != null) {
-			Variable value = new Variable();
-			value.setName(variableName);
-			value.setValue(object);
-			this.variableMap.put(variableName, value);
-		}
-	}
-	
-	public Object getVariable(String name) {
-		if(StringUtils.isEmpty(name)) {
-			return null;
-		}
-		
-		Variable variable = variableMap.get(name);
-		if(variable != null) {
-			return variable.getValue();
-		}
-		
-		return null;
 	}
 }

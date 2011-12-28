@@ -36,7 +36,7 @@ public abstract class ActionWrapper implements Action {
 		if(evaluator == null) {
 			evaluator = new ConditionExpressionEvaluator();
 		}
-		Boolean conditionEvaluation = evaluator.evaluate(context,expression);
+		Boolean conditionEvaluation = evaluator.evaluate(expression,context.getScreen().getScreenVariables());
 		return conditionEvaluation;
 	}
 }

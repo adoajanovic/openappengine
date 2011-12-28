@@ -3,7 +3,9 @@
  */
 package com.openappengine.facade.ui.expression;
 
-import com.openappengine.facade.ui.context.ScreenContext;
+import java.util.Collection;
+
+import com.openappengine.facade.ui.context.Variable;
 
 /**
  * @author hrishikesh.joshi
@@ -11,6 +13,6 @@ import com.openappengine.facade.ui.context.ScreenContext;
  */
 public interface ExpressionEvaluator {
 	
-	Object evaluate(ScreenContext screenContext,String expression);
+	Object evaluate(String expression,Collection<Variable> variables);
 
 }

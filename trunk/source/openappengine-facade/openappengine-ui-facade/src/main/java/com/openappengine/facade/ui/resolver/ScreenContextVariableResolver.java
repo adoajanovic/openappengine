@@ -4,6 +4,7 @@
 package com.openappengine.facade.ui.resolver;
 
 import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.screen.Screen;
 
 
 /**
@@ -21,7 +22,12 @@ public class ScreenContextVariableResolver implements ValueResolver {
 
 	@Override
 	public Object resolveValue() {
-		return ScreenContext.getCurrentInstance().getVariable(variableName);
+		ScreenContext screenContext = ScreenContext.getCurrentInstance();
+		Screen screen = screenContext.getScreen();
+		if(screen != null) {
+			return screen.getVariable(variableName);
+		}
+		return null;
 	}
 
 }
