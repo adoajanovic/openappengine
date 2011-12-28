@@ -139,6 +139,7 @@ public class XmlScreenProcessingFilter implements Filter {
 			}
 		} catch(Exception e) {
 			logger.error("Exception encountered while reading the screen at the URI:" + requestURI);
+			//TODO - Add a ProblemReporter here.
 		}
 		
 		//TODO - Configurable Container XHTML location

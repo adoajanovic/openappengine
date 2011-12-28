@@ -41,16 +41,16 @@ import com.openappengine.utility.UtilXml;
  * @author hrishikesh.joshi
  * @Dec 22, 2011
  */
-public class XmlScreenDefinitionReader {
+public class XmlScreenDefinitionReader implements ScreenDefinitionReader {
 
 	private final Logger logger = Logger.getLogger(getClass());
 	
 	private transient final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
-	private XmlScreenDefinitionFactory factory;
+	private ScreenDefinitionRegistry registry;
 
-	public XmlScreenDefinitionReader(XmlScreenDefinitionFactory factory) {
-		this.factory = factory;
+	public XmlScreenDefinitionReader(ScreenDefinitionRegistry registry) {
+		this.registry = registry;
 	}
 	
 	/**
@@ -316,6 +316,17 @@ public class XmlScreenDefinitionReader {
 		entityFindOneAction.setConditionExpression(conditionExpression);
 		
 		return entityFindOneAction;
+	}
+
+	@Override
+	public void loadScreenDefinition(Resource resource) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ScreenDefinitionRegistry getRegistry() {
+		return registry;
 	}
 
 }
