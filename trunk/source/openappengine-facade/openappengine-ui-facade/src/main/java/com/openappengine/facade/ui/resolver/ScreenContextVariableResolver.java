@@ -15,14 +15,16 @@ public class ScreenContextVariableResolver implements ValueResolver {
 	
 	private String variableName;
 	
-	public ScreenContextVariableResolver(String variableName) {
+	private ScreenContext screenContext;
+	
+	public ScreenContextVariableResolver(ScreenContext screenContext,String variableName) {
 		super();
 		this.variableName = variableName;
+		this.screenContext = screenContext;
 	}
 
 	@Override
 	public Object resolveValue() {
-		ScreenContext screenContext = ScreenContext.getCurrentInstance();
 		Screen screen = screenContext.getScreen();
 		if(screen != null) {
 			return screen.getVariable(variableName);

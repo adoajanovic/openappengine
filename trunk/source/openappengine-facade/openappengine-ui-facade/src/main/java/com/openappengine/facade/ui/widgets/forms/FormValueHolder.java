@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.openappengine.facade.ui.context.ScreenContext;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ScreenContextVariableResolver;
@@ -51,7 +52,7 @@ public class FormValueHolder implements Serializable {
 				}
 				valueResolver = new EntityValueResolver(parentForm.getEntityReference().getEntityName(), inParams);
 			} else if (parentForm.getEntityValueRef() != null) {
-				valueResolver = new ScreenContextVariableResolver(parentForm.getEntityValueRef());
+				valueResolver = new ScreenContextVariableResolver(ScreenContext.getCurrentInstance(),parentForm.getEntityValueRef());
 			}
 			// TODO - Add Service Reference in else part or use a factory.
 			value = valueResolver.resolveValue();
