@@ -9,7 +9,7 @@ import com.openappengine.facade.ui.screen.Screen;
  * @author hrishikesh.joshi
  * @since Dec 27, 2011
  */
-public interface XmlScreenDefinitionRegistry {
+public interface ScreenDefinitionRegistry {
 	
 	/**
 	 * Register the Screen Definition.
