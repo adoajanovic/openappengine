@@ -27,6 +27,7 @@ import com.openappengine.facade.ui.action.PreActionHandler;
 import com.openappengine.facade.ui.action.entity.EntityFindOneAction;
 import com.openappengine.facade.ui.common.EntityReference;
 import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
+import com.openappengine.facade.ui.core.context.ScreenApplicationContextFactory;
 import com.openappengine.facade.ui.form.FieldLayout;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
@@ -47,12 +48,13 @@ public class XmlScreenDefinitionReader implements ScreenDefinitionReader {
 	
 	private transient final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
-	private XmlScreenDefinitionRegistry registry;
+	private ScreenApplicationContextFactory factory;
 
-	public XmlScreenDefinitionReader(XmlScreenDefinitionRegistry registry) {
-		this.registry = registry;
+	public XmlScreenDefinitionReader(ScreenApplicationContextFactory factory) {
+		super();
+		this.setFactory(factory);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -66,13 +68,15 @@ public class XmlScreenDefinitionReader implements ScreenDefinitionReader {
 	 * @param resource
 	 * @throws IOException
 	 */
-	public void readScreenDefinition(Resource resource) throws IOException{
+	public Screen readScreenDefinition(Resource resource) throws IOException{
 		InputStream inputStream = resource.getInputStream();
+		Screen screen = readScreenDefinition(inputStream);
 		//TODO - read from resource.
 		//1. Create a valid DOM from the resource.
 		//2. Create a XmlScreenReaderContext and set this instance in the reader.
 		//3. Pass the reader to the Xml Screen Parser.
 		//4. In the parser read individual nodes and using a handle to the registry from the reader; register the screen definition.
+		return screen;
 	}
 
 	public Screen readScreenDefinition(InputStream inputStream) {
@@ -321,12 +325,14 @@ public class XmlScreenDefinitionReader implements ScreenDefinitionReader {
 	@Override
 	public void loadScreenDefinition(Resource resource) {
 		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
-	public ScreenDefinitionRegistry getRegistry() {
-		return registry;
+	public ScreenApplicationContextFactory getFactory() {
+		return factory;
+	}
+
+	public void setFactory(ScreenApplicationContextFactory factory) {
+		this.factory = factory;
 	}
 
 }

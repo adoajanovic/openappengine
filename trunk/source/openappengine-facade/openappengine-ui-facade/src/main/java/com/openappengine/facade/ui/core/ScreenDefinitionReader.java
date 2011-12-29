@@ -14,6 +14,4 @@ public interface ScreenDefinitionReader {
 	 */
 	void loadScreenDefinition(Resource resource);
 	
-	ScreenDefinitionRegistry getRegistry();
-
 }
