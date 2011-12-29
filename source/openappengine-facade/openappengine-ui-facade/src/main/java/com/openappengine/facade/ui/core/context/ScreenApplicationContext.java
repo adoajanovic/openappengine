@@ -3,13 +3,15 @@
  */
 package com.openappengine.facade.ui.core.context;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.core.io.Resource;
 
+import com.openappengine.facade.ui.core.ActionExecutor;
+import com.openappengine.facade.ui.core.ExternalContext;
+import com.openappengine.facade.ui.core.ScreenRenderer;
+import com.openappengine.facade.ui.core.TransitionHandler;
 import com.openappengine.facade.ui.core.UIRoot;
-import com.openappengine.facade.ui.fsm.Transition;
+import com.openappengine.facade.ui.core.el.ExpressionEvaluator;
+import com.openappengine.facade.ui.core.variable.VariableResolver;
 
 /**
  * The Screen Application Context holds all the infrastructure dependencies related
@@ -33,9 +35,38 @@ public interface ScreenApplicationContext {
 	UIRoot getUIRoot();
 	
 	/**
-	 * Get the request parameters.
+	 * Get the Expression Evaluator  
 	 * @return
 	 */
-	Map<String, Object> getRequestParameters();
+	ExpressionEvaluator getExpressionEvaluator();
+	
+	/**
+	 * Get the Variable Resolver for this context.
+	 * @return
+	 */
+	VariableResolver getVariableResolver();
+	
+	/**
+	 * Get the ScreenRenderer for rendering the Xml Screen.
+	 * @return
+	 */
+	ScreenRenderer getScreenRenderer();
 
+	/**
+	 * Get the ActionExecutor to execute any actions.
+	 * @return
+	 */
+	ActionExecutor getActionExecutor();
+	
+	/**
+	 * Get the TransitionHandler for the context.
+	 * @return
+	 */
+	TransitionHandler getTransitionHandler();
+	
+	/**
+	 * Get External Context.
+	 * @return
+	 */
+	ExternalContext getExternalContext();
 }

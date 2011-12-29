@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.openappengine.facade.ui.action.entity.EntityFindOneAction;
 import com.openappengine.facade.ui.context.ScreenContext;
-import com.openappengine.facade.ui.expression.ConditionExpressionEvaluator;
+import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
 import com.openappengine.facade.ui.preaction.PreAction;
 
 public class PreActionHandler implements Executable {
@@ -35,7 +35,7 @@ public class PreActionHandler implements Executable {
 					String conditionExpression = entityFindOneAction.getConditionExpression();
 					if(!StringUtils.isEmpty(conditionExpression)) {
 						ConditionExpressionEvaluator evaluator = new ConditionExpressionEvaluator();
-						Boolean conditionEvaluation = evaluator.evaluate(conditionExpression,screenContext.getScreen().getScreenVariables());
+						Boolean conditionEvaluation = evaluator.evaluate(conditionExpression);
 						if(BooleanUtils.isFalse(conditionEvaluation)) {
 							//Expression returned false.
 							logger.info("Expression : {" + conditionExpression + "} returned false. Action will not be executed.");

@@ -3,11 +3,10 @@
  */
 package com.openappengine.facade.ui.core;
 
-import java.util.List;
 import java.util.Map;
 
 import com.openappengine.facade.ui.context.Variable;
-import com.openappengine.facade.ui.fsm.Transition;
+import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.preaction.PreAction;
 
 
@@ -25,14 +24,15 @@ public interface UIRoot {
 	Map<String,Variable> getScreenVariables();
 	
 	/**
-	 * Get Transitions defined on the root node.
-	 * @return
-	 */
-	List<Transition> getScreenTransitions();
-	
-	/**
+	 * Preactions to be executed conditionally/unconditionally.
 	 * @return
 	 */
 	PreAction getPreAction();
+	
+	/**
+	 * Get Input Parameters for the UI Root.
+	 * @return
+	 */
+	Parameters getInputParameters();
 	
 }
