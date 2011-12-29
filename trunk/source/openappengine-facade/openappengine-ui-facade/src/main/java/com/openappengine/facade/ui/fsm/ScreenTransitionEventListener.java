@@ -9,7 +9,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.ui.context.ScreenContext;
-import com.openappengine.facade.ui.expression.ConditionExpressionEvaluator;
+import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
 
 
 /**
@@ -40,7 +40,7 @@ public class ScreenTransitionEventListener extends TransitionEventListener {
 				String guardConditionExpression = transition.getGuardConditionExpression();
 				Boolean executeAction = Boolean.TRUE;
 				if(!StringUtils.isEmpty(guardConditionExpression)) {
-					executeAction = expressionEvaluator.evaluate(guardConditionExpression, node.getNodeVariables());
+					executeAction = expressionEvaluator.evaluate(guardConditionExpression);
 				} 
 				
 				if(BooleanUtils.isTrue(executeAction)) {
@@ -52,7 +52,7 @@ public class ScreenTransitionEventListener extends TransitionEventListener {
 							//TODO If this outcome is equal to the exec outcome; then follow this outcome.
 							String targetUrl = outcome.getTargetUrl();
 							
-							if(expressionEvaluator.evaluate(outcome.getConditionalExpression(), node.getNodeVariables())) {
+							if(expressionEvaluator.evaluate(outcome.getConditionalExpression())) {
 								//TODO - Break the execution of the remaining outcomes and go To this target Url.
 								//Create a delegate to follow the transition.
 							}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.ui.expression;
+package com.openappengine.facade.ui.core.el;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import com.openappengine.facade.ui.context.Variable;
  * @author hrishikesh.joshi
  * @Dec 26, 2011
  */
-public class ConditionExpressionEvaluator implements ExpressionEvaluator {
+public class ConditionExpressionEvaluator extends AbstractJexlExpressionEvaluator {
 	
 	private final Logger logger = Logger.getLogger(getClass());
 	
@@ -38,10 +38,10 @@ public class ConditionExpressionEvaluator implements ExpressionEvaluator {
 	}
 	
 	@Override
-	public Boolean evaluate(String expression,Collection<Variable> variables) {
+	public Boolean evaluate(String expression) {
 		try {
 			Expression e = ExpressionFactory.createExpression(expression);
-			JexlContext jexlContext = createJexlContext(variables);
+			JexlContext jexlContext = createJexlContext();
 			Object result = e.evaluate(jexlContext);
 			if(result == null) {
 				return Boolean.FALSE;

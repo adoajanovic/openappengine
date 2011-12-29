@@ -6,14 +6,14 @@ package com.openappengine.facade.ui.action;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.ui.context.ScreenContext;
-import com.openappengine.facade.ui.expression.ConditionExpressionEvaluator;
+import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
 
 
 /**
  * @author hrishi
  *
  */
-public abstract class ActionWrapper implements Action {
+public abstract class ActionWrapper extends Action {
 	
 	protected final Logger logger = Logger.getLogger(getClass());
 
@@ -36,7 +36,7 @@ public abstract class ActionWrapper implements Action {
 		if(evaluator == null) {
 			evaluator = new ConditionExpressionEvaluator();
 		}
-		Boolean conditionEvaluation = evaluator.evaluate(expression,context.getScreen().getScreenVariables());
+		Boolean conditionEvaluation = evaluator.evaluate(expression);
 		return conditionEvaluation;
 	}
 }
