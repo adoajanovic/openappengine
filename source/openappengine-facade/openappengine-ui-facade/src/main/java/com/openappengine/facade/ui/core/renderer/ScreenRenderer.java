@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.ui.core;
+package com.openappengine.facade.ui.core.renderer;
 
 import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.core.context.ScreenApplicationContextAware;

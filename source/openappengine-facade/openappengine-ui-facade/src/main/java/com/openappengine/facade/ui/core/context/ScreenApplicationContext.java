@@ -7,10 +7,10 @@ import org.springframework.core.io.Resource;
 
 import com.openappengine.facade.ui.core.ActionExecutor;
 import com.openappengine.facade.ui.core.ExternalContext;
-import com.openappengine.facade.ui.core.ScreenRenderer;
 import com.openappengine.facade.ui.core.TransitionHandler;
 import com.openappengine.facade.ui.core.UIRoot;
 import com.openappengine.facade.ui.core.el.ExpressionEvaluator;
+import com.openappengine.facade.ui.core.renderer.ScreenRenderer;
 import com.openappengine.facade.ui.core.variable.VariableResolver;
 
 /**

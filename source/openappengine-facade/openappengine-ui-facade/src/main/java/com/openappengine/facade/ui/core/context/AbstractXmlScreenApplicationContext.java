@@ -9,11 +9,11 @@ import org.springframework.util.Assert;
 import com.openappengine.facade.ui.core.ActionExecutor;
 import com.openappengine.facade.ui.core.DefaultActionExecutor;
 import com.openappengine.facade.ui.core.ExternalContext;
-import com.openappengine.facade.ui.core.ScreenRenderer;
 import com.openappengine.facade.ui.core.TransitionHandler;
 import com.openappengine.facade.ui.core.UIRoot;
 import com.openappengine.facade.ui.core.el.ExpressionEvaluator;
 import com.openappengine.facade.ui.core.el.SimpleExpressionEvaluator;
+import com.openappengine.facade.ui.core.renderer.ScreenRenderer;
 import com.openappengine.facade.ui.core.variable.ScreenContextVariableResolver;
 import com.openappengine.facade.ui.core.variable.VariableResolver;
 
@@ -41,7 +41,7 @@ public abstract class AbstractXmlScreenApplicationContext implements ScreenAppli
 		initConfiguration();
 	}
 	
-	public void initConfiguration() {
+	protected void initConfiguration() {
 		actionExecutor = new DefaultActionExecutor();
 		expressionEvaluator = new SimpleExpressionEvaluator(this);
 		variableResolver = new ScreenContextVariableResolver(this);
