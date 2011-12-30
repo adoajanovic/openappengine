@@ -4,22 +4,21 @@
 package com.openappengine.facade.ui.context;
 
 import com.openappengine.facade.ui.screen.Screen;
-
 /**
  * @author hrishi
  *
  */
-public class ScreenContext {
+public class ScreenApplicationContext {
 	
 	private Screen screen;
 	
-	private static ScreenContext currentInstance;
+	private static ScreenApplicationContext currentInstance;
 	
-	public static ScreenContext getCurrentInstance() {
+	public static ScreenApplicationContext getCurrentInstance() {
 		return currentInstance;
 	}
 	
-	public static void setCurrentInstance(ScreenContext screenContext) {
+	public static void setCurrentInstance(ScreenApplicationContext screenContext) {
 		currentInstance = screenContext;
 	}
 	
@@ -31,3 +30,4 @@ public class ScreenContext {
 		this.screen = screen;
 	}
 }
+
