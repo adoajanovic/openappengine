@@ -5,8 +5,8 @@ package com.openappengine.facade.core.context;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.facade.core.ExternalContext;
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
 

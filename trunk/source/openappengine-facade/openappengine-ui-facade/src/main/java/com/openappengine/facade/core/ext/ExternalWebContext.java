@@ -9,8 +9,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.openappengine.facade.core.ExternalContext;
-
 /**
  * ExternalContext representing the JEE Environment. 
  * Initialized from the XmlScreenProcessingFilter.

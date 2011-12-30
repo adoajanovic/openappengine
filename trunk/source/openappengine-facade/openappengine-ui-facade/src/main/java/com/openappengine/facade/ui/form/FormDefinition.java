@@ -3,8 +3,8 @@
  */
 package com.openappengine.facade.ui.form;
 
-import com.openappengine.facade.ui.common.EntityReference;
-import com.openappengine.facade.ui.common.RenderMode;
+import com.openappengine.facade.model.EntityReference;
+import com.openappengine.facade.model.RenderMode;
 
 /**
  * @author hrishikesh.joshi

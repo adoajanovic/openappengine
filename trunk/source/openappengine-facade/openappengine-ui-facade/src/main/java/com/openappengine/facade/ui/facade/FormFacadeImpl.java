@@ -15,11 +15,11 @@ import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
-import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
-import com.openappengine.facade.ui.common.FieldReference;
+import com.openappengine.facade.model.EntityReference.IncludeFields;
+import com.openappengine.facade.model.FieldReference;
 import com.openappengine.facade.ui.form.FormDefinition;
 import com.openappengine.facade.ui.form.FormDefinitionCache;
-import com.openappengine.facade.ui.form.instance.FormInstance;
+import com.openappengine.facade.ui.form.FormInstance;
 
 /**
  * @author hrishikesh.joshi

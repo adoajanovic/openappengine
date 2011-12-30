@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.openappengine.facade.ui.form.FormDefinition;
-import com.openappengine.facade.ui.form.instance.FormInstance;
+import com.openappengine.facade.ui.form.FormInstance;
 
 /**
  * @author hrishikesh.joshi

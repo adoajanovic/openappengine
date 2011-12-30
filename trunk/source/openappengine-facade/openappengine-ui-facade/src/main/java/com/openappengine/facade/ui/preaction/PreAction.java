@@ -4,7 +4,7 @@
 package com.openappengine.facade.ui.preaction;
 
 import com.openappengine.facade.core.context.ScreenApplicationContext;
-import com.openappengine.facade.ui.action.Executable;
+import com.openappengine.facade.core.executor.action.Executable;
 
 /**
  * @author hrishi
