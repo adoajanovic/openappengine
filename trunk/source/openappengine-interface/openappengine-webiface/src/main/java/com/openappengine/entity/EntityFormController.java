@@ -20,7 +20,7 @@ import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.ui.context.UIFacadeContext;
 import com.openappengine.facade.ui.facade.FormFacade;
-import com.openappengine.facade.ui.form.instance.FormInstance;
+import com.openappengine.facade.ui.form.FormInstance;
 import com.openappengine.facade.ui.widgets.container.Container;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
 import com.openappengine.web.annotations.PreRenderView;
