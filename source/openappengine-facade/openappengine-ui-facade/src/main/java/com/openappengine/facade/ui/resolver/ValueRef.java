@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.Validate;
 
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.screen.Screen;
 
 /**
@@ -30,7 +30,7 @@ public class ValueRef<T> implements Serializable {
 	}
 	
 	public T getActualValue() {
-		ScreenContext screenContext = ScreenContext.getCurrentInstance();
+		ScreenApplicationContext screenContext = ScreenApplicationContext.getCurrentInstance();
 		Validate.notNull(screenContext,"No Active ScreenContext instance found.");
 		Screen screen = screenContext.getScreen();
 		if(screen != null) {

@@ -5,7 +5,7 @@ package com.openappengine.facade.ui.action;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
 
 
@@ -28,11 +28,11 @@ public abstract class ActionWrapper extends Action {
 	protected abstract void setWrappedAction(Action action);
 
 	@Override
-	public Object execute(ScreenContext screenContext) {
+	public Object execute(ScreenApplicationContext screenContext) {
 		return wrappedAction.execute(screenContext);
 	}
 	
-	protected Boolean evaluateConditionExpression(ScreenContext context,String expression) {
+	protected Boolean evaluateConditionExpression(ScreenApplicationContext context,String expression) {
 		if(evaluator == null) {
 			evaluator = new ConditionExpressionEvaluator();
 		}

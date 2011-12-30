@@ -7,7 +7,7 @@ import org.apache.commons.lang.Validate;
 
 import com.openappengine.facade.ui.action.Action;
 import com.openappengine.facade.ui.action.ActionWrapper;
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 
 public class IfAction extends ActionWrapper {
 	
@@ -24,7 +24,7 @@ public class IfAction extends ActionWrapper {
 	}
 
 	@Override
-	public Object execute(ScreenContext screenContext) {
+	public Object execute(ScreenApplicationContext screenContext) {
 		logger.info("Evaluating Conditional Expression : {" + conditionExpression + "}");
 		Boolean eval = evaluateConditionExpression(screenContext, conditionExpression);
 		if(BooleanUtils.isTrue(eval)) {

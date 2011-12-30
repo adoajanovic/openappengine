@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.ui.action.entity.EntityFindOneAction;
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
 import com.openappengine.facade.ui.preaction.PreAction;
 
@@ -19,7 +19,7 @@ public class PreActionHandler implements Executable {
 	protected final Logger logger = Logger.getLogger(getClass());
 	
 	@Override
-	public Object execute(ScreenContext screenContext) {
+	public Object execute(ScreenApplicationContext screenContext) {
 		//Handle the preactions.
 		
 		//Invoke the PreAction and store the variable in the current screen context if value-field is specified.
@@ -45,7 +45,8 @@ public class PreActionHandler implements Executable {
 					Object returnVal = preAction.execute(screenContext);
 					//If Action has a value-field hold the return value from the action in that value field in the ScreenContext.
 					if(!StringUtils.isEmpty(entityFindOneAction.getValueField())) {
-						screenContext.getScreen().putVariable(entityFindOneAction.getValueField(), returnVal);
+						//SAC
+						//screenContext.getUIRoot().putVariable(entityFindOneAction.getValueField(), returnVal);
 					}
 				}
 			}

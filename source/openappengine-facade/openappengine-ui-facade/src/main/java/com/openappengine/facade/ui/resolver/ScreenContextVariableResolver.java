@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.ui.resolver;
 
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.screen.Screen;
 
 
@@ -15,9 +15,9 @@ public class ScreenContextVariableResolver implements ValueResolver {
 	
 	private String variableName;
 	
-	private ScreenContext screenContext;
+	private ScreenApplicationContext screenContext;
 	
-	public ScreenContextVariableResolver(ScreenContext screenContext,String variableName) {
+	public ScreenContextVariableResolver(ScreenApplicationContext screenContext,String variableName) {
 		super();
 		this.variableName = variableName;
 		this.screenContext = screenContext;

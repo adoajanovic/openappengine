@@ -4,7 +4,7 @@
 package com.openappengine.facade.ui.preaction;
 
 import com.openappengine.facade.ui.action.Executable;
-import com.openappengine.facade.ui.context.ScreenContext;
+import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 
 /**
  * @author hrishi
@@ -12,6 +12,6 @@ import com.openappengine.facade.ui.context.ScreenContext;
  */
 public abstract class PreAction implements Executable {
 
-	public abstract Object execute(ScreenContext screenContext);
+	public abstract Object execute(ScreenApplicationContext screenContext);
 	
 }
