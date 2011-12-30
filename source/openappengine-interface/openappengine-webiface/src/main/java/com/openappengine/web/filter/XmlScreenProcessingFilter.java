@@ -20,8 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.util.WebUtils;
 
-import com.openappengine.facade.ui.context.ScreenContext;
-import com.openappengine.facade.ui.core.XmlScreenDefinitionReader;
+import com.openappengine.facade.context.factory.XmlScreenDefinitionReader;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.screen.Screen;
@@ -109,7 +108,8 @@ public class XmlScreenProcessingFilter implements Filter {
 				// TODO - Set the current instance from a sub-class such that
 				// getCurrentInstance would return the same instance in one
 				// thread.
-				ScreenContext screenContext = new ScreenContext() ;
+				
+				/*ScreenContext screenContext = new ScreenContext() ;*/
 				
 				//TODO - Handle Screen Parameters 
 				if(screen != null) {
@@ -132,10 +132,11 @@ public class XmlScreenProcessingFilter implements Filter {
 					}
 				}
 				
-				screenContext.setScreen(screen);
+				/*screenContext.setScreen(screen);
 				ScreenContext.setCurrentInstance(screenContext);
 				
 				ScreenContextThreadLocal.set(screenContext);
+				 */
 			}
 		} catch(Exception e) {
 			logger.error("Exception encountered while reading the screen at the URI:" + requestURI);

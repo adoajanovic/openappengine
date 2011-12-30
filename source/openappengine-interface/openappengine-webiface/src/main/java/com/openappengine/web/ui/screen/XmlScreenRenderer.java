@@ -7,11 +7,9 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.ui.context.ScreenContext;
 import com.openappengine.facade.ui.screen.Screen;
 import com.openappengine.web.annotations.PreRenderView;
 import com.openappengine.web.filter.PerViewPhaseListener;
-import com.openappengine.web.filter.ScreenContextThreadLocal;
 
 
 /**
@@ -28,12 +26,12 @@ public class XmlScreenRenderer implements Serializable {
 	
 	private Screen screen;
 
-	private ScreenContext screenContext;
+	/*private ScreenContext screenContext;*/
 	
 	public XmlScreenRenderer(){
-		phaseListener = new PerViewPhaseListener(this);
+		/*phaseListener = new PerViewPhaseListener(this);
 		screenContext = ScreenContextThreadLocal.get();
-		screen = screenContext.getScreen();
+		screen = screenContext.getScreen();*/
 	}
 
 	public PerViewPhaseListener getPhaseListener() {
@@ -52,7 +50,8 @@ public class XmlScreenRenderer implements Serializable {
 		}
 		
 		//Handle Pre-Actions.
-		screen.getPreActionHandler().execute(screenContext);
+		
+		/*screen.getPreActionHandler().execute(screenContext);*/
 	}	
 
 	public Screen getScreen() {
