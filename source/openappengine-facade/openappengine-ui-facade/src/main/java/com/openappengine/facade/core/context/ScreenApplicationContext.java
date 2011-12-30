@@ -5,11 +5,11 @@ package com.openappengine.facade.core.context;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.facade.core.ActionExecutor;
-import com.openappengine.facade.core.ExternalContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.UIRoot;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
+import com.openappengine.facade.core.executor.ActionExecutor;
+import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.VariableResolver;
 

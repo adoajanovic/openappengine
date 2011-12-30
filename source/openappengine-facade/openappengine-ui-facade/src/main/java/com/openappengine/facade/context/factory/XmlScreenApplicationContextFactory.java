@@ -8,8 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.facade.core.ScreenDefinitionReader;
-import com.openappengine.facade.core.XmlScreenDefinitionReader;
 import com.openappengine.facade.core.context.ScreenApplicationContext;
 
 /**

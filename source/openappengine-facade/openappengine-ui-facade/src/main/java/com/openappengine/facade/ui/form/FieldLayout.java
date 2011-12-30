@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openappengine.facade.ui.common.FieldReference;
+import com.openappengine.facade.model.FieldReference;
 
 /**
  * @author hrishikesh.joshi

@@ -11,10 +11,10 @@ import java.util.Set;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.ui.common.EntityReference;
-import com.openappengine.facade.ui.common.EntityReference.IncludeFields;
-import com.openappengine.facade.ui.common.FieldReference;
-import com.openappengine.facade.ui.common.RenderMode;
+import com.openappengine.facade.model.EntityReference;
+import com.openappengine.facade.model.FieldReference;
+import com.openappengine.facade.model.RenderMode;
+import com.openappengine.facade.model.EntityReference.IncludeFields;
 import com.thoughtworks.xstream.XStream;
 
 /**
