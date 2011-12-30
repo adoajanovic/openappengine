@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.ui.action;
 
-import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.ScreenApplicationContext;
 
 /**
  * @author hrishi

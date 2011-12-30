@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.Validate;
 
+import com.openappengine.facade.core.context.ScreenApplicationContext;
 import com.openappengine.facade.ui.action.Action;
 import com.openappengine.facade.ui.action.ActionWrapper;
-import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
 
 public class IfAction extends ActionWrapper {
 	
