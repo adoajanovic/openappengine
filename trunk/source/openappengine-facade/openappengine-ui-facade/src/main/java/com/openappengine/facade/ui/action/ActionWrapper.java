@@ -5,8 +5,8 @@ package com.openappengine.facade.ui.action;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.ui.core.context.ScreenApplicationContext;
-import com.openappengine.facade.ui.core.el.ConditionExpressionEvaluator;
+import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.el.ConditionExpressionEvaluator;
 
 
 /**
