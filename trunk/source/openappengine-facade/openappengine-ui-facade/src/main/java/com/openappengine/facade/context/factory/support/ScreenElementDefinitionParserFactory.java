@@ -6,8 +6,6 @@ package com.openappengine.facade.context.factory.support;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.collections.Factory;
-
 import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
 
 /**
@@ -17,7 +15,7 @@ import com.openappengine.facade.context.factory.support.parser.ScreenElementDefi
  * @author hrishi
  * since Dec 31, 2011
  */
-public class ScreenElementDefinitionParserFactory implements Factory {
+public class ScreenElementDefinitionParserFactory {
 	
 	//XML Node Constants
 	public static final String ENTITY_FIND_ONE = "entity-find-one";
@@ -28,11 +26,6 @@ public class ScreenElementDefinitionParserFactory implements Factory {
 	
 	private Map<String, ScreenElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, ScreenElementDefinitionParser>();
 
-	@Override
-	public ScreenElementDefinitionParser create() {
-		throw new UnsupportedOperationException("Use the method getScreenElementDefinitionParser instead of this operation.");
-	}
-	
 	public ScreenElementDefinitionParser getScreenElementDefinitionParser(String name) {
 		return getScreenElementDefinitionParserMap().get(name);
 	}

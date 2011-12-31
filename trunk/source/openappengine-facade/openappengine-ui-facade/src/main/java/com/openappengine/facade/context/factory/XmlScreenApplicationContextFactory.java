@@ -16,7 +16,7 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  */
 public class XmlScreenApplicationContextFactory implements ScreenApplicationContextFactory {
 	
-	private Map<Resource, ScreenApplicationContext> cachedScreenApplicationContexts = new ConcurrentHashMap<Resource, ScreenApplicationContext>();
+	protected static final Map<Resource, ScreenApplicationContext> cachedScreenApplicationContexts = new ConcurrentHashMap<Resource, ScreenApplicationContext>();
 
 	private ScreenDefinitionReader reader = new XmlScreenDefinitionReader(this);
 	
@@ -46,14 +46,6 @@ public class XmlScreenApplicationContextFactory implements ScreenApplicationCont
 	@Override
 	public void registerScreenApplicationContext(Resource resource, ScreenApplicationContext context) {
 		cachedScreenApplicationContexts.put(resource, context);
-	}
-
-	@Override
-	public ScreenApplicationContext create() {
-		if(getContextConfiguration() == null) {
-			setContextConfiguration(new DefaultContextConfiguration());
-		}
-		return null;
 	}
 
 	public ContextConfiguration getContextConfiguration() {

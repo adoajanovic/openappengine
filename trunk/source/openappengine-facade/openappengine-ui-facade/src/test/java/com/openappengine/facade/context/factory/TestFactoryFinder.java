@@ -3,7 +3,6 @@
  */
 package com.openappengine.facade.context.factory;
 
-import org.apache.commons.collections.Factory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,11 +14,11 @@ import org.junit.Test;
  */
 public class TestFactoryFinder {
 	
-	private Factory screenApplicationContextFactory;
+	private ScreenApplicationContextFactory screenApplicationContextFactory;
 
 	@Before
 	public void createFactory() {
-		screenApplicationContextFactory = FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
+		screenApplicationContextFactory = (ScreenApplicationContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
 	}
 	
 	@Test
@@ -28,7 +27,7 @@ public class TestFactoryFinder {
 		
 		//Create a new Screen Application Context Factory without a callback. As we have already created one this should not be null
 		//even if NO initializer callbacks are provided.
-		Factory factoryR = FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, null);
+		ScreenApplicationContextFactory factoryR = (ScreenApplicationContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, null);
 		Assert.assertNotNull("Factory not initialized inspite of the InitializationCallback provided.",factoryR);
 		Assert.assertEquals(screenApplicationContextFactory, factoryR);
 	}
@@ -38,7 +37,7 @@ public class TestFactoryFinder {
 		boolean containsFactory = FactoryFinder.containsFactory("InvalidFactory");
 		
 		if(!containsFactory) {
-			Factory factory = FactoryFinder.getFactory("InvalidFactory", null);
+			ScreenApplicationContextFactory factory = (ScreenApplicationContextFactory) FactoryFinder.getFactory("InvalidFactory", null);
 			//As no callback initializer is provided this should return a null.
 			Assert.assertNull("Factory should be Null, if the FactoryFinder doesnt have the named factory and no callback instance is provided.",factory);
 		}
