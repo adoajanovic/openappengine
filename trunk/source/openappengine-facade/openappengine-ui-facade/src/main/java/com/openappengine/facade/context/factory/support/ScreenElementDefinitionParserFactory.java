@@ -19,6 +19,13 @@ import com.openappengine.facade.context.factory.support.parser.ScreenElementDefi
  */
 public class ScreenElementDefinitionParserFactory implements Factory {
 	
+	//XML Node Constants
+	public static final String ENTITY_FIND_ONE = "entity-find-one";
+
+	public static final String PRE_ACTIONS = "pre-actions";
+
+	public static final String FIELD_MAP = "field-map"; 
+	
 	private Map<String, ScreenElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, ScreenElementDefinitionParser>();
 
 	@Override

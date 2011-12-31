@@ -5,6 +5,16 @@
 	
 	<import resource="entity-facade-context.xml"/>
 	
-	<bean name="uiFacadeContext" class="com.openappengine.facade.ui.context.XmlScreenContext" //>
+	<bean name="uiFacadeContext" class="com.openappengine.facade.ui.context.XmlScreenContext" />
+	
+	<!-- Default Screen Definition Document Reader -->
+	<bean id="defaultScreenDefinitionDocumentReader" class="com.openappengine.facade.context.factory.xml.DefaultScreenDefinitionDocumentReader">
+	</bean>
+	
+	<!-- XML Screen Definition Reader -->
+	<bean id="xmlScreenDefinitionReader" class="com.openappengine.facade.context.factory.XmlScreenDefinitionReader">
+		<property name="documentReader" ref="defaultScreenDefinitionDocumentReader"></property>
+	</bean>
 
+	
 </beans>

@@ -21,14 +21,13 @@ public class WebContextFactoryInitializationCallback extends ContextFactoryIniti
 
 	@Override
 	protected ScreenApplicationContextFactory createFactory() {
-		validateContextConfiguration();
+		createDefaultContextConfigurationIfNull();
 		ScreenApplicationContextFactory factory = new XmlScreenApplicationContextFactory(getContextConfiguration());
 		return factory;
 	}
 
-	protected void validateContextConfiguration() {
+	protected void createDefaultContextConfigurationIfNull() {
 		if(contextConfiguration == null) {
-			//TODO - Change this to DefaultWebContextConfiguration here.
 			contextConfiguration = new DefaultContextConfiguration();
 		}
 	}

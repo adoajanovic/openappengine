@@ -9,7 +9,6 @@ import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.UIRoot;
 import com.openappengine.facade.core.context.ScreenApplicationContext;
-import com.openappengine.facade.ui.context.Variable;
 
 /**
  * @author hrishikesh.joshi

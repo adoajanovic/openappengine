@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.openappengine.facade.ui.context;
+package com.openappengine.facade.core.variable;
 
 /**
  * @author hrishi
