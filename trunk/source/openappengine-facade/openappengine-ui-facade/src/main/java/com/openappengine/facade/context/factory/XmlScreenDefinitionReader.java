@@ -21,7 +21,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.openappengine.facade.context.factory.ScreenApplicationContextFactory;
+import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
 import com.openappengine.facade.core.executor.action.PreActionHandler;
 import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
 import com.openappengine.facade.entity.EntityFacade;
@@ -51,6 +51,8 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 	private transient final EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
 	private ScreenApplicationContextFactory factory;
+	
+	private ScreenDefinitionParserDelegate delegate;
 
 	public XmlScreenDefinitionReader(ScreenApplicationContextFactory factory) {
 		super();
@@ -338,7 +340,9 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		try {
 			DocumentBuilder builder = createDocumentBuilder();
 			Document doc = builder.parse(inputStream);
-			//TODO - Call the ScreenDefinitionDocumentReader from here.
+
+			delegate = new ScreenDefinitionParserDelegate(doc.getDocumentElement());
+			
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -358,6 +362,20 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		builderFactory.setNamespaceAware(false);
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		return builder;
+	}
+
+	/**
+	 * @return the delegate
+	 */
+	public ScreenDefinitionParserDelegate getDelegate() {
+		return delegate;
+	}
+
+	/**
+	 * @param delegate the delegate to set
+	 */
+	public void setDelegate(ScreenDefinitionParserDelegate delegate) {
+		this.delegate = delegate;
 	}
 
 }

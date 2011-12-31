@@ -3,13 +3,15 @@
  */
 package com.openappengine.facade.context.factory.xml;
 
-import org.springframework.beans.factory.parsing.ReaderContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
+import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
+import com.openappengine.facade.core.component.executable.PreActionsComponent;
+import com.openappengine.facade.core.component.ui.UIRootComponent;
 
 /**
  * @author hrishikesh.joshi
@@ -17,30 +19,25 @@ import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDe
  */
 public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDocumentReader {
 	
-	/**
-	 *  Represents the XML Pre-Actions Node. 
-	 */
-	private static final String PREACTIONS = "pre-actions";
-	
-	
-	private ReaderContext readerContext;
+	private static final String ELEMENT_PRE_ACTIONS = "pre-actions";
+
+	private UIRootComponent uiRootComponent;
+
+	public DefaultScreenDefinitionDocumentReader() {
+		setUiRootComponent(new UIRootComponent());
+	}
 
 	@Override
-	public void registerScreenDefinition(Document doc, ScreenReaderContext readerContext) {
-		this.readerContext = readerContext;
-		
+	public void registerScreenDefinition(Document doc) {
 		Element root = doc.getDocumentElement();
 		
-		ScreenDefinitionParserDelegate delegate = createParserDelegate(readerContext, root);
+		ScreenDefinitionParserDelegate delegate = createParserDelegate(root);
 		
 		parseScreenDefinition(root, delegate);
 	}
 
-	/**
-	 * @param readerContext
-	 */
-	protected ScreenDefinitionParserDelegate createParserDelegate(ScreenReaderContext readerContext,Element root) {
-		ScreenDefinitionParserDelegate parserDelegate = new ScreenDefinitionParserDelegate(readerContext,root);
+	protected ScreenDefinitionParserDelegate createParserDelegate(Element root) {
+		ScreenDefinitionParserDelegate parserDelegate = new ScreenDefinitionParserDelegate(root);
 		return parserDelegate;
 	}
 	
@@ -56,13 +53,37 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	}
 	
 	private void parseElement(Element element,ScreenDefinitionParserDelegate delegate) {
-		if(delegate.nodeNameEquals(element, PREACTIONS)) {
-			parsePreActions(element, delegate);
+		if(delegate.nodeNameEquals(element, ELEMENT_PRE_ACTIONS)) {
+			PreActionsComponent parsePreActions = parsePreActions(element, delegate);
+			uiRootComponent.setPreActionsComponent(parsePreActions);
 		}
 	}
 	
-	private void parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
-		//TODO - Create a method in the delegate to parse the <pre-actions> XML node.
+	/**
+	 * Parse the PreActions Node and return the PreActions Component that can be
+	 * set in the Component Tree.
+	 * @param element
+	 * @param delegate
+	 * @return PreActionsComponent created from the parsed XML Node.
+	 */
+	private PreActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
+		ScreenElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ELEMENT_PRE_ACTIONS);
+		PreActionsComponent preActions = (PreActionsComponent) parser.parse(element);
+		return preActions;
+	}
+
+	/**
+	 * @return the uiRootComponent
+	 */
+	public UIRootComponent getUiRootComponent() {
+		return uiRootComponent;
+	}
+
+	/**
+	 * @param uiRootComponent the uiRootComponent to set
+	 */
+	public void setUiRootComponent(UIRootComponent uiRootComponent) {
+		this.uiRootComponent = uiRootComponent;
 	}
 
 }

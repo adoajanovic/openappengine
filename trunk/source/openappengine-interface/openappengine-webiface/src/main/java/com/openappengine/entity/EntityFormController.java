@@ -4,11 +4,8 @@
 package com.openappengine.entity;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
@@ -18,10 +15,7 @@ import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.entity.definition.FieldDefinition;
-import com.openappengine.facade.ui.context.UIFacadeContext;
-import com.openappengine.facade.ui.facade.FormFacade;
 import com.openappengine.facade.ui.form.FormInstance;
-import com.openappengine.facade.ui.widgets.container.Container;
 import com.openappengine.facade.ui.widgets.container.ContainerPanel;
 import com.openappengine.web.annotations.PreRenderView;
 
@@ -43,8 +37,6 @@ public class EntityFormController implements Serializable {
 	
 	private EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 	
-	protected FormFacade formFacade = UIFacadeContext.getUIFacade();
-	
 	//TODO - Change to Simple Form or accessed from Screen.
 	private FormInstance formInstance;
 	
@@ -65,32 +57,7 @@ public class EntityFormController implements Serializable {
 
 	@PreRenderView
 	public void processRequestParameters() {
-		if(state.equals("draft")) {
-			Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-			Map<String,Object> entityRequestParams = new HashMap<String, Object>();
-			if(requestParameterMap != null) {
-				String formName = requestParameterMap.get("formName");
-				formInstance = formFacade.getFormInstance(formName);
-				
-				Set<String> requestParams = requestParameterMap.keySet();
-				for (String requestParam : requestParams) {
-					if(formInstance.getFieldDefinition(requestParam) != null) {
-						FieldDefinition fieldDefinition = formInstance.getFieldDefinition(requestParam);
-						entityRequestParams.put(fieldDefinition.getName(), requestParameterMap.get(requestParam));
-					}
-				}
-				
-				if(!entityRequestParams.isEmpty()) {
-					formInstance = formFacade.getFormInstance(formName, entityRequestParams);
-				}
-				
-				//TODO - Read the widgets from XML.
-				Container centerPanel = new Container();
-				centerPanel.addWidget(formInstance);
-				containerPanel.setCenterPanel(centerPanel);
-			}
-			state= "modified";
-		}
+		
 	}
 
 	public String formSubmit() {

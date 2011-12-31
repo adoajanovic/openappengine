@@ -12,6 +12,6 @@ import org.w3c.dom.Document;
 public interface ScreenDefinitionDocumentReader {
 	
 	
-	void registerScreenDefinition(Document doc,ScreenReaderContext readerContext);
+	void registerScreenDefinition(Document doc);
 
 }
