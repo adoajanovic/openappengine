@@ -32,9 +32,16 @@ public class FactoryFinder {
 		if(cachedFactoryInstances.containsKey(name)) {
 			return cachedFactoryInstances.get(name);
 		}  
-		factory = (Factory) callback.onCallback();
-		cacheFactory(name, factory);
+		
+		if(callback != null) {
+			factory = (Factory) callback.onCallback();
+			cacheFactory(name, factory);
+		}
 		return factory;
+	}
+	
+	public static final boolean containsFactory(String name) {
+		return cachedFactoryInstances.containsKey(name);
 	}
 
 	/**
