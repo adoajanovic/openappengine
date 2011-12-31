@@ -10,7 +10,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
@@ -53,7 +52,6 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		return null;
 	}
 
-	@Autowired
 	@Override
 	public void loadScreenDefinition(Resource resource) {
 		Assert.notNull(resource,"Resource cannot be null.");

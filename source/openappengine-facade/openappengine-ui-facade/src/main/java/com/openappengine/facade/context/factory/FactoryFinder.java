@@ -6,7 +6,6 @@ package com.openappengine.facade.context.factory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.collections.Factory;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,18 +22,18 @@ import org.apache.log4j.Logger;
  */
 public class FactoryFinder {
 	
-	private static final Map<String, Factory> cachedFactoryInstances = new ConcurrentHashMap<String, Factory>();
+	private static final Map<String, Object> cachedFactoryInstances = new ConcurrentHashMap<String, Object>();
 	
 	private static final Logger LOG = Logger.getLogger(FactoryFinder.class);
 	
-	public static Factory getFactory(String name,Callback<?> callback) {
-		Factory factory = null;
+	public static Object getFactory(String name,Callback<?> callback) {
+		Object factory = null;
 		if(cachedFactoryInstances.containsKey(name)) {
 			return cachedFactoryInstances.get(name);
 		}  
 		
 		if(callback != null) {
-			factory = (Factory) callback.onCallback();
+			factory = callback.onCallback();
 			cacheFactory(name, factory);
 		}
 		return factory;
@@ -48,7 +47,7 @@ public class FactoryFinder {
 	 * @param name
 	 * @param factory
 	 */
-	private static void cacheFactory(String name, Factory factory) {
+	private static void cacheFactory(String name, Object factory) {
 		if(factory == null) {
 			LOG.error("Factory : " + name + " was not initialized from the Callback.");
 		}

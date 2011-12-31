@@ -3,7 +3,6 @@
  */
 package com.openappengine.facade.context.factory;
 
-import org.apache.commons.collections.Factory;
 import org.springframework.core.io.Resource;
 
 import com.openappengine.facade.core.context.ScreenApplicationContext;
@@ -15,7 +14,7 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public interface ScreenApplicationContextFactory extends Factory {
+public interface ScreenApplicationContextFactory {
 	
 	/**
 	 * Is the Screen at the given resournce present in the factory.
@@ -38,9 +37,4 @@ public interface ScreenApplicationContextFactory extends Factory {
 	 */
 	void registerScreenApplicationContext(Resource resource,ScreenApplicationContext context);
 
-	/**
-	 * Create a ScreenApplicationContext object
-	 */
-	ScreenApplicationContext create();
-	
 }
