@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.openappengine.facade.context.factory.Callback;
+import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.support.parser.EntityFindOneActionElementDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.FieldMapComponentDefinitionParser;
@@ -22,8 +23,6 @@ import com.openappengine.facade.context.factory.support.parser.ScreenElementDefi
  */
 public class ScreenDefinitionParserDelegate {
 	
-	private static final String SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY = "ScreenElementDefinitionParserFactory";
-
 	private Element root;
 	
 	private ScreenElementDefinitionParserFactory factory;
@@ -34,12 +33,9 @@ public class ScreenDefinitionParserDelegate {
 		createNodeDefinitionParserFactory();
 	}
 
-	/**
-	 * 
-	 */
 	private void createNodeDefinitionParserFactory() {
 		ScreenElementDefinitionParserFactoryInitializer initializer = new ScreenElementDefinitionParserFactoryInitializer();
-		setFactory((ScreenElementDefinitionParserFactory) FactoryFinder.getFactory(SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY, initializer));
+		setFactory((ScreenElementDefinitionParserFactory) FactoryFinder.getFactory(FactoryConstants.SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY, initializer));
 	}
 	
 	/**
@@ -82,9 +78,9 @@ public class ScreenDefinitionParserDelegate {
 		@Override
 		public ScreenElementDefinitionParserFactory onCallback() {
 			ScreenElementDefinitionParserFactory factory = new ScreenElementDefinitionParserFactory();
-			factory.addScreenElementDefinitionParser("entity-find-one", new EntityFindOneActionElementDefinitionParser());
-			factory.addScreenElementDefinitionParser("field-map", new FieldMapComponentDefinitionParser());
-			factory.addScreenElementDefinitionParser("pre-actions", new PreActionsElementParser());
+			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.ENTITY_FIND_ONE, new EntityFindOneActionElementDefinitionParser());
+			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.FIELD_MAP, new FieldMapComponentDefinitionParser());
+			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.PRE_ACTIONS, new PreActionsElementParser());
 			return factory;
 		}
 		

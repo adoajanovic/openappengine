@@ -6,7 +6,7 @@ package com.openappengine.facade.fsm;
 import java.util.Collection;
 import java.util.List;
 
-import com.openappengine.facade.ui.context.Variable;
+import com.openappengine.facade.core.variable.Variable;
 
 /**
  * @author hrishikesh.joshi

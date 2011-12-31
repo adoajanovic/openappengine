@@ -5,7 +5,7 @@ package com.openappengine.facade.core;
 
 import java.util.Map;
 
-import com.openappengine.facade.ui.context.Variable;
+import com.openappengine.facade.core.variable.Variable;
 import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.preaction.PreAction;
 

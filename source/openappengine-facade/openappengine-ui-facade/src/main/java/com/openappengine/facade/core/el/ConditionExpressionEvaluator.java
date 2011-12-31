@@ -13,7 +13,7 @@ import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.jexl.JexlHelper;
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.ui.context.Variable;
+import com.openappengine.facade.core.variable.Variable;
 
 /**
  * @author hrishikesh.joshi

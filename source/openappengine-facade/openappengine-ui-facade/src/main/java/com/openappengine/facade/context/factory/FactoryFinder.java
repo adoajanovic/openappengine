@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.collections.Factory;
+import org.apache.log4j.Logger;
 
 /**
  * FactoryFinder is a class that holds the factories keyed by their names.
@@ -24,9 +25,30 @@ public class FactoryFinder {
 	
 	private static final Map<String, Factory> cachedFactoryInstances = new ConcurrentHashMap<String, Factory>();
 	
+	private static final Logger LOG = Logger.getLogger(FactoryFinder.class);
+	
 	public static Factory getFactory(String name,Callback<?> callback) {
-		Factory factory = cachedFactoryInstances.get(name);
+		Factory factory = null;
+		if(cachedFactoryInstances.containsKey(name)) {
+			return cachedFactoryInstances.get(name);
+		}  
+		factory = (Factory) callback.onCallback();
+		cacheFactory(name, factory);
 		return factory;
+	}
+
+	/**
+	 * @param name
+	 * @param factory
+	 */
+	private static void cacheFactory(String name, Factory factory) {
+		if(factory == null) {
+			LOG.error("Factory : " + name + " was not initialized from the Callback.");
+		}
+		if(factory != null) {
+			LOG.info("Factory : " + name + " was successfully initialized from the Callback. Saving the factory..");
+			cachedFactoryInstances.put(name, factory);
+		}
 	}
 
 }
