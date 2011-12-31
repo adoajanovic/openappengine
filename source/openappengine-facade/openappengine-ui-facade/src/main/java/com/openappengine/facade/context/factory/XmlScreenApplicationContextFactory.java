@@ -27,7 +27,7 @@ public class XmlScreenApplicationContextFactory implements ScreenApplicationCont
 	
 	public XmlScreenApplicationContextFactory(ContextConfiguration contextConfiguration) {
 		super();
-		this.contextConfiguration = contextConfiguration;
+		this.setContextConfiguration(contextConfiguration);
 	}
 
 	@Override
@@ -50,10 +50,18 @@ public class XmlScreenApplicationContextFactory implements ScreenApplicationCont
 
 	@Override
 	public ScreenApplicationContext create() {
-		if(contextConfiguration == null) {
-			contextConfiguration = new DefaultContextConfiguration();
+		if(getContextConfiguration() == null) {
+			setContextConfiguration(new DefaultContextConfiguration());
 		}
 		return null;
+	}
+
+	public ContextConfiguration getContextConfiguration() {
+		return contextConfiguration;
+	}
+
+	public void setContextConfiguration(ContextConfiguration contextConfiguration) {
+		this.contextConfiguration = contextConfiguration;
 	}
 
 }

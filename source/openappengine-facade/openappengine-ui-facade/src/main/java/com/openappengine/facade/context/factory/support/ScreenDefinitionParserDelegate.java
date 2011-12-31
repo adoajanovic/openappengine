@@ -3,9 +3,16 @@
  */
 package com.openappengine.facade.context.factory.support;
 
-import org.springframework.beans.factory.parsing.ReaderContext;
+import org.springframework.util.Assert;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import com.openappengine.facade.context.factory.Callback;
+import com.openappengine.facade.context.factory.FactoryFinder;
+import com.openappengine.facade.context.factory.support.parser.EntityFindOneActionElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.FieldMapComponentDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.PreActionsElementParser;
+import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
 
 /**
  * Delegate to parse the Xml Definitions. 
@@ -15,14 +22,24 @@ import org.w3c.dom.Node;
  */
 public class ScreenDefinitionParserDelegate {
 	
-	private ReaderContext readerContext;
-	
-	private Element root;
+	private static final String SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY = "ScreenElementDefinitionParserFactory";
 
-	public ScreenDefinitionParserDelegate(ReaderContext readerContext, Element root) {
+	private Element root;
+	
+	private ScreenElementDefinitionParserFactory factory;
+	
+	public ScreenDefinitionParserDelegate(Element root) {
 		super();
-		this.readerContext = readerContext;
 		this.setRoot(root);
+		createNodeDefinitionParserFactory();
+	}
+
+	/**
+	 * 
+	 */
+	private void createNodeDefinitionParserFactory() {
+		ScreenElementDefinitionParserFactoryInitializer initializer = new ScreenElementDefinitionParserFactoryInitializer();
+		setFactory((ScreenElementDefinitionParserFactory) FactoryFinder.getFactory(SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY, initializer));
 	}
 	
 	/**
@@ -36,15 +53,14 @@ public class ScreenDefinitionParserDelegate {
 	public boolean nodeNameEquals(Node node,String nodeName) {
 		return nodeName.equals(node.getNodeName());
 	}
-
-	public ReaderContext getReaderContext() {
-		return readerContext;
+	
+	public ScreenElementDefinitionParser getScreenElementDefinitionParser(String name) {
+		ScreenElementDefinitionParser parser = factory.getScreenElementDefinitionParser(name);
+		Assert.notNull(parser,"ScreenElementDefinitionParser : " + name + " not configured.");
+		parser.setDelegate(this);
+		return parser;
 	}
-
-	public void setReaderContext(ReaderContext readerContext) {
-		this.readerContext = readerContext;
-	}
-
+	
 	public Element getRoot() {
 		return root;
 	}
@@ -52,5 +68,25 @@ public class ScreenDefinitionParserDelegate {
 	public void setRoot(Element root) {
 		this.root = root;
 	}
+
+	protected ScreenElementDefinitionParserFactory getFactory() {
+		return factory;
+	}
+
+	protected void setFactory(ScreenElementDefinitionParserFactory factory) {
+		this.factory = factory;
+	}
 	
+	private class ScreenElementDefinitionParserFactoryInitializer implements Callback<ScreenElementDefinitionParserFactory> {
+
+		@Override
+		public ScreenElementDefinitionParserFactory onCallback() {
+			ScreenElementDefinitionParserFactory factory = new ScreenElementDefinitionParserFactory();
+			factory.addScreenElementDefinitionParser("entity-find-one", new EntityFindOneActionElementDefinitionParser());
+			factory.addScreenElementDefinitionParser("field-map", new FieldMapComponentDefinitionParser());
+			factory.addScreenElementDefinitionParser("pre-actions", new PreActionsElementParser());
+			return factory;
+		}
+		
+	}
 }
