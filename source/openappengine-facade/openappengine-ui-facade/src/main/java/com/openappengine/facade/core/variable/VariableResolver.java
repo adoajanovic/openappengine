@@ -3,18 +3,18 @@
  */
 package com.openappengine.facade.core.variable;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
-import com.openappengine.facade.core.context.ScreenApplicationContextAware;
+import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContextAware;
 
 /**
  * Interface that resolve the value from the variable names.
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public interface VariableResolver extends ScreenApplicationContextAware {
+public interface VariableResolver extends GuiApplicationContextAware {
 	
 	Object getValue(String name);
 	
-	void setScreenApplicationContext(ScreenApplicationContext context);
+	void setGuiApplicationContext(GuiApplicationContext context);
 
 }

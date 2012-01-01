@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.jexl.JexlHelper;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
 
 /**
@@ -19,17 +19,17 @@ import com.openappengine.facade.core.variable.Variable;
  */
 public abstract class AbstractJexlExpressionEvaluator implements ExpressionEvaluator {
 	
-	private ScreenApplicationContext context;
+	private GuiApplicationContext context;
 
 	@Override
-	public void setScreenApplicationContext(ScreenApplicationContext context) {
+	public void setGuiApplicationContext(GuiApplicationContext context) {
 		this.context = context;
 	}
 
 	@Override
 	public abstract Object evaluate(String expression);
 
-	protected ScreenApplicationContext getContext() {
+	protected GuiApplicationContext getContext() {
 		return context;
 	}
 	

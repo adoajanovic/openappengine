@@ -6,11 +6,13 @@ package com.openappengine.facade.core.component;
 import java.io.Serializable;
 
 /**
+ * The root interface of the GuiComponent hierarchy. 
+ * 
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public interface XmlScreenComponent extends Serializable {
-
+public interface GuiComponent extends Serializable {
+	
 	/**
 	 * Every Component in the XML Screen has a Component-Type 
 	 * registered with the Context.

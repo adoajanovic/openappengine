@@ -7,7 +7,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.el.ConditionExpressionEvaluator;
 import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
 import com.openappengine.facade.ui.preaction.PreAction;
@@ -19,7 +19,7 @@ public class PreActionHandler implements Executable {
 	protected final Logger logger = Logger.getLogger(getClass());
 	
 	@Override
-	public Object execute(ScreenApplicationContext screenContext) {
+	public Object execute(GuiApplicationContext screenContext) {
 		//Handle the preactions.
 		
 		//Invoke the PreAction and store the variable in the current screen context if value-field is specified.

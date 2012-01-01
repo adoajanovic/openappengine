@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.openappengine.facade.core.component.XmlScreenComponent;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
 
 /**
@@ -27,7 +27,7 @@ public class PreActionsElementParser extends AbstractScreenElementDefinitionPars
 				if(childNode instanceof Element) {
 					if(!isNodeParseable(childNode.getNodeName())) {
 						ScreenElementDefinitionParser parser = createNodeParserDelegate(childNode);
-						XmlScreenComponent component = parser.parse((Element) childNode);
+						GuiComponent component = parser.parse((Element) childNode);
 						preActionsComponent.addChildComponent(component);
 					}
 				}
@@ -38,10 +38,7 @@ public class PreActionsElementParser extends AbstractScreenElementDefinitionPars
 
 	@Override
 	protected boolean isNodeParseable(String nodeName) {
-		if(StringUtils.equals(nodeName,ELEMENT_PRE_ACTIONS)) {
-			return true;
-		}
-		return false;
+		return StringUtils.equals(nodeName,ELEMENT_PRE_ACTIONS);
 	}
 
 }

@@ -3,16 +3,12 @@
  */
 package com.openappengine.facade.core.context;
 
-import org.springframework.core.io.Resource;
-import org.springframework.util.Assert;
-
 import com.openappengine.facade.core.TransitionHandler;
-import com.openappengine.facade.core.UIRoot;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
-import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
 import com.openappengine.facade.core.variable.VariableResolver;
@@ -21,9 +17,7 @@ import com.openappengine.facade.core.variable.VariableResolver;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public abstract class AbstractXmlScreenApplicationContext implements ScreenApplicationContext {
-	
-	private Resource resource;
+public abstract class AbstractGuiApplicationContext implements GuiApplicationContext {
 	
 	private ActionExecutor actionExecutor;
 	
@@ -31,12 +25,9 @@ public abstract class AbstractXmlScreenApplicationContext implements ScreenAppli
 	
 	private VariableResolver variableResolver;
 	
-	private UIRoot root;
+	private GuiRootComponent root;
 	
-	public AbstractXmlScreenApplicationContext(Resource resource) {
-		Assert.notNull(resource,"Resource required for loading ScreenApplicationContext.");
-		this.resource = resource;
-		
+	public AbstractGuiApplicationContext() {
 		//Initialize Context XmlScreenConfiguration.
 		initConfiguration();
 	}
@@ -48,13 +39,8 @@ public abstract class AbstractXmlScreenApplicationContext implements ScreenAppli
 	}
 	
 	@Override
-	public Resource getResource() {
-		return resource;
-	}
-
-	@Override
-	public UIRoot getUIRoot() {
-		return root;
+	public GuiRootComponent getUIRoot() {
+		return getRoot();
 	}
 
 	@Override
@@ -71,20 +57,19 @@ public abstract class AbstractXmlScreenApplicationContext implements ScreenAppli
 	public ActionExecutor getActionExecutor() {
 		return actionExecutor;
 	}
-
-	/**
-	 * Specific to the underlying environment.
-	 */
+	
+	@Override
 	public abstract TransitionHandler getTransitionHandler();
 
-	/**
-	 * Specific to the underlying environment.
-	 */
-	public abstract ExternalContext getExternalContext();
-	
-	/**
-	 * Specific to the underlying environment.
-	 */
+	@Override
 	public abstract ScreenRenderer getScreenRenderer();
+
+	public GuiRootComponent getRoot() {
+		return root;
+	}
+
+	protected void setRoot(GuiRootComponent root) {
+		this.root = root;
+	}
 
 }

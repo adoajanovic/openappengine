@@ -5,7 +5,7 @@ package com.openappengine.facade.context.factory;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 
 /**
  * The Factory is initialized from the listener and 
@@ -28,13 +28,13 @@ public interface ScreenApplicationContextFactory {
 	 * @param resource
 	 * @return
 	 */
-	ScreenApplicationContext getScreenApplicationContext(Resource resource);
+	GuiApplicationContext getScreenApplicationContext(Resource resource);
 	
 	/**
 	 * Register the ScreenApplicationContext with the factory.
 	 * @param resource
 	 * @param context
 	 */
-	void registerScreenApplicationContext(Resource resource,ScreenApplicationContext context);
+	void registerScreenApplicationContext(Resource resource,GuiApplicationContext context);
 
 }

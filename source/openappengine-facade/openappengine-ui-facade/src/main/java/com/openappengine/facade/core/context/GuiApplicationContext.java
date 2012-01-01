@@ -3,13 +3,10 @@
  */
 package com.openappengine.facade.core.context;
 
-import org.springframework.core.io.Resource;
-
 import com.openappengine.facade.core.TransitionHandler;
-import com.openappengine.facade.core.UIRoot;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
-import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.VariableResolver;
 
@@ -20,19 +17,23 @@ import com.openappengine.facade.core.variable.VariableResolver;
  * @author hrishi
  * since Dec 29, 2011
  */
-public interface ScreenApplicationContext {
+public interface GuiApplicationContext {
 	
 	/**
-	 * Get the Resource from which the current Screen was loaded.
-	 * @return
+	 *  Restore Gui Component.
 	 */
-	Resource getResource();
+	public static final String RESTORE_GUI_COMPONENT = "RESTORE_GUI_COMPONENT";
+	
+	/**
+	 *  Apply Parameters.
+	 */
+	public static final String APPLY_PARAMETERS = "APPLY_PARAMETERS";
 	
 	/**
 	 * Get The UIRoot of this context.
 	 * @return
 	 */
-	UIRoot getUIRoot();
+	GuiRootComponent getUIRoot();
 	
 	/**
 	 * Get the Expression Evaluator  
@@ -64,9 +65,4 @@ public interface ScreenApplicationContext {
 	 */
 	TransitionHandler getTransitionHandler();
 	
-	/**
-	 * Get External Context.
-	 * @return
-	 */
-	ExternalContext getExternalContext();
 }

@@ -5,7 +5,7 @@ package com.openappengine.facade.core;
 
 import org.springframework.util.Assert;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 
 /**
  * @author hrishikesh.joshi
@@ -13,10 +13,10 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  */
 public class ScreenTransitionHandler implements TransitionHandler {
 	
-	private ScreenApplicationContext applicationContext;
+	private GuiApplicationContext applicationContext;
 
 	@Override
-	public void setScreenApplicationContext(ScreenApplicationContext context) {
+	public void setGuiApplicationContext(GuiApplicationContext context) {
 		Assert.notNull(context, "ScreenApplicationContext cannot be null.");
 		this.applicationContext = context;
 	}

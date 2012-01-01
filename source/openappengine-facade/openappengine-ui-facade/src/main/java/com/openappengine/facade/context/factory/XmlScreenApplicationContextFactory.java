@@ -8,7 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.context.WebGuiApplicationContext;
 
 /**
  * @author hrishikesh.joshi
@@ -16,7 +18,7 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  */
 public class XmlScreenApplicationContextFactory implements ScreenApplicationContextFactory {
 	
-	protected static final Map<Resource, ScreenApplicationContext> cachedScreenApplicationContexts = new ConcurrentHashMap<Resource, ScreenApplicationContext>();
+	protected static final Map<Resource, GuiApplicationContext> cachedScreenApplicationContexts = new ConcurrentHashMap<Resource, GuiApplicationContext>();
 
 	private ScreenDefinitionReader reader = new XmlScreenDefinitionReader(this);
 	
@@ -36,15 +38,18 @@ public class XmlScreenApplicationContextFactory implements ScreenApplicationCont
 	}
 
 	@Override
-	public ScreenApplicationContext getScreenApplicationContext(Resource resource) {
+	public GuiApplicationContext getScreenApplicationContext(Resource resource) {
 		if(!contains(resource)) {
-			reader.loadScreenDefinition(resource);
+			WebGuiApplicationContext context = new WebGuiApplicationContext();
+			
+			GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
+			uiRoot.setContext(context);
 		}
 		return cachedScreenApplicationContexts.get(resource);
 	}
 
 	@Override
-	public void registerScreenApplicationContext(Resource resource, ScreenApplicationContext context) {
+	public void registerScreenApplicationContext(Resource resource, GuiApplicationContext context) {
 		cachedScreenApplicationContexts.put(resource, context);
 	}
 
