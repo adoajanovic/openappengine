@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.preaction.PreAction;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
@@ -35,7 +35,7 @@ public class EntityFindOneAction extends PreAction {
 	}
 
 	@Override
-	public EntityValue execute(ScreenApplicationContext screenContext) {
+	public EntityValue execute(GuiApplicationContext screenContext) {
 		Map<String,Object> params = new HashMap<String, Object>();
 		if(andParameterMap != null) {
 			Set<String> paramKeys = andParameterMap.keySet();

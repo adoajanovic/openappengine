@@ -13,13 +13,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import com.openappengine.facade.context.factory.xml.DefaultScreenDefinitionDocumentReader;
 import com.openappengine.facade.context.factory.xml.ScreenDefinitionDocumentReader;
-import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
-import com.openappengine.facade.ui.screen.Screen;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
 
 /**
  * @author hrishikesh.joshi
@@ -42,33 +40,25 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		documentReader = new DefaultScreenDefinitionDocumentReader();
 	}
 
-	//TODO - Remove !!
-	public Screen readScreenDefinition(InputStream inputStream) {
-		return null;
-	}
-
-	//TODO - Remove !!
-	protected EntityFindOneAction processEntityFindOneActionTag(Element entityFindOneElement) {
-		return null;
-	}
-
 	@Override
-	public void loadScreenDefinition(Resource resource) {
+	public GuiRootComponent loadScreenDefinition(Resource resource) {
 		Assert.notNull(resource,"Resource cannot be null.");
 		try {
 			InputStream inputStream = resource.getInputStream();
-			loadScreenDefinition(inputStream);
+			return loadScreenDefinition(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@Override
-	protected void loadScreenDefinition(InputStream inputStream) {
+	protected GuiRootComponent loadScreenDefinition(InputStream inputStream) {
 		try {
 			DocumentBuilder builder = createDocumentBuilder();
 			Document doc = builder.parse(inputStream);
-			getDocumentReader().registerScreenDefinition(doc);
+			GuiRootComponent uiRoot = getDocumentReader().readUIRootDefinition(doc);
+			return uiRoot;
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -76,6 +66,7 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public ScreenApplicationContextFactory getFactory() {

@@ -6,7 +6,7 @@ package com.openappengine.facade.context.factory.support.parser;
 import org.w3c.dom.Element;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
-import com.openappengine.facade.core.component.XmlScreenComponent;
+import com.openappengine.facade.core.component.GuiComponent;
 
 /**
  * @author hrishi
@@ -19,7 +19,7 @@ public interface ScreenElementDefinitionParser {
 	 * @param element
 	 * @return
 	 */
-	XmlScreenComponent parse(Element element);
+	GuiComponent parse(Element element);
 	
 	void setDelegate(ScreenDefinitionParserDelegate delegate);
 	

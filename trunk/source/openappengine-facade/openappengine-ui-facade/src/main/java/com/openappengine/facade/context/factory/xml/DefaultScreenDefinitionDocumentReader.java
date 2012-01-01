@@ -9,9 +9,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
+import com.openappengine.facade.context.factory.support.parser.ParserConstants;
 import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
-import com.openappengine.facade.core.component.ui.UIRootComponent;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
 
 /**
  * @author hrishikesh.joshi
@@ -19,21 +20,22 @@ import com.openappengine.facade.core.component.ui.UIRootComponent;
  */
 public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDocumentReader {
 	
-	private static final String ELEMENT_PRE_ACTIONS = "pre-actions";
-
-	private UIRootComponent uiRootComponent;
+	private GuiRootComponent uiRoot;
 
 	public DefaultScreenDefinitionDocumentReader() {
-		setUiRootComponent(new UIRootComponent());
+		//Initialize the root component.
+		setUiRoot(new GuiRootComponent());
 	}
 
 	@Override
-	public void registerScreenDefinition(Document doc) {
+	public GuiRootComponent readUIRootDefinition(Document doc) {
 		Element root = doc.getDocumentElement();
 		
 		ScreenDefinitionParserDelegate delegate = createParserDelegate(root);
 		
 		parseScreenDefinition(root, delegate);
+		
+		return getUiRoot();
 	}
 
 	protected ScreenDefinitionParserDelegate createParserDelegate(Element root) {
@@ -53,9 +55,10 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	}
 	
 	private void parseElement(Element element,ScreenDefinitionParserDelegate delegate) {
-		if(delegate.nodeNameEquals(element, ELEMENT_PRE_ACTIONS)) {
+		//Parse the pre-actions component.
+		if(delegate.nodeNameEquals(element, ParserConstants.ENTITY_FIND_ONE_PARSER)) {
 			PreActionsComponent parsePreActions = parsePreActions(element, delegate);
-			uiRootComponent.setPreActionsComponent(parsePreActions);
+			getUiRoot().setPreActions(parsePreActions);
 		}
 	}
 	
@@ -67,23 +70,23 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	 * @return PreActionsComponent created from the parsed XML Node.
 	 */
 	private PreActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
-		ScreenElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ELEMENT_PRE_ACTIONS);
+		ScreenElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER);
 		PreActionsComponent preActions = (PreActionsComponent) parser.parse(element);
 		return preActions;
 	}
 
 	/**
-	 * @return the uiRootComponent
+	 * @return the uiRoot
 	 */
-	public UIRootComponent getUiRootComponent() {
-		return uiRootComponent;
+	public GuiRootComponent getUiRoot() {
+		return uiRoot;
 	}
 
 	/**
-	 * @param uiRootComponent the uiRootComponent to set
+	 * @param uiRoot the uiRoot to set
 	 */
-	public void setUiRootComponent(UIRootComponent uiRootComponent) {
-		this.uiRootComponent = uiRootComponent;
+	public void setUiRoot(GuiRootComponent uiRoot) {
+		this.uiRoot = uiRoot;
 	}
 
 }

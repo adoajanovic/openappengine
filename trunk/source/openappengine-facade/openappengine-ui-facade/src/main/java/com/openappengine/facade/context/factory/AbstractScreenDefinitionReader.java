@@ -9,6 +9,8 @@ import java.io.InputStream;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
+
 /**
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
@@ -16,14 +18,14 @@ import org.springframework.util.Assert;
 public abstract class AbstractScreenDefinitionReader implements ScreenDefinitionReader {
 
 	@Override
-	public void loadScreenDefinition(Resource resource) {
+	public GuiRootComponent loadScreenDefinition(Resource resource) {
 		Assert.notNull(resource,"Resource cannot be null.");
 		try {
-			loadScreenDefinition(resource.getInputStream());
+			return loadScreenDefinition(resource.getInputStream());
 		} catch (IOException e) {
 			throw new RuntimeException("Exception encountered while reading the screen definition.",e);
 		}
 	}
 
-	protected abstract void loadScreenDefinition(InputStream inputStream);
+	protected abstract GuiRootComponent loadScreenDefinition(InputStream inputStream);
 }

@@ -5,7 +5,7 @@ package com.openappengine.facade.core.executor;
 
 import org.springframework.util.Assert;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.executor.action.Action;
 
 /**
@@ -14,10 +14,10 @@ import com.openappengine.facade.core.executor.action.Action;
  */
 public class DefaultActionExecutor implements ActionExecutor {
 	
-	private ScreenApplicationContext context;
+	private GuiApplicationContext context;
 
 	@Override
-	public void setScreenApplicationContext(ScreenApplicationContext context) {
+	public void setGuiApplicationContext(GuiApplicationContext context) {
 		this.context = context;
 	}
 

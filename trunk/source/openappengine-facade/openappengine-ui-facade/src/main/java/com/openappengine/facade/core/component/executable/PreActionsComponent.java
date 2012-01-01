@@ -11,7 +11,7 @@ import com.openappengine.facade.core.executor.action.Executable;
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public class PreActionsComponent extends AbstractExecutableComponent {
+public class PreActionsComponent extends AbstractExecutableGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 	

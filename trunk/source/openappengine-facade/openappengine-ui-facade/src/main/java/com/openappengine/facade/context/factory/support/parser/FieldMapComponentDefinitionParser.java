@@ -6,7 +6,7 @@ package com.openappengine.facade.context.factory.support.parser;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
-import com.openappengine.facade.core.component.XmlScreenComponent;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
 
 /**
@@ -16,7 +16,7 @@ import com.openappengine.facade.core.component.value.FieldMapComponent;
 public class FieldMapComponentDefinitionParser extends AbstractScreenElementDefinitionParser {
 
 	@Override
-	public XmlScreenComponent parse(Element element) {
+	public GuiComponent parse(Element element) {
 		FieldMapComponent fieldMapComponent = new FieldMapComponent();
 		String fieldName = element.getAttribute("field-name");
 		String valueRef = element.getAttribute("value-ref");

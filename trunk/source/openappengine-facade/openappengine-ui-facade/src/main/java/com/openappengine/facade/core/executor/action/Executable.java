@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.core.executor.action;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 
 /**
  * @author hrishi
@@ -11,6 +11,6 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  */
 public interface Executable {
 
-	Object execute(ScreenApplicationContext screenContext);
+	Object execute(GuiApplicationContext screenContext);
 	
 }

@@ -3,8 +3,8 @@
  */
 package com.openappengine.facade.core.renderer;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
-import com.openappengine.facade.core.context.ScreenApplicationContextAware;
+import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContextAware;
 
 /**
  * Renderer that is called from the XmlScreenProcessor. 
@@ -13,12 +13,12 @@ import com.openappengine.facade.core.context.ScreenApplicationContextAware;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public interface ScreenRenderer extends ScreenApplicationContextAware{
+public interface ScreenRenderer extends GuiApplicationContextAware{
 	
 	/**
 	 * Set the Screen Application context.
 	 * @param screenApplicationContext
 	 */
-	void setScreenApplicationContext(ScreenApplicationContext screenApplicationContext);
+	void setGuiApplicationContext(GuiApplicationContext screenApplicationContext);
 
 }
