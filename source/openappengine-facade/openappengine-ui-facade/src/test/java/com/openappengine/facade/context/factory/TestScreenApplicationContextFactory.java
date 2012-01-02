@@ -16,18 +16,18 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
  */
 public class TestScreenApplicationContextFactory {
 	
-	private ScreenApplicationContextFactory screenApplicationContextFactory;
+	private GuiContextFactory screenApplicationContextFactory;
 
 	@Before
 	public void setup() {
-		screenApplicationContextFactory = (ScreenApplicationContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
+		screenApplicationContextFactory = (GuiContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
 		Assert.assertNotNull("ScreenApplicationContextFactory Null !", screenApplicationContextFactory);
 	}
 	
 	@Test
 	public void testGetScreenApplicationContext() {
 		ClassPathResource resource = new ClassPathResource("CodeType.xml");
-		GuiApplicationContext applicationContext = screenApplicationContextFactory.getScreenApplicationContext(resource);
+		GuiApplicationContext applicationContext = screenApplicationContextFactory.createGuiApplicationContext(resource, null);
 		
 	}
 

@@ -8,14 +8,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.openappengine.facade.core.component.GuiComponent;
+import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
 
 /**
  * @author hrishi
  * since Dec 31, 2011
  */
-public class PreActionsElementParser extends AbstractScreenElementDefinitionParser {
+public class PreActionsElementParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
 	public PreActionsComponent parse(Element element) {
@@ -26,8 +26,8 @@ public class PreActionsElementParser extends AbstractScreenElementDefinitionPars
 				Node childNode = nl.item(i);
 				if(childNode instanceof Element) {
 					if(!isNodeParseable(childNode.getNodeName())) {
-						ScreenElementDefinitionParser parser = createNodeParserDelegate(childNode);
-						GuiComponent component = parser.parse((Element) childNode);
+						GuiElementDefinitionParser parser = createNodeParserDelegate(childNode);
+						AbstractExecutableComponent component = (AbstractExecutableComponent) parser.parse((Element) childNode);
 						preActionsComponent.addChildComponent(component);
 					}
 				}

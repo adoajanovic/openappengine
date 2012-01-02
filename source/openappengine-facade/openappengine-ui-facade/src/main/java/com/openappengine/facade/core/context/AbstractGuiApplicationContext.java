@@ -3,14 +3,21 @@
  */
 package com.openappengine.facade.core.context;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
+
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.component.executable.PreActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
+import com.openappengine.facade.core.executor.action.Action;
+import com.openappengine.facade.core.executor.action.Executable;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
+import com.openappengine.facade.core.variable.Variable;
 import com.openappengine.facade.core.variable.VariableResolver;
 
 /**
@@ -63,6 +70,33 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 
 	@Override
 	public abstract ScreenRenderer getScreenRenderer();
+	
+	public void processPreActions() {
+		Assert.notNull(getActionExecutor(),"Action Executor cannot be null.");
+		
+		if(root == null) {
+			throw new IllegalStateException("GUI Component Root not initialized.");
+		}
+		
+		//PreActions.
+		if(root.arePreActionsConfigured()) {
+			PreActionsComponent preActions = root.getPreActions();
+			Executable executable = preActions.getExecutable();
+			if(executable != null) {
+				Object actionOutput = executable.execute(this);
+				if(executable instanceof Action) {
+					String valueField = ((Action)executable).getValueField();
+					if(!StringUtils.isEmpty(valueField)) {
+						Variable variable = new Variable();
+						variable.setName(valueField);
+						variable.setValue(actionOutput);
+						getRoot().getScreenVariables().put(valueField, variable);
+					}
+				}
+			}
+		}
+		
+	}
 
 	public GuiRootComponent getRoot() {
 		return root;

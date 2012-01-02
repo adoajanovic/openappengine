@@ -23,13 +23,13 @@ import com.openappengine.facade.core.component.ui.GuiRootComponent;
  * @author hrishikesh.joshi
  * @Dec 22, 2011
  */
-public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
+public class DefaultGuiDefinitionReader extends AbstractGuiDefinitionReader {
 
-	private ScreenApplicationContextFactory factory;
+	private GuiContextFactory factory;
 	
 	private ScreenDefinitionDocumentReader documentReader;
 
-	public XmlScreenDefinitionReader(ScreenApplicationContextFactory factory) {
+	public DefaultGuiDefinitionReader(GuiContextFactory factory) {
 		super();
 		this.setFactory(factory);
 		
@@ -69,11 +69,11 @@ public class XmlScreenDefinitionReader extends AbstractScreenDefinitionReader {
 		return null;
 	}
 	
-	public ScreenApplicationContextFactory getFactory() {
+	public GuiContextFactory getFactory() {
 		return factory;
 	}
 
-	public void setFactory(ScreenApplicationContextFactory factory) {
+	public void setFactory(GuiContextFactory factory) {
 		this.factory = factory;
 	}
 

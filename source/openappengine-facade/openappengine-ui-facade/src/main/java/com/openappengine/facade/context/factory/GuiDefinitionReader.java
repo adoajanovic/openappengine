@@ -8,7 +8,7 @@ import com.openappengine.facade.core.component.ui.GuiRootComponent;
  * @author hrishi
  * since Dec 28, 2011
  */
-public interface ScreenDefinitionReader {
+public interface GuiDefinitionReader {
 	
 	/**
 	 * Load Screen Definition from the specified XML file.

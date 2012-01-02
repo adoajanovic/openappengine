@@ -6,7 +6,7 @@ package com.openappengine.facade.context.factory.support;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
 
 /**
  * ScreenElementDefinitionParserFactory provides the ScreenElementDefinitionParsers
@@ -24,17 +24,17 @@ public class ScreenElementDefinitionParserFactory {
 
 	public static final String FIELD_MAP = "field-map"; 
 	
-	private Map<String, ScreenElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, ScreenElementDefinitionParser>();
+	private Map<String, GuiElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, GuiElementDefinitionParser>();
 
-	public ScreenElementDefinitionParser getScreenElementDefinitionParser(String name) {
+	public GuiElementDefinitionParser getScreenElementDefinitionParser(String name) {
 		return getScreenElementDefinitionParserMap().get(name);
 	}
 
-	public Map<String, ScreenElementDefinitionParser> getScreenElementDefinitionParserMap() {
+	public Map<String, GuiElementDefinitionParser> getScreenElementDefinitionParserMap() {
 		return screenElementDefinitionParserMap;
 	}
 
-	public void addScreenElementDefinitionParser(String name, ScreenElementDefinitionParser parser) {
+	public void addScreenElementDefinitionParser(String name, GuiElementDefinitionParser parser) {
 		screenElementDefinitionParserMap.put(name, parser);
 	}
 }

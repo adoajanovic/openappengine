@@ -11,6 +11,6 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
  */
 public interface Executable {
 
-	Object execute(GuiApplicationContext screenContext);
-	
+	Object execute(GuiApplicationContext context);
+
 }

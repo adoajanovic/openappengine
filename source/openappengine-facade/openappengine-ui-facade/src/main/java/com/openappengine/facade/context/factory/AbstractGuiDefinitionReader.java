@@ -15,7 +15,7 @@ import com.openappengine.facade.core.component.ui.GuiRootComponent;
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public abstract class AbstractScreenDefinitionReader implements ScreenDefinitionReader {
+public abstract class AbstractGuiDefinitionReader implements GuiDefinitionReader {
 
 	@Override
 	public GuiRootComponent loadScreenDefinition(Resource resource) {

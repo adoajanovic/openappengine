@@ -13,6 +13,6 @@ public interface ScreenApplicationContextFactoryAware {
 	 * Set the ScreenApplicationContextFactory.
 	 * @param factory
 	 */
-	void setScreenApplicationContextFactory(ScreenApplicationContextFactory factory);
+	void setScreenApplicationContextFactory(GuiContextFactory factory);
 
 }

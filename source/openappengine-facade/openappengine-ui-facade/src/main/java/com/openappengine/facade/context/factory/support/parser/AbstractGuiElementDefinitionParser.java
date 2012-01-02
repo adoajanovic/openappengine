@@ -11,7 +11,7 @@ import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDe
  * @author hrishi
  * since Dec 31, 2011
  */
-public abstract class AbstractScreenElementDefinitionParser implements ScreenElementDefinitionParser {
+public abstract class AbstractGuiElementDefinitionParser implements GuiElementDefinitionParser {
 
 	private ScreenDefinitionParserDelegate delegate;
 	
@@ -24,10 +24,10 @@ public abstract class AbstractScreenElementDefinitionParser implements ScreenEle
 	/**
 	 * @param delegate
 	 */
-	protected AbstractScreenElementDefinitionParser() {
+	protected AbstractGuiElementDefinitionParser() {
 	}
 	
-	protected ScreenElementDefinitionParser getScreenElementDefinitionParser(String name) {
+	protected GuiElementDefinitionParser getScreenElementDefinitionParser(String name) {
 		return this.getDelegate().getScreenElementDefinitionParser(name);
 	}
 	
@@ -37,9 +37,9 @@ public abstract class AbstractScreenElementDefinitionParser implements ScreenEle
 	 * Get the appropriate parser for this node.
 	 * @param node
 	 */
-	protected ScreenElementDefinitionParser createNodeParserDelegate(Node node) {
+	protected GuiElementDefinitionParser createNodeParserDelegate(Node node) {
 		String nodeName = node.getNodeName();
-		ScreenElementDefinitionParser parser = getScreenElementDefinitionParser(nodeName);
+		GuiElementDefinitionParser parser = getScreenElementDefinitionParser(nodeName);
 		return parser;
 	}
 

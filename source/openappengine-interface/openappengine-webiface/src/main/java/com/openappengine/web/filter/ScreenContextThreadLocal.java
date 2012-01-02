@@ -3,7 +3,7 @@
  */
 package com.openappengine.web.filter;
 
-import com.openappengine.facade.core.context.ScreenApplicationContext;
+import com.openappengine.facade.core.context.GuiApplicationContext;
 
 
 /**
@@ -12,13 +12,13 @@ import com.openappengine.facade.core.context.ScreenApplicationContext;
  */
 public class ScreenContextThreadLocal {
 	
-	private static final ThreadLocal<ScreenApplicationContext> CURRENT_SCREEN_APPLICATION_CONTEXT = new ThreadLocal<ScreenApplicationContext>();
+	private static final ThreadLocal<GuiApplicationContext> CURRENT_SCREEN_APPLICATION_CONTEXT = new ThreadLocal<GuiApplicationContext>();
 	
-	public static ScreenApplicationContext get() {
+	public static GuiApplicationContext get() {
 		return CURRENT_SCREEN_APPLICATION_CONTEXT.get();
 	}
 	
-	public static void set(ScreenApplicationContext screen) {
+	public static void set(GuiApplicationContext screen) {
 		CURRENT_SCREEN_APPLICATION_CONTEXT.set(screen);
 	}
 	

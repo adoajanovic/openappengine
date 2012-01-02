@@ -65,4 +65,6 @@ public interface GuiApplicationContext {
 	 */
 	TransitionHandler getTransitionHandler();
 	
+	void processPreActions();
+	
 }

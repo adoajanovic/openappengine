@@ -20,9 +20,9 @@ public class WebContextFactoryInitializationCallback extends ContextFactoryIniti
 	}
 
 	@Override
-	protected ScreenApplicationContextFactory createFactory() {
+	protected GuiContextFactory createFactory() {
 		createDefaultContextConfigurationIfNull();
-		ScreenApplicationContextFactory factory = new XmlScreenApplicationContextFactory(getContextConfiguration());
+		GuiContextFactory factory = new DefaultGuiApplicationContextFactory(getContextConfiguration());
 		return factory;
 	}
 

@@ -13,7 +13,7 @@ import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.support.parser.EntityFindOneActionElementDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.FieldMapComponentDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.PreActionsElementParser;
-import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
 
 /**
  * Delegate to parse the Xml Definitions. 
@@ -50,8 +50,8 @@ public class ScreenDefinitionParserDelegate {
 		return nodeName.equals(node.getNodeName());
 	}
 	
-	public ScreenElementDefinitionParser getScreenElementDefinitionParser(String name) {
-		ScreenElementDefinitionParser parser = factory.getScreenElementDefinitionParser(name);
+	public GuiElementDefinitionParser getScreenElementDefinitionParser(String name) {
+		GuiElementDefinitionParser parser = factory.getScreenElementDefinitionParser(name);
 		Assert.notNull(parser,"ScreenElementDefinitionParser : " + name + " not configured.");
 		parser.setDelegate(this);
 		return parser;

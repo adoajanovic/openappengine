@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.executor.action.Action;
 import com.openappengine.facade.entity.EntityValue;
-import com.openappengine.facade.ui.preaction.PreAction;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ValueRef;
 import com.openappengine.facade.ui.resolver.ValueResolver;
@@ -18,15 +18,13 @@ import com.openappengine.facade.ui.resolver.ValueResolver;
  * @author hrishi
  *
  */
-public class EntityFindOneAction extends PreAction {
+public class EntityFindOneAction extends Action {
 	
 	private String entityName;
 	
 	private Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
 	
 	private boolean autoFieldMap = false;
-	
-	private String valueField;
 	
 	private String conditionExpression;
 	
@@ -78,14 +76,6 @@ public class EntityFindOneAction extends PreAction {
 
 	public void setAutoFieldMap(boolean autoFieldMap) {
 		this.autoFieldMap = autoFieldMap;
-	}
-
-	public String getValueField() {
-		return valueField;
-	}
-
-	public void setValueField(String valueField) {
-		this.valueField = valueField;
 	}
 
 	public String getConditionExpression() {

@@ -13,7 +13,7 @@ import com.openappengine.facade.core.component.value.FieldMapComponent;
  * @author hrishi
  * since Dec 31, 2011
  */
-public class FieldMapComponentDefinitionParser extends AbstractScreenElementDefinitionParser {
+public class FieldMapComponentDefinitionParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
 	public GuiComponent parse(Element element) {

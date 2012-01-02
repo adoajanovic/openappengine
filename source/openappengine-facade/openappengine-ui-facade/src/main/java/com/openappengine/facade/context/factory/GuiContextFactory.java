@@ -6,6 +6,7 @@ package com.openappengine.facade.context.factory;
 import org.springframework.core.io.Resource;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * The Factory is initialized from the listener and 
@@ -14,7 +15,7 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public interface ScreenApplicationContextFactory {
+public interface GuiContextFactory {
 	
 	/**
 	 * Is the Screen at the given resournce present in the factory.
@@ -28,7 +29,7 @@ public interface ScreenApplicationContextFactory {
 	 * @param resource
 	 * @return
 	 */
-	GuiApplicationContext getScreenApplicationContext(Resource resource);
+	GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext);
 	
 	/**
 	 * Register the ScreenApplicationContext with the factory.
