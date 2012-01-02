@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.util.WebUtils;
 
-import com.openappengine.facade.context.factory.XmlScreenDefinitionReader;
+import com.openappengine.facade.context.factory.DefaultGuiDefinitionReader;
 import com.openappengine.facade.ui.params.Param;
 import com.openappengine.facade.ui.params.Parameters;
 import com.openappengine.facade.ui.screen.Screen;
@@ -49,7 +49,7 @@ public class XmlScreenProcessingFilter implements Filter {
 	}
 	
 	/**
-	 * Create a {@link UrlResource} instance from the request. Used by the {@link XmlScreenDefinitionReader}
+	 * Create a {@link UrlResource} instance from the request. Used by the {@link DefaultGuiDefinitionReader}
 	 * @param request
 	 * @return
 	 * @throws MalformedURLException
@@ -66,7 +66,7 @@ public class XmlScreenProcessingFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {/*
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
@@ -98,7 +98,7 @@ public class XmlScreenProcessingFilter implements Filter {
 			File f = new File(realPath);
 			if(f.exists()) {
 				InputStream is = new FileInputStream(f);
-				XmlScreenDefinitionReader reader = new XmlScreenDefinitionReader();
+				XmlScreenDefinitionReader reader = new XmlScreenDefinitionReader(null);
 				final Screen screen = reader.readScreenDefinition(is);
 				is.close();
 				
@@ -109,7 +109,7 @@ public class XmlScreenProcessingFilter implements Filter {
 				// getCurrentInstance would return the same instance in one
 				// thread.
 				
-				/*ScreenContext screenContext = new ScreenContext() ;*/
+				ScreenContext screenContext = new ScreenContext() ;
 				
 				//TODO - Handle Screen Parameters 
 				if(screen != null) {
@@ -132,11 +132,11 @@ public class XmlScreenProcessingFilter implements Filter {
 					}
 				}
 				
-				/*screenContext.setScreen(screen);
+				screenContext.setScreen(screen);
 				ScreenContext.setCurrentInstance(screenContext);
 				
 				ScreenContextThreadLocal.set(screenContext);
-				 */
+				 
 			}
 		} catch(Exception e) {
 			logger.error("Exception encountered while reading the screen at the URI:" + requestURI);
@@ -148,6 +148,7 @@ public class XmlScreenProcessingFilter implements Filter {
 		
 		// pass the request along the filter chain
 		//chain.doFilter(request, response);
+	 */
 	}
 
 	/**

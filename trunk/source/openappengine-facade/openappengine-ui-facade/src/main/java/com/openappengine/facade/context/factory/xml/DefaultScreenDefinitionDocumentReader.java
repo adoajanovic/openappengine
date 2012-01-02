@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
 import com.openappengine.facade.context.factory.support.parser.ParserConstants;
-import com.openappengine.facade.context.factory.support.parser.ScreenElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 
@@ -70,7 +70,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	 * @return PreActionsComponent created from the parsed XML Node.
 	 */
 	private PreActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
-		ScreenElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER);
+		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER);
 		PreActionsComponent preActions = (PreActionsComponent) parser.parse(element);
 		return preActions;
 	}

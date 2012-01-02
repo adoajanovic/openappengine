@@ -12,7 +12,7 @@ import com.openappengine.facade.core.component.GuiComponent;
  * @author hrishi
  * since Dec 31, 2011
  */
-public interface ScreenElementDefinitionParser {
+public interface GuiElementDefinitionParser {
 
 	/**
 	 * Used to parse individual sub nodes of the entire XML Definition.

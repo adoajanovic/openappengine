@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.component.value.FieldMapComponent;
+import com.openappengine.facade.core.executor.action.Executable;
+import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
 
 /**
- * @author hrishi since Dec 31, 2011
+ * @author hrishi 
+ * since Dec 31, 2011
  */
-public class EntityFindOneActionComponent extends AbstractExecutableGuiComponent {
+public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +27,7 @@ public class EntityFindOneActionComponent extends AbstractExecutableGuiComponent
 	private String valueField;
 
 	private String conditionExpression;
-
+	
 	@Override
 	public String getComponentName() {
 		return "entity-find-one";
@@ -76,5 +79,15 @@ public class EntityFindOneActionComponent extends AbstractExecutableGuiComponent
 		}
 		this.fieldMaps.add(fieldMapComponent);
 	}
-	
+
+	@Override
+	public Executable getExecutable() {
+		EntityFindOneAction entityFindOneAction = new EntityFindOneAction(this.getEntityName());
+		entityFindOneAction.setAndParameterMap(null);//TODO
+		entityFindOneAction.setAutoFieldMap(this.isAutoFieldMap());
+		entityFindOneAction.setConditionExpression(this.getConditionExpression());
+		entityFindOneAction.setOutgoingTransition(null);//TODO
+		entityFindOneAction.setValueField(this.getValueField());
+		return entityFindOneAction;
+	}
 }

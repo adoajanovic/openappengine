@@ -14,11 +14,11 @@ import org.junit.Test;
  */
 public class TestFactoryFinder {
 	
-	private ScreenApplicationContextFactory screenApplicationContextFactory;
+	private GuiContextFactory screenApplicationContextFactory;
 
 	@Before
 	public void createFactory() {
-		screenApplicationContextFactory = (ScreenApplicationContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
+		screenApplicationContextFactory = (GuiContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
 	}
 	
 	@Test
@@ -27,7 +27,7 @@ public class TestFactoryFinder {
 		
 		//Create a new Screen Application Context Factory without a callback. As we have already created one this should not be null
 		//even if NO initializer callbacks are provided.
-		ScreenApplicationContextFactory factoryR = (ScreenApplicationContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, null);
+		GuiContextFactory factoryR = (GuiContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, null);
 		Assert.assertNotNull("Factory not initialized inspite of the InitializationCallback provided.",factoryR);
 		Assert.assertEquals(screenApplicationContextFactory, factoryR);
 	}
@@ -37,7 +37,7 @@ public class TestFactoryFinder {
 		boolean containsFactory = FactoryFinder.containsFactory("InvalidFactory");
 		
 		if(!containsFactory) {
-			ScreenApplicationContextFactory factory = (ScreenApplicationContextFactory) FactoryFinder.getFactory("InvalidFactory", null);
+			GuiContextFactory factory = (GuiContextFactory) FactoryFinder.getFactory("InvalidFactory", null);
 			//As no callback initializer is provided this should return a null.
 			Assert.assertNull("Factory should be Null, if the FactoryFinder doesnt have the named factory and no callback instance is provided.",factory);
 		}

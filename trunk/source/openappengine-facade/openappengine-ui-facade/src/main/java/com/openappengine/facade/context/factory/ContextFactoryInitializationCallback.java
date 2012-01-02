@@ -8,13 +8,13 @@ package com.openappengine.facade.context.factory;
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public abstract class ContextFactoryInitializationCallback implements Callback<ScreenApplicationContextFactory> {
+public abstract class ContextFactoryInitializationCallback implements Callback<GuiContextFactory> {
 	
 	@Override
-	public ScreenApplicationContextFactory onCallback() {
+	public GuiContextFactory onCallback() {
 		return createFactory();
 	}
 	
-	protected abstract ScreenApplicationContextFactory createFactory();
+	protected abstract GuiContextFactory createFactory();
 
 }

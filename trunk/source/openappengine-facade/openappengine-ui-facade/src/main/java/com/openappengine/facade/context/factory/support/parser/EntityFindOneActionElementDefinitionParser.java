@@ -12,12 +12,13 @@ import org.w3c.dom.NodeList;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.EntityFindOneActionComponent;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
+import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
 
 /**
  * @author hrishi
  * since Dec 31, 2011
  */
-public class EntityFindOneActionElementDefinitionParser extends AbstractScreenElementDefinitionParser {
+public class EntityFindOneActionElementDefinitionParser extends AbstractGuiElementDefinitionParser {
 
 	private static final String ATTR_AUTO_FIELD_MAP = "auto-field-map";
 
@@ -29,27 +30,26 @@ public class EntityFindOneActionElementDefinitionParser extends AbstractScreenEl
 
 	@Override
 	public GuiComponent parse(Element element) {
-		EntityFindOneActionComponent entityFindOneAction = new EntityFindOneActionComponent();
-		
+		EntityFindOneActionComponent entityFindOneActionComponent = new EntityFindOneActionComponent();
 		String entityName = element.getAttribute(ATTR_ENTITY_NAME);
 		if(StringUtils.isEmpty(entityName)) {
 			throw new XmlDefinitionParserException("Attribute entity-name cannot be empty.");
 		}
-		entityFindOneAction.setEntityName(entityName);
+		entityFindOneActionComponent.setEntityName(entityName);
 		
 		String valueField = element.getAttribute(ATTR_VALUE_FIELD);
 		if(StringUtils.isEmpty(valueField)) {
 			throw new XmlDefinitionParserException("Attribute value-field is mandatory for entity-find-one.");
 		}
-		entityFindOneAction.setValueField(valueField);
+		entityFindOneActionComponent.setValueField(valueField);
 		
 		if(StringUtils.isEmpty(valueField)) {
 			throw new XmlDefinitionParserException("Attribute value-field is mandatory for entity-find-one.");
 		}
-		entityFindOneAction.setValueField(valueField);
+		entityFindOneActionComponent.setValueField(valueField);
 		
 		if(!StringUtils.isEmpty(element.getAttribute(ATTR_CONDITION))) {
-			entityFindOneAction.setConditionExpression(element.getAttribute(ATTR_CONDITION));
+			entityFindOneActionComponent.setConditionExpression(element.getAttribute(ATTR_CONDITION));
 		}
 		
 		String autoFieldMap = element.getAttribute(ATTR_AUTO_FIELD_MAP);
@@ -60,7 +60,7 @@ public class EntityFindOneActionElementDefinitionParser extends AbstractScreenEl
 				bAutoFieldMap = false;
 			}
 		}
-		entityFindOneAction.setAutoFieldMap(bAutoFieldMap);
+		entityFindOneActionComponent.setAutoFieldMap(bAutoFieldMap);
 		
 		NodeList fieldMapNodes = element.getElementsByTagName(ParserConstants.FIELD_MAP_PARSER);
 		if(BooleanUtils.isFalse(bAutoFieldMap)) {
@@ -72,14 +72,14 @@ public class EntityFindOneActionElementDefinitionParser extends AbstractScreenEl
 				Node node = fieldMapNodes.item(i);
 				if(node instanceof Element) {
 					Element fieldMapEle = (Element) node;
-					ScreenElementDefinitionParser parser = getDelegate().getScreenElementDefinitionParser(ParserConstants.FIELD_MAP_PARSER);
+					GuiElementDefinitionParser parser = getDelegate().getScreenElementDefinitionParser(ParserConstants.FIELD_MAP_PARSER);
 					FieldMapComponent fieldMap = (FieldMapComponent) parser.parse(fieldMapEle);
-					entityFindOneAction.addFieldMap(fieldMap);
+					entityFindOneActionComponent.addFieldMap(fieldMap);
 				}
 			}
 		}
 		
-		return entityFindOneAction;
+		return entityFindOneActionComponent;
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	private PreActionsComponent preActions;
 	
 	private Map<String, Variable> screenVariables;
-
+	
 	@Override
 	public String getComponentType() {
 		return "root-container";
@@ -33,13 +33,6 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		return "screen";
 	}
 	
-	public void processRequest(GuiApplicationContext context) {
-		
-	}
-	
-	protected void restoreState(GuiApplicationContext context) {
-	}
-
 	public Map<String, Variable> getScreenVariables() {
 		return screenVariables;
 	}
@@ -64,4 +57,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		this.context = context;
 	}
 
+	public boolean arePreActionsConfigured() {
+		return (preActions != null && preActions.getExecutables() != null && !preActions.getExecutables().isEmpty());
+	}
 }
