@@ -26,6 +26,10 @@ public class FactoryFinder {
 	
 	private static final Logger LOG = Logger.getLogger(FactoryFinder.class);
 	
+	public static Object getFactory(String name) {
+		return getFactory(name, null);
+	}
+	
 	public static Object getFactory(String name,Callback<?> callback) {
 		Object factory = null;
 		if(cachedFactoryInstances.containsKey(name)) {

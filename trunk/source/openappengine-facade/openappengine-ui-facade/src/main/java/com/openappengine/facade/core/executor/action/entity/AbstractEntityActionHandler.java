@@ -11,7 +11,7 @@ import com.openappengine.facade.ui.context.ScreenApplicationContext;
  * @author hrishi
  *
  */
-public abstract class EntityAction implements Executable {
+public abstract class AbstractEntityActionHandler implements Executable {
 	
 	public abstract EntityValue execute(ScreenApplicationContext screenContext);
 

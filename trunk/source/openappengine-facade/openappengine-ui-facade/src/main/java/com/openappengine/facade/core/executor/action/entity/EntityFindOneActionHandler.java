@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
-import com.openappengine.facade.core.executor.action.Action;
+import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ValueRef;
@@ -18,7 +18,7 @@ import com.openappengine.facade.ui.resolver.ValueResolver;
  * @author hrishi
  *
  */
-public class EntityFindOneAction extends Action {
+public class EntityFindOneActionHandler implements ActionHandler {
 	
 	private String entityName;
 	
@@ -28,7 +28,10 @@ public class EntityFindOneAction extends Action {
 	
 	private String conditionExpression;
 	
-	public EntityFindOneAction(String entityName) {
+	public EntityFindOneActionHandler(){
+	}
+	
+	public EntityFindOneActionHandler(String entityName) {
 		this.setEntityName(entityName);
 	}
 
@@ -84,6 +87,11 @@ public class EntityFindOneAction extends Action {
 
 	public void setConditionExpression(String conditionExpression) {
 		this.conditionExpression = conditionExpression;
+	}
+
+	@Override
+	public String getName() {
+		return "entity-find-one";
 	}
 
 }

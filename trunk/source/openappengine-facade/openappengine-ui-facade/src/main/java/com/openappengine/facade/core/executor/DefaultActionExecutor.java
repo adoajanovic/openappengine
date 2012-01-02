@@ -6,7 +6,7 @@ package com.openappengine.facade.core.executor;
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
-import com.openappengine.facade.core.executor.action.Action;
+import com.openappengine.facade.core.executor.action.ActionHandler;
 
 /**
  * @author hrishikesh.joshi
@@ -22,8 +22,8 @@ public class DefaultActionExecutor implements ActionExecutor {
 	}
 
 	@Override
-	public void execute(Action action) {
-		Assert.notNull(action,"Action cannot be null.");
+	public void execute(ActionHandler action) {
+		Assert.notNull(action,"ActionHandler cannot be null.");
 		action.execute(context);
 	}
 

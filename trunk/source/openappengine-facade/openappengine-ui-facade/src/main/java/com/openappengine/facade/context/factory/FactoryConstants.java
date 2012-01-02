@@ -24,5 +24,10 @@ public class FactoryConstants implements Serializable {
 	 *  XML Screen Elements Parser Factory
 	 */
 	public static final String SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY = "ScreenElementDefinitionParserFactory";
+
+	/**
+	 *  Action Handler Factory
+	 */
+	public static final String ACTION_HANDLER_FACTORY = "ActionHandlerFactory";
 	
 }

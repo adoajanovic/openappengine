@@ -13,7 +13,7 @@ import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
-import com.openappengine.facade.core.executor.action.Action;
+import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.Executable;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
@@ -72,7 +72,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	public abstract ScreenRenderer getScreenRenderer();
 	
 	public void processPreActions() {
-		Assert.notNull(getActionExecutor(),"Action Executor cannot be null.");
+		Assert.notNull(getActionExecutor(),"ActionHandler Executor cannot be null.");
 		
 		if(root == null) {
 			throw new IllegalStateException("GUI Component Root not initialized.");
@@ -84,8 +84,9 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 			Executable executable = preActions.getExecutable();
 			if(executable != null) {
 				Object actionOutput = executable.execute(this);
-				if(executable instanceof Action) {
-					String valueField = ((Action)executable).getValueField();
+				if(executable instanceof ActionHandler) {
+					String valueField = preActions.getValueField();
+					//If Value Field is provided by the Action Save the outcome to Context Variables.
 					if(!StringUtils.isEmpty(valueField)) {
 						Variable variable = new Variable();
 						variable.setName(valueField);
