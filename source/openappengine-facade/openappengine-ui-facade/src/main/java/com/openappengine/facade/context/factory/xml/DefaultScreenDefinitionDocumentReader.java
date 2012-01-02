@@ -56,7 +56,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	
 	private void parseElement(Element element,ScreenDefinitionParserDelegate delegate) {
 		//Parse the pre-actions component.
-		if(delegate.nodeNameEquals(element, ParserConstants.ENTITY_FIND_ONE_PARSER)) {
+		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
 			PreActionsComponent parsePreActions = parsePreActions(element, delegate);
 			getUiRoot().setPreActions(parsePreActions);
 		}
@@ -70,7 +70,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	 * @return PreActionsComponent created from the parsed XML Node.
 	 */
 	private PreActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
-		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER);
+		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER);
 		PreActionsComponent preActions = (PreActionsComponent) parser.parse(element);
 		return preActions;
 	}

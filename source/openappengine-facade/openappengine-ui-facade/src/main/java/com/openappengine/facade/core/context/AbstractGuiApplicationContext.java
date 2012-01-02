@@ -47,7 +47,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	
 	@Override
 	public GuiRootComponent getUIRoot() {
-		return getRoot();
+		return root;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		}
 		
 		//PreActions.
-		if(root.arePreActionsConfigured()) {
+		if(root.isPreActionConfigured()) {
 			PreActionsComponent preActions = root.getPreActions();
 			Executable executable = preActions.getExecutable();
 			if(executable != null) {
@@ -90,7 +90,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 						Variable variable = new Variable();
 						variable.setName(valueField);
 						variable.setValue(actionOutput);
-						getRoot().getScreenVariables().put(valueField, variable);
+						getUIRoot().getScreenVariables().put(valueField, variable);
 					}
 				}
 			}
@@ -98,11 +98,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		
 	}
 
-	public GuiRootComponent getRoot() {
-		return root;
-	}
-
-	protected void setRoot(GuiRootComponent root) {
+	public void setUIRoot(GuiRootComponent root) {
 		this.root = root;
 	}
 

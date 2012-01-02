@@ -18,7 +18,7 @@ public class ActionList extends Action {
 
 	@Override
 	public Object execute(GuiApplicationContext context) {
-		if(actions != null && actions.isEmpty()) {
+		if(actions != null && !actions.isEmpty()) {
 			for (Executable action : actions) {
 				action.execute(context);
 			}

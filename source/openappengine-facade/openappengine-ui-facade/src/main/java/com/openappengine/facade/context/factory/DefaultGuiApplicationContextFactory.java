@@ -41,15 +41,29 @@ public class DefaultGuiApplicationContextFactory implements GuiContextFactory {
 	@Override
 	public GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext) {
 		if(!contains(resource)) {
-			WebGuiApplicationContext context = new WebGuiApplicationContext();
-			GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
+			GuiApplicationContext context = new WebGuiApplicationContext();
+			GuiRootComponent uiRoot = createGuiRoot(resource, context);
+			
 			uiRoot.setContext(context);
-			if(externalContext != null) {
-				Map<String, Object> requestParameters = externalContext.getRequestParameters();
-				context.processPreActions();
-			}
+
+			//Process PreActions.
+			context.processPreActions();
+			
+			//TODO - Handle States.
+			registerScreenApplicationContext(resource, context);
 		}
 		return cachedGuiApplicationContexts.get(resource);
+	}
+
+	/**
+	 * @param resource
+	 * @param context
+	 * @return
+	 */
+	protected GuiRootComponent createGuiRoot(Resource resource, GuiApplicationContext context) {
+		GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
+		context.setUIRoot(uiRoot);
+		return uiRoot;
 	}
 
 	@Override
