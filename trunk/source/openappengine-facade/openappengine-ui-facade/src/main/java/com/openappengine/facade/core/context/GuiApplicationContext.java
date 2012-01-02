@@ -36,6 +36,12 @@ public interface GuiApplicationContext {
 	GuiRootComponent getUIRoot();
 	
 	/**
+	 * Set the Root.
+	 * @param root
+	 */
+	void setUIRoot(GuiRootComponent root);
+	
+	/**
 	 * Get the Expression Evaluator  
 	 * @return
 	 */

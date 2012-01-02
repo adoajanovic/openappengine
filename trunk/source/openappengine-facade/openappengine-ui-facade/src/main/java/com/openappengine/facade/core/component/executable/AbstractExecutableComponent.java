@@ -22,15 +22,15 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 	
 	/**
 	 * Add an executable child Component to this component.
-	 * @param screenComponent
+	 * @param component
 	 * @return
 	 */
-	public boolean addChildComponent(GuiComponent screenComponent) {
-		if(screenComponent == null) {
+	public boolean addChildComponent(GuiComponent component) {
+		if(component == null) {
 			return false;
 		}
-		if(screenComponent instanceof AbstractExecutableComponent) {
-			return getChildComponents().add(screenComponent);
+		if(component instanceof AbstractExecutableComponent) {
+			return getChildComponents().add(component);
 		} else {
 			logger.error("Only an executable component can be added to the executable component node.");
 			return false;

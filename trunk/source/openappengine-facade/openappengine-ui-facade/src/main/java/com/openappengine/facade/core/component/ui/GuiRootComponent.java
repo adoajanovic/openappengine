@@ -57,7 +57,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		this.context = context;
 	}
 
-	public boolean arePreActionsConfigured() {
-		return (preActions != null && preActions.getExecutables() != null && !preActions.getExecutables().isEmpty());
+	public boolean isPreActionConfigured() {
+		return (preActions != null && preActions.getExecutable() != null);
 	}
 }

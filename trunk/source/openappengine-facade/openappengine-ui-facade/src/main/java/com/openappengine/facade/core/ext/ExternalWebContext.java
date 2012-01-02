@@ -20,6 +20,10 @@ public class ExternalWebContext implements ExternalContext {
 	
 	protected HttpServletRequest request;
 	
+	public ExternalWebContext(HttpServletRequest request) {
+		this.request = request;
+	}
+	
 	@Override
 	public Object getRequest() {
 		return request;

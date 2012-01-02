@@ -12,7 +12,6 @@ import org.w3c.dom.NodeList;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.EntityFindOneActionComponent;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
-import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
 
 /**
  * @author hrishi
