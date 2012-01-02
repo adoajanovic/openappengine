@@ -39,5 +39,4 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	public ScreenRenderer getScreenRenderer() {
 		return screenRenderer;
 	}
-
 }

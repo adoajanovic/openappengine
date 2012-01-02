@@ -6,7 +6,7 @@ package com.openappengine.facade.core.component.executable;
 import java.util.List;
 
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.executor.action.ActionList;
+import com.openappengine.facade.core.executor.action.CompositeActionListHandler;
 import com.openappengine.facade.core.executor.action.Executable;
 
 /**
@@ -32,9 +32,11 @@ public class PreActionsComponent extends AbstractExecutableComponent {
 		this.executables = executables;
 	}
 
+	
+	//TODO - needs to be diverged away from the Component Tree API. Command Dispatcher Pattern.
 	@Override
 	public Executable getExecutable() {
-		ActionList actionList = new ActionList();
+		CompositeActionListHandler actionList = new CompositeActionListHandler();
 		if(getChildComponents() != null) {
 			for (GuiComponent component : getChildComponents()) {
 				Executable exec = ((AbstractExecutableComponent)component).getExecutable();

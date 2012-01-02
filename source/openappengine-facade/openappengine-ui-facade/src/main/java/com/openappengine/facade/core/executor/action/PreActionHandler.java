@@ -25,7 +25,7 @@ public class PreActionHandler implements Executable {
 
 			for (PreAction preAction : preActions) {}/*{
 
-				EntityFindOneAction entityFindOneAction = (EntityFindOneAction) preAction;
+				EntityFindOneActionHandler entityFindOneAction = (EntityFindOneActionHandler) preAction;
 
 				// If Condition Expression is specified; evaluate the condition
 				// otherwise execute the pre-action unconditionally.
@@ -39,11 +39,11 @@ public class PreActionHandler implements Executable {
 						// Expression returned false.
 						logger.info("Expression : {"
 								+ conditionExpression
-								+ "} returned false. Action will not be executed.");
+								+ "} returned false. ActionHandler will not be executed.");
 						continue;
 					}
 					Object returnVal = preAction.execute(screenContext);
-					// If Action has a value-field hold the return value from
+					// If ActionHandler has a value-field hold the return value from
 					// the action in that value field in the ScreenContext.
 					if (!StringUtils.isEmpty(entityFindOneAction
 							.getValueField())) {

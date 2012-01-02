@@ -4,7 +4,7 @@
 package com.openappengine.facade.core.executor;
 
 import com.openappengine.facade.core.context.GuiApplicationContextAware;
-import com.openappengine.facade.core.executor.action.Action;
+import com.openappengine.facade.core.executor.action.ActionHandler;
 
 /**
  * @author hrishikesh.joshi
@@ -13,9 +13,9 @@ import com.openappengine.facade.core.executor.action.Action;
 public interface ActionExecutor extends GuiApplicationContextAware {
 	
 	/**
-	 * Execute the Action.
+	 * Execute the ActionHandler.
 	 * @param action
 	 */
-	void execute(Action action);
+	void execute(ActionHandler action);
 	
 }

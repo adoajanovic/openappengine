@@ -10,22 +10,23 @@ import com.openappengine.facade.core.el.ConditionExpressionEvaluator;
 
 
 /**
+ * CompositeActionHandler is an abstract class capable of executing Aggregated Actions/Composite Actions.
+ * 
  * @author hrishi
- *
  */
-public abstract class ActionWrapper extends Action {
+public abstract class CompositeActionHandler implements ActionHandler {
 	
 	protected final Logger logger = Logger.getLogger(getClass());
 
-	protected Action wrappedAction;
+	protected ActionHandler wrappedAction;
 	
 	private ConditionExpressionEvaluator evaluator;
 	
-	protected Action getWrappedAction() {
+	protected ActionHandler getWrappedAction() {
 		return wrappedAction;
 	}
 
-	protected abstract void setWrappedAction(Action action);
+	protected abstract void setWrappedAction(ActionHandler action);
 
 	@Override
 	public Object execute(GuiApplicationContext screenContext) {

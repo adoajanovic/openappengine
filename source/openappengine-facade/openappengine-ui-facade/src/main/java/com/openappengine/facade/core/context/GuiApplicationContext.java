@@ -12,7 +12,7 @@ import com.openappengine.facade.core.variable.VariableResolver;
 
 /**
  * The Screen Application Context holds all the infrastructure dependencies related
- * to the Screen Reading,Rendering and Action Handling.  
+ * to the Screen Reading,Rendering and ActionHandler Handling.  
  * 
  * @author hrishi
  * since Dec 29, 2011

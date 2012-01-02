@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.openappengine.facade.core.component.value.FieldMapComponent;
 import com.openappengine.facade.core.executor.action.Executable;
-import com.openappengine.facade.core.executor.action.entity.EntityFindOneAction;
+import com.openappengine.facade.core.executor.action.entity.EntityFindOneActionHandler;
 
 /**
  * @author hrishi 
@@ -23,8 +23,6 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 	private List<FieldMapComponent> fieldMaps = new ArrayList<FieldMapComponent>();
 
 	private boolean autoFieldMap = false;
-
-	private String valueField;
 
 	private String conditionExpression;
 	
@@ -47,14 +45,6 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 
 	public void setAutoFieldMap(boolean autoFieldMap) {
 		this.autoFieldMap = autoFieldMap;
-	}
-
-	public String getValueField() {
-		return valueField;
-	}
-
-	public void setValueField(String valueField) {
-		this.valueField = valueField;
 	}
 
 	public String getConditionExpression() {
@@ -82,12 +72,10 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 
 	@Override
 	public Executable getExecutable() {
-		EntityFindOneAction entityFindOneAction = new EntityFindOneAction(this.getEntityName());
+		EntityFindOneActionHandler entityFindOneAction = new EntityFindOneActionHandler(this.getEntityName());
 		entityFindOneAction.setAndParameterMap(null);//TODO
 		entityFindOneAction.setAutoFieldMap(this.isAutoFieldMap());
 		entityFindOneAction.setConditionExpression(this.getConditionExpression());
-		entityFindOneAction.setOutgoingTransition(null);//TODO
-		entityFindOneAction.setValueField(this.getValueField());
 		return entityFindOneAction;
 	}
 }

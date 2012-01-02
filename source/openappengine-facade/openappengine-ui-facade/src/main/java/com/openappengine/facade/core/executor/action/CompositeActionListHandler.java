@@ -12,7 +12,7 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
  * @author hrishi
  * since Jan 1, 2012
  */
-public class ActionList extends Action {
+public class CompositeActionListHandler implements ActionHandler {
 	
 	private List<Executable> actions = new ArrayList<Executable>();
 
@@ -40,5 +40,10 @@ public class ActionList extends Action {
 		}
 		
 		actions.add(action);
+	}
+
+	@Override
+	public String getName() {
+		return "composite";
 	}
 }
