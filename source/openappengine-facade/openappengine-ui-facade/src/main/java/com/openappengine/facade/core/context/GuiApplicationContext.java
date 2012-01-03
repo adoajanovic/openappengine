@@ -3,6 +3,7 @@
  */
 package com.openappengine.facade.core.context;
 
+import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
@@ -40,6 +41,12 @@ public interface GuiApplicationContext {
 	 * @param root
 	 */
 	void setUIRoot(GuiRootComponent root);
+	
+	/**
+	 * Get EL Context.
+	 * @return
+	 */
+	ELContext getELContext();
 	
 	/**
 	 * Get the Expression Evaluator  

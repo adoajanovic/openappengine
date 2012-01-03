@@ -3,7 +3,8 @@
  */
 package com.openappengine.facade.core.el;
 
-import com.openappengine.facade.core.ElContext;
+import com.openappengine.facade.core.ELContext;
+
 
 /**
  * @author hrishi
@@ -14,5 +15,5 @@ public interface ElContextAware {
 	/**
 	 * @param elContext
 	 */
-	void setElContext(ElContext elContext);
+	void setELContext(ELContext elContext);
 }
