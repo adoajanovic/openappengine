@@ -17,10 +17,10 @@ public class CompositeActionListHandler implements ActionHandler {
 	private List<Executable> actions = new ArrayList<Executable>();
 
 	@Override
-	public Object execute(GuiApplicationContext context) {
+	public Object execute() {
 		if(actions != null && !actions.isEmpty()) {
 			for (Executable action : actions) {
-				action.execute(context);
+				action.execute();
 			}
 		}
 		return null;

@@ -3,6 +3,7 @@
  */
 package com.openappengine.facade.core.executor.action.dispatcher;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.reflections.Reflections;
@@ -15,6 +16,7 @@ import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
+import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
 import com.openappengine.facade.core.executor.action.registry.DefaultActionHandlerFactory;
 
 /**
@@ -39,7 +41,16 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		ActionHandler actionHandler = factory.getActionHandler(actionName);
 		Assert.notNull(actionHandler, "ActionHandler not found in the Factory.");
 		
-		actionHandler.execute(null);
+		ActionHandlerWrapper wrapper = new ActionHandlerWrapper(actionHandler);
+		Map<String, Object> actionParameters = actionRequest.getActionParameters();
+		if(actionParameters != null) {
+			Set<String> actionParams = actionParameters.keySet();
+			for (String param : actionParams) {
+				wrapper.put(param, actionParameters.get(param));
+			}
+		}
+		
+		actionHandler.execute();
 		
 		return null;
 	}

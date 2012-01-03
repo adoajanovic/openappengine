@@ -3,17 +3,10 @@
  */
 package com.openappengine.facade.core.el;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.jexl.Expression;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.JexlContext;
-import org.apache.commons.jexl.JexlHelper;
 import org.apache.log4j.Logger;
-
-import com.openappengine.facade.core.variable.Variable;
 
 /**
  * @author hrishikesh.joshi
@@ -22,20 +15,6 @@ import com.openappengine.facade.core.variable.Variable;
 public class ConditionExpressionEvaluator extends AbstractJexlExpressionEvaluator {
 	
 	private final Logger logger = Logger.getLogger(getClass());
-	
-	protected JexlContext createJexlContext(Collection<Variable> variables) {
-		JexlContext jc = JexlHelper.createContext();
-		
-		Map<String, Object> vars = new HashMap<String, Object>();
-		if(variables != null) {
-			for (Variable variable : variables) {
-				vars.put(variable.getName(), variable.getValue());
-			}
-		}
-		
-		jc.getVars().putAll(vars);
-		return jc;
-	}
 	
 	@Override
 	public Boolean evaluate(String expression) {

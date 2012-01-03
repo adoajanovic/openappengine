@@ -41,7 +41,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	
 	protected void initConfiguration() {
 		actionExecutor = new DefaultActionExecutor();
-		expressionEvaluator = new SimpleExpressionEvaluator(this);
+		expressionEvaluator = new SimpleExpressionEvaluator();
 		variableResolver = new ScreenContextVariableResolver(this);
 	}
 	
@@ -83,7 +83,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 			PreActionsComponent preActions = root.getPreActions();
 			Executable executable = preActions.getExecutable();
 			if(executable != null) {
-				Object actionOutput = executable.execute(this);
+				Object actionOutput = executable.execute();
 				if(executable instanceof ActionHandler) {
 					String valueField = preActions.getValueField();
 					//If Value Field is provided by the Action Save the outcome to Context Variables.

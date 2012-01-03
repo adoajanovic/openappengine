@@ -46,7 +46,7 @@ public class ScreenTransitionEventListener extends TransitionEventListener {
 				if(BooleanUtils.isTrue(executeAction)) {
 					//Guard Condition is satisfied; so execute the action.
 					//SAC
-					Object execOutcome = transition.getExecutable().execute(null);
+					Object execOutcome = transition.getExecutable().execute();
 					
 					if(transition.getConditionalOutcomes() != null) {
 						for (TransitionOutcome outcome : transition.getConditionalOutcomes()) {

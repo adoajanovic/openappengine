@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.ui.preaction.PreAction;
 
 public class PreActionHandler implements Executable {
@@ -15,7 +14,7 @@ public class PreActionHandler implements Executable {
 	protected final Logger logger = Logger.getLogger(getClass());
 
 	@Override
-	public Object execute(GuiApplicationContext screenContext) {
+	public Object execute() {
 		// Handle the preactions.
 
 		// Invoke the PreAction and store the variable in the current screen
