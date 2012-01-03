@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;

@@ -3,11 +3,14 @@
  */
 package com.openappengine.facade.core.component.executable;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.executor.action.CompositeActionListHandler;
 import com.openappengine.facade.core.executor.action.Executable;
+import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
 
 /**
  * @author hrishikesh.joshi
@@ -44,6 +47,22 @@ public class PreActionsComponent extends AbstractExecutableComponent {
 			}
 		}
 		return actionList;
+	}
+
+	@Override
+	public ActionRequest getActionRequest() {
+		List<ActionRequest> actionRequests = new ArrayList<ActionRequest>();
+		if(getChildComponents() != null) {
+			for (GuiComponent component : getChildComponents()) {
+				AbstractExecutableComponent executableComponent = ((AbstractExecutableComponent) component);
+				ActionRequest actionRequest = executableComponent.getActionRequest();
+				actionRequests.add(actionRequest);
+			}
+		}
+		
+		ActionRequest request = new DefaultActionRequest("pre-actions");
+		request.addActionParameter("actionRequests", actionRequests);
+		return request;
 	}
 
 }

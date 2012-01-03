@@ -31,4 +31,17 @@ public interface ActionRequest extends Serializable {
 	 * @return Request Parameters.
 	 */
 	Map<String,Object> getActionParameters();
+	
+	/**
+	 * Add Action Parameters
+	 * @param params
+	 */
+	void addActionParameters(Map<String,Object> params);
+	
+	/**
+	 * Add a single Action Parameter.
+	 * @param param
+	 * @param value
+	 */
+	void addActionParameter(String param,Object value);
 }

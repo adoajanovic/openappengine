@@ -6,6 +6,7 @@ package com.openappengine.facade.core.context;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
@@ -14,8 +15,8 @@ import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
-import com.openappengine.facade.core.executor.action.ActionHandler;
-import com.openappengine.facade.core.executor.action.Executable;
+import com.openappengine.facade.core.executor.action.ActionDispatcher;
+import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDispatcher;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
 import com.openappengine.facade.core.variable.Variable;
@@ -34,6 +35,8 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	private VariableResolver variableResolver;
 	
 	private GuiRootComponent root;
+
+	private ActionDispatcher actionDispatcher;
 	
 	public AbstractGuiApplicationContext() {
 		//Initialize Context XmlScreenConfiguration.
@@ -82,21 +85,31 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		//PreActions.
 		if(root.isPreActionConfigured()) {
 			PreActionsComponent preActions = root.getPreActions();
-			Executable executable = preActions.getExecutable();
-			if(executable != null) {
-				Object actionOutput = executable.execute();
-				if(executable instanceof ActionHandler) {
-					String valueField = preActions.getValueField();
-					//If Value Field is provided by the Action Save the outcome to Context Variables.
-					if(!StringUtils.isEmpty(valueField)) {
-						Variable variable = new Variable();
-						variable.setName(valueField);
-						variable.setValue(actionOutput);
-						getUIRoot().getScreenVariables().put(valueField, variable);
-					}
-				}
+			ActionRequest actionRequest = preActions.getActionRequest();
+			
+			actionDispatcher = createActionDispatcher();
+			
+			Object actionOutput = actionDispatcher.execute(actionRequest);
+			
+			String valueField = preActions.getValueField();
+			
+			//If Value Field is provided by the Action Save the outcome to Context Variables.
+			if(!StringUtils.isEmpty(valueField)) {
+				Variable variable = new Variable();
+				variable.setName(valueField);
+				variable.setValue(actionOutput);
+				getUIRoot().getScreenVariables().put(valueField, variable);
 			}
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	protected ActionDispatcher createActionDispatcher() {
+		ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
+		actionDispatcher.setELContext(getELContext());
+		return actionDispatcher;
 	}
 	
 	@Override

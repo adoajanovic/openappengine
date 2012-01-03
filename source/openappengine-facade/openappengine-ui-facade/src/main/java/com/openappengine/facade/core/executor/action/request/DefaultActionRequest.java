@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.executor.action.request;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -33,7 +34,7 @@ public class DefaultActionRequest implements ActionRequest {
 	}
 	
 	public DefaultActionRequest(String actionName) {
-		this(actionName,null);
+		this(actionName,new ConcurrentHashMap<String, Object>());
 	}
 
 	@Override
@@ -44,6 +45,23 @@ public class DefaultActionRequest implements ActionRequest {
 	@Override
 	public Map<String, Object> getActionParameters() {
 		return actionParameters;
+	}
+
+	@Override
+	public void addActionParameters(Map<String, Object> params) {
+		if(params == null) {
+			return;
+		}
+		actionParameters.putAll(params);
+	}
+
+	@Override
+	public void addActionParameter(String param, Object value) {
+		if(StringUtils.isEmpty(param)) {
+			return;
+		}
+			
+		actionParameters.put(param, value);
 	}
 
 }

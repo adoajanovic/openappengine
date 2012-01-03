@@ -3,6 +3,7 @@
  */
 package com.openappengine.facade.core.component.executable;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.executor.action.Executable;
@@ -62,4 +63,5 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 
 	public abstract Executable getExecutable();
 
+	public abstract ActionRequest getActionRequest();
 }

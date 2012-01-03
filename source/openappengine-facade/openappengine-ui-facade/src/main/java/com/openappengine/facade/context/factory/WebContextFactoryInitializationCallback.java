@@ -22,7 +22,7 @@ public class WebContextFactoryInitializationCallback extends ContextFactoryIniti
 	@Override
 	protected GuiContextFactory createFactory() {
 		createDefaultContextConfigurationIfNull();
-		GuiContextFactory factory = new DefaultGuiApplicationContextFactory(getContextConfiguration());
+		GuiContextFactory factory = new GuiWebApplicationContextFactory(getContextConfiguration());
 		return factory;
 	}
 
