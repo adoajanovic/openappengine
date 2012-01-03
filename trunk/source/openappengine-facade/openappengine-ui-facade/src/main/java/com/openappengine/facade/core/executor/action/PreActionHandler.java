@@ -3,72 +3,32 @@ package com.openappengine.facade.core.executor.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDispatcher;
 
-import com.openappengine.facade.ui.preaction.PreAction;
+public class PreActionHandler implements ActionHandler {
 
-public class PreActionHandler implements Executable {
+	private List<ActionRequest> actionRequests = new ArrayList<ActionRequest>();
 
-	private List<PreAction> preActions = new ArrayList<PreAction>();
-
-	protected final Logger logger = Logger.getLogger(getClass());
+	@Override
+	public String getName() {
+		return "pre-actions";
+	}
 
 	@Override
 	public Object execute() {
-		// Handle the preactions.
-
-		// Invoke the PreAction and store the variable in the current screen
-		// context if value-field is specified.
-		if (!preActions.isEmpty()) {
-			// TODO - Convert to a Factory Abstract Implementation.
-
-			for (PreAction preAction : preActions) {}/*{
-
-				EntityFindOneActionHandler entityFindOneAction = (EntityFindOneActionHandler) preAction;
-
-				// If Condition Expression is specified; evaluate the condition
-				// otherwise execute the pre-action unconditionally.
-				String conditionExpression = entityFindOneAction
-						.getConditionExpression();
-				if (!StringUtils.isEmpty(conditionExpression)) {
-					ConditionExpressionEvaluator evaluator = new ConditionExpressionEvaluator();
-					Boolean conditionEvaluation = evaluator
-							.evaluate(conditionExpression);
-					if (BooleanUtils.isFalse(conditionEvaluation)) {
-						// Expression returned false.
-						logger.info("Expression : {"
-								+ conditionExpression
-								+ "} returned false. ActionHandler will not be executed.");
-						continue;
-					}
-					Object returnVal = preAction.execute(screenContext);
-					// If ActionHandler has a value-field hold the return value from
-					// the action in that value field in the ScreenContext.
-					if (!StringUtils.isEmpty(entityFindOneAction
-							.getValueField())) {
-						// SAC
-						// screenContext.getUIRoot().putVariable(entityFindOneAction.getValueField(),
-						// returnVal);
-					}
-				}
-			}*/
+		for(ActionRequest actionRequest : getActionRequests()) {
+			ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
+			Object execute = actionDispatcher.execute(actionRequest);
 		}
 		return null;
 	}
 
-	public List<PreAction> getPreActions() {
-		return preActions;
+	public List<ActionRequest> getActionRequests() {
+		return actionRequests;
 	}
 
-	public void setPreActions(List<PreAction> preActions) {
-		this.preActions = preActions;
-	}
-
-	public void addPreAction(PreAction preAction) {
-		if (preAction == null) {
-			return;
-		}
-
-		this.preActions.add(preAction);
+	public void setActionRequests(List<ActionRequest> actionRequests) {
+		this.actionRequests = actionRequests;
 	}
 }

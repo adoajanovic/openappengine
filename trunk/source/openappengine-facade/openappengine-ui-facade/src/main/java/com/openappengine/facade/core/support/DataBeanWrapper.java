@@ -65,7 +65,11 @@ public class DataBeanWrapper implements Map<String, Object> {
 	}
 
 	public Object put(String key, Object value) {
-		beanWrapper.setPropertyValue(key, value);
+		if(beanWrapper.isWritableProperty(key)) {
+			beanWrapper.setPropertyValue(key, value);
+		} else {
+			thisWrapper.setPropertyValue(key, value);
+		}
 		return null;
 	}
 

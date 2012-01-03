@@ -15,7 +15,9 @@ import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
+import com.openappengine.facade.core.executor.action.ActionProcessor;
 import com.openappengine.facade.core.executor.action.context.ActionContextFactory;
+import com.openappengine.facade.core.executor.action.processor.DefaultActionProcessor;
 
 /**
  * @author hrishikesh.joshi
@@ -25,6 +27,7 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	
 	private static ActionHandlerFactory factory;
 	
+	//A Pluggable ELContext interface for variable resolution and expression evaluation.
 	private ELContext elContext;
 
 	private static ActionContextFactory actionContextFactory;
@@ -47,7 +50,20 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
 		
 		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest.getActionParameters(), elContext);
-		return actionContext;
+		
+		Object result = performActionProcessing(actionContext);
+		
+		return result;
+	}
+
+	/**
+	 * @param actionContext
+	 * @return
+	 */
+	protected Object performActionProcessing(ActionContext actionContext) {
+		ActionProcessor actionProcessor = new DefaultActionProcessor();
+		Object result = actionProcessor.performProcessing(actionContext);
+		return result;
 	}
 
 	/**

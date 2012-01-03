@@ -17,7 +17,7 @@ import com.openappengine.facade.core.ext.ExternalContext;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public class DefaultGuiApplicationContextFactory implements GuiContextFactory {
+public class GuiWebApplicationContextFactory implements GuiContextFactory {
 	
 	protected static final Map<Resource, GuiApplicationContext> cachedGuiApplicationContexts = new ConcurrentHashMap<Resource, GuiApplicationContext>();
 
@@ -25,10 +25,10 @@ public class DefaultGuiApplicationContextFactory implements GuiContextFactory {
 	
 	private ContextConfiguration contextConfiguration;
 	
-	public DefaultGuiApplicationContextFactory() {
+	public GuiWebApplicationContextFactory() {
 	}
 	
-	public DefaultGuiApplicationContextFactory(ContextConfiguration contextConfiguration) {
+	public GuiWebApplicationContextFactory(ContextConfiguration contextConfiguration) {
 		super();
 		this.setContextConfiguration(contextConfiguration);
 	}

@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.executor.action;
 
 import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.ELContext;
 
 /**
  * This interfaces intends to decouple the GUI Component or Caller of the Actions
@@ -31,4 +32,10 @@ public interface ActionDispatcher {
 	 */
 	Object execute(ActionRequest actionRequest);
 	
+	
+	/**
+	 * Pluggable EL Context for Variable Resolution and EL Expression Handling.
+	 * @param elContext
+	 */
+	void setELContext(ELContext elContext);
 }

@@ -6,9 +6,11 @@ package com.openappengine.facade.core.component.executable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
 import com.openappengine.facade.core.executor.action.Executable;
 import com.openappengine.facade.core.executor.action.entity.EntityFindOneActionHandler;
+import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
 
 /**
  * @author hrishi 
@@ -77,5 +79,16 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 		entityFindOneAction.setAutoFieldMap(this.isAutoFieldMap());
 		entityFindOneAction.setConditionExpression(this.getConditionExpression());
 		return entityFindOneAction;
+	}
+
+	@Override
+	public ActionRequest getActionRequest() {
+		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one");
+		actionRequest.addActionParameter("entityName", entityName);
+		actionRequest.addActionParameter("autoFieldMap", autoFieldMap);
+		actionRequest.addActionParameter("conditionExpression", conditionExpression);
+		//TODO
+		//actionRequest.addActionParameter("fieldMaps", fieldMaps);
+		return actionRequest;
 	}
 }
