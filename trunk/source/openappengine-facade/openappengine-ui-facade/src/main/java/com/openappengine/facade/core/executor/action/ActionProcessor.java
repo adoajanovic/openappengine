@@ -13,6 +13,6 @@ public interface ActionProcessor {
 	 * Process the Actions.
 	 * @return
 	 */
-	Object performProcessing(ActionHandlerWrapper actionHandlerWrapper);
+	Object performProcessing(ActionContext actionContext);
 	
 }

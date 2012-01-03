@@ -6,6 +6,7 @@ package com.openappengine.facade.core.context;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
+import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.executable.PreActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
@@ -96,7 +97,11 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 				}
 			}
 		}
-		
+	}
+	
+	@Override
+	public ELContext getELContext() {
+		return null;
 	}
 
 	public void setUIRoot(GuiRootComponent root) {

@@ -5,6 +5,7 @@ package com.openappengine.facade.context.factory;
 
 import java.io.Serializable;
 
+import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
@@ -22,6 +23,8 @@ public class ContextConfiguration implements Serializable {
 	private ScreenRenderer screenRenderer;
 	
 	private ActionExecutor actionExecutor;
+	
+	private ELContext elContext;
 
 	public TransitionHandler getTransitionHandler() {
 		return transitionHandler;
@@ -45,5 +48,13 @@ public class ContextConfiguration implements Serializable {
 
 	public void setActionExecutor(ActionExecutor actionExecutor) {
 		this.actionExecutor = actionExecutor;
+	}
+
+	public ELContext getElContext() {
+		return elContext;
+	}
+
+	public void setElContext(ELContext elContext) {
+		this.elContext = elContext;
 	}
 }

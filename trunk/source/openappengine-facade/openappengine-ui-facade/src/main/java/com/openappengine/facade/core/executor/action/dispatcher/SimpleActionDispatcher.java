@@ -3,21 +3,19 @@
  */
 package com.openappengine.facade.core.executor.action.dispatcher;
 
-import java.util.Map;
-import java.util.Set;
 
-import org.reflections.Reflections;
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.context.factory.Callback;
 import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
-import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
-import com.openappengine.facade.core.executor.action.registry.DefaultActionHandlerFactory;
+import com.openappengine.facade.core.executor.action.context.ActionContextFactory;
 
 /**
  * @author hrishikesh.joshi
@@ -25,61 +23,49 @@ import com.openappengine.facade.core.executor.action.registry.DefaultActionHandl
  */
 public class SimpleActionDispatcher implements ActionDispatcher {
 	
-	private ActionHandlerFactory factory;
+	private static ActionHandlerFactory factory;
+	
+	private ELContext elContext;
+
+	private static ActionContextFactory actionContextFactory;
 	
 	public SimpleActionDispatcher() {
+	}
+
+	static {
+		Callback<ActionHandlerFactory> actionHandlerFactoryInitializationCallback = new ActionHandlerFactoryInitializationCallback();
 		factory = (ActionHandlerFactory) FactoryFinder.getFactory(FactoryConstants.ACTION_HANDLER_FACTORY,
-				new ActionHandlerFactoryInitializationCallback());
+				actionHandlerFactoryInitializationCallback);
+		
+		Callback<ActionContextFactory> callback = new ActionContextFactoryInitializationCallback();
+		actionContextFactory = (ActionContextFactory) FactoryFinder.getFactory(FactoryConstants.ACTION_CONTEXT_FACTORY, callback);
 	}
 	
 	@Override
 	public Object execute(ActionRequest actionRequest) {
 		Assert.notNull(actionRequest, "Action Request cannot be empty.");
+		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
 		
-		// Get ActionHandler from the Input Action Name.
+		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest.getActionParameters(), elContext);
+		return actionContext;
+	}
+
+	/**
+ 	 *	Get ActionHandler from the Input Action Name.
+	 * @param actionRequest
+	 */
+	protected ActionHandler getActionHandlerFromFactory(ActionRequest actionRequest) {
 		String actionName = actionRequest.getActionName();
 		ActionHandler actionHandler = factory.getActionHandler(actionName);
 		Assert.notNull(actionHandler, "ActionHandler not found in the Factory.");
-		
-		ActionHandlerWrapper wrapper = new ActionHandlerWrapper(actionHandler);
-		Map<String, Object> actionParameters = actionRequest.getActionParameters();
-		if(actionParameters != null) {
-			Set<String> actionParams = actionParameters.keySet();
-			for (String param : actionParams) {
-				wrapper.put(param, actionParameters.get(param));
-			}
-		}
-		
-		actionHandler.execute();
-		
-		return null;
+		return actionHandler;
 	}
 
-	private class ActionHandlerFactoryInitializationCallback implements Callback<ActionHandlerFactory> {
+	protected ELContext getELContext() {
+		return elContext;
+	}
 
-		private String packageToScan = "com.openappengine.facade.core.executor.action";
-		
-		public ActionHandlerFactoryInitializationCallback() {
-		}
-
-		@Override
-		public ActionHandlerFactory onCallback() {
-			try {
-				ActionHandlerFactory factory = new DefaultActionHandlerFactory();
-				Reflections reflections = new Reflections(packageToScan);
-				Set<Class<? extends ActionHandler>> actionHandlers = reflections.getSubTypesOf(ActionHandler.class);
-				if (actionHandlers != null && !actionHandlers.isEmpty()) {
-					for (Class<? extends ActionHandler> clazz : actionHandlers) {
-						ActionHandler actionHandler = clazz.newInstance();
-						factory.registerActionHandler(actionHandler.getName(), actionHandler);
-					}
-				}
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-			}
-			return factory;
-		}
+	public void setELContext(ELContext elContext) {
+		this.elContext = elContext;
 	}
 }

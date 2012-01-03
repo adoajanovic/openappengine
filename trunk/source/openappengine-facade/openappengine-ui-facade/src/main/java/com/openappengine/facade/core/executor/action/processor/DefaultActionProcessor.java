@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.core.executor.action.processor;
 
-import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
+import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionProcessor;
 
 /**
@@ -13,9 +13,9 @@ import com.openappengine.facade.core.executor.action.ActionProcessor;
 public class DefaultActionProcessor implements ActionProcessor {
 
 	@Override
-	public Object performProcessing(ActionHandlerWrapper actionHandlerWrapper) {
+	public Object performProcessing(ActionContext actionContext) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

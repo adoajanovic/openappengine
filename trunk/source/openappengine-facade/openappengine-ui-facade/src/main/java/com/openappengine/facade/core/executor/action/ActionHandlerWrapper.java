@@ -18,5 +18,10 @@ public class ActionHandlerWrapper extends DataBeanWrapper {
 	public ActionHandler getActionHandler() {
 		return (ActionHandler) this.getWrappedInstance();
 	}
+
+	@Override
+	public ActionHandler getWrappedInstance() {
+		return (ActionHandler) super.getWrappedInstance();
+	}
 	
 }

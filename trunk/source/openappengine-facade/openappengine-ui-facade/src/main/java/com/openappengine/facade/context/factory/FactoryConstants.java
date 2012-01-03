@@ -30,4 +30,9 @@ public class FactoryConstants implements Serializable {
 	 */
 	public static final String ACTION_HANDLER_FACTORY = "ActionHandlerFactory";
 	
+	/**
+	 *  Action Context Factory
+	 */
+	public static final String ACTION_CONTEXT_FACTORY = "ActionContextFactory";
+	
 }

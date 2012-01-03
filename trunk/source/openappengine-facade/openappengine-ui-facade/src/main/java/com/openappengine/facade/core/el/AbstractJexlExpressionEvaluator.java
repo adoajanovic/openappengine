@@ -10,19 +10,27 @@ import java.util.Map;
 import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.jexl.JexlHelper;
 
-import com.openappengine.facade.core.ElContext;
+import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.variable.Variable;
 
 /**
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public abstract class AbstractJexlExpressionEvaluator implements ExpressionEvaluator {
+public class AbstractJexlExpressionEvaluator implements ExpressionEvaluator {
 
-	private ElContext elContext;
+	private ELContext elContext;
+	
+	private static final JexlContext jexlContext;
+	
+	static {
+		jexlContext = JexlHelper.createContext();
+	}
 
 	@Override
-	public abstract Object evaluate(String expression);
+	public Object evaluate(String expression) {
+		return null;
+	}
 
 	protected JexlContext createJexlContext() {
 		JexlContext jc = JexlHelper.createContext();
@@ -41,7 +49,7 @@ public abstract class AbstractJexlExpressionEvaluator implements ExpressionEvalu
 	}
 
 	@Override
-	public void setElContext(ElContext elContext) {
+	public void setELContext(ELContext elContext) {
 		this.elContext = elContext;
 	}
 	
