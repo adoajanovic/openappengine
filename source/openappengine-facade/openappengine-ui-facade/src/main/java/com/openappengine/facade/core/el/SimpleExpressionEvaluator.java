@@ -7,9 +7,6 @@ import org.apache.commons.jexl.Expression;
 import org.apache.commons.jexl.ExpressionFactory;
 import org.apache.commons.jexl.JexlContext;
 import org.apache.log4j.Logger;
-import org.springframework.util.Assert;
-
-import com.openappengine.facade.core.context.GuiApplicationContext;
 
 /**
  * @author hrishikesh.joshi
@@ -18,11 +15,6 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 public class SimpleExpressionEvaluator extends AbstractJexlExpressionEvaluator {
 	
 	private final Logger logger = Logger.getLogger(getClass());
-	
-	public SimpleExpressionEvaluator(GuiApplicationContext context) {
-		Assert.notNull(context,"ScreenApplicationContext cannot be null.");
-		setGuiApplicationContext(context);
-	}
 	
 	@Override
 	public Object evaluate(String expression) {

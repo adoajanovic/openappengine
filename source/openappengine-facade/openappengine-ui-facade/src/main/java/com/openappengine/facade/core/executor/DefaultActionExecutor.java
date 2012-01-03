@@ -24,7 +24,7 @@ public class DefaultActionExecutor implements ActionExecutor {
 	@Override
 	public void execute(ActionHandler action) {
 		Assert.notNull(action,"ActionHandler cannot be null.");
-		action.execute(context);
+		action.execute();
 	}
 
 }

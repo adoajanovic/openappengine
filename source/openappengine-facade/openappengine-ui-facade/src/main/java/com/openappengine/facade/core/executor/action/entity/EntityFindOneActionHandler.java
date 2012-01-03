@@ -36,7 +36,7 @@ public class EntityFindOneActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public EntityValue execute(GuiApplicationContext screenContext) {
+	public EntityValue execute() {
 		Map<String,Object> params = new HashMap<String, Object>();
 		if(andParameterMap != null) {
 			Set<String> paramKeys = andParameterMap.keySet();

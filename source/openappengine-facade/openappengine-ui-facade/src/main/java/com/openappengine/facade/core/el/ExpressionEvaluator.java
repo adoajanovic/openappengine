@@ -3,13 +3,12 @@
  */
 package com.openappengine.facade.core.el;
 
-import com.openappengine.facade.core.context.GuiApplicationContextAware;
 
 /**
  * @author hrishikesh.joshi
  * @Dec 26, 2011
  */
-public interface ExpressionEvaluator extends GuiApplicationContextAware {
+public interface ExpressionEvaluator extends ElContextAware {
 	
 	Object evaluate(String expression);
 

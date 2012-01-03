@@ -27,7 +27,7 @@ public class IfActionHandler extends CompositeActionHandler {
 	}
 
 	@Override
-	public Object execute(GuiApplicationContext screenContext) {
+	public Object execute() {/*
 		logger.info("Evaluating Conditional Expression : {" + conditionExpression + "}");
 		Boolean eval = evaluateConditionExpression(screenContext, conditionExpression);
 		if(BooleanUtils.isTrue(eval)) {
@@ -48,6 +48,8 @@ public class IfActionHandler extends CompositeActionHandler {
 			return elseAction.execute(screenContext);
 		}
 		logger.info("Conditional Expression : {" + conditionExpression + "} returned FALSE. > Wrapped ActionHandler not invoked.");
+		return null;
+	*/
 		return null;
 	}
 

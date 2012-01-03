@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.jexl.JexlHelper;
 
-import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.ElContext;
 import com.openappengine.facade.core.variable.Variable;
 
 /**
@@ -18,26 +18,17 @@ import com.openappengine.facade.core.variable.Variable;
  * @since Dec 29, 2011
  */
 public abstract class AbstractJexlExpressionEvaluator implements ExpressionEvaluator {
-	
-	private GuiApplicationContext context;
 
-	@Override
-	public void setGuiApplicationContext(GuiApplicationContext context) {
-		this.context = context;
-	}
+	private ElContext elContext;
 
 	@Override
 	public abstract Object evaluate(String expression);
 
-	protected GuiApplicationContext getContext() {
-		return context;
-	}
-	
 	protected JexlContext createJexlContext() {
 		JexlContext jc = JexlHelper.createContext();
 		
 		Map<String, Object> vars = new HashMap<String, Object>();
-		Map<String, Variable> screenVariables = context.getUIRoot().getScreenVariables();
+		Map<String, Variable> screenVariables = elContext.getElContextVariables();
 		Collection<Variable> variables = screenVariables.values();
 		if(variables != null) {
 			for (Variable variable : variables) {
@@ -47,6 +38,11 @@ public abstract class AbstractJexlExpressionEvaluator implements ExpressionEvalu
 		
 		jc.getVars().putAll(vars);
 		return jc;
+	}
+
+	@Override
+	public void setElContext(ElContext elContext) {
+		this.elContext = elContext;
 	}
 	
 }
