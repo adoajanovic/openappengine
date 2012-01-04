@@ -5,7 +5,7 @@ package com.openappengine.facade.core.component.ui;
 import java.util.Map;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
-import com.openappengine.facade.core.component.executable.PreActionsComponent;
+import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
 
@@ -19,7 +19,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	
 	private GuiApplicationContext context;
 	
-	private PreActionsComponent preActions;
+	private PreRenderActionsComponent preActions;
 	
 	private Map<String, Variable> screenVariables;
 	
@@ -30,18 +30,18 @@ public class GuiRootComponent extends AbstractGuiComponent {
 
 	@Override
 	public String getComponentName() {
-		return "screen";
+		return "root";
 	}
 	
 	public Map<String, Variable> getScreenVariables() {
 		return screenVariables;
 	}
 
-	public PreActionsComponent getPreActions() {
+	public PreRenderActionsComponent getPreActions() {
 		return preActions;
 	}
 
-	public void setPreActions(PreActionsComponent preActions) {
+	public void setPreActions(PreRenderActionsComponent preActions) {
 		this.preActions = preActions;
 	}
 
@@ -55,9 +55,5 @@ public class GuiRootComponent extends AbstractGuiComponent {
 
 	public void setContext(GuiApplicationContext context) {
 		this.context = context;
-	}
-
-	public boolean isPreActionConfigured() {
-		return (preActions != null && preActions.getExecutable() != null);
 	}
 }
