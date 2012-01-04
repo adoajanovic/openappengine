@@ -11,7 +11,7 @@ import org.w3c.dom.NodeList;
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
 import com.openappengine.facade.context.factory.support.parser.ParserConstants;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
-import com.openappengine.facade.core.component.executable.PreActionsComponent;
+import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 
 /**
@@ -57,7 +57,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	private void parseElement(Element element,ScreenDefinitionParserDelegate delegate) {
 		//Parse the pre-actions component.
 		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
-			PreActionsComponent parsePreActions = parsePreActions(element, delegate);
+			PreRenderActionsComponent parsePreActions = parsePreActions(element, delegate);
 			getUiRoot().setPreActions(parsePreActions);
 		}
 	}
@@ -67,11 +67,11 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	 * set in the Component Tree.
 	 * @param element
 	 * @param delegate
-	 * @return PreActionsComponent created from the parsed XML Node.
+	 * @return PreRenderActionsComponent created from the parsed XML Node.
 	 */
-	private PreActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
+	private PreRenderActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
 		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER);
-		PreActionsComponent preActions = (PreActionsComponent) parser.parse(element);
+		PreRenderActionsComponent preActions = (PreRenderActionsComponent) parser.parse(element);
 		return preActions;
 	}
 

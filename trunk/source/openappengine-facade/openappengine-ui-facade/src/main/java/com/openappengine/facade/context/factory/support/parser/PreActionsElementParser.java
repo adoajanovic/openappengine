@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
-import com.openappengine.facade.core.component.executable.PreActionsComponent;
+import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 
 /**
  * @author hrishi
@@ -18,8 +18,8 @@ import com.openappengine.facade.core.component.executable.PreActionsComponent;
 public class PreActionsElementParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
-	public PreActionsComponent parse(Element element) {
-		PreActionsComponent preActionsComponent = new PreActionsComponent();
+	public PreRenderActionsComponent parse(Element element) {
+		PreRenderActionsComponent preRenderActionsComponent = new PreRenderActionsComponent();
 		if(element != null) {
 			NodeList nl = element.getChildNodes();
 			for(int i=0; i < nl.getLength();i++) {
@@ -28,12 +28,12 @@ public class PreActionsElementParser extends AbstractGuiElementDefinitionParser 
 					if(!isNodeParseable(childNode.getNodeName())) {
 						GuiElementDefinitionParser parser = createNodeParserDelegate(childNode);
 						AbstractExecutableComponent component = (AbstractExecutableComponent) parser.parse((Element) childNode);
-						preActionsComponent.addChildComponent(component);
+						preRenderActionsComponent.addChildComponent(component);
 					}
 				}
 			}
 		}
-		return preActionsComponent;
+		return preRenderActionsComponent;
 	}
 
 	@Override
