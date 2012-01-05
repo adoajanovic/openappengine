@@ -49,6 +49,13 @@ public interface GuiApplicationContext {
 	ELContext getELContext();
 	
 	/**
+	 * Register Variable.
+	 * @param name
+	 * @param value
+	 */
+	void registerVariable(String name,Object value);
+	
+	/**
 	 * Get the Expression Evaluator  
 	 * @return
 	 */

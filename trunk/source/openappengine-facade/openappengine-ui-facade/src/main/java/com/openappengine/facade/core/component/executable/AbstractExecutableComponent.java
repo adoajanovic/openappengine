@@ -3,6 +3,8 @@
  */
 package com.openappengine.facade.core.component.executable;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.GuiComponent;
@@ -42,6 +44,10 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 	public String getComponentType() {
 		return "executable";
 	}
+	
+	public boolean hasValueField() {
+		return StringUtils.isNotEmpty(valueField);
+	}
 
 	/**
 	 * Add an executable child Component to this component.
@@ -60,8 +66,6 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 			return false;
 		}
 	}
-
-	public abstract Executable getExecutable();
 
 	public abstract ActionRequest getActionRequest();
 }
