@@ -5,6 +5,8 @@ package com.openappengine.facade.ui.resolver;
 
 import java.util.Map;
 
+import org.springframework.util.Assert;
+
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
@@ -28,6 +30,7 @@ public class EntityValueResolver implements ValueResolver {
 	@Override
 	public Object resolveValue() {
 		EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+		Assert.notNull(entityFacade,"Entity Engine Not Initialized.");
 		EntityValue entityValue = entityFacade.findUniqueEntityValue(entityName, queryParams);
 		return entityValue;
 	}

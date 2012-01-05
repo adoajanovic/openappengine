@@ -3,6 +3,7 @@
  */
 package com.openappengine.facade.core.component.ui;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
@@ -21,7 +22,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	
 	private PreRenderActionsComponent preRenderActionsComponent;
 	
-	private Map<String, Variable> screenVariables;
+	private Map<String, Variable> screenVariables = new ConcurrentHashMap<String, Variable>();
 	
 	@Override
 	public String getComponentType() {

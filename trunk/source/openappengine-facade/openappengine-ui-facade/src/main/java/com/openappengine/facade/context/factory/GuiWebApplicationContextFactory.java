@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.WebGuiApplicationContext;
+import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextRestoreEvent;
 import com.openappengine.facade.core.context.lifecycle.DefaultLifecycleProcessor;
 import com.openappengine.facade.core.ext.ExternalContext;
@@ -33,21 +34,32 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 			GuiRootComponent uiRoot = createGuiRoot(resource, context);
 			uiRoot.setContext(context);
 
-			//Context Restored.
-			context = processLifecyleRestoreProcessing(context);
+			processLifecyleRestoreProcessing(context);
 			
-			//TODO - Handle States.
+			processLifecycleInitializedEvent(context);
+			
 			registerScreenApplicationContext(resource, context);
+			
 		}
 		return cachedGuiApplicationContexts.get(resource);
 	}
 
-	protected GuiApplicationContext processLifecyleRestoreProcessing(GuiApplicationContext context) {
-		//Call the Restore Event Listener
+	/**
+	 * Call the Initialized Event Listener
+	 * @param context
+	 */
+	protected void processLifecycleInitializedEvent(GuiApplicationContext context) {
+		ContextInitializedEvent event = new ContextInitializedEvent(context);
+		getLifecycleProcessor().processLifecycleEvent(event);
+	}
+
+	/**
+	 * Call the Restore Event Listener
+	 * @param context
+	 */
+	protected void processLifecyleRestoreProcessing(GuiApplicationContext context) {
 		ContextRestoreEvent contextRestoreEvent = new ContextRestoreEvent(context);
 		getLifecycleProcessor().processLifecycleEvent(contextRestoreEvent);
-		
-		return context;
 	}
 
 }
