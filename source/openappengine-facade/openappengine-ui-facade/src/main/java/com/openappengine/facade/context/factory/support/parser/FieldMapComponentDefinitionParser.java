@@ -34,8 +34,8 @@ public class FieldMapComponentDefinitionParser extends AbstractGuiElementDefinit
 	}
 
 	@Override
-	protected boolean isNodeParseable(String nodeName) {
-		return StringUtils.equals(nodeName, ELEMENT_FIELD_MAP);
+	public String getParsedNodeName() {
+		return ParserConstants.FIELD_MAP_PARSER;
 	}
 
 }

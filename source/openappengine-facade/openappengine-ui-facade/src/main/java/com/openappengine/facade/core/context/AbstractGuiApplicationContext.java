@@ -3,11 +3,15 @@
  */
 package com.openappengine.facade.core.context;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.component.ui.ValueRefAware;
 import com.openappengine.facade.core.el.DefaultJexlContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
@@ -33,7 +37,9 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	private ELContext elContext;
 	
 	private GuiRootComponent root;
-
+	
+	private Map<String,List<GuiComponent>> unresolvedGuiComponents = new HashMap<String, List<GuiComponent>>();
+	
 	public AbstractGuiApplicationContext() {
 		initConfiguration();
 	}
@@ -89,8 +95,30 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 			var.setValue(value);
 			root.getScreenVariables().put(name, var);
 		}
-		
 		elContext.registerELContextVariable(name, value);
+		setValueRefs(name, value);
+	}
+
+	/**
+	 * @param name
+	 * @param value
+	 */
+	protected void setValueRefs(String name, Object value) {
+		if(unresolvedGuiComponents.containsKey(name)) {
+			List<GuiComponent> list = unresolvedGuiComponents.get(name);
+			for (GuiComponent guiComponent : list) {
+				ValueRefAware<Object> valueRefAware = (ValueRefAware<Object>)guiComponent;
+				valueRefAware.setValue(value);
+			}
+		}
+	}
+
+	public Map<String, List<GuiComponent>> getUnresolvedGuiComponents() {
+		return unresolvedGuiComponents;
+	}
+
+	public void setUnresolvedGuiComponents(Map<String, List<GuiComponent>> unresolvedGuiComponents) {
+		this.unresolvedGuiComponents = unresolvedGuiComponents;
 	}
 	
 }

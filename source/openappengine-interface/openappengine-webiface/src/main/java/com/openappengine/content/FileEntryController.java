@@ -51,7 +51,7 @@ public class FileEntryController implements Serializable {
             Collections.synchronizedList(new ArrayList());
 
     /**
-     * <p>Action event method which is triggered when a user clicks on the
+     * <p>ActionHandler event method which is triggered when a user clicks on the
      * upload file button.  Uploaded files are added to a list so that user have
      * the option to delete them programatically.  Any errors that occurs
      * during the file uploaded are added the messages output.</p>

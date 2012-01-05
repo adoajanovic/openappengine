@@ -21,4 +21,8 @@ public class ParserConstants implements Serializable {
 	
 	public static final String PRE_ACTIONS_PARSER = "pre-actions";
 
+	public static final String FORM_SINGLE_ELEMENT_PARSER = "form-single";
+
+	public static final String WIDGETS = "widgets";
+
 }

@@ -3,6 +3,7 @@
  */
 package com.openappengine.facade.context.factory.support.parser;
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Node;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
@@ -17,9 +18,9 @@ public abstract class AbstractGuiElementDefinitionParser implements GuiElementDe
 	
 	protected static final String ELEMENT_PRE_ACTIONS = "pre-actions";
 	
-	protected static final String ELEMENT_FIELD_MAP = "FIELD_MAP";
-	
 	protected static final String ACTION_ENTITY_FIND_ONE = "entity-find-one";
+	
+	protected static final String ELEMENT_FIELD_MAP = "FIELD_MAP";
 
 	/**
 	 * @param delegate
@@ -31,7 +32,9 @@ public abstract class AbstractGuiElementDefinitionParser implements GuiElementDe
 		return this.getDelegate().getScreenElementDefinitionParser(name);
 	}
 	
-	protected abstract boolean isNodeParseable(String nodeName);
+	protected boolean isNodeParseable(String nodeName) {
+		return StringUtils.equals(nodeName, getParsedNodeName());
+	}
 
 	/**
 	 * Get the appropriate parser for this node.

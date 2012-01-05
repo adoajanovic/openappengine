@@ -3,11 +3,13 @@
  */
 package com.openappengine.facade.context.factory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.io.Resource;
 
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleProcessor;
@@ -25,6 +27,8 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 	private ContextConfiguration contextConfiguration;
 	
 	private LifecycleProcessor lifecycleProcessor;
+	
+	private Map<String,GuiComponent> unresolvedGuiComponents = new HashMap<String, GuiComponent>();
 	
 	protected GuiRootComponent createGuiRoot(Resource resource, GuiApplicationContext context) {
 		GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
@@ -56,5 +60,13 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 
 	public void setLifecycleProcessor(LifecycleProcessor lifecycleProcessor) {
 		this.lifecycleProcessor = lifecycleProcessor;
+	}
+
+	public Map<String,GuiComponent> getUnresolvedGuiComponents() {
+		return unresolvedGuiComponents;
+	}
+
+	public void setUnresolvedGuiComponents(Map<String,GuiComponent> unresolvedGuiComponents) {
+		this.unresolvedGuiComponents = unresolvedGuiComponents;
 	}
 }

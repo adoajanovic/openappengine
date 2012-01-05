@@ -22,7 +22,9 @@ public class ScreenElementDefinitionParserFactory {
 
 	public static final String PRE_ACTIONS = "pre-actions";
 
-	public static final String FIELD_MAP = "field-map"; 
+	public static final String FIELD_MAP = "field-map";
+
+	public static final String FORM_SINGLE = "form-single"; 
 	
 	private Map<String, GuiElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, GuiElementDefinitionParser>();
 

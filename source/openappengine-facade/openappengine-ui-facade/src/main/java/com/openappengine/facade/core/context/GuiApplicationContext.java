@@ -3,8 +3,12 @@
  */
 package com.openappengine.facade.core.context;
 
+import java.util.List;
+import java.util.Map;
+
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
@@ -85,4 +89,10 @@ public interface GuiApplicationContext {
 	 */
 	TransitionHandler getTransitionHandler();
 	
+	/**
+	 * @return Unresolved Gui Components.
+	 */
+	Map<String,List<GuiComponent>> getUnresolvedGuiComponents();
+	
+	void setUnresolvedGuiComponents(Map<String, List<GuiComponent>> unresolvedGuiComponents);
 }

@@ -82,8 +82,7 @@ public class EntityFindOneActionElementDefinitionParser extends AbstractGuiEleme
 	}
 
 	@Override
-	protected boolean isNodeParseable(String nodeName) {
-		return StringUtils.equals(ParserConstants.ENTITY_FIND_ONE_PARSER, nodeName);
+	public String getParsedNodeName() {
+		return ParserConstants.ENTITY_FIND_ONE_PARSER;
 	}
-
 }
