@@ -3,15 +3,19 @@
  */
 package com.openappengine.facade.core.context;
 
+import java.util.Map;
+
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.el.DefaultJexlContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
+import com.openappengine.facade.core.variable.Variable;
 import com.openappengine.facade.core.variable.VariableResolver;
 
 /**
@@ -26,6 +30,8 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	
 	private VariableResolver variableResolver;
 	
+	private ELContext elContext;
+	
 	private GuiRootComponent root;
 
 	public AbstractGuiApplicationContext() {
@@ -37,6 +43,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		actionExecutor = new DefaultActionExecutor();
 		expressionEvaluator = new SimpleExpressionEvaluator();
 		variableResolver = new ScreenContextVariableResolver(this);
+		elContext = new DefaultJexlContext();
 	}
 	
 	@Override
@@ -67,11 +74,23 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	
 	@Override
 	public ELContext getELContext() {
-		return null;
+		return elContext;
 	}
 
 	public void setUIRoot(GuiRootComponent root) {
 		this.root = root;
 	}
 
+	@Override
+	public void registerVariable(String name, Object value) {
+		if(root != null) {
+			Variable var = new Variable();
+			var.setName(name);
+			var.setValue(value);
+			root.getScreenVariables().put(name, var);
+		}
+		
+		elContext.registerELContextVariable(name, value);
+	}
+	
 }

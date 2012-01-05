@@ -58,7 +58,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 		//Parse the pre-actions component.
 		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
 			PreRenderActionsComponent parsePreActions = parsePreActions(element, delegate);
-			getUiRoot().setPreActions(parsePreActions);
+			getUiRoot().setPreRenderActionComponent(parsePreActions);
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	
 	private GuiApplicationContext context;
 	
-	private PreRenderActionsComponent preActions;
+	private PreRenderActionsComponent preRenderActionsComponent;
 	
 	private Map<String, Variable> screenVariables;
 	
@@ -37,12 +37,12 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		return screenVariables;
 	}
 
-	public PreRenderActionsComponent getPreActions() {
-		return preActions;
+	public PreRenderActionsComponent getPreRenderActionComponent() {
+		return preRenderActionsComponent;
 	}
 
-	public void setPreActions(PreRenderActionsComponent preActions) {
-		this.preActions = preActions;
+	public void setPreRenderActionComponent(PreRenderActionsComponent preActions) {
+		this.preRenderActionsComponent = preActions;
 	}
 
 	public void setScreenVariables(Map<String, Variable> screenVariables) {

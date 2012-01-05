@@ -73,15 +73,6 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 	}
 
 	@Override
-	public Executable getExecutable() {
-		EntityFindOneActionHandler entityFindOneAction = new EntityFindOneActionHandler(this.getEntityName());
-		entityFindOneAction.setAndParameterMap(null);//TODO
-		entityFindOneAction.setAutoFieldMap(this.isAutoFieldMap());
-		entityFindOneAction.setConditionExpression(this.getConditionExpression());
-		return entityFindOneAction;
-	}
-
-	@Override
 	public ActionRequest getActionRequest() {
 		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one");
 		actionRequest.addActionParameter("entityName", entityName);
