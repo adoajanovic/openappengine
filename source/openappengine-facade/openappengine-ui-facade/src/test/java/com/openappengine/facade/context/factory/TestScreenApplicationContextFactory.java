@@ -8,6 +8,8 @@ import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -26,6 +28,7 @@ public class TestScreenApplicationContextFactory {
 
 	@Before
 	public void setup() {
+		ApplicationContext c = new ClassPathXmlApplicationContext("entity-facade-context.xml");
 		screenApplicationContextFactory = (GuiContextFactory) FactoryFinder.getFactory(FactoryConstants.XML_SCREEN_APPLICATION_CONTEXT_FACTORY, new WebContextFactoryInitializationCallback());
 		Assert.assertNotNull("ScreenApplicationContextFactory Null !", screenApplicationContextFactory);
 	}

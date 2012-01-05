@@ -7,13 +7,14 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 
 /**
  * @author hrishikesh.joshi
- * @since Jan 4, 2012
+ * @since Jan 5, 2012
  */
-public class ContextRestoreEvent extends GuiContextEvent {
+public class ContextInitializedEvent extends GuiContextEvent {
 
 	private static final long serialVersionUID = 1L;
-
-	public ContextRestoreEvent(GuiApplicationContext source) {
+	
+	public ContextInitializedEvent(GuiApplicationContext source) {
 		super(source);
 	}
+
 }
