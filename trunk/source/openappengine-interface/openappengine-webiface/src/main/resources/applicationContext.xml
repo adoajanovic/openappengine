@@ -4,8 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Wire Facade Context -->
-	
-	<import resource="ui-facade-context.xml"/>
+	<import resource="xml-screen-context.xml"/>
 	
 	<!-- ========== Custom Scope Implementations ===================== -->
 	<bean id="viewScope" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
@@ -31,6 +30,6 @@
 	</bean>
 	
 	<!-- Screen Renderer -->
-	<bean id="xmlScreenRenderer" class="com.openappengine.web.ui.screen.XmlScreenRenderer" scope="view">
+	<bean id="xmlScreenRenderer" class="com.openappengine.web.gui.controller.XmlScreenRenderer" scope="view">
 	</bean>
 </beans>

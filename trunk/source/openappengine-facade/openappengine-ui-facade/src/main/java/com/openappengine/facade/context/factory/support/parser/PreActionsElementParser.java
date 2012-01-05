@@ -3,7 +3,6 @@
  */
 package com.openappengine.facade.context.factory.support.parser;
 
-import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -37,8 +36,7 @@ public class PreActionsElementParser extends AbstractGuiElementDefinitionParser 
 	}
 
 	@Override
-	protected boolean isNodeParseable(String nodeName) {
-		return StringUtils.equals(nodeName,ELEMENT_PRE_ACTIONS);
+	public String getParsedNodeName() {
+		return ParserConstants.PRE_ACTIONS_PARSER;
 	}
-
 }

@@ -49,8 +49,8 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	 * @param context
 	 */
 	protected void processLifecycleInitializedEvent(GuiApplicationContext context) {
-		ContextInitializedEvent event = new ContextInitializedEvent(context);
-		getLifecycleProcessor().processLifecycleEvent(event);
+		ContextInitializedEvent contextInitEvent = new ContextInitializedEvent(context);
+		getLifecycleProcessor().processLifecycleEvent(contextInitEvent);
 	}
 
 	/**

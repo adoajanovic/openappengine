@@ -82,12 +82,12 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <filter>
-    <display-name>XmlScreenProcessingFilter</display-name>
-    <filter-name>XmlScreenProcessingFilter</filter-name>
-    <filter-class>com.openappengine.web.filter.XmlScreenProcessingFilter</filter-class>
+    <display-name>XmlContextProcessingFilter</display-name>
+    <filter-name>XmlContextProcessingFilter</filter-name>
+    <filter-class>com.openappengine.web.filter.XmlContextProcessingFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>XmlScreenProcessingFilter</filter-name>
+    <filter-name>XmlContextProcessingFilter</filter-name>
     <url-pattern>*.screen</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

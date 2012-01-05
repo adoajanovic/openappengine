@@ -43,9 +43,9 @@ public class NavigationBean implements Serializable{
     }
 
     /**
-     * Action Listener for the changes the selected content path.
+     * ActionHandler Listener for the changes the selected content path.
      *
-     * @param event JSF Action Event.
+     * @param event JSF ActionHandler TransitionEvent.
      */
     public void contentHomePathChange(ActionEvent event){
 

@@ -23,4 +23,5 @@ public interface GuiElementDefinitionParser {
 	
 	void setDelegate(ScreenDefinitionParserDelegate delegate);
 	
+	String getParsedNodeName();
 }

@@ -12,8 +12,11 @@ import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.support.parser.EntityFindOneActionElementDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.FieldMapComponentDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.FormGuiElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.ParserConstants;
 import com.openappengine.facade.context.factory.support.parser.PreActionsElementParser;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.WidgetsElementParser;
 
 /**
  * Delegate to parse the Xml Definitions. 
@@ -78,9 +81,11 @@ public class ScreenDefinitionParserDelegate {
 		@Override
 		public ScreenElementDefinitionParserFactory onCallback() {
 			ScreenElementDefinitionParserFactory factory = new ScreenElementDefinitionParserFactory();
-			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.ENTITY_FIND_ONE, new EntityFindOneActionElementDefinitionParser());
-			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.FIELD_MAP, new FieldMapComponentDefinitionParser());
-			factory.addScreenElementDefinitionParser(ScreenElementDefinitionParserFactory.PRE_ACTIONS, new PreActionsElementParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER, new EntityFindOneActionElementDefinitionParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.FIELD_MAP_PARSER, new FieldMapComponentDefinitionParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER, new PreActionsElementParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.FORM_SINGLE_ELEMENT_PARSER, new FormGuiElementDefinitionParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.WIDGETS, new WidgetsElementParser());
 			return factory;
 		}
 		
