@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionReaderException;
@@ -28,8 +29,6 @@ public class EntityDefinitionReader {
     
 	private FieldTypeDefinitionReader fieldTypeDefinitionReader;
 	
-	private final Logger logger = Logger.getLogger(getClass());
-
     /**
      * Init the Reader
      */
