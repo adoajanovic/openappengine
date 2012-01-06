@@ -27,4 +27,6 @@ public class ParserConstants implements Serializable {
 
 	public static final String SUB_SCREENS_ELEMENT_PARSER = "sub-screens";
 
+	public static final String PAGE_CONTENT_PARSER = "page-content";
+
 }
