@@ -62,8 +62,8 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 			getUiRoot().setPreRenderActionComponent(parsePreActions);
 		} else if(delegate.nodeNameEquals(element, NodeNames.PAGE_CONTENT)) {
 			GuiElementDefinitionParser widgetsParser = delegate.getScreenElementDefinitionParser(NodeNames.PAGE_CONTENT);
-			PageContentComponent subscreens = (PageContentComponent) widgetsParser.parse(element);
-			getUiRoot().addChildComponent(subscreens);
+			PageContentComponent pageContent = (PageContentComponent) widgetsParser.parse(element);
+			getUiRoot().setPageContent(pageContent);
 		}	
 	}
 	

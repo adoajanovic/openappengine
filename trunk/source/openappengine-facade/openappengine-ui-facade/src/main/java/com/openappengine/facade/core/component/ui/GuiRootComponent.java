@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
 
@@ -21,6 +22,8 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	private GuiApplicationContext context;
 	
 	private PreRenderActionsComponent preRenderActionsComponent;
+	
+	private PageContentComponent pageContent;
 	
 	private Map<String, Variable> screenVariables = new ConcurrentHashMap<String, Variable>();
 	
@@ -57,4 +60,13 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	public void setContext(GuiApplicationContext context) {
 		this.context = context;
 	}
+
+	public PageContentComponent getPageContent() {
+		return pageContent;
+	}
+
+	public void setPageContent(PageContentComponent pageContent) {
+		this.pageContent = pageContent;
+	}
+
 }

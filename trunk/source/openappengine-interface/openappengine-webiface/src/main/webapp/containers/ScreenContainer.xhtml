@@ -5,30 +5,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:openui="http://www.openappengine.com/tags/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="page-content">
-		<f:subview id="EntityFormContainer">
+		<f:subview id="Container">
 
 			<f:metadata>
 				<f:phaseListener binding="#{xmlScreenRenderer.phaseListener}" />
 			</f:metadata>
 
 			<h:panelGroup id="CenterPanel">
-				<ui:repeat var="widget" value="#{xmlScreenRenderer.screen.containerPanel.centerPanel.widgets}">
-				
-					<!-- TODO First Check whether this is an entity referenced form or a service referenced form -->
-					<ui:fragment>
-						<openui:entityForm formInstance="#{widget}" entityName="#{widget.entityValue.entityName}"
-							id="#{widget.id}_Form" columns="#{widget.fieldLayout.columns}">
-							<ui:define name="actions">
-								<!-- 
-								<ice:commandButton id="#{widget.entityValue.entityName}_Save" action="#{entityFormController.formSubmit}" value="Save">
-								</ice:commandButton>
-								 -->
-							</ui:define>
-						</openui:entityForm>
-					</ui:fragment>
+			
+				<!-- Get all the Widget Containers inside the PageContent. -->
+				<ui:repeat var="widgets" value="#{xmlScreenRenderer.uiRoot.pageContent.widgets}">
+					
+					<!-- Get Widgets inside the Container -->
+					<ui:repeat var="widget" value="#{widgets.childComponents}">
+						<!-- Create a custom TagLib to render the Widget according the ComponentName -->
+						<ice:inputTextarea value="#{widget.getComponentName()}" />	
+					</ui:repeat>
 					
 				</ui:repeat>
+				
 			</h:panelGroup>
+			
 		</f:subview>
 	</ui:define>
 </ui:composition>

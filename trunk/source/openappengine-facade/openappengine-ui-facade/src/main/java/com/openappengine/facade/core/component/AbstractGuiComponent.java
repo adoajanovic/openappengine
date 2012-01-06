@@ -18,14 +18,10 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 	
 	protected final Logger logger = Logger.getLogger(getClass());
 
-	private List<GuiComponent> childComponents = new ArrayList<GuiComponent>();
+	private final List<GuiComponent> childComponents = new ArrayList<GuiComponent>();
 
 	public List<GuiComponent> getChildComponents() {
 		return childComponents;
-	}
-
-	protected void setChildComponents(List<GuiComponent> childComponents) {
-		this.childComponents = childComponents;
 	}
 
 	/**
