@@ -6,8 +6,16 @@
 	</parameter>
 
 	<pre-actions>
-		<entity-find-one entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
+		<entity-find-one entity-name="CodeType" value-field="codeTypeValue"
+			auto-field-map="true" condition="codeTypeId >= 1">
 		</entity-find-one>
 	</pre-actions>
+
+	<sub-screens>
+		<widgets>
+			<form-single name="CodeType_View" value-ref="codeTypeValue" transition="createCodeType">
+			</form-single>
+		</widgets>
+	</sub-screens>
 
 </screen>

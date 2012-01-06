@@ -89,10 +89,4 @@ public interface GuiApplicationContext {
 	 */
 	TransitionHandler getTransitionHandler();
 	
-	/**
-	 * @return Unresolved Gui Components.
-	 */
-	Map<String,List<GuiComponent>> getUnresolvedGuiComponents();
-	
-	void setUnresolvedGuiComponents(Map<String, List<GuiComponent>> unresolvedGuiComponents);
 }
