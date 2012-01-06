@@ -15,4 +15,7 @@ public class NodeNames implements Serializable {
 	
 	public static final String PRE_ACTIONS = "pre-actions";
 
+	public static final String WIDGETS = "widgets";
+
+	public static final String SUB_SCREENS = "sub-screens";
 }

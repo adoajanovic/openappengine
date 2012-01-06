@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.executor.action.Executable;
 
 /**
  * Abstract Super Class for all the executable components of the Gui Component Tree.

@@ -10,7 +10,6 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.WebGuiApplicationContext;
 import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextRestoreEvent;
-import com.openappengine.facade.core.context.lifecycle.DefaultLifecycleProcessor;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 /**

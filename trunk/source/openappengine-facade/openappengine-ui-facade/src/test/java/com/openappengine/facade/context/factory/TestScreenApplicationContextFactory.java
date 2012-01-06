@@ -35,14 +35,15 @@ public class TestScreenApplicationContextFactory {
 	
 	@Test
 	public void testGetScreenApplicationContext() {
-		InputStream inputStream = getClass().getResourceAsStream("CodeType.xml");
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("CodeType.xml");
+		Assert.assertNotNull("InputStream cannot be null.",inputStream);
 		Resource resource = new InputStreamResource(inputStream);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("codeTypeId", "1");
 		ExternalContext externalContext = new ExternalWebContext(request);
 		
 		GuiApplicationContext applicationContext = screenApplicationContextFactory.createGuiApplicationContext(resource, externalContext);
-		
+		Assert.assertNotNull("GuiApplicationContext instance could not be created.",applicationContext);
 	}
 
 }

@@ -17,15 +17,6 @@ import com.openappengine.facade.context.factory.support.parser.GuiElementDefinit
  */
 public class ScreenElementDefinitionParserFactory {
 	
-	//XML Node Constants
-	public static final String ENTITY_FIND_ONE = "entity-find-one";
-
-	public static final String PRE_ACTIONS = "pre-actions";
-
-	public static final String FIELD_MAP = "field-map";
-
-	public static final String FORM_SINGLE = "form-single"; 
-	
 	private Map<String, GuiElementDefinitionParser> screenElementDefinitionParserMap = new ConcurrentHashMap<String, GuiElementDefinitionParser>();
 
 	public GuiElementDefinitionParser getScreenElementDefinitionParser(String name) {

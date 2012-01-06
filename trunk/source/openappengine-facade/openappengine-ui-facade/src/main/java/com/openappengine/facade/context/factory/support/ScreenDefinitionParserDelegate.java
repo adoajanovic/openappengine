@@ -16,6 +16,7 @@ import com.openappengine.facade.context.factory.support.parser.FormGuiElementDef
 import com.openappengine.facade.context.factory.support.parser.ParserConstants;
 import com.openappengine.facade.context.factory.support.parser.PreActionsElementParser;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
+import com.openappengine.facade.context.factory.support.parser.SubScreensElementDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.WidgetsElementParser;
 
 /**
@@ -84,8 +85,9 @@ public class ScreenDefinitionParserDelegate {
 			factory.addScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER, new EntityFindOneActionElementDefinitionParser());
 			factory.addScreenElementDefinitionParser(ParserConstants.FIELD_MAP_PARSER, new FieldMapComponentDefinitionParser());
 			factory.addScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER, new PreActionsElementParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.FORM_SINGLE_ELEMENT_PARSER, new FormGuiElementDefinitionParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.SUB_SCREENS_ELEMENT_PARSER, new SubScreensElementDefinitionParser());
 			factory.addScreenElementDefinitionParser(ParserConstants.WIDGETS, new WidgetsElementParser());
+			factory.addScreenElementDefinitionParser(ParserConstants.FORM_SINGLE_ELEMENT_PARSER, new FormGuiElementDefinitionParser());
 			return factory;
 		}
 		
