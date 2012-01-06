@@ -7,17 +7,9 @@ import org.springframework.util.Assert;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.openappengine.facade.context.factory.Callback;
 import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
-import com.openappengine.facade.context.factory.support.parser.EntityFindOneActionElementDefinitionParser;
-import com.openappengine.facade.context.factory.support.parser.FieldMapComponentDefinitionParser;
-import com.openappengine.facade.context.factory.support.parser.FormGuiElementDefinitionParser;
-import com.openappengine.facade.context.factory.support.parser.ParserConstants;
-import com.openappengine.facade.context.factory.support.parser.PreActionsElementParser;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
-import com.openappengine.facade.context.factory.support.parser.SubScreensElementDefinitionParser;
-import com.openappengine.facade.context.factory.support.parser.WidgetsElementParser;
 
 /**
  * Delegate to parse the Xml Definitions. 
@@ -75,21 +67,5 @@ public class ScreenDefinitionParserDelegate {
 
 	protected void setFactory(ScreenElementDefinitionParserFactory factory) {
 		this.factory = factory;
-	}
-	
-	private class ScreenElementDefinitionParserFactoryInitializer implements Callback<ScreenElementDefinitionParserFactory> {
-
-		@Override
-		public ScreenElementDefinitionParserFactory onCallback() {
-			ScreenElementDefinitionParserFactory factory = new ScreenElementDefinitionParserFactory();
-			factory.addScreenElementDefinitionParser(ParserConstants.ENTITY_FIND_ONE_PARSER, new EntityFindOneActionElementDefinitionParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.FIELD_MAP_PARSER, new FieldMapComponentDefinitionParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER, new PreActionsElementParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.SUB_SCREENS_ELEMENT_PARSER, new SubScreensElementDefinitionParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.WIDGETS, new WidgetsElementParser());
-			factory.addScreenElementDefinitionParser(ParserConstants.FORM_SINGLE_ELEMENT_PARSER, new FormGuiElementDefinitionParser());
-			return factory;
-		}
-		
 	}
 }

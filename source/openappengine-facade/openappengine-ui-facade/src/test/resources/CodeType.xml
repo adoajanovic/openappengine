@@ -11,11 +11,11 @@
 		</entity-find-one>
 	</pre-actions>
 
-	<sub-screens>
+	<page-content>
 		<widgets>
 			<form-single name="CodeType_View" value-ref="codeTypeValue" transition="createCodeType">
 			</form-single>
 		</widgets>
-	</sub-screens>
+	</page-content>
 
 </screen>

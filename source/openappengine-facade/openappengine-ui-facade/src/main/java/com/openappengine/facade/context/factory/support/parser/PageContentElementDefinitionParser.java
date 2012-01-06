@@ -6,13 +6,13 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.context.factory.xml.NodeNames;
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.component.ui.container.SubScreenComponent;
+import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 
-public class SubScreensElementDefinitionParser extends AbstractGuiElementDefinitionParser {
+public class PageContentElementDefinitionParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
 	public GuiComponent parse(Element element) {
-		SubScreenComponent subScreenComponent = new SubScreenComponent();
+		PageContentComponent pageContentComponent = new PageContentComponent();
 		NodeList nl = element.getChildNodes();
 		for(int i = 0;i<nl.getLength(); i++) {
 			Node node = nl.item(i);
@@ -20,15 +20,15 @@ public class SubScreensElementDefinitionParser extends AbstractGuiElementDefinit
 			if(node instanceof Element) {
 				GuiElementDefinitionParser parser = getScreenElementDefinitionParser(node.getNodeName());
 				GuiComponent component = parser.parse((Element) node);
-				subScreenComponent.addChildComponent(component);
+				pageContentComponent.addChildComponent(component);
 			}
 		}
-		return subScreenComponent;
+		return pageContentComponent;
 	}
 
 	@Override
 	public String getParsedNodeName() {
-		return NodeNames.SUB_SCREENS;
+		return NodeNames.PAGE_CONTENT;
 	}
 
 }

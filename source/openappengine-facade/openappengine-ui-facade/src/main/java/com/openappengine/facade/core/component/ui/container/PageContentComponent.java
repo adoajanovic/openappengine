@@ -2,7 +2,7 @@ package com.openappengine.facade.core.component.ui.container;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 
-public class SubScreenComponent extends AbstractGuiComponent {
+public class PageContentComponent extends AbstractGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -13,7 +13,7 @@ public class SubScreenComponent extends AbstractGuiComponent {
 
 	@Override
 	public String getComponentName() {
-		return "sub-screen";
+		return "page-content";
 	}
 	
 }

@@ -13,7 +13,7 @@ import com.openappengine.facade.context.factory.support.parser.GuiElementDefinit
 import com.openappengine.facade.context.factory.support.parser.ParserConstants;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
-import com.openappengine.facade.core.component.ui.container.SubScreenComponent;
+import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 
 /**
  * @author hrishikesh.joshi
@@ -60,9 +60,9 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
 			PreRenderActionsComponent parsePreActions = parsePreActions(element, delegate);
 			getUiRoot().setPreRenderActionComponent(parsePreActions);
-		} else if(delegate.nodeNameEquals(element, NodeNames.SUB_SCREENS)) {
-			GuiElementDefinitionParser widgetsParser = delegate.getScreenElementDefinitionParser(NodeNames.SUB_SCREENS);
-			SubScreenComponent subscreens = (SubScreenComponent) widgetsParser.parse(element);
+		} else if(delegate.nodeNameEquals(element, NodeNames.PAGE_CONTENT)) {
+			GuiElementDefinitionParser widgetsParser = delegate.getScreenElementDefinitionParser(NodeNames.PAGE_CONTENT);
+			PageContentComponent subscreens = (PageContentComponent) widgetsParser.parse(element);
 			getUiRoot().addChildComponent(subscreens);
 		}	
 	}
