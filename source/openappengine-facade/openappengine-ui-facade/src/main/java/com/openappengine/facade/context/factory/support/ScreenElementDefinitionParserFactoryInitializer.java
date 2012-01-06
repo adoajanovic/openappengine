@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.Set;
 
 import org.reflections.Reflections;
+import org.springframework.util.Assert;
 
 import com.openappengine.facade.context.factory.Callback;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
@@ -40,6 +41,7 @@ public class ScreenElementDefinitionParserFactoryInitializer implements Callback
 				return;
 			}
 			GuiElementDefinitionParser parser = clazz.newInstance();
+			Assert.notNull(parser.getParsedNodeName(), "Class extending [com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser] - The method : [getParsedNodeName()] cannot return a null or a blank.");
 			factory.addScreenElementDefinitionParser(parser.getParsedNodeName(), parser);
 		} catch (InstantiationException e) {
 			throw new RuntimeException("Exception encountered while initializing ActionHandler for class " + clazz);

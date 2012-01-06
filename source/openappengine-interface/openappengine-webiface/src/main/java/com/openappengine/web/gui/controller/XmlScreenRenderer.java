@@ -79,4 +79,5 @@ public class XmlScreenRenderer implements Serializable {
 		this.uiRoot = uiRoot;
 	}	
 	
+	
 }
