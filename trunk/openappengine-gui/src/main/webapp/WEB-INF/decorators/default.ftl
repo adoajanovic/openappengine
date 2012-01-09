@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+
+<#--NOTE: this is the webapp/decorators/spring.ftl-->
+<#import "spring.ftl" as spring/>
+
+<head>
+  <!--default.ftl-->
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	  <style type="text/css">@import "${rc.getContextPath()}/resources/css/styles.css";</style>
+	  <title>${title}</title>
+	  ${head}
+	</head>
+
+	<#--
+	Freemarker SiteMesh properties extraction from:
+	http://jdwyah.blogspot.com/2006/04/freemarker-sitemesh-body-onload.html
+	
+	See the very slick use of the ID property to highlight the menu tabs with css:
+	http://www.dehora.net/journal/2007/08/tab_switching_with_sitemesh.html
+	-->
+	<body onload="${page.properties["body.onload"]?default("")}"  id="${page.properties["body.id"]?default("")}">
+	
+		<div id="wrapper">
+		        
+		      <div id="header">                 
+		        <!-- Header -->
+		    	Header          
+		      </div>
+		      
+		        
+		        <div  id="menu">
+		            <!-- Menu -->
+		        </div>
+		        
+		        <!-- Left Menu -->
+		        <div  id="left-menu">
+		        	<ul>
+		        		<li><a href="#">A</a></li>
+		        		<li><a href="#">B</a></li>
+		        		<li><a href="#">C</a></li>
+		        	</ul>
+		        </div>      
+		
+		        <div id="page-content">
+		             ${body}      
+		        </div>
+		        <!--page-content-->
+		
+			    <div id="footer">
+			      ©2008 <a href="<@spring.url "/site/index.html"/>">Index</a>
+			      | <a href="<@spring.url "/site/contact.html"/>">Contact Us</a>
+			      | <a href="http://blogger.com/">Blog</a>
+			      | <a href="<@spring.url "/site/acknowledgements.html"/>">Acknowledgements</a>
+			      <br>
+			    </div>
+		</div>
+		<!--wrapper-->
+	
+		<#--Google Analytics-->    
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		var pageTracker = _gat._getTracker("UA-1880676-2");
+		pageTracker._initData();
+		pageTracker._trackPageview();
+		</script>
+	</body>
+</html>
