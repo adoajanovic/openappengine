@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>openappengine-interface</artifactId>
@@ -40,7 +39,7 @@
 			<artifactId>openappengine-entity-facade</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-ui-facade</artifactId>
@@ -142,41 +141,35 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Expression Language (depends on spring-core) Define this if you use 
-			Spring Expression APIs (org.springframework.expression.*) -->
+		<!-- Expression Language (depends on spring-core) Define this if you use Spring Expression APIs (org.springframework.expression.*) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define 
-			this if you use Spring Bean APIs (org.springframework.beans.*) -->
+		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define this if you use Spring Bean APIs (org.springframework.beans.*) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, 
-			spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
+		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Application Context (depends on spring-core, spring-expression, spring-aop, 
-			spring-beans) This is the central artifact for Spring's Dependency Injection 
-			Container and is generally always defined -->
+		<!-- Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans) This is the central artifact for Spring's Dependency Injection Container and is generally always defined -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Various Application Context utilities, including EhCache, JavaMail, 
-			Quartz, and Freemarker integration Define this if you need any of these integrations -->
+		<!-- Various Application Context utilities, including EhCache, JavaMail, Quartz, and Freemarker integration Define this if you need any of these integrations -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -189,27 +182,36 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans, 
-			spring-context, spring-web) Define this if you use Spring MVC with a Servlet 
-			Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+		<!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans, spring-context, spring-web) Define this if you use Spring MVC with a Servlet Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, 
-			spring-context, spring-web) Define this if you use Spring MVC with a Portlet 
-			Container (org.springframework.web.portlet.*) -->
+		<!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans, spring-context, spring-web) Define this if you use Spring MVC with a Portlet Container (org.springframework.web.portlet.*) -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc-portlet</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Support for testing Spring applications with tools such as JUnit and 
-			TestNG This artifact is generally always defined with a 'test' scope for 
-			the integration testing framework and unit testing stubs -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<!-- Latest 2.3.x (not 2.4.x), at least 2.3.18 -->
+			<version>2.3.18</version>
+		</dependency>
+
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>2.4.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -234,13 +236,11 @@
 				<inherited>true</inherited>
 				<configuration>
 					<buildcommands>
-					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
-					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
-					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
 					</buildcommands>
-					<additionalProjectFacets>
-						<jst.jsf>2.0</jst.jsf>
-					</additionalProjectFacets>
+					<!-- <additionalProjectFacets> <jst.jsf>2.0</jst.jsf> </additionalProjectFacets> -->
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
 					<classpathContainers>
@@ -249,7 +249,7 @@
 						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container/artifact</classpathContainer>
 					</classpathContainers>
 					<additionalProjectnatures>
-					   <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
 					</additionalProjectnatures>
 				</configuration>
 			</plugin>
