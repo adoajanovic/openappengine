@@ -1,7 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<%
-    response.sendRedirect("login.iface");
-%>
+<html>
+<head>
+	<title>Spring 3.0 MVC Series: Index - ViralPatel.net</title>
+</head>
+<body>
+	<a href="home">Say Hello</a>
+</body>
+</html>
