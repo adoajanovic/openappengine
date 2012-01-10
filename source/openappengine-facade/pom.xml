@@ -54,11 +54,12 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
-		<dependency>
+		<!--
+		 <dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-servicedef</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>xstream</groupId>

@@ -15,6 +15,14 @@
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 	</properties>
 	<dependencies>
+		
+		<!-- OpenAppEngine Dependency -->
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-ui-facade</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+			
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -171,6 +179,28 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<buildcommands>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
+					</buildcommands>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER</classpathContainer>
+						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container/artifact</classpathContainer>
+					</classpathContainers>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
 				</configuration>
 			</plugin>
 			<plugin>

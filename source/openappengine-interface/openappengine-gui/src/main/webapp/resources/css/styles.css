@@ -248,3 +248,21 @@ p {
 .clear {
 	clear: both;
 }
+
+<!-- Top RHS Contents -->
+.top-right-content {
+	float: right !important;
+	margin-right: 50px;
+	/* background: #EEE; */
+	color: #FFF;
+	font-family:Trebuchet MS ;
+	font-size: 12px;
+}
+
+.top-right-content a {
+	color: #FFF;
+}
+
+.top-right-content label {
+	color: #EEE;
+}
