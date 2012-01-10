@@ -58,7 +58,7 @@
 					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
 					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
 					</buildcommands>
-						<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
 					<classpathContainers>
 						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>

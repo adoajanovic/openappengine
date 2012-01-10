@@ -3,14 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- 
-	<import resource="service-context.xml"/>
-	 -->
-	
-	<import resource="repository-context.xml"/>
+	<import resource="classpath:repository-context.xml"/>
 	
 	<!-- Start : Custom Field Type Definition Reader -->
-	
 	<bean id="textFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextFieldDefinitionReader"/>
 	<bean id="hiddenFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UIHiddenFieldDefinitionReader"/>
 	<bean id="textAreaDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextAreaDefinitionReader"/>

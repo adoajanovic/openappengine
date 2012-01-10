@@ -3,13 +3,14 @@
 
 <#--NOTE: this is the webapp/decorators/spring.ftl-->
 <#import "spring.ftl" as spring/>
+<#import "../WEB-INF/freemarker/common.ftl" as common/>
 
 <head>
   	  <!--default.ftl-->
 	  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	  
 	  <!-- default css -->
-	  <style type="text/css">@import "${rc.getContextPath()}/resources/css/styles.css";</style>
+	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/css/styles.css">
 	  
 	  <!-- jquery css and js -->
 	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/jquery/themes/base/jquery.ui.all.css">
@@ -48,9 +49,14 @@
 		<!--wrapper-->
 		<div id="wrapper">
 		        
-		      <div id="header">                 
-		        <!-- Header -->
-		    	Header          
+		      <div id="header">
+		      	<!-- Using Box -->                 
+		        <@common.box "boxStyleSm", "loginBox", "">  	    			     			 
+		 		</@common.box>
+		 		
+		 		<div class="top-right-content">
+		 			<label>Logged In Time :</label> ${serverTime} |
+		 		</div>
 		      </div>
 		      
 		      <div  id="menu">

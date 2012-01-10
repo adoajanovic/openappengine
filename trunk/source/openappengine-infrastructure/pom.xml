@@ -44,7 +44,7 @@
   <modules>
   	<module>openappengine-utility</module>
   	<module>openappengine-repository</module>
-  	<module>openappengine-factory</module>
-  	<module>openappengine-bpm</module>
+  	<!-- <module>openappengine-factory</module>
+  	<module>openappengine-bpm</module> -->
   </modules>
 </project>
