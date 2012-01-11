@@ -25,7 +25,7 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 		return "form";
 	}
 
-	public EntityValue getEntityValue() {
+	public EntityValue getValue() {
 		return entityValue;
 	}
 

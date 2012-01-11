@@ -17,7 +17,16 @@
  <br/><br/>
  	
  <div id="main">
- 	Main Content 	  	
+ 	Main Content
+ 	<#assign pageContent = uiRoot.pageContent >
+ 	<#assign widgets = pageContent.getWidgets() >
+ 	
+ 	<#list widgets as widget>
+ 		<#assign childWidgets = widget.getChildComponents() >
+ 		<#list widget.getChildComponents() as childWidget>
+ 			<#assign entityValue = childWidget.getEntityValue()>
+ 		</#list>
+ 	</#list>
  </div>
     
 </body>

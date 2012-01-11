@@ -35,7 +35,12 @@ public class ScreenContextVariableResolver implements VariableResolver {
 			return null;
 		}
 		
-		return variables.get(name);
+		Variable variable = variables.get(name);
+		if(variable != null) {
+			return variable.getValue();
+		}
+		
+		return null;
 	}
 
 	@Override

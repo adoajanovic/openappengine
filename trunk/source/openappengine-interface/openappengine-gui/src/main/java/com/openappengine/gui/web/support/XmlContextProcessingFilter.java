@@ -1,7 +1,5 @@
 package com.openappengine.gui.web.support;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -20,7 +18,6 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.web.util.WebUtils;
 
 import com.openappengine.facade.context.factory.DefaultGuiDefinitionReader;
 import com.openappengine.facade.context.factory.FactoryConstants;
@@ -90,7 +87,6 @@ public class XmlContextProcessingFilter implements Filter {
 		GuiApplicationContextAwareHttpServletRequest contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(
 				guiApplicationContext, httpServletRequest);
 		
-		//
 		requestDispatcher.forward(contextWrappedRequest, httpServletResponse);
 	}
 
@@ -131,5 +127,4 @@ public class XmlContextProcessingFilter implements Filter {
 		this.servletContext = fConfig.getServletContext();
 		initializeGuiContextFactory();
 	}
-
 }
