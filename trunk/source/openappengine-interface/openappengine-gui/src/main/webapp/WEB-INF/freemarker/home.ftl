@@ -24,7 +24,8 @@
  	<#list widgets as widget>
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
- 			<#assign entityValue = childWidget.getEntityValue()>
+ 			<!-- FormSingleComponent -->
+ 			<#assign entityValue = childWidget.getValue() >
  		</#list>
  	</#list>
  </div>
