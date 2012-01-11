@@ -1,7 +1,10 @@
 package com.openappengine.facade.core.component.ui;
 
+import java.util.List;
+
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.definition.FieldDefinition;
 
 public class FormSingleComponent extends AbstractGuiComponent implements EntityValueAware {
 
@@ -27,6 +30,14 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 
 	public EntityValue getValue() {
 		return entityValue;
+	}
+	
+	public Object getFormCommand() {
+		return entityValue.getInstance();
+	}
+	
+	public List<FieldDefinition> getFormFields() {
+		return entityValue.getEntityDefinition().getFields();
 	}
 
 	public void setValue(EntityValue entityValue) {

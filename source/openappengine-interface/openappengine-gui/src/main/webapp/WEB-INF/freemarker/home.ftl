@@ -25,7 +25,13 @@
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
  			<!-- FormSingleComponent -->
+ 			<!--
  			<#assign entityValue = childWidget.getValue() >
+ 			-->
+ 			${childWidget.getFormCommand()}
+ 			<#list childWidget.getFormFields() as field>
+ 				${field}
+ 			</#list>
  		</#list>
  	</#list>
  </div>

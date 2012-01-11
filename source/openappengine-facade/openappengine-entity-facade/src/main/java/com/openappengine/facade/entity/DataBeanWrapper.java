@@ -3,7 +3,9 @@
  */
 package com.openappengine.facade.entity;
 
+import java.beans.PropertyDescriptor;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,15 +35,20 @@ public class DataBeanWrapper implements Map<String, Object> {
 	}
 
 	public boolean containsKey(Object key) {
-		throw new UnsupportedOperationException();
+		try {
+			PropertyDescriptor propertyDescriptor = beanWrapper.getPropertyDescriptor((String) key);
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
 
 	public boolean containsValue(Object value) {
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
-		throw new UnsupportedOperationException();
+		return new HashSet<Map.Entry<String,Object>>();
 	}
 
 	public Object get(Object key) {
@@ -75,7 +82,8 @@ public class DataBeanWrapper implements Map<String, Object> {
 	}
 
 	public int size() {
-		throw new UnsupportedOperationException();
+		PropertyDescriptor[] propertyDescriptors = beanWrapper.getPropertyDescriptors();
+		return propertyDescriptors.length;
 	}
 
 	public Collection<Object> values() {
