@@ -17,21 +17,31 @@
  <br/><br/>
  	
  <div id="main">
- 	Main Content
  	<#assign pageContent = uiRoot.pageContent >
  	<#assign widgets = pageContent.getWidgets() >
  	
  	<#list widgets as widget>
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
+ 			
  			<!-- FormSingleComponent -->
- 			<!--
- 			<#assign entityValue = childWidget.getValue() >
- 			-->
- 			${childWidget.getFormCommand()}
+ 			
+ 			<!-- Form Command Object -->
+ 			<#assign formCommand = childWidget.getFormCommand() >
+ 			
+ 			<!-- Form Values -->
+ 			<table>
  			<#list childWidget.getFormFields() as field>
- 				${field}
+ 				<tr>
+ 				<td>
+ 				${field.property}
+ 				</td>
+ 				<td>
+ 				${childWidget.getFormCommandValue(field.property)?default("")}
+ 				</td>
+ 				</tr>
  			</#list>
+ 			</table>
  		</#list>
  	</#list>
  </div>

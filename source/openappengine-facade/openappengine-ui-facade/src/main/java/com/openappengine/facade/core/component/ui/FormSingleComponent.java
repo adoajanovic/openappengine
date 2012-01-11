@@ -39,6 +39,10 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	public List<FieldDefinition> getFormFields() {
 		return entityValue.getEntityDefinition().getFields();
 	}
+	
+	public Object getFormCommandValue(String property) {
+		return entityValue.get(property);
+	}
 
 	public void setValue(EntityValue entityValue) {
 		this.entityValue = entityValue;
