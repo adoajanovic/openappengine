@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
@@ -36,7 +35,7 @@ public class DefaultSiteController {
 			GuiApplicationContext context = ((GuiApplicationContextAwareHttpServletRequest)request).getGuiApplicationContext();
 			if(context != null) {
 				GuiRootComponent root = context.getUIRoot();
-				model.addAttribute("root", root);
+				model.addAttribute("uiRoot", root);
 			}
 		}
 		

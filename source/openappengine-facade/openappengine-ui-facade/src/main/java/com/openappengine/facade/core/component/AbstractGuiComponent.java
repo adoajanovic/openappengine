@@ -36,4 +36,7 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 		return childComponents.add(screenComponent);
 	}
 
+	public boolean hasChildren() {
+		return !childComponents.isEmpty();
+	}
 }

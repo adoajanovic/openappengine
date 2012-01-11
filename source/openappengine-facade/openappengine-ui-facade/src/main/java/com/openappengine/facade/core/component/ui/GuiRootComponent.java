@@ -60,7 +60,7 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	public void setContext(GuiApplicationContext context) {
 		this.context = context;
 	}
-
+	
 	public PageContentComponent getPageContent() {
 		return pageContent;
 	}

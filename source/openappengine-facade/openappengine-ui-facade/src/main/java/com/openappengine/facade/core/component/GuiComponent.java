@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.component;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * The root interface of the GuiComponent hierarchy. 
@@ -27,4 +28,16 @@ public interface GuiComponent extends Serializable {
 	 * @return
 	 */
 	String getComponentName();
+
+
+	/**
+	 * @return
+	 */
+	boolean hasChildren();
+
+
+	/**
+	 * @return
+	 */
+	List<GuiComponent> getChildComponents();
 }

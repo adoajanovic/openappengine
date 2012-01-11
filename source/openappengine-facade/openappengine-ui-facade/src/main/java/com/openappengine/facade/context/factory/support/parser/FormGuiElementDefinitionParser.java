@@ -15,10 +15,10 @@ import com.openappengine.facade.core.component.ui.FormSingleComponent;
  */
 public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinitionParser {
 
-	private static final String ATTR_ENTITY_VALUE_REF = "entity-value-ref";
+	private static final String ATTR_ENTITY_VALUE_REF = "value-ref";
 	
 	private static final String ATTR_NAME = "name";
-
+	
 	@Override
 	public GuiComponent parse(Element element) {
 		FormSingleComponent formSingleComponent = new FormSingleComponent();
