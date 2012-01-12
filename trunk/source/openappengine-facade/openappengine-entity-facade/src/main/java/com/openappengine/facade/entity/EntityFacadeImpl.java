@@ -20,7 +20,9 @@ import org.springframework.util.ReflectionUtils;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
+import com.openappengine.facade.entity.exception.EntityValueException;
 import com.openappengine.facade.entity.utils.ObjectConverter;
+import com.openappengine.model.code.CodeType;
 import com.openappengine.utility.UtilLogger;
 
 /**
@@ -43,14 +45,16 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public EntityValue createEntityValue(String entityName,Serializable id) {
-	    EntityValue entityValue = createEntityValue(entityName);
+	    //EntityValue entityValue = createEntityValue(entityName);
 	    if(id != null) {
 		    Session session = hibernateTemplate.getSessionFactory().openSession();
-        	Object attachedInstance = hibernateTemplate.load(entityValue.getEntityDefinition().getEntityClass(),id);
-        	entityValue.setInstance(attachedInstance);
-        	session.flush();
+        	Object attachedInstance = hibernateTemplate.load(CodeType.class,id);
+        	EntityDefinition entityDefinition = findEntityDefinition(entityName);
+        	EntityValue entityValue = new EntityValue(entityName,entityDefinition,attachedInstance);
+			session.flush();
+			return entityValue;
 	    }
-	    return entityValue;
+		return null;
 	}
 	
 	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
@@ -71,13 +75,13 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public EntityValue findUniqueEntityValue(String entityName,Map<String,Object> parameters) {
-	    EntityValue entityValue = createEntityValue(entityName);
-	    EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+	    EntityDefinition entityDefinition = findEntityDefinition(entityName);
+	    EntityValue entityValue = null;
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 	    List list = findByPropertyValues(entityClass, parameters);
 	    if(list != null && !list.isEmpty()) {
 	    	Object instance = list.get(0);
-	    	entityValue.setInstance(instance);
+        	entityValue = new EntityValue(entityName,entityDefinition,instance);
 	    }
 	    return entityValue;
 	}
@@ -110,35 +114,38 @@ public class EntityFacadeImpl implements EntityFacade {
 	    	boolean hasNext = iterator.hasNext();
 	    	while(hasNext) {
 	    		String param = iterator.next();
-	    		paramList.add(param);
 	    		
 	    		Field field = ReflectionUtils.findField(entityClass, param);
-	    		Class<?> type = field.getType();
-	    		
-	    		if(type.isPrimitive()) {
-	    			if(type.getName().equals("int")) {
-	    				type = Integer.class;
-	    			} else if(type.getName().equals("long")) {
-	    				type = Long.class;
-	    			} else if(type.getName().equals("double")) {
-	    				type = Double.class;
-	    			} else if(type.getName().equals("boolean")) {
-	    				type = Boolean.class;
-	    			}
-	    			//TODO - Add more primitive types here.
+	    		if(field != null) {
+		    		Class<?> type = field.getType();
+		    		
+		    		if(type.isPrimitive()) {
+		    			if(type.getName().equals("int")) {
+		    				type = Integer.class;
+		    			} else if(type.getName().equals("long")) {
+		    				type = Long.class;
+		    			} else if(type.getName().equals("double")) {
+		    				type = Double.class;
+		    			} else if(type.getName().equals("boolean")) {
+		    				type = Boolean.class;
+		    			}
+		    			//TODO - Add more primitive types here.
+		    		}
+		    		Object from = parameters.get(param);
+		    		
+					Object paramValue = ObjectConverter.convert(from, type);
+					
+					paramList.add(param);
+		    		valueList.add(paramValue);
+		    		
+		    		//TODO - Make Configurable by changing = with an operator and allowing any criteria.
+					hql.append(param + "=" + ":" + param);
+					
+					hasNext = iterator.hasNext();
+					if(hasNext) {
+						hql.append(" and ");
+					}
 	    		}
-	    		Object from = parameters.get(param);
-	    		
-				Object paramValue = ObjectConverter.convert(from, type);
-	    		valueList.add(paramValue);
-	    		
-	    		//TODO - Make Configurable by changing = with an operator and allowing any criteria.
-				hql.append(param + "=" + ":" + param);
-				
-				hasNext = iterator.hasNext();
-				if(hasNext) {
-					hql.append(" and ");
-				}
 	    	}
 	    	list = hibernateTemplate.findByNamedParam(hql.toString(), paramList.toArray(new String[0]), valueList.toArray());
 	    } else {

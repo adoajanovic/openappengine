@@ -40,7 +40,7 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 	}
 
 	public void setInstance(Object instance) {
-	    this.instance = instance;
+		this.instance = instance;
 	}
 
 	public String getEntityName() {

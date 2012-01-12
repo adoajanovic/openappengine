@@ -2,6 +2,7 @@ package com.openappengine.gui;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.component.ui.container.PageContentComponent;
+import com.openappengine.facade.core.component.ui.container.WidgetsComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
@@ -36,6 +40,17 @@ public class DefaultSiteController {
 			if(context != null) {
 				GuiRootComponent root = context.getUIRoot();
 				model.addAttribute("uiRoot", root);
+				
+				PageContentComponent pageContent = root.getPageContent();
+				if(pageContent != null) {
+					List<WidgetsComponent> widgets = pageContent.getWidgets();
+					for (WidgetsComponent widget : widgets) {
+						List<GuiComponent> childWidgets = widget.getChildComponents();
+						for (GuiComponent guiComponent : childWidgets) {
+							model.addAttribute(guiComponent.getClass().getName(), guiComponent);			
+						}
+					}
+				}
 			}
 		}
 		

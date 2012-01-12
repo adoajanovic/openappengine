@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <#import "/spring.ftl" as spring/>
 <head>
@@ -29,19 +30,32 @@
  			<!-- Form Command Object -->
  			<#assign formCommand = childWidget.getFormCommand() >
  			
- 			<!-- Form Values -->
- 			<table>
- 			<#list childWidget.getFormFields() as field>
- 				<tr>
- 				<td>
- 				${field.property}
- 				</td>
- 				<td>
- 				${childWidget.getFormCommandValue(field.property)?default("")}
- 				</td>
- 				</tr>
- 			</#list>
- 			</table>
+ 			<@spring.bind formCommand.getClass().getName() />
+ 			
+ 			<!-- Form -->
+ 			<form name="${formCommand.class}_Form" action="" method="post">
+	 			<fieldset>
+	 			<table>
+		 			<#list childWidget.getFormFields() as field>
+		 				<tr>
+			 				<td>
+			 					<label>${field.property}</label>
+			 				</td>
+			 				<td>
+		 						<input name="${field.property}" value="${childWidget.getFormCommandValue(field.property)}" />
+			 				</td>
+		 				</tr>
+		 			</#list>
+		 			<tr>
+		 				<td>
+		 					<input type="submit" name="${formCommand.class}" value="Submit"/>
+		 				</td>
+		 			</tr>
+	 			</table>
+	 			</fieldset>
+ 			</form>
+ 			<!-- Form -->
+ 			
  		</#list>
  	</#list>
  </div>
