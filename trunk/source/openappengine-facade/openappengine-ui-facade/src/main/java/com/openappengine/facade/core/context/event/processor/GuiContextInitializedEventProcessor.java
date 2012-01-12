@@ -3,7 +3,6 @@ package com.openappengine.facade.core.context.event.processor;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.component.ui.FormSingleComponent;
 import com.openappengine.facade.core.component.ui.ValueRefAware;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;

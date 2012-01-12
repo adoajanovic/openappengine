@@ -5,6 +5,7 @@ package com.openappengine.facade.core.executor.action;
 
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * This interfaces intends to decouple the GUI Component or Caller of the Actions
@@ -38,4 +39,10 @@ public interface ActionDispatcher {
 	 * @param elContext
 	 */
 	void setELContext(ELContext elContext);
+	
+	/**
+	 * Set external context associated with this action handler.
+	 * @param externalContext
+	 */
+	void setExternalContext(ExternalContext externalContext);
 }

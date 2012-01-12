@@ -29,7 +29,7 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	@Override
 	public GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext) {
 		if(!contains(resource)) {
-			GuiApplicationContext context = new WebGuiApplicationContext();
+			GuiApplicationContext context = new WebGuiApplicationContext(externalContext);
 			GuiRootComponent uiRoot = createGuiRoot(resource, context);
 			uiRoot.setContext(context);
 

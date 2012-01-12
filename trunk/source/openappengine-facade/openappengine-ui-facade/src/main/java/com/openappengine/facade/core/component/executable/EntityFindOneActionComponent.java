@@ -8,8 +8,6 @@ import java.util.List;
 
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
-import com.openappengine.facade.core.executor.action.Executable;
-import com.openappengine.facade.core.executor.action.entity.EntityFindOneActionHandler;
 import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
 
 /**

@@ -8,6 +8,7 @@ import java.util.Map;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * Factory Class for creating the ActionContext. The ActionContext instance 
@@ -28,6 +29,6 @@ public interface ActionContextFactory {
 	 * @param actionHandler
 	 * @param parameters
 	 */
-	ActionContext createActionContext(ActionHandler actionHandler, Map<String, Object> parameters, ELContext elContext); 
+	ActionContext createActionContext(ActionHandler actionHandler, Map<String, Object> parameters, ELContext elContext,ExternalContext externalContext); 
 
 }

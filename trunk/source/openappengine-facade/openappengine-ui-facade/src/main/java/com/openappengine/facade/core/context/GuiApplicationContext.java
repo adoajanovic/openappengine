@@ -3,15 +3,12 @@
  */
 package com.openappengine.facade.core.context;
 
-import java.util.List;
-import java.util.Map;
-
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
-import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
+import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.VariableResolver;
 
@@ -89,4 +86,8 @@ public interface GuiApplicationContext {
 	 */
 	TransitionHandler getTransitionHandler();
 	
+	/**
+	 * @return
+	 */
+	ExternalContext getExternalContext();
 }

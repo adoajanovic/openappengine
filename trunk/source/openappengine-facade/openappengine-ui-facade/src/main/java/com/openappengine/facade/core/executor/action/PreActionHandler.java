@@ -16,7 +16,7 @@ public class PreActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public Object execute() {
+	public Object execute(ActionContext actionContext) {
 		for(ActionRequest actionRequest : getActionRequests()) {
 			ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
 			Object execute = actionDispatcher.execute(actionRequest);

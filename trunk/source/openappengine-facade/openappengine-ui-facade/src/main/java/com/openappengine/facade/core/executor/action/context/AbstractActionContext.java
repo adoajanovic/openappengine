@@ -6,6 +6,7 @@ package com.openappengine.facade.core.executor.action.context;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * @author hrishikesh.joshi
@@ -17,10 +18,13 @@ public abstract class AbstractActionContext implements ActionContext {
 
 	private ActionHandler actionHandler;
 	
-	public AbstractActionContext(ELContext elContext, ActionHandler actionHandler) {
+	private ExternalContext externalContext;
+	
+	public AbstractActionContext(ExternalContext externalContext,ELContext elContext, ActionHandler actionHandler) {
 		super();
 		this.elContext = elContext;
 		this.actionHandler = actionHandler;
+		this.externalContext = externalContext;
 	}
 
 	@Override
@@ -33,12 +37,8 @@ public abstract class AbstractActionContext implements ActionContext {
 		return elContext;
 	}
 
-	public void setELContext(ELContext elContext) {
-		this.elContext = elContext;
+	@Override
+	public ExternalContext getExternalContext() {
+		return externalContext;
 	}
-
-	public void setActionHandler(ActionHandler actionHandler) {
-		this.actionHandler = actionHandler;
-	}
-
 }

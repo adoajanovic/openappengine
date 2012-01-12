@@ -29,8 +29,8 @@ public abstract class CompositeActionHandler implements ActionHandler {
 	protected abstract void setWrappedAction(ActionHandler action);
 
 	@Override
-	public Object execute() {
-		return wrappedAction.execute();
+	public Object execute(ActionContext actionContext) {
+		return wrappedAction.execute(actionContext);
 	}
 	
 	protected Boolean evaluateConditionExpression(GuiApplicationContext context,String expression) {

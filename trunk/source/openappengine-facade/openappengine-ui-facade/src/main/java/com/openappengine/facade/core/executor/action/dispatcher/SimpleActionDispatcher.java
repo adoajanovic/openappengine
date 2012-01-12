@@ -18,6 +18,7 @@ import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
 import com.openappengine.facade.core.executor.action.ActionProcessor;
 import com.openappengine.facade.core.executor.action.context.ActionContextFactory;
 import com.openappengine.facade.core.executor.action.processor.DefaultActionProcessor;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * @author hrishikesh.joshi
@@ -31,6 +32,8 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	private ELContext elContext;
 
 	private static ActionContextFactory actionContextFactory;
+	
+	private ExternalContext externalContext;
 	
 	public SimpleActionDispatcher() {
 	}
@@ -49,10 +52,8 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		Assert.notNull(actionRequest, "Action Request cannot be empty.");
 		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
 		
-		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest.getActionParameters(), elContext);
-		
+		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest.getActionParameters(), elContext, externalContext);
 		Object result = performActionProcessing(actionContext);
-		
 		return result;
 	}
 
@@ -83,5 +84,14 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 
 	public void setELContext(ELContext elContext) {
 		this.elContext = elContext;
+	}
+
+	@Override
+	public void setExternalContext(ExternalContext externalContext) {
+		this.externalContext = externalContext;
+	}
+	
+	protected ExternalContext getExternalContext() {
+		return externalContext;
 	}
 }

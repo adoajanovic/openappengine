@@ -10,6 +10,6 @@ package com.openappengine.facade.core.executor.action;
  */
 public interface Executable {
 
-	Object execute();
+	Object execute(ActionContext actionContext);
 
 }

@@ -19,7 +19,7 @@ public class DefaultActionProcessor implements ActionProcessor {
 	public Object performProcessing(ActionContext actionContext) {
 		ActionHandler actionHandler = actionContext.getActionHandler();
 		Assert.notNull(actionHandler,"Action Handler cannot be null.");
-		Object result = actionHandler.execute();
+		Object result = actionHandler.execute(actionContext);
 		return result;
 	}
 
