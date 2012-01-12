@@ -6,6 +6,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.Validate;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.CompositeActionHandler;
 
@@ -27,7 +28,7 @@ public class IfActionHandler extends CompositeActionHandler {
 	}
 
 	@Override
-	public Object execute() {/*
+	public Object execute(ActionContext actionContext) {/*
 		logger.info("Evaluating Conditional Expression : {" + conditionExpression + "}");
 		Boolean eval = evaluateConditionExpression(screenContext, conditionExpression);
 		if(BooleanUtils.isTrue(eval)) {

@@ -12,6 +12,7 @@ import com.openappengine.facade.core.executor.action.ActionHandler;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
+@Deprecated
 public class DefaultActionExecutor implements ActionExecutor {
 	
 	private GuiApplicationContext context;
@@ -24,7 +25,7 @@ public class DefaultActionExecutor implements ActionExecutor {
 	@Override
 	public void execute(ActionHandler action) {
 		Assert.notNull(action,"ActionHandler cannot be null.");
-		action.execute();
+		action.execute(null);
 	}
 
 }

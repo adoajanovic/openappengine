@@ -10,6 +10,7 @@ import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
+import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * @author hrishikesh.joshi
@@ -18,9 +19,9 @@ import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
 public class DefaultActionContextFactory implements ActionContextFactory {
 
 	@Override
-	public ActionContext createActionContext(ActionHandler actionHandler, Map<String, Object> parameters, ELContext elContext) {
+	public ActionContext createActionContext(ActionHandler actionHandler, Map<String, Object> parameters, ELContext elContext,ExternalContext externalContext) {
 		ActionHandler wrappedActionHandler = mapActionParameters(actionHandler, parameters);
-		ActionContext context = new DefaultActionContext(elContext,wrappedActionHandler);
+		ActionContext context = new DefaultActionContext(externalContext,elContext,wrappedActionHandler);
 		return context;
 	}
 

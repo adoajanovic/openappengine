@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
@@ -35,7 +36,7 @@ public class EntityFindOneActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public EntityValue execute() {
+	public EntityValue execute(ActionContext actionContext) {
 		Map<String,Object> params = new HashMap<String, Object>();
 		if(andParameterMap != null) {
 			Set<String> paramKeys = andParameterMap.keySet();

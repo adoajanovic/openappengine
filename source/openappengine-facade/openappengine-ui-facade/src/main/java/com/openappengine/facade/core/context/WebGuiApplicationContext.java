@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
 
@@ -19,8 +20,12 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	
 	protected ScreenRenderer screenRenderer;
 	
-	public WebGuiApplicationContext() {
+	protected ExternalContext externalContext;
+	
+	public WebGuiApplicationContext(ExternalContext externalContext) {
 		initWebGuiApplicationContext();
+		
+		this.externalContext = externalContext;
 	}
 
 	/**
@@ -38,5 +43,10 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	@Override
 	public ScreenRenderer getScreenRenderer() {
 		return screenRenderer;
+	}
+
+	@Override
+	public ExternalContext getExternalContext() {
+		return externalContext;
 	}
 }
