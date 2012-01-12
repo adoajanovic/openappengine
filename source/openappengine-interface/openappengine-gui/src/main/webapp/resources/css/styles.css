@@ -14,9 +14,9 @@ body {
 form {
 	margin: 0;
 	/*background:#94aebc url('images/page-bg.png') left bottom repeat;*/
-	background-color: #EEE;
-	font: normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva,
-		Verdana, Arial, sans-serif;
+	background-color: #E4EFF3;
+	font-family: verdana;
+	font-size: 11px;
 	border: 1px;
 	color: #222;
 	border-color: #000;
@@ -30,14 +30,16 @@ form {
 }
 
 /* form inputs */
-.inputText {
+input {
 	border: 1px solid #ccc;
 	padding: 1px 1px 1px 1px;
 	margin: 0px 5px 5px 5px;
 	height: 18px;
+	font-family: verdana;
+	font-size: 11px;
 }
 
-.inputText:focus {
+input:focus {
 	background-color: #FFFFCF;
 }
 
@@ -209,7 +211,7 @@ p {
 	min-width: 180px;
 	width: auto;
 	background: url('images/body-bg.png') no-repeat;
-	background-color: #EEE;
+	background-color: #cccccc;
 }
 
 #left-menu a {

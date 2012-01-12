@@ -49,6 +49,7 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 		AbstractExecutableComponent exec = (AbstractExecutableComponent)guiComponent;
 		ActionRequest actionRequest = exec.getActionRequest();
 		
+		actionDispatcher.setExternalContext(context.getExternalContext());
 		Object result = actionDispatcher.execute(actionRequest);
 		if(exec.hasValueField()) {
 			String valueField = exec.getValueField();

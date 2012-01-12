@@ -5,10 +5,14 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
+import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ValueRef;
@@ -38,7 +42,14 @@ public class EntityFindOneActionHandler implements ActionHandler {
 	@Override
 	public EntityValue execute(ActionContext actionContext) {
 		Map<String,Object> params = new HashMap<String, Object>();
-		if(andParameterMap != null) {
+		
+		if(autoFieldMap) {
+			//Map request params from the external context directly to the entity properties.
+			ExternalContext externalContext = actionContext.getExternalContext();
+			Assert.notNull(externalContext, "External Context not set. " + getClass()
+					+ " Action Handler requires an External Context when using the attribute auto-field-map");
+			params = externalContext.getRequestParameters();
+		} else if(andParameterMap != null) {
 			Set<String> paramKeys = andParameterMap.keySet();
 			if(paramKeys != null) {
 				for (String paramKey : paramKeys) {

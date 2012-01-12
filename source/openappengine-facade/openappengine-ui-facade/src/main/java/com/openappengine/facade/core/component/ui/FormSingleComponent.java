@@ -33,7 +33,8 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	}
 	
 	public Object getFormCommand() {
-		return entityValue.getInstance();
+		Object instance = entityValue.getWrappedInstance();
+		return instance;
 	}
 	
 	public List<FieldDefinition> getFormFields() {
