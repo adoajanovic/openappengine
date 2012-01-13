@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.Assert;
 
 /**
  * @author hrishikesh.joshi
@@ -19,6 +20,8 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 	protected final Logger logger = Logger.getLogger(getClass());
 
 	private final List<GuiComponent> childComponents = new ArrayList<GuiComponent>();
+	
+	private String id;
 
 	public List<GuiComponent> getChildComponents() {
 		return childComponents;
@@ -38,5 +41,14 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 
 	public boolean hasChildren() {
 		return !childComponents.isEmpty();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		Assert.notNull(id,"Id cannot be null.");
+		this.id = id;
 	}
 }

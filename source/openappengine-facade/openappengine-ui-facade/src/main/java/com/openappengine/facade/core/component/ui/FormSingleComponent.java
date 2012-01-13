@@ -3,10 +3,11 @@ package com.openappengine.facade.core.component.ui;
 import java.util.List;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
+import com.openappengine.facade.core.component.widgets.FormWidget;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 
-public class FormSingleComponent extends AbstractGuiComponent implements EntityValueAware {
+public class FormSingleComponent extends AbstractGuiComponent implements EntityValueAware,FormWidget {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,11 +29,13 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 		return "form";
 	}
 
+	@Override
 	public EntityValue getValue() {
 		return entityValue;
 	}
 	
-	public Object getFormCommand() {
+	@Override
+	public Object formBackingObject() {
 		Object instance = entityValue.getWrappedInstance();
 		return instance;
 	}

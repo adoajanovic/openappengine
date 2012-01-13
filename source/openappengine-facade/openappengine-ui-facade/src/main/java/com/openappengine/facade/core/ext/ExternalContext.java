@@ -5,6 +5,8 @@ package com.openappengine.facade.core.ext;
 
 import java.util.Map;
 
+import org.springframework.ui.ModelMap;
+
 /**
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
@@ -20,5 +22,12 @@ public interface ExternalContext {
 	 * Get request parameters that are passed to the Screen. 
 	 * @return
 	 */
-	public Map<String, Object> getRequestParameters();
+	Map<String, Object> getRequestParameters();
+	
+	/**
+	 * @return ModelMap to bind data for UI.
+	 */
+	ModelMap getModelMap();
+	
+	void addModelMapAttribute(String attrName,Object value);
 }
