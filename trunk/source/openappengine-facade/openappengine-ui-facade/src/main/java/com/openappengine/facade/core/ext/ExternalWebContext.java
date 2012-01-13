@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.ui.ModelMap;
+
 /**
  * ExternalContext representing the JEE Environment. 
  * Initialized from the XmlScreenProcessingFilter.
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ExternalWebContext implements ExternalContext {
 	
 	protected HttpServletRequest request;
+	
+	protected final ModelMap modelMap = new ModelMap();
 	
 	public ExternalWebContext(HttpServletRequest request) {
 		this.request = request;
@@ -48,4 +52,12 @@ public class ExternalWebContext implements ExternalContext {
 		return cleanedParams;
 	}
 
+	@Override
+	public ModelMap getModelMap() {
+		return modelMap;
+	}
+	
+	public void addModelMapAttribute(String attrName,Object value) {
+		modelMap.addAttribute(attrName, value);
+	}
 }

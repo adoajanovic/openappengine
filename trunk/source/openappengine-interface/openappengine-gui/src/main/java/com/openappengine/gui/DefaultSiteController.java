@@ -41,16 +41,8 @@ public class DefaultSiteController {
 				GuiRootComponent root = context.getUIRoot();
 				model.addAttribute("uiRoot", root);
 				
-				PageContentComponent pageContent = root.getPageContent();
-				if(pageContent != null) {
-					List<WidgetsComponent> widgets = pageContent.getWidgets();
-					for (WidgetsComponent widget : widgets) {
-						List<GuiComponent> childWidgets = widget.getChildComponents();
-						for (GuiComponent guiComponent : childWidgets) {
-							model.addAttribute(guiComponent.getClass().getName(), guiComponent);			
-						}
-					}
-				}
+				//Add Model Map to the Request Context.
+				model.addAllAttributes(context.getExternalContext().getModelMap());
 			}
 		}
 		

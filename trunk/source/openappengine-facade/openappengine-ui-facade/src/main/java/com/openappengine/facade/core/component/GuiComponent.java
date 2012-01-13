@@ -40,4 +40,10 @@ public interface GuiComponent extends Serializable {
 	 * @return
 	 */
 	List<GuiComponent> getChildComponents();
+
+
+	/**
+	 * @return
+	 */
+	String getId();
 }
