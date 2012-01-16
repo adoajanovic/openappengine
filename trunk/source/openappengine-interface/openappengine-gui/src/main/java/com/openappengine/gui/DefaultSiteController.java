@@ -56,22 +56,22 @@ public class DefaultSiteController {
 	}
 	
 	@RequestMapping(value = "/action/{id}")
-	public String handleActionRequest(HttpServletRequest request,@PathVariable("id") String id,ModelMap model) {
+	public void handleActionRequest(HttpServletRequest request,@PathVariable("id") String id,ModelMap model) {
 		logger.info("Action : " + id + " called..");
-		bindFormBackingObject(request);
-		return id;
+		Object formBackingObject = bindFormBackingObject(request);
 	}
 
 	/**
 	 * @param request
 	 */
-	private void bindFormBackingObject(HttpServletRequest request) {
+	private Object bindFormBackingObject(HttpServletRequest request) {
 		String className = request.getParameter("formBackingClass");
 		try {
 			Class<?> formBackingClazz = Class.forName(className);
 			Object newInstance = formBackingClazz.newInstance();
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(newInstance);
 			binder.bind(request);
+			return newInstance;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,6 +82,8 @@ public class DefaultSiteController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 }
