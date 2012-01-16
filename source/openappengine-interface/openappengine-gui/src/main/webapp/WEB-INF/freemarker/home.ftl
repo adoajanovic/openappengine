@@ -34,7 +34,10 @@
  			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Form -->
- 			<form name="${formCommand.class}_Form" action="${springMacroRequestContext.getContextPath()}/action/${childWidget.getId()}" method="post">
+ 			<!--
+ 				${springMacroRequestContext.getContextPath()}/
+ 			-->
+ 			<form name="${formCommand.class}_Form" action="${springMacroRequestContext.getContextPath()}/apps/codeType/CodeType.screen" method="post">
 	 			<fieldset>
 	 			<table>
 		 			<#list childWidget.getFormFields() as field>
@@ -61,12 +64,13 @@
  			<!-- Form -->
  			
  			<#else>
- 				<fieldset>
- 					<h3>
- 						Entity Not found..!
- 					</h3>
- 				</fieldset>
- 			
+ 				<div class="error">
+	 				<fieldset>
+	 					<h4>
+	 						Entity Not found..!
+	 					</h4>
+	 				</fieldset>
+ 				</div>
  			</#if>
  			
  		</#list>
