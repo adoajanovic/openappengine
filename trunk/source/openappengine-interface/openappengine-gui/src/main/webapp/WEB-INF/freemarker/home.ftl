@@ -28,6 +28,9 @@
  			<!-- FormSingleComponent -->
  			
  			<!-- Form Command Object -->
+ 			
+ 			<#if childWidget.formBackingObject()??>
+ 				
  			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Form -->
@@ -56,6 +59,15 @@
 	 			</fieldset>
  			</form>
  			<!-- Form -->
+ 			
+ 			<#else>
+ 				<fieldset>
+ 					<h3>
+ 						Entity Not found..!
+ 					</h3>
+ 				</fieldset>
+ 			
+ 			</#if>
  			
  		</#list>
  	</#list>
