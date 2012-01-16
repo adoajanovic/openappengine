@@ -12,12 +12,12 @@
   </filter-class>
   </filter>
   
-  <filter>
+  <!-- <filter>
     <filter-name>xmlContextProcessingFilter</filter-name>
     <filter-class>
 	        com.openappengine.gui.web.support.XmlContextProcessingFilter
 	</filter-class>
-  </filter>
+  </filter> -->
   
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
@@ -27,13 +27,13 @@
     <dispatcher>ERROR</dispatcher>
   </filter-mapping>
   
-  <filter-mapping>
+  <!-- <filter-mapping>
     <filter-name>xmlContextProcessingFilter</filter-name>
     <url-pattern>*.screen</url-pattern>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
+  </filter-mapping> -->
   
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -71,7 +71,7 @@
     <url-pattern>*.ftl</url-pattern>
   </servlet-mapping>
   
-  <!-- <servlet>
+  <servlet>
     <description></description>
     <display-name>XmlContextDispatcherSevlet</display-name>
     <servlet-name>XmlContextDispatcherSevlet</servlet-name>
@@ -79,6 +79,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>XmlContextDispatcherSevlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping> -->
+    <url-pattern>*.screen</url-pattern>
+  </servlet-mapping> 
 </web-app>
