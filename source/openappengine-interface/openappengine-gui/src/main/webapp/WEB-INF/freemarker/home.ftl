@@ -28,26 +28,27 @@
  			<!-- FormSingleComponent -->
  			
  			<!-- Form Command Object -->
- 			<#assign formCommand = childWidget.getFormCommand() >
- 			
- 			<@spring.bind formCommand.getClass().getName() />
+ 			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Form -->
- 			<form name="${formCommand.class}_Form" action="" method="post">
+ 			<form name="${formCommand.class}_Form" action="${springMacroRequestContext.getContextPath()}/action/${childWidget.getId()}" method="post">
 	 			<fieldset>
 	 			<table>
 		 			<#list childWidget.getFormFields() as field>
+		 				<#assign property=childWidget.getId()+"."+field.property />
 		 				<tr>
 			 				<td>
 			 					<label>${field.property}</label>
 			 				</td>
 			 				<td>
-		 						<input name="${field.property}" value="${childWidget.getFormCommandValue(field.property)}" />
+			 					<@spring.formInput property/>			
 			 				</td>
 		 				</tr>
 		 			</#list>
 		 			<tr>
 		 				<td>
+		 					<input type="hidden" name="formBackingClass" value="${formCommand.getClass().getName()}" />
+		 					
 		 					<input type="submit" name="${formCommand.class}" value="Submit"/>
 		 				</td>
 		 			</tr>

@@ -14,6 +14,8 @@ import com.openappengine.facade.core.component.ui.FormSingleComponent;
  * @since Jan 5, 2012
  */
 public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinitionParser {
+	
+	private static final String ATTR_ID = "id";
 
 	private static final String ATTR_ENTITY_VALUE_REF = "value-ref";
 	
@@ -22,6 +24,13 @@ public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinition
 	@Override
 	public GuiComponent parse(Element element) {
 		FormSingleComponent formSingleComponent = new FormSingleComponent();
+		
+		String attrId = element.getAttribute(ATTR_ID);
+		if(StringUtils.isEmpty(attrId)) {
+			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [id] cannot be empty.");
+		}
+		formSingleComponent.setId(attrId);
+		
 		String attrName = element.getAttribute(ATTR_NAME);
 		if(StringUtils.isEmpty(attrName)) {
 			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [name] cannot be empty.");
