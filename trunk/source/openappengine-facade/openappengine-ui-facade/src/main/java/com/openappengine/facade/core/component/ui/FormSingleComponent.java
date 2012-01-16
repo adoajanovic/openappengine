@@ -36,7 +36,10 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	
 	@Override
 	public Object formBackingObject() {
-		Object instance = entityValue.getWrappedInstance();
+		Object instance = null;
+		if(entityValue != null) {
+			instance = entityValue.getWrappedInstance();
+		}
 		return instance;
 	}
 	
