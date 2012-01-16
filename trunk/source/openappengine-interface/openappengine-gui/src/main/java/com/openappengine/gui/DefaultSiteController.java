@@ -2,8 +2,8 @@ package com.openappengine.gui;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,15 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
-import com.openappengine.facade.core.component.ui.container.PageContentComponent;
-import com.openappengine.facade.core.component.ui.container.WidgetsComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
+import com.openappengine.model.code.CodeType;
 
 /**
  * Handles requests for the application home page.
@@ -53,6 +53,35 @@ public class DefaultSiteController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return name;
+	}
+	
+	@RequestMapping(value = "/action/{id}")
+	public String handleActionRequest(HttpServletRequest request,@PathVariable("id") String id,ModelMap model) {
+		logger.info("Action : " + id + " called..");
+		bindFormBackingObject(request);
+		return id;
+	}
+
+	/**
+	 * @param request
+	 */
+	private void bindFormBackingObject(HttpServletRequest request) {
+		String className = request.getParameter("formBackingClass");
+		try {
+			Class<?> formBackingClazz = Class.forName(className);
+			Object newInstance = formBackingClazz.newInstance();
+			ServletRequestDataBinder binder = new ServletRequestDataBinder(newInstance);
+			binder.bind(request);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -13,7 +13,7 @@
 
 	<page-content>
 		<widgets>
-			<form-single name="CodeType_View" value-ref="codeTypeValue" transition="createCodeType">
+			<form-single id="CodeType_View" name="CodeType_View" value-ref="codeTypeValue" transition="createCodeType">
 			</form-single>
 		</widgets>
 	</page-content>

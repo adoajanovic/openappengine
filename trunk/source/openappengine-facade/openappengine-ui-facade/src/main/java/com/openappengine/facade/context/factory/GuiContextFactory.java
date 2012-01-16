@@ -38,4 +38,14 @@ public interface GuiContextFactory {
 	 */
 	void registerScreenApplicationContext(Resource resource,GuiApplicationContext context);
 
+	/**
+	 * @param applicationContext
+	 */
+	void processLifecyleRestoreProcessing(GuiApplicationContext applicationContext);
+
+	/**
+	 * @param applicationContext
+	 */
+	void processLifecycleInitializedEvent(GuiApplicationContext applicationContext);
+
 }

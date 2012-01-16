@@ -47,10 +47,6 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 		GuiApplicationContext context = new WebGuiApplicationContext(externalContext);
 		GuiRootComponent uiRoot = createGuiRoot(resource, context);
 		uiRoot.setContext(context);
-
-		processLifecyleRestoreProcessing(context);
-		
-		processLifecycleInitializedEvent(context);
 		
 		registerScreenApplicationContext(resource, context);
 		
@@ -61,7 +57,7 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	 * Call the Initialized Event Listener
 	 * @param context
 	 */
-	protected void processLifecycleInitializedEvent(GuiApplicationContext context) {
+	public void processLifecycleInitializedEvent(GuiApplicationContext context) {
 		ContextInitializedEvent contextInitEvent = new ContextInitializedEvent(context);
 		getLifecycleProcessor().processLifecycleEvent(contextInitEvent);
 	}
@@ -70,7 +66,7 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	 * Call the Restore Event Listener
 	 * @param context
 	 */
-	protected void processLifecyleRestoreProcessing(GuiApplicationContext context) {
+	public void processLifecyleRestoreProcessing(GuiApplicationContext context) {
 		ContextRestoreEvent contextRestoreEvent = new ContextRestoreEvent(context);
 		getLifecycleProcessor().processLifecycleEvent(contextRestoreEvent);
 	}
