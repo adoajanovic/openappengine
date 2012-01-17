@@ -12,6 +12,9 @@
 	  <!-- default css -->
 	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/css/styles.css">
 	  
+	  <!-- FavIcon -->
+	  <link rel="shortcut icon" href="${rc.getContextPath()}/resources/favicon.ico" type="image/x-icon" />
+	  
 	  <!-- jquery css and js -->
 	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/jquery/themes/base/jquery.ui.all.css">
 	  <script src="${rc.getContextPath()}/resources/jquery/jquery-1.6.2.js"></script>
@@ -21,12 +24,6 @@
 	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.button.js"></script>
 	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.tabs.js"></script>
 	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dialog.js"></script>
-	  
-	  <script>
-			$(function() {
-				alert('Hi..');
-			}
-	  </script>
 	  
 	  <!-- Title -->
 	  <title>
