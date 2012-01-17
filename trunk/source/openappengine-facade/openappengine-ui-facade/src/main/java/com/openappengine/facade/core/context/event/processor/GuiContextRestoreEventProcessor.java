@@ -44,7 +44,7 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 	 * @param context
 	 * @param guiComponent
 	 */
-	private void executePreRenderActionComponent(GuiApplicationContext context,
+	protected void executePreRenderActionComponent(GuiApplicationContext context,
 			GuiComponent guiComponent) {
 		AbstractExecutableComponent exec = (AbstractExecutableComponent)guiComponent;
 		ActionRequest actionRequest = exec.getActionRequest();

@@ -41,6 +41,14 @@ public class DefaultSiteController {
 				GuiRootComponent root = context.getUIRoot();
 				model.addAttribute("uiRoot", root);
 				
+				StringBuffer requestURL = request.getRequestURL();
+				if(requestURL.charAt(requestURL.length()-1) == '/') {
+					requestURL.deleteCharAt(requestURL.length()-1);
+				}
+				String queryString = request.getQueryString();
+				requestURL.append("?").append(queryString);
+				model.addAttribute("currentURL", requestURL);
+				
 				//Add Model Map to the Request Context.
 				model.addAllAttributes(context.getExternalContext().getModelMap());
 			}

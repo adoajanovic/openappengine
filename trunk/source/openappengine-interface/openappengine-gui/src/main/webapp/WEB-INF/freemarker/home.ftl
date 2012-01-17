@@ -25,19 +25,15 @@
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
  			
- 			<!-- FormSingleComponent -->
+ 			<!-- If FormSingleComponent -->
  			
  			<!-- Form Command Object -->
- 			
  			<#if childWidget.formBackingObject()??>
  				
  			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Form -->
- 			<!--
- 				${springMacroRequestContext.getContextPath()}/
- 			-->
- 			<form name="${formCommand.class}_Form" action="${springMacroRequestContext.getContextPath()}/apps/codeType/CodeType.screen" method="post">
+ 			<form name="${formCommand.class}_Form" action="${currentURL}" method="post">
 	 			<fieldset>
 	 			<table>
 		 			<#list childWidget.getFormFields() as field>
@@ -55,7 +51,33 @@
 		 				<td>
 		 					<input type="hidden" name="formBackingClass" value="${formCommand.getClass().getName()}" />
 		 					
-		 					<input type="submit" name="${formCommand.class}" value="Submit"/>
+		 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>
+		 				</td>
+		 			</tr>
+	 			</table>
+	 			</fieldset>
+ 			</form>
+ 			
+ 			<!-- Form -->
+ 			<form name="${formCommand.class}_Form1" action="${springMacroRequestContext.getContextPath()}/apps/codeType/CodeType.screen" method="post">
+	 			<fieldset>
+	 			<table>
+		 			<#list childWidget.getFormFields() as field>
+		 				<#assign property=childWidget.getId()+"."+field.property />
+		 				<tr>
+			 				<td>
+			 					<label>${field.property}</label>
+			 				</td>
+			 				<td>
+			 					<@spring.formInput property/>			
+			 				</td>
+		 				</tr>
+		 			</#list>
+		 			<tr>
+		 				<td>
+		 					<input type="hidden" name="formBackingClass" value="${formCommand.getClass().getName()}" />
+		 					
+		 					<input type="submit" name="${formCommand.class}_Form1" value="Submit"/>
 		 				</td>
 		 			</tr>
 	 			</table>
