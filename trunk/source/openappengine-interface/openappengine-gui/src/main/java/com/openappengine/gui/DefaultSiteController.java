@@ -47,7 +47,7 @@ public class DefaultSiteController {
 				}
 				String queryString = request.getQueryString();
 				requestURL.append("?").append(queryString);
-				model.addAttribute("currentURL", requestURL);
+				model.addAttribute("currentURL", requestURL.toString());
 				
 				//Add Model Map to the Request Context.
 				model.addAllAttributes(context.getExternalContext().getModelMap());

@@ -17,18 +17,24 @@
 	  
 	  <!-- jquery css and js -->
 	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/jquery/themes/base/jquery.ui.all.css">
-	  <script src="${rc.getContextPath()}/resources/jquery/jquery-1.6.2.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.position.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.core.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.widget.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.button.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.tabs.js"></script>
-	  <script src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dialog.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/jquery-1.6.2.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.position.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.core.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.widget.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.button.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.tabs.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dialog.js"></script>
 	  
 	  <!-- Title -->
 	  <title>
 	  	${title}
 	  </title>
+	  
+	  <script type="text/javascript">
+	  		jQuery(document).ready(function() {
+		  		alert('Hi');
+	  		});
+	  </script>
 	  
 	  <!-- head -->
 	  ${head}
