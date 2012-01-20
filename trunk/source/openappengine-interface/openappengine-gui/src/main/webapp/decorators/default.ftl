@@ -49,6 +49,7 @@
 	-->
 	<body onload="${page.properties["body.onload"]?default("")}"  id="${page.properties["body.id"]?default("")}">
 		
+		<form action="${currentURL}" method="post">
 		<!--wrapper-->
 		<div id="wrapper">
 		        
@@ -89,6 +90,7 @@
 			      <br>
 			  </div>
 		</div>
+		</form>
 		<!--wrapper-->
 	
 		<#--Google Analytics-->    

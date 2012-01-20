@@ -14,27 +14,36 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	
-	<beans:bean id="freemarkerViewResolver"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
-		abstract="false" scope="singleton" lazy-init="default" autowire="default">
-		<beans:property name="requestContextAttribute" value="rc" />
-		<beans:property name="cache" value="true" />
-		<beans:property name="exposeSpringMacroHelpers" value="true" />
-		<beans:property name="prefix" value="/WEB-INF/freemarker/" />
-		<beans:property name="suffix" value=".ftl" />
-		<beans:property name="order" value="1" />
+	<beans:bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<beans:description>Using the Config directly so we can use it outside the web tier</beans:description>
+		<beans:property name="templateLoaderPaths">
+			<beans:list>
+				<beans:value>/WEB-INF/freemarker/</beans:value>
+				<beans:value>/modules/</beans:value>
+				<beans:value>/</beans:value>
+				<beans:value>classpath:modules</beans:value>
+				<beans:value>classpath:org/springframework/web/servlet/view/freemarker</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="freemarkerSettings">
+			<beans:props>
+				<beans:prop key="datetime_format">MM/dd/yyyy</beans:prop>
+				<beans:prop key="number_format">#</beans:prop>
+				<beans:prop key="whitespace_stripping">true</beans:prop>
+			</beans:props>
+		</beans:property>
+		<beans:property name="freemarkerVariables">
+			<beans:map>
+				<beans:entry key="xml_escape" value-ref="fmXmlEscape" />
+				<beans:entry key="html_escape" value-ref="fmHtmlEscape" />
+			</beans:map>
+		</beans:property>
 	</beans:bean>
 	
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order" value="2"></beans:property>
-	</beans:bean>
-
 	<beans:bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
 		abstract="false" scope="singleton" lazy-init="default" autowire="default">
+		<beans:property name="configuration" ref="freemarkerConfiguration"></beans:property>	
 		<beans:property name="templateLoaderPath">
 			<beans:value>/</beans:value>
 		</beans:property>
@@ -48,6 +57,27 @@
 	</beans:bean>
 
 	<beans:bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	
+	<beans:bean id="fmHtmlEscape" class="freemarker.template.utility.HtmlEscape" />
+	
+	<!-- View Resolver -->
+	<beans:bean id="freemarkerViewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+		abstract="false" scope="singleton" lazy-init="default" autowire="default">
+		<beans:property name="requestContextAttribute" value="rc" />
+		<beans:property name="cache" value="true" />
+		<beans:property name="exposeSpringMacroHelpers" value="true" />
+		<beans:property name="prefix" value="" />
+		<beans:property name="suffix" value=".ftl" />
+		<beans:property name="order" value="1" />
+	</beans:bean>
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2"></beans:property>
+	</beans:bean>
 
 	<context:component-scan base-package="com.openappengine.gui" />
 
