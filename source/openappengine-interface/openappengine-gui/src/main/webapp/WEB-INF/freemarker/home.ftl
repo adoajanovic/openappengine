@@ -33,7 +33,6 @@
  			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Form -->
- 			<form name="${formCommand.class}_Form" action="${currentURL}" method="post">
 	 			<fieldset>
 	 			<table>
 		 			<#list childWidget.getFormFields() as field>
@@ -56,10 +55,8 @@
 		 			</tr>
 	 			</table>
 	 			</fieldset>
- 			</form>
  			
- 			<!-- Form -->
- 			<form name="${formCommand.class}_Form1" action="${springMacroRequestContext.getContextPath()}/apps/codeType/CodeType.screen" method="post">
+	 			<!-- Form -->
 	 			<fieldset>
 	 			<table>
 		 			<#list childWidget.getFormFields() as field>
@@ -82,7 +79,6 @@
 		 			</tr>
 	 			</table>
 	 			</fieldset>
- 			</form>
  			<!-- Form -->
  			
  			<#else>

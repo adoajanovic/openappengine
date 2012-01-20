@@ -253,7 +253,7 @@ p {
 
 <!-- Top RHS Contents -->
 .top-right-content {
-	float: right !important;
+	float: right;
 	margin-right: 50px;
 	/* background: #EEE; */
 	color: #FFF;

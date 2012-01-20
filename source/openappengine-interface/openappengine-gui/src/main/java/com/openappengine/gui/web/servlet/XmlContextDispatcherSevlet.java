@@ -95,6 +95,17 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		RequestContextHolder.setRequestAttributes(currentRequestAttributes);
 		
 		try {
+			httpServletRequest.getParameter("codeTypeValue");
+			
+			StringBuffer requestURL = request.getRequestURL();
+			if(requestURL.charAt(requestURL.length()-1) == '/') {
+				requestURL.deleteCharAt(requestURL.length()-1);
+			}
+			String queryString = request.getQueryString();
+			requestURL.append("?").append(queryString);
+			
+			request.setAttribute("currentURL", requestURL);
+			
 			doService(httpServletRequest, httpServletResponse);
 		} catch (Throwable e) {
 			// TODO: use configurable exception handler here..
