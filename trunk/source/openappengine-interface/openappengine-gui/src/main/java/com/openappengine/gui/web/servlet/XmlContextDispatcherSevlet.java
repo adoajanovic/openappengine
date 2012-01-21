@@ -2,6 +2,8 @@ package com.openappengine.gui.web.servlet;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -17,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -46,13 +49,11 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String GUI_WEB_APPLICATION_CONTEXT = "GUI_WEB_APPLICATION_CONTEXT";
-	
 	private GuiContextFactory contextFactory;
 	
 	private ServletContext servletContext;
 
-	private String path = "/home/";
+	private String path = "/home";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -134,14 +135,34 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		
 		contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
+		mergeGuiContextModelAttributes(httpServletRequest,guiApplicationContext);
+		
 		//Set the Context in the Attribute.
-		httpServletRequest.setAttribute(GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
+		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
 		
 		//Do Dispatch
 		doDispatch(httpServletRequest, httpServletResponse,contextWrappedRequest);
 	}
 
-	private void doDispatch(HttpServletRequest httpServletRequest,
+	/**
+	 * @param httpServletRequest
+	 * @param guiApplicationContext
+	 */
+	protected void mergeGuiContextModelAttributes(
+			HttpServletRequest httpServletRequest,
+			GuiApplicationContext guiApplicationContext) {
+		ModelMap modelMap = guiApplicationContext.getExternalContext().getModelMap();
+		if(modelMap != null) {
+			Set<Entry<String,Object>> entrySet = modelMap.entrySet();
+			for (Entry<String, Object> entry : entrySet) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				httpServletRequest.setAttribute(key, value);
+			}
+		}
+	}
+
+	protected void doDispatch(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse,
 			GuiApplicationContextAwareHttpServletRequest contextWrappedRequest)
 			throws ServletException, IOException {
@@ -155,7 +176,6 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	 * @return
 	 */
 	protected RequestDispatcher getRequestDispatcher(HttpServletRequest httpServletRequest) {
-		//forward to a configured path which points to the appropriate ftl.
 		RequestDispatcher requestDispatcher = httpServletRequest.getRequestDispatcher(path);
 		return requestDispatcher;
 	}
