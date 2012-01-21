@@ -4,6 +4,16 @@
 	<parameter>
 		<param name="codeTypeId" value-ref="codeTypeId" required="true" />
 	</parameter>
+	
+	<transition name="save">
+		<condition>true</condition>
+		<actions>
+			<entity-save updateIfExists="true" value-field="codeTypeValue">
+			</entity-save>
+		</actions>
+		<default-response url="." />
+		<error-response save-current-screen="false" type="url" url="" url-type="screen-path" />
+	</transition>
 
 	<pre-actions>
 		<entity-find-one entity-name="CodeType" value-field="codeTypeValue"
