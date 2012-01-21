@@ -5,13 +5,11 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
-import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
@@ -19,12 +17,15 @@ import com.openappengine.facade.ui.resolver.ValueRef;
 import com.openappengine.facade.ui.resolver.ValueResolver;
 
 /**
+ * 	
+ *	Does a "find-by" on the primary key. 
+ *  If no value is found does nothing to the value-field. If a value is
+ *  found, sets the value in the "value-field" attribute in the context.
+ * 
  * @author hrishi
  *
  */
-public class EntityFindOneActionHandler implements ActionHandler {
-	
-	private String entityName;
+public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
 	private Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
 	
@@ -32,11 +33,8 @@ public class EntityFindOneActionHandler implements ActionHandler {
 	
 	private String conditionExpression;
 	
-	public EntityFindOneActionHandler(){
-	}
-	
 	public EntityFindOneActionHandler(String entityName) {
-		this.setEntityName(entityName);
+		setEntityName(entityName);
 	}
 
 	@Override
@@ -60,16 +58,8 @@ public class EntityFindOneActionHandler implements ActionHandler {
 			}
 		}
 		
-		ValueResolver valueResolver = new EntityValueResolver(entityName, params);
+		ValueResolver valueResolver = new EntityValueResolver(getEntityName(), params);
 		return (EntityValue) valueResolver.resolveValue();
-	}
-
-	public String getEntityName() {
-		return entityName;
-	}
-
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
 	}
 
 	public Map<String, ValueRef<Object>> getAndParameterMap() {
