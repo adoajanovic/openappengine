@@ -29,4 +29,6 @@ public class ParserConstants implements Serializable {
 
 	public static final String PAGE_CONTENT_PARSER = "page-content";
 
+	public static final String ENTITY_SAVE = "entity-save";
+
 }
