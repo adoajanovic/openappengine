@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.condition.ConditionComponent;
+import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.transition.response.ConditionalResponseComponent;
 import com.openappengine.facade.core.component.transition.response.DefaultResponseComponent;
@@ -41,6 +42,8 @@ public class TransitionComponentDefinitionParser extends AbstractGuiElementDefin
 					GuiComponent component = parser.parse(child);
 					if(child.getNodeName().equals("condition")) {
 						transition.setCondition((ConditionComponent) component);
+					} else if(child.getNodeName().equals("actions")) {
+						transition.addActionComponent((AbstractExecutableComponent) component);
 					} else if(child.getNodeName().equals("conditional-response")) {
 						transition.getConditionalResponses().add((ConditionalResponseComponent) component);
 					} else if(child.getNodeName().equals("default-response")) {

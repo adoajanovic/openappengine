@@ -11,7 +11,9 @@ import org.w3c.dom.NodeList;
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
 import com.openappengine.facade.context.factory.support.parser.GuiElementDefinitionParser;
 import com.openappengine.facade.context.factory.support.parser.ParserConstants;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 
@@ -60,6 +62,10 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
 			PreRenderActionsComponent parsePreActions = parsePreActions(element, delegate);
 			getUiRoot().setPreRenderActionComponent(parsePreActions);
+		} else if(delegate.nodeNameEquals(element, NodeNames.TRANSITION)) {
+			GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(NodeNames.TRANSITION);
+			GuiComponent component = parser.parse(element);
+			getUiRoot().addScreenTransition((TransitionComponent) component);
 		} else if(delegate.nodeNameEquals(element, NodeNames.PAGE_CONTENT)) {
 			GuiElementDefinitionParser widgetsParser = delegate.getScreenElementDefinitionParser(NodeNames.PAGE_CONTENT);
 			PageContentComponent pageContent = (PageContentComponent) widgetsParser.parse(element);

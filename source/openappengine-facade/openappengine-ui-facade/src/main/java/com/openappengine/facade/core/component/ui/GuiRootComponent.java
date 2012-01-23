@@ -2,11 +2,14 @@
  * 
  */
 package com.openappengine.facade.core.component.ui;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
@@ -24,6 +27,8 @@ public class GuiRootComponent extends AbstractGuiComponent {
 	private PreRenderActionsComponent preRenderActionsComponent;
 	
 	private PageContentComponent pageContent;
+	
+	private final List<TransitionComponent> screenTransitions = new ArrayList<TransitionComponent>();
 	
 	private Map<String, Variable> screenVariables = new ConcurrentHashMap<String, Variable>();
 	
@@ -69,4 +74,12 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		this.pageContent = pageContent;
 	}
 
+	public List<TransitionComponent> getScreenTransitions() {
+		return screenTransitions;
+	}
+
+	public void addScreenTransition(TransitionComponent transition) {
+		this.screenTransitions.add(transition);
+	}
+	
 }
