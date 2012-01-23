@@ -20,4 +20,6 @@ public class NodeNames implements Serializable {
 	public static final String SUB_SCREENS = "sub-screens";
 
 	public static final String PAGE_CONTENT = "page-content";
+
+	public static final String TRANSITION = "transition";
 }
