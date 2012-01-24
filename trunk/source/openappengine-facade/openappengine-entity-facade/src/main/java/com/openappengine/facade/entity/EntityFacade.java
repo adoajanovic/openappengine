@@ -51,6 +51,8 @@ public interface EntityFacade {
 	 */
 	Serializable saveEntityValue(EntityValue entityValue);
 	
+	EntityValue saveOrUpdateEntityValue(EntityValue entityValue);
+	
 	List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
 	
 	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
