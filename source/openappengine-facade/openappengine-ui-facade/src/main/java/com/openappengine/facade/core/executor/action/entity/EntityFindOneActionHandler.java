@@ -33,6 +33,9 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
 	private String conditionExpression;
 	
+	public EntityFindOneActionHandler() {
+	}
+	
 	public EntityFindOneActionHandler(String entityName) {
 		setEntityName(entityName);
 	}
