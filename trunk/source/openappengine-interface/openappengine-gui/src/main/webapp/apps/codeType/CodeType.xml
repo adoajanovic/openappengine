@@ -5,12 +5,12 @@
 		<param name="codeTypeId" value-ref="codeTypeId" required="true" />
 	</parameter>
 	
-	<transition name="save">
+	<transition id="save">
 		<condition>true</condition>
-		<actions>
+		<transition-actions>
 			<entity-save updateIfExists="true" value-field="codeTypeValue">
 			</entity-save>
-		</actions>
+		</transition-actions>
 		<default-response url="." />
 		<error-response save-current-screen="false" type="url" url="" url-type="screen-path" />
 	</transition>

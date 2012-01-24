@@ -25,7 +25,7 @@ public class TransitionComponent implements GuiComponent {
 	
 	private ConditionComponent condition;
 	
-	private List<AbstractExecutableComponent> actionComponents = new ArrayList<AbstractExecutableComponent>();
+	private TransitionActions transitionActions;
 	
 	private DefaultResponseComponent defaultResponseComponent;
 	
@@ -70,22 +70,6 @@ public class TransitionComponent implements GuiComponent {
 		this.condition = condition;
 	}
 
-	public List<AbstractExecutableComponent> getActionComponents() {
-		return actionComponents;
-	}
-
-	public void addActionComponent(AbstractExecutableComponent executableComponent) {
-		if(executableComponent == null) {
-			return;
-		}
-		
-		this.getActionComponents().add(executableComponent);
-	}
-
-	public void setActionComponents(List<AbstractExecutableComponent> actionComponents) {
-		this.actionComponents = actionComponents;
-	}
-
 	public DefaultResponseComponent getDefaultResponseComponent() {
 		return defaultResponseComponent;
 	}
@@ -108,5 +92,13 @@ public class TransitionComponent implements GuiComponent {
 
 	public void setErrorResponseComponent(ErrorResponseComponent errorResponseComponent) {
 		this.errorResponseComponent = errorResponseComponent;
+	}
+
+	public TransitionActions getTransitionActions() {
+		return transitionActions;
+	}
+
+	public void setTransitionActions(TransitionActions transitionActions) {
+		this.transitionActions = transitionActions;
 	}
 }
