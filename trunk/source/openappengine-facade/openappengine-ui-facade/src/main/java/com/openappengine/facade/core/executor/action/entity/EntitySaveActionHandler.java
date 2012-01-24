@@ -20,11 +20,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	
 	private EntityValue entityValue; 
 	
-	/**
-	 * @param entityName
-	 */
-	public EntitySaveActionHandler(String entityName) {
-		setEntityName(entityName);
+	public EntitySaveActionHandler() {
 	}
 
 	@Override
