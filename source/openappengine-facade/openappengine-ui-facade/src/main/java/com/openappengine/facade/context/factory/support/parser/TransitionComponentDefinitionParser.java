@@ -10,7 +10,6 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.condition.ConditionComponent;
-import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.transition.TransitionActions;
 import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.transition.response.ConditionalResponseComponent;
