@@ -3,7 +3,6 @@ package com.openappengine.gui;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
-import com.openappengine.model.code.CodeType;
 
 /**
  * Handles requests for the application home page.
