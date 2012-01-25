@@ -37,6 +37,12 @@ public interface GuiContextFactory {
 	 * @param context
 	 */
 	void registerScreenApplicationContext(Resource resource,GuiApplicationContext context);
+	
+	/**
+	 * @param resource
+	 * @return
+	 */
+	GuiApplicationContext getApplicationContext(Resource resource);
 
 	/**
 	 * @param applicationContext

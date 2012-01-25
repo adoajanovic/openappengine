@@ -53,6 +53,11 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 	public boolean contains(Resource resource) {
 		return cachedGuiApplicationContexts.containsKey(resource);
 	}
+	
+	@Override
+	public GuiApplicationContext getApplicationContext(Resource resource) {
+		return cachedGuiApplicationContexts.get(resource);
+	}
 
 	protected LifecycleProcessor getLifecycleProcessor() {
 		return lifecycleProcessor;

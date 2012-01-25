@@ -20,7 +20,7 @@ public class ConditionComponentDefinitionParser extends AbstractGuiElementDefini
 	@Override
 	public GuiComponent parse(Element element) {
 		ConditionComponent conditionComponent = new ConditionComponent();
-		String condition = element.getTextContent();
+		String condition = element.getNodeValue();
 		if(StringUtils.isEmpty(condition)) {
 			condition = "true";
 		}

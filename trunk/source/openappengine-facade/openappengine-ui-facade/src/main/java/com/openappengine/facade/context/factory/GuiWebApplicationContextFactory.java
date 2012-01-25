@@ -28,22 +28,6 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	
 	@Override
 	public GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext) {
-		/*
-		 * TODO - Handle Scopes.
-		 if(!contains(resource)) {
-			GuiApplicationContext context = new WebGuiApplicationContext(externalContext);
-			GuiRootComponent uiRoot = createGuiRoot(resource, context);
-			uiRoot.setContext(context);
-
-			processLifecyleRestoreProcessing(context);
-			
-			processLifecycleInitializedEvent(context);
-			
-			registerScreenApplicationContext(resource, context);
-			
-		}
-		return cachedGuiApplicationContexts.get(resource);*/
-		
 		GuiApplicationContext context = new WebGuiApplicationContext(externalContext);
 		GuiRootComponent uiRoot = createGuiRoot(resource, context);
 		uiRoot.setContext(context);

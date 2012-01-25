@@ -25,18 +25,29 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 		Assert.notNull(context, "Context Null !");
 		GuiRootComponent uiRoot = context.getUIRoot();
 		
+		handlePreRenderActions(context, uiRoot);
+		
+	}
+
+	/**
+	 * Handle PreRender Actions.
+	 * 
+	 * @param context
+	 * @param uiRoot
+	 */
+	protected void handlePreRenderActions(GuiApplicationContext context,
+			GuiRootComponent uiRoot) {
 		PreRenderActionsComponent preRenderActionComponent = uiRoot.getPreRenderActionComponent();
 		if(preRenderActionComponent != null) {
 			List<GuiComponent> guiComponents = preRenderActionComponent.getChildComponents();
 			if(guiComponents != null && !guiComponents.isEmpty()) {
 				for (GuiComponent guiComponent : guiComponents) {
 					if(guiComponent instanceof AbstractExecutableComponent) {
-						executePreRenderActionComponent(context, guiComponent);
+						doHandlePreRenderAction(context, guiComponent);
 					}
 				}
 			}
 		}
-		
 	}
 
 	/**
@@ -44,8 +55,7 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 	 * @param context
 	 * @param guiComponent
 	 */
-	protected void executePreRenderActionComponent(GuiApplicationContext context,
-			GuiComponent guiComponent) {
+	protected void doHandlePreRenderAction(GuiApplicationContext context,GuiComponent guiComponent) {
 		AbstractExecutableComponent exec = (AbstractExecutableComponent)guiComponent;
 		ActionRequest actionRequest = exec.getActionRequest();
 		
