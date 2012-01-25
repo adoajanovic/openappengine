@@ -29,5 +29,10 @@ public interface ExternalContext {
 	 */
 	ModelMap getModelMap();
 	
+	/**
+	 * Add Model Attribute
+	 * @param attrName
+	 * @param value
+	 */
 	void addModelMapAttribute(String attrName,Object value);
 }

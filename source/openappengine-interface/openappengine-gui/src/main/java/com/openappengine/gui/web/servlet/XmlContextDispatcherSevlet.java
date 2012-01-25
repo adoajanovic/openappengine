@@ -49,6 +49,8 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String GUI_WEB_APPLICATION_CONTEXT = "GUI_WEB_APPLICATION_CONTEXT";
+
 	private GuiContextFactory contextFactory;
 	
 	private ServletContext servletContext;
@@ -94,15 +96,7 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		RequestContextHolder.setRequestAttributes(currentRequestAttributes);
 		
 		try {
-			StringBuffer requestURL = request.getRequestURL();
-			if(requestURL.charAt(requestURL.length()-1) == '/') {
-				requestURL.deleteCharAt(requestURL.length()-1);
-			}
-			String queryString = request.getQueryString();
-			requestURL.append("?").append(queryString);
-			
-			request.setAttribute("currentURL", requestURL);
-			
+			request.setAttribute("currentURL", request.getRequestURL());
 			doService(httpServletRequest, httpServletResponse);
 		} catch (Throwable e) {
 			// TODO: use configurable exception handler here..
@@ -113,59 +107,36 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	private void doService(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
 			throws MalformedURLException, ServletException, IOException {
+		HttpServletRequest contextWrappedRequest = httpServletRequest;
+		GuiApplicationContext guiApplicationContext = null;
 		
-		//Create GUI Application Context.
-		GuiApplicationContext guiApplicationContext = createGuiApplicationContext(httpServletRequest);
+		Resource resource = createXmlScreenUrlResouce(httpServletRequest);
+		ExternalContext externalContext = new ExternalWebContext(httpServletRequest);
 		
-		//Wrap the Gui Application Context inside the Request.
-		//TODO - Search for a replaceable change for this. Introduce Attributes if needed.
-		GuiApplicationContextAwareHttpServletRequest contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(
-				guiApplicationContext, httpServletRequest);
-		
-		//In Case of a post handle the action execution.
-		if(httpServletRequest.getMethod().equals("POST")) {
-			//TODO - Handle Posts.
+		if(httpServletRequest.getMethod().equals("GET")) {
+			//Create New GUI Application Context from Factory.
+			guiApplicationContext = createGuiApplicationContext(resource, externalContext);
+			contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
+			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
+		} else if (httpServletRequest.getMethod().equals("POST")) {
+			//Restore the Context from the Factory.
+			guiApplicationContext = contextFactory.getApplicationContext(resource);
+			
+			
 		}
 		
-		contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
-		
-		contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
-		
-		//mergeGuiContextModelAttributes(httpServletRequest,guiApplicationContext);
-		
-		//Set the Context in the Attribute.
 		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
+		contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(guiApplicationContext, httpServletRequest);
 		
 		//Do Dispatch
-		doDispatch(httpServletRequest, httpServletResponse,contextWrappedRequest);
+		doDispatch(contextWrappedRequest,httpServletResponse);
 	}
 
-	/**
-	 * @param httpServletRequest
-	 * @param guiApplicationContext
-	 */
-	protected void mergeGuiContextModelAttributes(
-			HttpServletRequest httpServletRequest,
-			GuiApplicationContext guiApplicationContext) {
-		ModelMap modelMap = guiApplicationContext.getExternalContext().getModelMap();
-		if(modelMap != null) {
-			Set<Entry<String,Object>> entrySet = modelMap.entrySet();
-			for (Entry<String, Object> entry : entrySet) {
-				String key = entry.getKey();
-				Object value = entry.getValue();
-				httpServletRequest.setAttribute(key, value);
-			}
-		}
-	}
-
-	protected void doDispatch(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse,
-			GuiApplicationContextAwareHttpServletRequest contextWrappedRequest)
+	protected void doDispatch(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse)
 			throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = getRequestDispatcher(httpServletRequest);
-		requestDispatcher.forward(contextWrappedRequest, httpServletResponse);
+		requestDispatcher.forward(httpServletRequest, httpServletResponse);
 	}
-
 	
 	/**
 	 * @param httpServletRequest
@@ -177,13 +148,12 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	}
 
 	/**
-	 * @param httpServletRequest
+	 * @param resource
+	 * @param externalContext TODO
 	 * @return 
 	 * @throws MalformedURLException
 	 */
-	protected GuiApplicationContext createGuiApplicationContext(HttpServletRequest httpServletRequest) throws MalformedURLException {
-		Resource resource = createXmlScreenUrlResouce(httpServletRequest);
-		ExternalContext externalContext = new ExternalWebContext(httpServletRequest);
+	protected GuiApplicationContext createGuiApplicationContext(Resource resource, ExternalContext externalContext) throws MalformedURLException {
 		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource, externalContext);
 		return applicationContext;
 	}
