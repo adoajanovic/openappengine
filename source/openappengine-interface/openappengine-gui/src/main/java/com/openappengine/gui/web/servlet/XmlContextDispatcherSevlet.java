@@ -90,14 +90,10 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		
-		RequestAttributes oldRequestAttributes = RequestContextHolder.getRequestAttributes();
-		
 		RequestAttributes currentRequestAttributes = new ServletRequestAttributes(httpServletRequest);
 		RequestContextHolder.setRequestAttributes(currentRequestAttributes);
 		
 		try {
-			httpServletRequest.getParameter("codeTypeValue");
-			
 			StringBuffer requestURL = request.getRequestURL();
 			if(requestURL.charAt(requestURL.length()-1) == '/') {
 				requestURL.deleteCharAt(requestURL.length()-1);
@@ -128,14 +124,14 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		
 		//In Case of a post handle the action execution.
 		if(httpServletRequest.getMethod().equals("POST")) {
-			String parameter = httpServletRequest.getParameter("codeTypeValue");
+			//TODO - Handle Posts.
 		}
 		
 		contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
 		
 		contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
-		mergeGuiContextModelAttributes(httpServletRequest,guiApplicationContext);
+		//mergeGuiContextModelAttributes(httpServletRequest,guiApplicationContext);
 		
 		//Set the Context in the Attribute.
 		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
