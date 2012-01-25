@@ -3,6 +3,7 @@ package com.openappengine.facade.core.context.event.processor;
 import org.apache.log4j.Logger;
 
 import com.openappengine.facade.core.component.GuiComponent;
+import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.ValueRefAware;
 import com.openappengine.facade.core.component.widgets.FormWidget;
 import com.openappengine.facade.core.context.ApplicationEvent;
@@ -18,6 +19,8 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {
 		logger.info("Processing Context Initialized Event.");
 		
+		GuiRootComponent root = context.getUIRoot();
+		context.getExternalContext().addModelMapAttribute("uiRoot", root);
 		//Resolve Components Value Refs
 		resolveGuiComponentValueRef(context.getUIRoot().getPageContent(), context);
 	}
@@ -41,6 +44,15 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 		}
 		
 		//Form Widget. If component is a Form Widget add the model attribute.
+		mergeFormWidgetModel(context, guiComponent);
+	}
+
+	/**
+	 * @param context
+	 * @param guiComponent
+	 */
+	private void mergeFormWidgetModel(GuiApplicationContext context,
+			GuiComponent guiComponent) {
 		if(guiComponent instanceof FormWidget) {
 			Object formBackingObject = ((FormWidget) guiComponent).formBackingObject();
 			context.getExternalContext().addModelMapAttribute(guiComponent.getId(), formBackingObject);
