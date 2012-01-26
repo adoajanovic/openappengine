@@ -20,6 +20,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ClassUtils;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -121,8 +123,28 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 			//Restore the Context from the Factory.
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
+			String widgetBackingClassName = httpServletRequest.getParameter("widgetClass");
+			String widgetId = httpServletRequest.getParameter("widgetId");
+			String widgetDefaultTransition = httpServletRequest.getParameter("widgetDefaultTransition");
 			
-			
+			if(!StringUtils.isEmpty(widgetBackingClassName)) {
+				try {
+					Class<?> formBackingClass = ClassUtils.forName(widgetBackingClassName, getClass().getClassLoader());
+					Object bindedInstance = formBackingClass.newInstance();
+					ServletRequestDataBinder binder = new ServletRequestDataBinder(bindedInstance);
+					//TODO - Validate and bind
+					binder.bind(contextWrappedRequest);
+					
+					//TODO - If Valid bind.
+					guiApplicationContext.getExternalContext().getModelMap().addAttribute(widgetId, bindedInstance);
+					
+					//TODO- Check transition triggered and perform Transition.
+					
+				} catch(Exception e) {
+					//TODO - Handle
+				}
+				
+			}
 		}
 		
 		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);

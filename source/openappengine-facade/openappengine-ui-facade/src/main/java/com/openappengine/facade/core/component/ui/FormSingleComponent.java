@@ -18,6 +18,8 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	private EntityValue entityValue;
 	
 	private boolean entityValueSet = false;
+	
+	private String transition;
 
 	@Override
 	public String getComponentType() {
@@ -83,6 +85,20 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	@Override
 	public String getValueRef() {
 		return entityValueRef;
+	}
+
+	/**
+	 * @return the transition
+	 */
+	public String getTransition() {
+		return transition;
+	}
+
+	/**
+	 * @param transition the transition to set
+	 */
+	public void setTransition(String transition) {
+		this.transition = transition;
 	}
 
 }

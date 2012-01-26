@@ -49,7 +49,10 @@
 		 			</#list>
 		 			<tr>
 		 				<td>
-		 					<input type="hidden" name="formBackingClass" value="${formCommand.getClass().getName()}" />
+		 					<input type="hidden" name="widgetClass" value="${formCommand.getClass().getName()}" />
+		 					<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
+		 					<input type="hidden" name="widgetDefaultTransition" value="${childWidget.getTransition()}" />
+		 					<!-- Add Transition -->
 		 					
 		 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>
 		 				</td>
