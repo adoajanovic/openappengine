@@ -20,6 +20,8 @@ public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinition
 	private static final String ATTR_ENTITY_VALUE_REF = "value-ref";
 	
 	private static final String ATTR_NAME = "name";
+
+	private static final String ATTR_TRANSITION = "transition";
 	
 	@Override
 	public GuiComponent parse(Element element) {
@@ -34,6 +36,11 @@ public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinition
 		String attrName = element.getAttribute(ATTR_NAME);
 		if(StringUtils.isEmpty(attrName)) {
 			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [name] cannot be empty.");
+		}
+		
+		String attrTransition = element.getAttribute(ATTR_TRANSITION);
+		if(!StringUtils.isEmpty(attrTransition)) {
+			formSingleComponent.setTransition(attrTransition);
 		}
 		
 		formSingleComponent.setName(attrName);

@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.openappengine.facade.core.component.AbstractGuiComponent;
+import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.ui.container.PageContentComponent;
+import com.openappengine.facade.core.component.ui.container.WidgetsComponent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
 
@@ -82,4 +86,25 @@ public class GuiRootComponent extends AbstractGuiComponent {
 		this.screenTransitions.add(transition);
 	}
 	
+	/**
+	 * Get Widget keyed by Id.
+	 * @param id
+	 * @return
+	 */
+	public GuiComponent getWidget(String id) {
+		if(StringUtils.isEmpty(id)) {
+			return null;
+		}
+		
+		List<WidgetsComponent> widgets = pageContent.getWidgets();
+		if(widgets != null) {
+			for (WidgetsComponent widgetsComponent : widgets) {
+				if(StringUtils.equals(widgetsComponent.getId(),id)) {
+					return widgetsComponent;
+				}
+			}
+		}
+		
+		return null;
+	}
 }
