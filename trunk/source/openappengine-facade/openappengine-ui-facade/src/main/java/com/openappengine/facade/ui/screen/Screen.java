@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import com.openappengine.facade.core.executor.action.PreActionHandler;
 import com.openappengine.facade.core.variable.Variable;
 import com.openappengine.facade.fsm.Node;
-import com.openappengine.facade.fsm.ScreenTransitionEventListener;
+import com.openappengine.facade.fsm.DefaultTransitionEventListener;
 import com.openappengine.facade.fsm.Transition;
 import com.openappengine.facade.fsm.TransitionEvent;
 import com.openappengine.facade.fsm.TransitionEventListener;
@@ -44,7 +44,7 @@ public class Screen implements Node {
 	
 	private List<Transition> transitions;
 	
-	private TransitionEventListener listener = new ScreenTransitionEventListener(this); 
+	private TransitionEventListener listener = new DefaultTransitionEventListener(this); 
 	
 	public ContainerPanel getContainerPanel() {
 		return containerPanel;

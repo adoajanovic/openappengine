@@ -9,14 +9,13 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.el.ConditionExpressionEvaluator;
-import com.openappengine.facade.ui.context.ScreenApplicationContext;
 
 
 /**
  * @author hrishikesh.joshi
  * @since Dec 28, 2011
  */
-public class ScreenTransitionEventListener extends TransitionEventListener {
+public class DefaultTransitionEventListener extends TransitionEventListener {
 	
 	private Node node;
 	
@@ -27,7 +26,7 @@ public class ScreenTransitionEventListener extends TransitionEventListener {
 	/**
 	 * @param transitions
 	 */
-	public ScreenTransitionEventListener(Node screen) {
+	public DefaultTransitionEventListener(Node screen) {
 		super();
 		this.node = screen;
 	}
