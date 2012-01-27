@@ -42,7 +42,7 @@ public class ConditionComponent implements GuiComponent {
 		return null;
 	}
 
-	public String getCondition() {
+	public String getConditionExpression() {
 		return condition;
 	}
 

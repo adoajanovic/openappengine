@@ -71,7 +71,7 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 	}
 
 	@Override
-	public ActionRequest getActionRequest() {
+	public ActionRequest createActionRequest() {
 		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one");
 		actionRequest.addActionParameter("entityName", entityName);
 		actionRequest.addActionParameter("autoFieldMap", autoFieldMap);

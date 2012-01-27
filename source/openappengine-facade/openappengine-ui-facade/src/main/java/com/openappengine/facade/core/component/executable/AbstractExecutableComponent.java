@@ -66,5 +66,5 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 		}
 	}
 
-	public abstract ActionRequest getActionRequest();
+	public abstract ActionRequest createActionRequest();
 }

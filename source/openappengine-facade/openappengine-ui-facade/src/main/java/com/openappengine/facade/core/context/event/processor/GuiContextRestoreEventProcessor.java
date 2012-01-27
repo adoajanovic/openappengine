@@ -57,7 +57,7 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 	 */
 	protected void doHandlePreRenderAction(GuiApplicationContext context,GuiComponent guiComponent) {
 		AbstractExecutableComponent exec = (AbstractExecutableComponent)guiComponent;
-		ActionRequest actionRequest = exec.getActionRequest();
+		ActionRequest actionRequest = exec.createActionRequest();
 		
 		actionDispatcher.setExternalContext(context.getExternalContext());
 		Object result = actionDispatcher.execute(actionRequest);

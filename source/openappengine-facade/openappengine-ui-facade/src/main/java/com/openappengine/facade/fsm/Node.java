@@ -6,6 +6,7 @@ package com.openappengine.facade.fsm;
 import java.util.Collection;
 import java.util.List;
 
+import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.variable.Variable;
 
 /**
@@ -16,8 +17,8 @@ public interface Node {
 	
 	Collection<Variable> getNodeVariables();
 	
-	List<Transition> getTransitions();
+	List<TransitionComponent> getTransitions();
 	
-	List<Transition> getTransitionsListeningToEvent(TransitionEvent event);
+	List<TransitionComponent> getTransitionsListeningToEvent(TransitionEvent event);
 
 }
