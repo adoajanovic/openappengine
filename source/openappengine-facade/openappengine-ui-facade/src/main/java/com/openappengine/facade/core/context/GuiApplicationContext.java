@@ -4,13 +4,13 @@
 package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
-import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.variable.VariableResolver;
+import com.openappengine.facade.fsm.TransitionEventListener;
 
 /**
  * The Screen Application Context holds all the infrastructure dependencies related
@@ -80,14 +80,15 @@ public interface GuiApplicationContext {
 	 */
 	ActionExecutor getActionExecutor();
 	
-	/**
-	 * Get the TransitionHandler for the context.
-	 * @return
-	 */
-	TransitionHandler getTransitionHandler();
+	TransitionEventListener getTransitionEventListener();
 	
 	/**
 	 * @return
 	 */
 	ExternalContext getExternalContext();
+	
+	/**
+	 *  Overriden by SubClasses to Perform Post Initialization Process.
+	 */
+	void postRootConstruction();
 }

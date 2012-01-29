@@ -17,4 +17,9 @@ public interface FormWidget extends Serializable {
 	 */
 	Object formBackingObject();
 	
+	
+	/**
+	 * @return Entity Name
+	 */
+	String getEntityName();
 }

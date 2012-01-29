@@ -14,7 +14,7 @@ import com.openappengine.facade.core.executor.action.request.DefaultActionReques
  * @author hrishi 
  * since Dec 31, 2011
  */
-public class EntityFindOneActionComponent extends AbstractExecutableComponent {
+public class EntityFindOneActionComponent extends AbstractEntityActionComponent {
 
 	private static final long serialVersionUID = 1L;
 
@@ -69,7 +69,7 @@ public class EntityFindOneActionComponent extends AbstractExecutableComponent {
 		}
 		this.fieldMaps.add(fieldMapComponent);
 	}
-
+	
 	@Override
 	public ActionRequest createActionRequest() {
 		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one");

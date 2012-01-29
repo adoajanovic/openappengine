@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
-import com.openappengine.facade.core.executor.action.Executable;
+import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 
 /**
  * @author hrishi
@@ -17,27 +17,34 @@ public class TransitionActions extends AbstractGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<Executable> executables = new ArrayList<Executable>();
+	private List<AbstractExecutableComponent> executables = new ArrayList<AbstractExecutableComponent>();
 
 	@Override
 	public String getComponentName() {
 		return "actions";
 	}
 
-	public List<Executable> getExecutables() {
+	/**
+	 * @return the executables
+	 */
+	public List<AbstractExecutableComponent> getExecutables() {
 		return executables;
 	}
 
-	public void setExecutables(List<Executable> executables) {
+
+	/**
+	 * @param executables the executables to set
+	 */
+	public void setExecutables(List<AbstractExecutableComponent> executables) {
 		this.executables = executables;
 	}
-	
-	public void addExecutable(Executable executable) {
-		if(executable == null) {
+
+	public void addExecutable(AbstractExecutableComponent executableComponent) {
+		if(executableComponent == null) {
 			return;
 		}
 		
-		this.executables.add(executable);
+		this.executables.add(executableComponent);
 	}
 
 	@Override

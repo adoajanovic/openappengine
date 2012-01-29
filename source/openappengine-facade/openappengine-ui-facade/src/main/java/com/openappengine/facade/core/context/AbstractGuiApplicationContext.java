@@ -4,7 +4,6 @@
 package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
-import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.el.DefaultJexlContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
@@ -33,15 +32,23 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	private GuiRootComponent root;
 	
 	public AbstractGuiApplicationContext() {
-		initConfiguration();
+		initializeStrategies();
 	}
 	
 	//Initialize Context XmlScreenConfiguration.
-	protected void initConfiguration() {
+	protected void initializeStrategies() {
 		actionExecutor = new DefaultActionExecutor();
-		expressionEvaluator = new SimpleExpressionEvaluator();
 		variableResolver = new ScreenContextVariableResolver(this);
 		elContext = new DefaultJexlContext();
+		initializeExpressionEvaluator();
+	}
+
+	/**
+	 * 
+	 */
+	private void initializeExpressionEvaluator() {
+		expressionEvaluator = new SimpleExpressionEvaluator();
+		expressionEvaluator.setELContext(elContext);
 	}
 	
 	@Override
@@ -64,9 +71,6 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		return actionExecutor;
 	}
 	
-	@Override
-	public abstract TransitionHandler getTransitionHandler();
-
 	@Override
 	public abstract ScreenRenderer getScreenRenderer();
 	

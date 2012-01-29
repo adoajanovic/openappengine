@@ -3,6 +3,8 @@
  */
 package com.openappengine.facade.core.executor.action.entity;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.entity.EntityValue;
 
@@ -18,6 +20,8 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	
 	private boolean updateIfExists = true;
 	
+	private String valueField;
+	
 	private EntityValue entityValue; 
 	
 	public EntitySaveActionHandler() {
@@ -30,6 +34,13 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 
 	@Override
 	public Object execute(ActionContext actionContext) {
+		
+		if(StringUtils.isEmpty(valueField)) {
+			logger.error("EntityValue (value-field) set as null. Cannot perform Save");
+			return null;
+		}
+		
+		entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
 		if(entityValue == null) {
 			logger.error("EntityValue (value-field) set as null.");
 		}
@@ -37,12 +48,12 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		EntityValue entityValueRes = null;
 		if(updateIfExists) {
 			logger.debug("Attribute 'updateIfExists' set as true, will update the value if it exists in the datastore.");
-			entityValueRes = getEntityFacade().saveOrUpdateEntityValue(entityValue);	
+			getEntityFacade().saveOrUpdateEntityValue(entityValue);	
 		} else {
 			logger.debug("Attribute 'updateIfExists' set as false, if the entity value exists in the datastore, an exception is thrown.");
-			entityValueRes = (EntityValue) getEntityFacade().saveEntityValue(entityValue);
+			getEntityFacade().saveEntityValue(entityValue);
 		}
-		return entityValueRes;
+		return entityValue;
 	}
 
 	public EntityValue getEntityValue() {
@@ -59,6 +70,14 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 
 	public void setUpdateIfExists(boolean updateIfExists) {
 		this.updateIfExists = updateIfExists;
+	}
+
+	public String getValueField() {
+		return valueField;
+	}
+
+	public void setValueField(String valueField) {
+		this.valueField = valueField;
 	}
 
 }

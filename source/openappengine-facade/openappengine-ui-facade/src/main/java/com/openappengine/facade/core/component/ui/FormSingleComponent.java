@@ -101,4 +101,12 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 		this.transition = transition;
 	}
 
+	@Override
+	public String getEntityName() {
+		if(entityValue != null) {
+			return entityValue.getEntityName();
+		}
+		return null;
+	}
+
 }

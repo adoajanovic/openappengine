@@ -3,8 +3,7 @@
  */
 package com.openappengine.facade.core.executor.action.context;
 
-import java.util.Map;
-
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
@@ -29,6 +28,6 @@ public interface ActionContextFactory {
 	 * @param actionHandler
 	 * @param parameters
 	 */
-	ActionContext createActionContext(ActionHandler actionHandler, Map<String, Object> parameters, ELContext elContext,ExternalContext externalContext); 
+	ActionContext createActionContext(ActionHandler actionHandler, ActionRequest actionRequest, ELContext elContext,ExternalContext externalContext); 
 
 }

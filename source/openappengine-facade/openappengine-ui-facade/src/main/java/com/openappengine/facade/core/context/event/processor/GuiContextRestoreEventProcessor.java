@@ -24,7 +24,7 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {
 		Assert.notNull(context, "Context Null !");
 		GuiRootComponent uiRoot = context.getUIRoot();
-		
+		context.postRootConstruction();
 		handlePreRenderActions(context, uiRoot);
 		
 	}
@@ -60,6 +60,8 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 		ActionRequest actionRequest = exec.createActionRequest();
 		
 		actionDispatcher.setExternalContext(context.getExternalContext());
+		actionDispatcher.setELContext(context.getELContext());
+		
 		Object result = actionDispatcher.execute(actionRequest);
 		if(exec.hasValueField()) {
 			String valueField = exec.getValueField();

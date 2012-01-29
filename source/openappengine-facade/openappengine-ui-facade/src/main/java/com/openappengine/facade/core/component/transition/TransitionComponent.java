@@ -3,12 +3,10 @@
  */
 package com.openappengine.facade.core.component.transition;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.condition.ConditionComponent;
-import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.transition.response.ConditionalResponseComponent;
 import com.openappengine.facade.core.component.transition.response.DefaultResponseComponent;
 import com.openappengine.facade.core.component.transition.response.ErrorResponseComponent;
@@ -101,4 +99,36 @@ public class TransitionComponent implements GuiComponent {
 	public void setTransitionActions(TransitionActions transitionActions) {
 		this.transitionActions = transitionActions;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TransitionComponent other = (TransitionComponent) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }

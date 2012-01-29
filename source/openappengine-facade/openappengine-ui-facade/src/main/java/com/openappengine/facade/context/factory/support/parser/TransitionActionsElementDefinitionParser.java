@@ -21,7 +21,7 @@ public class TransitionActionsElementDefinitionParser extends AbstractGuiElement
 					if(!isNodeParseable(childNode.getNodeName())) {
 						GuiElementDefinitionParser parser = createNodeParserDelegate(childNode);
 						AbstractExecutableComponent component = (AbstractExecutableComponent) parser.parse((Element) childNode);
-						transitionActions.addChildComponent(component);
+						transitionActions.addExecutable(component);
 					}
 				}
 			}

@@ -28,5 +28,9 @@ public interface ValueRefAware<T> {
 	 */
 	T getValue();
 
+	/**
+	 * Set Value
+	 * @param t
+	 */
 	void setValue(T t);
 }

@@ -10,7 +10,10 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.WebGuiApplicationContext;
 import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextRestoreEvent;
+import com.openappengine.facade.core.el.ExpressionEvaluator;
+import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.ext.ExternalContext;
+import com.openappengine.facade.fsm.TransitionEventListener;
 
 /**
  * @author hrishikesh.joshi
@@ -28,7 +31,8 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	
 	@Override
 	public GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext) {
-		GuiApplicationContext context = new WebGuiApplicationContext(externalContext);
+		WebGuiApplicationContext context = new WebGuiApplicationContext(externalContext);
+		
 		GuiRootComponent uiRoot = createGuiRoot(resource, context);
 		uiRoot.setContext(context);
 		

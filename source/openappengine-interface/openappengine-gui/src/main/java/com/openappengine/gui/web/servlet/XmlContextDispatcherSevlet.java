@@ -2,8 +2,6 @@ package com.openappengine.gui.web.servlet;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -19,7 +17,6 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.context.request.RequestAttributes;
@@ -34,6 +31,9 @@ import com.openappengine.facade.context.factory.WebContextFactoryInitializationC
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.ext.ExternalWebContext;
+import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.context.EntityFacadeContext;
+import com.openappengine.facade.fsm.TransitionEvent;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**
@@ -125,7 +125,9 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
 			String widgetBackingClassName = httpServletRequest.getParameter("widgetClass");
 			String widgetId = httpServletRequest.getParameter("widgetId");
-			String widgetDefaultTransition = httpServletRequest.getParameter("widgetDefaultTransition");
+			String widgetTransition = httpServletRequest.getParameter("widgetTransition");
+			String widgetValueRef = httpServletRequest.getParameter("widgetValueRef");
+			String widgetEntityName = httpServletRequest.getParameter("widgetEntityName");
 			
 			if(!StringUtils.isEmpty(widgetBackingClassName)) {
 				try {
@@ -133,15 +135,27 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 					Object bindedInstance = formBackingClass.newInstance();
 					ServletRequestDataBinder binder = new ServletRequestDataBinder(bindedInstance);
 					//TODO - Validate and bind
+					//TODO - If Valid bind.
+					
 					binder.bind(contextWrappedRequest);
 					
-					//TODO - If Valid bind.
+					
+					EntityValue entityValue = (EntityValue) guiApplicationContext.getELContext().getVariable(widgetValueRef);
+					entityValue.setInstance(bindedInstance);
+					
 					guiApplicationContext.getExternalContext().getModelMap().addAttribute(widgetId, bindedInstance);
 					
+					guiApplicationContext.getELContext().registerELContextVariable(widgetValueRef, entityValue);
+					
 					//TODO- Check transition triggered and perform Transition.
+					if(StringUtils.isNotEmpty(widgetTransition)) {
+						TransitionEvent transitionEvent = new TransitionEvent(widgetTransition,guiApplicationContext.getExternalContext(),guiApplicationContext.getELContext());
+						guiApplicationContext.getTransitionEventListener().onApplicationEvent(transitionEvent);
+					}
 					
 				} catch(Exception e) {
 					//TODO - Handle
+					e.printStackTrace();
 				}
 				
 			}
