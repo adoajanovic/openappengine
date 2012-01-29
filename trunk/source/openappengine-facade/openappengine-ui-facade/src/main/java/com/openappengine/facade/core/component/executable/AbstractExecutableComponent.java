@@ -19,18 +19,8 @@ public abstract class AbstractExecutableComponent extends AbstractGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 
-	private String outgoingTransition;
-
 	private String valueField;
-
-	public String getOutgoingTransition() {
-		return outgoingTransition;
-	}
-
-	public void setOutgoingTransition(String outgoingTransition) {
-		this.outgoingTransition = outgoingTransition;
-	}
-
+	
 	public String getValueField() {
 		return valueField;
 	}

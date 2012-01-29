@@ -19,6 +19,7 @@ public class EntitySaveActionElementDefinitionParser extends AbstractGuiElementD
 		if(StringUtils.isEmpty(attrValueField)) {
 			throw new XmlDefinitionParserException("Attribute value-field is mandatory for entity-save.");
 		}
+		entitySaveActionComponent.setValueField(attrValueField);
 		
 		String attrUpdateIfExists = element.getAttribute(ATTR_UPDATE_IF_EXISTS);
 		if(!StringUtils.isEmpty(attrUpdateIfExists)) {

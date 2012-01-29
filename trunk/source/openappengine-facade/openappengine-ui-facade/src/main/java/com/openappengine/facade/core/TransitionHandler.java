@@ -4,6 +4,7 @@
 package com.openappengine.facade.core;
 
 import com.openappengine.facade.core.context.GuiApplicationContextAware;
+import com.openappengine.facade.fsm.TransitionEvent;
 
 /**
  * @author hrishikesh.joshi
@@ -11,4 +12,6 @@ import com.openappengine.facade.core.context.GuiApplicationContextAware;
  */
 public interface TransitionHandler extends GuiApplicationContextAware {
 
+	public void onTransition(TransitionEvent transitionEvent);
+	
 }

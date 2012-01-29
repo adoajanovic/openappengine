@@ -51,7 +51,9 @@
 		 				<td>
 		 					<input type="hidden" name="widgetClass" value="${formCommand.getClass().getName()}" />
 		 					<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
-		 					<input type="hidden" name="widgetDefaultTransition" value="${childWidget.getTransition()}" />
+		 					<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
+		 					<input type="hidden" name="widgetEntityName" value="${childWidget.getEntityName()}" />
+		 					<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 		 					<!-- Add Transition -->
 		 					
 		 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>

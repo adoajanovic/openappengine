@@ -3,10 +3,11 @@
  */
 package com.openappengine.facade.core.context;
 
-import com.openappengine.facade.core.TransitionHandler;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
+import com.openappengine.facade.fsm.WebTransitionEventListener;
+import com.openappengine.facade.fsm.TransitionEventListener;
 
 /**
  * The XmlScreenApplicationContext for the Web JEE Environment.
@@ -16,30 +17,25 @@ import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
  */
 public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 
-	protected TransitionHandler transitionHandler;
-	
 	protected ScreenRenderer screenRenderer;
 	
 	protected ExternalContext externalContext;
 	
+	protected TransitionEventListener transitionEventListener;
+	
 	public WebGuiApplicationContext(ExternalContext externalContext) {
-		initWebGuiApplicationContext();
-		
 		this.externalContext = externalContext;
 	}
 
 	/**
 	 * Initializations for the JEE environment.
 	 */
-	protected void initWebGuiApplicationContext() {
+	public void postRootConstruction() {
 		screenRenderer = new WebXmlScreenRenderer();
+		transitionEventListener = new WebTransitionEventListener(getUIRoot());
+		transitionEventListener.setExpressionEvaluator(getExpressionEvaluator());
 	}
 	
-	@Override
-	public TransitionHandler getTransitionHandler() {
-		return transitionHandler;
-	}
-
 	@Override
 	public ScreenRenderer getScreenRenderer() {
 		return screenRenderer;
@@ -49,4 +45,17 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	public ExternalContext getExternalContext() {
 		return externalContext;
 	}
+
+	@Override
+	public TransitionEventListener getTransitionEventListener() {
+		return transitionEventListener;
+	}
+
+	/**
+	 * @param transitionEventListener the transitionEventListener to set
+	 */
+	public void setTransitionEventListener(TransitionEventListener transitionEventListener) {
+		this.transitionEventListener = transitionEventListener;
+	}
+	
 }

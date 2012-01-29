@@ -1,17 +1,14 @@
 package com.openappengine.facade.core.component.executable;
 
 import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.core.executor.action.request.EntityActionRequest;
 
-public class EntitySaveActionComponent extends AbstractExecutableComponent {
+public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 
 	private static final long serialVersionUID = 1L;
 	
 	private boolean updateIfExists = true;
 	
-	private EntityValue entityValue; 
-
 	@Override
 	public String getComponentName() {
 		return "entity-save";
@@ -19,9 +16,10 @@ public class EntitySaveActionComponent extends AbstractExecutableComponent {
 
 	@Override
 	public ActionRequest createActionRequest() {
-		ActionRequest actionRequest = new DefaultActionRequest("entity-save");
+		EntityActionRequest actionRequest = new EntityActionRequest("entity-save");
 		actionRequest.addActionParameter("updateIfExists", updateIfExists);
-		actionRequest.addActionParameter("entityValue", entityValue);
+		actionRequest.addActionParameter("valueField", getValueField());
+		actionRequest.setValueFields(new String[]{getValueField()});
 		return actionRequest;
 	}
 
@@ -31,14 +29,6 @@ public class EntitySaveActionComponent extends AbstractExecutableComponent {
 
 	public void setUpdateIfExists(boolean updateIfExists) {
 		this.updateIfExists = updateIfExists;
-	}
-
-	public EntityValue getEntityValue() {
-		return entityValue;
-	}
-
-	public void setEntityValue(EntityValue entityValue) {
-		this.entityValue = entityValue;
 	}
 
 }
