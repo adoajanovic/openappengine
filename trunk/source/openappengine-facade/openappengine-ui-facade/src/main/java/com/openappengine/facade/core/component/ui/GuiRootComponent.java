@@ -170,6 +170,35 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 		messages.add(message);
 	}
 	
+	public List<Message> getInfoMessages() {
+		String sev = MessageSeverity.INFO;
+		return getMessages(sev);
+	}
+	
+	public List<Message> getErrorMessages() {
+		String sev = MessageSeverity.ERROR;
+		return getMessages(sev);
+	}
+	
+	public List<Message> getWarningMessages() {
+		String sev = MessageSeverity.WARNING;
+		return getMessages(sev);
+	}
+
+	/**
+	 * @param severity
+	 * @return
+	 */
+	private List<Message> getMessages(String severity) {
+		List<Message> res = new ArrayList<Message>();
+		for (Message message : messages) {
+			if(message.getMessageType().equals(severity)) {
+				res.add(message);
+			}
+		}
+		return res;
+	}
+	
 	public void clearMessages() {
 		messages.clear();
 	}
