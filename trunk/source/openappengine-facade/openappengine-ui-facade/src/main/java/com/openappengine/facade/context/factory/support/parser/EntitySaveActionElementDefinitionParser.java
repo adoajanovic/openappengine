@@ -12,6 +12,8 @@ public class EntitySaveActionElementDefinitionParser extends AbstractGuiElementD
 	
 	private static final String ATTR_VALUE_FIELD = "value-field";
 	
+	private static final String ATTR_SUCCESS_MESSAGE = "success-message";
+	
 	@Override
 	public GuiComponent parse(Element element) {
 		EntitySaveActionComponent entitySaveActionComponent = new EntitySaveActionComponent();
@@ -25,6 +27,11 @@ public class EntitySaveActionElementDefinitionParser extends AbstractGuiElementD
 		if(!StringUtils.isEmpty(attrUpdateIfExists)) {
 			boolean updateIfExists = Boolean.parseBoolean(attrUpdateIfExists);
 			entitySaveActionComponent.setUpdateIfExists(updateIfExists);
+		}
+		
+		String attrSuccessMessage = element.getAttribute(ATTR_SUCCESS_MESSAGE);
+		if(!StringUtils.isEmpty(attrSuccessMessage)) {
+			entitySaveActionComponent.setSuccessMessage(attrSuccessMessage);
 		}
 		
 		return entitySaveActionComponent;

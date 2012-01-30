@@ -26,6 +26,7 @@ public class FormWidgetProcessor implements WidgetProcessor {
 
 	@Override
 	public Object processWidget(WidgetProcessorContext context) {
+		EntityValue entityValue = null;
 		try {
 			Object bindedInstance = context.getWidgetBackingClass().newInstance();
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(bindedInstance);
@@ -33,7 +34,7 @@ public class FormWidgetProcessor implements WidgetProcessor {
 			// TODO - If Valid bind.
 			binder.bind((ServletRequest) context.getExternalContext().getRequest());
 
-			EntityValue entityValue = (EntityValue) context.getELContext().getVariable(context.getWidgetBackingObjectValueRef());
+			entityValue = (EntityValue) context.getELContext().getVariable(context.getWidgetBackingObjectValueRef());
 			entityValue.setInstance(bindedInstance);
 
 			// Replace the ModelMap attribute with the new binded instance.
@@ -54,7 +55,7 @@ public class FormWidgetProcessor implements WidgetProcessor {
 			// TODO - Handle
 			e.printStackTrace();
 		}
-		return null;
+		return entityValue;
 	}
 
 }
