@@ -32,7 +32,7 @@
  				
  			<#assign formCommand = childWidget.formBackingObject()>
  			
- 			<!-- Form -->
+ 			<!-- Widget : form-single -->
 	 			<form action="${currentURL}" method="post">
 	 			
 	 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
@@ -44,27 +44,38 @@
 		 		<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 		 		
 	 			<fieldset>
-	 			<table>
-		 			<#list childWidget.getFormFields() as field>
-		 				<#assign property=childWidget.getId()+"."+field.property />
-		 				<tr>
+		 			<table>
+		 				<!-- Message -->
+		 				<#if childWidget.getMessage()??>
+			 				<tr>
+			 					<th colspan="3">
+			 						<div class="info">
+			 							${childWidget.getMessage()}
+			 						</div>
+			 					</th>
+			 				</tr>
+		 				</#if>
+		 				
+			 			<#list childWidget.getFormFields() as field>
+			 				<#assign property=childWidget.getId()+"."+field.property />
+			 				<tr>
+				 				<td>
+				 					<label>${field.property}</label>
+				 				</td>
+				 				<td>
+				 					<@spring.formInput property/>			
+				 				</td>
+			 				</tr>
+			 			</#list>
+			 			<tr>
 			 				<td>
-			 					<label>${field.property}</label>
+			 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>
 			 				</td>
-			 				<td>
-			 					<@spring.formInput property/>			
-			 				</td>
-		 				</tr>
-		 			</#list>
-		 			<tr>
-		 				<td>
-		 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>
-		 				</td>
-		 			</tr>
-	 			</table>
+			 			</tr>
+		 			</table>
 	 			</fieldset>
 	 			</form>
- 			<!-- Form -->
+ 			<!-- Widget : form-single -->
  			
  			<#else>
  				<div class="error">
