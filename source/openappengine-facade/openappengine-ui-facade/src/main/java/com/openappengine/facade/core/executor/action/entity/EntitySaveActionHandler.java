@@ -34,7 +34,6 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 
 	@Override
 	public Object execute(ActionContext actionContext) {
-		
 		if(StringUtils.isEmpty(valueField)) {
 			logger.error("EntityValue (value-field) set as null. Cannot perform Save");
 			return null;
@@ -45,7 +44,6 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			logger.error("EntityValue (value-field) set as null.");
 		}
 		
-		EntityValue entityValueRes = null;
 		if(updateIfExists) {
 			logger.debug("Attribute 'updateIfExists' set as true, will update the value if it exists in the datastore.");
 			getEntityFacade().saveOrUpdateEntityValue(entityValue);	
