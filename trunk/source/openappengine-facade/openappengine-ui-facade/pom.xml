@@ -17,6 +17,7 @@
   <properties>
 		<jsf.version>2.0.3-FCS</jsf.version>
 		<ice.version>2.0.0</ice.version>
+		<org.springframework-version>3.0.5.RELEASE</org.springframework-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
@@ -73,7 +74,24 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.9.5</version>
-        </dependency> 
+        </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency> 
   </dependencies>
   <build>
   	<plugins>

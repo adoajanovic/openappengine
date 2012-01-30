@@ -28,11 +28,15 @@ import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.GuiContextFactory;
 import com.openappengine.facade.context.factory.WebContextFactoryInitializationCallback;
+import com.openappengine.facade.core.component.widget.context.HttpServletWidgetProcessorContextFactory;
+import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
+import com.openappengine.facade.core.component.widget.context.WidgetProcessorContextFactory;
+import com.openappengine.facade.core.component.widget.processor.WidgetProcessor;
+import com.openappengine.facade.core.component.widget.processor.factory.WidgetProcessorFactory;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.ext.ExternalWebContext;
 import com.openappengine.facade.entity.EntityValue;
-import com.openappengine.facade.entity.context.EntityFacadeContext;
 import com.openappengine.facade.fsm.TransitionEvent;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
@@ -43,6 +47,8 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	
 	protected final Logger logger = Logger.getLogger(getClass());
 	
+	public static final String GUI_WEB_APPLICATION_CONTEXT = "GUI_WEB_APPLICATION_CONTEXT";
+	
 	private String defaultScreenFileExtension = ".screen";
 	
 	private String screenFileExtension;
@@ -51,13 +57,15 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String GUI_WEB_APPLICATION_CONTEXT = "GUI_WEB_APPLICATION_CONTEXT";
-
 	private GuiContextFactory contextFactory;
 	
 	private ServletContext servletContext;
 
 	private String path = "/home";
+	
+	private WidgetProcessorContextFactory widgetProcessorContextFactory = new HttpServletWidgetProcessorContextFactory();
+
+	private WidgetProcessorFactory widgetProcessorFactory = new WidgetProcessorFactory();;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -118,47 +126,16 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		if(httpServletRequest.getMethod().equals("GET")) {
 			//Create New GUI Application Context from Factory.
 			guiApplicationContext = createGuiApplicationContext(resource, externalContext);
+			
 			contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
+			
 			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
+			
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 			//Restore the Context from the Factory.
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
-			String widgetBackingClassName = httpServletRequest.getParameter("widgetClass");
-			String widgetId = httpServletRequest.getParameter("widgetId");
-			String widgetTransition = httpServletRequest.getParameter("widgetTransition");
-			String widgetValueRef = httpServletRequest.getParameter("widgetValueRef");
-			String widgetEntityName = httpServletRequest.getParameter("widgetEntityName");
 			
-			if(!StringUtils.isEmpty(widgetBackingClassName)) {
-				try {
-					Class<?> formBackingClass = ClassUtils.forName(widgetBackingClassName, getClass().getClassLoader());
-					Object bindedInstance = formBackingClass.newInstance();
-					ServletRequestDataBinder binder = new ServletRequestDataBinder(bindedInstance);
-					//TODO - Validate and bind
-					//TODO - If Valid bind.
-					
-					binder.bind(contextWrappedRequest);
-					
-					
-					EntityValue entityValue = (EntityValue) guiApplicationContext.getELContext().getVariable(widgetValueRef);
-					entityValue.setInstance(bindedInstance);
-					
-					guiApplicationContext.getExternalContext().getModelMap().addAttribute(widgetId, bindedInstance);
-					
-					guiApplicationContext.getELContext().registerELContextVariable(widgetValueRef, entityValue);
-					
-					//TODO- Check transition triggered and perform Transition.
-					if(StringUtils.isNotEmpty(widgetTransition)) {
-						TransitionEvent transitionEvent = new TransitionEvent(widgetTransition,guiApplicationContext.getExternalContext(),guiApplicationContext.getELContext());
-						guiApplicationContext.getTransitionEventListener().onApplicationEvent(transitionEvent);
-					}
-					
-				} catch(Exception e) {
-					//TODO - Handle
-					e.printStackTrace();
-				}
-				
-			}
+			doProcessWidgetPost(contextWrappedRequest, guiApplicationContext);
 		}
 		
 		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
@@ -168,6 +145,26 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		doDispatch(contextWrappedRequest,httpServletResponse);
 	}
 
+	/**
+	 * @param request
+	 * @param guiApplicationContext
+	 * @throws LinkageError
+	 */
+	private void doProcessWidgetPost(HttpServletRequest request,GuiApplicationContext guiApplicationContext) throws LinkageError {
+		
+		String widgetType = request.getParameter("widgetType");
+		
+		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory.createWidgetProcessorContext(guiApplicationContext.getExternalContext(),guiApplicationContext.getELContext(),guiApplicationContext.getTransitionEventListener());
+		WidgetProcessor widgetProcessor = widgetProcessorFactory.getWidgetProcessor(widgetType);
+		widgetProcessor.processWidget(widgetProcessorContext);
+	}
+
+	/**
+	 * @param httpServletRequest
+	 * @param httpServletResponse
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doDispatch(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse)
 			throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = getRequestDispatcher(httpServletRequest);
@@ -231,6 +228,27 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	 */
 	public void setScreenFileExtension(String screenFileExtension) {
 		this.screenFileExtension = screenFileExtension;
+	}
+
+	/**
+	 * @return the widgetProcessorContextFactory
+	 */
+	protected WidgetProcessorContextFactory getWidgetProcessorContextFactory() {
+		return widgetProcessorContextFactory;
+	}
+
+	/**
+	 * @param widgetProcessorContextFactory the widgetProcessorContextFactory to set
+	 */
+	public void setWidgetProcessorContextFactory(WidgetProcessorContextFactory widgetProcessorContextFactory) {
+		if(widgetProcessorContextFactory == null) {
+			throw new IllegalArgumentException("WidgetProcessorContextFactory cannot be null.");
+		} else if (!HttpServletWidgetProcessorContextFactory.class
+						.isAssignableFrom(widgetProcessorContextFactory.getClass())) {
+			throw new IllegalArgumentException(
+					"WidgetProcessorContext cannot be initialized. The WidgetProcessorContextFactory is either null or not extending the HttpServletWidgetProcessorContextFactory class.");
+		}
+		this.widgetProcessorContextFactory = widgetProcessorContextFactory;
 	}
 
 }
