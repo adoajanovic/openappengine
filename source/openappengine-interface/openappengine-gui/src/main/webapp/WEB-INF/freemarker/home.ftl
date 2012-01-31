@@ -20,7 +20,7 @@
  <div id="main">
  
  	<!-- Message -->
-	<#if infoMessages??>
+	<#if infoMessages?size!=0>
 		<div class="info">
 			<ul>
 			<#list infoMessages as message>
