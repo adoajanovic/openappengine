@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.TransitionHandler;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 
@@ -25,6 +26,8 @@ public class ContextConfiguration implements Serializable {
 	private ActionExecutor actionExecutor;
 	
 	private ELContext elContext;
+	
+	private MessageContext messageContext;
 
 	public TransitionHandler getTransitionHandler() {
 		return transitionHandler;
@@ -56,5 +59,13 @@ public class ContextConfiguration implements Serializable {
 
 	public void setElContext(ELContext elContext) {
 		this.elContext = elContext;
+	}
+
+	public MessageContext getMessageContext() {
+		return messageContext;
+	}
+
+	public void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
 	}
 }

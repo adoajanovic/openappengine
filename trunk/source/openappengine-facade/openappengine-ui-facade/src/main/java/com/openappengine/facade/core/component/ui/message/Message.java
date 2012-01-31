@@ -15,7 +15,7 @@ public class Message implements Serializable {
 	
 	private String code;
 	
-	private String messageType;
+	private int messageType;
 	
 	public Message() {
 	}
@@ -24,7 +24,7 @@ public class Message implements Serializable {
 	 * @param code
 	 * @param messageType
 	 */
-	public Message(String code, String messageType) {
+	public Message(String code, int messageType) {
 		super();
 		this.code = code;
 		this.messageType = messageType;
@@ -38,11 +38,11 @@ public class Message implements Serializable {
 		this.code = code;
 	}
 
-	public String getMessageType() {
+	public int getMessageType() {
 		return messageType;
 	}
 
-	public void setMessageType(String messageType) {
+	public void setMessageType(int messageType) {
 		this.messageType = messageType;
 	}
 
