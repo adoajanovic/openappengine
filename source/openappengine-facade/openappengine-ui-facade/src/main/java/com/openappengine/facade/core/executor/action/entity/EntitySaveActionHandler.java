@@ -24,6 +24,8 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	
 	private EntityValue entityValue; 
 	
+	private String successMessage;
+	
 	public EntitySaveActionHandler() {
 	}
 
@@ -51,6 +53,12 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			logger.debug("Attribute 'updateIfExists' set as false, if the entity value exists in the datastore, an exception is thrown.");
 			getEntityFacade().saveEntityValue(entityValue);
 		}
+		
+		if(StringUtils.isNotBlank(successMessage)) {
+			actionContext.getMessageContext().clearAllInfoMessages();
+			actionContext.getMessageContext().addInfoMessage(successMessage);
+		}
+				
 		return entityValue;
 	}
 
@@ -76,6 +84,14 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 
 	public void setValueField(String valueField) {
 		this.valueField = valueField;
+	}
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
 	}
 
 }

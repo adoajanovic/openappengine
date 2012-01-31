@@ -13,21 +13,23 @@ public class Message implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String elementId;
+	
 	private String code;
 	
-	private int messageType;
+	private int severity;
 	
 	public Message() {
 	}
 
 	/**
 	 * @param code
-	 * @param messageType
+	 * @param severity
 	 */
-	public Message(String code, int messageType) {
+	public Message(String code, int severity) {
 		super();
 		this.code = code;
-		this.messageType = messageType;
+		this.severity = severity;
 	}
 
 	public String getCode() {
@@ -38,12 +40,20 @@ public class Message implements Serializable {
 		this.code = code;
 	}
 
-	public int getMessageType() {
-		return messageType;
+	public int getMessageSeverity() {
+		return severity;
 	}
 
-	public void setMessageType(int messageType) {
-		this.messageType = messageType;
+	public void setMessageSeverity(int messageType) {
+		this.severity = messageType;
+	}
+
+	public String getElementId() {
+		return elementId;
+	}
+
+	public void setElementId(String elementId) {
+		this.elementId = elementId;
 	}
 
 }

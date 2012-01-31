@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.executor.action;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 
@@ -29,4 +30,6 @@ public interface ActionContext {
 	 * @return
 	 */
 	ExternalContext getExternalContext();
+	
+	MessageContext getMessageContext();
 }

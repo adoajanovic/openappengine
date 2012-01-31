@@ -135,6 +135,11 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 			//Restore the Context from the Factory.
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
 			
+			//Clear the Context Messages
+			guiApplicationContext.getMessageContext().clearAllInfoMessages();
+			guiApplicationContext.getMessageContext().clearAllWarningMessages();
+			guiApplicationContext.getMessageContext().clearAllErrorMessages();
+			
 			doProcessWidgetPost(contextWrappedRequest, guiApplicationContext);
 		}
 		
@@ -154,7 +159,13 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		
 		String widgetType = request.getParameter("widgetType");
 		
-		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory.createWidgetProcessorContext(guiApplicationContext.getExternalContext(),guiApplicationContext.getELContext(),guiApplicationContext.getTransitionEventListener());
+				
+		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory
+				.createWidgetProcessorContext(
+						guiApplicationContext.getExternalContext(),
+						guiApplicationContext.getELContext(),
+						guiApplicationContext.getTransitionEventListener(),
+						guiApplicationContext.getMessageContext());
 		WidgetProcessor widgetProcessor = widgetProcessorFactory.getWidgetProcessor(widgetType);
 		widgetProcessor.processWidget(widgetProcessorContext);
 	}

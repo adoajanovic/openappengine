@@ -5,6 +5,7 @@ package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.ext.ExternalContext;
@@ -81,6 +82,8 @@ public interface GuiApplicationContext {
 	ActionExecutor getActionExecutor();
 	
 	TransitionEventListener getTransitionEventListener();
+	
+	MessageContext getMessageContext();
 	
 	/**
 	 * @return

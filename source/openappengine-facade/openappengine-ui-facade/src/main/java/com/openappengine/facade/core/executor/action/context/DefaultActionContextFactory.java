@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.component.value.ValueFieldAware;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
@@ -25,9 +26,9 @@ public class DefaultActionContextFactory implements ActionContextFactory {
 	private ELContextVariableResolver elContextVariableResolver;
 
 	@Override
-	public ActionContext createActionContext(ActionHandler actionHandler, ActionRequest actionRequest, ELContext elContext,ExternalContext externalContext) {
+	public ActionContext createActionContext(ActionHandler actionHandler, ActionRequest actionRequest, ELContext elContext,ExternalContext externalContext,MessageContext messageContext) {
 		ActionHandler wrappedActionHandler = mapActionParameters(actionHandler, actionRequest);
-		ActionContext context = new DefaultActionContext(externalContext,elContext,wrappedActionHandler);
+		ActionContext context = new DefaultActionContext(externalContext,elContext,wrappedActionHandler,messageContext);
 		elContextVariableResolver = new ELContextVariableResolver(elContext);
 		return context;
 	}

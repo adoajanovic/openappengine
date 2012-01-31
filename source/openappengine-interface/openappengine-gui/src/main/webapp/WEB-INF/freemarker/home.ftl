@@ -18,6 +18,20 @@
  <br/><br/>
  	
  <div id="main">
+ 
+ 	<!-- Message -->
+	<#if infoMessages??>
+		<div class="messages">
+			<ul>
+			<#list infoMessages as message>
+				<li>
+					${message.code}
+				</li>
+			</#list>
+			</ul>
+		</div>
+	</#if>
+ 
  	<#assign pageContent = uiRoot.pageContent >
  	<#assign widgets = pageContent.getWidgets() >
  	
@@ -45,18 +59,7 @@
 		 		
 	 			<fieldset>
 		 			<table>
-		 				<!-- Message -->
-		 				<#if childWidget.getMessage()??>
-			 				<tr>
-			 					<th colspan="3">
-			 						<div class="info">
-			 							${childWidget.getMessage()}
-			 						</div>
-			 					</th>
-			 				</tr>
-		 				</#if>
-		 				
-			 			<#list childWidget.getFormFields() as field>
+		 				<#list childWidget.getFormFields() as field>
 			 				<#assign property=childWidget.getId()+"."+field.property />
 			 				<tr>
 				 				<td>

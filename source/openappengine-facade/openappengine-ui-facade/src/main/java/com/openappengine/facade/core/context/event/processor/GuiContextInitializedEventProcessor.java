@@ -19,10 +19,18 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {
 		logger.info("Processing Context Initialized Event.");
 		
+		//Add Root to the Model Map.
 		GuiRootComponent root = context.getUIRoot();
 		context.getExternalContext().addModelMapAttribute("uiRoot", root);
+		
 		//Resolve Components Value Refs
 		resolveGuiComponentValueRef(context.getUIRoot().getPageContent(), context);
+		
+		//Add MessageContext messages.
+		context.getExternalContext().addModelMapAttribute("contextMessages", context.getMessageContext().getAllMessages());
+		context.getExternalContext().addModelMapAttribute("errorMessages", context.getMessageContext().getErroMessages());
+		context.getExternalContext().addModelMapAttribute("infoMessages", context.getMessageContext().getInfoMessages());
+		context.getExternalContext().addModelMapAttribute("warningMessages", context.getMessageContext().getWarningMessages());
 	}
 
 	private void resolveGuiComponentValueRef(GuiComponent root, GuiApplicationContext context) {

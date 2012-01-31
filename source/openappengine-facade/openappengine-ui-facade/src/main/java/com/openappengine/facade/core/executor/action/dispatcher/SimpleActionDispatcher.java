@@ -11,6 +11,7 @@ import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.ActionHandler;
@@ -35,6 +36,8 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	
 	private ExternalContext externalContext;
 	
+	private MessageContext messageContext;
+	
 	public SimpleActionDispatcher() {
 	}
 
@@ -52,7 +55,7 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		Assert.notNull(actionRequest, "Action Request cannot be empty.");
 		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
 		
-		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest, elContext, externalContext);
+		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest, elContext, externalContext,messageContext);
 		Object result = performActionProcessing(actionContext);
 		return result;
 	}
@@ -93,5 +96,13 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	
 	protected ExternalContext getExternalContext() {
 		return externalContext;
+	}
+
+	public MessageContext getMessageContext() {
+		return messageContext;
+	}
+
+	public void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
 	}
 }

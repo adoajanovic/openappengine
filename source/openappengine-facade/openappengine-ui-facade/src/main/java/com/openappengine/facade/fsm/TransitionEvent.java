@@ -6,6 +6,7 @@ package com.openappengine.facade.fsm;
 import org.springframework.context.ApplicationEvent;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
@@ -22,11 +23,14 @@ public class TransitionEvent extends ApplicationEvent {
 	
 	private ELContext elContext;
 	
-	public TransitionEvent(String eventName,ExternalContext externalContext,ELContext elContext) {
+	private MessageContext messageContext;
+	
+	public TransitionEvent(String eventName,ExternalContext externalContext,ELContext elContext,MessageContext messageContext) {
 		super(eventName);
 		this.eventName = eventName;
 		this.setExternalContext(externalContext);
 		this.setElContext(elContext);
+		this.setMessageContext(messageContext);
 	}
 
 	public String getEventName() {
@@ -51,5 +55,13 @@ public class TransitionEvent extends ApplicationEvent {
 
 	protected void setElContext(ELContext elContext) {
 		this.elContext = elContext;
+	}
+
+	public MessageContext getMessageContext() {
+		return messageContext;
+	}
+
+	protected void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
 	}
 }
