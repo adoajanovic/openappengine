@@ -125,23 +125,22 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 		
 		if(httpServletRequest.getMethod().equals("GET")) {
 			//Create New GUI Application Context from Factory.
-			guiApplicationContext = createGuiApplicationContext(resource, externalContext);
-			
+			guiApplicationContext = createGuiApplicationContext(resource);
+			guiApplicationContext.setExternalContext(externalContext);
 			contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
-			
 			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
-			
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 			//Restore the Context from the Factory.
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
+			guiApplicationContext.setExternalContext(externalContext);
 			
 			//Clear the Context Messages
-			guiApplicationContext.getMessageContext().clearAllInfoMessages();
-			guiApplicationContext.getMessageContext().clearAllWarningMessages();
-			guiApplicationContext.getMessageContext().clearAllErrorMessages();
+			guiApplicationContext.getMessageContext().clearAllMessages();
 			
-			doProcessWidgetPost(contextWrappedRequest, guiApplicationContext);
+			doProcessWidgetPost(httpServletRequest, guiApplicationContext);
 		}
+		
+		contextFactory.refreshMessages(guiApplicationContext);
 		
 		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
 		contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(guiApplicationContext, httpServletRequest);
@@ -156,9 +155,7 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	 * @throws LinkageError
 	 */
 	private void doProcessWidgetPost(HttpServletRequest request,GuiApplicationContext guiApplicationContext) throws LinkageError {
-		
 		String widgetType = request.getParameter("widgetType");
-		
 				
 		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory
 				.createWidgetProcessorContext(
@@ -197,8 +194,8 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 	 * @return 
 	 * @throws MalformedURLException
 	 */
-	protected GuiApplicationContext createGuiApplicationContext(Resource resource, ExternalContext externalContext) throws MalformedURLException {
-		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource, externalContext);
+	protected GuiApplicationContext createGuiApplicationContext(Resource resource) throws MalformedURLException {
+		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource);
 		return applicationContext;
 	}
 

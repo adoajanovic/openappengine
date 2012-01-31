@@ -23,8 +23,7 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	
 	protected TransitionEventListener transitionEventListener;
 	
-	public WebGuiApplicationContext(ExternalContext externalContext) {
-		this.externalContext = externalContext;
+	public WebGuiApplicationContext() {
 	}
 
 	/**
@@ -56,6 +55,11 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	 */
 	public void setTransitionEventListener(TransitionEventListener transitionEventListener) {
 		this.transitionEventListener = transitionEventListener;
+	}
+
+	@Override
+	public void setExternalContext(ExternalContext externalContext) {
+		this.externalContext = externalContext;
 	}
 	
 }

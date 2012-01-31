@@ -16,9 +16,7 @@ public class HttpServletWidgetProcessorContextFactory implements WidgetProcessor
 		}
 		
 		if(externalContext.getRequest() instanceof HttpServletRequest) {
-			HttpServletRequest httpServletRequest = (HttpServletRequest) externalContext.getRequest();
 			HttpServletWidgetProcessorContext context = new HttpServletWidgetProcessorContext(externalContext,elContext,transitionEventListener,messageContext);
-			
 			return context;
 		}
 		

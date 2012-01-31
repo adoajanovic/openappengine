@@ -42,7 +42,7 @@ public class TestScreenApplicationContextFactory {
 		request.addParameter("codeTypeId", "1");
 		ExternalContext externalContext = new ExternalWebContext(request);
 		
-		GuiApplicationContext applicationContext = screenApplicationContextFactory.createGuiApplicationContext(resource, externalContext);
+		GuiApplicationContext applicationContext = screenApplicationContextFactory.createGuiApplicationContext(resource);
 		Assert.assertNotNull("GuiApplicationContext instance could not be created.",applicationContext);
 	}
 

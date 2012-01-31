@@ -39,6 +39,7 @@ public class HttpServletWidgetProcessorContext implements WidgetProcessorContext
 		if(externalContext instanceof ExternalWebContext) {
 			httpServletRequest = (HttpServletRequest) externalContext.getRequest();
 		}
+		
 		this.elContext = elContext;
 		this.externalContext = externalContext;
 		this.transitionEventListener = transitionEventListener;

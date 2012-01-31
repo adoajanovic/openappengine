@@ -8,7 +8,7 @@
 	<transition id="save">
 		<condition>true</condition>
 		<transition-actions>
-			<entity-save updateIfExists="true" value-field="codeTypeValue" success-message="entity"/>
+			<entity-save updateIfExists="true" value-field="codeTypeValue" success-message="codeType.save.success"/>
 		</transition-actions>
 		<default-response url="." />
 		<error-response save-current-screen="false" type="url" url="" url-type="screen-path" />

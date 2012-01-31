@@ -6,8 +6,10 @@ package com.openappengine.facade.context.factory;
 import com.openappengine.facade.core.context.LifecycleProcessor;
 import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextRestoreEvent;
+import com.openappengine.facade.core.context.event.GuiContextMessageRefreshEvent;
 import com.openappengine.facade.core.context.event.processor.GuiContextInitializedEventProcessor;
 import com.openappengine.facade.core.context.event.processor.GuiContextRestoreEventProcessor;
+import com.openappengine.facade.core.context.event.processor.UpdateMessageEventProcessor;
 import com.openappengine.facade.core.context.lifecycle.DefaultLifecycleProcessor;
 
 /**
@@ -50,6 +52,7 @@ public class WebContextFactoryInitializationCallback extends ContextFactoryIniti
 	protected void registerApplicationLifecycleEventProcessors(DefaultLifecycleProcessor lifecycleProcessor) {
 		lifecycleProcessor.registerLifecycleEventProcessor(ContextRestoreEvent.class,new GuiContextRestoreEventProcessor());
 		lifecycleProcessor.registerLifecycleEventProcessor(ContextInitializedEvent.class,new GuiContextInitializedEventProcessor());
+		lifecycleProcessor.registerLifecycleEventProcessor(GuiContextMessageRefreshEvent.class,new UpdateMessageEventProcessor());
 		//TODO - Add Other Event Processors.
 	}
 

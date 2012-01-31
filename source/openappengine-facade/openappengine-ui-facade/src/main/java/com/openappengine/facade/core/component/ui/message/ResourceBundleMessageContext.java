@@ -107,18 +107,33 @@ public class ResourceBundleMessageContext implements MessageContext {
 	}
 
 	@Override
-	public List<Message> getWarningMessages() {
-		return warningMessages;
+	public List<String> getWarningMessages() {
+		List<String> warnMsgs = new ArrayList<String>();
+		for (Message msg : warningMessages) {
+			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			warnMsgs.add(message);
+		}
+		return warnMsgs;
 	}
 
 	@Override
-	public List<Message> getErroMessages() {
-		return errorMessages;
+	public List<String> getErroMessages() {
+		List<String> errorMsgs = new ArrayList<String>();
+		for (Message msg : errorMessages) {
+			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			errorMsgs.add(message);
+		}
+		return errorMsgs;
 	}
 
 	@Override
-	public List<Message> getInfoMessages() {
-		return infoMessages;
+	public List<String> getInfoMessages() {
+		List<String> infoMsgs = new ArrayList<String>();
+		for (Message msg : infoMessages) {
+			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			infoMsgs.add(message);
+		}
+		return infoMsgs;
 	}
 
 	@Override
@@ -208,6 +223,15 @@ public class ResourceBundleMessageContext implements MessageContext {
 	@Override
 	public void clearAllInfoMessages(String id) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void clearAllMessages() {
+		infoMessages.clear();
+		errorMessages.clear();
+		warningMessages.clear();
+		
+		contextMessages.clear();
 	}
 
 }

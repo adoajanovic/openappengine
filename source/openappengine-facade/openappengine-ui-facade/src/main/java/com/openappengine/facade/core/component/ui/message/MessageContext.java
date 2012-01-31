@@ -35,11 +35,11 @@ public interface MessageContext {
 	
 	List<Message> getAllMessages();
 	
-	List<Message> getWarningMessages();
+	List<String> getWarningMessages();
 	
-	List<Message> getErroMessages();
+	List<String> getErroMessages();
 	
-	List<Message> getInfoMessages();
+	List<String> getInfoMessages();
 	
 	Message getMessage(String elementName);
 	
@@ -60,6 +60,8 @@ public interface MessageContext {
 	void clearAllWarningMessages();
 	
 	void clearAllInfoMessages();
+	
+	void clearAllMessages();
 	
 	void clearAllMessages(String id);
 	
