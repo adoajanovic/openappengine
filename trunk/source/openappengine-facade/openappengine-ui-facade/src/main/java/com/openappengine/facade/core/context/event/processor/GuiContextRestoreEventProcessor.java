@@ -13,13 +13,11 @@ import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
-import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDispatcher;
+import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
 
 
 public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
 
-	private final ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
-	
 	@Override
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {
 		Assert.notNull(context, "Context Null !");
@@ -59,8 +57,8 @@ public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<
 		AbstractExecutableComponent exec = (AbstractExecutableComponent)guiComponent;
 		ActionRequest actionRequest = exec.createActionRequest();
 		
-		actionDispatcher.setExternalContext(context.getExternalContext());
-		actionDispatcher.setELContext(context.getELContext());
+		ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
+		ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(context.getELContext(), context.getExternalContext(), context.getMessageContext());
 		
 		Object result = actionDispatcher.execute(actionRequest);
 		if(exec.hasValueField()) {

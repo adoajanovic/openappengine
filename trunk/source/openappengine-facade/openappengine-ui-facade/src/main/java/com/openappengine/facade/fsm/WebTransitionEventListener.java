@@ -16,7 +16,7 @@ import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.transition.response.ConditionalResponseComponent;
 import com.openappengine.facade.core.component.transition.response.DefaultResponseComponent;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
-import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDispatcher;
+import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
 
 
 /**
@@ -26,8 +26,6 @@ import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDisp
 public class WebTransitionEventListener extends TransitionEventListener {
 	
 	private Node node;
-	
-	private ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
 	
 	/**
 	 * @param transitions
@@ -61,8 +59,8 @@ public class WebTransitionEventListener extends TransitionEventListener {
 							for (AbstractExecutableComponent exec : executables) {
 								ActionRequest actionRequest = exec.createActionRequest();
 								
-								actionDispatcher.setExternalContext(event.getExternalContext());
-								actionDispatcher.setELContext(event.getElContext());
+								ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
+								ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(event.getElContext(), event.getExternalContext(), event.getMessageContext());
 								
 								Object result = actionDispatcher.execute(actionRequest);
 								if(exec.hasValueField()) {

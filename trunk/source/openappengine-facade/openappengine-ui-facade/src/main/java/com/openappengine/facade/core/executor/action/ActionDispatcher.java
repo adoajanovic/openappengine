@@ -5,6 +5,7 @@ package com.openappengine.facade.core.executor.action;
 
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
@@ -45,4 +46,6 @@ public interface ActionDispatcher {
 	 * @param externalContext
 	 */
 	void setExternalContext(ExternalContext externalContext);
+	
+	void setMessageContext(MessageContext messageContext);
 }

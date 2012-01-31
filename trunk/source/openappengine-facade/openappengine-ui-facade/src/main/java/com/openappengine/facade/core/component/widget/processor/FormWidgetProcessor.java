@@ -47,7 +47,7 @@ public class FormWidgetProcessor implements WidgetProcessor {
 			// TODO- Check transition triggered and perform Transition.
 			String triggeredTransition = context.getTriggeredTransition();
 			if (StringUtils.isNotEmpty(triggeredTransition)) {
-				TransitionEvent transitionEvent = new TransitionEvent(triggeredTransition,context.getExternalContext(),context.getELContext());
+				TransitionEvent transitionEvent = new TransitionEvent(triggeredTransition,context.getExternalContext(),context.getELContext(),context.getMessageContext());
 				context.getTransitionEventListener().onApplicationEvent(transitionEvent);
 			}
 

@@ -6,6 +6,7 @@ package com.openappengine.facade.core.context;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
+import com.openappengine.facade.core.component.ui.message.ResourceBundleMessageContext;
 import com.openappengine.facade.core.el.DefaultJexlContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
@@ -44,6 +45,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 		variableResolver = new ScreenContextVariableResolver(this);
 		elContext = new DefaultJexlContext();
 		initializeExpressionEvaluator();
+		messageContext = new ResourceBundleMessageContext();
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.executor.action.dispatcher.SimpleActionDispatcher;
+import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
 
 public class PreActionHandler implements ActionHandler {
 
@@ -18,8 +18,10 @@ public class PreActionHandler implements ActionHandler {
 	@Override
 	public Object execute(ActionContext actionContext) {
 		for(ActionRequest actionRequest : getActionRequests()) {
-			ActionDispatcher actionDispatcher = new SimpleActionDispatcher();
-			Object execute = actionDispatcher.execute(actionRequest);
+			ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
+			ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(actionContext.getELContext(), actionContext.getExternalContext(), actionContext.getMessageContext());
+			Object result = actionDispatcher.execute(actionRequest);
+			return result;
 		}
 		return null;
 	}

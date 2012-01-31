@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.component.widget.context;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.fsm.TransitionEventListener;
 
@@ -29,6 +30,8 @@ public interface WidgetProcessorContext {
 	ExternalContext getExternalContext();
 	
 	ELContext getELContext();
+	
+	MessageContext getMessageContext();
 
 	TransitionEventListener getTransitionEventListener();
 }

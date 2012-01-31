@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.component.widget.context;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.fsm.TransitionEventListener;
 
@@ -19,6 +20,6 @@ public interface WidgetProcessorContextFactory {
 	 * @param externalContext
 	 * @return
 	 */
-	WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener);
+	WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext);
 
 }

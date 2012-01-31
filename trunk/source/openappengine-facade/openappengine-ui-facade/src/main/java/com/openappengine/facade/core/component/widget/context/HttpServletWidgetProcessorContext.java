@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.ClassUtils;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.ext.ExternalWebContext;
 import com.openappengine.facade.fsm.TransitionEventListener;
@@ -28,10 +29,12 @@ public class HttpServletWidgetProcessorContext implements WidgetProcessorContext
 	
 	private ExternalContext externalContext;
 	
+	private MessageContext messageContext;
+	
 	/**
 	 * @param httpServletRequest
 	 */
-	public HttpServletWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener) {
+	public HttpServletWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext) {
 		super();
 		if(externalContext instanceof ExternalWebContext) {
 			httpServletRequest = (HttpServletRequest) externalContext.getRequest();
@@ -39,6 +42,7 @@ public class HttpServletWidgetProcessorContext implements WidgetProcessorContext
 		this.elContext = elContext;
 		this.externalContext = externalContext;
 		this.transitionEventListener = transitionEventListener;
+		this.messageContext = messageContext;
 	}
 
 	@Override
@@ -136,5 +140,14 @@ public class HttpServletWidgetProcessorContext implements WidgetProcessorContext
 	 */
 	public void setExternalContext(ExternalContext externalContext) {
 		this.externalContext = externalContext;
+	}
+
+	@Override
+	public MessageContext getMessageContext() {
+		return messageContext;
+	}
+
+	public void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
 	}
 }
