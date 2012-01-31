@@ -21,11 +21,11 @@
  
  	<!-- Message -->
 	<#if infoMessages??>
-		<div class="messages">
+		<div class="info">
 			<ul>
 			<#list infoMessages as message>
 				<li>
-					${message.code}
+					${message}
 				</li>
 			</#list>
 			</ul>

@@ -6,7 +6,6 @@ package com.openappengine.facade.context.factory;
 import org.springframework.core.io.Resource;
 
 import com.openappengine.facade.core.context.GuiApplicationContext;
-import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
  * The Factory is initialized from the listener and 
@@ -29,7 +28,7 @@ public interface GuiContextFactory {
 	 * @param resource
 	 * @return
 	 */
-	GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext);
+	GuiApplicationContext createGuiApplicationContext(Resource resource);
 	
 	/**
 	 * Register the ScreenApplicationContext with the factory.
@@ -54,4 +53,5 @@ public interface GuiContextFactory {
 	 */
 	void processLifecycleInitializedEvent(GuiApplicationContext applicationContext);
 
+	void refreshMessages(GuiApplicationContext context);
 }

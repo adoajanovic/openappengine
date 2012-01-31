@@ -10,7 +10,7 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.WebGuiApplicationContext;
 import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextRestoreEvent;
-import com.openappengine.facade.core.ext.ExternalContext;
+import com.openappengine.facade.core.context.event.GuiContextMessageRefreshEvent;
 
 /**
  * @author hrishikesh.joshi
@@ -27,8 +27,8 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 	}
 	
 	@Override
-	public GuiApplicationContext createGuiApplicationContext(Resource resource,ExternalContext externalContext) {
-		WebGuiApplicationContext context = new WebGuiApplicationContext(externalContext);
+	public GuiApplicationContext createGuiApplicationContext(Resource resource) {
+		WebGuiApplicationContext context = new WebGuiApplicationContext();
 		
 		GuiRootComponent uiRoot = createGuiRoot(resource, context);
 		uiRoot.setContext(context);
@@ -38,22 +38,24 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 		return context;
 	}
 
-	/**
-	 * Call the Initialized Event Listener
-	 * @param context
-	 */
-	public void processLifecycleInitializedEvent(GuiApplicationContext context) {
-		ContextInitializedEvent contextInitEvent = new ContextInitializedEvent(context);
+	@Override
+	public void processLifecyleRestoreProcessing(
+			GuiApplicationContext applicationContext) {
+		ContextRestoreEvent contextRestoreEvent = new ContextRestoreEvent(applicationContext);
+		getLifecycleProcessor().processLifecycleEvent(contextRestoreEvent);
+	}
+
+	@Override
+	public void processLifecycleInitializedEvent(
+			GuiApplicationContext applicationContext) {
+		ContextInitializedEvent contextInitEvent = new ContextInitializedEvent(applicationContext);
 		getLifecycleProcessor().processLifecycleEvent(contextInitEvent);
 	}
 
-	/**
-	 * Call the Restore Event Listener
-	 * @param context
-	 */
-	public void processLifecyleRestoreProcessing(GuiApplicationContext context) {
-		ContextRestoreEvent contextRestoreEvent = new ContextRestoreEvent(context);
-		getLifecycleProcessor().processLifecycleEvent(contextRestoreEvent);
+	@Override
+	public void refreshMessages(GuiApplicationContext context) {
+		GuiContextMessageRefreshEvent messageRefreshEvent = new GuiContextMessageRefreshEvent(context);
+		getLifecycleProcessor().processLifecycleEvent(messageRefreshEvent);
 	}
 
 }

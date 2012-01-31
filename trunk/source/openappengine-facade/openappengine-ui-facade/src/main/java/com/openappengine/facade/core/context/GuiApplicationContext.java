@@ -94,4 +94,6 @@ public interface GuiApplicationContext {
 	 *  Overriden by SubClasses to Perform Post Initialization Process.
 	 */
 	void postRootConstruction();
+	
+	void setExternalContext(ExternalContext externalContext);
 }

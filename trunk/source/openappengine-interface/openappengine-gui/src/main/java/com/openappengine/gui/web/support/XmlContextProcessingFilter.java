@@ -108,8 +108,8 @@ public class XmlContextProcessingFilter implements Filter {
 	 */
 	protected GuiApplicationContext createGuiApplicationContext(HttpServletRequest httpServletRequest) throws MalformedURLException {
 		Resource resource = createXmlScreenUrlResouce(httpServletRequest);
-		ExternalContext externalContext = new ExternalWebContext(httpServletRequest);
-		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource, externalContext);
+
+		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource);
 		
 		contextFactory.processLifecyleRestoreProcessing(applicationContext);
 		
