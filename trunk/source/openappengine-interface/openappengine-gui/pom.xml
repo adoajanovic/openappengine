@@ -15,14 +15,14 @@
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 	</properties>
 	<dependencies>
-		
+
 		<!-- OpenAppEngine Dependency -->
 		<dependency>
 			<groupId>com.openappengine</groupId>
 			<artifactId>openappengine-ui-facade</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-			
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -145,6 +145,15 @@
 			<artifactId>freemarker</artifactId>
 			<!-- Latest 2.3.x (not 2.4.x), at least 2.3.18 -->
 			<version>2.3.18</version>
+		</dependency>
+
+		<!-- Jackson -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.6.3</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
