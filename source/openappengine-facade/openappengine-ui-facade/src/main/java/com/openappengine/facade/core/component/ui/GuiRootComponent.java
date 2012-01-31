@@ -16,8 +16,7 @@ import com.openappengine.facade.core.component.executable.PreRenderActionsCompon
 import com.openappengine.facade.core.component.transition.TransitionComponent;
 import com.openappengine.facade.core.component.ui.container.PageContentComponent;
 import com.openappengine.facade.core.component.ui.container.WidgetsComponent;
-import com.openappengine.facade.core.component.ui.message.Message;
-import com.openappengine.facade.core.component.ui.message.MessageSeverity;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.variable.Variable;
 import com.openappengine.facade.fsm.Node;
@@ -40,8 +39,6 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 	private final List<TransitionComponent> screenTransitions = new ArrayList<TransitionComponent>();
 	
 	private Map<String, Variable> screenVariables = new ConcurrentHashMap<String, Variable>();
-	
-	private final List<Message> messages = new ArrayList<Message>();
 	
 	@Override
 	public String getComponentType() {
@@ -150,56 +147,5 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 		}
 		return transitions;
 	}
-
-	public void addMessages(List<Message> messages) {
-		messages.addAll(messages);
-	}
 	
-	public void addInfoMessage(String code) {
-		Message message = new Message(code,MessageSeverity.INFO);
-		messages.add(message);
-	}
-	
-	public void addErrorMessage(String code) {
-		Message message = new Message(code,MessageSeverity.ERROR);
-		messages.add(message);
-	}
-	
-	public void addWarningMessage(String code) {
-		Message message = new Message(code,MessageSeverity.WARNING);
-		messages.add(message);
-	}
-	
-	public List<Message> getInfoMessages() {
-		String sev = MessageSeverity.INFO;
-		return getMessages(sev);
-	}
-	
-	public List<Message> getErrorMessages() {
-		String sev = MessageSeverity.ERROR;
-		return getMessages(sev);
-	}
-	
-	public List<Message> getWarningMessages() {
-		String sev = MessageSeverity.WARNING;
-		return getMessages(sev);
-	}
-
-	/**
-	 * @param severity
-	 * @return
-	 */
-	private List<Message> getMessages(String severity) {
-		List<Message> res = new ArrayList<Message>();
-		for (Message message : messages) {
-			if(message.getMessageType().equals(severity)) {
-				res.add(message);
-			}
-		}
-		return res;
-	}
-	
-	public void clearMessages() {
-		messages.clear();
-	}
 }

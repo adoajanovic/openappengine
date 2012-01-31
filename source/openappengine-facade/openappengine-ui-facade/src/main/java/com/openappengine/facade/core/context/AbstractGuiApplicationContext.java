@@ -5,6 +5,7 @@ package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.el.DefaultJexlContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
@@ -30,6 +31,8 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	private ELContext elContext;
 	
 	private GuiRootComponent root;
+	
+	private MessageContext messageContext;
 	
 	public AbstractGuiApplicationContext() {
 		initializeStrategies();
@@ -92,6 +95,14 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 			root.getScreenVariables().put(name, var);
 		}
 		elContext.registerELContextVariable(name, value);
+	}
+
+	public MessageContext getMessageContext() {
+		return messageContext;
+	}
+
+	public void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
 	}
 
 }
