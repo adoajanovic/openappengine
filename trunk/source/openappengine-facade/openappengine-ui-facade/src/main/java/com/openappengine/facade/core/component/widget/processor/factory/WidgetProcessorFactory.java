@@ -11,7 +11,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.component.ui.message.MessageContext;
+import com.openappengine.facade.core.component.widget.context.HttpServletWidgetProcessorContextFactory;
+import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
+import com.openappengine.facade.core.component.widget.context.WidgetProcessorContextFactory;
 import com.openappengine.facade.core.component.widget.processor.WidgetProcessor;
+import com.openappengine.facade.core.ext.ExternalContext;
+import com.openappengine.facade.fsm.TransitionEventListener;
 
 /**
  * @author hrishikesh.joshi
@@ -41,11 +48,29 @@ public class WidgetProcessorFactory {
 		}
 	}
 
-	public WidgetProcessor getWidgetProcessor(String widgetType) {
+	public WidgetProcessor getWidgetProcessor(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext,String widgetType) {
 		if(StringUtils.isEmpty(widgetType)) {
-			return null;
+			throw new IllegalStateException("Widget Type Cannot be Empty.");
 		}
-		return widgetProcessorMap.get(widgetType);
+		
+		WidgetProcessor widgetProcessor = null;
+			widgetProcessor = widgetProcessorMap.get(widgetType);
+			
+		if (widgetProcessor == null) {
+			throw new IllegalStateException("No WidgetProcessor Configured for WidgetType : "+ widgetType);
+		}
+			
+		final WidgetProcessorContextFactory widgetProcessorContextFactory;
+			widgetProcessorContextFactory = new HttpServletWidgetProcessorContextFactory();
+			
+		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory
+					.createWidgetProcessorContext(externalContext, elContext,
+							transitionEventListener, messageContext, widgetProcessor.getWidgetProcessorContextClass());
+			
+
+		widgetProcessor.setWidgetProcessorContext(widgetProcessorContext);
+		
+		return widgetProcessor;
 	}
 	
 }

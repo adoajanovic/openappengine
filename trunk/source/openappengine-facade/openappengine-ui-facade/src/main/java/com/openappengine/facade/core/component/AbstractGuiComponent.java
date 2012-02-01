@@ -22,6 +22,8 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 	private final List<GuiComponent> childComponents = new ArrayList<GuiComponent>();
 	
 	private String id;
+	
+	private String name;
 
 	public List<GuiComponent> getChildComponents() {
 		return childComponents;
@@ -50,5 +52,13 @@ public abstract class AbstractGuiComponent implements GuiComponent {
 	public void setId(String id) {
 		Assert.notNull(id,"Id cannot be null.");
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

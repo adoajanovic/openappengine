@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.component.ui.FormSingleComponent;
+import com.openappengine.facade.core.component.widget.FormSingleComponent;
 
 /**
  * @author hrishikesh.joshi

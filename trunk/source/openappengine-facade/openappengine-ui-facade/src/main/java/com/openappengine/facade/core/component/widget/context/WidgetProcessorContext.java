@@ -15,15 +15,9 @@ import com.openappengine.facade.fsm.TransitionEventListener;
  */
 public interface WidgetProcessorContext {
 	
-	Class<?> getWidgetBackingClass();
-	
 	String getWidgetId();
 	
 	String getTriggeredTransition();
-	
-	String getWidgetBackingObjectValueRef();
-	
-	String getWidgetBackingObjectEntityName();
 	
 	String getWidgetType();
 

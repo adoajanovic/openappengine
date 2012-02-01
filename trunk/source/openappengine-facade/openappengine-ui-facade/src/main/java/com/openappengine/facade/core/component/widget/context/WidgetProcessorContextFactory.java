@@ -18,8 +18,9 @@ public interface WidgetProcessorContextFactory {
 	/**
 	 * Create WidgetProcessorContext
 	 * @param externalContext
+	 * @param widgetContextClass TODO
 	 * @return
 	 */
-	WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext);
+	WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext, Class<?> widgetContextClass);
 
 }
