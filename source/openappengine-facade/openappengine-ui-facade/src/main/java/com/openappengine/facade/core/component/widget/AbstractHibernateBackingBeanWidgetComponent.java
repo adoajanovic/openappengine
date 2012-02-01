@@ -1,36 +1,28 @@
-package com.openappengine.facade.core.component.ui;
+package com.openappengine.facade.core.component.widget;
 
 import java.util.List;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
-import com.openappengine.facade.core.component.widget.Widget;
+import com.openappengine.facade.core.component.ui.EntityValueAware;
+import com.openappengine.facade.core.component.widget.backingbean.HibernateBackingBeanWidget;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 
-public class FormSingleComponent extends AbstractGuiComponent implements EntityValueAware,Widget {
+public abstract class AbstractHibernateBackingBeanWidgetComponent extends AbstractGuiComponent implements HibernateBackingBeanWidget,EntityValueAware {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String name;
 	
 	private String entityValueRef;
 	
 	private EntityValue entityValue;
 	
 	private boolean entityValueSet = false;
-	
-	private String transition;
 
 	@Override
 	public String getComponentType() {
 		return "forms";
 	}
-
-	@Override
-	public String getComponentName() {
-		return "form";
-	}
-
+	
 	@Override
 	public EntityValue getValue() {
 		return entityValue;
@@ -56,15 +48,7 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	public void setValue(EntityValue entityValue) {
 		this.entityValue = entityValue;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	@Override
 	public boolean isValueSet() {
 		return entityValueSet;
@@ -86,21 +70,7 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 	public String getValueRef() {
 		return entityValueRef;
 	}
-
-	/**
-	 * @return the transition
-	 */
-	public String getTransition() {
-		return transition;
-	}
-
-	/**
-	 * @param transition the transition to set
-	 */
-	public void setTransition(String transition) {
-		this.transition = transition;
-	}
-
+	
 	@Override
 	public String getEntityName() {
 		if(entityValue != null) {
@@ -108,10 +78,4 @@ public class FormSingleComponent extends AbstractGuiComponent implements EntityV
 		}
 		return null;
 	}
-
-	@Override
-	public String getWidgetType() {
-		return "form-single";
-	}
-
 }

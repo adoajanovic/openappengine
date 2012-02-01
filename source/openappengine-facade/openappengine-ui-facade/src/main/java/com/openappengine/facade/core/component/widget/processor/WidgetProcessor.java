@@ -21,6 +21,13 @@ public interface WidgetProcessor {
 	 * @param context
 	 * @return Object returned by the WidgetProcessor
 	 */
-	Object processWidget(WidgetProcessorContext context);
-
+	Object processWidget();
+	
+	/**
+	 * @param context
+	 */
+	void setWidgetProcessorContext(WidgetProcessorContext context);
+	
+	
+	Class<?> getWidgetProcessorContextClass();
 }
