@@ -33,6 +33,8 @@ public interface MessageContext {
 	
 	void addInfoMessage(String code);
 	
+	void addSuccessMessage(String code);
+	
 	List<Message> getAllMessages();
 	
 	List<String> getWarningMessages();
@@ -40,6 +42,8 @@ public interface MessageContext {
 	List<String> getErroMessages();
 	
 	List<String> getInfoMessages();
+	
+	List<String> getSuccessMessages();
 	
 	Message getMessage(String elementName);
 	
@@ -51,6 +55,8 @@ public interface MessageContext {
 	
 	void addInfoMessage(String elementId,String message);
 	
+	void addSuccessMessage(String elementId,String message);
+	
 	void setLocale(Locale locale);
 	
 	void setMessageSource(MessageSource messageSource);
@@ -61,6 +67,8 @@ public interface MessageContext {
 	
 	void clearAllInfoMessages();
 	
+	void clearAllSuccessMessages();
+	
 	void clearAllMessages();
 	
 	void clearAllMessages(String id);
@@ -70,4 +78,7 @@ public interface MessageContext {
 	void clearAllErrorMessages(String id);
 	
 	void clearAllInfoMessages(String id);
+	
+	void clearAllSuccessMessages(String id);
 }
+

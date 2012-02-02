@@ -30,6 +30,8 @@ public class ResourceBundleMessageContext implements MessageContext {
 	private List<Message> warningMessages = new ArrayList<Message>();
 	
 	private List<Message> infoMessages = new ArrayList<Message>();
+	
+	private List<Message> successMessages = new ArrayList<Message>();
 
 	private Locale locale = Locale.getDefault();
 
@@ -230,8 +232,45 @@ public class ResourceBundleMessageContext implements MessageContext {
 		infoMessages.clear();
 		errorMessages.clear();
 		warningMessages.clear();
-		
+		successMessages.clear();
 		contextMessages.clear();
+	}
+
+	@Override
+	public List<String> getSuccessMessages() {
+		List<String> successMsgs = new ArrayList<String>();
+		for (Message msg : successMessages) {
+			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			successMsgs.add(message);
+		}
+		return successMsgs;
+	}
+
+	@Override
+	public void addSuccessMessage(String elementId, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearAllSuccessMessages() {
+		successMessages.clear();
+	}
+
+	@Override
+	public void clearAllSuccessMessages(String id) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void addSuccessMessage(String code) {
+		if(StringUtils.isEmpty(code)) {
+			return;
+		}
+		
+		Message warningMessage = new Message(code, MessageSeverity.SUCCESS);
+		contextMessages.add(warningMessage);
+		successMessages.add(warningMessage);
 	}
 
 }

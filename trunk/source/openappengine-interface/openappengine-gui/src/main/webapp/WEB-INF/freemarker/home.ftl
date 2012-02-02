@@ -20,15 +20,17 @@
  <div id="main">
  
  	<!-- Message -->
-	<#if infoMessages?size!=0>
-		<div class="info">
-			<ul>
-			<#list infoMessages as message>
+	<#if successMessages?size!=0>
+		<div class="success">
+		<ul>
+			<#list successMessages as message>
 				<li>
-					${message}
-				</li>
+					<div style="margin-left:18%;">	
+						${message}
+					</div>
+				</li>	 
 			</#list>
-			</ul>
+		</ul>	
 		</div>
 	</#if>
  
@@ -39,11 +41,11 @@
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
  			
- 			<!-- If FormSingleComponent -->
+ 			<!-- Get WidgetType -->
  			
  			<!-- Form Command Object -->
  			<#if childWidget.formBackingObject()??>
- 				
+ 			
  			<#assign formCommand = childWidget.formBackingObject()>
  			
  			<!-- Widget : form-single -->
@@ -78,26 +80,48 @@
 		 			</table>
 	 			</fieldset>
 	 			</form>
- 			<!-- Widget : form-single -->
+ 				<!-- Widget : form-single -->
  			
- 			<#else>
- 				<div class="error">
-	 				<fieldset>
-	 					<h4>
-	 						Entity Not found..!
-	 					</h4>
-	 				</fieldset>
- 				</div>
- 			</#if>
+	 			<#else>
+	 				<div class="error">
+		 				<fieldset>
+		 					<h4>
+		 						Entity Not found..!
+		 					</h4>
+		 				</fieldset>
+	 				</div>
+	 			</#if>
  			
  		</#list>
  	</#list>
  </div>
   <script>
+  	
+  	/* attach a submit handler to the form */
   	jQuery("form").submit(function() {
-	   <!--alert('Handler for .submit() called.');-->
+	   
+	    /* stop form from submitting normally */
+	    event.preventDefault(); 
+	        
+	    /* get some values from elements on the page: */
+	    var $form = $( this ),
+	    
+	    /* Get the url for form submit. */
+	    url = $form.attr( 'action' );
+	
+	    /* Send the data using post and put the results in a div */
+	    $.post( url,
+	      function( data ) {
+	          /*
+	          var content = $( data ).find( '#content' );
+	          $( "#result" ).empty().append( content );
+	          */
+	      }
+	    );
+	   
   	   return true;
 	});
+	
   </script>   
 </body>
 </html>

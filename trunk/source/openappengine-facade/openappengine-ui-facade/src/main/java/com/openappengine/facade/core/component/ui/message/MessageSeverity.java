@@ -9,11 +9,12 @@ package com.openappengine.facade.core.component.ui.message;
  */
 public abstract class MessageSeverity {
 	
-	public static final int ERROR = 1;
+	public static final int SUCCESS = 0;
 	
-	public static final int INFO = 3;
+	public static final int INFO = 1;
 	
 	public static final int WARNING = 2;
 	
+	public static final int ERROR = 999;
 
 }
