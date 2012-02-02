@@ -18,7 +18,7 @@ public class UpdateMessageEventProcessor implements LifecycleEventProcessor<GuiA
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event,GuiApplicationContext context) {
 		//Add MessageContext messages.
 		context.getExternalContext().addModelMapAttribute("contextMessages", context.getMessageContext().getAllMessages());
-		context.getExternalContext().addModelMapAttribute("errorMessages", context.getMessageContext().getErroMessages());
+		context.getExternalContext().addModelMapAttribute("errorMessages", context.getMessageContext().getErrorMessages());
 		context.getExternalContext().addModelMapAttribute("successMessages", context.getMessageContext().getSuccessMessages());
 		context.getExternalContext().addModelMapAttribute("infoMessages", context.getMessageContext().getInfoMessages());
 		context.getExternalContext().addModelMapAttribute("warningMessages", context.getMessageContext().getWarningMessages());

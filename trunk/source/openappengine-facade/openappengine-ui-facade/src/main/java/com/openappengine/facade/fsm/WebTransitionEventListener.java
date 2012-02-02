@@ -63,10 +63,12 @@ public class WebTransitionEventListener extends TransitionEventListener {
 								ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(event.getElContext(), event.getExternalContext(), event.getMessageContext());
 								
 								Object result = actionDispatcher.execute(actionRequest);
-								if(exec.hasValueField()) {
+								
+								//TODO - To be taken care by the Action Handler
+								/*if(exec.hasValueField()) {
 									String valueField = exec.getValueField();
 									event.getElContext().registerELContextVariable(valueField, result);
-								}
+								}*/
 							}
 						}
 												

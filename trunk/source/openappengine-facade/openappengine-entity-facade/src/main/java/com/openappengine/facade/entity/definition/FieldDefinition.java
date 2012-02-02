@@ -27,6 +27,12 @@ public class FieldDefinition implements Serializable {
 	
 	private boolean required;
 	
+	private boolean numeric;
+	
+	private boolean alpha;
+	
+	private boolean alphanumeric;
+	
 	private UIField uiField;
 
 	public String getName() {
@@ -83,5 +89,29 @@ public class FieldDefinition implements Serializable {
 
 	public void setAutoincrement(boolean autoincrement) {
 	    this.autoincrement = autoincrement;
+	}
+
+	public boolean isNumeric() {
+		return numeric;
+	}
+
+	public void setNumeric(boolean numeric) {
+		this.numeric = numeric;
+	}
+
+	public boolean isAlpha() {
+		return alpha;
+	}
+
+	public void setAlpha(boolean alpha) {
+		this.alpha = alpha;
+	}
+
+	public boolean isAlphanumeric() {
+		return alphanumeric;
+	}
+
+	public void setAlphanumeric(boolean alphanumeric) {
+		this.alphanumeric = alphanumeric;
 	}
 }

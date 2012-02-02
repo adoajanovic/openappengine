@@ -39,7 +39,7 @@ public interface MessageContext {
 	
 	List<String> getWarningMessages();
 	
-	List<String> getErroMessages();
+	List<String> getErrorMessages();
 	
 	List<String> getInfoMessages();
 	
@@ -80,5 +80,7 @@ public interface MessageContext {
 	void clearAllInfoMessages(String id);
 	
 	void clearAllSuccessMessages(String id);
+	
+	void addErrorMessage(String code,Object[] args);
 }
 
