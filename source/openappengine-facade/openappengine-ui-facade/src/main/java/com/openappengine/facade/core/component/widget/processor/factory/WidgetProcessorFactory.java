@@ -36,7 +36,7 @@ public class WidgetProcessorFactory {
 		if(processors != null) {
 			for (Class<? extends WidgetProcessor> clazz : processors) {
 				try {
-					if(!Modifier.isAbstract(clazz.getModifiers()) || Modifier.isInterface(clazz.getModifiers())) {
+					if(!Modifier.isAbstract(clazz.getModifiers()) && !Modifier.isInterface(clazz.getModifiers())) {
 						WidgetProcessor widgetProcessor = clazz.newInstance();
 						widgetProcessorMap.put(widgetProcessor.getProcessedWidgetType(), widgetProcessor);
 					}

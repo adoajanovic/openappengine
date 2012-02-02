@@ -8,8 +8,6 @@ import javax.servlet.ServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
-import com.openappengine.facade.core.component.widget.context.HibernateBackingBeanWigetProcessorContext;
-import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.fsm.TransitionEvent;
 
@@ -18,77 +16,51 @@ import com.openappengine.facade.fsm.TransitionEvent;
  * @since  Jan 30, 2012
  *
  */
-public class FormSingleWidgetProcessor implements WidgetProcessor {
+public class FormSingleWidgetProcessor extends HibernateEntityValueBackingBeanWidgetProcessor {
 
-	private HibernateBackingBeanWigetProcessorContext context;
-	
 	@Override
 	public String getProcessedWidgetType() {
 		return "form-single";
 	}
 
 	@Override
-	public Object processWidget() {
+	public EntityValue processWidget() {
 		EntityValue entityValue = null;
 		try {
-			Object backingBeanInstance = context.getWidgetBackingClass().newInstance();
+			Object backingBeanInstance = getWidgetProcessorContext().getWidgetBackingClass().newInstance();
 			// TODO - Validate and bind
 			// TODO - If Valid bind.
 			
 			
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(backingBeanInstance);
-			binder.bind((ServletRequest) context.getExternalContext().getRequest());
+			binder.bind((ServletRequest) getWidgetProcessorContext().getExternalContext().getRequest());
 
-			entityValue = (EntityValue) context.getELContext().getVariable(context.getWidgetBackingObjectValueRef());
+			entityValue = (EntityValue) getWidgetProcessorContext().getELContext().getVariable(getWidgetProcessorContext().getWidgetBackingObjectValueRef());
 			entityValue.setInstance(backingBeanInstance);
 
-			// Replace the ModelMap attribute with the new binded instance.
-			context.getExternalContext().getModelMap().addAttribute(context.getWidgetId(), backingBeanInstance);
-
-			// Replace the EntityValue value-field in the ELContext with the new
-			// binded EntityValue.
-			context.getELContext().registerELContextVariable(context.getWidgetBackingObjectValueRef(), entityValue);
-
-			// TODO- Check transition triggered and perform Transition.
-			String triggeredTransition = context.getTriggeredTransition();
+			String triggeredTransition = getWidgetProcessorContext().getTriggeredTransition();
 			if (StringUtils.isNotEmpty(triggeredTransition)) {
-				TransitionEvent transitionEvent = new TransitionEvent(triggeredTransition,context.getExternalContext(),context.getELContext(),context.getMessageContext());
-				context.getTransitionEventListener().onApplicationEvent(transitionEvent);
+				TransitionEvent transitionEvent = new TransitionEvent(triggeredTransition,getWidgetProcessorContext().getExternalContext(),getWidgetProcessorContext().getELContext(),getWidgetProcessorContext().getMessageContext());
+				getWidgetProcessorContext().getTransitionEventListener().onApplicationEvent(transitionEvent);
 			}
+
+			//If the EntityValue has not been removed from the ELContext, then bind the model map with the entityvalue instance.
+			if(getWidgetProcessorContext().getELContext().getVariable(getWidgetProcessorContext().getWidgetBackingObjectValueRef()) != null) {
+				// Replace the ModelMap attribute with the new binded instance.
+				getWidgetProcessorContext().getExternalContext().getModelMap().addAttribute(getWidgetProcessorContext().getWidgetId(), entityValue.getInstance());
+			}
+
+			//TODO - Moved to the ActionHandler.
+			/*
+			// Replace the EntityValue value-field in the ELContext with the new binded EntityValue.
+			context.getELContext().registerELContextVariable(context.getWidgetBackingObjectValueRef(), entityValue);
+			*/
 
 		} catch (Throwable e) {
 			// TODO - Handle
 			e.printStackTrace();
 		}
 		return entityValue;
-	}
-
-	@Override
-	public void setWidgetProcessorContext(WidgetProcessorContext context) {
-		if(context == null) {
-			throw new IllegalArgumentException("WidgetProcessorContext cannot be null.");
-		}
-		if(!supportsWidgetProcessorContext(context.getClass())) {
-			throw new IllegalArgumentException(
-					"WidgetProcessor does not support the WidgetProcessorContext class:"
-							+ context.getClass()
-							+ ". Should extend from "
-							+ HibernateBackingBeanWigetProcessorContext.class
-									.getName() + ".");
-		}
-		this.context = (HibernateBackingBeanWigetProcessorContext) context;
-	}
-
-	public boolean supportsWidgetProcessorContext(Class<?> clazz) {
-		if(clazz == null || getWidgetProcessorContextClass() == null) {
-			return false;
-		}
-		return getWidgetProcessorContextClass().isAssignableFrom(clazz);
-	}
-	
-	@Override
-	public Class<?> getWidgetProcessorContextClass() {
-		return HibernateBackingBeanWigetProcessorContext.class;
 	}
 
 }
