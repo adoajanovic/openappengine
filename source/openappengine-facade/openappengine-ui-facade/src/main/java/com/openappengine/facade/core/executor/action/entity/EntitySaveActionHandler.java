@@ -55,8 +55,8 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		if(StringUtils.isNotBlank(successMessage)) {
-			actionContext.getMessageContext().clearAllInfoMessages();
-			actionContext.getMessageContext().addInfoMessage(successMessage);
+			actionContext.getMessageContext().clearAllSuccessMessages();
+			actionContext.getMessageContext().addSuccessMessage(successMessage);
 		}
 				
 		return entityValue;
