@@ -105,8 +105,7 @@ public class EntityDefinitionReader {
 	
 	String name = UtilXml.readElementAttribute(fieldElement, "name");
 	if (StringUtils.isBlank(name)) {
-	    throw new EntityDefinitionReaderException(
-		    "Attribute name cannot be empty.");
+	    throw new EntityDefinitionReaderException("Attribute name cannot be empty.");
 	}
 	fieldDefinition.setName(name);
 
@@ -131,7 +130,38 @@ public class EntityDefinitionReader {
 	    }
 	    fieldDefinition.setPk(pk);
 	}
-
+	
+	fieldDefinition.setAlphanumeric(true);
+	
+	String isNumeric = UtilXml.readElementAttribute(fieldElement,"is-numeric");
+	boolean numeric = false;
+	if (StringUtils.isBlank(isNumeric)) {
+	    fieldDefinition.setRequired(false);
+	} else {
+		numeric = Boolean.parseBoolean(isNumeric);
+	    fieldDefinition.setRequired(numeric);
+	}
+	
+	//If Numeric Alpha -> False
+    if(numeric) {
+	    fieldDefinition.setAlpha(false);
+	    fieldDefinition.setAlphanumeric(false);
+    } else {
+    	String isAlpha = UtilXml.readElementAttribute(fieldElement,"is-alpha");
+    	
+    	boolean alpha = false;
+		if(!StringUtils.isEmpty(isAlpha)) {
+			alpha = Boolean.parseBoolean(isAlpha);
+			fieldDefinition.setAlpha(alpha);
+		}
+    	
+    	if(alpha) {
+    		fieldDefinition.setAlphanumeric(false);	
+    	} else {
+    		fieldDefinition.setAlphanumeric(true);
+    	}
+    }
+	
 	String isRequired = UtilXml.readElementAttribute(fieldElement,"is-required");
 	boolean required = Boolean.parseBoolean(isRequired);
 	if (StringUtils.isBlank(isRequired)) {

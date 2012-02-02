@@ -80,6 +80,16 @@ public class ResourceBundleMessageContext implements MessageContext {
 		contextMessages.add(errorMessage);
 		errorMessages.add(errorMessage);
 	}
+	
+	public void addErrorMessage(String code,Object[] args) {
+		if(StringUtils.isEmpty(code)) {
+			return;
+		}
+		
+		Message errorMessage = new Message(code,MessageSeverity.ERROR,args);
+		contextMessages.add(errorMessage);
+		errorMessages.add(errorMessage);
+	}
 
 	@Override
 	public void addWarningMessage(String code) {
@@ -119,10 +129,10 @@ public class ResourceBundleMessageContext implements MessageContext {
 	}
 
 	@Override
-	public List<String> getErroMessages() {
+	public List<String> getErrorMessages() {
 		List<String> errorMsgs = new ArrayList<String>();
 		for (Message msg : errorMessages) {
-			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			String message = messageSource.getMessage(msg.getCode(), msg.getMessageArgs(), locale);
 			errorMsgs.add(message);
 		}
 		return errorMsgs;

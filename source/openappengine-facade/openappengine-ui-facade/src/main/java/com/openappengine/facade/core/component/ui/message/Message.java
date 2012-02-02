@@ -17,6 +17,8 @@ public class Message implements Serializable {
 	
 	private String code;
 	
+	private Object[] messageArgs;
+	
 	private int severity;
 	
 	public Message() {
@@ -29,6 +31,20 @@ public class Message implements Serializable {
 	public Message(String code, int severity) {
 		super();
 		this.code = code;
+		this.severity = severity;
+	}
+	
+	
+
+	/**
+	 * @param code
+	 * @param messageArgs
+	 * @param severity
+	 */
+	public Message(String code,int severity, Object[] messageArgs) {
+		super();
+		this.code = code;
+		this.messageArgs = messageArgs;
 		this.severity = severity;
 	}
 
@@ -54,6 +70,14 @@ public class Message implements Serializable {
 
 	public void setElementId(String elementId) {
 		this.elementId = elementId;
+	}
+
+	public Object[] getMessageArgs() {
+		return messageArgs;
+	}
+
+	public void setMessageArgs(Object[] messageArgs) {
+		this.messageArgs = messageArgs;
 	}
 
 }

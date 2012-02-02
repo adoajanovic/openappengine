@@ -14,6 +14,10 @@ public class UIField {
 	 *  Text Field.
 	 */
 	public static final String TEXT_FIELD = "text-field";
+	
+	/**
+	 *  Text Area.
+	 */
 	public static final String TEXT_AREA = "text-area";
 	
 	/**

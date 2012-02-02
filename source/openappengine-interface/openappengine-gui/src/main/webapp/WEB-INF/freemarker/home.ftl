@@ -33,6 +33,21 @@
 		</ul>	
 		</div>
 	</#if>
+	
+	<!-- Error Message -->
+	<#if errorMessages?size!=0>
+		<div class="success">
+		<ul>
+			<#list errorMessages as message>
+				<li>
+					<div style="margin-left:18%;">	
+						${message}
+					</div>
+				</li>	 
+			</#list>
+		</ul>	
+		</div>
+	</#if>
  
  	<#assign pageContent = uiRoot.pageContent >
  	<#assign widgets = pageContent.getWidgets() >

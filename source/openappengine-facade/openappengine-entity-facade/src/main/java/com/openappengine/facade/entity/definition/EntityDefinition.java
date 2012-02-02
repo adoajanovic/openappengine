@@ -11,6 +11,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.openappengine.facade.entity.validator.DefaultEntityValidator;
+import com.openappengine.facade.entity.validator.EntityValidator;
+
 /**
  * @author hrishikesh.joshi
  *
@@ -30,7 +33,9 @@ public class EntityDefinition implements Serializable {
 	private List<FieldDefinition> pkFields = new ArrayList<FieldDefinition>();
 	
 	private Map<String,FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
-
+	
+	private EntityValidator entityValidator = new DefaultEntityValidator(this);
+	
 	public String getEntityName() {
 		return entityName;
 	}
@@ -131,5 +136,13 @@ public class EntityDefinition implements Serializable {
 
 	public void setPrimaryKeyField(List<FieldDefinition> primaryKeyFields) {
 		this.pkFields = primaryKeyFields;
+	}
+
+	public EntityValidator getEntityValidator() {
+		return entityValidator;
+	}
+
+	public void setEntityValidator(EntityValidator entityValidator) {
+		this.entityValidator = entityValidator;
 	}
 }
