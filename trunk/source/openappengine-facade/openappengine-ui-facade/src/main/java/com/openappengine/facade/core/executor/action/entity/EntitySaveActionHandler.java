@@ -54,6 +54,10 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			getEntityFacade().saveEntityValue(entityValue);
 		}
 		
+
+		// Replace the EntityValue value-field in the ELContext with the updated EntityValue.
+		actionContext.getELContext().registerELContextVariable(valueField, entityValue);
+		
 		if(StringUtils.isNotBlank(successMessage)) {
 			actionContext.getMessageContext().clearAllSuccessMessages();
 			actionContext.getMessageContext().addSuccessMessage(successMessage);
