@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
@@ -14,7 +15,6 @@ import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ValueRef;
-import com.openappengine.facade.ui.resolver.ValueResolver;
 
 /**
  * 	
@@ -32,6 +32,10 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	private boolean autoFieldMap = false;
 	
 	private String conditionExpression;
+	
+	private String autoFieldPrefix;
+	
+	private String autoFieldPrefixDelimiter = ".";
 	
 	public EntityFindOneActionHandler() {
 	}
@@ -61,7 +65,11 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 			}
 		}
 		
-		ValueResolver valueResolver = new EntityValueResolver(getEntityName(), params);
+		EntityValueResolver valueResolver = new EntityValueResolver(getEntityName(), params);
+		if(StringUtils.isNotEmpty(autoFieldPrefix)) {
+			valueResolver.setParameterPrefix(autoFieldPrefix);
+		}
+		
 		return (EntityValue) valueResolver.resolveValue();
 	}
 
@@ -96,6 +104,22 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	@Override
 	public String getName() {
 		return "entity-find-one";
+	}
+
+	public String getAutoFieldPrefix() {
+		return autoFieldPrefix;
+	}
+
+	public void setAutoFieldPrefix(String autoFieldPrefix) {
+		this.autoFieldPrefix = autoFieldPrefix;
+	}
+
+	public String getAutoFieldPrefixDelimiter() {
+		return autoFieldPrefixDelimiter;
+	}
+
+	public void setAutoFieldPrefixDelimiter(String autoFieldPrefixDelimiter) {
+		this.autoFieldPrefixDelimiter = autoFieldPrefixDelimiter;
 	}
 
 }

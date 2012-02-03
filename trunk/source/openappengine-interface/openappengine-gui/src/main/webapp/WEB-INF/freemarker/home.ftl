@@ -122,17 +122,17 @@
 	    var $form = $( this ),
 	    
 	    /* Get the url for form submit. */
-	    url = $form.attr( 'action' );
+	    urlAction = $form.attr( 'action' );
 	
 	    /* Send the data using post and put the results in a div */
-	    $.post( url,
-	      function( data ) {
-	          /*
-	          var content = $( data ).find( '#content' );
-	          $( "#result" ).empty().append( content );
-	          */
+	    $.ajax( {
+	      type: "POST",
+	      url: urlAction,
+	      success: function() {
+	        /*$('#contact_form').html("<div id='message'></div>");*/
+	        
 	      }
-	    );
+	    });
 	   
   	   return true;
 	});
