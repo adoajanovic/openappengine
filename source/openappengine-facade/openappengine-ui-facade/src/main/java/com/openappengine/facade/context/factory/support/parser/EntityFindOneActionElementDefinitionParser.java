@@ -20,6 +20,10 @@ import com.openappengine.facade.core.component.value.FieldMapComponent;
 public class EntityFindOneActionElementDefinitionParser extends AbstractGuiElementDefinitionParser {
 
 	private static final String ATTR_AUTO_FIELD_MAP = "auto-field-map";
+	
+	private static final String ATTR_AUTO_FIELD_PREFIX = "auto-field-prefix";
+	
+	private static final String ATTR_AUTO_FIELD_PREFIX_DELIMITER = "auto-field-prefix-delimiter";
 
 	private static final String ATTR_VALUE_FIELD = "value-field";
 
@@ -60,6 +64,20 @@ public class EntityFindOneActionElementDefinitionParser extends AbstractGuiEleme
 			}
 		}
 		entityFindOneActionComponent.setAutoFieldMap(bAutoFieldMap);
+		
+		if(BooleanUtils.isTrue(bAutoFieldMap)) {
+			String autoFieldPrefix = element.getAttribute(ATTR_AUTO_FIELD_PREFIX);
+			if(StringUtils.isNotEmpty(autoFieldPrefix)) {
+				logger.debug("Tag :[" + getParsedNodeName() + "] :: Attribute :" + ATTR_AUTO_FIELD_PREFIX + "set as " + autoFieldPrefix);
+				entityFindOneActionComponent.setAutoFieldPrefix(autoFieldPrefix);	
+			}
+			
+			String autoFieldPrefixDelimiter = element.getAttribute(ATTR_AUTO_FIELD_PREFIX_DELIMITER);
+			if(StringUtils.isNotEmpty(autoFieldPrefixDelimiter)) {
+				logger.debug("Tag :[" + getParsedNodeName() + "] :: Attribute :" + ATTR_AUTO_FIELD_PREFIX_DELIMITER + "set as " + autoFieldPrefixDelimiter);
+				entityFindOneActionComponent.setAutoFieldPrefixDelimiter(autoFieldPrefixDelimiter);	
+			}
+		}
 		
 		NodeList fieldMapNodes = element.getElementsByTagName(ParserConstants.FIELD_MAP_PARSER);
 		if(BooleanUtils.isFalse(bAutoFieldMap)) {

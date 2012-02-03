@@ -134,6 +134,8 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
 			guiApplicationContext.setExternalContext(externalContext);
 			
+			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
+			
 			//Clear the Context Messages
 			guiApplicationContext.getMessageContext().clearAllMessages();
 			

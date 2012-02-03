@@ -23,6 +23,10 @@ public class EntityFindOneActionComponent extends AbstractEntityActionComponent 
 	private List<FieldMapComponent> fieldMaps = new ArrayList<FieldMapComponent>();
 
 	private boolean autoFieldMap = false;
+	
+	private String autoFieldPrefix;
+	
+	private String autoFieldPrefixDelimiter = ".";
 
 	private String conditionExpression;
 	
@@ -79,5 +83,21 @@ public class EntityFindOneActionComponent extends AbstractEntityActionComponent 
 		//TODO
 		//actionRequest.addActionParameter("fieldMaps", fieldMaps);
 		return actionRequest;
+	}
+
+	public String getAutoFieldPrefix() {
+		return autoFieldPrefix;
+	}
+
+	public void setAutoFieldPrefix(String autoFieldPrefix) {
+		this.autoFieldPrefix = autoFieldPrefix;
+	}
+
+	public String getAutoFieldPrefixDelimiter() {
+		return autoFieldPrefixDelimiter;
+	}
+
+	public void setAutoFieldPrefixDelimiter(String autoFieldPrefixDelimiter) {
+		this.autoFieldPrefixDelimiter = autoFieldPrefixDelimiter;
 	}
 }

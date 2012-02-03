@@ -4,6 +4,7 @@
 package com.openappengine.facade.context.factory.support.parser;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 
 import com.openappengine.facade.context.factory.support.ScreenDefinitionParserDelegate;
@@ -21,6 +22,8 @@ public abstract class AbstractGuiElementDefinitionParser implements GuiElementDe
 	protected static final String ACTION_ENTITY_FIND_ONE = "entity-find-one";
 	
 	protected static final String ELEMENT_FIELD_MAP = "FIELD_MAP";
+	
+	protected Logger logger = Logger.getLogger("ElementDefinitionParser");
 
 	/**
 	 * @param delegate

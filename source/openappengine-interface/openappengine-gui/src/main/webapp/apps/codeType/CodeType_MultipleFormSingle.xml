@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <screen>
-	<!-- Multiple EntityValue instances are present of the Same Entity. If needed, distinguished on the prefix. -->
+
 	<parameter>
 		<param name="codeTypeId" value-ref="codeTypeId" required="true" />
 	</parameter>
@@ -15,9 +15,12 @@
 	</transition>
 
 	<pre-actions>
-		<entity-find-one entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true" auto-field-prefix="a" condition="codeTypeId >= 1">
+		
+		<entity-find-one entity-name="CodeType" value-field="codeTypeValue1" auto-field-map="true" auto-field-prefix="a" condition="codeTypeId >= 1">
 		</entity-find-one>
 		
+		<entity-find-one entity-name="CodeType" value-field="codeTypeValue1" auto-field-map="true" auto-field-prefix="b" condition="codeTypeId >= 1">
+		</entity-find-one>
 	</pre-actions>
 
 	<page-content>
