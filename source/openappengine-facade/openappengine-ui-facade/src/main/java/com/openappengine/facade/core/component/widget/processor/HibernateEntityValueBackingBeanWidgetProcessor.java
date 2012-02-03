@@ -8,13 +8,17 @@ import java.util.List;
 import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ClassUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
 import com.openappengine.facade.core.component.widget.context.HibernateBackingBeanWigetProcessorContext;
 import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
+import com.openappengine.facade.core.support.DataBeanWrapper;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
@@ -71,10 +75,10 @@ public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements 
 			entityValue = (EntityValue) widgetProcessorContext.getELContext().getVariable(widgetProcessorContext.getWidgetBackingObjectValueRef());
 			Object previousInstance = entityValue.getInstance();
 			
-			Object backingBeanInstance = widgetProcessorContext.getWidgetBackingClass().newInstance();
+			Object newInstance = widgetProcessorContext.getWidgetBackingClass().newInstance();
 			
 			//Validate and Bind EntityValue BackingBean.
-			ServletRequestDataBinder binder = new ServletRequestDataBinder(backingBeanInstance);
+			ServletRequestDataBinder binder = new ServletRequestDataBinder(newInstance);
 			binder.setValidator(entityValue.getEntityDefinition().getEntityValidator());
 			
 			//Bind the Instance to the request.
@@ -86,13 +90,29 @@ public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements 
 					//If binding errors exists, add the error messages to the message context and return the previous entity value.
 					addErrorMessages(bindingResult,entityValue.getEntityDefinition());
 					
-					//TODO - Model Map needs to be refreshed for each instance.!! CHECK..
-					getModelMap().addAttribute(widgetProcessorContext.getWidgetId(),previousInstance);
+					//Bind all the successful bindings.
+					BeanWrapper prevInstanceBeanWrapper = new BeanWrapperImpl(previousInstance);
+					BeanWrapper newInstanceBeanWrapper = new BeanWrapperImpl(newInstance);
+					
+					
+					List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+					if(fieldErrors != null) {
+						for (FieldError fieldError : fieldErrors) {
+							String field = fieldError.getField();
+							
+							Object prevValue = prevInstanceBeanWrapper.getPropertyValue(field);
+							
+							//Restore the previous value.
+							newInstanceBeanWrapper.setPropertyValue(field, prevValue);
+						}
+					}
+					
+					getModelMap().addAttribute(widgetProcessorContext.getWidgetId(),newInstance);
 					return entityValue;
 				}
 			}
 			
-			entityValue.setInstance(backingBeanInstance);
+			entityValue.setInstance(newInstance);
 			
 			//Process Widget.
 			entityValue = doProcessWidget(entityValue);
