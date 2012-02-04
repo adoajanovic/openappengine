@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.hibernate.classic.Session;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -22,7 +23,6 @@ import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
 import com.openappengine.facade.entity.utils.ObjectConverter;
 import com.openappengine.model.code.CodeType;
-import com.openappengine.utility.UtilLogger;
 
 /**
  * @author hrishikesh.joshi
@@ -34,7 +34,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	private HibernateTemplate hibernateTemplate;
 	
-	private UtilLogger logger = new UtilLogger(getClass());
+	private Logger logger = Logger.getLogger("EntityFacade");
 	
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
@@ -74,6 +74,10 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public EntityValue findUniqueEntityValue(String entityName,Map<String,Object> parameters) {
+		if(parameters == null || parameters.isEmpty()) {
+			logger.error("No parameters passed for finding EntityValue. Cannot find a unique EntityValue instance.");
+			return null;			
+		}
 	    EntityDefinition entityDefinition = findEntityDefinition(entityName);
 	    EntityValue entityValue = null;
 	    Class<?> entityClass = entityDefinition.getEntityClass();
@@ -85,10 +89,16 @@ public class EntityFacadeImpl implements EntityFacade {
 	    return entityValue;
 	}
 	
-	public Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException {
+	public Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException, EntityValueFindException {
 		List list = findByPropertyValues(entityClass, parameters);
+		
+		if(list == null || list.isEmpty()) {
+			return null;
+		}
+		
 		if(list != null && list.size() != 1) {
-			//TODO
+			logger.error("Cannot find a unique EntityValue.");
+			throw new EntityValueFindException("Multiple instances found for the EntityValue.");
 		} 
 		
 		return (Serializable) list.get(0);
@@ -157,10 +167,10 @@ public class EntityFacadeImpl implements EntityFacade {
 	public EntityValue saveEntityValue(EntityValue entityValue) {
 	    Object instance = entityValue.getInstance();
 		if(entityValue == null || instance == null) {
-		logger.logDebug("EntityValue found null. EntityValue cannot be persisted.");
+		logger.debug("EntityValue found null. EntityValue cannot be persisted.");
 		return null;
 	    }
-	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
+	    logger.debug("Persisting EntityValue :" + entityValue.getEntityName());
 	    hibernateTemplate.save(instance);
 	    entityValue.setInstance(instance);
 	    return entityValue;
@@ -170,10 +180,10 @@ public class EntityFacadeImpl implements EntityFacade {
 	public EntityValue saveOrUpdateEntityValue(EntityValue entityValue) {
 	    Object instance = entityValue.getInstance();
 		if(entityValue == null || instance == null) {
-		logger.logDebug("EntityValue found null. EntityValue cannot be persisted.");
+		logger.debug("EntityValue found null. EntityValue cannot be persisted.");
 		return null;
 	    }
-	    logger.logDebug("Persisting EntityValue :" + entityValue.getEntityName());
+	    logger.debug("Persisting EntityValue :" + entityValue.getEntityName());
 	    hibernateTemplate.saveOrUpdate(instance);
 	    entityValue.setInstance(instance);
 	    return entityValue;

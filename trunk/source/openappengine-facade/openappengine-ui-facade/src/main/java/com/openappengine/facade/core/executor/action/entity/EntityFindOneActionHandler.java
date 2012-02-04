@@ -27,32 +27,21 @@ import com.openappengine.facade.ui.resolver.ValueRef;
  */
 public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
-	private Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
-	
-	private boolean autoFieldMap = false;
-	
-	private String conditionExpression;
-	
-	private String autoFieldPrefix;
-	
-	private String autoFieldPrefixDelimiter = ".";
-	
 	public EntityFindOneActionHandler() {
 	}
 	
-	public EntityFindOneActionHandler(String entityName) {
-		setEntityName(entityName);
-	}
-
 	@Override
 	public EntityValue execute(ActionContext actionContext) {
-		Map<String,Object> params = new HashMap<String, Object>();
+		boolean autoFieldMap = (Boolean) getActionRequest().getActionRequest("autoFieldMap");
 		
+		Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
+		andParameterMap = (Map<String, ValueRef<Object>>) getActionRequest().getActionRequest("andParameterMap");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
 		if(autoFieldMap) {
 			//Map request params from the external context directly to the entity properties.
 			ExternalContext externalContext = actionContext.getExternalContext();
-			Assert.notNull(externalContext, "External Context not set. " + getClass()
-					+ " Action Handler requires an External Context when using the attribute auto-field-map");
+			Assert.notNull(externalContext, "External Context not set. " + getClass() + " Action Handler requires an External Context when using the attribute auto-field-map");
 			params = externalContext.getRequestParameters();
 		} else if(andParameterMap != null) {
 			Set<String> paramKeys = andParameterMap.keySet();
@@ -66,6 +55,7 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		EntityValueResolver valueResolver = new EntityValueResolver(getEntityName(), params);
+		String autoFieldPrefix = (String) getActionRequest().getActionRequest("autoFieldPrefix");
 		if(StringUtils.isNotEmpty(autoFieldPrefix)) {
 			valueResolver.setParameterPrefix(autoFieldPrefix);
 		}
@@ -73,53 +63,9 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 		return (EntityValue) valueResolver.resolveValue();
 	}
 
-	public Map<String, ValueRef<Object>> getAndParameterMap() {
-		return andParameterMap;
-	}
-
-	public void setAndParameterMap(Map<String, ValueRef<Object>> andParameterMap) {
-		this.andParameterMap = andParameterMap;
-	}
-	
-	public void addAndParameter(String fieldName,ValueRef<Object> value) {
-		this.andParameterMap.put(fieldName, value);
-	}
-
-	public boolean isAutoFieldMap() {
-		return autoFieldMap;
-	}
-
-	public void setAutoFieldMap(boolean autoFieldMap) {
-		this.autoFieldMap = autoFieldMap;
-	}
-
-	public String getConditionExpression() {
-		return conditionExpression;
-	}
-
-	public void setConditionExpression(String conditionExpression) {
-		this.conditionExpression = conditionExpression;
-	}
-
 	@Override
 	public String getName() {
 		return "entity-find-one";
-	}
-
-	public String getAutoFieldPrefix() {
-		return autoFieldPrefix;
-	}
-
-	public void setAutoFieldPrefix(String autoFieldPrefix) {
-		this.autoFieldPrefix = autoFieldPrefix;
-	}
-
-	public String getAutoFieldPrefixDelimiter() {
-		return autoFieldPrefixDelimiter;
-	}
-
-	public void setAutoFieldPrefixDelimiter(String autoFieldPrefixDelimiter) {
-		this.autoFieldPrefixDelimiter = autoFieldPrefixDelimiter;
 	}
 
 }

@@ -31,5 +31,8 @@ public interface ActionContext {
 	 */
 	ExternalContext getExternalContext();
 	
+	/**
+	 * @return
+	 */
 	MessageContext getMessageContext();
 }

@@ -54,7 +54,7 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	public Object execute(ActionRequest actionRequest) {
 		Assert.notNull(actionRequest, "Action Request cannot be empty.");
 		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
-		
+		actionHandler.setActionRequest(actionRequest);
 		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler, actionRequest, elContext, externalContext,messageContext);
 		Object result = performActionProcessing(actionContext);
 		return result;

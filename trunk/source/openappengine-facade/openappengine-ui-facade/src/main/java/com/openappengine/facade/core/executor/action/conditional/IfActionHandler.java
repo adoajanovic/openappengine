@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.Validate;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
@@ -17,6 +18,8 @@ public class IfActionHandler extends CompositeActionHandler {
 	private List<IfActionHandler> elseifActions;
 	
 	private ActionHandler elseAction;
+
+	private ActionRequest actionRequest;
 	
 	public IfActionHandler(){
 	}
@@ -87,6 +90,11 @@ public class IfActionHandler extends CompositeActionHandler {
 	@Override
 	public String getName() {
 		return "if";
+	}
+
+	@Override
+	public void setActionRequest(ActionRequest actionRequest) {
+		this.actionRequest = actionRequest;
 	}
 
 }
