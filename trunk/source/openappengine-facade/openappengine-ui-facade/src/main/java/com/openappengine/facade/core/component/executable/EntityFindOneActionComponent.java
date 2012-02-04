@@ -79,6 +79,8 @@ public class EntityFindOneActionComponent extends AbstractEntityActionComponent 
 		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one");
 		actionRequest.addActionParameter("entityName", entityName);
 		actionRequest.addActionParameter("autoFieldMap", autoFieldMap);
+		actionRequest.addActionParameter("autoFieldPrefix", autoFieldPrefix);
+		actionRequest.addActionParameter("autoFieldPrefixDelimiter", autoFieldPrefixDelimiter);
 		actionRequest.addActionParameter("conditionExpression", conditionExpression);
 		//TODO
 		//actionRequest.addActionParameter("fieldMaps", fieldMaps);

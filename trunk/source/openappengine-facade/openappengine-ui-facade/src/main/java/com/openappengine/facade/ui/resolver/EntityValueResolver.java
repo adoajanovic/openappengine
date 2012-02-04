@@ -29,7 +29,7 @@ public class EntityValueResolver implements ValueResolver {
 	
 	private String parameterPrefix;
 	
-	private String prefixDelimiter;
+	private String prefixDelimiter = ".";
 	
 	public EntityValueResolver(String entityName, Map<String, Object> queryParams) {
 		super();
@@ -62,7 +62,7 @@ public class EntityValueResolver implements ValueResolver {
 							if(key.startsWith(prefixKey)) {
 								String trimmedProperty = key.replaceFirst(prefixKey, "");
 								if(trimmedProperty.equals(property)) {
-									filteredPkParams.put(property, queryParams.get(queryParams.get(prefixKey)));
+									filteredPkParams.put(property, queryParams.get(key));
 								}
 							}
 						}

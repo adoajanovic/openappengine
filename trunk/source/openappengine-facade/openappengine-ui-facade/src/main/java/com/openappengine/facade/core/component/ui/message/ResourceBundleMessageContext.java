@@ -35,7 +35,7 @@ public class ResourceBundleMessageContext implements MessageContext {
 
 	private Locale locale = Locale.getDefault();
 
-	private String[] defaultMessageBundlePaths = new String[]{"messages"};
+	private String[] defaultMessageBundlePaths = new String[]{"defaultMessages"};
 	
 	/**
 	 * @param basenames

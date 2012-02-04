@@ -42,8 +42,13 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
-		if(entityValue == null) {
+		if(entityValue == null || entityValue.getInstance()==null) {
 			logger.error("EntityValue (value-field) set as null.");
+			
+			actionContext.getMessageContext().clearAllErrorMessages();
+			actionContext.getMessageContext().addErrorMessage("entity.update.error");
+			
+			return null;
 		}
 		
 		if(updateIfExists) {

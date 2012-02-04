@@ -22,10 +22,7 @@
 
 	<page-content>
 		<widgets>
-			<form-single id="CodeType_View" name="CodeType_View" value-ref="codeTypeValue" transition="save">
-			</form-single>
-			
-			<form-single id="CodeType_View1" name="CodeType_View1" value-ref="codeTypeValue1" transition="save">
+			<form-single id="CodeTypeWithPrefix" name="CodeTypeWithPrefix" value-ref="codeTypeValue" transition="save">
 			</form-single>
 		</widgets>
 	</page-content>

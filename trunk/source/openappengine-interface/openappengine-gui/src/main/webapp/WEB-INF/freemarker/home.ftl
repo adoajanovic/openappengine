@@ -98,11 +98,13 @@
  				<!-- Widget : form-single -->
  			
 	 			<#else>
-	 				<div class="error">
+	 				<div>
 		 				<fieldset>
+		 					<form>
 		 					<h4>
-		 						Entity Not found..!
+		 						No Record Found.
 		 					</h4>
+		 					</form>
 		 				</fieldset>
 	 				</div>
 	 			</#if>
@@ -115,8 +117,9 @@
   	/* attach a submit handler to the form */
   	jQuery("form").submit(function() {
 	   
-	    /* stop form from submitting normally */
-	    event.preventDefault(); 
+	    /* stop form from submitting normally*/ 
+	    	event.preventDefault(); 
+	    
 	        
 	    /* get some values from elements on the page: */
 	    var $form = $( this ),

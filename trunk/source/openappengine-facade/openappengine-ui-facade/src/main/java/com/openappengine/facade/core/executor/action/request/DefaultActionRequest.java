@@ -57,7 +57,7 @@ public class DefaultActionRequest implements ActionRequest {
 
 	@Override
 	public void addActionParameter(String param, Object value) {
-		if(StringUtils.isEmpty(param)) {
+		if(StringUtils.isEmpty(param) || value == null) {
 			return;
 		}
 			

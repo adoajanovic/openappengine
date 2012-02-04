@@ -30,14 +30,6 @@
 	  	${title}
 	  </title>
 	  
-	  <!--
-	  <script type="text/javascript">
-	  		jQuery(document).ready(function() {
-		  		alert('Hi');
-	  		});
-	  </script>
-	  -->
-	  
 	  <!-- head -->
 	  ${head}
 	</head>
@@ -70,11 +62,7 @@
 		        
 		      <!-- Left Menu -->
 		      <div  id="left-menu">
-		       	<ul>
-		       		<li><a href="#">A</a></li>
-		       		<li><a href="#">B</a></li>
-		       		<li><a href="#">C</a></li>
-		       	</ul>
+		       	<#include "left-navigation.ftl" />
 		      </div>
 		            
 			  <!--page-content-->
@@ -84,7 +72,7 @@
 		      
 		      <!--footer-->
 			  <div id="footer">
-			      ©2008 <a href="<@spring.url "/site/index.html"/>">Index</a>
+			      ©2011 <a href="<@spring.url "/site/index.html"/>">Index</a>
 			      | <a href="<@spring.url "/site/contact.html"/>">Contact Us</a>
 			      | <a href="http://blogger.com/">Blog</a>
 			      | <a href="<@spring.url "/site/acknowledgements.html"/>">Acknowledgements</a>
