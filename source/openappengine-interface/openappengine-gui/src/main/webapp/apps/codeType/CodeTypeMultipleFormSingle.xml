@@ -8,7 +8,7 @@
 	<transition id="save">
 		<condition>true</condition>
 		<transition-actions>
-			<entity-save updateIfExists="true" value-field="codeTypeValue" success-message="codeType.save.success"/>
+			<entity-save updateIfExists="true" value-field="codeTypeValue1" success-message="codeType.save.success"/>
 		</transition-actions>
 		<default-response url="." />
 		<error-response save-current-screen="false" type="url" url="" url-type="screen-path" />
@@ -19,16 +19,16 @@
 		<entity-find-one entity-name="CodeType" value-field="codeTypeValue1" auto-field-map="true" auto-field-prefix="a" condition="codeTypeId >= 1">
 		</entity-find-one>
 		
-		<entity-find-one entity-name="CodeType" value-field="codeTypeValue1" auto-field-map="true" auto-field-prefix="b" condition="codeTypeId >= 1">
+		<entity-find-one entity-name="CodeType" value-field="codeTypeValue2" auto-field-map="true" auto-field-prefix="b" condition="codeTypeId >= 1">
 		</entity-find-one>
 	</pre-actions>
 
 	<page-content>
 		<widgets>
-			<form-single id="CodeType_View" name="CodeType_View" value-ref="codeTypeValue" transition="save">
+			<form-single id="codeTypeValue1" name="codeTypeValue1" value-ref="codeTypeValue1" transition="save">
 			</form-single>
 			
-			<form-single id="CodeType_View1" name="CodeType_View1" value-ref="codeTypeValue1" transition="save">
+			<form-single id="codeTypeValue2" name="codeTypeValue2" value-ref="codeTypeValue2" transition="save">
 			</form-single>
 		</widgets>
 	</page-content>
