@@ -18,11 +18,7 @@ public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 
 	@Override
 	public ActionRequest createActionRequest() {
-		EntityActionRequest actionRequest = new EntityActionRequest("entity-save");
-		actionRequest.addActionParameter("updateIfExists", updateIfExists);
-		actionRequest.addActionParameter("successMessage", getSuccessMessage());
-		actionRequest.addActionParameter("valueField", getValueField());
-		actionRequest.setValueFields(new String[]{getValueField()});
+		EntityActionRequest actionRequest = new EntityActionRequest("entity-save",this);
 		return actionRequest;
 	}
 

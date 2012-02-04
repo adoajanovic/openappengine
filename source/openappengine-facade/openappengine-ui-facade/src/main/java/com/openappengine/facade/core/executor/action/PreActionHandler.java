@@ -9,6 +9,8 @@ import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcher
 public class PreActionHandler implements ActionHandler {
 
 	private List<ActionRequest> actionRequests = new ArrayList<ActionRequest>();
+	
+	private ActionRequest actionRequest;
 
 	@Override
 	public String getName() {
@@ -32,5 +34,10 @@ public class PreActionHandler implements ActionHandler {
 
 	public void setActionRequests(List<ActionRequest> actionRequests) {
 		this.actionRequests = actionRequests;
+	}
+
+	@Override
+	public void setActionRequest(ActionRequest actionRequest) {
+		this.actionRequest = actionRequest;
 	}
 }

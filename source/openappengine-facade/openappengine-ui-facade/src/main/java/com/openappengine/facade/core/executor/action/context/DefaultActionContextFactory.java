@@ -13,7 +13,6 @@ import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.component.value.ValueFieldAware;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
-import com.openappengine.facade.core.executor.action.ActionHandlerWrapper;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.resolve.ELContextVariableResolver;
 
@@ -27,20 +26,19 @@ public class DefaultActionContextFactory implements ActionContextFactory {
 
 	@Override
 	public ActionContext createActionContext(ActionHandler actionHandler, ActionRequest actionRequest, ELContext elContext,ExternalContext externalContext,MessageContext messageContext) {
-		ActionHandler wrappedActionHandler = mapActionParameters(actionHandler, actionRequest);
-		ActionContext context = new DefaultActionContext(externalContext,elContext,wrappedActionHandler,messageContext);
+		resolveActionParameters(actionRequest);
+		
+		ActionContext context = new DefaultActionContext(externalContext,elContext,actionHandler,messageContext);
 		elContextVariableResolver = new ELContextVariableResolver(elContext);
 		return context;
 	}
 
 	/**
-	 * @param actionHandler
 	 * @param parameters
 	 * @return
 	 */
-	protected ActionHandler mapActionParameters(ActionHandler actionHandler, ActionRequest actionRequest) {
+	protected void resolveActionParameters(ActionRequest actionRequest) {
 		Map<String, Object> parameters = actionRequest.getActionParameters();
-		ActionHandlerWrapper wrapper = new ActionHandlerWrapper(actionHandler);
 		if(parameters != null) {
 			Set<String> actionParams = parameters.keySet();
 			for (String param : actionParams) {
@@ -50,11 +48,10 @@ public class DefaultActionContextFactory implements ActionContextFactory {
 					if(valueFields != null && Arrays.asList(valueFields).contains(param)) {
 						value = elContextVariableResolver.resolve(param);
 					}
+					actionRequest.addActionParameter(param, value);
 				}
-				wrapper.put(param, value);
 			}
 		}
-		return wrapper.getWrappedInstance();
 	}
 
 	public ELContextVariableResolver getElContextVariableResolver() {

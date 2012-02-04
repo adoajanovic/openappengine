@@ -5,6 +5,7 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import org.apache.log4j.Logger;
 
+import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
@@ -17,7 +18,7 @@ public abstract class AbstractEntityActionHandler implements ActionHandler {
 	
 	protected Logger logger = Logger.getLogger("EntityActionHandler");
 	
-	private String entityName;
+	private ActionRequest actionRequest;
 
 	/**
 	 * @param entityName
@@ -26,16 +27,21 @@ public abstract class AbstractEntityActionHandler implements ActionHandler {
 	}
 
 	public String getEntityName() {
+		String entityName = (String) actionRequest.getActionRequest("entityName");
 		return entityName;
 	}
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
-	}
-	
 	protected EntityFacade getEntityFacade() {
 		EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 		
 		return entityFacade;
+	}
+
+	public ActionRequest getActionRequest() {
+		return actionRequest;
+	}
+
+	public void setActionRequest(ActionRequest actionRequest) {
+		this.actionRequest = actionRequest;
 	}
 }

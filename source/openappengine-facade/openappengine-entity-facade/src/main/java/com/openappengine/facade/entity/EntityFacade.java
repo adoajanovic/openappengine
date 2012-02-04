@@ -55,6 +55,6 @@ public interface EntityFacade {
 	
 	List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
 	
-	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
+	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException, EntityValueFindException;
 
 }

@@ -18,14 +18,6 @@ import com.openappengine.facade.entity.EntityValue;
  */
 public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	
-	private boolean updateIfExists = true;
-	
-	private String valueField;
-	
-	private EntityValue entityValue; 
-	
-	private String successMessage;
-	
 	public EntitySaveActionHandler() {
 	}
 
@@ -36,12 +28,15 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 
 	@Override
 	public Object execute(ActionContext actionContext) {
+		
+		String valueField = (String) getActionRequest().getActionRequest("valueField");
+		
 		if(StringUtils.isEmpty(valueField)) {
 			logger.error("EntityValue (value-field) set as null. Cannot perform Save");
 			return null;
 		}
 		
-		entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
+		EntityValue entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
 		if(entityValue == null || entityValue.getInstance()==null) {
 			logger.error("EntityValue (value-field) set as null.");
 			
@@ -51,6 +46,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			return null;
 		}
 		
+		boolean updateIfExists = (Boolean) getActionRequest().getActionRequest("updateIfExists");
 		if(updateIfExists) {
 			logger.debug("Attribute 'updateIfExists' set as true, will update the value if it exists in the datastore.");
 			getEntityFacade().saveOrUpdateEntityValue(entityValue);	
@@ -63,6 +59,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		// Replace the EntityValue value-field in the ELContext with the updated EntityValue.
 		actionContext.getELContext().registerELContextVariable(valueField, entityValue);
 		
+		String successMessage = (String) getActionRequest().getActionRequest("successMessage");
 		if(StringUtils.isNotBlank(successMessage)) {
 			actionContext.getMessageContext().clearAllSuccessMessages();
 			actionContext.getMessageContext().addSuccessMessage(successMessage);
@@ -70,37 +67,5 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 				
 		return entityValue;
 	}
-
-	public EntityValue getEntityValue() {
-		return entityValue;
-	}
-
-	public void setEntityValue(EntityValue entityValue) {
-		this.entityValue = entityValue;
-	}
-
-	public boolean isUpdateIfExists() {
-		return updateIfExists;
-	}
-
-	public void setUpdateIfExists(boolean updateIfExists) {
-		this.updateIfExists = updateIfExists;
-	}
-
-	public String getValueField() {
-		return valueField;
-	}
-
-	public void setValueField(String valueField) {
-		this.valueField = valueField;
-	}
-
-	public String getSuccessMessage() {
-		return successMessage;
-	}
-
-	public void setSuccessMessage(String successMessage) {
-		this.successMessage = successMessage;
-	}
-
+	
 }

@@ -3,6 +3,8 @@
  */
 package com.openappengine.facade.core.component.executable;
 
+import com.openappengine.facade.core.ActionRequest;
+
 
 /**
  * @author hrishi
@@ -11,5 +13,11 @@ package com.openappengine.facade.core.component.executable;
 public abstract class AbstractEntityActionComponent extends AbstractExecutableComponent {
 	
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public ActionRequest createActionRequest() {
+		
+		return null;
+	}
 
 }

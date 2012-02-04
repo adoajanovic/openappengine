@@ -6,6 +6,8 @@ package com.openappengine.facade.core.executor.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.facade.core.ActionRequest;
+
 /**
  * @author hrishi
  * since Jan 1, 2012
@@ -13,6 +15,8 @@ import java.util.List;
 public class CompositeActionListHandler implements ActionHandler {
 	
 	private List<Executable> actions = new ArrayList<Executable>();
+	
+	private ActionRequest actionRequest;
 
 	@Override
 	public Object execute(ActionContext actionContext) {
@@ -43,5 +47,10 @@ public class CompositeActionListHandler implements ActionHandler {
 	@Override
 	public String getName() {
 		return "composite";
+	}
+
+	@Override
+	public void setActionRequest(ActionRequest actionRequest) {
+		this.actionRequest = actionRequest;
 	}
 }
