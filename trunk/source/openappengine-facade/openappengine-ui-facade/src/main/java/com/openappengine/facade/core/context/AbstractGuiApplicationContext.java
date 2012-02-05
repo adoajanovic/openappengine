@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.component.ui.message.ResourceBundleMessageContext;
@@ -13,9 +14,8 @@ import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
-import com.openappengine.facade.core.variable.ScreenContextVariableResolver;
+import com.openappengine.facade.core.resolve.ELContextVariableResolver;
 import com.openappengine.facade.core.variable.Variable;
-import com.openappengine.facade.core.variable.VariableResolver;
 
 /**
  * @author hrishikesh.joshi
@@ -27,7 +27,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	
 	private ExpressionEvaluator expressionEvaluator;
 	
-	private VariableResolver variableResolver;
+	private Resolver variableResolver;
 	
 	private ELContext elContext;
 	
@@ -42,9 +42,13 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	//Initialize Context XmlScreenConfiguration.
 	protected void initializeStrategies() {
 		actionExecutor = new DefaultActionExecutor();
-		variableResolver = new ScreenContextVariableResolver(this);
+		
 		elContext = new DefaultJexlContext();
+		
+		variableResolver = new ELContextVariableResolver(elContext);
+		
 		initializeExpressionEvaluator();
+		
 		messageContext = new ResourceBundleMessageContext();
 	}
 
@@ -67,7 +71,7 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	}
 
 	@Override
-	public VariableResolver getVariableResolver() {
+	public Resolver getVariableResolver() {
 		return variableResolver;
 	}
 

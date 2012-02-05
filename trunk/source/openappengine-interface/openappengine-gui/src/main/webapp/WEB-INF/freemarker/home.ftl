@@ -22,6 +22,11 @@
  	<!-- Message -->
 	<#if successMessages?size!=0>
 		<div class="success">
+		<!--	
+		<span class="ui-icon ui-icon-trash">
+		</span>
+		-->
+		
 		<ul>
 			<#list successMessages as message>
 				<li>
@@ -59,7 +64,7 @@
  			<!-- Get WidgetType -->
  			
  			<!-- Form Command Object -->
- 			<#if childWidget.formBackingObject()??>
+ 			<#if childWidget.formBackingObject()?has_content>
  			
  			<#assign formCommand = childWidget.formBackingObject()>
  			
@@ -95,18 +100,21 @@
 		 			</table>
 	 			</fieldset>
 	 			</form>
+ 				
  				<!-- Widget : form-single -->
  			
 	 			<#else>
-	 				<div>
-		 				<fieldset>
-		 					<form>
-		 					<h4>
-		 						No Record Found.
-		 					</h4>
-		 					</form>
-		 				</fieldset>
-	 				</div>
+	 				<#if childWidget.formBackingObject()?has_content>
+		 				<div>
+			 				<fieldset>
+			 					<form>
+			 					<h4>
+			 						No Record Found.
+			 					</h4>
+			 					</form>
+			 				</fieldset>
+		 				</div>
+	 				</#if>
 	 			</#if>
  			
  		</#list>

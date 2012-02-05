@@ -9,8 +9,6 @@ public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 	
 	private boolean updateIfExists = true;
 	
-	private String successMessage;
-	
 	@Override
 	public String getComponentName() {
 		return "entity-save";
@@ -28,14 +26,6 @@ public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 
 	public void setUpdateIfExists(boolean updateIfExists) {
 		this.updateIfExists = updateIfExists;
-	}
-
-	public String getSuccessMessage() {
-		return successMessage;
-	}
-
-	public void setSuccessMessage(String successMessage) {
-		this.successMessage = successMessage;
 	}
 
 }

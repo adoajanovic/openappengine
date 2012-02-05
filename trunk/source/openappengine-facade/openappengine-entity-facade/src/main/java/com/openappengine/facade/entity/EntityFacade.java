@@ -57,4 +57,5 @@ public interface EntityFacade {
 	
 	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException, EntityValueFindException;
 
+	boolean deleteEntityValue(EntityValue entityValue);
 }

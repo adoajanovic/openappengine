@@ -11,14 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ClassUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
 import com.openappengine.facade.core.component.widget.context.HibernateBackingBeanWigetProcessorContext;
 import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
-import com.openappengine.facade.core.support.DataBeanWrapper;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
@@ -115,19 +113,22 @@ public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements 
 			entityValue.setInstance(newInstance);
 			
 			//Process Widget.
-			entityValue = doProcessWidget(entityValue);
+			doProcessWidget();
 			
 			// If the EntityValue has not been removed from the ELContext, then bind the model map with the entityvalue instance.
 			if (fetchEntityValueFromELContext() != null) {
 				// Replace the ModelMap attribute with the new binded instance.
 				getModelMap().addAttribute(widgetProcessorContext.getWidgetId(),entityValue.getInstance());
+				return entityValue;
+			} else {
+				getModelMap().addAttribute(widgetProcessorContext.getWidgetId(),null);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return entityValue;
+		return null;
 	}
 
 	/**
@@ -183,5 +184,5 @@ public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements 
 				widgetProcessorContext.getMessageContext());
 	}
 	
-	protected abstract EntityValue doProcessWidget(EntityValue entityValue);
+	protected abstract void doProcessWidget();
 }

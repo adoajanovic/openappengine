@@ -70,4 +70,13 @@ public class DefaultJexlContext implements ELContext {
 		Object variable = getVariable(name);
 		return (T)variable;
 	}
+
+	@Override
+	public void removeELContextVariable(String name) {
+		if(!resolvedContextVariables.containsKey(name)) {
+			return;
+		}
+		
+		resolvedContextVariables.remove(name);
+	}
 }

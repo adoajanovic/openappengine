@@ -34,6 +34,11 @@ public interface ELContext {
 	public void registerELContextVariable(String name,Object value);
 	
 	/**
+	 * @param name
+	 */
+	public void removeELContextVariable(String name);
+	
+	/**
 	 * Get a variable from the EL Context.
 	 * @param name
 	 * @return

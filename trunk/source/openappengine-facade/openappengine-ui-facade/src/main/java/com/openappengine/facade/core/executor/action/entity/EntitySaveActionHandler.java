@@ -6,6 +6,7 @@ package com.openappengine.facade.core.executor.action.entity;
 import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
+import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
 import com.openappengine.facade.entity.EntityValue;
 
 /**
@@ -41,7 +42,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			logger.error("EntityValue (value-field) set as null.");
 			
 			actionContext.getMessageContext().clearAllErrorMessages();
-			actionContext.getMessageContext().addErrorMessage("entity.update.error");
+			actionContext.getMessageContext().addErrorMessage(DefaultActionMessageConstants.ENTITY_SAVE_ERROR);
 			
 			return null;
 		}
@@ -63,6 +64,8 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		if(StringUtils.isNotBlank(successMessage)) {
 			actionContext.getMessageContext().clearAllSuccessMessages();
 			actionContext.getMessageContext().addSuccessMessage(successMessage);
+		} else {
+			actionContext.getMessageContext().addSuccessMessage(DefaultActionMessageConstants.ENTITY_SAVE_SUCCESS);
 		}
 				
 		return entityValue;
