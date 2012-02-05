@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen>
+	<!-- Multiple EntityValue instances are present of the Same Entity. If needed, distinguished on the prefix. -->
+	<parameter>
+		<param name="codeTypeId" value-ref="codeTypeId" required="true" />
+	</parameter>
+	
+	<transition id="save">
+		<condition>true</condition>
+		<transition-actions>
+			<entity-save updateIfExists="true" value-field="codeTypeValue" success-message="codeType.save.success"/>
+		</transition-actions>
+		<default-response url="." />
+		<error-response save-current-screen="false" type="url" url="" url-type="screen-path" />
+	</transition>
+
+	<pre-actions>
+		<entity-create entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
+		</entity-create>
+		
+	</pre-actions>
+
+	<page-content>
+		<widgets>
+			<form-single id="CodeType" name="CodeType" value-ref="codeTypeValue" transition="save">
+			</form-single>
+		</widgets>
+	</page-content>
+
+</screen>

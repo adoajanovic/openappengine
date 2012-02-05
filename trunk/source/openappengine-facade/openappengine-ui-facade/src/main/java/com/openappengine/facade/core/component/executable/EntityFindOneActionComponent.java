@@ -6,9 +6,7 @@ package com.openappengine.facade.core.component.executable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.component.value.FieldMapComponent;
-import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
 
 /**
  * @author hrishi 
@@ -74,12 +72,6 @@ public class EntityFindOneActionComponent extends AbstractEntityActionComponent 
 		this.fieldMaps.add(fieldMapComponent);
 	}
 	
-	@Override
-	public ActionRequest createActionRequest() {
-		ActionRequest actionRequest = new DefaultActionRequest("entity-find-one",this);
-		return actionRequest;
-	}
-
 	public String getAutoFieldPrefix() {
 		return autoFieldPrefix;
 	}
