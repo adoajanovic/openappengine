@@ -2,6 +2,7 @@ package com.openappengine.facade.core.context.event.processor;
 
 import org.apache.log4j.Logger;
 
+import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.ValueRefAware;
@@ -68,8 +69,8 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	private void doResolveValueRef(GuiApplicationContext context, GuiComponent guiComponent) {
 		//TODO - Not used the isValueSet method.
 		String valueRef = ((ValueRefAware) guiComponent).getValueRef();
-		VariableResolver variableResolver = context.getVariableResolver();
-		Object value = variableResolver.getValue(valueRef);
+		Resolver variableResolver = context.getVariableResolver();
+		Object value = variableResolver.resolve(valueRef);
 		((ValueRefAware) guiComponent).setValue(value);
 	}
 }

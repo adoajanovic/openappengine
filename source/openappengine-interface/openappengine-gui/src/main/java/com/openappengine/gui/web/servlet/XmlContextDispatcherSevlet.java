@@ -128,19 +128,19 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
 			guiApplicationContext = createGuiApplicationContext(resource);
 			guiApplicationContext.setExternalContext(externalContext);
 			contextFactory.processLifecyleRestoreProcessing(guiApplicationContext);
-			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
+			//contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 			//Restore the Context from the Factory.
 			guiApplicationContext = contextFactory.getApplicationContext(resource);
 			guiApplicationContext.setExternalContext(externalContext);
 			
-			contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
-			
 			//Clear the Context Messages
 			guiApplicationContext.getMessageContext().clearAllMessages();
 			
 			doProcessWidgetPost(httpServletRequest, guiApplicationContext);
+			
 		}
+		contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
 		contextFactory.refreshMessages(guiApplicationContext);
 		

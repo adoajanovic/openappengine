@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.context;
 
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
@@ -67,7 +68,7 @@ public interface GuiApplicationContext {
 	 * Get the Variable Resolver for this context.
 	 * @return
 	 */
-	VariableResolver getVariableResolver();
+	Resolver getVariableResolver();
 	
 	/**
 	 * Get the ScreenRenderer for rendering the Xml Screen.

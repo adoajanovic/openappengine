@@ -176,6 +176,18 @@ public class EntityFacadeImpl implements EntityFacade {
 	    return entityValue;
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public boolean deleteEntityValue(EntityValue entityValue) {
+		Object instance = entityValue.getInstance();
+		if(entityValue == null || instance == null) {
+			logger.debug("EntityValue found null. EntityValue cannot be deleted.");
+			return false;
+	    }
+		
+		hibernateTemplate.delete(instance);
+		return true;
+	}
+	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public EntityValue saveOrUpdateEntityValue(EntityValue entityValue) {
 	    Object instance = entityValue.getInstance();

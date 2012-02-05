@@ -58,4 +58,5 @@ public class EntityValue extends DataBeanWrapper implements Serializable {
 	public void setEntityId(Serializable entityId) {
 		this.entityId = entityId;
 	}
+	
 }

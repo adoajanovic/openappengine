@@ -5,7 +5,6 @@ package com.openappengine.facade.core.component.widget.processor;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.fsm.TransitionEvent;
 
 /**
@@ -20,7 +19,7 @@ public class FormSingleWidgetProcessor extends HibernateEntityValueBackingBeanWi
 		return "form-single";
 	}
 
-	protected EntityValue doProcessWidget(EntityValue entityValue) {
+	protected void doProcessWidget() {
 		try {
 			String triggeredTransition = getWidgetProcessorContext().getTriggeredTransition();
 			if (StringUtils.isNotEmpty(triggeredTransition)) {
@@ -31,6 +30,5 @@ public class FormSingleWidgetProcessor extends HibernateEntityValueBackingBeanWi
 			// TODO - Handle
 			e.printStackTrace();
 		}
-		return entityValue;
 	}
 }

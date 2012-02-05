@@ -13,11 +13,18 @@ import com.openappengine.facade.core.ActionRequest;
 public abstract class AbstractEntityActionComponent extends AbstractExecutableComponent {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private String successMessage;
 
 	@Override
-	public ActionRequest createActionRequest() {
-		
-		return null;
+	public abstract ActionRequest createActionRequest();
+
+	public String getSuccessMessage() {
+		return successMessage;
+	}
+
+	public void setSuccessMessage(String successMessage) {
+		this.successMessage = successMessage;
 	}
 
 }
