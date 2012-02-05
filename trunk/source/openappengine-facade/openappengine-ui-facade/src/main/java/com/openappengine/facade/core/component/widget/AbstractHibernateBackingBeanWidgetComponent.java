@@ -1,11 +1,13 @@
 package com.openappengine.facade.core.component.widget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.ui.EntityValueAware;
 import com.openappengine.facade.core.component.widget.backingbean.HibernateBackingBeanWidget;
 import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 
 public abstract class AbstractHibernateBackingBeanWidgetComponent extends AbstractGuiComponent implements HibernateBackingBeanWidget,EntityValueAware {
@@ -16,7 +18,7 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	
 	private EntityValue entityValue;
 	
-	private boolean entityValueSet = false;
+	private List<FormFieldComponent> fields = new ArrayList<FormFieldComponent>();
 
 	@Override
 	public String getComponentType() {
@@ -38,7 +40,27 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	}
 	
 	public List<FieldDefinition> getFormFields() {
-		return entityValue.getEntityDefinition().getFields();
+		List<FieldDefinition> fieldsDefs = null;
+		if(entityValue == null) {
+			return null;
+		}
+		
+		EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+		if(fields == null || fields.isEmpty()) {
+			fieldsDefs = entityDefinition.getFields();
+		} else {
+			fieldsDefs = new ArrayList<FieldDefinition>();
+			for (FormFieldComponent formFieldDefinition : fields) {
+				String entryName = formFieldDefinition.getEntryName();
+				if(!entityDefinition.containsFieldDefinitionByFieldName(entryName)) {
+					throw new IllegalArgumentException("Field :" + entryName + " not found in the EntityDefinition " + entityDefinition.getEntityName());
+				}
+				FieldDefinition fieldDefinitionEntry = entityDefinition.getFieldDefinition(entryName);
+				fieldDefinitionEntry.setHidden(formFieldDefinition.isHidden());
+				fieldsDefs.add(fieldDefinitionEntry);
+			}
+		}
+		return fieldsDefs;
 	}
 	
 	public Object getFormCommandValue(String property) {
@@ -49,15 +71,6 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 		this.entityValue = entityValue;
 	}
 	
-	@Override
-	public boolean isValueSet() {
-		return entityValueSet;
-	}
-
-	public void setEntityValueSet(boolean entityValueSet) {
-		this.entityValueSet = entityValueSet;
-	}
-
 	public String getEntityValueRef() {
 		return entityValueRef;
 	}
@@ -77,5 +90,20 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 			return entityValue.getEntityName();
 		}
 		return null;
+	}
+
+	public List<FormFieldComponent> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<FormFieldComponent> fields) {
+		this.fields = fields;
+	}
+	
+	public void addField(FormFieldComponent formFieldComponent) {
+		if(formFieldComponent == null) {
+			return;
+		}
+		fields.add(formFieldComponent);
 	}
 }

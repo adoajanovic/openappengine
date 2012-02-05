@@ -33,6 +33,9 @@ public class FieldDefinition implements Serializable {
 	
 	private boolean alphanumeric;
 	
+	//TODO
+	private boolean hidden;
+	
 	private UIField uiField;
 
 	public String getName() {
@@ -113,5 +116,13 @@ public class FieldDefinition implements Serializable {
 
 	public void setAlphanumeric(boolean alphanumeric) {
 		this.alphanumeric = alphanumeric;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 }
