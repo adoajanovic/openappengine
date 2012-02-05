@@ -32,7 +32,7 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	public Object formBackingObject() {
 		Object instance = null;
 		if(entityValue != null) {
-			instance = entityValue.getWrappedInstance();
+			instance = entityValue.getInstance();
 		}
 		return instance;
 	}
