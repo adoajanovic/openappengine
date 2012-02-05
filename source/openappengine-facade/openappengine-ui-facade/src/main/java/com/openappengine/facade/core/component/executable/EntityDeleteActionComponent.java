@@ -1,7 +1,5 @@
 package com.openappengine.facade.core.component.executable;
 
-import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.executor.action.request.EntityActionRequest;
 
 /**
  * @author hrishi
@@ -14,11 +12,6 @@ public class EntityDeleteActionComponent extends AbstractEntityActionComponent {
 	@Override
 	public String getComponentName() {
 		return "entity-delete";
-	}
-
-	@Override
-	public ActionRequest createActionRequest() {
-		return new EntityActionRequest(getComponentName(), this);
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.openappengine.facade.core.component.executable;
 
-import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.executor.action.request.EntityActionRequest;
 
 public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 
@@ -12,12 +10,6 @@ public class EntitySaveActionComponent extends AbstractEntityActionComponent {
 	@Override
 	public String getComponentName() {
 		return "entity-save";
-	}
-
-	@Override
-	public ActionRequest createActionRequest() {
-		EntityActionRequest actionRequest = new EntityActionRequest("entity-save",this);
-		return actionRequest;
 	}
 
 	public boolean isUpdateIfExists() {

@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.component.executable;
 
 import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.executor.action.request.DefaultActionRequest;
 
 
 /**
@@ -17,7 +18,11 @@ public abstract class AbstractEntityActionComponent extends AbstractExecutableCo
 	private String successMessage;
 
 	@Override
-	public abstract ActionRequest createActionRequest();
+	public ActionRequest createActionRequest() {
+		String actionName = this.getComponentName();
+		ActionRequest actionRequest = new DefaultActionRequest(actionName,this);
+		return actionRequest;
+	}
 
 	public String getSuccessMessage() {
 		return successMessage;
