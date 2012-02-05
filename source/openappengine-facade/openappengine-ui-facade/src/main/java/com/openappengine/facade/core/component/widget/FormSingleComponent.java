@@ -1,6 +1,7 @@
 package com.openappengine.facade.core.component.widget;
 
 
+
 /**
  * 
  * FormSingleComponent
@@ -14,7 +15,7 @@ public class FormSingleComponent extends AbstractHibernateBackingBeanWidgetCompo
 	private static final long serialVersionUID = 1L;
 	
 	private String transition;
-
+	
 	@Override
 	public String getComponentName() {
 		return "form";
@@ -38,5 +39,5 @@ public class FormSingleComponent extends AbstractHibernateBackingBeanWidgetCompo
 	public void setTransition(String transition) {
 		this.transition = transition;
 	}
-
+	
 }

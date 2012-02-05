@@ -5,8 +5,11 @@ package com.openappengine.facade.context.factory.support.parser;
 
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.core.component.GuiComponent;
+import com.openappengine.facade.core.component.widget.FormFieldComponent;
 import com.openappengine.facade.core.component.widget.FormSingleComponent;
 
 /**
@@ -47,6 +50,20 @@ public class FormGuiElementDefinitionParser extends AbstractGuiElementDefinition
 		
 		String attrEntityValueRef = element.getAttribute(ATTR_ENTITY_VALUE_REF);
 		formSingleComponent.setEntityValueRef(attrEntityValueRef);
+		
+		NodeList childNodes = element.getChildNodes();
+		if(childNodes != null) {
+			for(int i=0; i < childNodes.getLength(); i++) {
+				Node node = childNodes.item(i);
+				if(node instanceof Element) {
+					GuiElementDefinitionParser parser = getScreenElementDefinitionParser(node.getNodeName());
+					GuiComponent component = parser.parse((Element) node);
+					if(component instanceof FormFieldComponent) {
+						formSingleComponent.addField((FormFieldComponent) component);
+					}
+				}
+			}
+		}
 		
 		return formSingleComponent;
 	}

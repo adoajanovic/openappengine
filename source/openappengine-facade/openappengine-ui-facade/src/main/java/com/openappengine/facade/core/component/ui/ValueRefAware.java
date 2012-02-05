@@ -13,11 +13,6 @@ public interface ValueRefAware<T> {
 	
 
 	/**
-	 * @return Is the EntityValue set ?
-	 */
-	boolean isValueSet();
-	
-	/**
 	 * @return Value Ref Field.
 	 */
 	String getValueRef();

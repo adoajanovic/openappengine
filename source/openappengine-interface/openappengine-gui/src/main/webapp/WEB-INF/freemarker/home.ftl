@@ -82,15 +82,19 @@
 	 			<fieldset>
 		 			<table>
 		 				<#list childWidget.getFormFields() as field>
-			 				<#assign property=childWidget.getId()+"."+field.property />
-			 				<tr>
-				 				<td>
-				 					<label>${field.property}</label>
-				 				</td>
-				 				<td>
-				 					<@spring.formInput property/>			
-				 				</td>
-			 				</tr>
+		 					<#if field.hidden>
+		 					
+		 					<#else>
+				 				<#assign property=childWidget.getId()+"."+field.property />
+				 				<tr>
+					 				<td>
+					 					<label>${field.property}</label>
+					 				</td>
+					 				<td>
+					 					<@spring.formInput property/>			
+					 				</td>
+				 				</tr>
+			 				</#if>
 			 			</#list>
 			 			<tr>
 			 				<td>
