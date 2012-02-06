@@ -27,7 +27,7 @@ public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 			throw new IllegalArgumentException("EntityName cannot be empty.");
 		}
 		
-		EntityValue pojoEntityValue = getEntityFacade().createEntityValue(entityName);
+		EntityValue pojoEntityValue = getEntityFacade().createEntityValue(entityName, false);
 		return pojoEntityValue;
 	}
 

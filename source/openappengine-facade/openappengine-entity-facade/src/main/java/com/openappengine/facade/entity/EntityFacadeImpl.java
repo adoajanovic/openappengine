@@ -36,7 +36,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	private Logger logger = Logger.getLogger("EntityFacade");
 	
-	public EntityValue createEntityValue(String entityName) {
+	public EntityValue createEntityValue(String entityName, boolean isXml) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
 		Class<?> entityClass = entityDefinition.getEntityClass();
 		EntityValue pojoEntityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
@@ -57,7 +57,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
-	    EntityValue pojoEntityValue = createEntityValue(entityName);
+	    EntityValue pojoEntityValue = createEntityValue(entityName, false);
 	    EntityDefinition entityDefinition = pojoEntityValue.getEntityDefinition();
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 		List list = findByPropertyValues(entityClass, parameters);
@@ -65,7 +65,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	    List<EntityValue> pojoEntityValues = new ArrayList<EntityValue>();
 	    if(list != null && !list.isEmpty()) {
 	    	for(Object object : list) {
-	    		pojoEntityValue = createEntityValue(entityName);
+	    		pojoEntityValue = createEntityValue(entityName, false);
 	    		pojoEntityValue.setInstance(object);
 	    		pojoEntityValues.add(pojoEntityValue);
 	    	}
