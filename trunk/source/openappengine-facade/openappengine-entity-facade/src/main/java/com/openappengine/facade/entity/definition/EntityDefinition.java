@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.w3c.dom.Document;
 
 import com.openappengine.facade.entity.validator.DefaultEntityValidator;
 import com.openappengine.facade.entity.validator.EntityValidator;
@@ -35,6 +36,8 @@ public class EntityDefinition implements Serializable {
 	private Map<String,FieldDefinition> fieldDefinitionMap = new HashMap<String, FieldDefinition>();
 	
 	private EntityValidator entityValidator = new DefaultEntityValidator(this);
+	
+	private Document document;
 	
 	public String getEntityName() {
 		return entityName;
@@ -144,5 +147,13 @@ public class EntityDefinition implements Serializable {
 
 	public void setEntityValidator(EntityValidator entityValidator) {
 		this.entityValidator = entityValidator;
+	}
+
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 }
