@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionReaderException;
@@ -88,7 +86,8 @@ public class EntityDefinitionReader {
 			    }
 			}
 		    }
-
+		    entityDefinition.setDocument(document);
+		    
 		    entityDefinitions.add(entityDefinition);
 		}
 	    }
