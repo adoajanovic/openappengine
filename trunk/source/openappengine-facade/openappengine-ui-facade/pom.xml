@@ -38,6 +38,14 @@
   		<version>1.0.0-SNAPSHOT</version>
   	</dependency>
   	
+  	<!-- Freemarker  -->
+  	<dependency>
+		<groupId>org.freemarker</groupId>
+		<artifactId>freemarker</artifactId>
+		<!-- Latest 2.3.x (not 2.4.x), at least 2.3.18 -->
+		<version>2.3.18</version>
+	</dependency>
+  	
   	<!-- EL Evaluation -->
   	<dependency>
 		<groupId>commons-jexl</groupId>
