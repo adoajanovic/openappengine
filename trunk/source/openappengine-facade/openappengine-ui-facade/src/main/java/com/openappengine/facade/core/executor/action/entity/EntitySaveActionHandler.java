@@ -7,10 +7,10 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
- * The "entity-save" tag persists the specified EntityValue object by creating a
+ * The "entity-save" tag persists the specified PojoEntityValue object by creating a
  * new instance of the entity in the datasource. An error will result if an instance of the entity exists in
  * the datasource with the same primary key.
  * 
@@ -33,13 +33,13 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		String valueField = (String) getActionRequest().getActionRequest("valueField");
 		
 		if(StringUtils.isEmpty(valueField)) {
-			logger.error("EntityValue (value-field) set as null. Cannot perform Save");
+			logger.error("PojoEntityValue (value-field) set as null. Cannot perform Save");
 			return null;
 		}
 		
-		EntityValue entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
-		if(entityValue == null || entityValue.getInstance()==null) {
-			logger.error("EntityValue (value-field) set as null.");
+		PojoEntityValue pojoEntityValue = (PojoEntityValue) actionContext.getELContext().getVariable(valueField);
+		if(pojoEntityValue == null || pojoEntityValue.getInstance()==null) {
+			logger.error("PojoEntityValue (value-field) set as null.");
 			
 			actionContext.getMessageContext().clearAllErrorMessages();
 			actionContext.getMessageContext().addErrorMessage(DefaultActionMessageConstants.ENTITY_SAVE_ERROR);
@@ -50,15 +50,15 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		boolean updateIfExists = (Boolean) getActionRequest().getActionRequest("updateIfExists");
 		if(updateIfExists) {
 			logger.debug("Attribute 'updateIfExists' set as true, will update the value if it exists in the datastore.");
-			getEntityFacade().saveOrUpdateEntityValue(entityValue);	
+			getEntityFacade().saveOrUpdateEntityValue(pojoEntityValue);	
 		} else {
 			logger.debug("Attribute 'updateIfExists' set as false, if the entity value exists in the datastore, an exception is thrown.");
-			getEntityFacade().saveEntityValue(entityValue);
+			getEntityFacade().saveEntityValue(pojoEntityValue);
 		}
 		
 
-		// Replace the EntityValue value-field in the ELContext with the updated EntityValue.
-		actionContext.getELContext().registerELContextVariable(valueField, entityValue);
+		// Replace the PojoEntityValue value-field in the ELContext with the updated PojoEntityValue.
+		actionContext.getELContext().registerELContextVariable(valueField, pojoEntityValue);
 		
 		String successMessage = (String) getActionRequest().getActionRequest("successMessage");
 		if(StringUtils.isNotBlank(successMessage)) {
@@ -68,7 +68,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			actionContext.getMessageContext().addSuccessMessage(DefaultActionMessageConstants.ENTITY_SAVE_SUCCESS);
 		}
 				
-		return entityValue;
+		return pojoEntityValue;
 	}
 	
 }

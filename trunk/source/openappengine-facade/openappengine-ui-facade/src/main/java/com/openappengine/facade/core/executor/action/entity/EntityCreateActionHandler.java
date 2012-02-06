@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishi
@@ -26,8 +27,8 @@ public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 			throw new IllegalArgumentException("EntityName cannot be empty.");
 		}
 		
-		EntityValue entityValue = getEntityFacade().createEntityValue(entityName);
-		return entityValue;
+		EntityValue pojoEntityValue = getEntityFacade().createEntityValue(entityName);
+		return pojoEntityValue;
 	}
 
 }

@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.ext.ExternalContext;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
 import com.openappengine.facade.ui.resolver.ValueRef;
 
@@ -31,7 +31,7 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	}
 	
 	@Override
-	public EntityValue execute(ActionContext actionContext) {
+	public PojoEntityValue execute(ActionContext actionContext) {
 		boolean autoFieldMap = (Boolean) getActionRequest().getActionRequest("autoFieldMap");
 		
 		Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
@@ -60,7 +60,7 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 			valueResolver.setParameterPrefix(autoFieldPrefix);
 		}
 		
-		return (EntityValue) valueResolver.resolveValue();
+		return (PojoEntityValue) valueResolver.resolveValue();
 	}
 
 	@Override

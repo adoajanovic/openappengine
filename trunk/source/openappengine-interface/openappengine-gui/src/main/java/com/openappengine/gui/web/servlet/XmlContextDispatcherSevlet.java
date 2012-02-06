@@ -17,8 +17,6 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.util.ClassUtils;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -29,15 +27,12 @@ import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.GuiContextFactory;
 import com.openappengine.facade.context.factory.WebContextFactoryInitializationCallback;
 import com.openappengine.facade.core.component.widget.context.HttpServletWidgetProcessorContextFactory;
-import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
 import com.openappengine.facade.core.component.widget.context.WidgetProcessorContextFactory;
 import com.openappengine.facade.core.component.widget.processor.WidgetProcessor;
 import com.openappengine.facade.core.component.widget.processor.factory.WidgetProcessorFactory;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.ext.ExternalWebContext;
-import com.openappengine.facade.entity.EntityValue;
-import com.openappengine.facade.fsm.TransitionEvent;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**

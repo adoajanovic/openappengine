@@ -37,6 +37,14 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	}
 
 	/**
+	 * <!--
+		XML Processing By Freemarker
+	 	<#foreach recipient in doc.recipients.person>
+	 		To: ${recipient.name} <br />
+			    ${recipient.address} <br />
+	        Dear ${recipient.name}, <br/>
+	   	</#foreach>
+	   	-->
 	 * Test XML Processing by Freemarker.
 	 * @param context
 	 */
