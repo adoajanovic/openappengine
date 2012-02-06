@@ -26,9 +26,10 @@ public interface EntityFacade {
 	
 	/**
 	 * @param entityName
+	 * @param isXml TODO
 	 * @return A transient PojoEntityValue instance.
 	 */
-	EntityValue createEntityValue(String entityName);
+	EntityValue createEntityValue(String entityName, boolean isXml);
 	
 	/**
 	 * @param entityName
