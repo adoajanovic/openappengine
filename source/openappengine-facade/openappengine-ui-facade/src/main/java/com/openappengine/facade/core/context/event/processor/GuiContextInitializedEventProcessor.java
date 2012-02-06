@@ -1,6 +1,10 @@
 package com.openappengine.facade.core.context.event.processor;
 
+import java.io.StringReader;
+
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.GuiComponent;
@@ -10,7 +14,9 @@ import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
-import com.openappengine.facade.core.variable.VariableResolver;
+import com.openappengine.utility.UtilXml;
+
+import freemarker.ext.dom.NodeModel;
 
 public class GuiContextInitializedEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
 
@@ -24,8 +30,24 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 		GuiRootComponent root = context.getUIRoot();
 		context.getExternalContext().addModelMapAttribute("uiRoot", root);
 		
+		//testXmlProcessing(context);
+		
 		//Resolve Components Value Refs
 		resolveGuiComponentValueRef(context.getUIRoot().getPageContent(), context);
+	}
+
+	/**
+	 * Test XML Processing by Freemarker.
+	 * @param context
+	 */
+	private void testXmlProcessing(GuiApplicationContext context) {
+		String xml = "<recipients><person><name>John Smith</name><address>3033 Long Drive, Houston, TX</address></person><person><name>Janet Mason</name><address>11c Poplar Drive, Knoxville, TN</address></person></recipients>";
+		try {
+			NodeModel nodeModel = NodeModel.parse(new InputSource(new StringReader(xml)));
+			context.getExternalContext().addModelMapAttribute("doc", nodeModel);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void resolveGuiComponentValueRef(GuiComponent root, GuiApplicationContext context) {
