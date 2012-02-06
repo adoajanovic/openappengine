@@ -39,54 +39,54 @@ public class EntityFacadeImpl implements EntityFacade {
 	public EntityValue createEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
 		Class<?> entityClass = entityDefinition.getEntityClass();
-		EntityValue entityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
-		return entityValue;
+		EntityValue pojoEntityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
+		return pojoEntityValue;
 	}
 	
 	public EntityValue createEntityValue(String entityName,Serializable id) {
-	    //EntityValue entityValue = createEntityValue(entityName);
+	    //PojoEntityValue entityValue = createEntityValue(entityName);
 	    if(id != null) {
 		    Session session = hibernateTemplate.getSessionFactory().openSession();
         	Object attachedInstance = hibernateTemplate.load(CodeType.class,id);
         	EntityDefinition entityDefinition = findEntityDefinition(entityName);
-        	EntityValue entityValue = new EntityValue(entityName,entityDefinition,attachedInstance);
+        	EntityValue pojoEntityValue = new PojoEntityValue(entityName,entityDefinition,attachedInstance);
 			session.flush();
-			return entityValue;
+			return pojoEntityValue;
 	    }
 		return null;
 	}
 	
 	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
-	    EntityValue entityValue = createEntityValue(entityName);
-	    EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+	    EntityValue pojoEntityValue = createEntityValue(entityName);
+	    EntityDefinition entityDefinition = pojoEntityValue.getEntityDefinition();
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 		List list = findByPropertyValues(entityClass, parameters);
 	    
-	    List<EntityValue> entityValues = new ArrayList<EntityValue>();
+	    List<EntityValue> pojoEntityValues = new ArrayList<EntityValue>();
 	    if(list != null && !list.isEmpty()) {
 	    	for(Object object : list) {
-	    		entityValue = createEntityValue(entityName);
-	    		entityValue.setInstance(object);
-	    		entityValues.add(entityValue);
+	    		pojoEntityValue = createEntityValue(entityName);
+	    		pojoEntityValue.setInstance(object);
+	    		pojoEntityValues.add(pojoEntityValue);
 	    	}
 	    }
-	    return entityValues;
+	    return pojoEntityValues;
 	}
 	
 	public EntityValue findUniqueEntityValue(String entityName,Map<String,Object> parameters) {
 		if(parameters == null || parameters.isEmpty()) {
-			logger.error("No parameters passed for finding EntityValue. Cannot find a unique EntityValue instance.");
+			logger.error("No parameters passed for finding PojoEntityValue. Cannot find a unique PojoEntityValue instance.");
 			return null;			
 		}
 	    EntityDefinition entityDefinition = findEntityDefinition(entityName);
-	    EntityValue entityValue = null;
+	    EntityValue pojoEntityValue = null;
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 	    List list = findByPropertyValues(entityClass, parameters);
 	    if(list != null && !list.isEmpty()) {
 	    	Object instance = list.get(0);
-        	entityValue = new EntityValue(entityName,entityDefinition,instance);
+        	pojoEntityValue = new PojoEntityValue(entityName,entityDefinition,instance);
 	    }
-	    return entityValue;
+	    return pojoEntityValue;
 	}
 	
 	public Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException, EntityValueFindException {
@@ -97,8 +97,8 @@ public class EntityFacadeImpl implements EntityFacade {
 		}
 		
 		if(list != null && list.size() != 1) {
-			logger.error("Cannot find a unique EntityValue.");
-			throw new EntityValueFindException("Multiple instances found for the EntityValue.");
+			logger.error("Cannot find a unique PojoEntityValue.");
+			throw new EntityValueFindException("Multiple instances found for the PojoEntityValue.");
 		} 
 		
 		return (Serializable) list.get(0);
@@ -164,23 +164,23 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public EntityValue saveEntityValue(EntityValue entityValue) {
-	    Object instance = entityValue.getInstance();
-		if(entityValue == null || instance == null) {
-		logger.debug("EntityValue found null. EntityValue cannot be persisted.");
+	public EntityValue saveEntityValue(EntityValue pojoEntityValue) {
+	    Object instance = pojoEntityValue.getInstance();
+		if(pojoEntityValue == null || instance == null) {
+		logger.debug("PojoEntityValue found null. PojoEntityValue cannot be persisted.");
 		return null;
 	    }
-	    logger.debug("Persisting EntityValue :" + entityValue.getEntityName());
+	    logger.debug("Persisting PojoEntityValue :" + pojoEntityValue.getEntityName());
 	    hibernateTemplate.save(instance);
-	    entityValue.setInstance(instance);
-	    return entityValue;
+	    pojoEntityValue.setInstance(instance);
+	    return pojoEntityValue;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
-	public boolean deleteEntityValue(EntityValue entityValue) {
-		Object instance = entityValue.getInstance();
-		if(entityValue == null || instance == null) {
-			logger.debug("EntityValue found null. EntityValue cannot be deleted.");
+	public boolean deleteEntityValue(EntityValue pojoEntityValue) {
+		Object instance = pojoEntityValue.getInstance();
+		if(pojoEntityValue == null || instance == null) {
+			logger.debug("PojoEntityValue found null. PojoEntityValue cannot be deleted.");
 			return false;
 	    }
 		
@@ -189,16 +189,16 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public EntityValue saveOrUpdateEntityValue(EntityValue entityValue) {
-	    Object instance = entityValue.getInstance();
-		if(entityValue == null || instance == null) {
-		logger.debug("EntityValue found null. EntityValue cannot be persisted.");
+	public EntityValue saveOrUpdateEntityValue(EntityValue pojoEntityValue) {
+	    Object instance = pojoEntityValue.getInstance();
+		if(pojoEntityValue == null || instance == null) {
+		logger.debug("PojoEntityValue found null. PojoEntityValue cannot be persisted.");
 		return null;
 	    }
-	    logger.debug("Persisting EntityValue :" + entityValue.getEntityName());
+	    logger.debug("Persisting PojoEntityValue :" + pojoEntityValue.getEntityName());
 	    hibernateTemplate.saveOrUpdate(instance);
-	    entityValue.setInstance(instance);
-	    return entityValue;
+	    pojoEntityValue.setInstance(instance);
+	    return pojoEntityValue;
 	}
 
 	/* (non-Javadoc)

@@ -12,11 +12,11 @@ import com.openappengine.facade.entity.exception.EntityValueException;
  */
 public class EntityFacadeDelegator {
 	
-	public EntityValue createEntityValue(String entityName,EntityDefinition ed,Class<?> entityClass) {
+	public PojoEntityValue createEntityValue(String entityName,EntityDefinition ed,Class<?> entityClass) {
 		try {
 			Object newInstance = entityClass.newInstance();
-			EntityValue entityValue = new EntityValue(entityName,ed,newInstance);
-			return entityValue;
+			PojoEntityValue pojoEntityValue = new PojoEntityValue(entityName,ed,newInstance);
+			return pojoEntityValue;
 		} catch (InstantiationException e) {
 			throw new EntityValueException("Entity : " + entityClass + " cannot be instantiated.");
 		} catch (IllegalAccessException e) {

@@ -26,7 +26,7 @@ public interface EntityFacade {
 	
 	/**
 	 * @param entityName
-	 * @return A transient EntityValue instance.
+	 * @return A transient PojoEntityValue instance.
 	 */
 	EntityValue createEntityValue(String entityName);
 	
@@ -46,16 +46,16 @@ public interface EntityFacade {
 	
 	/**
 	 * Save {@link EntityValue}.
-	 * @param entityValue
+	 * @param pojoEntityValue
 	 * @return
 	 */
-	Serializable saveEntityValue(EntityValue entityValue);
+	EntityValue saveEntityValue(EntityValue pojoEntityValue);
 	
-	EntityValue saveOrUpdateEntityValue(EntityValue entityValue);
+	EntityValue saveOrUpdateEntityValue(EntityValue pojoEntityValue);
 	
 	List findByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException;
 	
 	Serializable findOneByPropertyValues(Class entityClass, Map<String, Object> parameters) throws DataAccessException, EntityValueFindException;
 
-	boolean deleteEntityValue(EntityValue entityValue);
+	boolean deleteEntityValue(EntityValue pojoEntityValue);
 }
