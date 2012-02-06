@@ -6,7 +6,7 @@ import java.util.List;
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.ui.EntityValueAware;
 import com.openappengine.facade.core.component.widget.backingbean.HibernateBackingBeanWidget;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 
@@ -16,7 +16,7 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	
 	private String entityValueRef;
 	
-	private EntityValue entityValue;
+	private PojoEntityValue pojoEntityValue;
 	
 	private List<FormFieldComponent> fields = new ArrayList<FormFieldComponent>();
 
@@ -26,26 +26,26 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	}
 	
 	@Override
-	public EntityValue getValue() {
-		return entityValue;
+	public PojoEntityValue getValue() {
+		return pojoEntityValue;
 	}
 	
 	@Override
 	public Object formBackingObject() {
 		Object instance = null;
-		if(entityValue != null) {
-			instance = entityValue.getInstance();
+		if(pojoEntityValue != null) {
+			instance = pojoEntityValue.getInstance();
 		}
 		return instance;
 	}
 	
 	public List<FieldDefinition> getFormFields() {
 		List<FieldDefinition> fieldsDefs = null;
-		if(entityValue == null) {
+		if(pojoEntityValue == null) {
 			return null;
 		}
 		
-		EntityDefinition entityDefinition = entityValue.getEntityDefinition();
+		EntityDefinition entityDefinition = pojoEntityValue.getEntityDefinition();
 		if(fields == null || fields.isEmpty()) {
 			fieldsDefs = entityDefinition.getFields();
 		} else {
@@ -64,11 +64,11 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	}
 	
 	public Object getFormCommandValue(String property) {
-		return entityValue.get(property);
+		return pojoEntityValue.get(property);
 	}
 
-	public void setValue(EntityValue entityValue) {
-		this.entityValue = entityValue;
+	public void setValue(PojoEntityValue pojoEntityValue) {
+		this.pojoEntityValue = pojoEntityValue;
 	}
 	
 	public String getEntityValueRef() {
@@ -86,8 +86,8 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	
 	@Override
 	public String getEntityName() {
-		if(entityValue != null) {
-			return entityValue.getEntityName();
+		if(pojoEntityValue != null) {
+			return pojoEntityValue.getEntityName();
 		}
 		return null;
 	}

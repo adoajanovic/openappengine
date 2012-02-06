@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.core.component.widget.processor;
 
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishikesh.joshi
@@ -16,6 +16,6 @@ public interface EntityValueBackingBeanWidgetProcessor extends BackingBeanWidget
 	 * @param context
 	 * @return Object returned by the WidgetProcessor
 	 */
-	EntityValue processWidget();
+	PojoEntityValue processWidget();
 
 }

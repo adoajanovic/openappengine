@@ -54,16 +54,7 @@
 		</div>
 	</#if>
 	
-	<!--
-	XML Processing By Freemarker
- 	<#foreach recipient in doc.recipients.person>
- 		To: ${recipient.name} <br />
-		    ${recipient.address} <br />
-        Dear ${recipient.name}, <br/>
-   	</#foreach>
-   	-->
- 	
- 	<#assign pageContent = uiRoot.pageContent >
+	<#assign pageContent = uiRoot.pageContent >
  	<#assign widgets = pageContent.getWidgets() >
  	
  	<#list widgets as widget>

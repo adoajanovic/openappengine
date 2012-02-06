@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishi
@@ -25,21 +25,21 @@ public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 		String valueField = (String) getActionRequest().getActionRequest("valueField");
 		
 		if(StringUtils.isEmpty(valueField)) {
-			logger.error("EntityValue (value-field) set as null. Cannot perform Delete");
+			logger.error("PojoEntityValue (value-field) set as null. Cannot perform Delete");
 			return null;
 		}
 		
-		EntityValue entityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
-		if(entityValue == null || entityValue.getInstance()==null) {
-			logger.error("EntityValue (value-field) set as null.");
+		PojoEntityValue pojoEntityValue = (PojoEntityValue) actionContext.getELContext().getVariable(valueField);
+		if(pojoEntityValue == null || pojoEntityValue.getInstance()==null) {
+			logger.error("PojoEntityValue (value-field) set as null.");
 			
 			actionContext.getMessageContext().clearAllErrorMessages();
 			actionContext.getMessageContext().addErrorMessage("entity.delete.error");
 			
-			return entityValue;
+			return pojoEntityValue;
 		}
 		
-		boolean result = getEntityFacade().deleteEntityValue(entityValue);
+		boolean result = getEntityFacade().deleteEntityValue(pojoEntityValue);
 		if(result) {
 			actionContext.getELContext().removeELContextVariable(valueField);
 			
@@ -51,7 +51,7 @@ public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 			}
 		}
 		
-		return entityValue;
+		return pojoEntityValue;
 	}
 
 }
