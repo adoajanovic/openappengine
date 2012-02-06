@@ -44,7 +44,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>openappengine-webiface</module>
 	    <module>openappengine-gui</module>
 	</modules>
 </project>
