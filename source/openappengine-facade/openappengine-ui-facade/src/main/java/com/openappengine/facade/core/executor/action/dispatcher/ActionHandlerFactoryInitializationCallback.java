@@ -14,7 +14,6 @@ import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
 import com.openappengine.facade.core.executor.action.registry.DefaultActionHandlerFactory;
 import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.EntityMode;
 
 public class ActionHandlerFactoryInitializationCallback implements Callback<ActionHandlerFactory> {
 
@@ -43,7 +42,6 @@ public class ActionHandlerFactoryInitializationCallback implements Callback<Acti
 	 */
 	private void doRegisterActionHandler(ActionHandlerFactory factory, Class<? extends ActionHandler> clazz)
 			throws ActionHandlerFactoryInitializationException {
-		try {
 			if(Modifier.isAbstract(clazz.getModifiers()) || Modifier.isInterface(clazz.getModifiers())) {
 				return;
 			}
@@ -51,16 +49,8 @@ public class ActionHandlerFactoryInitializationCallback implements Callback<Acti
 			ActionParams actionParams = AnnotationUtils.findAnnotation(clazz, ActionParams.class);
 			if(actionParams != null) {
 				String actionName = actionParams.actionName();
-				EntityMode entityMode = actionParams.entityMode();
-				
-				ActionHandler actionHandler = clazz.newInstance();
-				factory.registerActionHandler(actionName, entityMode, actionHandler);
+				factory.registerActionHandler(actionName, clazz);
 			}
-		} catch (InstantiationException e) {
-			throw new ActionHandlerFactoryInitializationException("Exception encountered while initializing ActionHandler for class " + clazz);
-		} catch (IllegalAccessException e) {
-			throw new ActionHandlerFactoryInitializationException("Exception encountered while accessing ActionHandler for class " + clazz);
-		}
 	}
 	
 	private class ActionHandlerFactoryInitializationException extends RuntimeException {

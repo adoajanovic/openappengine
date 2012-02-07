@@ -5,18 +5,20 @@ import java.util.List;
 
 import com.openappengine.facade.core.component.AbstractGuiComponent;
 import com.openappengine.facade.core.component.ui.EntityValueAware;
-import com.openappengine.facade.core.component.widget.backingbean.HibernateBackingBeanWidget;
-import com.openappengine.facade.entity.PojoEntityValue;
+import com.openappengine.facade.core.component.widget.backingbean.PojoBackingBeanWidget;
+import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 
-public abstract class AbstractHibernateBackingBeanWidgetComponent extends AbstractGuiComponent implements HibernateBackingBeanWidget,EntityValueAware {
+public abstract class AbstractBackingBeanWidgetComponent extends AbstractGuiComponent implements PojoBackingBeanWidget,EntityValueAware {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String entityValueRef;
 	
-	private PojoEntityValue pojoEntityValue;
+	private EntityValue entityValue;
+	
+	private String mode;
 	
 	private List<FormFieldComponent> fields = new ArrayList<FormFieldComponent>();
 
@@ -26,26 +28,26 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	}
 	
 	@Override
-	public PojoEntityValue getValue() {
-		return pojoEntityValue;
+	public EntityValue getValue() {
+		return entityValue;
 	}
 	
 	@Override
 	public Object formBackingObject() {
 		Object instance = null;
-		if(pojoEntityValue != null) {
-			instance = pojoEntityValue.getInstance();
+		if(entityValue != null) {
+			instance = entityValue.getInstance();
 		}
 		return instance;
 	}
 	
 	public List<FieldDefinition> getFormFields() {
 		List<FieldDefinition> fieldsDefs = null;
-		if(pojoEntityValue == null) {
+		if(entityValue == null) {
 			return null;
 		}
 		
-		EntityDefinition entityDefinition = pojoEntityValue.getEntityDefinition();
+		EntityDefinition entityDefinition = entityValue.getEntityDefinition();
 		if(fields == null || fields.isEmpty()) {
 			fieldsDefs = entityDefinition.getFields();
 		} else {
@@ -63,12 +65,8 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 		return fieldsDefs;
 	}
 	
-	public Object getFormCommandValue(String property) {
-		return pojoEntityValue.get(property);
-	}
-
-	public void setValue(PojoEntityValue pojoEntityValue) {
-		this.pojoEntityValue = pojoEntityValue;
+	public void setValue(EntityValue pojoEntityValue) {
+		this.entityValue = pojoEntityValue;
 	}
 	
 	public String getEntityValueRef() {
@@ -86,8 +84,8 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 	
 	@Override
 	public String getEntityName() {
-		if(pojoEntityValue != null) {
-			return pojoEntityValue.getEntityName();
+		if(entityValue != null) {
+			return entityValue.getEntityName();
 		}
 		return null;
 	}
@@ -105,5 +103,13 @@ public abstract class AbstractHibernateBackingBeanWidgetComponent extends Abstra
 			return;
 		}
 		fields.add(formFieldComponent);
+	}
+
+	public String getWidgetMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

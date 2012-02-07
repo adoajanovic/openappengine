@@ -13,7 +13,5 @@ import com.openappengine.facade.core.ActionRequest;
  */
 public interface ActionHandler extends Executable {
 
-	String getName();
-	
 	void setActionRequest(ActionRequest actionRequest);
 }

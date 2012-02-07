@@ -12,7 +12,7 @@ import com.openappengine.facade.fsm.TransitionEvent;
  * @since  Jan 30, 2012
  *
  */
-public class FormSingleWidgetProcessor extends HibernateEntityValueBackingBeanWidgetProcessor {
+public class PojoFormSingleWidgetProcessor extends HibernateEntityValueBackingBeanWidgetProcessor {
 
 	@Override
 	public String getProcessedWidgetType() {

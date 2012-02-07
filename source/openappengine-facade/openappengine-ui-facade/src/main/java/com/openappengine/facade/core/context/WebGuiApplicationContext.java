@@ -3,6 +3,14 @@
  */
 package com.openappengine.facade.core.context;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
@@ -22,6 +30,8 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	protected ExternalContext externalContext;
 	
 	protected TransitionEventListener transitionEventListener;
+	
+	protected final Map<String,List<Widget>> referencedWidgets = new ConcurrentHashMap<String, List<Widget>>();
 	
 	public WebGuiApplicationContext() {
 	}
@@ -60,6 +70,37 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	@Override
 	public void setExternalContext(ExternalContext externalContext) {
 		this.externalContext = externalContext;
+	}
+
+	@Override
+	public void addValueReferencedWidgets(String valueRef, List<Widget> widgets) {
+		if(StringUtils.isEmpty(valueRef) || widgets == null) {
+			return;
+		}
+		
+		referencedWidgets.put(valueRef, widgets);
+	}
+	
+	public void addValueReferencedWidget(String valueRef, Widget widget) {
+		if(StringUtils.isEmpty(valueRef) || widget == null) {
+			return;
+		}
+		
+		if(referencedWidgets.containsKey(valueRef)) {
+			getReferencedWidgets(valueRef).add(widget);
+		} else {
+			List<Widget> widgets = new ArrayList<Widget>();
+			widgets.add(widget);
+			addValueReferencedWidgets(valueRef, widgets);
+		}
+	}
+
+	@Override
+	public List<Widget> getReferencedWidgets(String valueRef) {
+		if(StringUtils.isEmpty(valueRef)) {
+			return null;
+		}
+		return referencedWidgets.get(valueRef);
 	}
 	
 }

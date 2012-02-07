@@ -2,15 +2,16 @@ package com.openappengine.facade.core.executor.action.conditional;
 
 import java.util.List;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.Validate;
 
 import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.CompositeActionHandler;
+import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Mode;
 
+@ActionParams(actionName="if",mode=Mode.ALL)
 public class IfActionHandler extends CompositeActionHandler {
 	
 	private String conditionExpression;
@@ -85,11 +86,6 @@ public class IfActionHandler extends CompositeActionHandler {
 
 	public void setConditionExpression(String conditionExpression) {
 		this.conditionExpression = conditionExpression;
-	}
-
-	@Override
-	public String getName() {
-		return "if";
 	}
 
 	@Override

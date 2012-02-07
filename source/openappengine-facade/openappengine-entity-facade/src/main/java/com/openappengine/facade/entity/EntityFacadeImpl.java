@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.classic.Session;
 import org.springframework.dao.DataAccessException;
@@ -18,6 +19,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
+import org.w3c.dom.Document;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
@@ -37,10 +39,33 @@ public class EntityFacadeImpl implements EntityFacade {
 	private Logger logger = Logger.getLogger("EntityFacade");
 	
 	public EntityValue createEntityValue(String entityName, boolean isXml) {
+		if(StringUtils.isEmpty(entityName)) {
+			throw new IllegalArgumentException("EntityName needed for creating Entity. Found null or blank.");
+		}
+		
+		EntityValue entityValue;
+		if(isXml) {
+			entityValue = createXmlEntityValue(entityName);
+		} else {
+			entityValue = createPojoEntityValue(entityName);
+		}
+		return entityValue;
+	}
+	
+	public EntityValue createXmlEntityValue(String entityName) {
 		EntityDefinition entityDefinition = findEntityDefinition(entityName);
+		EntityValue entityValue;
+		Document entityDoc = entityDefinition.getDocument();
+		entityValue = new XmlEntityValue(entityDoc, entityName, entityDefinition);
+		return entityValue;
+	}
+	
+	public EntityValue createPojoEntityValue(String entityName) {
+		EntityDefinition entityDefinition = findEntityDefinition(entityName);
+		EntityValue entityValue;
 		Class<?> entityClass = entityDefinition.getEntityClass();
-		EntityValue pojoEntityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
-		return pojoEntityValue;
+		entityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
+		return entityValue;
 	}
 	
 	public EntityValue createEntityValue(String entityName,Serializable id) {

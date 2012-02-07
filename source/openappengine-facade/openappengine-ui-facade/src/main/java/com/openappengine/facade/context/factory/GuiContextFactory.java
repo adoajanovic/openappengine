@@ -46,12 +46,14 @@ public interface GuiContextFactory {
 	/**
 	 * @param applicationContext
 	 */
-	void processLifecyleRestoreProcessing(GuiApplicationContext applicationContext);
+	void processLifecylePreRenderActions(GuiApplicationContext applicationContext);
 
 	/**
 	 * @param applicationContext
 	 */
 	void processLifecycleInitializedEvent(GuiApplicationContext applicationContext);
+	
+	void processLifecylePostRestoreProcessing(GuiApplicationContext applicationContext);
 
 	void refreshMessages(GuiApplicationContext context);
 }

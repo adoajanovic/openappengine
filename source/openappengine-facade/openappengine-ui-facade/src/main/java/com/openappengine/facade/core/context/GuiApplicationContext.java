@@ -3,10 +3,13 @@
  */
 package com.openappengine.facade.core.context;
 
+import java.util.List;
+
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
+import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.ext.ExternalContext;
@@ -97,4 +100,10 @@ public interface GuiApplicationContext {
 	void postRootConstruction();
 	
 	void setExternalContext(ExternalContext externalContext);
+	
+	void addValueReferencedWidgets(String valueRef,List<Widget> widgets);
+	
+	List<Widget> getReferencedWidgets(String valueRef);
+	
+	void addValueReferencedWidget(String valueRef, Widget widget);
 }

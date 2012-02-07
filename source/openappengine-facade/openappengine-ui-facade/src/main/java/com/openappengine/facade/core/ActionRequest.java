@@ -20,11 +20,17 @@ import java.util.Map;
  */
 public interface ActionRequest extends Serializable {
 	
+	public static final String MODE_XML = "xml";
+	
+	public static final String MODE_POJO = "pojo";
+	
 	/**
 	 * Get the Action Name
 	 * @return Action Name.
 	 */
 	String getActionName();
+	
+	String getMode();
 
 	/**
 	 * Get Request Parameters.

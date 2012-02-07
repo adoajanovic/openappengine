@@ -23,6 +23,14 @@ public class EntityActionRequest extends DefaultActionRequest implements ValueFi
 		super(actionName, object);
 	}
 	
+	/**
+	 * @param actionName
+	 * @param object
+	 */
+	public EntityActionRequest(String actionName,Object object,String mode) {
+		super(actionName,object,mode);
+	}
+	
 	@Override
 	public String[] getValueFields() {
 		return valueFields;
