@@ -1,7 +1,5 @@
 package com.openappengine.facade.core.context.event.processor;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 
@@ -17,7 +15,7 @@ import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
 
 
-public class GuiContextRestoreEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
+public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
 
 	private static final Logger logger = Logger.getLogger("GuiContextRestoreEvent");
 	

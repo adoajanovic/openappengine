@@ -10,7 +10,7 @@ import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.WebGuiApplicationContext;
 import com.openappengine.facade.core.context.event.ContextInitializedEvent;
 import com.openappengine.facade.core.context.event.ContextPostRestoreEvent;
-import com.openappengine.facade.core.context.event.ContextRestoreEvent;
+import com.openappengine.facade.core.context.event.ExecutePreRenderActionsEvent;
 import com.openappengine.facade.core.context.event.GuiContextMessageRefreshEvent;
 
 /**
@@ -41,8 +41,8 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 
 	@Override
 	public void processLifecylePreRenderActions(GuiApplicationContext applicationContext) {
-		ContextRestoreEvent contextRestoreEvent = new ContextRestoreEvent(applicationContext);
-		getLifecycleProcessor().processLifecycleEvent(contextRestoreEvent);
+		ExecutePreRenderActionsEvent executePreRenderActionsEvent = new ExecutePreRenderActionsEvent(applicationContext);
+		getLifecycleProcessor().processLifecycleEvent(executePreRenderActionsEvent);
 	}
 	
 	@Override
