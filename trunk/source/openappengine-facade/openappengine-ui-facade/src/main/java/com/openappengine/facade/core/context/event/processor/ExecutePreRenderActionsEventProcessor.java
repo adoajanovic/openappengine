@@ -1,5 +1,8 @@
 package com.openappengine.facade.core.context.event.processor;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 
@@ -8,6 +11,7 @@ import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
+import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
@@ -45,7 +49,6 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 			logger.debug("No Pre-Render Actions defined.");
 		} else {
 			logger.debug("Executing Pre-Render Actions.");
-			
 			for (GuiComponent guiComponent : preRenderActionComponent.getChildComponents()) {
 				if(guiComponent instanceof AbstractExecutableComponent) {
 					logger.debug("Calling PreRenderAction : " + guiComponent.getComponentName());
@@ -67,6 +70,23 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 		
 		if(exec.hasValueField()) {
 			String valueField = exec.getValueField();
+			
+			if(StringUtils.isNotEmpty(valueField)) {
+				List<Widget> referencedWidgets = context.getReferencedWidgets(valueField);
+				if(referencedWidgets != null && !referencedWidgets.isEmpty()) {
+					for (Widget widget : referencedWidgets) {
+						String widgetMode = widget.getWidgetMode();
+						if(StringUtils.isEmpty(widgetMode)) {
+							widgetMode = "xml";
+						}
+						
+						//TODO - Create Action Request, Dispatcher and dispatch this action.
+					}
+				}
+			} else {
+				//TODO
+			}
+			
 		}
 		
 		ActionRequest actionRequest = exec.createActionRequest();
