@@ -32,7 +32,9 @@ public interface ActionRequest extends Serializable {
 	 */
 	Map<String,Object> getActionParameters();
 	
-	Object getActionRequest(String param);
+	Object getActionParameter(String param);
+	
+	<T> T getActionParameter(String paramKey,Class<T> t);
 	
 	/**
 	 * Add Action Parameters

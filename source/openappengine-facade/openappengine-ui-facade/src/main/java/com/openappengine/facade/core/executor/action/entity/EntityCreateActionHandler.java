@@ -6,15 +6,18 @@ package com.openappengine.facade.core.executor.action.entity;
 import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
+import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.EntityMode;
 import com.openappengine.facade.entity.EntityValue;
-import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishi
  * since Feb 5, 2012
  */
+@ActionParams(actionName="",entityMode=EntityMode.XML)
 public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 
+	//TODO - Remove this..!
 	@Override
 	public String getName() {
 		return "entity-create";
@@ -22,13 +25,24 @@ public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 
 	@Override
 	public Object execute(ActionContext actionContext) {
-		String entityName = (String) getActionRequest().getActionRequest("entityName");
+		String entityName = (String) getActionRequest().getActionParameter("entityName");
 		if(StringUtils.isEmpty(entityName)) {
 			throw new IllegalArgumentException("EntityName cannot be empty.");
 		}
 		
-		EntityValue pojoEntityValue = getEntityFacade().createEntityValue(entityName, false);
-		return pojoEntityValue;
+		String entityMode = getActionRequest().getActionParameter("entityMode",String.class);
+		if(entityMode == null) {
+			entityMode = "xml";
+		}
+		
+		boolean xmlMode = false;
+		if(StringUtils.equals(entityMode, "xml")) {
+			xmlMode = true;
+		}
+		
+		EntityValue entityValue = getEntityFacade().createEntityValue(entityName, xmlMode);
+		
+		return entityValue;
 	}
 
 }

@@ -30,7 +30,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	@Override
 	public Object execute(ActionContext actionContext) {
 		
-		String valueField = (String) getActionRequest().getActionRequest("valueField");
+		String valueField = (String) getActionRequest().getActionParameter("valueField");
 		
 		if(StringUtils.isEmpty(valueField)) {
 			logger.error("PojoEntityValue (value-field) set as null. Cannot perform Save");
@@ -47,7 +47,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			return null;
 		}
 		
-		boolean updateIfExists = (Boolean) getActionRequest().getActionRequest("updateIfExists");
+		boolean updateIfExists = (Boolean) getActionRequest().getActionParameter("updateIfExists");
 		if(updateIfExists) {
 			logger.debug("Attribute 'updateIfExists' set as true, will update the value if it exists in the datastore.");
 			getEntityFacade().saveOrUpdateEntityValue(pojoEntityValue);	
@@ -60,7 +60,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 		// Replace the PojoEntityValue value-field in the ELContext with the updated PojoEntityValue.
 		actionContext.getELContext().registerELContextVariable(valueField, pojoEntityValue);
 		
-		String successMessage = (String) getActionRequest().getActionRequest("successMessage");
+		String successMessage = (String) getActionRequest().getActionParameter("successMessage");
 		if(StringUtils.isNotBlank(successMessage)) {
 			actionContext.getMessageContext().clearAllSuccessMessages();
 			actionContext.getMessageContext().addSuccessMessage(successMessage);

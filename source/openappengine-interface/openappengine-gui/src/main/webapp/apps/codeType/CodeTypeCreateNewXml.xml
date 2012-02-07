@@ -15,8 +15,9 @@
 	</transition>
 
 	<pre-actions>
-		<entity-create entity-name="CodeType" entity-mode="xml" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
+		<entity-create entity-name="CodeType" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
 		</entity-create>
+		
 	</pre-actions>
 
 	<page-content>

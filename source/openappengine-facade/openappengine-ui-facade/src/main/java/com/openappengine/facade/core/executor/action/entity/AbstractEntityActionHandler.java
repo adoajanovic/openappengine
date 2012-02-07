@@ -27,7 +27,7 @@ public abstract class AbstractEntityActionHandler implements ActionHandler {
 	}
 
 	public String getEntityName() {
-		String entityName = (String) actionRequest.getActionRequest("entityName");
+		String entityName = (String) actionRequest.getActionParameter("entityName");
 		return entityName;
 	}
 

@@ -19,6 +19,8 @@ public class EntityCreateActionElementDefinitionParser extends AbstractGuiElemen
 
 	private static final String ATTR_ENTITY_NAME = "entity-name";
 	
+	private static final String ATTR_ENTITY_MODE = "entity-mode";
+	
 	@Override
 	public GuiComponent parse(Element element) {
 		EntityCreateActionComponent entityCreateActionComponent = new EntityCreateActionComponent();
@@ -38,6 +40,12 @@ public class EntityCreateActionElementDefinitionParser extends AbstractGuiElemen
 			throw new XmlDefinitionParserException("Attribute value-field is mandatory for entity-find-one.");
 		}
 		entityCreateActionComponent.setValueField(valueField);
+		
+		String attrEntityMode = element.getAttribute(ATTR_ENTITY_MODE);
+		if(StringUtils.isNotEmpty(attrEntityMode)) {
+			entityCreateActionComponent.setEntityMode(attrEntityMode);
+		}
+		
 		return entityCreateActionComponent;
 	}
 

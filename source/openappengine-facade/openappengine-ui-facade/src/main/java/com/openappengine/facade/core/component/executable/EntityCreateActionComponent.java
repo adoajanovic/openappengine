@@ -12,6 +12,8 @@ public class EntityCreateActionComponent extends AbstractEntityActionComponent {
 	private static final long serialVersionUID = 1L;
 	
 	private String entityName;
+	
+	private String entityMode = "xml";
 
 	@Override
 	public String getComponentName() {
@@ -24,6 +26,14 @@ public class EntityCreateActionComponent extends AbstractEntityActionComponent {
 
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
+	}
+
+	public String getEntityMode() {
+		return entityMode;
+	}
+
+	public void setEntityMode(String entityMode) {
+		this.entityMode = entityMode;
 	}
 
 }

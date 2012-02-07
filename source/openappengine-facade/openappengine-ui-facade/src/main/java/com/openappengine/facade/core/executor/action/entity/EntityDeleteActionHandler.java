@@ -22,7 +22,7 @@ public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 
 	@Override
 	public Object execute(ActionContext actionContext) {
-		String valueField = (String) getActionRequest().getActionRequest("valueField");
+		String valueField = (String) getActionRequest().getActionParameter("valueField");
 		
 		if(StringUtils.isEmpty(valueField)) {
 			logger.error("PojoEntityValue (value-field) set as null. Cannot perform Delete");
@@ -43,7 +43,7 @@ public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 		if(result) {
 			actionContext.getELContext().removeELContextVariable(valueField);
 			
-			String successMessage = (String) getActionRequest().getActionRequest("successMessage");
+			String successMessage = (String) getActionRequest().getActionParameter("successMessage");
 			if(StringUtils.isNotBlank(successMessage)) {
 				actionContext.getMessageContext().addSuccessMessage(successMessage);
 			} else {
