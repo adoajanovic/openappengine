@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -68,10 +69,24 @@ public class DataBeanWrappedActionRequest implements ActionRequest {
 	}
 
 	@Override
-	public Object getActionRequest(String param) {
+	public Object getActionParameter(String param) {
 		if(beanWrapper.isReadableProperty(param)) {
 			return beanWrapper.getPropertyValue(param);
 		}
+		return null;
+	}
+
+	@Override
+	public <T> T getActionParameter(String paramKey, Class<T> t) {
+		if(t == null) {
+			return null;
+		}
+		
+		if(beanWrapper.isReadableProperty(paramKey)) {
+			Object val = beanWrapper.getPropertyValue(paramKey);
+			return (T) val;
+		}
+		
 		return null;
 	}
 

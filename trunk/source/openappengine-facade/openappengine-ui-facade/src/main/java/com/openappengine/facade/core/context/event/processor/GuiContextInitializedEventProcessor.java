@@ -3,7 +3,6 @@ package com.openappengine.facade.core.context.event.processor;
 import java.io.StringReader;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import com.openappengine.facade.core.Resolver;
@@ -14,7 +13,6 @@ import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
-import com.openappengine.utility.UtilXml;
 
 import freemarker.ext.dom.NodeModel;
 

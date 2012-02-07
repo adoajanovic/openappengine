@@ -32,10 +32,10 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
 	@Override
 	public PojoEntityValue execute(ActionContext actionContext) {
-		boolean autoFieldMap = (Boolean) getActionRequest().getActionRequest("autoFieldMap");
+		boolean autoFieldMap = (Boolean) getActionRequest().getActionParameter("autoFieldMap");
 		
 		Map<String,ValueRef<Object>> andParameterMap = new HashMap<String,ValueRef<Object>>();
-		andParameterMap = (Map<String, ValueRef<Object>>) getActionRequest().getActionRequest("andParameterMap");
+		andParameterMap = (Map<String, ValueRef<Object>>) getActionRequest().getActionParameter("andParameterMap");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(autoFieldMap) {
@@ -55,7 +55,7 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		EntityValueResolver valueResolver = new EntityValueResolver(getEntityName(), params);
-		String autoFieldPrefix = (String) getActionRequest().getActionRequest("autoFieldPrefix");
+		String autoFieldPrefix = (String) getActionRequest().getActionParameter("autoFieldPrefix");
 		if(StringUtils.isNotEmpty(autoFieldPrefix)) {
 			valueResolver.setParameterPrefix(autoFieldPrefix);
 		}
