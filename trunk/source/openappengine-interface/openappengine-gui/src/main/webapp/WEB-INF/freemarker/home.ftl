@@ -72,8 +72,7 @@
 	 			<form action="${currentURL}" method="post">
 	 			
 	 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
-		 		<input type="hidden" name="widgetClass" value="${formCommand.getClass().getName()}" />
-		 		<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
+	 			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 		 		<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
 		 		<input type="hidden" name="widgetEntityName" value="${childWidget.getEntityName()}" />
 		 		<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
@@ -88,17 +87,17 @@
 				 				<#assign property=childWidget.getId()+"."+field.property />
 				 				<tr>
 					 				<td>
-					 					<label>${field.property}</label>
+					 					<label>${field.name}</label>
 					 				</td>
 					 				<td>
-					 					<@spring.formInput property/>			
+					 					<input type="text" name="${field.name}" />
 					 				</td>
 				 				</tr>
 			 				</#if>
 			 			</#list>
 			 			<tr>
 			 				<td>
-			 					<input type="submit" name="${formCommand.class}_Form" value="Submit"/>
+			 					<input type="submit" name="${childWidget.getId()}_Submit" value="Submit"/>
 			 				</td>
 			 			</tr>
 		 			</table>

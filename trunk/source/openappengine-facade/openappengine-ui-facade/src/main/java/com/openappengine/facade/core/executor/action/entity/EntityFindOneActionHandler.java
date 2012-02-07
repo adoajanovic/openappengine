@@ -11,6 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
+import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Mode;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
@@ -25,6 +27,7 @@ import com.openappengine.facade.ui.resolver.ValueRef;
  * @author hrishi
  *
  */
+@ActionParams(actionName="entity-find-one",mode=Mode.ALL)
 public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
 	public EntityFindOneActionHandler() {
@@ -61,11 +64,6 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		return (PojoEntityValue) valueResolver.resolveValue();
-	}
-
-	@Override
-	public String getName() {
-		return "entity-find-one";
 	}
 
 }

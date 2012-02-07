@@ -111,7 +111,7 @@ public class XmlContextProcessingFilter implements Filter {
 
 		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource);
 		
-		contextFactory.processLifecyleRestoreProcessing(applicationContext);
+		contextFactory.processLifecylePreRenderActions(applicationContext);
 		
 		contextFactory.processLifecycleInitializedEvent(applicationContext);
 		

@@ -7,6 +7,9 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
+import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
@@ -17,14 +20,10 @@ import com.openappengine.facade.entity.PojoEntityValue;
  * @author hrishi
  * since Jan 21, 2012
  */
+@ActionParams(actionName="entity-save",mode=Mode.ALL)
 public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 	
 	public EntitySaveActionHandler() {
-	}
-
-	@Override
-	public String getName() {
-		return "entity-save";
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class EntitySaveActionHandler extends AbstractEntityActionHandler {
 			return null;
 		}
 		
-		PojoEntityValue pojoEntityValue = (PojoEntityValue) actionContext.getELContext().getVariable(valueField);
+		EntityValue pojoEntityValue = (EntityValue) actionContext.getELContext().getVariable(valueField);
 		if(pojoEntityValue == null || pojoEntityValue.getInstance()==null) {
 			logger.error("PojoEntityValue (value-field) set as null.");
 			

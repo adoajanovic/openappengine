@@ -10,7 +10,7 @@ package com.openappengine.facade.core.component.widget;
  * @since  Feb 1, 2012
  *
  */
-public class FormSingleComponent extends AbstractHibernateBackingBeanWidgetComponent {
+public class FormSingleComponent extends AbstractBackingBeanWidgetComponent {
 
 	private static final long serialVersionUID = 1L;
 	

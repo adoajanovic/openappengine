@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -16,6 +15,8 @@ public class DataBeanWrappedActionRequest implements ActionRequest {
 	private BeanWrapper beanWrapper;
 	
 	private String actionName;
+	
+	private String mode = MODE_XML;
 	
 	/**
 	 * @param object
@@ -30,6 +31,19 @@ public class DataBeanWrappedActionRequest implements ActionRequest {
 		}
 		this.actionName = actionName;
 	}
+
+	
+	/**
+	 * @param beanWrapper
+	 * @param actionName
+	 * @param mode
+	 */
+	public DataBeanWrappedActionRequest(String actionName,Object instance,String mode) {
+		this(actionName, instance);
+		this.mode = mode;
+	}
+
+
 
 	@Override
 	public String getActionName() {
@@ -88,6 +102,18 @@ public class DataBeanWrappedActionRequest implements ActionRequest {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		if(StringUtils.isEmpty(mode)) {
+			return;
+		}
+		this.mode = mode;
 	}
 
 }

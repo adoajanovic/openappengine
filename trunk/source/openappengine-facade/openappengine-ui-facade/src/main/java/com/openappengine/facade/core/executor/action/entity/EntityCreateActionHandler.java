@@ -7,21 +7,15 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.EntityMode;
+import com.openappengine.facade.core.executor.annotations.Mode;
 import com.openappengine.facade.entity.EntityValue;
 
 /**
  * @author hrishi
  * since Feb 5, 2012
  */
-@ActionParams(actionName="",entityMode=EntityMode.XML)
+@ActionParams(actionName="entity-create",mode=Mode.ALL)
 public class EntityCreateActionHandler extends AbstractEntityActionHandler {
-
-	//TODO - Remove this..!
-	@Override
-	public String getName() {
-		return "entity-create";
-	}
 
 	@Override
 	public Object execute(ActionContext actionContext) {
@@ -30,13 +24,13 @@ public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 			throw new IllegalArgumentException("EntityName cannot be empty.");
 		}
 		
-		String entityMode = getActionRequest().getActionParameter("entityMode",String.class);
-		if(entityMode == null) {
-			entityMode = "xml";
+		String mode = getActionRequest().getMode();
+		if(StringUtils.isEmpty(mode)) {
+			mode = "xml";
 		}
 		
 		boolean xmlMode = false;
-		if(StringUtils.equals(entityMode, "xml")) {
+		if(StringUtils.equals(mode, "xml")) {
 			xmlMode = true;
 		}
 		

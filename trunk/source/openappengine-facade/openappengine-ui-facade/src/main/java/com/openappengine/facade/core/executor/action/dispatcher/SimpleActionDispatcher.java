@@ -4,6 +4,7 @@
 package com.openappengine.facade.core.executor.action.dispatcher;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
 import com.openappengine.facade.context.factory.Callback;
@@ -19,6 +20,7 @@ import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
 import com.openappengine.facade.core.executor.action.ActionProcessor;
 import com.openappengine.facade.core.executor.action.context.ActionContextFactory;
 import com.openappengine.facade.core.executor.action.processor.DefaultActionProcessor;
+import com.openappengine.facade.core.executor.annotations.Mode;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
@@ -61,6 +63,25 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	}
 
 	/**
+	 * @param actionHandler
+	 * @param supportedMode
+	 */
+	private void validateActionHandler(ActionHandler actionHandler,
+			String supportedMode) {
+		if(!Mode.ALL.equals(supportedMode)) {
+			if(Mode.POJO.equals(supportedMode)) {
+				if(!factory.supportsMode(actionHandler, Mode.POJO)) {
+					throw new IllegalStateException("ActionHandler " + actionHandler.getClass().getName() + " does not support the mode :" + Mode.POJO);		
+				}
+			} else if(Mode.XML.equals(supportedMode)) {
+				if(!factory.supportsMode(actionHandler, Mode.XML)) {
+					throw new IllegalStateException("ActionHandler " + actionHandler.getClass().getName() + " does not support the mode :" + Mode.XML);
+				}
+			} 
+		}
+	}
+
+	/**
 	 * @param actionContext
 	 * @return
 	 */
@@ -77,7 +98,14 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	protected ActionHandler getActionHandlerFromFactory(ActionRequest actionRequest) {
 		String actionName = actionRequest.getActionName();
 		ActionHandler actionHandler = factory.getActionHandler(actionName);
+		
 		Assert.notNull(actionHandler, "ActionHandler not found in the Factory.");
+		
+		String supportedMode = actionRequest.getMode();
+		if(StringUtils.isEmpty(supportedMode)) {
+			throw new IllegalStateException("Mode found blank for action request. Please make sure that mode attribute is set correctly in the action tag.");
+		}
+		validateActionHandler(actionHandler, supportedMode);
 		return actionHandler;
 	}
 

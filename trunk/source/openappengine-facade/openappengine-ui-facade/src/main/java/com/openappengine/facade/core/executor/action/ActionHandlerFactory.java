@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.core.executor.action;
 
-import com.openappengine.facade.core.executor.annotations.EntityMode;
+import com.openappengine.facade.core.executor.annotations.Mode;
 
 /**
  * @author hrishikesh.joshi
@@ -19,15 +19,13 @@ public interface ActionHandlerFactory {
 	ActionHandler getActionHandler(String name);
 	
 	
-	ActionHandler getActionHandler(String actionName,EntityMode mode);
+	boolean supportsMode(ActionHandler actionHandler, Mode mode);
 	
-	void registerActionHandler(String actionName,EntityMode entityMode,ActionHandler actionHandler);
-
 	/**
 	 * Register the Action Handlers.
 	 * @param name
 	 * @param actionHandler
 	 */
-	void registerActionHandler(String name,ActionHandler actionHandler);
+	void registerActionHandler(String name,Class<? extends ActionHandler> actionHandlerClass);
 	
 }

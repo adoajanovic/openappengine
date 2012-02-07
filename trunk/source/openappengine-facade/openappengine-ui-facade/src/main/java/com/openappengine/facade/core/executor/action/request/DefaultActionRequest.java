@@ -24,4 +24,15 @@ public class DefaultActionRequest extends DataBeanWrappedActionRequest {
 		super(actionName, object);
 	}
 
+	/**
+	 * @param actionName
+	 * @param object
+	 * @param mode
+	 */
+	public DefaultActionRequest(String actionName, Object object, String mode) {
+		super(actionName, object, mode);
+	}
+	
+	
+
 }

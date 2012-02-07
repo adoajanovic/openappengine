@@ -7,18 +7,16 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
+import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Mode;
 import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishi
  * since Feb 4, 2012
  */
+@ActionParams(actionName="entity-delete",mode=Mode.ALL)
 public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
-
-	@Override
-	public String getName() {
-		return "entity-delete";
-	}
 
 	@Override
 	public Object execute(ActionContext actionContext) {
