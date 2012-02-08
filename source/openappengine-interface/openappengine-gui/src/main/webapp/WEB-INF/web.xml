@@ -54,7 +54,7 @@
     <description></description>
     <display-name>XmlContextDispatcherSevlet</display-name>
     <servlet-name>XmlContextDispatcherSevlet</servlet-name>
-    <servlet-class>com.openappengine.gui.web.servlet.XmlContextDispatcherSevlet</servlet-class>
+    <servlet-class>com.openappengine.gui.web.servlet.GuiEngineDispatcherSevlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>XmlContextDispatcherSevlet</servlet-name>

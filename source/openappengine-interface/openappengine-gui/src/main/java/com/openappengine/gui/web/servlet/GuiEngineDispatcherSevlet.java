@@ -36,9 +36,9 @@ import com.openappengine.facade.core.ext.ExternalWebContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**
- * Servlet implementation class XmlContextDispatcherSevlet
+ * Servlet implementation class GuiEngineDispatcherSevlet
  */
-public class XmlContextDispatcherSevlet extends HttpServlet {
+public class GuiEngineDispatcherSevlet extends HttpServlet {
 	
 	protected final Logger logger = Logger.getLogger(getClass());
 	
@@ -65,7 +65,7 @@ public class XmlContextDispatcherSevlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public XmlContextDispatcherSevlet() {
+    public GuiEngineDispatcherSevlet() {
         super();
     }
 

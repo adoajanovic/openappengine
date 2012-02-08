@@ -68,35 +68,32 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 */
 	protected void doHandlePreRenderAction(GuiApplicationContext context,AbstractExecutableComponent exec) {
 		
-		if(exec.hasValueField()) {
-			String valueField = exec.getValueField();
-			
-			if(StringUtils.isNotEmpty(valueField)) {
-				List<Widget> referencedWidgets = context.getReferencedWidgets(valueField);
-				if(referencedWidgets != null && !referencedWidgets.isEmpty()) {
-					for (Widget widget : referencedWidgets) {
-						String widgetMode = widget.getWidgetMode();
-						if(StringUtils.isEmpty(widgetMode)) {
-							widgetMode = "xml";
-						}
-						
-						//TODO - Create Action Request, Dispatcher and dispatch this action.
-					}
-				}
-			} else {
-				//TODO
-			}
-			
-		}
-		
+		//Create and ActionRequest and Dispatch the Action.
 		ActionRequest actionRequest = exec.createActionRequest();
-		
 		ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(context.getELContext(), context.getExternalContext(), context.getMessageContext());
 		
 		Object result = actionDispatcher.execute(actionRequest);
-		if(exec.hasValueField()) {
+		
+		//If the output of the Execution would be set to a value-field.
+		if (exec.hasValueField()) {
 			String valueField = exec.getValueField();
+			//Register Variable in EL Context.
 			context.registerVariable(valueField, result);
+
+			List<Widget> referencedWidgets = context.getReferencedWidgets(valueField);
+			
+			if (referencedWidgets != null && !referencedWidgets.isEmpty()) {
+				for (Widget widget : referencedWidgets) {
+					String widgetMode = widget.getWidgetMode();
+					if (StringUtils.isEmpty(widgetMode)) {
+						widgetMode = "xml";
+					}
+					
+					//TODO -Set the result in the correct mode to the Widget.
+					
+
+				}
+			}
 		}
 	}
 
