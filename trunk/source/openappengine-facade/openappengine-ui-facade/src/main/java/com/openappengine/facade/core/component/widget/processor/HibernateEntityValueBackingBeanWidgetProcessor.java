@@ -15,13 +15,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
-import com.openappengine.facade.core.component.widget.context.HibernateBackingBeanWigetProcessorContext;
 import com.openappengine.facade.core.component.widget.context.WidgetProcessorContext;
 import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.FieldDefinition;
 import com.openappengine.facade.fsm.TransitionEvent;
 
+//TODO - Move to the XmlWidgetProcessor.
 /**
  * @author hrishikesh.joshi
  * @since  Feb 2, 2012
@@ -29,13 +29,13 @@ import com.openappengine.facade.fsm.TransitionEvent;
  */
 public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements EntityValueBackingBeanWidgetProcessor {
 
-	protected HibernateBackingBeanWigetProcessorContext widgetProcessorContext;
+	protected WidgetProcessorContext widgetProcessorContext;
 	
 	protected Logger logger = Logger.getLogger(getClass());
 	
 	@Override
 	public Class<?> getWidgetProcessorContextClass() {
-		return HibernateBackingBeanWigetProcessorContext.class;
+		return WidgetProcessorContext.class;
 	}
 
 	@Override
@@ -43,25 +43,10 @@ public abstract class HibernateEntityValueBackingBeanWidgetProcessor implements 
 		if(context == null) {
 			throw new IllegalArgumentException("WidgetProcessorContext cannot be null.");
 		}
-		if(!supportsWidgetProcessorContext(context.getClass())) {
-			throw new IllegalArgumentException(
-					"WidgetProcessor does not support the WidgetProcessorContext class:"
-							+ context.getClass()
-							+ ". Should extend from "
-							+ HibernateBackingBeanWigetProcessorContext.class
-									.getName() + ".");
-		}
-		this.widgetProcessorContext = (HibernateBackingBeanWigetProcessorContext) context;
+		this.widgetProcessorContext = (WidgetProcessorContext) context;
 	}
 
-	public boolean supportsWidgetProcessorContext(Class<?> clazz) {
-		if(clazz == null || getWidgetProcessorContextClass() == null) {
-			return false;
-		}
-		return getWidgetProcessorContextClass().isAssignableFrom(clazz);
-	}
-
-	protected HibernateBackingBeanWigetProcessorContext getWidgetProcessorContext() {
+	protected WidgetProcessorContext getWidgetProcessorContext() {
 		return widgetProcessorContext;
 	}
 

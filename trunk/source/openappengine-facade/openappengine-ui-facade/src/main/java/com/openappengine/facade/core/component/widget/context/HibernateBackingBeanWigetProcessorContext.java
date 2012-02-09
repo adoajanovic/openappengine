@@ -15,6 +15,4 @@ public interface HibernateBackingBeanWigetProcessorContext extends
 	
 	String getWidgetBackingObjectValueRef();
 	
-	String getWidgetBackingObjectEntityName();
-	
 }

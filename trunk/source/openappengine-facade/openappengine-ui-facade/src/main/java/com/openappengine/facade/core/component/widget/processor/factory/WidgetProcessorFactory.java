@@ -65,7 +65,7 @@ public class WidgetProcessorFactory {
 			
 		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory
 					.createWidgetProcessorContext(externalContext, elContext,
-							transitionEventListener, messageContext, widgetProcessor.getWidgetProcessorContextClass());
+							transitionEventListener, messageContext);
 			
 
 		widgetProcessor.setWidgetProcessorContext(widgetProcessorContext);

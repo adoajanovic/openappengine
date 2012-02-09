@@ -10,19 +10,16 @@ import com.openappengine.facade.fsm.TransitionEventListener;
 public class HttpServletWidgetProcessorContextFactory implements WidgetProcessorContextFactory {
 
 	@Override
-	public WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext, Class<?> widgetContextClass) {
+	public WidgetProcessorContext createWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext) {
 		if(externalContext == null) {
 			throw new IllegalArgumentException("External Context cannot be null.");
 		}
 		
 		if(externalContext.getRequest() instanceof HttpServletRequest) {
 			
-			//TODO - Make Configurable for other types of Widget Contexts.
-			if(HibernateBackingBeanWigetProcessorContext.class.isAssignableFrom(widgetContextClass)) {
-				WidgetProcessorContext context = new HttpServletHibernateBackingBeanWidgetProcessorContext(
-						externalContext, elContext, transitionEventListener,messageContext);
-				return context;
-			}
+			WidgetProcessorContext context = new HttpServletHibernateBackingBeanWidgetProcessorContext(
+					externalContext, elContext, transitionEventListener,messageContext);
+			return context;
 		}
 		
 		return null;

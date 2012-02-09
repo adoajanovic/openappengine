@@ -19,7 +19,7 @@ import com.openappengine.facade.fsm.TransitionEventListener;
  * @since  Jan 30, 2012
  *
  */
-public class HttpServletHibernateBackingBeanWidgetProcessorContext implements HibernateBackingBeanWigetProcessorContext {
+public class HttpServletHibernateBackingBeanWidgetProcessorContext implements WidgetProcessorContext {
 	
 	private HttpServletRequest httpServletRequest;
 	
@@ -73,11 +73,6 @@ public class HttpServletHibernateBackingBeanWidgetProcessorContext implements Hi
 	@Override
 	public String getWidgetBackingObjectValueRef() {
 		return httpServletRequest.getParameter("widgetValueRef");
-	}
-
-	@Override
-	public String getWidgetBackingObjectEntityName() {
-		return httpServletRequest.getParameter("widgetEntityName");
 	}
 
 	@Override
