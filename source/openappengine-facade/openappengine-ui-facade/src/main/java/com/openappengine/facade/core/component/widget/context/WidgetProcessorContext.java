@@ -28,4 +28,8 @@ public interface WidgetProcessorContext {
 	MessageContext getMessageContext();
 
 	TransitionEventListener getTransitionEventListener();
+	
+	Class<?> getWidgetBackingClass();
+	
+	String getWidgetBackingObjectValueRef();
 }
