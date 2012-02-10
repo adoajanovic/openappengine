@@ -23,8 +23,8 @@ import org.w3c.dom.Document;
 
 import com.openappengine.facade.entity.definition.EntityDefinition;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
-import com.openappengine.facade.entity.utils.ObjectConverter;
 import com.openappengine.model.code.CodeType;
+import com.openappengine.utility.ObjectConverter;
 
 /**
  * @author hrishikesh.joshi

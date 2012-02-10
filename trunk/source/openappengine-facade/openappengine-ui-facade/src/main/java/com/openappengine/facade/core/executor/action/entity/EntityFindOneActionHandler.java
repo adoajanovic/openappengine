@@ -10,9 +10,10 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.executor.action.ActionContext;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.executor.annotations.Action;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.ui.resolver.EntityValueResolver;
@@ -27,13 +28,12 @@ import com.openappengine.facade.ui.resolver.ValueRef;
  * @author hrishi
  *
  */
-@ActionParams(actionName="entity-find-one",mode=Mode.ALL)
+@Action(actionName="entity-find-one")
 public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 	
 	public EntityFindOneActionHandler() {
 	}
 	
-	@Override
 	public PojoEntityValue execute(ActionContext actionContext) {
 		boolean autoFieldMap = (Boolean) getActionRequest().getActionParameter("autoFieldMap");
 		
@@ -64,6 +64,18 @@ public class EntityFindOneActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		return (PojoEntityValue) valueResolver.resolveValue();
+	}
+
+	@Override
+	public void setActionContext(ActionContext actionContext) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

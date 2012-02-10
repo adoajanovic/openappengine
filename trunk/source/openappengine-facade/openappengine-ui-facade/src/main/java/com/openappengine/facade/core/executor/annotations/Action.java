@@ -11,9 +11,8 @@ import java.lang.annotation.RetentionPolicy;
  * since Feb 7, 2012
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ActionParams {
+public @interface Action {
 	
 	String actionName();
 	
-	Mode mode();
 }

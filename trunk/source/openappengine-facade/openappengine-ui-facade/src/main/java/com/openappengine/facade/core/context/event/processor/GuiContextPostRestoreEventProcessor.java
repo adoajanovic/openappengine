@@ -8,10 +8,11 @@ import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
+import com.openappengine.facade.core.context.event.ContextPostRestoreEvent;
 
 public class GuiContextPostRestoreEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
 
-	private static final Logger logger = Logger.getLogger("PostRestore");
+	private static final Logger logger = Logger.getLogger(ContextPostRestoreEvent.class);
 
 	@Override
 	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {

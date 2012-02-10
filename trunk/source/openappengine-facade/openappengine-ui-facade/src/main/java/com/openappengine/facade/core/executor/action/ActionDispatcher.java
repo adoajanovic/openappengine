@@ -5,6 +5,8 @@ package com.openappengine.facade.core.executor.action;
 
 import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 
@@ -35,6 +37,8 @@ public interface ActionDispatcher {
 	Object execute(ActionRequest actionRequest);
 	
 	
+	ActionResponseXml executeAction(ActionRequestXml requestXml);
+	
 	/**
 	 * Pluggable EL Context for Variable Resolution and EL Expression Handling.
 	 * @param elContext
@@ -47,5 +51,9 @@ public interface ActionDispatcher {
 	 */
 	void setExternalContext(ExternalContext externalContext);
 	
+	/**
+	 * Set {@link MessageContext}
+	 * @param messageContext
+	 */
 	void setMessageContext(MessageContext messageContext);
 }

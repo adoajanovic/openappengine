@@ -3,7 +3,8 @@
  */
 package com.openappengine.facade.core.executor.action;
 
-import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 
 /**
  * Abstract SuperClass for the ActionHandler's which know how to execute particular 
@@ -13,5 +14,7 @@ import com.openappengine.facade.core.ActionRequest;
  */
 public interface ActionHandler extends Executable {
 
-	void setActionRequest(ActionRequest actionRequest);
+	void setActionContext(ActionContext actionContext);
+	
+	ActionResponseXml execute(ActionRequestXml actionRequestXml);
 }

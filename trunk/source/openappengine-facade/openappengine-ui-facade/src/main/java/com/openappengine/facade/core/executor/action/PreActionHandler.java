@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.executor.annotations.Action;
 
-@ActionParams(actionName="pre-actions",mode=Mode.ALL)
+@Action(actionName="pre-actions")
 public class PreActionHandler implements ActionHandler {
 
 	private List<ActionRequest> actionRequests = new ArrayList<ActionRequest>();
 	
 	private ActionRequest actionRequest;
 
-	@Override
 	public Object execute(ActionContext actionContext) {
 		for(ActionRequest actionRequest : getActionRequests()) {
 			ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
@@ -35,7 +35,15 @@ public class PreActionHandler implements ActionHandler {
 	}
 
 	@Override
-	public void setActionRequest(ActionRequest actionRequest) {
-		this.actionRequest = actionRequest;
+	public void setActionContext(ActionContext actionContext) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

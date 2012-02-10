@@ -13,7 +13,6 @@ import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.el.SimpleExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.executor.DefaultActionExecutor;
-import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.resolve.ELContextVariableResolver;
 import com.openappengine.facade.core.variable.Variable;
 
@@ -79,9 +78,6 @@ public abstract class AbstractGuiApplicationContext implements GuiApplicationCon
 	public ActionExecutor getActionExecutor() {
 		return actionExecutor;
 	}
-	
-	@Override
-	public abstract ScreenRenderer getScreenRenderer();
 	
 	@Override
 	public ELContext getELContext() {

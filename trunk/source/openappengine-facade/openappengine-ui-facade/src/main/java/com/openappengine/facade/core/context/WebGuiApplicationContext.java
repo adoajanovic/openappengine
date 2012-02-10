@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.w3c.dom.Document;
 
 import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.ext.ExternalContext;
@@ -45,11 +46,6 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 		transitionEventListener.setExpressionEvaluator(getExpressionEvaluator());
 	}
 	
-	@Override
-	public ScreenRenderer getScreenRenderer() {
-		return screenRenderer;
-	}
-
 	@Override
 	public ExternalContext getExternalContext() {
 		return externalContext;
@@ -101,6 +97,12 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 			return null;
 		}
 		return referencedWidgets.get(valueRef);
+	}
+
+	@Override
+	public Document getScreenXmlDocument() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
