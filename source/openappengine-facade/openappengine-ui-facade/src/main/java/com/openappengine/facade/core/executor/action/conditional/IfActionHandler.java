@@ -8,10 +8,9 @@ import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.CompositeActionHandler;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.executor.annotations.Action;
 
-@ActionParams(actionName="if",mode=Mode.ALL)
+@Action(actionName="if")
 public class IfActionHandler extends CompositeActionHandler {
 	
 	private String conditionExpression;
@@ -31,7 +30,6 @@ public class IfActionHandler extends CompositeActionHandler {
 		this.setConditionExpression(conditionExpression);
 	}
 
-	@Override
 	public Object execute(ActionContext actionContext) {/*
 		logger.info("Evaluating Conditional Expression : {" + conditionExpression + "}");
 		Boolean eval = evaluateConditionExpression(screenContext, conditionExpression);
@@ -88,7 +86,6 @@ public class IfActionHandler extends CompositeActionHandler {
 		this.conditionExpression = conditionExpression;
 	}
 
-	@Override
 	public void setActionRequest(ActionRequest actionRequest) {
 		this.actionRequest = actionRequest;
 	}

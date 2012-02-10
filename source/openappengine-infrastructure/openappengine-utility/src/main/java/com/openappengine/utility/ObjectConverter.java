@@ -15,7 +15,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.openappengine.facade.entity.utils;
+package com.openappengine.utility;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -106,7 +106,7 @@ public final class ObjectConverter {
         String converterId = from.getClass().getName() + "_" + to.getName();
         Method converter = CONVERTERS.get(converterId);
         if (converter == null) {
-            throw new UnsupportedOperationException("Cannot convert from " 
+        	throw new UnsupportedOperationException("Cannot convert from " 
                 + from.getClass().getName() + " to " + to.getName()
                 + ". Requested converter does not exist.");
         }

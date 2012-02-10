@@ -5,20 +5,20 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.DefaultActionMessageConstants;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.executor.annotations.Action;
 import com.openappengine.facade.entity.PojoEntityValue;
 
 /**
  * @author hrishi
  * since Feb 4, 2012
  */
-@ActionParams(actionName="entity-delete",mode=Mode.ALL)
+@Action(actionName="entity-delete")
 public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 
-	@Override
 	public Object execute(ActionContext actionContext) {
 		String valueField = (String) getActionRequest().getActionParameter("valueField");
 		
@@ -50,6 +50,18 @@ public class EntityDeleteActionHandler extends AbstractEntityActionHandler {
 		}
 		
 		return pojoEntityValue;
+	}
+
+	@Override
+	public void setActionContext(ActionContext actionContext) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -3,7 +3,6 @@
  */
 package com.openappengine.facade.core.executor.action.context;
 
-import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
@@ -29,6 +28,6 @@ public interface ActionContextFactory {
 	 * @param actionHandler
 	 * @param parameters
 	 */
-	ActionContext createActionContext(ActionHandler actionHandler, ActionRequest actionRequest, ELContext elContext,ExternalContext externalContext,MessageContext messageContext); 
+	ActionContext createActionContext(ActionHandler actionHandler,ELContext elContext,ExternalContext externalContext,MessageContext messageContext); 
 
 }

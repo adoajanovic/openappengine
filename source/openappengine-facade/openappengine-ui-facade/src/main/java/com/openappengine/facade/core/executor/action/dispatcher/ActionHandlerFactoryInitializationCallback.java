@@ -13,7 +13,7 @@ import com.openappengine.facade.context.factory.Callback;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
 import com.openappengine.facade.core.executor.action.registry.DefaultActionHandlerFactory;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Action;
 
 public class ActionHandlerFactoryInitializationCallback implements Callback<ActionHandlerFactory> {
 
@@ -46,9 +46,9 @@ public class ActionHandlerFactoryInitializationCallback implements Callback<Acti
 				return;
 			}
 			
-			ActionParams actionParams = AnnotationUtils.findAnnotation(clazz, ActionParams.class);
-			if(actionParams != null) {
-				String actionName = actionParams.actionName();
+			Action action = AnnotationUtils.findAnnotation(clazz, Action.class);
+			if(action != null) {
+				String actionName = action.actionName();
 				factory.registerActionHandler(actionName, clazz);
 			}
 	}

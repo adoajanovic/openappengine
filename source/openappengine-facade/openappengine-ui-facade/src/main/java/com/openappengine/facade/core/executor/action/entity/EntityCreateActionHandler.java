@@ -5,19 +5,19 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.executor.action.ActionContext;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.executor.annotations.Action;
 import com.openappengine.facade.entity.EntityValue;
 
 /**
  * @author hrishi
  * since Feb 5, 2012
  */
-@ActionParams(actionName="entity-create",mode=Mode.ALL)
+@Action(actionName="entity-create")
 public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 
-	@Override
 	public Object execute(ActionContext actionContext) {
 		String entityName = (String) getActionRequest().getActionParameter("entityName");
 		if(StringUtils.isEmpty(entityName)) {
@@ -37,6 +37,18 @@ public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 		EntityValue entityValue = getEntityFacade().createEntityValue(entityName, xmlMode);
 		
 		return entityValue;
+	}
+
+	@Override
+	public void setActionContext(ActionContext actionContext) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

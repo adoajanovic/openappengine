@@ -6,31 +6,19 @@ package com.openappengine.facade.core.executor.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
-import com.openappengine.facade.core.executor.annotations.Mode;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
+import com.openappengine.facade.core.executor.annotations.Action;
 
 /**
  * @author hrishi
  * since Jan 1, 2012
  */
-@ActionParams(actionName="composite",mode=Mode.ALL)
+@Action(actionName="composite")
 public class CompositeActionListHandler implements ActionHandler {
 	
 	private List<Executable> actions = new ArrayList<Executable>();
 	
-	private ActionRequest actionRequest;
-
-	@Override
-	public Object execute(ActionContext actionContext) {
-		if(actions != null && !actions.isEmpty()) {
-			for (Executable action : actions) {
-				action.execute(actionContext);
-			}
-		}
-		return null;
-	}
-
 	public List<Executable> getActions() {
 		return actions;
 	}
@@ -48,7 +36,15 @@ public class CompositeActionListHandler implements ActionHandler {
 	}
 
 	@Override
-	public void setActionRequest(ActionRequest actionRequest) {
-		this.actionRequest = actionRequest;
+	public void setActionContext(ActionContext actionContext) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

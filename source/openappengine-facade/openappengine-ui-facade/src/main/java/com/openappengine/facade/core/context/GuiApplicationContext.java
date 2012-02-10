@@ -5,6 +5,8 @@ package com.openappengine.facade.core.context;
 
 import java.util.List;
 
+import org.w3c.dom.Document;
+
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
@@ -14,7 +16,6 @@ import com.openappengine.facade.core.el.ExpressionEvaluator;
 import com.openappengine.facade.core.executor.ActionExecutor;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
-import com.openappengine.facade.core.variable.VariableResolver;
 import com.openappengine.facade.fsm.TransitionEventListener;
 
 /**
@@ -41,6 +42,8 @@ public interface GuiApplicationContext {
 	 * @return
 	 */
 	GuiRootComponent getUIRoot();
+	
+	Document getScreenXmlDocument();
 	
 	/**
 	 * Set the Root.
@@ -73,12 +76,6 @@ public interface GuiApplicationContext {
 	 */
 	Resolver getVariableResolver();
 	
-	/**
-	 * Get the ScreenRenderer for rendering the Xml Screen.
-	 * @return
-	 */
-	ScreenRenderer getScreenRenderer();
-
 	/**
 	 * Get the ActionExecutor to execute any actions.
 	 * @return

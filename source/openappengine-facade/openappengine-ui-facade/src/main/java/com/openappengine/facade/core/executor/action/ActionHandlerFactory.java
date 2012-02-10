@@ -19,8 +19,6 @@ public interface ActionHandlerFactory {
 	ActionHandler getActionHandler(String name);
 	
 	
-	boolean supportsMode(ActionHandler actionHandler, Mode mode);
-	
 	/**
 	 * Register the Action Handlers.
 	 * @param name

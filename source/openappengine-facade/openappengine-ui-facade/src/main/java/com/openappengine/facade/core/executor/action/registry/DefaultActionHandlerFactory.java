@@ -10,7 +10,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
-import com.openappengine.facade.core.executor.annotations.ActionParams;
+import com.openappengine.facade.core.executor.annotations.Action;
 import com.openappengine.facade.core.executor.annotations.Mode;
 
 /**
@@ -44,23 +44,4 @@ public class DefaultActionHandlerFactory implements ActionHandlerFactory {
 		cachedActionHandlers.put(name, actionHandlerClass);
 	}
 	
-	@Override
-	public boolean supportsMode(ActionHandler actionHandler, Mode mode) {
-		if(mode == null || actionHandler == null) {
-			return false;
-		}
-		
-		Class<? extends ActionHandler> clazz = actionHandler.getClass();
-		ActionParams actionParams = AnnotationUtils.findAnnotation(clazz, ActionParams.class);
-		if(actionParams != null) {
-			Mode fetchedMode = actionParams.mode();
-			if(fetchedMode == Mode.ALL) {
-				return true;
-			}
-			
-			else return mode.equals(fetchedMode);
-		}
-		
-		return false;
-	}
 }
