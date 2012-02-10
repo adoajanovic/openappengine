@@ -40,7 +40,8 @@ import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRe
  */
 public class GuiEngineDispatcherSevlet extends HttpServlet {
 	
-	protected final Logger logger = Logger.getLogger(getClass());
+	//Create only ONE instance of the logger.
+	protected static final Logger logger = Logger.getLogger(GuiEngineDispatcherSevlet.class);
 	
 	public static final String GUI_WEB_APPLICATION_CONTEXT = "GUI_WEB_APPLICATION_CONTEXT";
 	
