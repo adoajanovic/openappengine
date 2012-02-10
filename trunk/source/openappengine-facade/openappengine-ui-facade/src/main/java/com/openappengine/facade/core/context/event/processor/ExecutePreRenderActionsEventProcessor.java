@@ -67,7 +67,6 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 * @param guiComponent
 	 */
 	protected void doHandlePreRenderAction(GuiApplicationContext context,AbstractExecutableComponent exec) {
-		
 		//Create and ActionRequest and Dispatch the Action.
 		ActionRequest actionRequest = exec.createActionRequest();
 		ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(context.getELContext(), context.getExternalContext(), context.getMessageContext());

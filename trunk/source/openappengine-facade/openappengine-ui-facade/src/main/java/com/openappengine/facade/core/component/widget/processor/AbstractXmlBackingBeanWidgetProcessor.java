@@ -33,7 +33,18 @@ public abstract class AbstractXmlBackingBeanWidgetProcessor implements WidgetPro
 	public Object processWidget() {
 		EntityValue ev = (EntityValue) context.getELContext().getVariable(context.getWidgetBackingObjectValueRef());
 		if(ev != null) {
+			//TODO - Previous instance for restoring fields in case of binding errors.
 			Object previousInstance = ev.getInstance();
+			
+			//TODO Bind the Servlet Request to XML. Handle Binding Errors.
+			
+			//TODO Validate and Handle errors.
+			
+			//TODO - Set submitted widget instance in EV.
+			
+			//TODO - Call Action Handler.
+			
+			
 			
 		}
 		return null;

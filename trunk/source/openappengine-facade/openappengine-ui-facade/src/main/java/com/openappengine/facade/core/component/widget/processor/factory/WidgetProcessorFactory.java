@@ -29,7 +29,9 @@ public class WidgetProcessorFactory {
 	
 	private static Map<String,WidgetProcessor> widgetProcessorMap = new ConcurrentHashMap<String, WidgetProcessor>();
 	
-	protected static final Logger logger = Logger.getLogger(WidgetProcessorFactory.class); 
+	protected static final Logger logger = Logger.getLogger(WidgetProcessorFactory.class);
+
+	private final WidgetProcessorContextFactory widgetProcessorContextFactory = new HttpServletWidgetProcessorContextFactory(); 
 	
 	static {
 		Set<Class<? extends WidgetProcessor>> processors = new WidgetProcessorFactoryInitializer().initializeWidgetProcessorFactory();
@@ -59,9 +61,6 @@ public class WidgetProcessorFactory {
 		if (widgetProcessor == null) {
 			throw new IllegalStateException("No WidgetProcessor Configured for WidgetType : "+ widgetType);
 		}
-			
-		final WidgetProcessorContextFactory widgetProcessorContextFactory;
-			widgetProcessorContextFactory = new HttpServletWidgetProcessorContextFactory();
 			
 		WidgetProcessorContext widgetProcessorContext = widgetProcessorContextFactory
 					.createWidgetProcessorContext(externalContext, elContext,
