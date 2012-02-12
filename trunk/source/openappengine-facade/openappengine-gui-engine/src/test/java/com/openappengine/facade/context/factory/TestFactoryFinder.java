@@ -7,6 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.openappengine.gui.engine.context.factory.FactoryConstants;
+import com.openappengine.gui.engine.context.factory.FactoryFinder;
+import com.openappengine.gui.engine.context.factory.GuiContextFactory;
+import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializationCallback;
+
 /**
  * Test Class for the FactoryFinder module.
  * @author hrishi

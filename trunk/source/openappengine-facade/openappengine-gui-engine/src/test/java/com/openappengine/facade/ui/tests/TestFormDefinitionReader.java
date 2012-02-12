@@ -5,7 +5,7 @@ package com.openappengine.facade.ui.tests;
 
 import org.junit.Test;
 
-import com.openappengine.facade.ui.form.FormDefinitionReader;
+import com.openappengine.gui.engine.ui.form.FormDefinitionReader;
 
 /**
  * @author hrishikesh.joshi
