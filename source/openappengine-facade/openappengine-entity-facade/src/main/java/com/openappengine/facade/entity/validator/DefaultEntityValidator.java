@@ -11,8 +11,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import com.openappengine.facade.entity.DataBeanWrapper;
-import com.openappengine.facade.entity.definition.EntityDefinition;
-import com.openappengine.facade.entity.definition.FieldDefinition;
+import com.openappengine.facade.entity.definition.Entity;
+import com.openappengine.facade.entity.definition.Field;
 
 /**
  * @author hrishi
@@ -20,12 +20,12 @@ import com.openappengine.facade.entity.definition.FieldDefinition;
  */
 public class DefaultEntityValidator implements EntityValidator {
 	
-	private EntityDefinition entityDefinition;
+	private Entity entityDefinition;
 	
 	/**
 	 * @param entityDefinition
 	 */
-	public DefaultEntityValidator(EntityDefinition entityDefinition) {
+	public DefaultEntityValidator(Entity entityDefinition) {
 		super();
 		Assert.notNull(entityDefinition, "No EntityDefinition found.!");
 		this.entityDefinition = entityDefinition;
@@ -43,9 +43,9 @@ public class DefaultEntityValidator implements EntityValidator {
 		
 		DataBeanWrapper beanWrapper = new DataBeanWrapper(target);
 		
-		List<FieldDefinition> fields = entityDefinition.getFields();
+		List<Field> fields = entityDefinition.getFields();
 		if(fields != null) {
-			for (FieldDefinition field : fields) {
+			for (Field field : fields) {
 				
 				String property = field.getProperty();
 				Object value = beanWrapper.get(property);
@@ -75,7 +75,7 @@ public class DefaultEntityValidator implements EntityValidator {
 	 * @param field
 	 * @return
 	 */
-	private String composeNumericFieldErrorCode(FieldDefinition field) {
+	private String composeNumericFieldErrorCode(Field field) {
 		return field.getName()+ ".isNumeric";
 	}
 
@@ -83,7 +83,7 @@ public class DefaultEntityValidator implements EntityValidator {
 	 * @param field
 	 * @return
 	 */
-	private String composeRequiredFieldErrorCode(FieldDefinition field) {
+	private String composeRequiredFieldErrorCode(Field field) {
 		return field.getName()+ ".required";
 	}
 
@@ -91,7 +91,7 @@ public class DefaultEntityValidator implements EntityValidator {
 	 * @param field
 	 * @return
 	 */
-	private String composeAlphaFieldErrorCode(FieldDefinition field) {
+	private String composeAlphaFieldErrorCode(Field field) {
 		return field.getName()+ ".isAlpha";
 	}
 }

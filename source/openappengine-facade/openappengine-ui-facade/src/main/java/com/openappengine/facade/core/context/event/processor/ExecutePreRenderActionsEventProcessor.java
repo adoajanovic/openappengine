@@ -2,28 +2,20 @@ package com.openappengine.facade.core.context.event.processor;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
-import org.w3c.dom.Document;
 
-import com.openappengine.facade.core.ActionRequest;
-import com.openappengine.facade.core.action.transformer.ActionRequestXmlTransformer;
-import com.openappengine.facade.core.action.transformer.DefaultActionRequestXmlTransformer;
-import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.executable.PreRenderActionsComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
-import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.dispatcher.ActionDispatcherFactory;
-import com.openappengine.facade.core.request.transformer.ServletRequestTransformer;
+import com.openappengine.facade.core.widget.Widget;
 
 
 public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
@@ -75,45 +67,21 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 */
 	protected void doHandlePreRenderAction(GuiApplicationContext context,AbstractExecutableComponent exec) {
 		//Create and ActionRequest and Dispatch the Action.
-		
-		//TODO - Pass 1.ActionRequestXml 2.ServletRequestXml.
-		//			  3. MessageContext 4. ELContext.
-		
-		ServletRequestTransformer transformer = new ServletRequestTransformer();
-		Document xmlServletRequestXml = transformer.transform((HttpServletRequest) context.getExternalContext().getRequest());
-		
-		ActionRequestXmlTransformer actionRequestXmlTransformer = new DefaultActionRequestXmlTransformer();
-		ActionRequestXml actionRequestXml = actionRequestXmlTransformer.transform(exec);
-		
-		ActionRequest actionRequest = exec.createActionRequest();
+		//TODO - Move this to the Dispatcher Bridge API.
+		List<Widget> referencedWidgets = null;
+		if (exec.hasValueField()) {
+			String valueField = exec.getValueField();
+			referencedWidgets = context.getReferencedWidgets(valueField);
+		}
 		ActionDispatcher actionDispatcher = actionDispatcherFactory
 				.createActionDispatcher(context.getELContext(),
 										context.getExternalContext(),
-										context.getMessageContext());
+										context.getMessageContext(),exec, referencedWidgets);
 		
-		Object result = actionDispatcher.execute(actionRequest);
-		
-		//If the output of the Execution would be set to a value-field.
-		if (exec.hasValueField()) {
-			String valueField = exec.getValueField();
-			//Register Variable in EL Context.
-			context.registerVariable(valueField, result);
-
-			List<Widget> referencedWidgets = context.getReferencedWidgets(valueField);
-			
-			if (referencedWidgets != null && !referencedWidgets.isEmpty()) {
-				for (Widget widget : referencedWidgets) {
-					String widgetMode = widget.getWidgetMode();
-					if (StringUtils.isEmpty(widgetMode)) {
-						widgetMode = "xml";
-					}
-					
-					//TODO -Set the result in the correct mode to the Widget.
-					
-
-				}
-			}
-		}
+		ActionResponseXml actionResponseXml = actionDispatcher.execute();
+		//TODO
 	}
+
+	
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.Validate;
 
 import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.CompositeActionHandler;
@@ -28,32 +29,6 @@ public class IfActionHandler extends CompositeActionHandler {
 		super();
 		Validate.notEmpty(conditionExpression,"Condition Expression cannot be empty.");
 		this.setConditionExpression(conditionExpression);
-	}
-
-	public Object execute(ActionContext actionContext) {/*
-		logger.info("Evaluating Conditional Expression : {" + conditionExpression + "}");
-		Boolean eval = evaluateConditionExpression(screenContext, conditionExpression);
-		if(BooleanUtils.isTrue(eval)) {
-			logger.info("Conditional Expression : {" + conditionExpression + "} returned TRUE. > Calling IF ActionHandler.");
-			return super.execute(screenContext);
-		} else if(elseifActions != null && !elseifActions.isEmpty()) {
-			for (IfActionHandler elseIfAction : elseifActions) {
-				eval = evaluateConditionExpression(screenContext, elseIfAction.getConditionExpression());
-				if(BooleanUtils.isFalse(eval)) {
-					logger.info("Conditional Expression : {" + elseIfAction.getConditionExpression() + "} returned FALSE. > SKIPPING THE ELSE.");
-					continue;
-				}
-				logger.info("Conditional Expression : {" + elseIfAction.getConditionExpression() + "} returned TRUE. > Calling IF ActionHandler.");
-				return elseIfAction.execute(screenContext);
-			}
-		} else if(elseAction != null) {
-			logger.info("Conditional Expression : {" + conditionExpression + "} returned FALSE. > Calling ELSE ActionHandler.");
-			return elseAction.execute(screenContext);
-		}
-		logger.info("Conditional Expression : {" + conditionExpression + "} returned FALSE. > Wrapped ActionHandler not invoked.");
-		return null;
-	*/
-		return null;
 	}
 
 	@Override
@@ -88,6 +63,15 @@ public class IfActionHandler extends CompositeActionHandler {
 
 	public void setActionRequest(ActionRequest actionRequest) {
 		this.actionRequest = actionRequest;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.openappengine.facade.core.executor.action.ActionHandler#supportsActionRequestXml(com.openappengine.facade.core.action.xml.ActionRequestXml)
+	 */
+	@Override
+	public boolean supportsActionRequestXml(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

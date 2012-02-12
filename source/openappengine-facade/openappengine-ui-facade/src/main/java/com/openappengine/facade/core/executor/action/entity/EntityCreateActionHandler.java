@@ -3,13 +3,13 @@
  */
 package com.openappengine.facade.core.executor.action.entity;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
 
-import com.openappengine.facade.core.action.xml.ActionRequestXml;
 import com.openappengine.facade.core.action.xml.ActionResponseXml;
-import com.openappengine.facade.core.executor.action.ActionContext;
+import com.openappengine.facade.core.action.xml.EntityActionRequestXml;
+import com.openappengine.facade.core.action.xml.SimpleActionResponseXml;
 import com.openappengine.facade.core.executor.annotations.Action;
-import com.openappengine.facade.entity.EntityValue;
+import com.openappengine.facade.entity.response.EntityResponse;
 
 /**
  * @author hrishi
@@ -18,37 +18,15 @@ import com.openappengine.facade.entity.EntityValue;
 @Action(actionName="entity-create")
 public class EntityCreateActionHandler extends AbstractEntityActionHandler {
 
-	public Object execute(ActionContext actionContext) {
-		String entityName = (String) getActionRequest().getActionParameter("entityName");
-		if(StringUtils.isEmpty(entityName)) {
-			throw new IllegalArgumentException("EntityName cannot be empty.");
-		}
-		
-		String mode = getActionRequest().getMode();
-		if(StringUtils.isEmpty(mode)) {
-			mode = "xml";
-		}
-		
-		boolean xmlMode = false;
-		if(StringUtils.equals(mode, "xml")) {
-			xmlMode = true;
-		}
-		
-		EntityValue entityValue = getEntityFacade().createEntityValue(entityName, xmlMode);
-		
-		return entityValue;
-	}
-
 	@Override
-	public void setActionContext(ActionContext actionContext) {
-		// TODO Auto-generated method stub
+	public ActionResponseXml execute(EntityActionRequestXml actionRequestXml) {
+		String entityName = actionRequestXml.getEntityName();
+		Assert.notNull(entityName, "EntityName null.");
 		
-	}
-
-	@Override
-	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityResponse entityResponse = getEntityFacade().createEntityValue(entityName);
+		
+		//TODO - Convert to Xml.
+		return new SimpleActionResponseXml(entityResponse.getEntityResponseDocument());
 	}
 
 }

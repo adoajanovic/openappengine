@@ -5,7 +5,7 @@ package com.openappengine.facade.entity;
 
 import java.io.Serializable;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 
 /**
  * @author hrishikesh.joshi
@@ -19,9 +19,9 @@ public class PojoEntityValue extends DataBeanWrapper implements Serializable,Ent
 	
 	private String entityName;
 	
-	private EntityDefinition entityDefinition;
+	private Entity entityDefinition;
 	
-	public PojoEntityValue(String entityName,EntityDefinition entityDefinition,Object object) {
+	public PojoEntityValue(String entityName,Entity entityDefinition,Object object) {
 	    super(object);
 	    this.entityName = entityName;
 	    this.entityDefinition = entityDefinition;
@@ -40,7 +40,7 @@ public class PojoEntityValue extends DataBeanWrapper implements Serializable,Ent
 	    return entityName;
 	}
 
-	public EntityDefinition getEntityDefinition() {
+	public Entity getEntityDefinition() {
 	    return entityDefinition;
 	}
 	

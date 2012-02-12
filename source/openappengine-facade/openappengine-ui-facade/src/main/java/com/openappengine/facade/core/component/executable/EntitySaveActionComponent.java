@@ -1,7 +1,7 @@
 package com.openappengine.facade.core.component.executable;
 
 
-public class EntitySaveActionComponent extends AbstractEntityActionComponent {
+public class EntitySaveActionComponent extends AbstractEntityActionTag {
 
 	private static final long serialVersionUID = 1L;
 	

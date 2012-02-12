@@ -3,9 +3,12 @@
  */
 package com.openappengine.facade.core.transformer;
 
-import com.openappengine.facade.core.xml.transformer.StringTypeConverter;
+import com.openappengine.facade.core.xml.transformer.StringConverter;
 
 /**
+ * The Transformer API is used primarily for Message Transformation between GUI Engine 
+ * and Other Engines.   
+ * 
  * @author hrishikesh.joshi
  * @since  Feb 10, 2012
  *
@@ -19,6 +22,6 @@ public interface Transformer<T, O> {
 	 */
 	O transform(T t);
 	
-	void registerCustomConverters(Class<?> forClass,StringTypeConverter converter);
+	void registerCustomConverters(Class<?> forClass,StringConverter converter);
 
 }

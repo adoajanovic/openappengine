@@ -5,7 +5,9 @@ package com.openappengine.facade.core.executor.action.entity;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.action.xml.ActionRequestXml;
+import com.openappengine.facade.core.action.xml.EntityActionRequestXml;
+import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
@@ -14,34 +16,33 @@ import com.openappengine.facade.entity.context.EntityFacadeContext;
  * @author hrishi
  *
  */
-public abstract class AbstractEntityActionHandler implements ActionHandler {
+public abstract class AbstractEntityActionHandler implements ActionHandler<EntityActionRequestXml> {
 	
 	protected Logger logger = Logger.getLogger("EntityActionHandler");
 	
-	private ActionRequest actionRequest;
+	protected ActionContext actionContext;
+	
+	protected EntityFacade entityFacade;
 
-	/**
-	 * @param entityName
-	 */
-	public AbstractEntityActionHandler() {
-	}
-
-	public String getEntityName() {
-		String entityName = (String) actionRequest.getActionParameter("entityName");
-		return entityName;
+	@Override
+	public void setActionContext(ActionContext actionContext) {
+		this.actionContext = actionContext;
 	}
 
 	protected EntityFacade getEntityFacade() {
-		EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
+		if(entityFacade == null) {
+			entityFacade = EntityFacadeContext.getEntityFacade();
+		}
 		
 		return entityFacade;
 	}
 
-	public ActionRequest getActionRequest() {
-		return actionRequest;
+	@Override
+	public boolean supportsActionRequestXml(ActionRequestXml actionRequestXml) {
+		if(actionRequestXml instanceof EntityActionRequestXml) {
+			return true;
+		}
+		return false;
 	}
-
-	public void setActionRequest(ActionRequest actionRequest) {
-		this.actionRequest = actionRequest;
-	}
+	
 }

@@ -14,4 +14,5 @@ public interface ActionRequestXml {
 	
 	Document getActionRequestXmlDocument();
 	
+	String getActionName();
 }

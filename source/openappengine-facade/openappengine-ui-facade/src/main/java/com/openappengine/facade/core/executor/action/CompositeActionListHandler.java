@@ -35,12 +35,27 @@ public class CompositeActionListHandler implements ActionHandler {
 		actions.add(action);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.openappengine.facade.core.executor.action.ActionHandler#setActionContext(com.openappengine.facade.core.executor.action.ActionContext)
+	 */
 	@Override
 	public void setActionContext(ActionContext actionContext) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.openappengine.facade.core.executor.action.ActionHandler#supportsActionRequestXml(com.openappengine.facade.core.action.xml.ActionRequestXml)
+	 */
+	@Override
+	public boolean supportsActionRequestXml(ActionRequestXml actionRequestXml) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.openappengine.facade.core.executor.action.ActionHandler#execute(com.openappengine.facade.core.action.xml.ActionRequestXml)
+	 */
 	@Override
 	public ActionResponseXml execute(ActionRequestXml actionRequestXml) {
 		// TODO Auto-generated method stub

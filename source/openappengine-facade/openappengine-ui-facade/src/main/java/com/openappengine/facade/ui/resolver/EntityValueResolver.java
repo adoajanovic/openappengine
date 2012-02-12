@@ -15,8 +15,8 @@ import com.openappengine.facade.entity.EntityFacade;
 import com.openappengine.facade.entity.EntityValue;
 import com.openappengine.facade.entity.PojoEntityValue;
 import com.openappengine.facade.entity.context.EntityFacadeContext;
-import com.openappengine.facade.entity.definition.EntityDefinition;
-import com.openappengine.facade.entity.definition.FieldDefinition;
+import com.openappengine.facade.entity.definition.Entity;
+import com.openappengine.facade.entity.definition.Field;
 
 /**
  * @author hrishikesh.joshi
@@ -42,11 +42,11 @@ public class EntityValueResolver implements ValueResolver {
 	public Object resolveValue() {
 		EntityFacade entityFacade = EntityFacadeContext.getEntityFacade();
 		Assert.notNull(entityFacade,"Entity Engine Not Initialized.");
-		EntityDefinition entityDefinition = entityFacade.findEntityDefinition(entityName);
-		List<FieldDefinition> pkFields = entityDefinition.getPKFields();
+		Entity entityDefinition = entityFacade.findEntityDefinition(entityName);
+		List<Field> pkFields = entityDefinition.getPKFields();
 		final Map<String,Object> filteredPkParams = new ConcurrentHashMap<String, Object>();
 		if(pkFields != null) {
-			for (FieldDefinition fieldDefinition : pkFields) {
+			for (Field fieldDefinition : pkFields) {
 				String property = fieldDefinition.getProperty();
 				//If there is no prefix for query parameters
 				if(StringUtils.isEmpty(parameterPrefix)) {

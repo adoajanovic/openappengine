@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.entity;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 
 /**
  * @author hrishikesh.joshi
@@ -18,6 +18,6 @@ public interface EntityValue {
 	
 	void setInstance(Object value);
 	
-	EntityDefinition getEntityDefinition();
+	Entity getEntityDefinition();
 
 }

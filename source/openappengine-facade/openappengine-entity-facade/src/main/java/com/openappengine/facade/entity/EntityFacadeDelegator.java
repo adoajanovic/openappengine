@@ -3,7 +3,7 @@
  */
 package com.openappengine.facade.entity;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 import com.openappengine.facade.entity.exception.EntityValueException;
 
 /**
@@ -12,7 +12,7 @@ import com.openappengine.facade.entity.exception.EntityValueException;
  */
 public class EntityFacadeDelegator {
 	
-	public PojoEntityValue createEntityValue(String entityName,EntityDefinition ed,Class<?> entityClass) {
+	public PojoEntityValue createEntityValue(String entityName,Entity ed,Class<?> entityClass) {
 		try {
 			Object newInstance = entityClass.newInstance();
 			PojoEntityValue pojoEntityValue = new PojoEntityValue(entityName,ed,newInstance);

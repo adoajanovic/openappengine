@@ -26,13 +26,13 @@ import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
 import com.openappengine.facade.context.factory.GuiContextFactory;
 import com.openappengine.facade.context.factory.WebContextFactoryInitializationCallback;
-import com.openappengine.facade.core.component.widget.context.HttpServletWidgetProcessorContextFactory;
-import com.openappengine.facade.core.component.widget.context.WidgetProcessorContextFactory;
-import com.openappengine.facade.core.component.widget.processor.WidgetProcessor;
-import com.openappengine.facade.core.component.widget.processor.factory.WidgetProcessorFactory;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.ext.ExternalWebContext;
+import com.openappengine.facade.core.widget.context.HttpServletWidgetProcessorContextFactory;
+import com.openappengine.facade.core.widget.context.WidgetProcessorContextFactory;
+import com.openappengine.facade.core.widget.processor.WidgetProcessor;
+import com.openappengine.facade.core.widget.processor.factory.WidgetProcessorFactory;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**
@@ -138,11 +138,11 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 			//Clear the Context Messages
 			guiApplicationContext.getMessageContext().clearAllMessages();
 			
-			//Process Widget Submission.
+			//Process WidgetType Submission.
 			doProcessWidgetPost(httpServletRequest, guiApplicationContext);
 			
 		}
-		contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
+		//contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
 		contextFactory.refreshMessages(guiApplicationContext);
 		
@@ -161,14 +161,14 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 	private void doProcessWidgetPost(HttpServletRequest request,GuiApplicationContext guiApplicationContext) throws LinkageError {
 		String widgetType = request.getParameter("widgetType");
 		
-		//Get WidgetProcessor Based on the Widget Type.
+		//Get WidgetProcessor Based on the WidgetType Type.
 		WidgetProcessor widgetProcessor = widgetProcessorFactory.
 					getWidgetProcessor(guiApplicationContext.getExternalContext(),
 									   guiApplicationContext.getELContext(),
 									   guiApplicationContext.getTransitionEventListener(),
 									   guiApplicationContext.getMessageContext(),widgetType);
 		
-		//Process Widget
+		//Process WidgetType
 		widgetProcessor.processWidget();
 	}
 

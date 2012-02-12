@@ -95,7 +95,7 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 	}
 	
 	/**
-	 * Get Widget keyed by Id.
+	 * Get WidgetType keyed by Id.
 	 * @param id
 	 * @return
 	 */

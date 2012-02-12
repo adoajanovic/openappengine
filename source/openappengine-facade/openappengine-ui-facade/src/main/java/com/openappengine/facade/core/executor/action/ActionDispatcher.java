@@ -3,12 +3,14 @@
  */
 package com.openappengine.facade.core.executor.action;
 
-import com.openappengine.facade.core.ActionRequest;
+import java.util.List;
+
 import com.openappengine.facade.core.ELContext;
-import com.openappengine.facade.core.action.xml.ActionRequestXml;
 import com.openappengine.facade.core.action.xml.ActionResponseXml;
+import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.ext.ExternalContext;
+import com.openappengine.facade.core.widget.Widget;
 
 /**
  * This interfaces intends to decouple the GUI Component or Caller of the Actions
@@ -29,15 +31,7 @@ import com.openappengine.facade.core.ext.ExternalContext;
  */
 public interface ActionDispatcher {
 
-	/**
-	 * Execute the encapsulated action.
-	 * @param actionRequest
-	 * @return Outcome of the action.
-	 */
-	Object execute(ActionRequest actionRequest);
-	
-	
-	ActionResponseXml executeAction(ActionRequestXml requestXml);
+	ActionResponseXml execute();
 	
 	/**
 	 * Pluggable EL Context for Variable Resolution and EL Expression Handling.
@@ -56,4 +50,9 @@ public interface ActionDispatcher {
 	 * @param messageContext
 	 */
 	void setMessageContext(MessageContext messageContext);
+	
+	
+	void setExecutable(AbstractExecutableComponent exec);
+	
+	void setActionReferencedWidgets(List<Widget> widgets);
 }
