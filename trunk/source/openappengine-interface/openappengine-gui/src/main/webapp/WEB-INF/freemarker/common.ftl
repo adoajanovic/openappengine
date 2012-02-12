@@ -8,3 +8,25 @@
 	  </div>	  
 	</div>
 </#macro>
+
+<!--
+	InputText
+-->
+<#macro formInputText type name id value>
+	<tr>
+		<td>
+			${name}
+		</td>
+		<td>
+			<input id="${id}" type="${type}" name="${name}" value="${value}" />
+		</td>
+	</tr>	
+</#macro>
+
+<#macro formSubmit name id value>
+<tr>
+	<td>
+		<input type="submit" id="${id}"  name="${name}"  class="button ui-state-default ui-corner-all" value="${value}"/>
+	</td>
+</tr>
+</#macro>

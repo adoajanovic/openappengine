@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <#import "/spring.ftl" as spring/>
+<#import "common.ftl" as gui/>
 <head>
   <title>
   	Test
@@ -80,21 +81,10 @@
 	 			<fieldset>
 		 			<table>
 		 				<#foreach formField in formCommand.form.formfield>
-		 				<tr>
-		 					<td>
-		 						${formField.@name}
-		 					</td>
-		 					<td>
-		 						<input type="${formField.@type}" name="${formField.@name}" value="${formField}" />
-		 					</td>
-		 				</tr>	
-					   	</#foreach>
+		 					<@gui.formInputText formField.@type formField.@name formField.@name formField />
+		 				</#foreach>
 		 			
-		 				<tr>
-			 				<td>
-			 					<input type="submit" name="${childWidget.getId()}_Submit"  class="button ui-state-default ui-corner-all" value="Submit"/>
-			 				</td>
-			 			</tr>
+		 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 		 			</table>
 	 			</fieldset>
 	 			</form>

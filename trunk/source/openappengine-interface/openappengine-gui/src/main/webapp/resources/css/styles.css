@@ -2,6 +2,13 @@ html {
 	height: 100%;
 }
 
+.header {
+    background:transparent url(http://images.apple.com/downloads/images/sideboxlight_bg20070611.gif) repeat-y scroll 0pt;
+    color:#76797C;
+    font-size:11px;
+    line-height:1.3em;
+}
+
 body {
 	margin: 0;
 	padding: 0;
