@@ -11,9 +11,9 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 import com.openappengine.facade.entity.definition.EntityDefinitionReaderException;
-import com.openappengine.facade.entity.definition.FieldDefinition;
+import com.openappengine.facade.entity.definition.Field;
 import com.openappengine.facade.entity.definition.ui.UIField;
 import com.openappengine.utility.UtilXml;
 
@@ -30,23 +30,23 @@ public class EntityDefinitionReader {
     /**
      * Init the Reader
      */
-    public List<EntityDefinition> readEntityReaderDefinitions() {
-	List<EntityDefinition> entityDefinitions = new ArrayList<EntityDefinition>();
+    public List<Entity> readEntityReaderDefinitions() {
+	List<Entity> entityDefinitions = new ArrayList<Entity>();
 	if (locations != null) {
 	    for (String location : locations) {
-		List<EntityDefinition> definitions = readEntityDefinitions(location);
+		List<Entity> definitions = readEntityDefinitions(location);
 		entityDefinitions.addAll(definitions);
 	    }
 	}
 	return entityDefinitions;
     }
 
-    public List<EntityDefinition> readEntityDefinitions(String location) {
+    public List<Entity> readEntityDefinitions(String location) {
 	if (StringUtils.isBlank(location)) {
 	    throw new EntityDefinitionReaderException(
 		    "Loading EntityDefinitions failed; specified location cannot be blank.");
 	}
-	List<EntityDefinition> entityDefinitions = new ArrayList<EntityDefinition>();
+	List<Entity> entityDefinitions = new ArrayList<Entity>();
 	InputStream inputStream = getClass().getClassLoader()
 		.getResourceAsStream(location);
 	try {
@@ -68,7 +68,7 @@ public class EntityDefinitionReader {
 				"EntityClass not found from : " + cls);
 		    }
 
-		    EntityDefinition entityDefinition = new EntityDefinition();
+		    Entity entityDefinition = new Entity();
 		    entityDefinition.setDeleteable(Boolean
 			    .parseBoolean(isDeleteable));
 		    entityDefinition.setEntityClass(entityClass);
@@ -78,7 +78,7 @@ public class EntityDefinitionReader {
 			    .childElementList(entityElement, "field");
 		    if (fieldElements != null && !fieldElements.isEmpty()) {
 			for (Element fieldElement : fieldElements) {
-			    FieldDefinition fieldDefinition = readFieldDefinition(fieldElement);
+			    Field fieldDefinition = readFieldDefinition(fieldElement);
 			    if(!entityDefinition.containsFieldDefinitionByFieldName(fieldDefinition.getName()) && !entityDefinition.containsFieldDefinitionByFieldRef(fieldDefinition)) {
 			    	entityDefinition.addFieldDefinition(fieldDefinition);
 			    } else {
@@ -99,14 +99,17 @@ public class EntityDefinitionReader {
 
     }
 
-    protected FieldDefinition readFieldDefinition(Element fieldElement) {
-	FieldDefinition fieldDefinition = new FieldDefinition();
+    protected Field readFieldDefinition(Element fieldElement) {
+	Field fieldDefinition = new Field();
 	
 	String name = UtilXml.readElementAttribute(fieldElement, "name");
 	if (StringUtils.isBlank(name)) {
 	    throw new EntityDefinitionReaderException("Attribute name cannot be empty.");
 	}
 	fieldDefinition.setName(name);
+	
+	String type = UtilXml.readElementAttribute(fieldElement, "type");
+	fieldDefinition.setType(type);
 
 	String property = UtilXml.readElementAttribute(fieldElement, "property");
 	if (StringUtils.isBlank(property)) {

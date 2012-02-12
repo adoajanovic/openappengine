@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.openappengine.facade.core.ActionRequest;
+import com.openappengine.facade.core.action.xml.ActionResponseXml;
 import com.openappengine.facade.core.component.condition.ConditionComponent;
 import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.transition.TransitionActions;
@@ -57,12 +57,14 @@ public class WebTransitionEventListener extends TransitionEventListener {
 						List<AbstractExecutableComponent> executables = transitionActions.getExecutables();
 						if(executables != null) {
 							for (AbstractExecutableComponent exec : executables) {
-								ActionRequest actionRequest = exec.createActionRequest();
-								
 								ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
-								ActionDispatcher actionDispatcher = actionDispatcherFactory.createActionDispatcher(event.getElContext(), event.getExternalContext(), event.getMessageContext());
+								ActionDispatcher actionDispatcher = actionDispatcherFactory
+										.createActionDispatcher(
+												event.getElContext(),
+												event.getExternalContext(),
+												event.getMessageContext(),exec, null);
 								
-								Object result = actionDispatcher.execute(actionRequest);
+								ActionResponseXml actionResponseXml = actionDispatcher.execute();
 								
 								//TODO - To be taken care by the Action Handler
 								/*if(exec.hasValueField()) {

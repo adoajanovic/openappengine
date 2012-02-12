@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -34,11 +35,16 @@ public class UtilXml {
 
     public static final String module = UtilXml.class.getName();
 
-    public static String writeXmlDocument(Document document) throws java.io.IOException {
+    public static String writeXmlDocument(Document document) {
         if (document == null) {
             return null;
         }
-        return writeXmlDocument(document.getDocumentElement());
+        String xmlDocument = "";
+        try {
+			xmlDocument = writeXmlDocument(document.getDocumentElement());
+		} catch (IOException e) {
+		}
+        return xmlDocument;
     }
 
     public static String writeXmlDocument(Element element) throws java.io.IOException {
@@ -218,7 +224,7 @@ public class UtilXml {
         Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-        factory.setValidating(true);
+        //factory.setValidating(true);
         // factory.setNamespaceAware(true);
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -239,10 +245,9 @@ public class UtilXml {
     }
 
     /** Creates a child element with the given name and appends it to the element child node list. */
-    public static Element addChildElement(Element element, String childElementName, Document document) {
+    public static Element addChildElement(Element parentElement, String childElementName, Document document) {
         Element newElement = document.createElement(childElementName);
-
-        element.appendChild(newElement);
+        parentElement.appendChild(newElement);
         return newElement;
     }
     

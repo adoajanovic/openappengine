@@ -17,16 +17,13 @@ public abstract class AbstractActionContext implements ActionContext {
 	
 	private ELContext elContext;
 
-	private ActionHandler actionHandler;
-	
 	private ExternalContext externalContext;
 	
 	private MessageContext messageContext;
 	
-	public AbstractActionContext(ExternalContext externalContext,ELContext elContext, ActionHandler actionHandler) {
+	public AbstractActionContext(ExternalContext externalContext,ELContext elContext) {
 		super();
 		this.elContext = elContext;
-		this.actionHandler = actionHandler;
 		this.externalContext = externalContext;
 	}
 
@@ -36,14 +33,11 @@ public abstract class AbstractActionContext implements ActionContext {
 	 * @param actionHandler
 	 * @param messageContext
 	 */
-	public AbstractActionContext(ExternalContext externalContext,ELContext elContext, ActionHandler actionHandler,MessageContext messageContext) {
-		this(externalContext, elContext, actionHandler);
+	public AbstractActionContext(ExternalContext externalContext,
+			ELContext elContext,
+			MessageContext messageContext) {
+		this(externalContext, elContext);
 		this.setMessageContext(messageContext);
-	}
-
-	@Override
-	public ActionHandler getActionHandler() {
-		return actionHandler;
 	}
 
 	@Override

@@ -4,11 +4,11 @@ import org.apache.log4j.Logger;
 
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.ValueRefAware;
-import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
 import com.openappengine.facade.core.context.event.ContextPostRestoreEvent;
+import com.openappengine.facade.core.widget.Widget;
 
 public class GuiContextPostRestoreEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
 

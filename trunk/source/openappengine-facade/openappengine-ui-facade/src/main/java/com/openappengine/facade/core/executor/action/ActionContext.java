@@ -15,12 +15,6 @@ import com.openappengine.facade.core.ext.ExternalContext;
 public interface ActionContext {
 	
 	/**
-	 * Get ActionHandler for this Action.
-	 * @return ActionHandler
-	 */
-	ActionHandler getActionHandler();
-	
-	/**
 	 * Get EL Context to resolve EL expression if any plugged into the ActionHandler fields/variables.
 	 * @return
 	 */

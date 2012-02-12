@@ -4,24 +4,42 @@
 package com.openappengine.facade.core.executor.action.dispatcher;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.openappengine.facade.context.factory.Callback;
 import com.openappengine.facade.context.factory.FactoryConstants;
 import com.openappengine.facade.context.factory.FactoryFinder;
-import com.openappengine.facade.core.ActionRequest;
 import com.openappengine.facade.core.ELContext;
+import com.openappengine.facade.core.action.xml.ActionParamsXml;
 import com.openappengine.facade.core.action.xml.ActionRequestXml;
 import com.openappengine.facade.core.action.xml.ActionResponseXml;
+import com.openappengine.facade.core.action.xml.EntityActionRequestXml;
+import com.openappengine.facade.core.component.GuiComponent;
+import com.openappengine.facade.core.component.executable.AbstractExecutableComponent;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
 import com.openappengine.facade.core.executor.action.ActionDispatcher;
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
-import com.openappengine.facade.core.executor.action.ActionProcessor;
 import com.openappengine.facade.core.executor.action.context.ActionContextFactory;
+import com.openappengine.facade.core.executor.annotations.Action;
 import com.openappengine.facade.core.ext.ExternalContext;
+import com.openappengine.facade.core.request.transformer.ExternalRequestParamsXml;
+import com.openappengine.facade.core.transformer.ActionParamsXmlTransformer;
+import com.openappengine.facade.core.transformer.DefaultActionParamsXmlTransformer;
+import com.openappengine.facade.core.transformer.ExternalRequestParamsTransformer;
+import com.openappengine.facade.core.transformer.WidgetTransformer;
+import com.openappengine.facade.core.widget.FormSingleTag;
+import com.openappengine.facade.core.widget.Widget;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -30,15 +48,26 @@ import com.openappengine.utility.UtilXml;
  */
 public class SimpleActionDispatcher implements ActionDispatcher {
 	
-	private static ActionHandlerFactory factory;
+	protected static final Logger logger = Logger.getLogger(ActionDispatcher.class);
+	
+	private static final ActionHandlerFactory factory;
+		
+	private static final ActionContextFactory actionContextFactory;
 	
 	private ELContext elContext;
-
-	private static ActionContextFactory actionContextFactory;
 	
 	private ExternalContext externalContext;
 	
 	private MessageContext messageContext;
+	
+	private AbstractExecutableComponent executable;
+	
+	private List<Widget> actionReferencedWidgets;
+	
+	private ExternalRequestParamsTransformer transformer = new ExternalRequestParamsTransformer();
+	
+	private ActionParamsXmlTransformer actionRequestXmlTransformer = new DefaultActionParamsXmlTransformer();
+	
 	
 	public SimpleActionDispatcher() {
 	}
@@ -52,39 +81,60 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		actionContextFactory = (ActionContextFactory) FactoryFinder.getFactory(FactoryConstants.ACTION_CONTEXT_FACTORY, callback);
 	}
 	
-	//TODO - Remove this method switch to executeAction
-	@Override
-	public Object execute(ActionRequest actionRequest) {
-		Assert.notNull(actionRequest, "Action Request cannot be empty.");
-		ActionHandler actionHandler = getActionHandlerFromFactory(actionRequest);
-		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler,elContext, externalContext,messageContext);
-		Object result = null;//performActionProcessing(actionContext);
-		return result;
-	}
-	
-	@Override
-	public ActionResponseXml executeAction(ActionRequestXml requestXml) {
-		Document actionRequestXml = requestXml.getActionRequestXmlDocument();
-		String actionName = UtilXml.readElementAttribute(actionRequestXml.getDocumentElement(), "action-name");
-		ActionHandler actionHandler = getActionHandler(actionName);
-		ActionContext actionContext = actionContextFactory.createActionContext(actionHandler,elContext, externalContext,messageContext);
+	public ActionResponseXml execute() {
+		ExternalRequestParamsXml externalRequestParamsXml = transformer.transform((HttpServletRequest) externalContext.getRequest());
 		
-		actionHandler.setActionContext(actionContext);
+		ActionParamsXml actionParamsXml = actionRequestXmlTransformer.transform(executable);
+		
+		Action action = AnnotationUtils.findAnnotation(executable.getClass(), Action.class);
+		String actionName = action.actionName();
+		
+		ActionRequestXml requestXml = new EntityActionRequestXml(externalRequestParamsXml,actionParamsXml,actionName);
+		
+		ActionContext actionContext = doCreateActionContext();
+		ActionHandler actionHandler = getActionHandler(requestXml,actionContext);
+		
+		if(!actionHandler.supportsActionRequestXml(requestXml)) {
+			throw new IllegalArgumentException("ActionRequest "
+					+ requestXml.getClass() + "not supported by ActionHandler:"
+					+ actionHandler.getClass());
+		}
 		ActionResponseXml responseXml = actionHandler.execute(requestXml);
+		
+		if(actionReferencedWidgets != null) {
+			for (Widget referencedWidget : actionReferencedWidgets) {
+				
+				WidgetTransformer widgetTransformer = new WidgetTransformer(referencedWidget);
+				Document transformedDocumentXml = widgetTransformer.transform(responseXml);
+				externalContext.addModelMapAttribute(((GuiComponent)referencedWidget).getId(), transformedDocumentXml);
+				referencedWidget.setValue(transformedDocumentXml);
+			}
+		}
 		return responseXml;
 	}
-
 	
 	/**
- 	 *	Get ActionHandler from the Input Action Name.
-	 * @param actionRequest
+	 * @param actionRequestXml
+	 * @param actionContext
+	 * @return
 	 */
-	protected ActionHandler getActionHandlerFromFactory(ActionRequest actionRequest) {
-		String actionName = actionRequest.getActionName();
-		ActionHandler actionHandler = getActionHandler(actionName);
+	private ActionHandler<?> getActionHandler(ActionRequestXml actionRequestXml,
+			ActionContext actionContext) {
+		String actionName = actionRequestXml.getActionName();
+		ActionHandler<?> actionHandler = getActionHandler(actionName);
+		actionHandler.setActionContext(actionContext);
 		return actionHandler;
 	}
 
+	/**
+	 * @return
+	 */
+	private ActionContext doCreateActionContext() {
+		ActionContext actionContext = actionContextFactory.createActionContext(elContext,externalContext, messageContext);
+		return actionContext;
+	}
+
+	
 	/**
 	 * @param actionRequest
 	 * @param actionName
@@ -95,7 +145,7 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		Assert.notNull(actionHandler, "ActionHandler not found in the Factory.");
 		return actionHandler;
 	}
-
+	
 	protected ELContext getELContext() {
 		return elContext;
 	}
@@ -113,12 +163,24 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		return externalContext;
 	}
 
-	public MessageContext getMessageContext() {
+	protected MessageContext getMessageContext() {
 		return messageContext;
 	}
-
+	
+	@Override
 	public void setMessageContext(MessageContext messageContext) {
 		this.messageContext = messageContext;
+	}
+
+	@Override
+	public void setExecutable(AbstractExecutableComponent exec) {
+		Assert.notNull(exec,"Executable found null...!");
+		this.executable = exec;
+	}
+
+	@Override
+	public void setActionReferencedWidgets(List<Widget> widgets) {
+		this.actionReferencedWidgets  = widgets;
 	}
 
 }

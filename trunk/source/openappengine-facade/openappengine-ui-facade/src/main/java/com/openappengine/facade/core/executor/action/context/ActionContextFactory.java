@@ -6,7 +6,6 @@ package com.openappengine.facade.core.executor.action.context;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
-import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.ext.ExternalContext;
 
 /**
@@ -24,10 +23,8 @@ public interface ActionContextFactory {
 	/**
 	 * Create an ActionContext based on the ActionHandler. Map the action parameters
 	 * to the action fields/attributes.
-	 * 
-	 * @param actionHandler
 	 * @param parameters
 	 */
-	ActionContext createActionContext(ActionHandler actionHandler,ELContext elContext,ExternalContext externalContext,MessageContext messageContext); 
+	ActionContext createActionContext(ELContext elContext,ExternalContext externalContext,MessageContext messageContext); 
 
 }

@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
 import com.openappengine.facade.core.component.GuiComponent;
-import com.openappengine.facade.core.component.executable.EntityCreateActionComponent;
+import com.openappengine.facade.core.component.executable.EntityCreateTag;
 
 /**
  * @author hrishi
@@ -19,11 +19,9 @@ public class EntityCreateActionElementDefinitionParser extends AbstractGuiElemen
 
 	private static final String ATTR_ENTITY_NAME = "entity-name";
 	
-	private static final String ATTR_ENTITY_MODE = "entity-mode";
-	
 	@Override
 	public GuiComponent parse(Element element) {
-		EntityCreateActionComponent entityCreateActionComponent = new EntityCreateActionComponent();
+		EntityCreateTag entityCreateActionComponent = new EntityCreateTag();
 		String entityName = element.getAttribute(ATTR_ENTITY_NAME);
 		if(StringUtils.isEmpty(entityName)) {
 			throw new XmlDefinitionParserException("Attribute entity-name cannot be empty.");
@@ -40,11 +38,6 @@ public class EntityCreateActionElementDefinitionParser extends AbstractGuiElemen
 			throw new XmlDefinitionParserException("Attribute value-field is mandatory for entity-find-one.");
 		}
 		entityCreateActionComponent.setValueField(valueField);
-		
-		String attrEntityMode = element.getAttribute(ATTR_ENTITY_MODE);
-		if(StringUtils.isNotEmpty(attrEntityMode)) {
-			entityCreateActionComponent.setEntityMode(attrEntityMode);
-		}
 		
 		return entityCreateActionComponent;
 	}

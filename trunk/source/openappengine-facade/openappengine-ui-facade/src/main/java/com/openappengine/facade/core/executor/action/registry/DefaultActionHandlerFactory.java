@@ -6,12 +6,8 @@ package com.openappengine.facade.core.executor.action.registry;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.core.annotation.AnnotationUtils;
-
 import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.executor.action.ActionHandlerFactory;
-import com.openappengine.facade.core.executor.annotations.Action;
-import com.openappengine.facade.core.executor.annotations.Mode;
 
 /**
  * @author hrishikesh.joshi

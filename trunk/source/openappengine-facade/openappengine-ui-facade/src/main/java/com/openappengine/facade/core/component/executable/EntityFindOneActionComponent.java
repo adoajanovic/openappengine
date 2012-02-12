@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.facade.core.component.value.FieldMapComponent;
+import com.openappengine.facade.core.executor.annotations.Action;
 
 /**
  * @author hrishi 
  * since Dec 31, 2011
  */
-public class EntityFindOneActionComponent extends AbstractEntityActionComponent {
+@Action(actionName="entity-find-one")
+public class EntityFindOneActionComponent extends AbstractEntityActionTag {
 
 	private static final long serialVersionUID = 1L;
-
-	private String entityName;
 
 	private List<FieldMapComponent> fieldMaps = new ArrayList<FieldMapComponent>();
 
@@ -31,14 +31,6 @@ public class EntityFindOneActionComponent extends AbstractEntityActionComponent 
 	@Override
 	public String getComponentName() {
 		return "entity-find-one";
-	}
-
-	public String getEntityName() {
-		return entityName;
-	}
-
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
 	}
 
 	public boolean isAutoFieldMap() {

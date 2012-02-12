@@ -11,10 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 
-import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.renderer.ScreenRenderer;
 import com.openappengine.facade.core.renderer.WebXmlScreenRenderer;
+import com.openappengine.facade.core.widget.Widget;
 import com.openappengine.facade.fsm.WebTransitionEventListener;
 import com.openappengine.facade.fsm.TransitionEventListener;
 

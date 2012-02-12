@@ -21,8 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.w3c.dom.Document;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 import com.openappengine.facade.entity.definition.EntityDefinitionCache;
+import com.openappengine.facade.entity.response.DefaultEntityResponse;
+import com.openappengine.facade.entity.response.EntityResponse;
 import com.openappengine.model.code.CodeType;
 import com.openappengine.utility.ObjectConverter;
 
@@ -36,7 +38,14 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	private HibernateTemplate hibernateTemplate;
 	
-	private Logger logger = Logger.getLogger("EntityFacade");
+	private Logger logger = Logger.getLogger("EntityEngine");
+	
+	public EntityResponse createEntityValue(String entityName) {
+		EntityValue entityValue = createPojoEntityValue(entityName);
+		DefaultEntityResponse response = new DefaultEntityResponse();
+		response.addEntity(entityValue.getEntityDefinition());
+		return response;
+	}
 	
 	public EntityValue createEntityValue(String entityName, boolean isXml) {
 		if(StringUtils.isEmpty(entityName)) {
@@ -53,7 +62,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public EntityValue createXmlEntityValue(String entityName) {
-		EntityDefinition entityDefinition = findEntityDefinition(entityName);
+		Entity entityDefinition = findEntityDefinition(entityName);
 		EntityValue entityValue;
 		Document entityDoc = entityDefinition.getDocument();
 		entityValue = new XmlEntityValue(entityDoc, entityName, entityDefinition);
@@ -61,7 +70,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 	
 	public EntityValue createPojoEntityValue(String entityName) {
-		EntityDefinition entityDefinition = findEntityDefinition(entityName);
+		Entity entityDefinition = findEntityDefinition(entityName);
 		EntityValue entityValue;
 		Class<?> entityClass = entityDefinition.getEntityClass();
 		entityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
@@ -73,7 +82,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	    if(id != null) {
 		    Session session = hibernateTemplate.getSessionFactory().openSession();
         	Object attachedInstance = hibernateTemplate.load(CodeType.class,id);
-        	EntityDefinition entityDefinition = findEntityDefinition(entityName);
+        	Entity entityDefinition = findEntityDefinition(entityName);
         	EntityValue pojoEntityValue = new PojoEntityValue(entityName,entityDefinition,attachedInstance);
 			session.flush();
 			return pojoEntityValue;
@@ -83,7 +92,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	
 	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
 	    EntityValue pojoEntityValue = createEntityValue(entityName, false);
-	    EntityDefinition entityDefinition = pojoEntityValue.getEntityDefinition();
+	    Entity entityDefinition = pojoEntityValue.getEntityDefinition();
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 		List list = findByPropertyValues(entityClass, parameters);
 	    
@@ -103,7 +112,7 @@ public class EntityFacadeImpl implements EntityFacade {
 			logger.error("No parameters passed for finding PojoEntityValue. Cannot find a unique PojoEntityValue instance.");
 			return null;			
 		}
-	    EntityDefinition entityDefinition = findEntityDefinition(entityName);
+	    Entity entityDefinition = findEntityDefinition(entityName);
 	    EntityValue pojoEntityValue = null;
 	    Class<?> entityClass = entityDefinition.getEntityClass();
 	    List list = findByPropertyValues(entityClass, parameters);
@@ -229,8 +238,8 @@ public class EntityFacadeImpl implements EntityFacade {
 	/* (non-Javadoc)
 	 * @see com.openappengine.facade.entity.EntityFacade#findEntityDefinition(java.lang.String)
 	 */
-	public EntityDefinition findEntityDefinition(String entityName) {
-		EntityDefinition entityDefinition = entityDefinitionCache.getEntityDefinition(entityName);
+	public Entity findEntityDefinition(String entityName) {
+		Entity entityDefinition = entityDefinitionCache.getEntityDefinition(entityName);
 		return entityDefinition;
 	}
 	

@@ -6,7 +6,7 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.container.WidgetsComponent;
-import com.openappengine.facade.core.component.widget.Widget;
+import com.openappengine.facade.core.widget.Widget;
 
 public class WidgetsElementParser extends AbstractGuiElementDefinitionParser {
 
@@ -22,7 +22,7 @@ public class WidgetsElementParser extends AbstractGuiElementDefinitionParser {
 						GuiElementDefinitionParser delegate = createNodeParserDelegate(node);
 						GuiComponent component = delegate.parse((Element) node);
 						
-						//Add Component if it is a child of Widget.
+						//Add Component if it is a child of WidgetType.
 						if(component instanceof Widget) {
 							widgetsComponent.addChildComponent(component);
 						}

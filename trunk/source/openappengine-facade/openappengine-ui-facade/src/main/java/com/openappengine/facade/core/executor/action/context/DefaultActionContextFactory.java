@@ -6,7 +6,6 @@ package com.openappengine.facade.core.executor.action.context;
 import com.openappengine.facade.core.ELContext;
 import com.openappengine.facade.core.component.ui.message.MessageContext;
 import com.openappengine.facade.core.executor.action.ActionContext;
-import com.openappengine.facade.core.executor.action.ActionHandler;
 import com.openappengine.facade.core.ext.ExternalContext;
 import com.openappengine.facade.core.resolve.ELContextVariableResolver;
 
@@ -19,8 +18,8 @@ public class DefaultActionContextFactory implements ActionContextFactory {
 	private ELContextVariableResolver elContextVariableResolver;
 
 	@Override
-	public ActionContext createActionContext(ActionHandler actionHandler,ELContext elContext,ExternalContext externalContext,MessageContext messageContext) {
-		ActionContext context = new DefaultActionContext(externalContext,elContext,actionHandler,messageContext);
+	public ActionContext createActionContext(ELContext elContext,ExternalContext externalContext,MessageContext messageContext) {
+		ActionContext context = new DefaultActionContext(externalContext,elContext,messageContext);
 		elContextVariableResolver = new ELContextVariableResolver(elContext);
 		return context;
 	}

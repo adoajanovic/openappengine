@@ -74,30 +74,25 @@
 	 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
 	 			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 		 		<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
-		 		<input type="hidden" name="widgetEntityName" value="${childWidget.getEntityName()}" />
 		 		<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 		 		<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 		 		
 	 			<fieldset>
 		 			<table>
-		 				<#list childWidget.getFormFields() as field>
-		 					<#if field.hidden>
-		 					
-		 					<#else>
-				 				<#assign property=childWidget.getId()+"."+field.property />
-				 				<tr>
-					 				<td>
-					 					<label>${field.name}</label>
-					 				</td>
-					 				<td>
-					 					<input type="text" name="${field.name}" />
-					 				</td>
-				 				</tr>
-			 				</#if>
-			 			</#list>
-			 			<tr>
+		 				<#foreach formField in formCommand.form.formfield>
+		 				<tr>
+		 					<td>
+		 						${formField.@name}
+		 					</td>
+		 					<td>
+		 						<input type="${formField.@type}" name="${formField.@name}" value="${formField}" />
+		 					</td>
+		 				</tr>	
+					   	</#foreach>
+		 			
+		 				<tr>
 			 				<td>
-			 					<input type="submit" name="${childWidget.getId()}_Submit" value="Submit"/>
+			 					<input type="submit" name="${childWidget.getId()}_Submit"  class="button ui-state-default ui-corner-all" value="Submit"/>
 			 				</td>
 			 			</tr>
 		 			</table>

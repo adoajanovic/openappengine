@@ -11,10 +11,13 @@ import com.openappengine.facade.core.action.xml.ActionResponseXml;
  * actions wrapped as classed (Command Pattern). 
  * 
  * @author hrishi
+ * @param <T>
  */
-public interface ActionHandler extends Executable {
+public interface ActionHandler<T extends ActionRequestXml> extends Executable {
 
 	void setActionContext(ActionContext actionContext);
 	
-	ActionResponseXml execute(ActionRequestXml actionRequestXml);
+	boolean supportsActionRequestXml(ActionRequestXml actionRequestXml);
+	
+	ActionResponseXml execute(T actionRequestXml);
 }

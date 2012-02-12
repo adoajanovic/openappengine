@@ -9,7 +9,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
+import com.openappengine.facade.entity.response.EntityResponse;
 
 /**
  * @author hrishikesh.joshi
@@ -22,7 +23,7 @@ public interface EntityFacade {
 	 * @param entityName
 	 * @return finds a EntityDefinition instance for the given entity name.
 	 */
-	EntityDefinition findEntityDefinition(String entityName);
+	Entity findEntityDefinition(String entityName);
 	
 	/**
 	 * @param entityName
@@ -61,4 +62,6 @@ public interface EntityFacade {
 	boolean deleteEntityValue(EntityValue pojoEntityValue);
 	
 	EntityValue createXmlEntityValue(String entityName);
+	
+	EntityResponse createEntityValue(String entityName);
 }

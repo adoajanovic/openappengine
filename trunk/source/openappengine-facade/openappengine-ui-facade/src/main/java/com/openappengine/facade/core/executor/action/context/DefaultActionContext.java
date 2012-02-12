@@ -14,8 +14,8 @@ import com.openappengine.facade.core.ext.ExternalContext;
  */
 public class DefaultActionContext extends AbstractActionContext {
 
-	public DefaultActionContext(ExternalContext externalContext,ELContext elContext, ActionHandler actionHandler,MessageContext messageContext) {
-		super(externalContext, elContext, actionHandler,messageContext);
+	public DefaultActionContext(ExternalContext externalContext,ELContext elContext,MessageContext messageContext) {
+		super(externalContext, elContext,messageContext);
 	}
 
 }

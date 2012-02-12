@@ -17,14 +17,14 @@ import com.openappengine.facade.entity.definition.reader.EntityDefinitionReader;
  */
 public class EntityDefinitionCache {
 	
-	private Map<String,EntityDefinition> entityDefinitionMap = new HashMap<String, EntityDefinition>();
+	private Map<String,Entity> entityDefinitionMap = new HashMap<String, Entity>();
 	
 	private EntityDefinitionReader entityDefinitionReader;
 
 	public void initEntityDefinitionCache() {
-	    List<EntityDefinition> entityDefinitions = entityDefinitionReader.readEntityReaderDefinitions();
+	    List<Entity> entityDefinitions = entityDefinitionReader.readEntityReaderDefinitions();
 	    if(entityDefinitions != null) {
-		for (EntityDefinition definition : entityDefinitions) {
+		for (Entity definition : entityDefinitions) {
 		    addEntityDefinitionCache(definition.getEntityName(), definition);
 		}
 	    }
@@ -35,7 +35,7 @@ public class EntityDefinitionCache {
 	 * @param entityName
 	 * @return
 	 */
-	public EntityDefinition getEntityDefinition(String entityName) {
+	public Entity getEntityDefinition(String entityName) {
 		return entityDefinitionMap.get(entityName);
 	}
 	
@@ -44,7 +44,7 @@ public class EntityDefinitionCache {
 	 * @param entityName
 	 * @param entityDefinition
 	 */
-	public void addEntityDefinitionCache(String entityName, EntityDefinition entityDefinition) {
+	public void addEntityDefinitionCache(String entityName, Entity entityDefinition) {
 	    if(StringUtils.isEmpty(entityName) || entityDefinition == null) {
 		return;
 	    }

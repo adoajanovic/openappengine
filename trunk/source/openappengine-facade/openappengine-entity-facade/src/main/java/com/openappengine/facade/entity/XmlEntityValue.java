@@ -6,7 +6,7 @@ package com.openappengine.facade.entity;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 
-import com.openappengine.facade.entity.definition.EntityDefinition;
+import com.openappengine.facade.entity.definition.Entity;
 
 /**
  * @author hrishikesh.joshi
@@ -19,14 +19,14 @@ public class XmlEntityValue implements EntityValue {
 	
 	private String entityName;
 	
-	private EntityDefinition entityDefinition;
+	private Entity entityDefinition;
 	
 	/**
 	 * @param instance
 	 * @param entityName
 	 * @param entityDefinition
 	 */
-	public XmlEntityValue(Document instance, String entityName,EntityDefinition entityDefinition) {
+	public XmlEntityValue(Document instance, String entityName,Entity entityDefinition) {
 		super();
 		if(StringUtils.isEmpty(entityName)) {
 			throw new IllegalArgumentException("EntityName cannot be empty.");
@@ -60,7 +60,7 @@ public class XmlEntityValue implements EntityValue {
 	}
 
 	@Override
-	public EntityDefinition getEntityDefinition() {
+	public Entity getEntityDefinition() {
 		return entityDefinition;
 	}
 

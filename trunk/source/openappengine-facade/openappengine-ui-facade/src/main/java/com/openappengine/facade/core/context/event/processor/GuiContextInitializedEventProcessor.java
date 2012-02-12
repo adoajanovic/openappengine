@@ -9,10 +9,10 @@ import com.openappengine.facade.core.Resolver;
 import com.openappengine.facade.core.component.GuiComponent;
 import com.openappengine.facade.core.component.ui.GuiRootComponent;
 import com.openappengine.facade.core.component.ui.ValueRefAware;
-import com.openappengine.facade.core.component.widget.Widget;
 import com.openappengine.facade.core.context.ApplicationEvent;
 import com.openappengine.facade.core.context.GuiApplicationContext;
 import com.openappengine.facade.core.context.LifecycleEventProcessor;
+import com.openappengine.facade.core.widget.Widget;
 
 import freemarker.ext.dom.NodeModel;
 
@@ -31,7 +31,7 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 		//testXmlProcessing(context);
 		
 		//Resolve Components Value Refs
-		resolveGuiComponentValueRef(context.getUIRoot().getPageContent(), context);
+		//resolveGuiComponentValueRef(context.getUIRoot().getPageContent(), context);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 			doResolveValueRef(context, guiComponent);
 		}
 		
-		//Form Widget. If component is a Form Widget add the model attribute.
+		//Form WidgetType. If component is a Form WidgetType add the model attribute.
 		mergeFormWidgetModel(context, guiComponent);
 	}
 
