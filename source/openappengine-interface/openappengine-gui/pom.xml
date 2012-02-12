@@ -19,7 +19,7 @@
 		<!-- OpenAppEngine Dependency -->
 		<dependency>
 			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-ui-facade</artifactId>
+			<artifactId>openappengine-gui-engine</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
