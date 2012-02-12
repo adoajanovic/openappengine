@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>openappengine-facade</artifactId>
+    <groupId>com.openappengine</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.openappengine</groupId>
+  <artifactId>openappengine-gui-engine</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>openappengine-gui-engine</name>
+  <description>openappengine-gui-engine</description>
+  
+  <properties>
+		<jsf.version>2.0.3-FCS</jsf.version>
+		<ice.version>2.0.0</ice.version>
+		<org.springframework-version>3.0.5.RELEASE</org.springframework-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+	</properties>
+  
+  <repositories>
+		<repository>
+			<id>java.net</id>
+			<url>http://download.java.net/maven/2</url>
+		</repository>
+	</repositories>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.openappengine</groupId>
+  		<artifactId>openappengine-entity-engine</artifactId>
+  		<version>1.0.0-SNAPSHOT</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>com.openappengine</groupId>
+  		<artifactId>openappengine-utility</artifactId>
+  		<version>1.0.0-SNAPSHOT</version>
+  	</dependency>
+  	
+  	<dependency>
+		<groupId>xerces</groupId>
+		<artifactId>xercesImpl</artifactId>
+		<version>2.9.1</version>
+	</dependency>
+  	
+  	<!-- Freemarker  -->
+  	<dependency>
+		<groupId>org.freemarker</groupId>
+		<artifactId>freemarker</artifactId>
+		<!-- Latest 2.3.x (not 2.4.x), at least 2.3.18 -->
+		<version>2.3.18</version>
+	</dependency>
+  	
+  	<!-- EL Evaluation -->
+  	<dependency>
+		<groupId>commons-jexl</groupId>
+		<artifactId>commons-jexl</artifactId>
+		<version>1.1</version>
+	</dependency>
+	
+	<!-- Web Layer -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2.1-b04</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency> 
+  </dependencies>
+  <build>
+  	<plugins>
+  		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+		</plugin>
+  		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<buildcommands>
+					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
+					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
+					</buildcommands>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<wtpversion>2.0</wtpversion>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER</classpathContainer>
+						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container/artifact</classpathContainer>
+					</classpathContainers>
+					<additionalProjectnatures>
+					   <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+  	</plugins>
+  </build>
+</project>
