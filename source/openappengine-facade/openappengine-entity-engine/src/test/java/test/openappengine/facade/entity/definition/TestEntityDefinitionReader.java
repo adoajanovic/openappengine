@@ -5,7 +5,7 @@ package test.openappengine.facade.entity.definition;
 
 import org.junit.Test;
 
-import com.openappengine.facade.entity.definition.reader.EntityDefinitionReader;
+import com.openappengine.entity.definition.reader.EntityDefinitionReader;
 
 /**
  * @author hrishi

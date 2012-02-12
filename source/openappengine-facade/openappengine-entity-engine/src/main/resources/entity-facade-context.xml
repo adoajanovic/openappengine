@@ -6,12 +6,12 @@
 	<import resource="classpath:repository-context.xml"/>
 	
 	<!-- Start : Custom Field Type Definition Reader -->
-	<bean id="textFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextFieldDefinitionReader"/>
-	<bean id="hiddenFieldDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UIHiddenFieldDefinitionReader"/>
-	<bean id="textAreaDefinitionReader" class="com.openappengine.facade.entity.definition.reader.UITextAreaDefinitionReader"/>
+	<bean id="textFieldDefinitionReader" class="com.openappengine.entity.definition.reader.UITextFieldDefinitionReader"/>
+	<bean id="hiddenFieldDefinitionReader" class="com.openappengine.entity.definition.reader.UIHiddenFieldDefinitionReader"/>
+	<bean id="textAreaDefinitionReader" class="com.openappengine.entity.definition.reader.UITextAreaDefinitionReader"/>
 	<!-- End : Custom Field Type Definition Reader -->
 	
-	<bean id="fieldTypeDefinitionReader" class="com.openappengine.facade.entity.definition.reader.FieldTypeDefinitionReader">
+	<bean id="fieldTypeDefinitionReader" class="com.openappengine.entity.definition.reader.FieldTypeDefinitionReader">
 		<property name="uiDefinitionReaders">
 			<map>
 				<entry key="text-field" value-ref="textFieldDefinitionReader"></entry>
@@ -21,7 +21,7 @@
 		</property>
 	</bean>
 	
-	<bean id="entityDefinitionReader" class="com.openappengine.facade.entity.definition.reader.EntityDefinitionReader">
+	<bean id="entityDefinitionReader" class="com.openappengine.entity.definition.reader.EntityDefinitionReader">
 		<property name="fieldTypeDefinitionReader" ref="fieldTypeDefinitionReader"></property>
 		<property name="locations">
 			<array>
@@ -30,16 +30,16 @@
 		</property>
 	</bean>
 	
-	<bean id="entityDefinitionCache" class="com.openappengine.facade.entity.definition.EntityDefinitionCache" init-method="initEntityDefinitionCache" scope="singleton">
+	<bean id="entityDefinitionCache" class="com.openappengine.entity.definition.EntityDefinitionCache" init-method="initEntityDefinitionCache" scope="singleton">
 		<property name="entityDefinitionReader" ref="entityDefinitionReader" />
 	</bean>
 	
-	<bean id="entityFacade" class="com.openappengine.facade.entity.EntityFacadeImpl" >
+	<bean id="entityFacade" class="com.openappengine.entity.EntityFacadeImpl" >
 		<property name="entityDefinitionCache" ref="entityDefinitionCache" />
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 	</bean>
 	
-	<bean name="entityFacadeContext" class="com.openappengine.facade.entity.context.EntityFacadeContext">
+	<bean name="entityFacadeContext" class="com.openappengine.entity.context.EntityFacadeContext">
 	</bean>
 	
 </beans>
