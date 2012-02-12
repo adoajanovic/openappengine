@@ -3,7 +3,7 @@ package com.openappengine.gui.web.support;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiApplicationContext;
 
 public class GuiApplicationContextAwareHttpServletRequest extends HttpServletRequestWrapper {
 

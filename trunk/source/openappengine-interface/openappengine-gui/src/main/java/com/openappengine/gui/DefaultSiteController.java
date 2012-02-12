@@ -15,8 +15,8 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.openappengine.facade.core.component.ui.GuiRootComponent;
-import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
+import com.openappengine.gui.engine.core.context.GuiApplicationContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**

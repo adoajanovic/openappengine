@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
-import com.openappengine.facade.core.component.ui.GuiRootComponent;
-import com.openappengine.facade.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
+import com.openappengine.gui.engine.core.context.GuiApplicationContext;
 
 /**
  * @author hrishi

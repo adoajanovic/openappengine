@@ -21,18 +21,18 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.openappengine.facade.context.factory.DefaultGuiDefinitionReader;
-import com.openappengine.facade.context.factory.FactoryConstants;
-import com.openappengine.facade.context.factory.FactoryFinder;
-import com.openappengine.facade.context.factory.GuiContextFactory;
-import com.openappengine.facade.context.factory.WebContextFactoryInitializationCallback;
-import com.openappengine.facade.core.context.GuiApplicationContext;
-import com.openappengine.facade.core.ext.ExternalContext;
-import com.openappengine.facade.core.ext.ExternalWebContext;
-import com.openappengine.facade.core.widget.context.HttpServletWidgetProcessorContextFactory;
-import com.openappengine.facade.core.widget.context.WidgetProcessorContextFactory;
-import com.openappengine.facade.core.widget.processor.WidgetProcessor;
-import com.openappengine.facade.core.widget.processor.factory.WidgetProcessorFactory;
+import com.openappengine.gui.engine.context.factory.DefaultGuiDefinitionReader;
+import com.openappengine.gui.engine.context.factory.FactoryConstants;
+import com.openappengine.gui.engine.context.factory.FactoryFinder;
+import com.openappengine.gui.engine.context.factory.GuiContextFactory;
+import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializationCallback;
+import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.ext.ExternalContext;
+import com.openappengine.gui.engine.core.ext.ExternalWebContext;
+import com.openappengine.gui.engine.core.widget.context.HttpServletWidgetProcessorContextFactory;
+import com.openappengine.gui.engine.core.widget.context.WidgetProcessorContextFactory;
+import com.openappengine.gui.engine.core.widget.processor.WidgetProcessor;
+import com.openappengine.gui.engine.core.widget.processor.factory.WidgetProcessorFactory;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**
