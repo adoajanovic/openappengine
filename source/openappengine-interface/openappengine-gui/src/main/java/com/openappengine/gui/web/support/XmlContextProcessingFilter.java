@@ -19,14 +19,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
-import com.openappengine.facade.context.factory.DefaultGuiDefinitionReader;
-import com.openappengine.facade.context.factory.FactoryConstants;
-import com.openappengine.facade.context.factory.FactoryFinder;
-import com.openappengine.facade.context.factory.GuiContextFactory;
-import com.openappengine.facade.context.factory.WebContextFactoryInitializationCallback;
-import com.openappengine.facade.core.context.GuiApplicationContext;
-import com.openappengine.facade.core.ext.ExternalContext;
-import com.openappengine.facade.core.ext.ExternalWebContext;
+import com.openappengine.gui.engine.context.factory.DefaultGuiDefinitionReader;
+import com.openappengine.gui.engine.context.factory.FactoryConstants;
+import com.openappengine.gui.engine.context.factory.FactoryFinder;
+import com.openappengine.gui.engine.context.factory.GuiContextFactory;
+import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializationCallback;
+import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.ext.ExternalContext;
+import com.openappengine.gui.engine.core.ext.ExternalWebContext;
 
 /**
  * Servlet Filter implementation class XmlContextProcessingFilter
