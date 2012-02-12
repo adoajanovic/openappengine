@@ -81,7 +81,7 @@
 	 			<fieldset>
 		 			<table>
 		 				<#foreach formField in formCommand.form.formfield>
-		 					<@gui.formInputText formField.@type formField.@name formField.@name formField />
+		 					<@gui.formInputText formField.@type formField.@name childWidget.getId()+"."+formField.@name formField />
 		 				</#foreach>
 		 			
 		 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />

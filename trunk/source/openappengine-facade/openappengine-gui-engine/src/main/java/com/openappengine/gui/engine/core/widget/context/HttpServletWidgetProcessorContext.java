@@ -19,7 +19,7 @@ import com.openappengine.gui.engine.fsm.TransitionEventListener;
  * @since  Jan 30, 2012
  *
  */
-public class HttpServletHibernateBackingBeanWidgetProcessorContext implements WidgetProcessorContext {
+public class HttpServletWidgetProcessorContext implements WidgetProcessorContext {
 	
 	private HttpServletRequest httpServletRequest;
 	
@@ -34,7 +34,7 @@ public class HttpServletHibernateBackingBeanWidgetProcessorContext implements Wi
 	/**
 	 * @param httpServletRequest
 	 */
-	public HttpServletHibernateBackingBeanWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext) {
+	public HttpServletWidgetProcessorContext(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext) {
 		super();
 		if(externalContext instanceof ExternalWebContext) {
 			httpServletRequest = (HttpServletRequest) externalContext.getRequest();

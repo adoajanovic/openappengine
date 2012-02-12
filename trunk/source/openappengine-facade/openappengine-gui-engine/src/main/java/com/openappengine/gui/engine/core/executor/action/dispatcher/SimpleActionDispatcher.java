@@ -101,15 +101,21 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		}
 		ActionResponseXml responseXml = actionHandler.execute(requestXml);
 		
+		String valueField = executable.getValueField();
+		Document responseDocument = responseXml.getResponseDocument();
+		elContext.registerELContextVariable(valueField, responseDocument);
+		
 		if(actionReferencedWidgets != null) {
 			for (Widget referencedWidget : actionReferencedWidgets) {
 				
 				WidgetTransformer widgetTransformer = new WidgetTransformer(referencedWidget);
 				Document transformedDocumentXml = widgetTransformer.transform(responseXml);
 				externalContext.addModelMapAttribute(((GuiComponent)referencedWidget).getId(), transformedDocumentXml);
+				elContext.registerELContextVariable(referencedWidget.getId(), transformedDocumentXml);
 				referencedWidget.setValue(transformedDocumentXml);
 			}
 		}
+		
 		return responseXml;
 	}
 	
