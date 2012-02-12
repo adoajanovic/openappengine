@@ -5,6 +5,4 @@
 	
 	<import resource="classpath:entity-facade-context.xml"/>
 	
-	<bean name="uiFacadeContext" class="com.openappengine.facade.ui.context.XmlScreenContext" />
-	
 </beans>
