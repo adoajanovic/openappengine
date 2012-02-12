@@ -17,7 +17,7 @@ public class HttpServletWidgetProcessorContextFactory implements WidgetProcessor
 		
 		if(externalContext.getRequest() instanceof HttpServletRequest) {
 			
-			WidgetProcessorContext context = new HttpServletHibernateBackingBeanWidgetProcessorContext(
+			WidgetProcessorContext context = new HttpServletWidgetProcessorContext(
 					externalContext, elContext, transitionEventListener,messageContext);
 			return context;
 		}

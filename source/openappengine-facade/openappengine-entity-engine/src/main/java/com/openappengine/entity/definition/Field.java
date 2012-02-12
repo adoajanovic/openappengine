@@ -17,7 +17,7 @@ public class Field implements Serializable {
 	
 	private String name;
 	
-	private String type;
+	private String type = "String";
 
 	private String property;
 	
