@@ -9,8 +9,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.widget.FormFieldComponent;
-import com.openappengine.gui.engine.core.widget.FormSingleTag;
+import com.openappengine.gui.engine.core.widget.FormField;
+import com.openappengine.gui.engine.core.widget.FormSingleWidget;
 
 /**
  * @author hrishikesh.joshi
@@ -28,13 +28,13 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 	
 	@Override
 	public GuiComponent parse(Element element) {
-		FormSingleTag formSingleTag = new FormSingleTag();
+		FormSingleWidget formSingleWidget = new FormSingleWidget();
 		
 		String attrId = element.getAttribute(ATTR_ID);
 		if(StringUtils.isEmpty(attrId)) {
 			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [id] cannot be empty.");
 		}
-		formSingleTag.setId(attrId);
+		formSingleWidget.setId(attrId);
 		
 		String attrName = element.getAttribute(ATTR_NAME);
 		if(StringUtils.isEmpty(attrName)) {
@@ -43,13 +43,13 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 		
 		String attrTransition = element.getAttribute(ATTR_TRANSITION);
 		if(!StringUtils.isEmpty(attrTransition)) {
-			formSingleTag.setTransition(attrTransition);
+			formSingleWidget.setTransition(attrTransition);
 		}
 		
-		formSingleTag.setName(attrName);
+		formSingleWidget.setName(attrName);
 		
 		String attrEntityValueRef = element.getAttribute(ATTR_ENTITY_VALUE_REF);
-		formSingleTag.setEntityValueRef(attrEntityValueRef);
+		formSingleWidget.setEntityValueRef(attrEntityValueRef);
 		
 		NodeList childNodes = element.getChildNodes();
 		if(childNodes != null) {
@@ -58,14 +58,14 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 				if(node instanceof Element) {
 					GuiElementDefinitionParser parser = getScreenElementDefinitionParser(node.getNodeName());
 					GuiComponent component = parser.parse((Element) node);
-					if(component instanceof FormFieldComponent) {
-						formSingleTag.addField((FormFieldComponent) component);
+					if(component instanceof FormField) {
+						formSingleWidget.addField((FormField) component);
 					}
 				}
 			}
 		}
 		
-		return formSingleTag;
+		return formSingleWidget;
 	}
 
 	@Override

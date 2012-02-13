@@ -10,7 +10,7 @@ import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
  * @author hrishi
  * since Feb 5, 2012
  */
-public class FormFieldComponent extends AbstractGuiComponent implements ValueRefAware<Object> {
+public class FormField extends AbstractGuiComponent implements ValueRefAware<Object> {
 
 	private static final long serialVersionUID = 1L;
 	

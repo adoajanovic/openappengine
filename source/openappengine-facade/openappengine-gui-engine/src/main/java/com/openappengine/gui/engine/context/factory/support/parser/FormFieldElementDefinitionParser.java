@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.widget.FormFieldComponent;
+import com.openappengine.gui.engine.core.widget.FormField;
 
 /**
  * @author hrishi
@@ -17,12 +17,12 @@ public class FormFieldElementDefinitionParser extends AbstractGuiElementDefiniti
 
 	@Override
 	public GuiComponent parse(Element element) {
-		FormFieldComponent formFieldComponent = new FormFieldComponent();
+		FormField formField = new FormField();
 		String attrEntryName = element.getAttribute("entry-name");
 		if(StringUtils.isEmpty(attrEntryName)) {
 			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [entry-name] cannot be empty.");
 		}
-		formFieldComponent.setEntryName(attrEntryName);
+		formField.setEntryName(attrEntryName);
 		
 		String attrHidden = element.getAttribute("hidden");
 		boolean hidden = false;
@@ -32,11 +32,11 @@ public class FormFieldElementDefinitionParser extends AbstractGuiElementDefiniti
 		
 		String attrValueRef = element.getAttribute("value-ref");
 		if(StringUtils.isNotEmpty(attrValueRef)) {
-			formFieldComponent.setValueRef(attrValueRef);
+			formField.setValueRef(attrValueRef);
 		}
 		
-		formFieldComponent.setHidden(hidden);
-		return formFieldComponent;
+		formField.setHidden(hidden);
+		return formField;
 	}
 
 	@Override

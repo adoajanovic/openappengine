@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
 
-public abstract class AbstractBackingBeanWidgetComponent extends AbstractGuiComponent implements Widget {
+public abstract class AbstractWidget extends AbstractGuiComponent implements Widget {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -15,9 +15,7 @@ public abstract class AbstractBackingBeanWidgetComponent extends AbstractGuiComp
 	
 	private Document document;
 	
-	private String mode;
-	
-	private List<FormFieldComponent> fields = new ArrayList<FormFieldComponent>();
+	private List<FormField> fields = new ArrayList<FormField>();
 
 	@Override
 	public String getComponentType() {
@@ -40,7 +38,7 @@ public abstract class AbstractBackingBeanWidgetComponent extends AbstractGuiComp
 			fieldsDefs = entityDefinition.getFields();
 		} else {
 			fieldsDefs = new ArrayList<Field>();
-			for (FormFieldComponent formFieldDefinition : fields) {
+			for (FormField formFieldDefinition : fields) {
 				String entryName = formFieldDefinition.getEntryName();
 				if(!entityDefinition.containsFieldDefinitionByFieldName(entryName)) {
 					throw new IllegalArgumentException("Field :" + entryName + " not found in the EntityDefinition " + entityDefinition.getEntityName());
@@ -65,26 +63,19 @@ public abstract class AbstractBackingBeanWidgetComponent extends AbstractGuiComp
 		this.entityValueRef = entityValueRef;
 	}
 
-	public List<FormFieldComponent> getFields() {
+	public List<FormField> getFields() {
 		return fields;
 	}
 
-	public void setFields(List<FormFieldComponent> fields) {
+	public void setFields(List<FormField> fields) {
 		this.fields = fields;
 	}
 	
-	public void addField(FormFieldComponent formFieldComponent) {
-		if(formFieldComponent == null) {
+	public void addField(FormField formField) {
+		if(formField == null) {
 			return;
 		}
-		fields.add(formFieldComponent);
+		fields.add(formField);
 	}
 
-	public String getWidgetMode() {
-		return mode;
-	}
-
-	public void setMode(String mode) {
-		this.mode = mode;
-	}
 }
