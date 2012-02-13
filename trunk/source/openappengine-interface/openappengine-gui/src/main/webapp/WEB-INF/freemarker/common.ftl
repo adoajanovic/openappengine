@@ -18,7 +18,7 @@
 			${name}
 		</td>
 		<td>
-			<input id="${id}" type="${type}" name="${name}" value="${value}" />
+			<input id="${id}" type="${type}" name="${name}" value="${value}" class="ui-widget"/>
 		</td>
 	</tr>	
 </#macro>

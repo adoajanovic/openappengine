@@ -23,7 +23,6 @@
 		<widgets>
 			<form-single id="CodeType" name="CodeType" value-ref="codeTypeValue" transition="save">
 				<form-field entry-name="codeTypeValue"   />
-				<form-field entry-name="codeTypeId" />
 			</form-single>
 		</widgets>
 	</page-content>
