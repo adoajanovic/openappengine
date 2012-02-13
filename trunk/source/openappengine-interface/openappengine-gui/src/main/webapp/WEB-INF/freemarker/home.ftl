@@ -61,51 +61,7 @@
  	<#list widgets as widget>
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
- 			
- 			<!-- Get WidgetType -->
- 			<#assign widgetType = childWidget.getWidgetType()>
- 			
- 			<!-- Form Command Object -->
- 			<#if childWidget.formBackingObject()?has_content>
- 			
- 			<#assign formCommand = childWidget.formBackingObject()>
- 			
- 			<!-- Widget : form-single -->
-	 			<form action="${currentURL}" method="post">
-	 			
-	 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
-	 			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
-		 		<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
-		 		<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
-		 		<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
-		 		
-	 			<fieldset>
-		 			<table>
-		 				<#foreach formField in formCommand.form.formfield>
-		 					<@gui.formInputText formField.@type formField.@name childWidget.getId()+"."+formField.@name formField />
-		 				</#foreach>
-		 			
-		 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
-		 			</table>
-	 			</fieldset>
-	 			</form>
- 				
- 				<!-- Widget : form-single -->
- 			
-	 			<#else>
-	 				<#if childWidget.formBackingObject()?has_content>
-		 				<div>
-			 				<fieldset>
-			 					<form>
-			 					<h4>
-			 						No Record Found.
-			 					</h4>
-			 					</form>
-			 				</fieldset>
-		 				</div>
-	 				</#if>
-	 			</#if>
- 			
+ 			<@gui.renderWidget childWidget />
  		</#list>
  	</#list>
  </div>
