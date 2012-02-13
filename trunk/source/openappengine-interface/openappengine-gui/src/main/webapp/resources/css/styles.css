@@ -55,7 +55,7 @@ input {
 	moz-font-feature-settings: normal;
     -moz-font-language-override: normal;
     font-family: arial,sans-serif;
-	font-size: 14px;
+	font-size: 12px;
     /*
 	height: 1.2em !important;
     line-height: 1.2em !important;
@@ -64,7 +64,7 @@ input {
 
 input:focus {
 	background-color: #FFFFCF;
-	border: 1px solid #222;
+	border: 1px solid #E5E5E5;
 }
 
 input.radio {
