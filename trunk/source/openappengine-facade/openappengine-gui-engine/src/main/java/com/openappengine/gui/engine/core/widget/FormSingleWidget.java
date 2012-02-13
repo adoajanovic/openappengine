@@ -6,13 +6,13 @@ import org.w3c.dom.Document;
 
 /**
  * 
- * FormSingleTag
+ * FormSingleWidget
  * 
  * @author hrishikesh.joshi
  * @since  Feb 1, 2012
  *
  */
-public class FormSingleTag extends AbstractBackingBeanWidgetComponent {
+public class FormSingleWidget extends AbstractWidget {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -52,4 +52,12 @@ public class FormSingleTag extends AbstractBackingBeanWidgetComponent {
 		return formBackingObject();
 	}
 	
+
+	public boolean isAutoEntity() {
+		if(getFields() == null || getFields().isEmpty()) {
+			return true;
+		}
+		
+		return false;
+	}
 }

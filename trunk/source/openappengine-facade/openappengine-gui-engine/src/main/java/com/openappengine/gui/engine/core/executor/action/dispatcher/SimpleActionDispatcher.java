@@ -38,7 +38,7 @@ import com.openappengine.gui.engine.core.transformer.ActionParamsXmlTransformer;
 import com.openappengine.gui.engine.core.transformer.DefaultActionParamsXmlTransformer;
 import com.openappengine.gui.engine.core.transformer.ExternalRequestParamsTransformer;
 import com.openappengine.gui.engine.core.transformer.WidgetTransformer;
-import com.openappengine.gui.engine.core.widget.FormSingleTag;
+import com.openappengine.gui.engine.core.widget.FormSingleWidget;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.utility.UtilXml;
 

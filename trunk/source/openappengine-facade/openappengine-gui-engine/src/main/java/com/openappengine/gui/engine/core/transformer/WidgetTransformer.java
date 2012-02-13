@@ -49,6 +49,8 @@ public class WidgetTransformer implements Transformer<ActionResponseXml, Documen
 		
 		WidgetTypeTransformer transformer = widgetTransformers.get(widgetType);
 		Assert.notNull(transformer,"WidgetTransformer not configured for WidgetType :" + widgetType);
+		
+		transformer.setWidget(widget);
 		return transformer.transform(actionResponseXml);
 	}
 
