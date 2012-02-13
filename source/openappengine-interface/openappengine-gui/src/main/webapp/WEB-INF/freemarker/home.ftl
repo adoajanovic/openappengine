@@ -63,6 +63,7 @@
  		<#list widget.getChildComponents() as childWidget>
  			
  			<!-- Get WidgetType -->
+ 			<#assign widgetType = childWidget.getWidgetType()>
  			
  			<!-- Form Command Object -->
  			<#if childWidget.formBackingObject()?has_content>
