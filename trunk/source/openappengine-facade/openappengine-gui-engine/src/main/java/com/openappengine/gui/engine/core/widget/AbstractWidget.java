@@ -1,8 +1,5 @@
 package com.openappengine.gui.engine.core.widget;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
@@ -11,11 +8,16 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 
 	private static final long serialVersionUID = 1L;
 	
-	private String entityValueRef;
+	private String valueRef;
 	
 	private Document document;
 	
-	private List<FormField> fields = new ArrayList<FormField>();
+	private String transition;
+	
+	@Override
+	public Document getValue() {
+		return formBackingObject();
+	}
 
 	@Override
 	public String getComponentType() {
@@ -27,55 +29,34 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 		return document;
 	}
 	
-	/*public List<Field> getFormFields() {
-		List<Field> fieldsDefs = null;
-		if(entityValue == null) {
-			return null;
-		}
-		
-		Entity entityDefinition = entityValue.getEntityDefinition();
-		if(fields == null || fields.isEmpty()) {
-			fieldsDefs = entityDefinition.getFields();
-		} else {
-			fieldsDefs = new ArrayList<Field>();
-			for (FormField formFieldDefinition : fields) {
-				String entryName = formFieldDefinition.getEntryName();
-				if(!entityDefinition.containsFieldDefinitionByFieldName(entryName)) {
-					throw new IllegalArgumentException("Field :" + entryName + " not found in the EntityDefinition " + entityDefinition.getEntityName());
-				}
-				Field fieldDefinitionEntry = entityDefinition.getFieldDefinition(entryName);
-				fieldDefinitionEntry.setHidden(formFieldDefinition.isHidden());
-				fieldsDefs.add(fieldDefinitionEntry);
-			}
-		}
-		return fieldsDefs;
-	}*/
+	@Override
+	public String getComponentName() {
+		return "form";
+	}
 	
 	public void setValue(Document doc) {
 		this.document = doc;
 	}
 	
-	public String getEntityValueRef() {
-		return entityValueRef;
+	public String getValueRef() {
+		return valueRef;
 	}
 
-	public void setEntityValueRef(String entityValueRef) {
-		this.entityValueRef = entityValueRef;
+	public void setValueRef(String entityValueRef) {
+		this.valueRef = entityValueRef;
 	}
 
-	public List<FormField> getFields() {
-		return fields;
+	/**
+	 * @return the transition
+	 */
+	public String getTransition() {
+		return transition;
 	}
 
-	public void setFields(List<FormField> fields) {
-		this.fields = fields;
+	/**
+	 * @param transition the transition to set
+	 */
+	public void setTransition(String transition) {
+		this.transition = transition;
 	}
-	
-	public void addField(FormField formField) {
-		if(formField == null) {
-			return;
-		}
-		fields.add(formField);
-	}
-
 }
