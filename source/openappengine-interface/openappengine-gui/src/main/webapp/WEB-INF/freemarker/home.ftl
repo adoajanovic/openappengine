@@ -61,7 +61,7 @@
  	<#list widgets as widget>
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
- 			<@gui.renderWidget childWidget />
+ 			<@gui.renderWidget childWidget.getWidgetType() childWidget />
  		</#list>
  	</#list>
  </div>

@@ -32,9 +32,9 @@
 </#macro>
 
 
-<#macro renderWidget childWidget>
-  <#assign widgetType = "formSingle" >
-  <@formSingle childWidget />
+<#macro renderWidget widgetType childWidget>
+  <#assign widget = "formSingle" />
+  <@.vars[widget] childWidget />
 </#macro>
 
 <#macro formSingle childWidget>
