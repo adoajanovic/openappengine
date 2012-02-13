@@ -10,13 +10,13 @@ import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
 import com.openappengine.gui.engine.core.widget.FormField;
-import com.openappengine.gui.engine.core.widget.FormSingleWidget;
+import com.openappengine.gui.engine.core.widget.FormListWidget;
 
 /**
  * @author hrishikesh.joshi
  * @since Jan 5, 2012
  */
-public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
+public class FormListWidgetParser extends AbstractGuiElementDefinitionParser {
 	
 	private static final String ATTR_ID = "id";
 
@@ -28,7 +28,7 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 	
 	@Override
 	public GuiComponent parse(Element element) {
-		FormSingleWidget formSingleWidget = new FormSingleWidget();
+		FormListWidget formSingleWidget = new FormListWidget();
 		
 		String attrId = element.getAttribute(ATTR_ID);
 		if(StringUtils.isEmpty(attrId)) {
@@ -49,7 +49,7 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 		formSingleWidget.setName(attrName);
 		
 		String attrEntityValueRef = element.getAttribute(ATTR_ENTITY_VALUE_REF);
-		formSingleWidget.setEntityValueRef(attrEntityValueRef);
+		formSingleWidget.setValueRef(attrEntityValueRef);
 		
 		NodeList childNodes = element.getChildNodes();
 		if(childNodes != null) {
@@ -70,7 +70,7 @@ public class FormSingleXmlParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
 	public String getParsedNodeName() {
-		return ParserConstants.FORM_SINGLE_ELEMENT_PARSER;
+		return ParserConstants.FORM_LIST_ELEMENT_PARSER;
 	}
 
 }

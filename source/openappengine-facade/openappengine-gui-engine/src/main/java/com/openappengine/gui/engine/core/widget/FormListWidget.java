@@ -1,20 +1,18 @@
+/**
+ * 
+ */
 package com.openappengine.gui.engine.core.widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 /**
- * 
- * FormSingleWidget
- * 
  * @author hrishikesh.joshi
- * @since  Feb 1, 2012
+ * @since  Feb 13, 2012
  *
  */
-public class FormSingleWidget extends AbstractWidget {
+public class FormListWidget extends AbstractWidget {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,17 +20,9 @@ public class FormSingleWidget extends AbstractWidget {
 	
 	@Override
 	public String getWidgetType() {
-		return "form-single";
+		return "form-list";
 	}
-	
-	public boolean isAutoEntity() {
-		if(getFields() == null || getFields().isEmpty()) {
-			return true;
-		}
-		
-		return false;
-	}
-	
+
 	public List<FormField> getFields() {
 		return fields;
 	}
@@ -47,4 +37,13 @@ public class FormSingleWidget extends AbstractWidget {
 		}
 		fields.add(formField);
 	}
+	
+	public boolean isAutoEntity() {
+		if(getFields() == null || getFields().isEmpty()) {
+			return true;
+		}
+		
+		return false;
+	}
+
 }
