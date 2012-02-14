@@ -1,7 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <#import "/spring.ftl" as spring/>
-<#import "common.ftl" as gui/>
+<#import "common.ftl" as common/>
+<#import "widgets.ftl" as gui/>
 <head>
   <title>
   	Test
@@ -61,7 +62,8 @@
  	<#list widgets as widget>
  		<#assign childWidgets = widget.getChildComponents() >
  		<#list widget.getChildComponents() as childWidget>
- 			<@gui.renderWidget childWidget.getWidgetType() childWidget />
+ 			<@gui.renderWidget childWidget />
+ 			<!-- Can be replaced with visit directive -->
  		</#list>
  	</#list>
  </div>
