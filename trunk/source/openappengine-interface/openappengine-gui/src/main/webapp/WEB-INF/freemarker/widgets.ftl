@@ -23,6 +23,11 @@
 <#macro field>
 	<#if .node.@type="complex">
 		<!-- If Complex Node visit all the children -->
+		<div class="ui-widget-header">
+			<label id="label_${.node.@type}">
+				${.node.@type}
+			</label>
+		</div>
 		<#list .node?children as child>
 			<#visit child using .namespace>	
 		</#list>
@@ -59,21 +64,19 @@
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
  	<#if childWidget.formBackingObject()?has_content>
- 		<!-- Widget : form-single -->
-		<form action="${currentURL}" method="post">
+ 		<form action="${currentURL}" method="post">
 		<!-- Meta Model Attributes Used for Processing Widget Submits -->
 			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 			<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
 			<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 			<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 		 		
-	 		<fieldset>
 				<table>
 					<#assign formCommand = childWidget.formBackingObject()>
 					<@renderFieldsRecursively formCommand.form />
 	 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 	 			</table>
- 			</fieldset>
+ 			
  			</form>
 		</#if>
 </#macro>
