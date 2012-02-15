@@ -19,19 +19,21 @@
 
 <!-- GUI Fields -->
 
+<!-- 1. Field Group -->
+<#macro fieldGroup>
+	<div class="ui-widget-header">
+			<label id="label_">
+				header
+			</label>
+	</div>
+	<#foreach child in .node?children>
+		hi
+	</#foreach>
+	<#recurse .node using .namespace />
+</#macro>
+
 <!-- 1. Field -->
 <#macro field>
-	<#if .node.@type="complex">
-		<!-- If Complex Node visit all the children -->
-		<div class="ui-widget-header">
-			<label id="label_${.node.@type}">
-				${.node.@type}
-			</label>
-		</div>
-		<#list .node?children as child>
-			<#visit child using .namespace>	
-		</#list>
-	<#else>
 		<!-- If Simple Node render the input -->
 		<#assign fieldType = .node.@type>
 		<#if fieldType="">
@@ -47,7 +49,6 @@
 				<input type="${fieldType}" id="${.node.@name}" name="${.node.@name}" value="${.node}" />
 			</td>
 		</tr>	
-	</#if>
 </#macro>
 
 <!-- 2. FormSubmit -->

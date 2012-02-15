@@ -62,23 +62,23 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		}
 		String xmlDocumentString = 
 				"<form>" +
-				"<field type=\"complex\" header=\"Personal Information\">" +
+				"<fieldGroup header=\"Personal Information\">" +
 					"<field name=\"First Name\" type=\"\"/>" +
 					"<field name=\"Last Name\" type=\"\"/>" +
 					"<field name=\"Age\" type=\"\"/>" +
 					"<field name=\"Gender\" type=\"\"/>" +
 					"<field name=\"Date Of Birth\" type=\"\"/>" +
-				"</field>" +
-				"<field type=\"complex\">" +
-					"<field type=\"complex\" header=\"Address Information\">" +
+				"</fieldGroup>" +
+				"<fieldGroup>" +
+					"<fieldGroup header=\"Address Information\">" +
 						"<field name=\"Address1\" type=\"\"/>" +
 						"<field name=\"Address2\" type=\"\"/>" +
 						"<field name=\"City\" type=\"\"/>" +
 						"<field name=\"State\" type=\"\"/>" +
 						"<field name=\"Country\" type=\"\"/>" +
 						"<field name=\"Zip\" type=\"\"/>" +
-					"</field>" +
-				"</field>" +
+					"</fieldGroup>" +
+				"</fieldGroup>" +
 				"</form>";
 		try {
 			return UtilXml.readXmlDocument(xmlDocumentString);
