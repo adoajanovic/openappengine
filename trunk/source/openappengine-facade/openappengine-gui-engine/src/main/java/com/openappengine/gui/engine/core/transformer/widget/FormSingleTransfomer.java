@@ -63,24 +63,34 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		String xmlDocumentString = 
 				"<form>" +
 				"<fieldGroup header=\"Personal Information\">" +
-					"<field name=\"First Name\" type=\"\"/>" +
-					"<field name=\"Last Name\" type=\"\"/>" +
-					"<field name=\"Age\" type=\"\"/>" +
-					"<field name=\"Gender\" type=\"\"/>" +
-					"<field name=\"Date Of Birth\" type=\"\"/>" +
+					"<label>First Name</label>" +	
+					"<input name=\"First Name\" type=\"\"/>" +
+					"<label>Last Name</label>" +
+					"<input name=\"Last Name\" type=\"\"/>" +
+					"<label>Age</label>" +
+					"<input name=\"Age\" type=\"\"/>" +
+					"<label>Gender</label>" +
+					"<input name=\"Gender\" type=\"\"/>" +
+					"<label>DOB</label>" +
+					"<input name=\"Date Of Birth\" type=\"\"/>" +
 				"</fieldGroup>" +
-				"<fieldGroup>" +
-					"<fieldGroup header=\"Address Information\">" +
-						"<field name=\"Address1\" type=\"\"/>" +
-						"<field name=\"Address2\" type=\"\"/>" +
-						"<field name=\"City\" type=\"\"/>" +
-						"<field name=\"State\" type=\"\"/>" +
-						"<field name=\"Country\" type=\"\"/>" +
-						"<field name=\"Zip\" type=\"\"/>" +
-					"</fieldGroup>" +
+				"<fieldGroup header=\"Address Information\">" +
+					"<label>Add 1</label>" +
+					"<input name=\"Address1\" type=\"\"/>" +
+					"<label>Add 2</label>" +
+					"<input name=\"Address2\" type=\"\"/>" +
+					"<label>City</label>" +
+					"<input name=\"City\" type=\"\"/>" +
+					"<label>State</label>" +
+					"<input name=\"State\" type=\"\"/>" +
+					"<label>Country</label>" +
+					"<input name=\"Country\" type=\"\"/>" +
+					"<label>Zip</label>" +					
+					"<input name=\"Zip\" type=\"\"/>" +
 				"</fieldGroup>" +
 				"</form>";
 		try {
+			System.out.println(xmlDocumentString);
 			return UtilXml.readXmlDocument(xmlDocumentString);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

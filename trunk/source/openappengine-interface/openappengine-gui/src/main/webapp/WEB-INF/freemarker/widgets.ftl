@@ -11,44 +11,47 @@
 </#macro>
 
 <#macro renderFieldsRecursively parent>
-	<#list parent?children as child>
-		<#visit child using .namespace>
-	</#list>
+	<#if parent?children?size != 0>
+		<#if parent?node_name = "fieldGroup">
+			<div class="ui-widget-header" style="margin:top:10px;">
+				${parent?node_name}
+			</div>
+		</#if>
+		<#foreach node in parent?children>
+			<tr>
+				<@renderFieldsRecursively node />
+			</tr>
+		</#foreach>
+	<#else>
+		<tr>	
+			<#visit parent using .namespace />
+		</tr>	
+	</#if>
 </#macro>
 
 
 <!-- GUI Fields -->
 
-<!-- 1. Field Group -->
+<!-- FieldGroup -->
 <#macro fieldGroup>
 	<div class="ui-widget-header">
-			<label id="label_">
-				header
-			</label>
+		header
 	</div>
-	<#foreach child in .node?children>
-		hi
-	</#foreach>
+</#macro>
+
+<!-- Field -->
+<#macro field>
 	<#recurse .node using .namespace />
 </#macro>
 
-<!-- 1. Field -->
-<#macro field>
-		<!-- If Simple Node render the input -->
-		<#assign fieldType = .node.@type>
-		<#if fieldType="">
-			<#assign fieldType = "text">	
-		</#if>	
-		<tr>
-			<td>
-				<label id="label_${.node.@name}" for="${.node.@name}" >
-					${.node.@name}
-				</label>
-			</td>
-			<td>
-				<input type="${fieldType}" id="${.node.@name}" name="${.node.@name}" value="${.node}" />
-			</td>
-		</tr>	
+<#macro input>
+	<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" />
+</#macro>
+
+<#macro label>
+	<td>
+		<label>${.node}</label>
+	</td>
 </#macro>
 
 <!-- 2. FormSubmit -->
@@ -65,19 +68,21 @@
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
  	<#if childWidget.formBackingObject()?has_content>
- 		<form action="${currentURL}" method="post">
+ 		<!-- Widget : form-single -->
+		<form action="${currentURL}" method="post">
 		<!-- Meta Model Attributes Used for Processing Widget Submits -->
 			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 			<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
 			<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 			<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 		 		
+	 		<fieldset>
 				<table>
 					<#assign formCommand = childWidget.formBackingObject()>
 					<@renderFieldsRecursively formCommand.form />
 	 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 	 			</table>
- 			
+ 			</fieldset>
  			</form>
 		</#if>
 </#macro>
