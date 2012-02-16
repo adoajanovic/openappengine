@@ -21,9 +21,9 @@
 </#macro>
 
 <#macro form>
-	<div<#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
-			<#recurse>
-    </div>
+	<fieldset <#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
+		<#recurse>
+    </fieldset>
 </#macro>
 
 
@@ -38,40 +38,39 @@
 			</h4>	
 		</#if>
 	</div>
-	
-	<#recurse .node using .namespace />
+	<#foreach node in .node?children> 
+		<tr>
+			<#visit node using .namespace />
+		</tr>	
+	</#foreach>	
 </#macro>
 
 <#macro row>
-	<tr>
-		<#recurse .node using .namespace />
-	</tr>	
+	<#recurse .node using .namespace />
 </#macro>
 
 <!-- Field -->
 <#macro field>
-	<td>
-		<#recurse .node using .namespace />
-	</td>
+	<#recurse .node using .namespace />
 </#macro>
 
 <#macro input>
 	<td>
-	<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" />
+		<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" style="ui-widget" />
 	</td>
 </#macro>
 
 <#macro label>
 	<td>
-	<label id="label_${.node}" for="${.node}">
-		${.node}
-	</label>
+		<label id="label_${.node}" for="${.node}"  style="margin-bottom:10px;">
+			${.node}
+		</label>
 	</td>
 </#macro>
 
 <!-- 2. FormSubmit -->
 <#macro formSubmit name id value>
-	<input type="submit" id="${id}"  name="${name}"  class="button ui-state-default ui-corner-all" value="${value}"/>
+	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
 <!-- Widget  -->
