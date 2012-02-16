@@ -68,6 +68,16 @@
  	</#list>
  </div>
   <script>
+  
+  	/* On Focus CSS Handler */
+  	jQuery("input[type=text]").focus(function(){
+	  $(this).addClass('ui-state-active');
+	});
+	
+	/* On Focus CSS Handler */
+	jQuery("input[type=text]").blur(function(){
+	  $(this).removeClass('ui-state-active');
+	});
   	
   	/* attach a submit handler to the form */
   	jQuery("form").submit(function() {
