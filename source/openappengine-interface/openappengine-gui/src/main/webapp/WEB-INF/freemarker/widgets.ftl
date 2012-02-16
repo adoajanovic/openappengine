@@ -12,21 +12,18 @@
 
 <#macro renderFieldsRecursively parent>
 	<#if parent?children?size != 0>
-		<#if parent?node_name = "fieldGroup">
-			<div class="ui-widget-header" style="margin:top:10px;">
-				${parent?node_name}
-			</div>
-		</#if>
 		<#foreach node in parent?children>
-			<tr>
-				<@renderFieldsRecursively node />
-			</tr>
+			<#recurse node using .namespace />
 		</#foreach>
 	<#else>
-		<tr>	
-			<#visit parent using .namespace />
-		</tr>	
+		<#visit parent using .namespace />
 	</#if>
+</#macro>
+
+<#macro form>
+	<div<#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
+			<#recurse>
+    </div>
 </#macro>
 
 
@@ -34,55 +31,71 @@
 
 <!-- FieldGroup -->
 <#macro fieldGroup>
-	<div class="ui-widget-header">
-		header
+	<div class="ui-widget-header" style="margin-bottom:20px;">
+		<#if .node["@header"]?has_content>
+			<h4 style="margin-left:20px;">
+				${.node["@header"]}
+			</h4>	
+		</#if>
 	</div>
+	
+	<#recurse .node using .namespace />
+</#macro>
+
+<#macro row>
+	<tr>
+		<#recurse .node using .namespace />
+	</tr>	
 </#macro>
 
 <!-- Field -->
 <#macro field>
-	<#recurse .node using .namespace />
+	<td>
+		<#recurse .node using .namespace />
+	</td>
 </#macro>
 
 <#macro input>
+	<td>
 	<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" />
+	</td>
 </#macro>
 
 <#macro label>
 	<td>
-		<label>${.node}</label>
+	<label id="label_${.node}" for="${.node}">
+		${.node}
+	</label>
 	</td>
 </#macro>
 
 <!-- 2. FormSubmit -->
 <#macro formSubmit name id value>
-	<tr>
-		<td>
-			<input type="submit" id="${id}"  name="${name}"  class="button ui-state-default ui-corner-all" value="${value}"/>
-		</td>
-	</tr>
+	<input type="submit" id="${id}"  name="${name}"  class="button ui-state-default ui-corner-all" value="${value}"/>
 </#macro>
 
 <!-- Widget  -->
 <!-- 1.  FormSingle -->
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
- 	<#if childWidget.formBackingObject()?has_content>
- 		<!-- Widget : form-single -->
-		<form action="${currentURL}" method="post">
-		<!-- Meta Model Attributes Used for Processing Widget Submits -->
-			<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
-			<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
-			<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
-			<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
-		 		
-	 		<fieldset>
-				<table>
-					<#assign formCommand = childWidget.formBackingObject()>
-					<@renderFieldsRecursively formCommand.form />
-	 				<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
-	 			</table>
- 			</fieldset>
- 			</form>
+	<div class="ui-widget-content">	
+	 	<#if childWidget.formBackingObject()?has_content>
+	 		<!-- Widget : form-single -->
+			<form action="${currentURL}" method="post">
+			<!-- Meta Model Attributes Used for Processing Widget Submits -->
+				<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
+				<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
+				<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
+				<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
+			 	
+		 		<fieldset>
+					<table>
+						<#assign formCommand = childWidget.formBackingObject()>
+						<@renderFieldsRecursively formCommand />
+		 			</table>
+		 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
+	 			</fieldset>
+	 			</form>
 		</#if>
+	</div>
 </#macro>

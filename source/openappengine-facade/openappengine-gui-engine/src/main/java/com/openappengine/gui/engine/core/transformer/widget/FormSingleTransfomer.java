@@ -63,30 +63,40 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		String xmlDocumentString = 
 				"<form>" +
 				"<fieldGroup header=\"Personal Information\">" +
-					"<label>First Name</label>" +	
-					"<input name=\"First Name\" type=\"\"/>" +
+					"<row>" +
+						"<field>" +	
+							"<label>First Name</label>" +	
+							"<input name=\"First Name\" type=\"\"/>" +
+						"</field>" +
+						"<field>" +	
+							"<label>Middle Name</label>" +	
+							"<input name=\"Middle Name\" type=\"\"/>" +
+						"</field>" +
+					"</row>" +
+					"<row>" +
+					"<field>" +	
 					"<label>Last Name</label>" +
 					"<input name=\"Last Name\" type=\"\"/>" +
+					"</field>" +
+					"</row>" +
+					"<row>" +
+					"<field>" +
 					"<label>Age</label>" +
 					"<input name=\"Age\" type=\"\"/>" +
+					"</field>" +
+					"</row>" +
+					"<row>" +
+					"<field>" +
 					"<label>Gender</label>" +
 					"<input name=\"Gender\" type=\"\"/>" +
+					"</field>" +
+					"</row>" +
+					"<row>" +
+					"<field>" +
 					"<label>DOB</label>" +
 					"<input name=\"Date Of Birth\" type=\"\"/>" +
-				"</fieldGroup>" +
-				"<fieldGroup header=\"Address Information\">" +
-					"<label>Add 1</label>" +
-					"<input name=\"Address1\" type=\"\"/>" +
-					"<label>Add 2</label>" +
-					"<input name=\"Address2\" type=\"\"/>" +
-					"<label>City</label>" +
-					"<input name=\"City\" type=\"\"/>" +
-					"<label>State</label>" +
-					"<input name=\"State\" type=\"\"/>" +
-					"<label>Country</label>" +
-					"<input name=\"Country\" type=\"\"/>" +
-					"<label>Zip</label>" +					
-					"<input name=\"Zip\" type=\"\"/>" +
+					"</field>" +
+					"</row>" +
 				"</fieldGroup>" +
 				"</form>";
 		try {
