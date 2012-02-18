@@ -21,9 +21,13 @@
 </#macro>
 
 <#macro form>
+	<!--
 	<fieldset <#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
-		<#recurse>
+	-->
+	<#recurse>
+	<!--
     </fieldset>
+    -->
 </#macro>
 
 
@@ -31,22 +35,22 @@
 
 <!-- FieldGroup -->
 <#macro fieldGroup>
-	<div class="ui-widget-header" style="margin-bottom:20px;">
-		<#if .node["@header"]?has_content>
-			<h4 style="margin-left:20px;">
-				${.node["@header"]}
-			</h4>	
-		</#if>
-	</div>
-	<#foreach node in .node?children> 
-		<tr>
-			<#visit node using .namespace />
-		</tr>	
-	</#foreach>	
+	<div class="ui-widget-content">
+		<div style="<#if .node?parent??>margin-left:20px;</#if>margin-bottom:20px;" <#if .node?children??>class="ui-widget-content"</#if>>	
+			<div class="ui-widget-header">
+				<#if .node["@header"]?has_content>
+					<h4 style="margin-left:20px;">
+						${.node["@header"]}
+					</h4>	
+				</#if>
+			</div>
+			<#recurse .node using .namespace >
+		</div>
+	</div>	
 </#macro>
 
 <#macro row>
-	<#recurse .node using .namespace />
+	<#recurse node using .namespace />
 </#macro>
 
 <!-- Field -->
@@ -61,11 +65,10 @@
 </#macro>
 
 <#macro label>
-	<td>
-		<label id="label_${.node}" for="${.node}"  style="margin-bottom:10px;">
-			${.node}
-		</label>
-	</td>
+	<label id="label_${.node}" for="${.node}"  style="margin-bottom:10px;">
+		${.node}
+	</label>
+	<br/>
 </#macro>
 
 <!-- 2. FormSubmit -->
@@ -94,7 +97,7 @@
 		 			</table>
 		 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 	 			</fieldset>
-	 			</form>
+	 		</form>
 		</#if>
 	</div>
 </#macro>

@@ -62,42 +62,16 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		}
 		String xmlDocumentString = 
 				"<form>" +
+				"<row>" +		
 				"<fieldGroup header=\"Personal Information\">" +
-					"<row>" +
-						"<field>" +	
-							"<label>First Name</label>" +	
-							"<input name=\"First Name\" type=\"\"/>" +
-						"</field>" +
-						"<field>" +	
-							"<label>Middle Name</label>" +	
-							"<input name=\"Middle Name\" type=\"\"/>" +
-						"</field>" +
-					"</row>" +
-					"<row>" +
-					"<field>" +	
-					"<label>Last Name</label>" +
-					"<input name=\"Last Name\" type=\"\"/>" +
-					"</field>" +
-					"</row>" +
-					"<row>" +
-					"<field>" +
-					"<label>Age</label>" +
-					"<input name=\"Age\" type=\"\"/>" +
-					"</field>" +
-					"</row>" +
-					"<row>" +
-					"<field>" +
-					"<label>Gender</label>" +
-					"<input name=\"Gender\" type=\"\"/>" +
-					"</field>" +
-					"</row>" +
-					"<row>" +
-					"<field>" +
-					"<label>DOB</label>" +
-					"<input name=\"Date Of Birth\" type=\"\"/>" +
-					"</field>" +
-					"</row>" +
+						"<fieldGroup header=\"Personal Information1\">" +
+							"<label>Hrishi1</label>" +	
+						"</fieldGroup>" +
+				"<label>Hrishi</label>" +
+				"<label>Inside FG Inside Row</label>" +
 				"</fieldGroup>" +
+				"<label>Outside FG Inside Row</label>" +
+				"</row>" +
 				"</form>";
 		try {
 			System.out.println(xmlDocumentString);
