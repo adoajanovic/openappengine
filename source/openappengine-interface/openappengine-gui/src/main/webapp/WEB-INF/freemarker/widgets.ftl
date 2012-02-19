@@ -108,7 +108,7 @@
 				<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 			 	
 		 		<fieldset>
-					<table>
+					<table style="width:100%;">
 						<#assign formCommand = childWidget.formBackingObject()>
 						<@renderFieldsRecursively formCommand />
 		 			</table>
