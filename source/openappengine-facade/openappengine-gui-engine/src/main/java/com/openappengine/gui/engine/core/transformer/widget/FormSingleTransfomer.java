@@ -62,6 +62,7 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		}
 		String xmlDocumentString = 
 				"<form>" +
+				"<grid>" +
 				"<row>" +		
 					"<fieldGroup header=\"Personal Information\">" +
 							"<fieldGroup header=\"Personal Information1\">" +
@@ -74,6 +75,7 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 				"<row>" +	
 					"<label>Outside FG Inside Row</label>" +
 				"</row>" +
+				"</grid>" +
 				"</form>";
 		try {
 			System.out.println(xmlDocumentString);
