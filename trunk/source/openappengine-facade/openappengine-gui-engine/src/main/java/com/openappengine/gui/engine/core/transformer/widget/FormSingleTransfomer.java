@@ -63,14 +63,16 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		String xmlDocumentString = 
 				"<form>" +
 				"<row>" +		
-				"<fieldGroup header=\"Personal Information\">" +
-						"<fieldGroup header=\"Personal Information1\">" +
-							"<label>Hrishi1</label>" +	
-						"</fieldGroup>" +
-				"<label>Hrishi</label>" +
-				"<label>Inside FG Inside Row</label>" +
-				"</fieldGroup>" +
-				"<label>Outside FG Inside Row</label>" +
+					"<fieldGroup header=\"Personal Information\">" +
+							"<fieldGroup header=\"Personal Information1\">" +
+								"<label>Hrishi1</label>" +	
+							"</fieldGroup>" +
+					"<label>Hrishi</label>" +
+					"<label>Inside FG Inside Row</label>" +
+					"</fieldGroup>" +
+				"</row>" +
+				"<row>" +	
+					"<label>Outside FG Inside Row</label>" +
 				"</row>" +
 				"</form>";
 		try {

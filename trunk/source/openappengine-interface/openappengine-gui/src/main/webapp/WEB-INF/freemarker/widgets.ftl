@@ -20,6 +20,18 @@
 	</#if>
 </#macro>
 
+<#macro start_td node>
+	<#if .node?parent?? && .node?parent?node_name = "row">
+		<td>
+	</#if>	
+</#macro>
+
+<#macro end_td node>
+	<#if .node?parent?? && .node?parent?node_name = "row">
+		</td>
+	</#if>	
+</#macro>
+
 <#macro form>
 	<!--
 	<fieldset <#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
@@ -35,6 +47,7 @@
 
 <!-- FieldGroup -->
 <#macro fieldGroup>
+	<@start_td .node/>
 	<div class="ui-widget-content">
 		<div style="<#if .node?parent??>margin-left:20px;</#if>margin-bottom:20px;" <#if .node?children??>class="ui-widget-content"</#if>>	
 			<div class="ui-widget-header">
@@ -46,29 +59,33 @@
 			</div>
 			<#recurse .node using .namespace >
 		</div>
-	</div>	
+	</div>
+	<@end_td .node/>	
 </#macro>
 
 <#macro row>
-	<#recurse node using .namespace />
+	<tr style="width:100%;">
+		<#recurse node using .namespace />
+	</tr>
 </#macro>
 
 <!-- Field -->
 <#macro field>
-	<#recurse .node using .namespace />
+	<@start_td .node/>
+		<#recurse .node using .namespace />
+	<@end_td .node/>
 </#macro>
 
 <#macro input>
-	<td>
-		<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" style="ui-widget" />
-	</td>
+	<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" style="ui-widget" />
 </#macro>
 
 <#macro label>
+	<@start_td .node/>
 	<label id="label_${.node}" for="${.node}"  style="margin-bottom:10px;">
 		${.node}
 	</label>
-	<br/>
+	<@end_td .node/>
 </#macro>
 
 <!-- 2. FormSubmit -->
