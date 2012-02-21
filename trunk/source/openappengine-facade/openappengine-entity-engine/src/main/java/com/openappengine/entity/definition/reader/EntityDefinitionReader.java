@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.entity.definition.EntityDefinitionReaderException;
@@ -54,42 +55,49 @@ public class EntityDefinitionReader {
 	    List<? extends Element> entityElements = UtilXml.childElementList(
 		    document.getDocumentElement(), "entity");
 	    if (entityElements != null && !entityElements.isEmpty()) {
-		for (Element entityElement : entityElements) {
-		    String name = UtilXml.readElementAttribute(entityElement,
-			    "name");
-		    String cls = UtilXml.readElementAttribute(entityElement,
-			    "class");
-		    String isDeleteable = UtilXml.readElementAttribute(
-			    entityElement, "is-deleteable");
-
-		    Class<?> entityClass = Class.forName(cls);
-		    if (entityClass == null) {
-			throw new EntityDefinitionReaderException(
-				"EntityClass not found from : " + cls);
-		    }
-
-		    Entity entityDefinition = new Entity();
-		    entityDefinition.setDeleteable(Boolean
-			    .parseBoolean(isDeleteable));
-		    entityDefinition.setEntityClass(entityClass);
-		    entityDefinition.setEntityName(name);
-
-		    List<? extends Element> fieldElements = UtilXml
-			    .childElementList(entityElement, "field");
-		    if (fieldElements != null && !fieldElements.isEmpty()) {
-			for (Element fieldElement : fieldElements) {
-			    Field fieldDefinition = readFieldDefinition(fieldElement);
-			    if(!entityDefinition.containsFieldDefinitionByFieldName(fieldDefinition.getName()) && !entityDefinition.containsFieldDefinitionByFieldRef(fieldDefinition)) {
-			    	entityDefinition.addFieldDefinition(fieldDefinition);
-			    } else {
-			    	throw new EntityDefinitionReaderException("FieldDefinition name =" + fieldDefinition.getName() + " OR fieldDefinition property = " + fieldDefinition.getProperty() + " already configured !!");	    	
+			for (Element entityElement : entityElements) {
+				Entity entityDefinition = new Entity();
+				
+			    String name = UtilXml.readElementAttribute(entityElement,"name");
+			    if (StringUtils.isEmpty(name)) {
+			    	throw new EntityDefinitionReaderException("EntityName not found empty.");
 			    }
+			    entityDefinition.setEntityName(name);
+			    
+			    String cls = UtilXml.readElementAttribute(entityElement,"class");
+			    if (StringUtils.isNotEmpty(cls)) {
+			    	Class<?> entityClass = Class.forName(cls);
+			    	if (entityClass == null) {
+			    		throw new EntityDefinitionReaderException("EntityClass not found from : " + cls);
+			    	}
+			    	entityDefinition.setEntityClass(entityClass);
+			    }
+	
+			    String isDeleteable = UtilXml.readElementAttribute(entityElement, "is-deleteable");
+			    entityDefinition.setDeleteable(Boolean.parseBoolean(isDeleteable));
+	
+			    List<? extends Element> fieldElements = UtilXml.childElementList(entityElement, "field");
+			    
+			    if (fieldElements != null && !fieldElements.isEmpty()) {
+					for (Element fieldElement : fieldElements) {
+								Field fieldDefinition = readFieldDefinition(fieldElement);
+								if (!entityDefinition.containsFieldDefinitionByFieldName(fieldDefinition.getName())
+										&& !entityDefinition.containsFieldDefinitionByFieldRef(fieldDefinition)) {
+									entityDefinition.addFieldDefinition(fieldDefinition);
+								} else {
+									throw new EntityDefinitionReaderException("FieldDefinition name =" + fieldDefinition.getName()
+													+ " OR fieldDefinition property = "
+													+ fieldDefinition.getProperty()
+													+ " already configured !!");
+								}
+					}
+			    }
+			    
+			    //Create Entity XML Document
+			    setEntityDocumentXml(entityElement, entityDefinition);
+			    
+			    entityDefinitions.add(entityDefinition);
 			}
-		    }
-		    entityDefinition.setDocument(document);
-		    
-		    entityDefinitions.add(entityDefinition);
-		}
 	    }
 	} catch (Exception e) {
 	    throw new EntityDefinitionReaderException("Exception encountered while reading from the classpath location : "+ location,e);
@@ -98,6 +106,18 @@ public class EntityDefinitionReader {
 	return entityDefinitions;
 
     }
+
+	/**
+	 * @param entityElement
+	 * @param entityDefinition
+	 */
+	private void setEntityDocumentXml(Element entityElement,
+			Entity entityDefinition) {
+		Document entityDoc = UtilXml.makeEmptyXmlDocument("entity");
+		Node node = entityDoc.adoptNode(entityElement);
+		entityDoc.getDocumentElement().appendChild(node);
+		entityDefinition.setDocument(entityDoc);
+	}
 
     protected Field readFieldDefinition(Element fieldElement) {
 	Field fieldDefinition = new Field();
@@ -112,11 +132,9 @@ public class EntityDefinitionReader {
 	fieldDefinition.setType(type);
 
 	String property = UtilXml.readElementAttribute(fieldElement, "property");
-	if (StringUtils.isBlank(property)) {
-	    throw new EntityDefinitionReaderException(
-		    "Attribute name cannot be empty.");
+	if (StringUtils.isNotBlank(property)) {
+	    fieldDefinition.setProperty(property);
 	}
-	fieldDefinition.setProperty(property);
 	
 	String isPK = UtilXml.readElementAttribute(fieldElement, "is-pk");
 	if (StringUtils.isBlank(isPK)) {

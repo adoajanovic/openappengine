@@ -14,9 +14,11 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 	
 	private String transition;
 	
+	private String entityName;
+	
 	@Override
 	public Document getValue() {
-		return formBackingObject();
+		return getWidgetDataXml();
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 	}
 	
 	@Override
-	public Document formBackingObject() {
+	public Document getWidgetDataXml() {
 		return document;
 	}
 	
@@ -58,5 +60,13 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 	 */
 	public void setTransition(String transition) {
 		this.transition = transition;
+	}
+
+	public String getEntityName() {
+		return entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
 	}
 }

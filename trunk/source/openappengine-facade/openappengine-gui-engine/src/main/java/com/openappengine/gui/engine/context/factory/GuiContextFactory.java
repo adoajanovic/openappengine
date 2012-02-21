@@ -53,6 +53,8 @@ public interface GuiContextFactory {
 	 */
 	void processLifecycleInitializedEvent(GuiApplicationContext applicationContext);
 	
+	public void processLifecycleTransformWidgetsEvent(GuiApplicationContext applicationContext);
+	
 	void processLifecylePostRestoreProcessing(GuiApplicationContext applicationContext);
 
 	void refreshMessages(GuiApplicationContext context);

@@ -14,7 +14,7 @@ import com.openappengine.gui.engine.core.xml.transformer.StringConverter;
  * @author hrishi
  * since Feb 12, 2012
  */
-public abstract class WidgetTypeTransformer<T extends Widget> implements Transformer<ActionResponseXml, Document> {
+public abstract class WidgetTypeTransformer<T extends Widget> implements Transformer<Document, Document> {
 	
 	private T widget;
 	
@@ -25,10 +25,10 @@ public abstract class WidgetTypeTransformer<T extends Widget> implements Transfo
 	
 	protected abstract boolean supportsWidget(Widget widget);
 	
-	protected abstract Document transformWidget(T widget,ActionResponseXml responseXml);
+	protected abstract Document transformWidget(T widget,Document responseXml);
 	
 	@Override
-	public Document transform(ActionResponseXml responseXml) {
+	public Document transform(Document responseXml) {
 		if(widget == null) {
 			throw new IllegalStateException("Widget Not Set..Cannot transform Widget.");
 		}

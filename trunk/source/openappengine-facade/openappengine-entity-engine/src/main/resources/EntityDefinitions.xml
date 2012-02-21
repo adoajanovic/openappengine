@@ -9,4 +9,14 @@
 			<field-type type="text-area" length="50"/>
 		</field>
 	</entity>
+	
+	<!-- Code Type -->
+	<entity name="Login">
+		<field name="username" type="String" is-pk="true" is-required="true">
+			<field-type type="text-field" />
+		</field>
+		<field name="password" type="String" is-pk="true" is-required="true">
+			<field-type type="text-field" />
+		</field>
+	</entity>
 </entities>

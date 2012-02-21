@@ -10,7 +10,6 @@ import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
 import com.openappengine.gui.engine.core.widget.FormField;
 import com.openappengine.gui.engine.core.widget.FormListWidget;
 import com.openappengine.gui.engine.core.widget.Widget;
@@ -31,12 +30,12 @@ public class FormListWidgetTransformer extends WidgetTypeTransformer<FormListWid
 	}
 
 	@Override
-	protected Document transformWidget(FormListWidget widget, ActionResponseXml responseXml) {
-		if(responseXml == null || responseXml.getResponseDocument() == null) {
+	protected Document transformWidget(FormListWidget widget, Document responseXml) {
+		if(responseXml == null) {
 			return null;
 		}
 		
-		return translateFormList(responseXml.getResponseDocument().getDocumentElement(), widget);
+		return translateFormList(responseXml.getDocumentElement(), widget);
 	}
 	
 	/**

@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.util.ReflectionUtils;
 
 import com.openappengine.gui.engine.context.factory.Callback;
 import com.openappengine.gui.engine.core.transformer.widget.WidgetTypeTransformer;

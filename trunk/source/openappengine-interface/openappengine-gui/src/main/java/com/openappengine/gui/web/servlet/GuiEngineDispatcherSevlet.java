@@ -129,6 +129,9 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 			
 			//Pre-Render Actions.
 			contextFactory.processLifecylePreRenderActions(guiApplicationContext);
+			
+			//Transform Widgets.
+			contextFactory.processLifecycleTransformWidgetsEvent(guiApplicationContext);
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 
 			//Restore the Context from the Factory.

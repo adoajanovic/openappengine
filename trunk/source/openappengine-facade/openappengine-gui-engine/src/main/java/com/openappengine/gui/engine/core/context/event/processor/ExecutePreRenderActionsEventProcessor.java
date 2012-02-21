@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
+import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
 import com.openappengine.gui.engine.core.component.GuiComponent;
@@ -15,6 +16,7 @@ import com.openappengine.gui.engine.core.context.GuiApplicationContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 import com.openappengine.gui.engine.core.executor.action.ActionDispatcher;
 import com.openappengine.gui.engine.core.executor.action.dispatcher.ActionDispatcherFactory;
+import com.openappengine.gui.engine.core.transformer.WidgetTransformer;
 import com.openappengine.gui.engine.core.widget.Widget;
 
 
@@ -66,8 +68,6 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 * @param guiComponent
 	 */
 	protected void doHandlePreRenderAction(GuiApplicationContext context,AbstractExecutableComponent exec) {
-		//Create and ActionRequest and Dispatch the Action.
-		//TODO - Move this to the Dispatcher Bridge API.
 		List<Widget> referencedWidgets = null;
 		if (exec.hasValueField()) {
 			String valueField = exec.getValueField();
@@ -76,10 +76,15 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 		ActionDispatcher actionDispatcher = actionDispatcherFactory
 				.createActionDispatcher(context.getELContext(),
 										context.getExternalContext(),
-										context.getMessageContext(),exec, referencedWidgets);
+										context.getMessageContext(),exec);
 		
 		ActionResponseXml actionResponseXml = actionDispatcher.execute();
-		//TODO
+		
+		if (exec.hasValueField()) {
+			String valueField = exec.getValueField();
+			context.getELContext().registerELContextVariable(valueField, actionResponseXml.getResponseDocument());
+		}
+		
 	}
 
 	

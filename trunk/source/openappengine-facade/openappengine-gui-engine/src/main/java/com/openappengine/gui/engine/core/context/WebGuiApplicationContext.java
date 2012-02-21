@@ -32,6 +32,8 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	
 	protected TransitionEventListener transitionEventListener;
 	
+	//Metadata
+	
 	protected final Map<String,List<Widget>> referencedWidgets = new ConcurrentHashMap<String, List<Widget>>();
 	
 	public WebGuiApplicationContext() {
@@ -68,15 +70,6 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 		this.externalContext = externalContext;
 	}
 
-	@Override
-	public void addValueReferencedWidgets(String valueRef, List<Widget> widgets) {
-		if(StringUtils.isEmpty(valueRef) || widgets == null) {
-			return;
-		}
-		
-		referencedWidgets.put(valueRef, widgets);
-	}
-	
 	public void addValueReferencedWidget(String valueRef, Widget widget) {
 		if(StringUtils.isEmpty(valueRef) || widget == null) {
 			return;
@@ -87,7 +80,7 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 		} else {
 			List<Widget> widgets = new ArrayList<Widget>();
 			widgets.add(widget);
-			addValueReferencedWidgets(valueRef, widgets);
+			referencedWidgets.put(valueRef, widgets);
 		}
 	}
 

@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
 
-import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
 import com.openappengine.gui.engine.core.transformer.widget.WidgetTypeTransformer;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.core.xml.transformer.StringConverter;
@@ -18,7 +17,7 @@ import com.openappengine.gui.engine.core.xml.transformer.StringConverter;
  * @author hrishi
  * since Feb 12, 2012
  */
-public class WidgetTransformer implements Transformer<ActionResponseXml, Document> {
+public class WidgetTransformer implements Transformer<Document, Document> {
 	
 	private static Map<String,WidgetTypeTransformer> widgetTransformers;
 	
@@ -40,7 +39,7 @@ public class WidgetTransformer implements Transformer<ActionResponseXml, Documen
 	}
 
 	@Override
-	public Document transform(ActionResponseXml actionResponseXml) {
+	public Document transform(Document actionResponseXml) {
 		String widgetType = widget.getWidgetType();
 		if(StringUtils.isEmpty(widgetType)) {
 			//TODO.

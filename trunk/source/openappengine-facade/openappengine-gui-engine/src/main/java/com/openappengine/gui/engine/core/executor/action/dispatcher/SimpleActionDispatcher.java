@@ -62,8 +62,6 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 	
 	private AbstractExecutableComponent executable;
 	
-	private List<Widget> actionReferencedWidgets;
-	
 	private ExternalRequestParamsTransformer transformer = new ExternalRequestParamsTransformer();
 	
 	private ActionParamsXmlTransformer actionRequestXmlTransformer = new DefaultActionParamsXmlTransformer();
@@ -104,17 +102,6 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		String valueField = executable.getValueField();
 		Document responseDocument = responseXml.getResponseDocument();
 		elContext.registerELContextVariable(valueField, responseDocument);
-		
-		if(actionReferencedWidgets != null) {
-			for (Widget referencedWidget : actionReferencedWidgets) {
-				
-				WidgetTransformer widgetTransformer = new WidgetTransformer(referencedWidget);
-				Document transformedDocumentXml = widgetTransformer.transform(responseXml);
-				externalContext.addModelMapAttribute(((GuiComponent)referencedWidget).getId(), transformedDocumentXml);
-				elContext.registerELContextVariable(referencedWidget.getId(), transformedDocumentXml);
-				referencedWidget.setValue(transformedDocumentXml);
-			}
-		}
 		
 		return responseXml;
 	}
@@ -183,10 +170,4 @@ public class SimpleActionDispatcher implements ActionDispatcher {
 		Assert.notNull(exec,"Executable found null...!");
 		this.executable = exec;
 	}
-
-	@Override
-	public void setActionReferencedWidgets(List<Widget> widgets) {
-		this.actionReferencedWidgets  = widgets;
-	}
-
 }
