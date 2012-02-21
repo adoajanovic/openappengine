@@ -62,20 +62,10 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		}
 		String xmlDocumentString = 
 				"<form>" +
-				"<grid>" +
-				"<row>" +		
 					"<fieldGroup header=\"Personal Information\">" +
-							"<fieldGroup header=\"Personal Information1\">" +
-								"<label>Hrishi1</label>" +	
-							"</fieldGroup>" +
-					"<label>Hrishi</label>" +
-					"<label>Inside FG Inside Row</label>" +
+						"<label>Hrishi</label>" +
+						"<label>Inside FG Inside Row</label>" +
 					"</fieldGroup>" +
-				"</row>" +
-				"<row>" +	
-					"<label>Outside FG Inside Row</label>" +
-				"</row>" +
-				"</grid>" +
 				"</form>";
 		try {
 			System.out.println(xmlDocumentString);
@@ -109,9 +99,8 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 	}
 
 	@Override
-	protected Document transformWidget(FormSingleWidget widget,ActionResponseXml responseXml) {
-		Document responseDocument = responseXml.getResponseDocument();
-		List<Element> entityElements = DomUtils.getChildElementsByTagName(responseDocument.getDocumentElement(), "entity");
+	protected Document transformWidget(FormSingleWidget widget,Document responseXml) {
+		List<Element> entityElements = DomUtils.getChildElementsByTagName(responseXml.getDocumentElement(), "entity");
 		
 		if(entityElements != null) {
 			if(entityElements.size() != 1) {

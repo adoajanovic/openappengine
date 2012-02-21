@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen>
+	<page-content>
+		<widgets>
+			<form-single id="Login" name="Login">
+			</form-single>
+		</widgets>
+	</page-content>
+</screen>

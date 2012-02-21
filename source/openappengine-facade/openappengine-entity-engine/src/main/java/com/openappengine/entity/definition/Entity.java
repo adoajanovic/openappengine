@@ -117,6 +117,11 @@ public class Entity implements Serializable {
 	
 	public boolean containsFieldDefinitionByFieldRef(Field field) {
 		if(fields != null) {
+			
+			if(StringUtils.isEmpty(field.getProperty())) {
+				return false;
+			}
+			
 			for (Field fieldDef : fields) {
 				if(StringUtils.equals(fieldDef.getProperty(),field.getProperty())) {
 					return true;

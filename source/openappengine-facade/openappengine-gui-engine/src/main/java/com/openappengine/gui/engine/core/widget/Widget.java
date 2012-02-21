@@ -24,10 +24,12 @@ public interface Widget extends Serializable,ValueRefAware<Document>,GuiComponen
 	 * Get the form backing object for this widget.
 	 * @return
 	 */
-	Object formBackingObject();
+	Document getWidgetDataXml();
 	
 	/**
 	 * @return WidgetType Type.
 	 */
 	String getWidgetType();
+	
+	String getEntityName();
 }

@@ -53,6 +53,4 @@ public interface ActionDispatcher {
 	
 	
 	void setExecutable(AbstractExecutableComponent exec);
-	
-	void setActionReferencedWidgets(List<Widget> widgets);
 }

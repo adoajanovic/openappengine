@@ -48,7 +48,7 @@
 <!-- FieldGroup -->
 <#macro fieldGroup>
 	<@start_td .node/>
-	<div class="ui-widget-content" style="border-right=0px;border-left:0px;border-top:0px;width=85%;">
+	<div class="ui-widget-content" style="border-right=0px;border-left:0px;border-top:0px">
 		<div style="<#if .node?parent??>margin-left:20px;</#if>margin-bottom:20px;" <#if .node?children??>class="ui-widget-content"</#if>>	
 			<div class="ui-widget-header">
 				<#if .node["@header"]?has_content>
@@ -64,18 +64,12 @@
 </#macro>
 
 <#macro row>
-	<tr style="width:auto;">
+	<tr style="width:100%;">
 		<#recurse node using .namespace />
 	</tr>
 </#macro>
 
-
-<#macro grid>
-	<table style="width:60%;">
-		<#recurse node using .namespace />
-	</table>	
-</#macro>
-
+<!-- Field -->
 <#macro field>
 	<@start_td .node/>
 		<#recurse .node using .namespace />
@@ -104,7 +98,7 @@
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
 	<div class="ui-widget-content">	
-	 	<#if childWidget.formBackingObject()?has_content>
+	 	<#if childWidget.getWidgetDataXml()?has_content>
 	 		<!-- Widget : form-single -->
 			<form action="${currentURL}" method="post">
 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
@@ -113,10 +107,12 @@
 				<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 				<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 			 	
-				<#assign formCommand = childWidget.formBackingObject()>
-				<@renderFieldsRecursively formCommand />
-	 			
-	 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
+		 		<fieldset>
+					<table style="width:100%;">
+						<#assign formCommand = childWidget.getWidgetDataXml()>
+						<@renderFieldsRecursively formCommand />
+		 			</table>
+		 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 	 			</fieldset>
 	 		</form>
 		</#if>

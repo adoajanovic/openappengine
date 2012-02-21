@@ -85,7 +85,7 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	private void mergeFormWidgetModel(GuiApplicationContext context,
 			GuiComponent guiComponent) {
 		if(guiComponent instanceof Widget) {
-			Object formBackingObject = ((Widget) guiComponent).formBackingObject();
+			Object formBackingObject = ((Widget) guiComponent).getWidgetDataXml();
 			context.getExternalContext().addModelMapAttribute(guiComponent.getId(), formBackingObject);
 		}
 	}

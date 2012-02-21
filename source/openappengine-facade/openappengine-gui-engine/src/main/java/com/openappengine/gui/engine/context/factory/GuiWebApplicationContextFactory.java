@@ -12,6 +12,7 @@ import com.openappengine.gui.engine.core.context.event.ContextInitializedEvent;
 import com.openappengine.gui.engine.core.context.event.ContextPostRestoreEvent;
 import com.openappengine.gui.engine.core.context.event.ExecutePreRenderActionsEvent;
 import com.openappengine.gui.engine.core.context.event.GuiContextMessageRefreshEvent;
+import com.openappengine.gui.engine.core.context.event.TransformWidgetsEvent;
 
 /**
  * @author hrishikesh.joshi
@@ -57,6 +58,12 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 			GuiApplicationContext applicationContext) {
 		ContextInitializedEvent contextInitEvent = new ContextInitializedEvent(applicationContext);
 		getLifecycleProcessor().processLifecycleEvent(contextInitEvent);
+	}
+	
+	@Override
+	public void processLifecycleTransformWidgetsEvent(GuiApplicationContext applicationContext) {
+		TransformWidgetsEvent event = new TransformWidgetsEvent(applicationContext);
+		getLifecycleProcessor().processLifecycleEvent(event);
 	}
 
 	@Override

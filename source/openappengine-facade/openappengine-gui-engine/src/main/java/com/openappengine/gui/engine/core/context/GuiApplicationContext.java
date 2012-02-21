@@ -98,8 +98,6 @@ public interface GuiApplicationContext {
 	
 	void setExternalContext(ExternalContext externalContext);
 	
-	void addValueReferencedWidgets(String valueRef,List<Widget> widgets);
-	
 	List<Widget> getReferencedWidgets(String valueRef);
 	
 	void addValueReferencedWidget(String valueRef, Widget widget);

@@ -62,7 +62,7 @@ public class WebTransitionEventListener extends TransitionEventListener {
 										.createActionDispatcher(
 												event.getElContext(),
 												event.getExternalContext(),
-												event.getMessageContext(),exec, null);
+												event.getMessageContext(),exec);
 								
 								ActionResponseXml actionResponseXml = actionDispatcher.execute();
 								

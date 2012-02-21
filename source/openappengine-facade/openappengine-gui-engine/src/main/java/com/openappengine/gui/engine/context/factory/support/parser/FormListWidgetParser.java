@@ -46,7 +46,7 @@ public class FormListWidgetParser extends AbstractGuiElementDefinitionParser {
 			formSingleWidget.setTransition(attrTransition);
 		}
 		
-		formSingleWidget.setName(attrName);
+		formSingleWidget.setEntityName(attrName);
 		
 		String attrEntityValueRef = element.getAttribute(ATTR_ENTITY_VALUE_REF);
 		formSingleWidget.setValueRef(attrEntityValueRef);
