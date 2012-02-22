@@ -1,3 +1,6 @@
+<#import "/spring.ftl" as spring/>
+<#import "common.ftl" as common/>
+
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
   <!-- Form Single -->
@@ -33,19 +36,9 @@
 </#macro>
 
 <#macro form>
-	<!--
-	<fieldset <#if .node["@id"]?has_content> id="${.node["@id"]}"</#if><#if .node["@style"]?has_content> class="${.node["@style"]}"</#if>>
-	-->
 	<#recurse>
-	<!--
-    </fieldset>
-    -->
 </#macro>
 
-
-<!-- GUI Fields -->
-
-<!-- FieldGroup -->
 <#macro fieldGroup>
 	<@start_td .node/>
 	<div class="ui-widget-content" style="border-right=0px;border-left:0px;border-top:0px">
@@ -69,45 +62,83 @@
 	</tr>
 </#macro>
 
-<!-- Field -->
 <#macro field>
 	<@start_td .node/>
 		<#recurse .node using .namespace />
 	<@end_td .node/>
 </#macro>
 
-<#macro input>
-	<input type="text" id="${.node.@name}" name="${.node.@name}" value="${.node}" style="ui-widget" />
+<#--
+ * message
+ *
+ * Macro to translate a message code into a message.
+ -->
+<#macro message code>${messageContext.getMessageText(code)}</#macro>
+
+<#macro control>
+	<tr>
+		<td valign="center">
+			<label for="${.node["@id"]}" id="${.node["@id"]}">
+				<@message .node["@labelId"] />
+			</label>
+		</td>
+		
+		<td>
+			<#if .node["@type"] = "text">
+				<@textField .node />
+			</#if>
+			<#if .node["@type"] = "textarea">
+				<@textArea .node />
+			</#if>
+			<#if .node["@type"] = "password">
+				<@password .node />
+			</#if>
+			<#if .node["@type"] = "date">
+				<@datepicker .node />
+			</#if>
+		</td>
+	</tr>	
 </#macro>
 
-<#macro label>
-	<@start_td .node/>
-	<label id="label_${.node}" for="${.node}"  style="margin-bottom:10px;">
-		${.node}
-	</label>
-	<@end_td .node/>
+<#macro textField node>
+	<#local val = node>
+	<input id="${node["@id"]}" name="${node["@name"]}" type="text" value="${val}" />
 </#macro>
 
-<!-- 2. FormSubmit -->
+<#macro password node>
+	<#local val = node>
+	<input id="${node["@id"]}" name="${node["@name"]}" type="password" value="${val}" />
+</#macro>
+
+<#macro datepicker node>
+	<#local val = node>
+	<input id="datepicker" name="${node["@name"]}" type="text" value="${val}" class="datepicker"/>
+</#macro>
+
+<#macro textArea node>
+	<#local val = node>
+	<#local rows = node["@rows"]>
+	<#local cols = node["@cols"]>
+	
+	<textarea id="${node["@id"]}" name="${node["@name"]}" rows="5" cols="20">
+		${val}
+	</textarea>
+</#macro>
+
 <#macro formSubmit name id value>
 	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
-<!-- Widget  -->
-<!-- 1.  FormSingle -->
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
-	<div class="ui-widget-content">	
+	<div>	
 	 	<#if childWidget.getWidgetDataXml()?has_content>
 	 		<!-- Widget : form-single -->
 			<form action="${currentURL}" method="post">
 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
 				<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
-				<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
-				<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
-			 	
 		 		<fieldset>
-					<table style="width:100%;">
+					<table style="width:auto;">
 						<#assign formCommand = childWidget.getWidgetDataXml()>
 						<@renderFieldsRecursively formCommand />
 		 			</table>

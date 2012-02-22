@@ -3,9 +3,11 @@
  */
 package com.openappengine.gui.engine.core.transformer.widget;
 
+import java.util.List;
+
 import org.w3c.dom.Document;
 
-import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
+import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.gui.engine.core.transformer.Transformer;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.core.xml.transformer.StringConverter;
@@ -41,6 +43,10 @@ public abstract class WidgetTypeTransformer<T extends Widget> implements Transfo
 
 	public void setWidget(T widget) {
 		this.widget = widget;
+	}
+	
+	protected List<String> defaultFieldDataTypes() {
+		return EntityEngineFacadeContext.getDefaultEntityFieldTypes();
 	}
 
 }

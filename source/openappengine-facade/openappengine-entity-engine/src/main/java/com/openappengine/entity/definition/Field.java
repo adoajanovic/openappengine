@@ -21,6 +21,8 @@ public class Field implements Serializable {
 
 	private String property;
 	
+	private int maxLength;
+	
 	private boolean pk;
 	
 	private boolean autoincrement;
@@ -37,8 +39,6 @@ public class Field implements Serializable {
 	
 	//TODO
 	private boolean hidden;
-	
-	private UIField uiField;
 	
 	//FieldValue
 	private Object fieldValue;
@@ -81,14 +81,6 @@ public class Field implements Serializable {
 
 	public void setRequired(boolean required) {
 		this.required = required;
-	}
-
-	public UIField getUiField() {
-	    return uiField;
-	}
-
-	public void setUiField(UIField uiField) {
-	    this.uiField = uiField;
 	}
 
 	public boolean isAutoincrement() {
@@ -145,5 +137,13 @@ public class Field implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getMaxLength() {
+		return maxLength;
+	}
+
+	public void setMaxLength(int maxLength) {
+		this.maxLength = maxLength;
 	}
 }

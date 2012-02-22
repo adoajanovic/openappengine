@@ -102,7 +102,6 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 		RequestContextHolder.setRequestAttributes(currentRequestAttributes);
 		
 		try {
-			request.setAttribute("currentURL", request.getRequestURL());
 			doService(httpServletRequest, httpServletResponse);
 		} catch (Throwable e) {
 			// TODO: use configurable exception handler here..
@@ -145,6 +144,10 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 			doProcessWidgetPost(httpServletRequest, guiApplicationContext);
 			
 		}
+		
+		httpServletRequest.setAttribute("currentURL", httpServletRequest.getRequestURL());
+		httpServletRequest.setAttribute("messageContext", guiApplicationContext.getMessageContext());
+		
 		//contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
 		contextFactory.refreshMessages(guiApplicationContext);

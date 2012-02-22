@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
@@ -19,6 +21,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 public class ResourceBundleMessageContext implements MessageContext {
 	
 	private ResourceBundleMessageSource messageSource;
+	
+	protected static final Logger logger = Logger.getLogger(ResourceBundleMessageContext.class);
 	
 	private String[] basenames;
 	
@@ -35,7 +39,9 @@ public class ResourceBundleMessageContext implements MessageContext {
 
 	private Locale locale = Locale.getDefault();
 
-	private String[] defaultMessageBundlePaths = new String[]{"defaultMessages"};
+	private String[] defaultMessageBundlePaths = new String[]{"defaultMessages,messages"};
+	
+	private boolean throwMessageNotFoundException = true;
 	
 	/**
 	 * @param basenames
@@ -281,6 +287,35 @@ public class ResourceBundleMessageContext implements MessageContext {
 		Message warningMessage = new Message(code, MessageSeverity.SUCCESS);
 		contextMessages.add(warningMessage);
 		successMessages.add(warningMessage);
+	}
+	
+	public String getMessageText(String code) {
+		String message = code;
+		try {
+			message = messageSource.getMessage(code, null, locale);
+		} catch(NoSuchMessageException e) {
+			if(!throwMessageNotFoundException) {
+				throw e;
+			} else {
+				int i = code.indexOf(".");
+				if(i != -1) {
+					message = code.substring(i+1, code.length());
+					message = StringUtils.capitalize(message);
+				}
+				logger.error("Code :" +  code + " could not found. [Exception Message : " + e.getMessage() + "]");
+			}
+			//DO NOTHING. As we return the code. if the message is not found.
+		}
+		return message;
+	}
+
+	protected boolean isThrowMessageNotFoundException() {
+		return throwMessageNotFoundException;
+	}
+
+	public void setThrowMessageNotFoundException(
+			boolean throwMessageNotFoundException) {
+		this.throwMessageNotFoundException = throwMessageNotFoundException;
 	}
 
 }

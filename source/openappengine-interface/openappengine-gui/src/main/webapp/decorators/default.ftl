@@ -24,6 +24,22 @@
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.button.js"></script>
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.tabs.js"></script>
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dialog.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.datepicker.js"></script>
+	  
+	  
+	  <script>
+  
+  	jQuery(document).ready(function (){
+		//Trim Whitespaces from Text Area.
+		jQuery("textarea").val(function(i,v){
+    		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
+		}); 
+		
+		jQuery("textarea").addClass('ui-widget');
+		
+		jQuery(".datepicker").datepicker();
+  	 }
+  	);
 	  
 	  <!-- Title -->
 	  <title>
@@ -32,6 +48,7 @@
 	  
 	  <!-- head -->
 	  ${head}
+	  
 	</head>
 
 	<#--

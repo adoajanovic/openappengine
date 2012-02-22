@@ -16,7 +16,7 @@ import com.openappengine.entity.response.EntityResponse;
  * @author hrishikesh.joshi
  *
  */
-public interface EntityFacade {
+public interface EntityEngineFacade {
 	
 	
 	/**

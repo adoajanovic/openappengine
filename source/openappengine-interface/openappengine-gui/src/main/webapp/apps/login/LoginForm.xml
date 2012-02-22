@@ -2,7 +2,7 @@
 <screen>
 	<page-content>
 		<widgets>
-			<form-single id="Login" name="Login">
+			<form-single id="User_Registration" name="User_Registration">
 			</form-single>
 		</widgets>
 	</page-content>

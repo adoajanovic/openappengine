@@ -35,7 +35,7 @@ import com.openappengine.utility.ObjectConverter;
  * @author hrishikesh.joshi
  *
  */
-public class EntityFacadeImpl implements EntityFacade {
+public class EntityEngineFacadeImpl implements EntityEngineFacade {
 	
 	private EntityDefinitionCache entityDefinitionCache;
 	
@@ -245,7 +245,7 @@ public class EntityFacadeImpl implements EntityFacade {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.openappengine.entity.EntityFacade#findEntityDefinition(java.lang.String)
+	 * @see com.openappengine.entity.EntityEngineFacade#findEntityDefinition(java.lang.String)
 	 */
 	public Entity findEntityDefinition(String entityName) {
 		Entity entityDefinition = entityDefinitionCache.getEntityDefinition(entityName);
