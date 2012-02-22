@@ -69,6 +69,19 @@
  </div>
   <script>
   
+  	jQuery(document).ready(function (){
+		//Trim Whitespaces from Text Area.
+		jQuery("textarea").val(function(i,v){
+    		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
+		}); 
+		
+		jQuery("textarea").addClass('ui-widget');
+		
+		jQuery(".datepicker").datepicker();
+  	 }
+  	);
+  	
+  
   	/* On Focus CSS Handler */
   	jQuery("input[type=text]").focus(function(){
 	  $(this).addClass('ui-state-active');
@@ -78,6 +91,17 @@
 	jQuery("input[type=text]").blur(function(){
 	  $(this).removeClass('ui-state-active');
 	});
+	
+	
+	jQuery("textarea").focus(function(){
+	  	$(this).addClass('ui-state-active');
+	});
+	
+	/* On Focus CSS Handler */
+	jQuery("textarea").blur(function(){
+	  $(this).removeClass('ui-state-active');
+	});
+		
   	
   	/* attach a submit handler to the form */
   	jQuery("form").submit(function() {

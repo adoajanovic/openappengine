@@ -5,8 +5,8 @@ package com.openappengine.gui.engine.core.executor.action.entity;
 
 import org.apache.log4j.Logger;
 
-import com.openappengine.entity.EntityFacade;
-import com.openappengine.entity.context.EntityFacadeContext;
+import com.openappengine.entity.EntityEngineFacade;
+import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.gui.engine.core.action.xml.ActionRequestXml;
 import com.openappengine.gui.engine.core.action.xml.EntityActionRequestXml;
 import com.openappengine.gui.engine.core.executor.action.ActionContext;
@@ -22,19 +22,19 @@ public abstract class AbstractEntityActionHandler implements ActionHandler<Entit
 	
 	protected ActionContext actionContext;
 	
-	protected EntityFacade entityFacade;
+	protected EntityEngineFacade entityEngineFacade;
 
 	@Override
 	public void setActionContext(ActionContext actionContext) {
 		this.actionContext = actionContext;
 	}
 
-	protected EntityFacade getEntityFacade() {
-		if(entityFacade == null) {
-			entityFacade = EntityFacadeContext.getEntityFacade();
+	protected EntityEngineFacade getEntityFacade() {
+		if(entityEngineFacade == null) {
+			entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
 		}
 		
-		return entityFacade;
+		return entityEngineFacade;
 	}
 
 	@Override

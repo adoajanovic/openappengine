@@ -82,5 +82,7 @@ public interface MessageContext {
 	void clearAllSuccessMessages(String id);
 	
 	void addErrorMessage(String code,Object[] args);
+	
+	String getMessageText(String code);
 }
 

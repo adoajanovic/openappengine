@@ -42,7 +42,6 @@ public class WidgetTransformer implements Transformer<Document, Document> {
 	public Document transform(Document actionResponseXml) {
 		String widgetType = widget.getWidgetType();
 		if(StringUtils.isEmpty(widgetType)) {
-			//TODO.
 			widgetType = "form-single"; 
 		}
 		

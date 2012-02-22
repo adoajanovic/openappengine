@@ -52,6 +52,7 @@ form {
 .button:hover {
 	background: #F5F5F5;
 	color:#333;
+	border: 1px solid #555;
 }
 
 input {

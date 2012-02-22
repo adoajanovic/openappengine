@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.NumberUtils;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,7 +16,6 @@ import org.w3c.dom.Node;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.entity.definition.EntityDefinitionReaderException;
 import com.openappengine.entity.definition.Field;
-import com.openappengine.entity.definition.ui.UIField;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -26,8 +26,6 @@ public class EntityDefinitionReader {
 
     private String[] locations;
     
-	private FieldTypeDefinitionReader fieldTypeDefinitionReader;
-	
     /**
      * Init the Reader
      */
@@ -58,11 +56,11 @@ public class EntityDefinitionReader {
 			for (Element entityElement : entityElements) {
 				Entity entityDefinition = new Entity();
 				
-			    String name = UtilXml.readElementAttribute(entityElement,"name");
-			    if (StringUtils.isEmpty(name)) {
+			    String entityName = UtilXml.readElementAttribute(entityElement,"name");
+			    if (StringUtils.isEmpty(entityName)) {
 			    	throw new EntityDefinitionReaderException("EntityName not found empty.");
 			    }
-			    entityDefinition.setEntityName(name);
+			    entityDefinition.setEntityName(entityName);
 			    
 			    String cls = UtilXml.readElementAttribute(entityElement,"class");
 			    if (StringUtils.isNotEmpty(cls)) {
@@ -94,7 +92,7 @@ public class EntityDefinitionReader {
 			    }
 			    
 			    //Create Entity XML Document
-			    setEntityDocumentXml(entityElement, entityDefinition);
+			    createEntityDocumentXml(entityElement, entityDefinition);
 			    
 			    entityDefinitions.add(entityDefinition);
 			}
@@ -111,31 +109,46 @@ public class EntityDefinitionReader {
 	 * @param entityElement
 	 * @param entityDefinition
 	 */
-	private void setEntityDocumentXml(Element entityElement,
+	private void createEntityDocumentXml(Element entityElement,
 			Entity entityDefinition) {
 		Document entityDoc = UtilXml.makeEmptyXmlDocument("entity");
 		Node node = entityDoc.adoptNode(entityElement);
 		entityDoc.getDocumentElement().appendChild(node);
+		entityDoc.getDocumentElement().setAttribute("entity-name", entityDefinition.getEntityName());
 		entityDefinition.setDocument(entityDoc);
+		System.out.println(UtilXml.writeXmlDocument(entityDoc));
 	}
 
     protected Field readFieldDefinition(Element fieldElement) {
 	Field fieldDefinition = new Field();
 	
+	//Name
 	String name = UtilXml.readElementAttribute(fieldElement, "name");
 	if (StringUtils.isBlank(name)) {
 	    throw new EntityDefinitionReaderException("Attribute name cannot be empty.");
 	}
 	fieldDefinition.setName(name);
 	
+	//MaxLength
+	String maxLength = UtilXml.readElementAttribute(fieldElement, "maxLength");
+	if (StringUtils.isNotBlank(maxLength)) {
+	    Integer len = NumberUtils.createInteger(maxLength);
+	    if(len != null) {
+	    	fieldDefinition.setMaxLength(len);
+	    }
+	}
+	
+	//Type
 	String type = UtilXml.readElementAttribute(fieldElement, "type");
 	fieldDefinition.setType(type);
 
+	//Property - To Be used for Class. 
 	String property = UtilXml.readElementAttribute(fieldElement, "property");
 	if (StringUtils.isNotBlank(property)) {
 	    fieldDefinition.setProperty(property);
 	}
 	
+	//Is-PK Field.
 	String isPK = UtilXml.readElementAttribute(fieldElement, "is-pk");
 	if (StringUtils.isBlank(isPK)) {
 	    fieldDefinition.setPk(false);
@@ -201,17 +214,6 @@ public class EntityDefinitionReader {
 	    }
 	}
 
-	List<? extends Element> fieldTypeElementList = UtilXml.childElementList(fieldElement,"field-type");
-	Element fieldTypeElement = fieldTypeElementList.get(0);
-	
-	UIField uiField;
-	if (fieldTypeElement != null) {
-	    uiField = getFieldTypeDefinitionReader().getUIField(fieldTypeElement);
-	    fieldDefinition.setUiField(uiField);
-	} else {
-	    // TODO - Handle as a TextField.
-	}
-
 	return fieldDefinition;
     }
 
@@ -219,11 +221,4 @@ public class EntityDefinitionReader {
 	this.locations = locations;
     }
 
-	protected FieldTypeDefinitionReader getFieldTypeDefinitionReader() {
-		return fieldTypeDefinitionReader;
-	}
-
-	public void setFieldTypeDefinitionReader(FieldTypeDefinitionReader fieldTypeDefinitionReader) {
-		this.fieldTypeDefinitionReader = fieldTypeDefinitionReader;
-	}
 }

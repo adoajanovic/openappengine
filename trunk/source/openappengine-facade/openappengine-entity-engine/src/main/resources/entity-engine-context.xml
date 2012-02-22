@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<import resource="classpath:repository-context.xml"/>
+	
+	<bean id="entityDefinitionReader" class="com.openappengine.entity.definition.reader.EntityDefinitionReader">
+		<property name="locations">
+			<array>
+				<value>EntityDefinitions.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+    <bean name="defaultFieldTypes" class="java.util.Arrays" factory-method="asList">
+	<constructor-arg>
+		<array>
+			<value>String</value>
+			<value>Password</value>
+			<value>Integer</value>
+			<value>Long</value>
+			<value>Double</value>
+			<value>Boolean</value>
+			<value>Long</value>
+			<value>Date</value>
+			<value>DateTime</value>
+		</array>
+	</constructor-arg>
+	</bean>
+	
+	<bean id="entityDefinitionCache" class="com.openappengine.entity.definition.EntityDefinitionCache" init-method="initEntityDefinitionCache" scope="singleton">
+		<property name="entityDefinitionReader" ref="entityDefinitionReader" />
+	</bean>
+	
+	<bean id="entityFacade" class="com.openappengine.entity.EntityEngineFacadeImpl" >
+		<property name="entityDefinitionCache" ref="entityDefinitionCache" />
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean name="entityFacadeContext" class="com.openappengine.entity.context.EntityEngineFacadeContext">
+	</bean>
+	
+</beans>
