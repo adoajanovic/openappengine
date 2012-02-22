@@ -459,3 +459,7 @@ p {
             line-height:18px;
             padding:0pt;
         }
+
+.ui-datepicker-div {
+	font-size: 0.8em;
+}
