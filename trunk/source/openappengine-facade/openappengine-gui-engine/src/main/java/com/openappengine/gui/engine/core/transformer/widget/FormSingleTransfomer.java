@@ -46,16 +46,17 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 		if(formSingleWidget.isAutoEntity()) {
 			if(fields != null) {
 				for (Element fieldEle : fields) {
-					doProcessFormField(formDoc, rootFieldEle, fieldEle);
+					doProcessAutoFormControl(formDoc, rootFieldEle, fieldEle);
 				}
 			}
 		} else {
+			//TODO - Handle this..Using the XPATH exprssion.
 			List<FormField> formFields = formSingleWidget.getFields();
 			for (FormField formField : formFields) {
 				for (Element fieldEle : fields) {
 					String fieldName = fieldEle.getAttribute("name");
 					if(StringUtils.equals(formField.getEntryName(), fieldName)) {
-						doProcessFormField(formDoc, documentElement, fieldEle);
+						doProcessAutoFormControl(formDoc, documentElement, fieldEle);
 					}
 				}
 			}
@@ -83,14 +84,14 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 	 * @param documentElement
 	 * @param fieldEle
 	 */
-	private void doProcessFormField(Document formDoc, Element documentElement,
+	private void doProcessAutoFormControl(Document formDoc, Element documentElement,
 			Element fieldEle) {
-		Element formFieldEle = formDoc.createElement("field");
+		Element formControlEle = formDoc.createElement("control");
 		String fieldName = fieldEle.getAttribute("name");
-		formFieldEle.setAttribute("name", fieldName);
-		formFieldEle.setAttribute("type", fieldEle.getAttribute("type"));
-		formFieldEle.setTextContent(fieldEle.getTextContent());
-		documentElement.appendChild(formFieldEle);
+		formControlEle.setAttribute("name", fieldName);
+		formControlEle.setAttribute("type", fieldEle.getAttribute("type"));
+		formControlEle.setTextContent(fieldEle.getTextContent());
+		documentElement.appendChild(formControlEle);
 	}
 	
 	@Override
