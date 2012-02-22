@@ -104,7 +104,6 @@
 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
 				<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 				<input type="hidden" name="widgetValueRef" value="${childWidget.getValueRef()}" />
-				<input type="hidden" name="widgetTransition" value="${childWidget.getTransition()}" />
 				<input type="hidden" name="widgetType" value="${childWidget.getWidgetType()}" />
 			 	
 		 		<fieldset>
