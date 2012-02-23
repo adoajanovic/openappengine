@@ -1,5 +1,4 @@
 <#import "/spring.ftl" as spring/>
-<#import "common.ftl" as common/>
 
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
@@ -134,7 +133,7 @@
 </#macro>
 
 <#macro checkbox node>
-	<input type="checkbox" id="${node["@id"]}" name="${node["@name"]}" class="checkbox"/>
+	<input type="checkbox" id="${node["@id"]}" name="${node["@name"]}" />
 	<label for="${.node["@id"]}" id="${.node["@id"]}">
 				<@message .node["@labelId"] />
 	</label>

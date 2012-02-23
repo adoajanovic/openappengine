@@ -3,7 +3,6 @@
 
 <#--NOTE: this is the webapp/decorators/spring.ftl-->
 <#import "spring.ftl" as spring/>
-<#import "../WEB-INF/freemarker/common.ftl" as common/>
 
 <head>
   	  <!--default.ftl-->

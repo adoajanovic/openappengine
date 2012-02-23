@@ -3,7 +3,6 @@
 
 <#--NOTE: this is the webapp/decorators/spring.ftl-->
 <#import "spring.ftl" as spring/>
-<#import "../WEB-INF/freemarker/common.ftl" as common/>
 
 <head>
   	  <!--default.ftl-->
@@ -25,37 +24,38 @@
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.tabs.js"></script>
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dialog.js"></script>
 	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.datepicker.js"></script>
-	  
-	  
-	  <script>
-  
-  		jQuery(document).ready(function (){
-		//Trim Whitespaces from Text Area.
-		jQuery("textarea").val(function(i,v){
-    		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
-		}); 
-		
-		jQuery("textarea").addClass('ui-widget');
-		
-		jQuery(".datepicker").datepicker();
-		
-		$(function() {
-			jQuery(".checkbox" ).button();
-		});
-		
-		$(function() {
-			jQuery(".radio" ).button();
-		});
-  	 }
-  	);
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.accordian.js"></script>
+	  <script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/ui/jquery.ui.dimensions.js"></script>
 	  
 	  <!-- Title -->
 	  <title>
 	  	${title}
 	  </title>
 	  
+	  <script type="text/javascript">
+	  jQuery(document).ready(function (){
+			//Trim Whitespaces from Text Area.
+			jQuery("textarea").val(function(i,v){
+	    		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
+			}); 
+			
+			jQuery("textarea").addClass('ui-widget');
+			
+			jQuery(".datepicker").datepicker();
+			
+			$(function() {
+				jQuery(".checkbox" ).button();
+			});
+			
+			$(function() {
+				jQuery(".radio" ).button();
+			});
+	  	 }
+	  	);
+	  	
 	  <!-- head -->
 	  ${head}
+	  
 	  
 	</head>
 
@@ -72,9 +72,6 @@
 		<div id="wrapper">
 		        
 		      <div id="header">
-		      	<!-- Using Box -->                 
-		        <@common.box "boxStyleSm", "loginBox", "">  	    			     			 
-		 		</@common.box>
 		 		
 		 		<div class="top-right-content">
 		 			<label>Logged In Time :</label> ${serverTime} |
@@ -104,17 +101,11 @@
 			      <br>
 			  </div>
 		</div>
-		<!--wrapper-->
-	
-		<#--Google Analytics-->    
-		<script type="text/javascript">
-		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-		<script type="text/javascript">
-		var pageTracker = _gat._getTracker("UA-1880676-2");
-		pageTracker._initData();
-		pageTracker._trackPageview();
-		</script>
+	<!--wrapper-->
+		
+	<script type="text/javascript" src="${rc.getContextPath()}/resources/jquery/openappengine.ui.default.js"></script>
+		
 	</body>
+	
+	
 </html>
