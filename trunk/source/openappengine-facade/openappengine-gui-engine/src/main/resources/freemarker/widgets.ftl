@@ -1,5 +1,10 @@
 <#import "/spring.ftl" as spring/>
-<#import "datepicker.ftl" as datepicker/>
+<#include "datepicker.ftl" />
+<#include "textField.ftl" />
+<#include "textArea.ftl" />
+<#include "checkbox.ftl" />
+<#include "radio.ftl" />
+<#include "password.ftl" />
 
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
@@ -99,49 +104,13 @@
 				<@password .node />
 			</#if>
 			<#if .node["@type"] = "date">
-				<@datepicker.datepicker .node />
+				<@datepicker .node />
 			</#if>
 			<#if .node["@type"] = "checkbox">
 				<@checkbox .node />
 			</#if>
 		</td>
 	</tr>	
-</#macro>
-
-<#macro textField node>
-	<#local val = node>
-	<input id="${node["@id"]}" name="${node["@name"]}" type="text" value="${val}" />
-</#macro>
-
-<#macro password node>
-	<#local val = node>
-	<input id="${node["@id"]}" name="${node["@name"]}" type="password" value="${val}" />
-</#macro>
-
-<#macro textArea node>
-	<#local val = node>
-	<#local rows = node["@rows"]>
-	<#local cols = node["@cols"]>
-	
-	<textarea id="${node["@id"]}" name="${node["@name"]}" rows="5" cols="20">
-		${val}
-	</textarea>
-</#macro>
-
-<#macro checkbox node>
-	<input type="checkbox" id="${node["@id"]}" name="${node["@name"]}" class="checkbox"/>
-	<label for="${.node["@id"]}" id="${.node["@id"]}">
-				<@message .node["@labelId"] />
-	</label>
-</#macro>
-
-<#macro radio node>
-	<#foreach child in .node?children>
-		<input type="radio" id="${node["@id"]}" name="${node["@name"]}" class="radio"/>
-		<label for="${.node["@id"]}" id="${.node["@id"]}">
-					<@message .node["@labelId"] />
-		</label>
-	</#foreach>
 </#macro>
 
 <#macro formSubmit name id value>

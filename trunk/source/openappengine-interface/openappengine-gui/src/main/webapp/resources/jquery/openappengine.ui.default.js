@@ -1,0 +1,74 @@
+jQuery(document).ready(function (){
+	//Trim Whitespaces from Text Area.
+	jQuery("textarea").val(function(i,v){
+    	return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
+	}); 
+		
+	jQuery("textarea").addClass('ui-widget');
+		
+	jQuery(".datepicker").datepicker(
+		{
+			changeMonth: true,
+			changeYear: true,
+			showOn: "button",
+			buttonImage: "../../css/images/calendar.gif",
+			buttonImageOnly: true
+		}
+	);
+		
+	$(function() {
+		jQuery(".checkbox" ).button();
+	});
+			
+	$(function() {
+		jQuery(".radio" ).button();
+	});
+  }
+);
+
+/* On Focus CSS Handler */
+jQuery("input").focus(function(){
+  $(this).addClass('ui-state-active');
+});
+
+/* On Focus CSS Handler */
+jQuery("input").blur(function(){
+  $(this).removeClass('ui-state-active');
+});
+
+
+jQuery("textarea").focus(function(){
+  	$(this).addClass('ui-state-active');
+});
+
+/* On Focus CSS Handler */
+jQuery("textarea").blur(function(){
+  $(this).removeClass('ui-state-active');
+});
+	
+	
+/* attach a submit handler to the form */
+jQuery("form").submit(function() {
+   
+    /* stop form from submitting normally*/ 
+   	event.preventDefault(); 
+    
+        
+    /* get some values from elements on the page: */
+    var $form = $( this ),
+    
+    /* Get the url for form submit. */
+    urlAction = $form.attr( 'action' );
+
+    /* Send the data using post and put the results in a div */
+    $.ajax( {
+      type: "POST",
+      url: urlAction,
+      success: function() {
+        /*$('#contact_form').html("<div id='message'></div>");*/
+        
+      }
+    });
+   
+   return true;
+});
