@@ -24,5 +24,9 @@
 		</field>
 		<field name="Active" type="Boolean" is-required="false">
 		</field>
+		<field name="Salary" type="Boolean" is-required="false">
+			<option value = ">100" />
+			<option value = ">200" />
+		</field>
 	</entity>
 </entities>
