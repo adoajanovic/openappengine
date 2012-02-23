@@ -14,6 +14,11 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import javolution.util.FastList;
 
@@ -26,6 +31,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.sun.org.apache.xpath.internal.jaxp.XPathFactoryImpl;
 
 /**
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
@@ -214,6 +221,14 @@ public class UtilXml {
 
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
         return document;
+    }
+    
+    public static Node evaluateXPathExpression(Document doc,String xpathExpression) throws XPathExpressionException {
+    	XPathFactory xPathFactory = XPathFactoryImpl.newInstance();
+    	XPath xPath = xPathFactory.newXPath();
+    	XPathExpression pathExpression = xPath.compile(xpathExpression);
+    	Object evaluate = pathExpression.evaluate(doc, XPathConstants.NODE);
+    	return (Node) evaluate;
     }
 
     public static Document makeEmptyXmlDocument() {
@@ -603,4 +618,6 @@ public class UtilXml {
 	
 	return null;
     }
+    
+    
 }
