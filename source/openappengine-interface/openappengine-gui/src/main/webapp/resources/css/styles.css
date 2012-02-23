@@ -463,3 +463,8 @@ p {
 .ui-datepicker-div {
 	font-size: 0.8em;
 }
+
+.ui-datepicker-trigger {
+	background:#939393 url(images/calendar.gif) no-repeat;
+	width: 50px;	
+}
