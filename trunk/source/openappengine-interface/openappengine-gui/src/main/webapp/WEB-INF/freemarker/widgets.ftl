@@ -78,7 +78,12 @@
 <#macro control>
 	<tr>
 		<td valign="center">
-			<label for="${.node["@id"]}" id="${.node["@id"]}">
+			<#if .node["@type"] != "checkbox">
+				<#local for = .node["@id"] >
+			<#else>
+				<#local for = .node["@id"] + "_Checkbox">
+			</#if>
+			<label id="${.node["@id"]}_Label" for="${for}">
 				<@message .node["@labelId"] />
 			</label>
 		</td>
@@ -95,6 +100,9 @@
 			</#if>
 			<#if .node["@type"] = "date">
 				<@datepicker .node />
+			</#if>
+			<#if .node["@type"] = "checkbox">
+				<@checkbox .node />
 			</#if>
 		</td>
 	</tr>	
@@ -123,6 +131,22 @@
 	<textarea id="${node["@id"]}" name="${node["@name"]}" rows="5" cols="20">
 		${val}
 	</textarea>
+</#macro>
+
+<#macro checkbox node>
+	<input type="checkbox" id="${node["@id"]}" name="${node["@name"]}" class="checkbox"/>
+	<label for="${.node["@id"]}" id="${.node["@id"]}">
+				<@message .node["@labelId"] />
+	</label>
+</#macro>
+
+<#macro radio node>
+	<#foreach child in .node?children>
+		<input type="radio" id="${node["@id"]}" name="${node["@name"]}" class="radio"/>
+		<label for="${.node["@id"]}" id="${.node["@id"]}">
+					<@message .node["@labelId"] />
+		</label>
+	</#foreach>
 </#macro>
 
 <#macro formSubmit name id value>

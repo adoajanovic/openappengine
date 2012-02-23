@@ -78,6 +78,14 @@
 		jQuery("textarea").addClass('ui-widget');
 		
 		jQuery(".datepicker").datepicker();
+		
+		$(function() {
+			jQuery(".checkbox" ).button();
+		});
+		
+		$(function() {
+			jQuery(".radio" ).button();
+		});
   	 }
   	);
   	
