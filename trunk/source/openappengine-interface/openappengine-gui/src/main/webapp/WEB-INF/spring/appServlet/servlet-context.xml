@@ -34,11 +34,30 @@
 		<beans:property name="order" value="2"></beans:property>
 	</beans:bean>
 
+	<!-- Template Loader Paths -->
+	<!--
+		The Freemarker templates are loaded based on the below order:
+		1. /WEB-INF/freemarker/
+		2. / 
+		3. Classpath Location.
+	 -->
+	<beans:bean id="templateLoaderPaths" class="java.util.ArrayList">
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:value>/WEB-INF/freemarker/</beans:value>
+				<beans:value>/</beans:value>
+				<beans:value>classpath:freemarker</beans:value>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean> 
+	
 	<beans:bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
 		abstract="false" scope="singleton" lazy-init="default" autowire="default">
 		<beans:property name="templateLoaderPath">
 			<beans:value>/</beans:value>
+		</beans:property>
+		<beans:property name="templateLoaderPaths" ref="templateLoaderPaths">
 		</beans:property>
 		<beans:property name="freemarkerSettings">
 			<beans:props>
