@@ -51,12 +51,8 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 			//TODO - Handle this..Using the XPATH exprssion.
 			List<FormField> formFields = formSingleWidget.getFields();
 			for (FormField formField : formFields) {
-				for (Element fieldEle : fields) {
-					String fieldName = fieldEle.getAttribute("name");
-					if(StringUtils.equals(formField.getEntryName(), fieldName)) {
-						doProcessAutoFormControl(formDoc, documentElement, fieldEle);
-					}
-				}
+				String entryName = formField.getEntryName();
+				
 			}
 		}
 		String xmlDocument = UtilXml.writeXmlDocument(formDoc);
