@@ -29,7 +29,7 @@
 	  
 	  <script>
   
-  	jQuery(document).ready(function (){
+  		jQuery(document).ready(function (){
 		//Trim Whitespaces from Text Area.
 		jQuery("textarea").val(function(i,v){
     		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
@@ -38,6 +38,14 @@
 		jQuery("textarea").addClass('ui-widget');
 		
 		jQuery(".datepicker").datepicker();
+		
+		$(function() {
+			jQuery(".checkbox" ).button();
+		});
+		
+		$(function() {
+			jQuery(".radio" ).button();
+		});
   	 }
   	);
 	  

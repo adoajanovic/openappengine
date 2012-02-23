@@ -103,7 +103,7 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 				}
 			}
 		} else if (StringUtils.equals(type, "Boolean")) {
-			fieldType = "radio";
+			fieldType = "checkbox";
 		} else if (StringUtils.equals(type, "Date")) {
 			fieldType = "date";
 		} else if (StringUtils.equals(type, "Password")) {
