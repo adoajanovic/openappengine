@@ -9,8 +9,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.widget.FormField;
 import com.openappengine.gui.engine.core.widget.FormListWidget;
+import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 
 /**
  * @author hrishikesh.joshi
@@ -58,8 +58,8 @@ public class FormListWidgetParser extends AbstractGuiElementDefinitionParser {
 				if(node instanceof Element) {
 					GuiElementDefinitionParser parser = getScreenElementDefinitionParser(node.getNodeName());
 					GuiComponent component = parser.parse((Element) node);
-					if(component instanceof FormField) {
-						formSingleWidget.addField((FormField) component);
+					if(component instanceof WidgetControl) {
+						formSingleWidget.addField((WidgetControl) component);
 					}
 				}
 			}

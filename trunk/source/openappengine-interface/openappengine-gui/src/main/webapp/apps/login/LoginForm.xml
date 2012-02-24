@@ -3,6 +3,19 @@
 	<page-content>
 		<widgets>
 			<form-single id="User_Registration" name="User_Registration">
+				<widget-control id="username" path="/User_Registration/username" type="textfield" />
+				<widget-control id="password" path="/User_Registration/password" type="password" />
+				<widget-control id="comments" path="/User_Registration/comments" type="textarea" />
+				<widget-control id="comments" path="/User_Registration/date" type="date" />
+				<widget-control id="active" path="/User_Registration/active" type="checkbox" />
+				<widget-control id="currency" path="/User_Registration/currency" type="dropdown" >
+					<select-option id="id1" label="Rupee" value="INR"/>
+					<select-option id="id2" label="Dollar" value="USD"/>
+				</widget-control>
+				<widget-control id="currency" path="/User_Registration/currency" type="radio" >
+					<select-option id="id1" label="Rupee" value="INR"/>
+					<select-option id="id2" label="Dollar" value="USD"/>
+				</widget-control>
 			</form-single>
 		</widgets>
 	</page-content>

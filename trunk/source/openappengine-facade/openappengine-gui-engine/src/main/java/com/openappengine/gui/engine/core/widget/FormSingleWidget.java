@@ -3,6 +3,8 @@ package com.openappengine.gui.engine.core.widget;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.gui.engine.core.widget.control.WidgetControl;
+
 
 
 
@@ -18,7 +20,7 @@ public class FormSingleWidget extends AbstractWidget {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<FormField> fields = new ArrayList<FormField>();
+	private List<WidgetControl> widgetControls = new ArrayList<WidgetControl>();
 	
 	@Override
 	public String getWidgetType() {
@@ -26,25 +28,25 @@ public class FormSingleWidget extends AbstractWidget {
 	}
 	
 	public boolean isAutoEntity() {
-		if(getFields() == null || getFields().isEmpty()) {
+		if(getWidgetControls() == null || getWidgetControls().isEmpty()) {
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public List<FormField> getFields() {
-		return fields;
+	public List<WidgetControl> getWidgetControls() {
+		return widgetControls;
 	}
 
-	public void setFields(List<FormField> fields) {
-		this.fields = fields;
+	public void setWidgetControls(List<WidgetControl> fields) {
+		this.widgetControls = fields;
 	}
 	
-	public void addField(FormField formField) {
-		if(formField == null) {
+	public void addField(WidgetControl widgetControl) {
+		if(widgetControl == null) {
 			return;
 		}
-		fields.add(formField);
+		widgetControls.add(widgetControl);
 	}
 }

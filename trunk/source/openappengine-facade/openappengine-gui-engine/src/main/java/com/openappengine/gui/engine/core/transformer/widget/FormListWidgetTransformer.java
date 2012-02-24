@@ -10,10 +10,10 @@ import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.gui.engine.core.widget.FormField;
 import com.openappengine.gui.engine.core.widget.FormListWidget;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.core.widget.annotation.WidgetType;
+import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -54,12 +54,12 @@ public class FormListWidgetTransformer extends WidgetTypeTransformer<FormListWid
 				}
 			}
 		} else {
-			List<FormField> formFields = formListWidget.getFields();
-			for (FormField formField : formFields) {
+			List<WidgetControl> widgetControls = formListWidget.getFields();
+			for (WidgetControl widgetControl : widgetControls) {
 				for (Element fieldEle : fields) {
 					Element formFieldEle = formDoc.createElement("formfield");
 					String fieldName = fieldEle.getAttribute("name");
-					if(StringUtils.equals(formField.getEntryName(), fieldName)) {
+					if(StringUtils.equals(widgetControl.getPath(), fieldName)) {
 						doProcessFormField(formDoc, documentElement, fieldEle);
 					}
 				}
