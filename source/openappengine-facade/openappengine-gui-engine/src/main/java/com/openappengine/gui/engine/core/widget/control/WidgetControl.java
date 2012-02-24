@@ -1,7 +1,10 @@
 /**
  * 
  */
-package com.openappengine.gui.engine.core.widget;
+package com.openappengine.gui.engine.core.widget.control;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
 import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
@@ -10,11 +13,13 @@ import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
  * @author hrishi
  * since Feb 5, 2012
  */
-public class FormField extends AbstractGuiComponent implements ValueRefAware<Object> {
+public class WidgetControl extends AbstractGuiComponent implements ValueRefAware<Object> {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String entryName;
+	private String path;
+	
+	private String type;
 	
 	private boolean hidden; 
 	
@@ -22,22 +27,24 @@ public class FormField extends AbstractGuiComponent implements ValueRefAware<Obj
 	
 	private Object value;
 	
+	private List<SelectOption> selectOptions = new ArrayList<SelectOption>();
+	
 	@Override
 	public String getComponentType() {
-		return "form-field";
+		return "widget-control";
 	}
 
 	@Override
 	public String getComponentName() {
-		return "form-field";
+		return "widget-control";
 	}
 
-	public String getEntryName() {
-		return entryName;
+	public String getPath() {
+		return path;
 	}
 
-	public void setEntryName(String entryName) {
-		this.entryName = entryName;
+	public void setPath(String entryName) {
+		this.path = entryName;
 	}
 
 	public boolean isHidden() {
@@ -64,6 +71,26 @@ public class FormField extends AbstractGuiComponent implements ValueRefAware<Obj
 	@Override
 	public void setValue(Object value) {
 		this.value = value;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<SelectOption> getSelectOptions() {
+		return selectOptions;
+	}
+
+	public void setSelectOptions(List<SelectOption> selectOptions) {
+		this.selectOptions = selectOptions;
+	}
+	
+	public boolean hasSelectOptions() {
+		return !this.selectOptions.isEmpty();
 	}
 
 }

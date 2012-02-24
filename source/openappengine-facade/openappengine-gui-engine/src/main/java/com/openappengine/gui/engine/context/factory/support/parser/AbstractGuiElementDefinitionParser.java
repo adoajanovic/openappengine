@@ -23,7 +23,7 @@ public abstract class AbstractGuiElementDefinitionParser implements GuiElementDe
 	
 	protected static final String ELEMENT_FIELD_MAP = "FIELD_MAP";
 	
-	protected Logger logger = Logger.getLogger("ElementDefinitionParser");
+	protected static final Logger logger = Logger.getLogger("ElementDefinitionParser");
 
 	/**
 	 * @param delegate

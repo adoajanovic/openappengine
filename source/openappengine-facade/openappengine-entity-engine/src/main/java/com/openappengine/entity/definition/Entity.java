@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.openappengine.entity.validator.DefaultEntityValidator;
 import com.openappengine.entity.validator.EntityValidator;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishikesh.joshi
@@ -155,7 +158,26 @@ public class Entity implements Serializable {
 	}
 
 	public Document getDocument() {
-		return document;
+		if(document == null) {
+			return null;
+		}
+		
+		Element documentElement = document.getDocumentElement();
+		Element entityEle = DomUtils.getChildElementByTagName(documentElement, "entity");
+		
+		Document retXmlDoc = UtilXml.makeEmptyXmlDocument(entityEle.getAttribute("name"));
+		
+		List<Element> fieldEles = DomUtils.getChildElementsByTagName(entityEle, "field");
+		for (Element fieldEle : fieldEles) {
+			String name = fieldEle.getAttribute("name");
+			String type = fieldEle.getAttribute("type");
+			
+			Element namedFieldEl = retXmlDoc.createElement(name);
+			namedFieldEl.setAttribute("type", type);
+			retXmlDoc.getDocumentElement().appendChild(namedFieldEl);
+		}
+		
+		return retXmlDoc;
 	}
 
 	public void setDocument(Document document) {

@@ -22,11 +22,9 @@
 		</field>
 		<field name="date" type="Date" is-required="false">
 		</field>
-		<field name="Active" type="Boolean" is-required="false">
+		<field name="active" type="Boolean" is-required="false">
 		</field>
-		<field name="Salary" type="Boolean" is-required="false">
-			<option value = ">100" />
-			<option value = ">200" />
+		<field name="currency" type="String" is-required="false">
 		</field>
 	</entity>
 </entities>

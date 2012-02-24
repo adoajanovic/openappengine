@@ -5,6 +5,7 @@
 <#include "checkbox.ftl" />
 <#include "radio.ftl" />
 <#include "password.ftl" />
+<#include "dropdown.ftl" />
 
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
@@ -94,7 +95,7 @@
 		</td>
 		
 		<td>
-			<#if .node["@type"] = "text">
+			<#if .node["@type"] = "textfield">
 				<@textField .node />
 			</#if>
 			<#if .node["@type"] = "textarea">
@@ -108,6 +109,12 @@
 			</#if>
 			<#if .node["@type"] = "checkbox">
 				<@checkbox .node />
+			</#if>
+			<#if .node["@type"] = "dropdown">
+				<@dropdown .node />
+			</#if>
+			<#if .node["@type"] = "radio">
+				<@radio .node />
 			</#if>
 		</td>
 	</tr>	

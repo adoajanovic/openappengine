@@ -23,7 +23,7 @@ public class ScreenElementDefinitionParserFactoryInitializer implements Callback
 		Set<Class<? extends GuiElementDefinitionParser>> parserClasses = reflections.getSubTypesOf(GuiElementDefinitionParser.class);
 		if (parserClasses != null && !parserClasses.isEmpty()) {
 			for (Class<? extends GuiElementDefinitionParser> clazz : parserClasses) {
-				doRegisterActionHandler(factory, clazz);
+				doRegisterParser(factory, clazz);
 			}
 		}
 		return factory;
@@ -34,7 +34,7 @@ public class ScreenElementDefinitionParserFactoryInitializer implements Callback
 	 * @param clazz
 	 * @throws ActionHandlerFactoryInitializationException
 	 */
-	private void doRegisterActionHandler(ScreenElementDefinitionParserFactory factory, Class<? extends GuiElementDefinitionParser> clazz)
+	private void doRegisterParser(ScreenElementDefinitionParserFactory factory, Class<? extends GuiElementDefinitionParser> clazz)
 			throws RuntimeException {
 		try {
 			if(Modifier.isAbstract(clazz.getModifiers()) || Modifier.isInterface(clazz.getModifiers())) {

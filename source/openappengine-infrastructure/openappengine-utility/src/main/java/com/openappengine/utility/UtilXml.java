@@ -223,12 +223,17 @@ public class UtilXml {
         return document;
     }
     
-    public static Node evaluateXPathExpression(Document doc,String xpathExpression) throws XPathExpressionException {
-    	XPathFactory xPathFactory = XPathFactoryImpl.newInstance();
-    	XPath xPath = xPathFactory.newXPath();
-    	XPathExpression pathExpression = xPath.compile(xpathExpression);
-    	Object evaluate = pathExpression.evaluate(doc, XPathConstants.NODE);
-    	return (Node) evaluate;
+    public static Node evaluateXPathExpression(Document doc,String xpathExpression) {
+    	try {
+    		XPathFactory xPathFactory = XPathFactoryImpl.newInstance();
+    		XPath xPath = xPathFactory.newXPath();
+    		XPathExpression pathExpression = xPath.compile(xpathExpression);
+    		Object evaluate = pathExpression.evaluate(doc, XPathConstants.NODE);
+    		return (Node) evaluate;
+    	} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return null;
     }
 
     public static Document makeEmptyXmlDocument() {
