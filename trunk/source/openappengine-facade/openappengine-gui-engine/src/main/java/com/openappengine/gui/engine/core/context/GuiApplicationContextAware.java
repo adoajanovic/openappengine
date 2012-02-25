@@ -13,6 +13,6 @@ public interface GuiApplicationContextAware {
 	 * Set the Screen Application Context
 	 * @param context
 	 */
-	void setGuiApplicationContext(GuiApplicationContext context);
+	void setGuiApplicationContext(GuiEngineContext context);
 	
 }

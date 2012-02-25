@@ -21,6 +21,8 @@ public interface GuiElementDefinitionParser {
 	 */
 	GuiComponent parse(Element element);
 	
+	<T extends GuiComponent> T parse(Element element, Class<T> t);
+	
 	void setDelegate(ScreenDefinitionParserDelegate delegate);
 	
 	String getParsedNodeName();

@@ -8,7 +8,7 @@ import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public class WidgetsComponent extends AbstractGuiComponent {
+public class WidgetContainer extends AbstractGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +19,6 @@ public class WidgetsComponent extends AbstractGuiComponent {
 
 	@Override
 	public String getComponentName() {
-		return "widgets";
+		return "widget";
 	}
 }

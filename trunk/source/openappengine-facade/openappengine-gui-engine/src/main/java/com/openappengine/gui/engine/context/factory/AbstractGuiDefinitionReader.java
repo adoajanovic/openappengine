@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
+import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 
@@ -28,4 +29,5 @@ public abstract class AbstractGuiDefinitionReader implements GuiDefinitionReader
 	}
 
 	protected abstract GuiRootComponent loadScreenDefinition(InputStream inputStream);
+	
 }

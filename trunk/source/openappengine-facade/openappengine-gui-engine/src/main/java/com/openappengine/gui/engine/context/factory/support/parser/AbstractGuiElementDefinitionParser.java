@@ -5,9 +5,11 @@ package com.openappengine.gui.engine.context.factory.support.parser;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.openappengine.gui.engine.context.factory.support.ScreenDefinitionParserDelegate;
+import com.openappengine.gui.engine.core.component.GuiComponent;
 
 /**
  * @author hrishi
@@ -62,4 +64,18 @@ public abstract class AbstractGuiElementDefinitionParser implements GuiElementDe
 	public void setDelegate(ScreenDefinitionParserDelegate delegate) {
 		this.delegate = delegate;
 	}
+
+	@Override
+	public <T extends GuiComponent> T parse(Element element, Class<T> t) {
+		GuiComponent guiComponent = this.parse(element);
+		if(guiComponent == null) {
+			return null;
+		}
+		
+		if(t.isAssignableFrom(guiComponent.getClass())) {
+			return (T) guiComponent;
+		}
+		return null;
+	}
+	
 }

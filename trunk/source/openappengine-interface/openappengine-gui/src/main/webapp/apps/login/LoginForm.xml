@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <screen>
 	<page-content>
-		<widgets>
-			<form-single id="User_Registration" name="User_Registration">
+		<widget id="User_Registration" name="User_Registration">
 				<widget-control id="username" path="/User_Registration/username" type="textfield" />
 				<widget-control id="password" path="/User_Registration/password" type="password" />
 				<widget-control id="comments" path="/User_Registration/comments" type="textarea" />
@@ -16,7 +15,6 @@
 					<select-option id="id1" label="Rupee" value="INR"/>
 					<select-option id="id2" label="Dollar" value="USD"/>
 				</widget-control>
-			</form-single>
-		</widgets>
+		</widget>
 	</page-content>
 </screen>

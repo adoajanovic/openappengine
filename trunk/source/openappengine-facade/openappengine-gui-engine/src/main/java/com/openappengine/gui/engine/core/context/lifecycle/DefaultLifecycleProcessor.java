@@ -9,7 +9,7 @@ import java.util.Map;
 import org.springframework.util.Assert;
 
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 import com.openappengine.gui.engine.core.context.LifecycleProcessor;
 
@@ -19,24 +19,24 @@ import com.openappengine.gui.engine.core.context.LifecycleProcessor;
  */
 public class DefaultLifecycleProcessor implements LifecycleProcessor {
 	
-	private Map<Class<?>, LifecycleEventProcessor<GuiApplicationContext>> cachedLifecyleEventProcessor;
+	private Map<Class<?>, LifecycleEventProcessor<GuiEngineContext>> cachedLifecyleEventProcessor;
 	
 	public DefaultLifecycleProcessor() {
-		cachedLifecyleEventProcessor = new HashMap<Class<?>, LifecycleEventProcessor<GuiApplicationContext>>();
+		cachedLifecyleEventProcessor = new HashMap<Class<?>, LifecycleEventProcessor<GuiEngineContext>>();
 	}
 	
 	@Override
-	public void processLifecycleEvent(ApplicationEvent<GuiApplicationContext> e) {
-		GuiApplicationContext context = e.getSource();
+	public void processLifecycleEvent(ApplicationEvent<GuiEngineContext> e) {
+		GuiEngineContext context = e.getSource();
 		
 		Class<?> clazz = e.getClass();
-		LifecycleEventProcessor<GuiApplicationContext> processor = cachedLifecyleEventProcessor.get(clazz);
+		LifecycleEventProcessor<GuiEngineContext> processor = cachedLifecyleEventProcessor.get(clazz);
 		Assert.notNull(processor,"No Lifecycle processor registered for Event Class :" + clazz.getName());
 		processor.onLifecycleEvent(e,context);
 	}
 
 	@Override
-	public void registerLifecycleEventProcessor(Class<? extends ApplicationEvent<GuiApplicationContext>> clazz,LifecycleEventProcessor<GuiApplicationContext> lifecycleEventProcessor) {
+	public void registerLifecycleEventProcessor(Class<? extends ApplicationEvent<GuiEngineContext>> clazz,LifecycleEventProcessor<GuiEngineContext> lifecycleEventProcessor) {
 		if(lifecycleEventProcessor ==null) {
 			return;
 		}

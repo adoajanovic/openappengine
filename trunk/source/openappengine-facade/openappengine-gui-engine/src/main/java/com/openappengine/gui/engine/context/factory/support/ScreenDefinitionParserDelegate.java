@@ -19,19 +19,18 @@ import com.openappengine.gui.engine.context.factory.support.parser.GuiElementDef
  */
 public class ScreenDefinitionParserDelegate {
 	
-	private Element root;
+	private static ScreenElementDefinitionParserFactory factory;
 	
-	private ScreenElementDefinitionParserFactory factory;
-	
-	public ScreenDefinitionParserDelegate(Element root) {
+	public ScreenDefinitionParserDelegate() {
 		super();
-		this.setRoot(root);
 		createNodeDefinitionParserFactory();
 	}
 
 	private void createNodeDefinitionParserFactory() {
-		ScreenElementDefinitionParserFactoryInitializer initializer = new ScreenElementDefinitionParserFactoryInitializer();
-		setFactory((ScreenElementDefinitionParserFactory) FactoryFinder.getFactory(FactoryConstants.SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY, initializer));
+		if(factory == null) {
+			ScreenElementDefinitionParserFactoryInitializer initializer = new ScreenElementDefinitionParserFactoryInitializer();
+			setFactory((ScreenElementDefinitionParserFactory) FactoryFinder.getFactory(FactoryConstants.SCREEN_ELEMENT_DEFINITION_PARSER_FACTORY, initializer));
+		}
 	}
 	
 	/**
@@ -53,19 +52,11 @@ public class ScreenDefinitionParserDelegate {
 		return parser;
 	}
 	
-	public Element getRoot() {
-		return root;
-	}
-
-	public void setRoot(Element root) {
-		this.root = root;
-	}
-
 	protected ScreenElementDefinitionParserFactory getFactory() {
 		return factory;
 	}
 
-	protected void setFactory(ScreenElementDefinitionParserFactory factory) {
-		this.factory = factory;
+	protected static void setFactory(ScreenElementDefinitionParserFactory factory) {
+		ScreenDefinitionParserDelegate.factory = factory;
 	}
 }

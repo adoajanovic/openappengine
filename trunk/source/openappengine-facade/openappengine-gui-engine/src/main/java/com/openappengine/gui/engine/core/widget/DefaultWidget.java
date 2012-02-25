@@ -10,13 +10,13 @@ import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 
 /**
  * 
- * FormSingleWidget
+ * DefaultWidget
  * 
  * @author hrishikesh.joshi
  * @since  Feb 1, 2012
  *
  */
-public class FormSingleWidget extends AbstractWidget {
+public class DefaultWidget extends AbstractWidget {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,7 +24,7 @@ public class FormSingleWidget extends AbstractWidget {
 	
 	@Override
 	public String getWidgetType() {
-		return "form-single";
+		return "widget";
 	}
 	
 	public boolean isAutoEntity() {

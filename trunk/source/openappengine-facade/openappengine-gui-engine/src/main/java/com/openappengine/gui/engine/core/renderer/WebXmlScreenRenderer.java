@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.core.renderer;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * @author hrishikesh.joshi
@@ -11,10 +11,10 @@ import com.openappengine.gui.engine.core.context.GuiApplicationContext;
  */
 public class WebXmlScreenRenderer implements ScreenRenderer {
 	
-	private GuiApplicationContext context;
+	private GuiEngineContext context;
 	
 	@Override
-	public void setGuiApplicationContext(GuiApplicationContext screenApplicationContext) {
+	public void setGuiApplicationContext(GuiEngineContext screenApplicationContext) {
 		this.context = screenApplicationContext;
 	}
 

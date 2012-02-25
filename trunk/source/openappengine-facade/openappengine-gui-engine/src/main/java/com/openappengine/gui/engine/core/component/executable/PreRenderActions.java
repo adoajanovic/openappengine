@@ -13,7 +13,7 @@ import com.openappengine.gui.engine.core.executor.action.Executable;
  * @author hrishikesh.joshi
  * @since Dec 30, 2011
  */
-public class PreRenderActionsComponent extends AbstractGuiComponent {
+public class PreRenderActions extends AbstractGuiComponent {
 
 	private static final long serialVersionUID = 1L;
 	

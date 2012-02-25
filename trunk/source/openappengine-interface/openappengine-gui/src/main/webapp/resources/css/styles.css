@@ -22,7 +22,7 @@ form {
 	margin: 0;
 	/*background:#94aebc url('images/page-bg.png') left bottom repeat;*/
 	/*background-color: #E4EFF3;*/
-	background : none repeat scroll 0 0 #F5F5F5;
+	/*background : none repeat scroll 0 0 #F5F5F5;*/
 	border: 1px solid #E5E5E5;
 	font-family: verdana;
 	font-size: 11px;
@@ -32,6 +32,10 @@ form {
 	width: auto;
 	padding: 2em;
 	overflow: visible;
+}
+
+.odd {
+   background: #E5E5E5;
 }
 
 .required {

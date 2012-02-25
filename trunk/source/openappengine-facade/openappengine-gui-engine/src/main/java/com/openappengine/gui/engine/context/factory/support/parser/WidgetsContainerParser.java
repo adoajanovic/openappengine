@@ -5,14 +5,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.component.ui.container.WidgetsComponent;
+import com.openappengine.gui.engine.core.component.ui.container.WidgetContainer;
 import com.openappengine.gui.engine.core.widget.Widget;
 
-public class WidgetsElementParser extends AbstractGuiElementDefinitionParser {
+public class WidgetsContainerParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
 	public GuiComponent parse(Element element) {
-		WidgetsComponent widgetsComponent = new WidgetsComponent();
+		WidgetContainer widgetsComponent = new WidgetContainer();
 		NodeList nl = element.getChildNodes();
 		if(nl != null) {
 			for(int i = 0; i < nl.getLength(); i++) {

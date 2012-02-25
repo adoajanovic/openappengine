@@ -5,7 +5,7 @@ package com.openappengine.gui.engine.core.executor;
 
 import org.springframework.util.Assert;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.executor.action.ActionHandler;
 
 /**
@@ -15,10 +15,10 @@ import com.openappengine.gui.engine.core.executor.action.ActionHandler;
 @Deprecated
 public class DefaultActionExecutor implements ActionExecutor {
 	
-	private GuiApplicationContext context;
+	private GuiEngineContext context;
 
 	@Override
-	public void setGuiApplicationContext(GuiApplicationContext context) {
+	public void setGuiApplicationContext(GuiEngineContext context) {
 		this.context = context;
 	}
 

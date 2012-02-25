@@ -12,7 +12,7 @@ import com.openappengine.gui.engine.context.factory.support.ScreenDefinitionPars
 import com.openappengine.gui.engine.context.factory.support.parser.GuiElementDefinitionParser;
 import com.openappengine.gui.engine.context.factory.support.parser.ParserConstants;
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 import com.openappengine.gui.engine.core.component.transition.TransitionComponent;
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 import com.openappengine.gui.engine.core.component.ui.container.PageContentComponent;
@@ -42,7 +42,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	}
 
 	protected ScreenDefinitionParserDelegate createParserDelegate(Element root) {
-		ScreenDefinitionParserDelegate parserDelegate = new ScreenDefinitionParserDelegate(root);
+		ScreenDefinitionParserDelegate parserDelegate = new ScreenDefinitionParserDelegate();
 		return parserDelegate;
 	}
 	
@@ -60,7 +60,7 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	private void parseElement(Element element,ScreenDefinitionParserDelegate delegate) {
 		//Parse the pre-actions component.
 		if(delegate.nodeNameEquals(element, NodeNames.PRE_ACTIONS)) {
-			PreRenderActionsComponent parsePreActions = parsePreActions(element, delegate);
+			PreRenderActions parsePreActions = parsePreActions(element, delegate);
 			getUiRoot().setPreRenderActionComponent(parsePreActions);
 		} else if(delegate.nodeNameEquals(element, NodeNames.TRANSITION)) {
 			GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(NodeNames.TRANSITION);
@@ -78,11 +78,11 @@ public class DefaultScreenDefinitionDocumentReader implements ScreenDefinitionDo
 	 * set in the Component Tree.
 	 * @param element
 	 * @param delegate
-	 * @return PreRenderActionsComponent created from the parsed XML Node.
+	 * @return PreRenderActions created from the parsed XML Node.
 	 */
-	private PreRenderActionsComponent parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
+	private PreRenderActions parsePreActions(Element element,ScreenDefinitionParserDelegate delegate) {
 		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser(ParserConstants.PRE_ACTIONS_PARSER);
-		PreRenderActionsComponent preActions = (PreRenderActionsComponent) parser.parse(element);
+		PreRenderActions preActions = (PreRenderActions) parser.parse(element);
 		return preActions;
 	}
 

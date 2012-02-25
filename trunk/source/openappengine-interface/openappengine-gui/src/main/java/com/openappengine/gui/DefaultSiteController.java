@@ -15,8 +15,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.web.support.GuiApplicationContextAwareHttpServletRequest;
 
 /**
@@ -34,10 +33,11 @@ public class DefaultSiteController {
 	public String handleRequest(HttpServletRequest request,@PathVariable("name") String  name,Locale locale, Model model) {
 		
 		if(GuiApplicationContextAwareHttpServletRequest.class.isAssignableFrom(request.getClass())) {
-			GuiApplicationContext context = ((GuiApplicationContextAwareHttpServletRequest)request).getGuiApplicationContext();
+			GuiEngineContext context = ((GuiApplicationContextAwareHttpServletRequest)request).getGuiApplicationContext();
 			if(context != null) {
-				GuiRootComponent root = context.getUIRoot();
-				model.addAttribute("uiRoot", root);
+				
+				/*GuiRootComponent root = context.getUIRoot();
+				model.addAttribute("uiRoot", root);*/
 				
 				//Add Model Map to the Request Context.
 				model.addAllAttributes(context.getExternalContext().getModelMap());

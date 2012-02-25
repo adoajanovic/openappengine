@@ -5,7 +5,7 @@ package com.openappengine.gui.engine.core;
 
 import org.springframework.util.Assert;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.fsm.TransitionEvent;
 
 /**
@@ -14,10 +14,10 @@ import com.openappengine.gui.engine.fsm.TransitionEvent;
  */
 public class DefaultTransitionHandler implements TransitionHandler {
 	
-	private GuiApplicationContext applicationContext;
+	private GuiEngineContext applicationContext;
 	
 	@Override
-	public void setGuiApplicationContext(GuiApplicationContext context) {
+	public void setGuiApplicationContext(GuiEngineContext context) {
 		Assert.notNull(context, "ScreenApplicationContext cannot be null.");
 		this.applicationContext = context;
 	}

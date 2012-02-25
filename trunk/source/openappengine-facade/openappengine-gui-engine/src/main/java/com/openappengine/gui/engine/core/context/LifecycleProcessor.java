@@ -13,12 +13,12 @@ public interface LifecycleProcessor {
 	 * Register a Lifecycle Event Processor.
 	 * @param lifecycleEventProcessor
 	 */
-	public void registerLifecycleEventProcessor(Class<? extends ApplicationEvent<GuiApplicationContext>> clazz,LifecycleEventProcessor<GuiApplicationContext> lifecycleEventProcessor);
+	public void registerLifecycleEventProcessor(Class<? extends ApplicationEvent<GuiEngineContext>> clazz,LifecycleEventProcessor<GuiEngineContext> lifecycleEventProcessor);
 	
 	/**
 	 * Process Lifecycle Event.
 	 * @param e
 	 */
-	void processLifecycleEvent(ApplicationEvent<GuiApplicationContext> e);
+	void processLifecycleEvent(ApplicationEvent<GuiEngineContext> e);
 
 }

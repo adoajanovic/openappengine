@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 import com.openappengine.gui.engine.context.factory.xml.DefaultScreenDefinitionDocumentReader;
 import com.openappengine.gui.engine.context.factory.xml.ScreenDefinitionDocumentReader;
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
+import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishikesh.joshi
@@ -47,6 +48,20 @@ public class DefaultGuiDefinitionReader extends AbstractGuiDefinitionReader {
 			InputStream inputStream = resource.getInputStream();
 			return loadScreenDefinition(inputStream);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Document getScreenXmlDocument(Resource resource) {
+		try {
+			Document document = UtilXml.readXmlDocument(resource.getInputStream());
+			return document;
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
 		return null;

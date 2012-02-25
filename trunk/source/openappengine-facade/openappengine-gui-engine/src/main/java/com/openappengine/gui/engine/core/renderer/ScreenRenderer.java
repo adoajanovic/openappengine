@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.core.renderer;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.GuiApplicationContextAware;
 
 /**
@@ -19,6 +19,6 @@ public interface ScreenRenderer extends GuiApplicationContextAware{
 	 * Set the Screen Application context.
 	 * @param screenApplicationContext
 	 */
-	void setGuiApplicationContext(GuiApplicationContext screenApplicationContext);
+	void setGuiApplicationContext(GuiEngineContext screenApplicationContext);
 
 }

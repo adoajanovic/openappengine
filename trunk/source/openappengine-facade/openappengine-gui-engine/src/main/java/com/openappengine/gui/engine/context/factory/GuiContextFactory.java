@@ -5,7 +5,7 @@ package com.openappengine.gui.engine.context.factory;
 
 import org.springframework.core.io.Resource;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * The Factory is initialized from the listener and 
@@ -28,34 +28,34 @@ public interface GuiContextFactory {
 	 * @param resource
 	 * @return
 	 */
-	GuiApplicationContext createGuiApplicationContext(Resource resource);
+	GuiEngineContext createGuiEngineContext(Resource resource);
 	
 	/**
 	 * Register the ScreenApplicationContext with the factory.
 	 * @param resource
 	 * @param context
 	 */
-	void registerScreenApplicationContext(Resource resource,GuiApplicationContext context);
+	void registerGuiEngineContext(Resource resource,GuiEngineContext context);
 	
 	/**
 	 * @param resource
 	 * @return
 	 */
-	GuiApplicationContext getApplicationContext(Resource resource);
+	GuiEngineContext getApplicationContext(Resource resource);
 
 	/**
 	 * @param applicationContext
 	 */
-	void processLifecylePreRenderActions(GuiApplicationContext applicationContext);
+	void processLifecylePreRenderActions(GuiEngineContext applicationContext);
 
 	/**
 	 * @param applicationContext
 	 */
-	void processLifecycleInitializedEvent(GuiApplicationContext applicationContext);
+	void processLifecycleInitializedEvent(GuiEngineContext applicationContext);
 	
-	public void processLifecycleTransformWidgetsEvent(GuiApplicationContext applicationContext);
+	public void processLifecycleTransformWidgetsEvent(GuiEngineContext applicationContext);
 	
-	void processLifecylePostRestoreProcessing(GuiApplicationContext applicationContext);
+	void processLifecylePostRestoreProcessing(GuiEngineContext applicationContext);
 
-	void refreshMessages(GuiApplicationContext context);
+	void refreshMessages(GuiEngineContext context);
 }

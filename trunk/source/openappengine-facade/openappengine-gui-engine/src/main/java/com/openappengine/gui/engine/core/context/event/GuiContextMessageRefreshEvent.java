@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.core.context.event;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * @author hrishikesh.joshi
@@ -17,7 +17,7 @@ public class GuiContextMessageRefreshEvent extends GuiContextEvent {
 	/**
 	 * @param source
 	 */
-	public GuiContextMessageRefreshEvent(GuiApplicationContext source) {
+	public GuiContextMessageRefreshEvent(GuiEngineContext source) {
 		super(source);
 	}
 

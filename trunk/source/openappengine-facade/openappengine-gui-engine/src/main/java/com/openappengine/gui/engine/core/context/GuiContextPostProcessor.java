@@ -16,6 +16,6 @@ public interface GuiContextPostProcessor {
 	 * @param context
 	 * @return the original context or wrapped/post-processed context instance.
 	 */
-	GuiApplicationContext postProcessGuiContext(GuiApplicationContext context);
+	GuiEngineContext postProcessGuiContext(GuiEngineContext context);
 
 }

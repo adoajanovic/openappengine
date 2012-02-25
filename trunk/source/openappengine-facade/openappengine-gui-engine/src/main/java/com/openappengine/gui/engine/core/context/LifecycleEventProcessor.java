@@ -11,5 +11,5 @@ package com.openappengine.gui.engine.core.context;
  */
 public interface LifecycleEventProcessor<T> {
 
-	void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event,T t);
+	void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event,T t);
 }

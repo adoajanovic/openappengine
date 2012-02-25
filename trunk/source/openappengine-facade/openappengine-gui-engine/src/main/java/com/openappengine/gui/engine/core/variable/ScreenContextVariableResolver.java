@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.util.Assert;
 
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * @author hrishikesh.joshi
@@ -16,21 +16,16 @@ import com.openappengine.gui.engine.core.context.GuiApplicationContext;
  */
 public class ScreenContextVariableResolver implements VariableResolver {
 	
-	private GuiApplicationContext context;
+	private GuiEngineContext context;
 	
-	public ScreenContextVariableResolver(GuiApplicationContext context) {
+	public ScreenContextVariableResolver(GuiEngineContext context) {
 		Assert.notNull(context,"ScreenApplicationContext cannot be null.");
 		setGuiApplicationContext(context);
 	}
 
 	@Override
 	public Object getValue(String name) {
-		GuiRootComponent uiRoot = context.getUIRoot();
-		if(uiRoot == null) {
-			return null;
-		}
-		
-		Map<String, Variable> variables = uiRoot.getScreenVariables();
+		Map<String, Variable> variables = context.getScreenVariables();
 		if(variables == null) {
 			return null;
 		}
@@ -44,7 +39,7 @@ public class ScreenContextVariableResolver implements VariableResolver {
 	}
 
 	@Override
-	public void setGuiApplicationContext(GuiApplicationContext context) {
+	public void setGuiApplicationContext(GuiEngineContext context) {
 		this.context = context;
 	}
 

@@ -50,15 +50,11 @@
 		</div>
 	</#if>
 	
-	<#assign pageContent = uiRoot.pageContent >
- 	<#assign widgets = pageContent.getWidgets() >
+	<#assign widgets = guiEngineContext.getScreenWidgets() >
  	
  	<#list widgets as widget>
- 		<#assign childWidgets = widget.getChildComponents() >
- 		<#list widget.getChildComponents() as childWidget>
- 			<@gui.renderWidget childWidget />
- 			<!-- Can be replaced with visit directive -->
- 		</#list>
+ 		<@gui.renderWidget widget />
+		<!-- Can be replaced with visit directive -->
  	</#list>
  </div>
 	
