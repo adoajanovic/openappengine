@@ -22,14 +22,15 @@ public class PageContentComponent extends AbstractGuiComponent {
 		return "page-content";
 	}
 	
+	//TODO - Move to GuiEngineContext
 	/**
 	 * @return - An unmodifiable list of Widgets.
 	 */
-	public List<WidgetsComponent> getWidgets() {
-		final List<WidgetsComponent> widgetsComponents = new ArrayList<WidgetsComponent>();
+	public List<WidgetContainer> getWidgets() {
+		final List<WidgetContainer> widgetsComponents = new ArrayList<WidgetContainer>();
 		for(GuiComponent guiComponent : getChildComponents()) {
 			if(guiComponent.getComponentName().equals(NodeNames.WIDGETS)) {
-				widgetsComponents.add((WidgetsComponent) guiComponent);
+				widgetsComponents.add((WidgetContainer) guiComponent);
 			}
 		}
 		return Collections.unmodifiableList(widgetsComponents);

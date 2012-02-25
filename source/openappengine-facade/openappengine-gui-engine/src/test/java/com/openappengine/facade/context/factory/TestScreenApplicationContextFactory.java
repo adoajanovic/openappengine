@@ -18,7 +18,7 @@ import com.openappengine.gui.engine.context.factory.FactoryConstants;
 import com.openappengine.gui.engine.context.factory.FactoryFinder;
 import com.openappengine.gui.engine.context.factory.GuiContextFactory;
 import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializationCallback;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.ext.ExternalWebContext;
 
@@ -46,8 +46,8 @@ public class TestScreenApplicationContextFactory {
 		request.addParameter("codeTypeId", "1");
 		ExternalContext externalContext = new ExternalWebContext(request);
 		
-		GuiApplicationContext applicationContext = screenApplicationContextFactory.createGuiApplicationContext(resource);
-		Assert.assertNotNull("GuiApplicationContext instance could not be created.",applicationContext);
+		GuiEngineContext applicationContext = screenApplicationContextFactory.createGuiEngineContext(resource);
+		Assert.assertNotNull("GuiEngineContext instance could not be created.",applicationContext);
 	}
 
 }

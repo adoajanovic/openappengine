@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.core.context.event;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * @author hrishikesh.joshi
@@ -13,7 +13,7 @@ public class TransformWidgetsEvent extends GuiContextEvent {
 
 	private static final long serialVersionUID = 1L;
 	
-	public TransformWidgetsEvent(GuiApplicationContext source) {
+	public TransformWidgetsEvent(GuiEngineContext source) {
 		super(source);
 	}
 

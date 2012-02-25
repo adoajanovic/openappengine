@@ -4,17 +4,21 @@
 package com.openappengine.gui.engine.core.context;
 
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.ELContext;
 import com.openappengine.gui.engine.core.Resolver;
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
+import com.openappengine.gui.engine.core.component.ui.container.WidgetContainer;
 import com.openappengine.gui.engine.core.component.ui.message.MessageContext;
 import com.openappengine.gui.engine.core.el.ExpressionEvaluator;
 import com.openappengine.gui.engine.core.executor.ActionExecutor;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.renderer.ScreenRenderer;
+import com.openappengine.gui.engine.core.variable.Variable;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.fsm.TransitionEventListener;
 
@@ -25,30 +29,25 @@ import com.openappengine.gui.engine.fsm.TransitionEventListener;
  * @author hrishi
  * since Dec 29, 2011
  */
-public interface GuiApplicationContext {
-	
-	/**
-	 *  Restore Gui Component.
-	 */
-	public static final String RESTORE_GUI_COMPONENT = "RESTORE_GUI_COMPONENT";
-	
-	/**
-	 *  Apply Parameters.
-	 */
-	public static final String APPLY_PARAMETERS = "APPLY_PARAMETERS";
+public interface GuiEngineContext {
 	
 	/**
 	 * Get The UIRoot of this context.
 	 * @return
 	 */
+	//TODO - To Remove..
 	GuiRootComponent getUIRoot();
 	
 	Document getScreenXmlDocument();
+	
+	
+	PreRenderActions getPreRenderActions();
 	
 	/**
 	 * Set the Root.
 	 * @param root
 	 */
+	//TODO - Remove
 	void setUIRoot(GuiRootComponent root);
 	
 	/**
@@ -76,12 +75,6 @@ public interface GuiApplicationContext {
 	 */
 	Resolver getVariableResolver();
 	
-	/**
-	 * Get the ActionExecutor to execute any actions.
-	 * @return
-	 */
-	ActionExecutor getActionExecutor();
-	
 	TransitionEventListener getTransitionEventListener();
 	
 	MessageContext getMessageContext();
@@ -101,4 +94,9 @@ public interface GuiApplicationContext {
 	List<Widget> getReferencedWidgets(String valueRef);
 	
 	void addValueReferencedWidget(String valueRef, Widget widget);
+
+	Map<String, Variable> getScreenVariables();
+	
+	List<Widget> getScreenWidgets();
+	
 }

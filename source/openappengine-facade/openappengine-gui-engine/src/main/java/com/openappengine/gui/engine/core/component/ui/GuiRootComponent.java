@@ -12,12 +12,11 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 import com.openappengine.gui.engine.core.component.transition.TransitionComponent;
 import com.openappengine.gui.engine.core.component.ui.container.PageContentComponent;
-import com.openappengine.gui.engine.core.component.ui.container.WidgetsComponent;
-import com.openappengine.gui.engine.core.component.ui.message.MessageContext;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.component.ui.container.WidgetContainer;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.variable.Variable;
 import com.openappengine.gui.engine.fsm.Node;
 import com.openappengine.gui.engine.fsm.TransitionEvent;
@@ -30,9 +29,9 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 
 	private static final long serialVersionUID = 1L;
 	
-	private GuiApplicationContext context;
+	private GuiEngineContext context;
 	
-	private PreRenderActionsComponent preRenderActionsComponent;
+	private PreRenderActions preRenderActions;
 	
 	private PageContentComponent pageContent;
 	
@@ -50,27 +49,29 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 		return "root";
 	}
 	
+	//TODO - Move to GuiEngineContext
 	public Map<String, Variable> getScreenVariables() {
 		return screenVariables;
 	}
 
-	public PreRenderActionsComponent getPreRenderActionComponent() {
-		return preRenderActionsComponent;
+	//TODO - Move to GuiEngineContext
+	public PreRenderActions getPreRenderActions() {
+		return preRenderActions;
 	}
 
-	public void setPreRenderActionComponent(PreRenderActionsComponent preActions) {
-		this.preRenderActionsComponent = preActions;
+	public void setPreRenderActionComponent(PreRenderActions preActions) {
+		this.preRenderActions = preActions;
 	}
 
 	public void setScreenVariables(Map<String, Variable> screenVariables) {
 		this.screenVariables = screenVariables;
 	}
 
-	protected GuiApplicationContext getContext() {
+	protected GuiEngineContext getContext() {
 		return context;
 	}
 
-	public void setContext(GuiApplicationContext context) {
+	public void setContext(GuiEngineContext context) {
 		this.context = context;
 	}
 	
@@ -92,28 +93,6 @@ public class GuiRootComponent extends AbstractGuiComponent implements Node {
 		}
 		
 		this.screenTransitions.add(transition);
-	}
-	
-	/**
-	 * Get WidgetType keyed by Id.
-	 * @param id
-	 * @return
-	 */
-	public GuiComponent getWidget(String id) {
-		if(StringUtils.isEmpty(id)) {
-			return null;
-		}
-		
-		List<WidgetsComponent> widgets = pageContent.getWidgets();
-		if(widgets != null) {
-			for (WidgetsComponent widgetsComponent : widgets) {
-				if(StringUtils.equals(widgetsComponent.getId(),id)) {
-					return widgetsComponent;
-				}
-			}
-		}
-		
-		return null;
 	}
 	
 	//Implementations of Node Interface

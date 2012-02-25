@@ -4,53 +4,48 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
-import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
 import com.openappengine.gui.engine.core.component.GuiComponent;
 import com.openappengine.gui.engine.core.component.executable.AbstractExecutableComponent;
-import com.openappengine.gui.engine.core.component.executable.PreRenderActionsComponent;
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 import com.openappengine.gui.engine.core.executor.action.ActionDispatcher;
 import com.openappengine.gui.engine.core.executor.action.dispatcher.ActionDispatcherFactory;
-import com.openappengine.gui.engine.core.transformer.WidgetTransformer;
 import com.openappengine.gui.engine.core.widget.Widget;
 
 
-public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
+public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProcessor<GuiEngineContext> {
 
 	private static final Logger logger = Logger.getLogger("GuiContextRestoreEvent");
 	
 	private ActionDispatcherFactory actionDispatcherFactory = new ActionDispatcherFactory();
 	
 	@Override
-	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event, GuiApplicationContext context) {
+	public void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event, GuiEngineContext context) {
 		Assert.notNull(context, "Context Null !");
-		GuiRootComponent uiRoot = context.getUIRoot();
 		context.postRootConstruction();
-		handlePreRenderActions(context, uiRoot);
+		handlePreRenderActions(context);
 	}
 
 	/**
 	 * Handle PreRender Actions.
 	 * 
 	 * @param context
-	 * @param uiRoot
 	 */
-	protected void handlePreRenderActions(GuiApplicationContext context,
-			GuiRootComponent uiRoot) {
-		PreRenderActionsComponent preRenderActionComponent = uiRoot.getPreRenderActionComponent();
+	protected void handlePreRenderActions(GuiEngineContext context) {
 		
-		if (preRenderActionComponent == null
-				|| preRenderActionComponent.getChildComponents() == null
-				|| preRenderActionComponent.getChildComponents().isEmpty()) {
+		PreRenderActions preRenderActions = context.getPreRenderActions();
+		
+		if (preRenderActions == null
+				|| preRenderActions.getChildComponents() == null
+				|| preRenderActions.getChildComponents().isEmpty()) {
 			logger.debug("No Pre-Render Actions defined.");
 		} else {
 			logger.debug("Executing Pre-Render Actions.");
-			for (GuiComponent guiComponent : preRenderActionComponent.getChildComponents()) {
+			for (GuiComponent guiComponent : preRenderActions.getChildComponents()) {
 				if(guiComponent instanceof AbstractExecutableComponent) {
 					logger.debug("Calling PreRenderAction : " + guiComponent.getComponentName());
 					
@@ -67,7 +62,7 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 * @param context
 	 * @param guiComponent
 	 */
-	protected void doHandlePreRenderAction(GuiApplicationContext context,AbstractExecutableComponent exec) {
+	protected void doHandlePreRenderAction(GuiEngineContext context,AbstractExecutableComponent exec) {
 		List<Widget> referencedWidgets = null;
 		if (exec.hasValueField()) {
 			String valueField = exec.getValueField();

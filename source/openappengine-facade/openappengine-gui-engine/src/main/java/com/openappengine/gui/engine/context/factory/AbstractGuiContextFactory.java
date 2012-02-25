@@ -3,15 +3,14 @@
  */
 package com.openappengine.gui.engine.context.factory;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.core.io.Resource;
+import org.w3c.dom.Document;
 
-import com.openappengine.gui.engine.core.component.GuiComponent;
 import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleProcessor;
 
 /**
@@ -20,7 +19,7 @@ import com.openappengine.gui.engine.core.context.LifecycleProcessor;
  */
 public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 
-	protected static final Map<Resource, GuiApplicationContext> cachedGuiApplicationContexts = new ConcurrentHashMap<Resource, GuiApplicationContext>();
+	protected static final Map<Resource, GuiEngineContext> cachedGuiApplicationContexts = new ConcurrentHashMap<Resource, GuiEngineContext>();
 	
 	private GuiDefinitionReader reader = new DefaultGuiDefinitionReader(this);
 	
@@ -28,16 +27,19 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 	
 	private LifecycleProcessor lifecycleProcessor;
 	
-	private Map<String,GuiComponent> unresolvedGuiComponents = new HashMap<String, GuiComponent>();
-	
-	protected GuiRootComponent createGuiRoot(Resource resource, GuiApplicationContext context) {
+	protected GuiRootComponent createGuiRoot(Resource resource, GuiEngineContext context) {
 		GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
 		context.setUIRoot(uiRoot);
 		return uiRoot;
 	}
 	
+	protected Document getScreenXmlDocument(Resource resource) {
+		Document document = reader.getScreenXmlDocument(resource);
+		return document;
+	}
+	
 	@Override
-	public void registerScreenApplicationContext(Resource resource, GuiApplicationContext context) {
+	public void registerGuiEngineContext(Resource resource, GuiEngineContext context) {
 		cachedGuiApplicationContexts.put(resource, context);
 	}
 
@@ -55,7 +57,7 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 	}
 	
 	@Override
-	public GuiApplicationContext getApplicationContext(Resource resource) {
+	public GuiEngineContext getApplicationContext(Resource resource) {
 		return cachedGuiApplicationContexts.get(resource);
 	}
 
@@ -67,11 +69,4 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 		this.lifecycleProcessor = lifecycleProcessor;
 	}
 
-	public Map<String,GuiComponent> getUnresolvedGuiComponents() {
-		return unresolvedGuiComponents;
-	}
-
-	public void setUnresolvedGuiComponents(Map<String,GuiComponent> unresolvedGuiComponents) {
-		this.unresolvedGuiComponents = unresolvedGuiComponents;
-	}
 }

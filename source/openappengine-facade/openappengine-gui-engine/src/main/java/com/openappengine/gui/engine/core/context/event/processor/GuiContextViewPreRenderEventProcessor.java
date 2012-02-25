@@ -1,7 +1,7 @@
 package com.openappengine.gui.engine.core.context.event.processor;
 
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 
 /**
@@ -9,11 +9,11 @@ import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
  * since Jan 21, 2012
  */
 public class GuiContextViewPreRenderEventProcessor implements
-		LifecycleEventProcessor<GuiApplicationContext> {
+		LifecycleEventProcessor<GuiEngineContext> {
 
 	@Override
-	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event,
-			GuiApplicationContext t) {
+	public void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event,
+			GuiEngineContext t) {
 		// TODO Auto-generated method stub
 	}
 

@@ -4,7 +4,7 @@
 package com.openappengine.gui.engine.core.context.event.processor;
 
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 
 /**
@@ -12,10 +12,10 @@ import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
  * @since  Jan 31, 2012
  *
  */
-public class UpdateMessageEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
+public class UpdateMessageEventProcessor implements LifecycleEventProcessor<GuiEngineContext> {
 
 	@Override
-	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event,GuiApplicationContext context) {
+	public void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event,GuiEngineContext context) {
 		//Add MessageContext messages.
 		context.getExternalContext().addModelMapAttribute("contextMessages", context.getMessageContext().getAllMessages());
 		context.getExternalContext().addModelMapAttribute("errorMessages", context.getMessageContext().getErrorMessages());

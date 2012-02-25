@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
 import org.w3c.dom.Document;
 
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.renderer.ScreenRenderer;
 import com.openappengine.gui.engine.core.renderer.WebXmlScreenRenderer;
@@ -24,7 +26,7 @@ import com.openappengine.gui.engine.fsm.WebTransitionEventListener;
  * @author hrishikesh.joshi
  * @since Dec 29, 2011
  */
-public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
+public class WebGuiApplicationContext extends AbstractGuiEngineContext {
 
 	protected ScreenRenderer screenRenderer;
 	
@@ -33,10 +35,11 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	protected TransitionEventListener transitionEventListener;
 	
 	//Metadata
-	
 	protected final Map<String,List<Widget>> referencedWidgets = new ConcurrentHashMap<String, List<Widget>>();
 	
-	public WebGuiApplicationContext() {
+	public WebGuiApplicationContext(Document document) {
+		Assert.notNull(document,"Screen Xml Document could not be created..!");
+		this.setScreenXmlDocument(document);
 	}
 
 	/**
@@ -44,8 +47,8 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 	 */
 	public void postRootConstruction() {
 		screenRenderer = new WebXmlScreenRenderer();
-		transitionEventListener = new WebTransitionEventListener(getUIRoot());
-		transitionEventListener.setExpressionEvaluator(getExpressionEvaluator());
+		/*transitionEventListener = new WebTransitionEventListener(getUIRoot());
+		transitionEventListener.setExpressionEvaluator(getExpressionEvaluator());*/
 	}
 	
 	@Override
@@ -90,12 +93,6 @@ public class WebGuiApplicationContext extends AbstractGuiApplicationContext {
 			return null;
 		}
 		return referencedWidgets.get(valueRef);
-	}
-
-	@Override
-	public Document getScreenXmlDocument() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

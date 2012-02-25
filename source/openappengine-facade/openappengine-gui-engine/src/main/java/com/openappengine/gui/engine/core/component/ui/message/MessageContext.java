@@ -8,11 +8,11 @@ import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**
  * MessageContext is an interface that decouples the form labels/validation/information messages
- * from individual Widgets. The MessageContext is initialized everytime the {@link GuiApplicationContext}
+ * from individual Widgets. The MessageContext is initialized everytime the {@link GuiEngineContext}
  * is initialized. 
  * 
  * The ActionHandler's, TransitionEventListeners, Validators get a handle to the MessageContext. So they can

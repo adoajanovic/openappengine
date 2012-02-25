@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.executable.AbstractExecutableComponent;
-import com.openappengine.gui.engine.core.component.executable.PreRenderActionsComponent;
+import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
 
 /**
  * @author hrishi
@@ -17,8 +17,8 @@ import com.openappengine.gui.engine.core.component.executable.PreRenderActionsCo
 public class PreActionsElementParser extends AbstractGuiElementDefinitionParser {
 
 	@Override
-	public PreRenderActionsComponent parse(Element element) {
-		PreRenderActionsComponent preRenderActionsComponent = new PreRenderActionsComponent();
+	public PreRenderActions parse(Element element) {
+		PreRenderActions preRenderActionsComponent = new PreRenderActions();
 		if(element != null) {
 			NodeList nl = element.getChildNodes();
 			for(int i=0; i < nl.getLength();i++) {

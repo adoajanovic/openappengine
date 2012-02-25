@@ -10,13 +10,10 @@
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
   <!-- Form Single -->
-  <#if childWidget.getWidgetType() = "form-single">
+  <#if childWidget.getWidgetType() = "widget">
 	  <@formSingle childWidget />
   </#if>
-  
-  <#if childWidget.getWidgetType() = "form-list">
-	  <@formList childWidget />
-  </#if>
+  <!-- Add Custom Widgets -->
 </#macro>
 
 <#macro renderFieldsRecursively parent>
@@ -126,16 +123,16 @@
 
 <#macro formSingle childWidget>
 	<!-- Form Command Object -->
-	<div>	
-	 	<#if childWidget.getWidgetDataXml()?has_content>
+	<div>
+		<#local widgetDataXml = childWidget.getWidgetDataXml()>	
+	 	<#if widgetDataXml?has_content>
 	 		<!-- Widget : form-single -->
 			<form action="${currentURL}" method="post">
 			<!-- Meta Model Attributes Used for Processing Widget Submits -->
 				<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
 		 		<fieldset>
 					<table style="width:auto;">
-						<#assign formCommand = childWidget.getWidgetDataXml()>
-						<@renderFieldsRecursively formCommand />
+						<@renderFieldsRecursively widgetDataXml />
 		 			</table>
 		 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
 	 			</fieldset>

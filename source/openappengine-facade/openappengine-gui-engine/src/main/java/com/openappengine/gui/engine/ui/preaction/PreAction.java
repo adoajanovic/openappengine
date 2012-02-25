@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.ui.preaction;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.executor.action.Executable;
 
 /**
@@ -12,6 +12,6 @@ import com.openappengine.gui.engine.core.executor.action.Executable;
  */
 public abstract class PreAction implements Executable {
 
-	public abstract Object execute(GuiApplicationContext screenContext);
+	public abstract Object execute(GuiEngineContext screenContext);
 	
 }

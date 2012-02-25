@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.openappengine.gui.engine.core.widget.FormSingleWidget;
+import com.openappengine.gui.engine.core.widget.DefaultWidget;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.core.widget.annotation.WidgetType;
 import com.openappengine.gui.engine.core.widget.control.SelectOption;
@@ -23,27 +23,27 @@ import com.openappengine.utility.UtilXml;
  * @author hrishi
  * since Feb 12, 2012
  */
-@WidgetType("form-single")
-public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget>{
+@WidgetType("widget")
+public class DefaultWidgetTransfomer extends WidgetTypeTransformer<DefaultWidget>{
 
-	protected static final Logger logger = Logger.getLogger(FormSingleTransfomer.class);
+	protected static final Logger logger = Logger.getLogger(DefaultWidgetTransfomer.class);
 			
 	/**
 	 * @param element
-	 * @param formSingleWidget TODO
+	 * @param defaultWidget TODO
 	 */
-	private Document translateFormSingle(Element element, FormSingleWidget formSingleWidget) {
+	private Document translateFormSingle(Element element, DefaultWidget defaultWidget) {
 		String entityName = element.getNodeName();
 		
-		Document formDoc = UtilXml.makeEmptyXmlDocument(formSingleWidget.getComponentName());
+		Document formDoc = UtilXml.makeEmptyXmlDocument(defaultWidget.getComponentName());
 		Element documentElement = formDoc.getDocumentElement();
 		documentElement.setAttribute("name", entityName);
-		documentElement.setAttribute("id", formSingleWidget.getId());
+		documentElement.setAttribute("id", defaultWidget.getId());
 		
 		List<Element> fields = DomUtils.getChildElementsByTagName(element, "field");
 		
 		
-		if(formSingleWidget.isAutoEntity()) {
+		if(defaultWidget.isAutoEntity()) {
 			if(fields != null) {
 				for (Element fieldEle : fields) {
 					doProcessAutoFormControl(formDoc, documentElement, fieldEle);
@@ -51,7 +51,7 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 			}
 		} else {
 			//TODO - Handle this..Using the XPATH exprssion.
-			List<WidgetControl> widgetControls = formSingleWidget.getWidgetControls();
+			List<WidgetControl> widgetControls = defaultWidget.getWidgetControls();
 			for (WidgetControl widgetControl : widgetControls) {
 				String path = widgetControl.getPath();
 				String type = widgetControl.getType();
@@ -179,11 +179,11 @@ public class FormSingleTransfomer extends WidgetTypeTransformer<FormSingleWidget
 	
 	@Override
 	protected boolean supportsWidget(Widget widget) {
-		return FormSingleWidget.class.isAssignableFrom(widget.getClass());
+		return DefaultWidget.class.isAssignableFrom(widget.getClass());
 	}
 
 	@Override
-	protected Document transformWidget(FormSingleWidget widget,Document responseXml) {
+	protected Document transformWidget(DefaultWidget widget,Document responseXml) {
 		System.out.println(UtilXml.writeXmlDocument(responseXml));
 		/*if(entityElements.size() != 1) {
 		List<Element> entityElements = DomUtils.getChildElementsByTagName(responseXml.getDocumentElement(), "entity");

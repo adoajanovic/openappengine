@@ -9,14 +9,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.widget.FormSingleWidget;
+import com.openappengine.gui.engine.core.widget.DefaultWidget;
 import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 
 /**
  * @author hrishikesh.joshi
  * @since Jan 5, 2012
  */
-public class FormSingleWidgetParser extends AbstractGuiElementDefinitionParser {
+public class DefaultWidgetParser extends AbstractGuiElementDefinitionParser {
 	
 	private static final String ATTR_ID = "id";
 
@@ -28,13 +28,13 @@ public class FormSingleWidgetParser extends AbstractGuiElementDefinitionParser {
 	
 	@Override
 	public GuiComponent parse(Element element) {
-		FormSingleWidget formSingleWidget = new FormSingleWidget();
+		DefaultWidget defaultWidget = new DefaultWidget();
 		
 		String attrId = element.getAttribute(ATTR_ID);
 		if(StringUtils.isEmpty(attrId)) {
 			throw new XmlDefinitionParserException("[Element :" + getParsedNodeName() + "] attribute [id] cannot be empty.");
 		}
-		formSingleWidget.setId(attrId);
+		defaultWidget.setId(attrId);
 		
 		String attrName = element.getAttribute(ATTR_NAME);
 		if(StringUtils.isEmpty(attrName)) {
@@ -43,13 +43,13 @@ public class FormSingleWidgetParser extends AbstractGuiElementDefinitionParser {
 		
 		String attrTransition = element.getAttribute(ATTR_TRANSITION);
 		if(!StringUtils.isEmpty(attrTransition)) {
-			formSingleWidget.setTransition(attrTransition);
+			defaultWidget.setTransition(attrTransition);
 		}
 		
-		formSingleWidget.setEntityName(attrName);
+		defaultWidget.setEntityName(attrName);
 		
 		String attrEntityValueRef = element.getAttribute(ATTR_ENTITY_VALUE_REF);
-		formSingleWidget.setValueRef(attrEntityValueRef);
+		defaultWidget.setValueRef(attrEntityValueRef);
 		
 		NodeList childNodes = element.getChildNodes();
 		if(childNodes != null) {
@@ -59,18 +59,18 @@ public class FormSingleWidgetParser extends AbstractGuiElementDefinitionParser {
 					GuiElementDefinitionParser parser = getScreenElementDefinitionParser(node.getNodeName());
 					GuiComponent component = parser.parse((Element) node);
 					if(component instanceof WidgetControl) {
-						formSingleWidget.addField((WidgetControl) component);
+						defaultWidget.addField((WidgetControl) component);
 					}
 				}
 			}
 		}
 		
-		return formSingleWidget;
+		return defaultWidget;
 	}
 
 	@Override
 	public String getParsedNodeName() {
-		return ParserConstants.FORM_SINGLE_ELEMENT_PARSER;
+		return "widget";
 	}
 
 }

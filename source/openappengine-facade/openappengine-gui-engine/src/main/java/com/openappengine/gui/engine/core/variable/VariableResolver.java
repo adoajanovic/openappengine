@@ -3,7 +3,7 @@
  */
 package com.openappengine.gui.engine.core.variable;
 
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.GuiApplicationContextAware;
 
 /**
@@ -15,6 +15,6 @@ public interface VariableResolver extends GuiApplicationContextAware {
 	
 	Object getValue(String name);
 	
-	void setGuiApplicationContext(GuiApplicationContext context);
+	void setGuiApplicationContext(GuiEngineContext context);
 
 }

@@ -26,7 +26,7 @@ import com.openappengine.gui.engine.context.factory.FactoryConstants;
 import com.openappengine.gui.engine.context.factory.FactoryFinder;
 import com.openappengine.gui.engine.context.factory.GuiContextFactory;
 import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializationCallback;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.ext.ExternalWebContext;
 import com.openappengine.gui.engine.core.widget.context.HttpServletWidgetProcessorContextFactory;
@@ -113,47 +113,48 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 			HttpServletResponse httpServletResponse)
 			throws MalformedURLException, ServletException, IOException {
 		HttpServletRequest contextWrappedRequest = httpServletRequest;
-		GuiApplicationContext guiApplicationContext = null;
+		GuiEngineContext guiEngineContext = null;
 		
 		Resource resource = createXmlScreenUrlResouce(httpServletRequest);
 		ExternalContext externalContext = new ExternalWebContext(httpServletRequest);
 		
 		if(httpServletRequest.getMethod().equals("GET")) {
 			//Create New GUI Application Context from Factory.
-			guiApplicationContext = createGuiApplicationContext(resource);
-			guiApplicationContext.setExternalContext(externalContext);
+			guiEngineContext = createGuiApplicationContext(resource);
+			guiEngineContext.setExternalContext(externalContext);
 			
 			//Post Restore
-			contextFactory.processLifecylePostRestoreProcessing(guiApplicationContext);
+			//contextFactory.processLifecylePostRestoreProcessing(guiEngineContext);
 			
 			//Pre-Render Actions.
-			contextFactory.processLifecylePreRenderActions(guiApplicationContext);
+			contextFactory.processLifecylePreRenderActions(guiEngineContext);
 			
 			//Transform Widgets.
-			contextFactory.processLifecycleTransformWidgetsEvent(guiApplicationContext);
+			contextFactory.processLifecycleTransformWidgetsEvent(guiEngineContext);
 		} else if (httpServletRequest.getMethod().equals("POST")) {
 
 			//Restore the Context from the Factory.
-			guiApplicationContext = contextFactory.getApplicationContext(resource);
-			guiApplicationContext.setExternalContext(externalContext);
+			guiEngineContext = contextFactory.getApplicationContext(resource);
+			guiEngineContext.setExternalContext(externalContext);
 			
 			//Clear the Context Messages
-			guiApplicationContext.getMessageContext().clearAllMessages();
+			guiEngineContext.getMessageContext().clearAllMessages();
 			
 			//Process WidgetType Submission.
-			doProcessWidgetPost(httpServletRequest, guiApplicationContext);
+			doProcessWidgetPost(httpServletRequest, guiEngineContext);
 			
 		}
 		
 		httpServletRequest.setAttribute("currentURL", httpServletRequest.getRequestURL());
-		httpServletRequest.setAttribute("messageContext", guiApplicationContext.getMessageContext());
+		httpServletRequest.setAttribute("messageContext", guiEngineContext.getMessageContext());
+		httpServletRequest.setAttribute("guiEngineContext", guiEngineContext);
 		
 		//contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		
-		contextFactory.refreshMessages(guiApplicationContext);
+		contextFactory.refreshMessages(guiEngineContext);
 		
-		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiApplicationContext);
-		contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(guiApplicationContext, httpServletRequest);
+		httpServletRequest.setAttribute(ServletConstants.GUI_WEB_APPLICATION_CONTEXT, guiEngineContext);
+		contextWrappedRequest = new GuiApplicationContextAwareHttpServletRequest(guiEngineContext, httpServletRequest);
 		
 		//Do Dispatch
 		doDispatch(contextWrappedRequest,httpServletResponse);
@@ -164,7 +165,7 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 	 * @param guiApplicationContext
 	 * @throws LinkageError
 	 */
-	private void doProcessWidgetPost(HttpServletRequest request,GuiApplicationContext guiApplicationContext) throws LinkageError {
+	private void doProcessWidgetPost(HttpServletRequest request,GuiEngineContext guiApplicationContext) throws LinkageError {
 		String widgetType = request.getParameter("widgetType");
 		
 		//Get WidgetProcessor Based on the WidgetType Type.
@@ -205,8 +206,8 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 	 * @return 
 	 * @throws MalformedURLException
 	 */
-	protected GuiApplicationContext createGuiApplicationContext(Resource resource) throws MalformedURLException {
-		GuiApplicationContext applicationContext = contextFactory.createGuiApplicationContext(resource);
+	protected GuiEngineContext createGuiApplicationContext(Resource resource) throws MalformedURLException {
+		GuiEngineContext applicationContext = contextFactory.createGuiEngineContext(resource);
 		return applicationContext;
 	}
 

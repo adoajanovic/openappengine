@@ -12,9 +12,9 @@ import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.component.ui.container.WidgetsComponent;
+import com.openappengine.gui.engine.core.component.ui.container.WidgetContainer;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 import com.openappengine.gui.engine.core.transformer.WidgetTransformer;
 import com.openappengine.gui.engine.core.widget.Widget;
@@ -24,18 +24,15 @@ import com.openappengine.gui.engine.core.widget.Widget;
  * @since  Feb 21, 2012
  *
  */
-public class TransformWidgetsEventProcessor implements LifecycleEventProcessor<GuiApplicationContext> {
+public class TransformWidgetsEventProcessor implements LifecycleEventProcessor<GuiEngineContext> {
 
 	@Override
-	public void onLifecycleEvent(ApplicationEvent<GuiApplicationContext> event,GuiApplicationContext t) {
-		List<WidgetsComponent> widgets = t.getUIRoot().getPageContent().getWidgets();
-		for (WidgetsComponent widgetComponent : widgets) {
-			List<GuiComponent> childWidgets = widgetComponent.getChildComponents();
-			if (childWidgets != null) {
-				for (GuiComponent guiComponent : childWidgets) {
-					Widget widget = (Widget) guiComponent;
-					doTransformWidget(t, widget);
-				}
+	public void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event,GuiEngineContext t) {
+		List<Widget> screenWidgets = t.getScreenWidgets();
+		if (screenWidgets != null) {
+			for (Widget widget : screenWidgets) {
+				Document document = doTransformWidget(t,widget);
+				widget.setValue(document);
 			}
 		}
 	}
@@ -44,7 +41,7 @@ public class TransformWidgetsEventProcessor implements LifecycleEventProcessor<G
 	 * @param t
 	 * @param widget
 	 */
-	private void doTransformWidget(GuiApplicationContext t, Widget widget) {
+	private Document doTransformWidget(GuiEngineContext t, Widget widget) {
 		String valueRef = widget.getValueRef();
 		WidgetTransformer widgetTransformer = new WidgetTransformer(widget);
 		Document doc = null;
@@ -67,9 +64,10 @@ public class TransformWidgetsEventProcessor implements LifecycleEventProcessor<G
 		
 		//Transform Widget XML
 		Document transformedDocumentXml = widgetTransformer.transform(doc);
-		
 		//Add Model Mapping For this Widget.
 		registerWidgetWithModelMap(t, widget, transformedDocumentXml);
+		
+		return transformedDocumentXml;
 	}
 
 	/**
@@ -77,9 +75,8 @@ public class TransformWidgetsEventProcessor implements LifecycleEventProcessor<G
 	 * @param widget
 	 * @param transformedDocumentXml
 	 */
-	private void registerWidgetWithModelMap(GuiApplicationContext t,
+	private void registerWidgetWithModelMap(GuiEngineContext t,
 			Widget widget, Document transformedDocumentXml) {
-		widget.setValue(transformedDocumentXml);
 		t.getExternalContext().addModelMapAttribute(widget.getId(), transformedDocumentXml);
 	}
 

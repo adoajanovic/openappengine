@@ -45,6 +45,8 @@ jQuery("textarea").focus(function(){
 jQuery("textarea").blur(function(){
   $(this).removeClass('ui-state-active');
 });
+
+//jQuery("tr:odd").addClass("odd");
 	
 	
 /* attach a submit handler to the form */

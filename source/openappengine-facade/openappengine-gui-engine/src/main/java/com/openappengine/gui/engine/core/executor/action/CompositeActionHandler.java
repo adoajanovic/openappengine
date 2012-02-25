@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.openappengine.gui.engine.core.action.xml.ActionRequestXml;
 import com.openappengine.gui.engine.core.action.xml.ActionResponseXml;
-import com.openappengine.gui.engine.core.context.GuiApplicationContext;
+import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.el.ConditionExpressionEvaluator;
 
 
@@ -30,7 +30,7 @@ public abstract class CompositeActionHandler implements ActionHandler {
 
 	protected abstract void setWrappedAction(ActionHandler action);
 
-	protected Boolean evaluateConditionExpression(GuiApplicationContext context,String expression) {
+	protected Boolean evaluateConditionExpression(GuiEngineContext context,String expression) {
 		if(evaluator == null) {
 			evaluator = new ConditionExpressionEvaluator();
 		}

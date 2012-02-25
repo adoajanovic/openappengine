@@ -4,11 +4,13 @@
 package com.openappengine.gui.engine.core.widget;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.component.GuiComponent;
 import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
+import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 
 /**
  * The WidgetType Interface is the root of all the Form Widgets. 
@@ -32,4 +34,6 @@ public interface Widget extends Serializable,ValueRefAware<Document>,GuiComponen
 	String getWidgetType();
 	
 	String getEntityName();
+	
+	List<WidgetControl> getWidgetControls();
 }
