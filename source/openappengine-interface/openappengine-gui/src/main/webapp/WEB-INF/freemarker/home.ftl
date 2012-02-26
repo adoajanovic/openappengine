@@ -50,10 +50,11 @@
 		</div>
 	</#if>
 	
-	<#assign widgets = guiEngineContext.getScreenWidgets() >
+	<#assign widgetIds = guiEngineContext.getWidgets() >
  	
- 	<#list widgets as widget>
- 		<@gui.renderWidget widget />
+ 	<#list widgetIds as widgetId>
+ 		<#assign widgetDoc = guiEngineContext.getWidget(widgetId) >
+ 		<@gui.renderWidget widgetDoc />
 		<!-- Can be replaced with visit directive -->
  	</#list>
  </div>

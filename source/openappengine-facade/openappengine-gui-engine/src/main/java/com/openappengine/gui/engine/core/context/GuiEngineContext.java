@@ -11,13 +11,9 @@ import org.w3c.dom.Document;
 import com.openappengine.gui.engine.core.ELContext;
 import com.openappengine.gui.engine.core.Resolver;
 import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
-import com.openappengine.gui.engine.core.component.ui.container.WidgetContainer;
 import com.openappengine.gui.engine.core.component.ui.message.MessageContext;
 import com.openappengine.gui.engine.core.el.ExpressionEvaluator;
-import com.openappengine.gui.engine.core.executor.ActionExecutor;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
-import com.openappengine.gui.engine.core.renderer.ScreenRenderer;
 import com.openappengine.gui.engine.core.variable.Variable;
 import com.openappengine.gui.engine.core.widget.Widget;
 import com.openappengine.gui.engine.fsm.TransitionEventListener;
@@ -31,24 +27,10 @@ import com.openappengine.gui.engine.fsm.TransitionEventListener;
  */
 public interface GuiEngineContext {
 	
-	/**
-	 * Get The UIRoot of this context.
-	 * @return
-	 */
-	//TODO - To Remove..
-	GuiRootComponent getUIRoot();
-	
 	Document getScreenXmlDocument();
 	
 	
 	PreRenderActions getPreRenderActions();
-	
-	/**
-	 * Set the Root.
-	 * @param root
-	 */
-	//TODO - Remove
-	void setUIRoot(GuiRootComponent root);
 	
 	/**
 	 * Get EL Context.
@@ -91,12 +73,17 @@ public interface GuiEngineContext {
 	
 	void setExternalContext(ExternalContext externalContext);
 	
+	@Deprecated
 	List<Widget> getReferencedWidgets(String valueRef);
 	
+	@Deprecated
 	void addValueReferencedWidget(String valueRef, Widget widget);
 
 	Map<String, Variable> getScreenVariables();
 	
-	List<Widget> getScreenWidgets();
+	Object getWidget(String id);
 	
+	void addWidget(String id,Document doc);
+	
+	List<String> getWidgets();
 }

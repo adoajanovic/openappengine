@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.util.Assert;
 
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 
 /**

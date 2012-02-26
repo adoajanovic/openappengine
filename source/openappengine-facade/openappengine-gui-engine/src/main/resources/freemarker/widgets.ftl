@@ -1,7 +1,8 @@
 <#import "/spring.ftl" as spring/>
+<#import "common.ftl" as common />
 <#include "datepicker.ftl" />
-<#include "textField.ftl" />
-<#include "textArea.ftl" />
+<#include "textfield.ftl" />
+<#include "textarea.ftl" />
 <#include "checkbox.ftl" />
 <#include "radio.ftl" />
 <#include "password.ftl" />
@@ -9,11 +10,7 @@
 
 <!-- Render Widget -->
 <#macro renderWidget childWidget>
-  <!-- Form Single -->
-  <#if childWidget.getWidgetType() = "widget">
-	  <@formSingle childWidget />
-  </#if>
-  <!-- Add Custom Widgets -->
+  <@formSingle childWidget />
 </#macro>
 
 <#macro renderFieldsRecursively parent>
@@ -71,13 +68,6 @@
 	<@end_td .node/>
 </#macro>
 
-<#--
- * message
- *
- * Macro to translate a message code into a message.
- -->
-<#macro message code>${messageContext.getMessageText(code)}</#macro>
-
 <#macro control>
 	<tr>
 		<td valign="center">
@@ -87,13 +77,13 @@
 				<#local for = .node["@id"] + "_Checkbox">
 			</#if>
 			<label id="${.node["@id"]}_Label" for="${for}">
-				<@message .node["@labelId"] />
+				<@common.message .node["@labelId"] />
 			</label>
 		</td>
 		
 		<td>
 			<#if .node["@type"] = "textfield">
-				<@textField .node />
+				<@textfield .node />
 			</#if>
 			<#if .node["@type"] = "textarea">
 				<@textArea .node />
@@ -121,21 +111,18 @@
 	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
-<#macro formSingle childWidget>
+<#macro formSingle widgetDataXml>
 	<!-- Form Command Object -->
 	<div>
-		<#local widgetDataXml = childWidget.getWidgetDataXml()>	
-	 	<#if widgetDataXml?has_content>
+		<#if widgetDataXml?has_content>
 	 		<!-- Widget : form-single -->
 			<form action="${currentURL}" method="post">
-			<!-- Meta Model Attributes Used for Processing Widget Submits -->
-				<input type="hidden" name="widgetId" value="${childWidget.getId()}" />
-		 		<fieldset>
+				<!-- Meta Model Attributes Used for Processing Widget Submits -->
+				<fieldset class="ui-corner-all">
 					<table style="width:auto;">
 						<@renderFieldsRecursively widgetDataXml />
-		 			</table>
-		 			<@gui.formSubmit childWidget.getId() childWidget.getId() 'OK' />
-	 			</fieldset>
+			 		</table>
+		 		</fieldset>
 	 		</form>
 		</#if>
 	</div>
