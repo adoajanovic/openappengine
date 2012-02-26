@@ -14,4 +14,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Control {
 
 	String widgetControlName();
+	
+	boolean rendersChildren() default false;
 }

@@ -5,4 +5,20 @@
 	
 	<import resource="classpath:entity-engine-context.xml"/>
 	
+	<bean id="widgetMetadataConfigurationReader" class="com.openappengine.gui.engine.core.widget.meta.WidgetMetadataConfigurationReader" scope="singleton">
+		<property name="locations">
+			<array>
+				<value>widgetcontrols/textfieldMetaData.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="widgetFactory" class="com.openappengine.gui.engine.core.widget.meta.DefaultWidgetMetadataFactory" scope="singleton">
+		<property name="widgetMetadataConfigurationReader" ref="widgetMetadataConfigurationReader"></property>	
+	</bean>
+	
+	
+	<bean name="widgetContext" class="com.openappengine.gui.engine.core.widget.meta.WidgetContext">
+	</bean>
+	
 </beans>
