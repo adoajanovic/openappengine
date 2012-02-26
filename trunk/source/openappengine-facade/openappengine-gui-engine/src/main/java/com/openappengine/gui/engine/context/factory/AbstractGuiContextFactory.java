@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleProcessor;
 
@@ -26,12 +25,6 @@ public abstract class AbstractGuiContextFactory implements GuiContextFactory {
 	private ContextConfiguration contextConfiguration;
 	
 	private LifecycleProcessor lifecycleProcessor;
-	
-	protected GuiRootComponent createGuiRoot(Resource resource, GuiEngineContext context) {
-		GuiRootComponent uiRoot = reader.loadScreenDefinition(resource);
-		context.setUIRoot(uiRoot);
-		return uiRoot;
-	}
 	
 	protected Document getScreenXmlDocument(Resource resource) {
 		Document document = reader.getScreenXmlDocument(resource);

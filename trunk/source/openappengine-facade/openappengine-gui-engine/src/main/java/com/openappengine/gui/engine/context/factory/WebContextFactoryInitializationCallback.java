@@ -5,14 +5,12 @@ package com.openappengine.gui.engine.context.factory;
 
 import com.openappengine.gui.engine.core.context.LifecycleProcessor;
 import com.openappengine.gui.engine.core.context.event.ContextInitializedEvent;
-import com.openappengine.gui.engine.core.context.event.ContextPostRestoreEvent;
 import com.openappengine.gui.engine.core.context.event.ExecutePreRenderActionsEvent;
 import com.openappengine.gui.engine.core.context.event.GuiContextMessageRefreshEvent;
 import com.openappengine.gui.engine.core.context.event.TransformWidgetsEvent;
 import com.openappengine.gui.engine.core.context.event.processor.ExecutePreRenderActionsEventProcessor;
 import com.openappengine.gui.engine.core.context.event.processor.GuiContextInitializedEventProcessor;
-import com.openappengine.gui.engine.core.context.event.processor.GuiContextPostRestoreEventProcessor;
-import com.openappengine.gui.engine.core.context.event.processor.TransformWidgetsEventProcessor;
+import com.openappengine.gui.engine.core.context.event.processor.EncodeWidgetsEventProcessor;
 import com.openappengine.gui.engine.core.context.event.processor.UpdateMessageEventProcessor;
 import com.openappengine.gui.engine.core.context.lifecycle.DefaultLifecycleProcessor;
 
@@ -54,11 +52,11 @@ public class WebContextFactoryInitializationCallback extends ContextFactoryIniti
 	 * @param lifecycleProcessor
 	 */
 	protected void registerApplicationLifecycleEventProcessors(DefaultLifecycleProcessor lifecycleProcessor) {
-		lifecycleProcessor.registerLifecycleEventProcessor(ContextPostRestoreEvent.class,new GuiContextPostRestoreEventProcessor());
+		//lifecycleProcessor.registerLifecycleEventProcessor(ContextPostRestoreEvent.class,new GuiContextPostRestoreEventProcessor());
 		lifecycleProcessor.registerLifecycleEventProcessor(ExecutePreRenderActionsEvent.class,new ExecutePreRenderActionsEventProcessor());
 		lifecycleProcessor.registerLifecycleEventProcessor(ContextInitializedEvent.class,new GuiContextInitializedEventProcessor());
 		lifecycleProcessor.registerLifecycleEventProcessor(GuiContextMessageRefreshEvent.class,new UpdateMessageEventProcessor());
-		lifecycleProcessor.registerLifecycleEventProcessor(TransformWidgetsEvent.class,new TransformWidgetsEventProcessor());
+		lifecycleProcessor.registerLifecycleEventProcessor(TransformWidgetsEvent.class,new EncodeWidgetsEventProcessor());
 		//TODO - Add Other Event Processors.
 	}
 

@@ -7,7 +7,6 @@ import org.xml.sax.InputSource;
 
 import com.openappengine.gui.engine.core.Resolver;
 import com.openappengine.gui.engine.core.component.GuiComponent;
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
@@ -24,9 +23,6 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	public void onLifecycleEvent(ApplicationEvent<GuiEngineContext> event, GuiEngineContext context) {
 		logger.info("Processing Context Initialized Event.");
 		
-		//Add Root to the Model Map.
-		GuiRootComponent root = context.getUIRoot();
-		context.getExternalContext().addModelMapAttribute("uiRoot", root);
 		
 		//testXmlProcessing(context);
 		

@@ -2,19 +2,15 @@
 <screen>
 	<page-content>
 		<widget id="User_Registration" name="User_Registration">
-				<widget-control id="username" path="/User_Registration/username" type="textfield" />
-				<widget-control id="password" path="/User_Registration/password" type="password" />
-				<widget-control id="comments" path="/User_Registration/comments" type="textarea" />
-				<widget-control id="comments" path="/User_Registration/date" type="date" />
-				<widget-control id="active" path="/User_Registration/active" type="checkbox" />
-				<widget-control id="currency" path="/User_Registration/currency" type="dropdown" >
-					<select-option id="id1" label="Rupee" value="INR"/>
-					<select-option id="id2" label="Dollar" value="USD"/>
-				</widget-control>
-				<widget-control id="currency" path="/User_Registration/currency" type="radio" >
-					<select-option id="id1" label="Rupee" value="INR"/>
-					<select-option id="id2" label="Dollar" value="USD"/>
-				</widget-control>
+				<textfield id="username" labelId="username" path="/User_Registration/username" />
+				<password id="password" labelId="password" path="/User_Registration/password" />
+				<textarea id="comments" labelId="comments" path="/User_Registration/comments" />
+				<datepicker id="date" labelId="date" path="/User_Registration/date" />
+				<dropdown id="currency" labelId="currency" path="/User_Registration/currency">
+					<option id="id1" labelId="INR" value="INR" />
+					<option id="id2" labelId="USD" value="USD" />
+				</dropdown>
+				<checkbox id="active" path="/User_Registration/active" labelId="active"/>
 		</widget>
 	</page-content>
 </screen>

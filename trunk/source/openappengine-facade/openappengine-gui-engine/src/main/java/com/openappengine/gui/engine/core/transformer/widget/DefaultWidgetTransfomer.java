@@ -44,13 +44,13 @@ public class DefaultWidgetTransfomer extends WidgetTypeTransformer<DefaultWidget
 		
 		
 		if(defaultWidget.isAutoEntity()) {
+			//TODO - Not Complete !!!
 			if(fields != null) {
 				for (Element fieldEle : fields) {
 					doProcessAutoFormControl(formDoc, documentElement, fieldEle);
 				}
 			}
 		} else {
-			//TODO - Handle this..Using the XPATH exprssion.
 			List<WidgetControl> widgetControls = defaultWidget.getWidgetControls();
 			for (WidgetControl widgetControl : widgetControls) {
 				String path = widgetControl.getPath();

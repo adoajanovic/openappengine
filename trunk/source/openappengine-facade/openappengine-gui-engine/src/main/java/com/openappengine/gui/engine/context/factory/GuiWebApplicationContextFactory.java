@@ -6,7 +6,6 @@ package com.openappengine.gui.engine.context.factory;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 
-import com.openappengine.gui.engine.core.component.ui.GuiRootComponent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.WebGuiApplicationContext;
 import com.openappengine.gui.engine.core.context.event.ContextInitializedEvent;
