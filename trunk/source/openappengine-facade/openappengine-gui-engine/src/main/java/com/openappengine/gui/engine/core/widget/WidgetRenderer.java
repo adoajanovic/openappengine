@@ -22,6 +22,10 @@ import com.openappengine.gui.engine.core.widget.control.DefaultWidgetControlWrit
 import com.openappengine.gui.engine.core.widget.control.WidgetControlRenderer;
 import com.openappengine.gui.engine.core.widget.control.WidgetControlRendererFactoryInitializer;
 import com.openappengine.gui.engine.core.widget.control.WidgetControlWriter;
+import com.openappengine.gui.engine.core.widget.meta.WidgetContext;
+import com.openappengine.gui.engine.core.widget.meta.WidgetMetadata;
+import com.openappengine.gui.engine.core.widget.meta.WidgetMetadataFactory;
+import com.openappengine.gui.engine.core.widget.meta.WidgetParameter;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -34,13 +38,14 @@ public class WidgetRenderer {
 	
 	private static Map<String, WidgetControlRenderer> widgetControlRenderers;
 	
+	private WidgetMetadataFactory widgetMetadataFactory = WidgetContext.getWidgetMetadataFactory();
+	
 	static {
 		WidgetControlRendererFactoryInitializer initializer = new WidgetControlRendererFactoryInitializer();
 		widgetControlRenderers = initializer.onCallback();
 	}
 	
 	public Document renderWidget(Element widgetEle,GuiEngineContext context) {
-		
 		EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
 		String entityName = widgetEle.getAttribute("name");
 		String widgetId = widgetEle.getAttribute("id");
@@ -52,13 +57,34 @@ public class WidgetRenderer {
 		}
 		Document doc = entityDefinition.getDocument();
 		
+		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		
 		Document widgetXmlDoc = UtilXml.makeEmptyXmlDocument("widget");
-		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		if(widgetControlElements != null) {
 			for (Element widgetControlEle : widgetControlElements) {
-				Element element = encodeWidgetControl(context, doc, widgetXmlDoc.getDocumentElement(), widgetControlEle);
-				widgetXmlDoc.getDocumentElement().appendChild(element);
+				
+				String widgetControlName = widgetControlEle.getNodeName();
+				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
+				
+				String widgetName = widgetMetadata.getWidgetName();				
+				Element widgetChildEle = widgetXmlDoc.createElement(widgetName);
+				
+				List<WidgetParameter> widgetParameters = widgetMetadata.getWidgetParameters();
+				for (WidgetParameter widgetParameter : widgetParameters) {
+					String attribute = widgetControlEle.getAttribute(widgetParameter.getName());
+					if(widgetParameter.isMandatory() && StringUtils.isEmpty(attribute)) {
+						throw new IllegalArgumentException("Attribute " + widgetParameter.getName() + " cannot be empty.");
+					}
+					
+					widgetChildEle.setAttribute(widgetParameter.getName(), attribute);
+					
+				}
+				
+				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);
+				
+				//TODO - to be replaced by metadata api.
+				/*Element element = encodeWidgetControl(context, doc, widgetXmlDoc.getDocumentElement(), widgetControlEle);
+				widgetXmlDoc.getDocumentElement().appendChild(element);*/
 			}
 		}
 		
