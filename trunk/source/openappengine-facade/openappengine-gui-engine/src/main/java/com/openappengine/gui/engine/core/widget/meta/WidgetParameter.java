@@ -17,6 +17,8 @@ public class WidgetParameter {
 	
 	private boolean mandatory;
 	
+	private String defaultValue;
+	
 	void setTextValue(String value) {
 		this.textValue = value;
 	}
@@ -47,5 +49,13 @@ public class WidgetParameter {
 
 	public void setMandatory(boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 }

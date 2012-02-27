@@ -9,6 +9,10 @@
 		<property name="locations">
 			<array>
 				<value>widgetcontrols/textfieldMetaData.xml</value>
+				<value>widgetcontrols/textareaMetaData.xml</value>
+				<value>widgetcontrols/passwordMetaData.xml</value>
+				<value>widgetcontrols/datepickerMetaData.xml</value>
+				<value>widgetcontrols/booleanCheckboxMetaData.xml</value>
 			</array>
 		</property>
 	</bean>

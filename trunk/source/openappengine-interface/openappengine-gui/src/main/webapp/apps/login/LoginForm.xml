@@ -3,14 +3,16 @@
 	<page-content>
 		<widget id="User_Registration" name="User_Registration">
 				<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
-				<!-- <password id="password" labelId="password" path="/User_Registration/password" />
-				<textarea id="comments" labelId="comments" path="/User_Registration/comments" />
-				<datepicker id="date" labelId="date" path="/User_Registration/date" />
+				<password id="password" name="password" labelId="password" path="/User_Registration/password" />
+				<textarea id="comments" name="comments" labelId="comments" path="/User_Registration/comments" />
+				<datepicker id="date" name="date" labelId="date" path="/User_Registration/date" />
+				<checkbox id="active" name="active" path="/User_Registration/active" labelId="active"/> 
+				<!-- 
 				<dropdown id="currency" labelId="currency" path="/User_Registration/currency">
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
-				<checkbox id="active" path="/User_Registration/active" labelId="active"/> -->
+				-->
 		</widget>
 	</page-content>
 </screen>
