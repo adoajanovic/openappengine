@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
@@ -50,7 +51,7 @@ public class WidgetRenderer {
 			for (Element widgetControlEle : widgetControlElements) {
 				String widgetControlName = widgetControlEle.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
-				Element widgetChildEle = encodeWidget(widgetXmlDoc,widgetControlEle,widgetMetadata);
+				Element widgetChildEle = encodeWidget(widgetXmlDoc,widgetControlEle,widgetMetadata,doc);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);
 			}
 		}
@@ -68,15 +69,25 @@ public class WidgetRenderer {
 	 * @param widgetMetadata 
 	 * @return
 	 */
-	private Element encodeWidget(Document widgetXmlDoc, Element widgetControlEle, WidgetMetadata widgetMetadata) {
+	private Element encodeWidget(Document widgetXmlDoc, Element widgetControlEle, WidgetMetadata widgetMetadata,Document entityDoc) {
 		String widgetName = widgetMetadata.getWidgetName();				
 		Element widgetEle = widgetXmlDoc.createElement(widgetName);
 		
 		List<WidgetParameter> widgetParameters = widgetMetadata.getWidgetParameters();
 		for (WidgetParameter widgetParameter : widgetParameters) {
+			
 			String attribute = widgetControlEle.getAttribute(widgetParameter.getName());
 			if(widgetParameter.isMandatory() && StringUtils.isEmpty(attribute)) {
 				throw new IllegalArgumentException("Attribute " + widgetParameter.getName() + " cannot be empty.");
+			}
+			
+			if(StringUtils.equals(widgetParameter.getName(),"path")) {
+				Node node = UtilXml.evaluateXPathExpression(entityDoc, attribute);
+				if(node == null) {
+					throw new IllegalArgumentException("XPath : " + attribute + " incorrectly configured.");
+				}
+				
+				widgetEle.setNodeValue(node.getNodeValue());
 			}
 			
 			widgetEle.setAttribute(widgetParameter.getName(), attribute);
@@ -87,7 +98,7 @@ public class WidgetRenderer {
 			List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
 			for (Element childElement : childElements) {
 				WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childElement.getNodeName());
-				Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata);
+				Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata,entityDoc);
 				widgetEle.appendChild(childEle);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
 			}
