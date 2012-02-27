@@ -4,6 +4,7 @@
 package com.openappengine.gui.engine.core.widget.meta;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public class DefaultWidgetMetadataFactory implements WidgetMetadataFactory,Callb
 	
 	private Map<String,WidgetMetadata> widgetMetadataMap = new HashMap<String, WidgetMetadata>();
 	
+	private Map<String,WidgetMetadata> resolvedWidgetMetadataMap = new HashMap<String, WidgetMetadata>();
+	
 	public void initializeDefaultWidgetFactory() {
 		widgetMetadataConfigurationReader.readWidgetMetadata(this);
 	}
@@ -31,10 +34,35 @@ public class DefaultWidgetMetadataFactory implements WidgetMetadataFactory,Callb
 			return null;
 		}
 		
+		if(resolvedWidgetMetadataMap != null && resolvedWidgetMetadataMap.containsKey(name)) {
+			return resolvedWidgetMetadataMap.get(name);
+		}
+		
 		if(widgetMetadataMap != null) {
-			return widgetMetadataMap.get(name);
+			WidgetMetadata widgetMetadata = widgetMetadataMap.get(name);
+			resolveChildrenIfNecessary(widgetMetadata);
+			resolvedWidgetMetadataMap.put(widgetMetadata.getWidgetName(), widgetMetadata);
+			return widgetMetadata;
 		}
 		return null;
+	}
+
+	/**
+	 * @param widgetMetadata
+	 * @return TODO
+	 */
+	private WidgetMetadata resolveChildrenIfNecessary(WidgetMetadata widgetMetadata) {
+		List<String> childWidgetsList = widgetMetadata.getReferencedWidgets();
+		Iterator<String> iterator = childWidgetsList.iterator();
+		while (iterator.hasNext()) {
+			String referencedWidget = (String) iterator.next();
+			WidgetMetadata resolvedWidgetMetadata = widgetMetadataMap.get(referencedWidget);
+			resolvedWidgetMetadata = resolveChildrenIfNecessary(resolvedWidgetMetadata);
+			
+			widgetMetadata.addResolvedChildWidget(resolvedWidgetMetadata);
+			widgetMetadata.getChildWidgetsMetadata().add(resolvedWidgetMetadata);
+		}
+		return widgetMetadata;
 	}
 
 	public WidgetMetadataConfigurationReader getWidgetMetadataConfigurationReader() {

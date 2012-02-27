@@ -18,9 +18,13 @@ public class WidgetMetadataImpl implements WidgetMetadata {
 	
 	private String widgetName;
 	
+	private String reference;
+	
 	private List<WidgetParameter> widgetParameters = new ArrayList<WidgetParameter>();
 	
 	private List<WidgetMetadata> childWidgetsMetadata = new ArrayList<WidgetMetadata>();
+	
+	private final List<String> referencedWidgetMetadata = new ArrayList<String>();
 	
 	private Map<String, WidgetMetadata> childWidgetMetadataMap = new HashMap<String, WidgetMetadata>();
 
@@ -68,5 +72,24 @@ public class WidgetMetadataImpl implements WidgetMetadata {
 		
 		return childWidgetMetadataMap.get(name);
 	}
+	
+	@Override
+	public String getReference() {
+		return reference;
+	}
 
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	@Override
+	public List<String> getReferencedWidgets() {
+		return referencedWidgetMetadata;
+	}
+
+	public void addResolvedChildWidget(WidgetMetadata metadata) {
+		//this.referencedWidgetMetadata.remove(metadata.getWidgetName());
+		this.childWidgetMetadataMap.put(metadata.getWidgetName(), metadata);
+	}
+	
 }

@@ -47,7 +47,10 @@ public class WidgetRenderer {
 		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		
 		Document widgetXmlDoc = UtilXml.makeEmptyXmlDocument("widget");
+		
 		if(widgetControlElements != null) {
+			
+			widgetXmlDoc.getDocumentElement().setAttribute("rendersChildren", "true");
 			for (Element widgetControlEle : widgetControlElements) {
 				String widgetControlName = widgetControlEle.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
