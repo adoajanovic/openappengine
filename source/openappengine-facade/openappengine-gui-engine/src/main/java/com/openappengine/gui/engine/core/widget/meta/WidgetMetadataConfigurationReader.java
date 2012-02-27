@@ -57,7 +57,8 @@ public class WidgetMetadataConfigurationReader {
 				throw new IllegalArgumentException("Widget Name cannot be blank.");
 			}
 			
-			widgetMetaDataImpl.setWidgetName(attrWidgetName);	
+			widgetMetaDataImpl.setWidgetName(attrWidgetName);
+			
 			
 			List<Element> parameterElements = DomUtils.getChildElementsByTagName(documentElement, "parameter");
 			if(parameterElements != null) {
@@ -82,12 +83,23 @@ public class WidgetMetadataConfigurationReader {
 		Assert.notNull(attrName, "Parameter 'name' cannot be null. Exception encountered while reading widget.");
 		parameter.setName(attrName);
 		
+		String attrXPath = paramEle.getAttribute("path");
+		if(StringUtils.isNotEmpty(attrXPath)) {
+			parameter.setXpath(attrXPath);
+		}
+		
 		String attrMandatory = paramEle.getAttribute("mandatory");
 		if(StringUtils.isEmpty(attrMandatory)) {
 			parameter.setMandatory(false);	
 		} else {
 			parameter.setMandatory(BooleanUtils.toBoolean(attrMandatory));
 		}
+		
+		String attrDefault = paramEle.getAttribute("default");
+		if(StringUtils.isNotEmpty(attrDefault)) {
+			parameter.setDefaultValue(attrDefault);
+		}
+		
 		return parameter;
 	}
 
