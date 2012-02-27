@@ -5,7 +5,6 @@ import java.util.List;
 import org.w3c.dom.Document;
 
 import com.openappengine.gui.engine.core.component.AbstractGuiComponent;
-import com.openappengine.gui.engine.core.widget.control.WidgetControl;
 
 public abstract class AbstractWidget extends AbstractGuiComponent implements Widget {
 
@@ -71,12 +70,6 @@ public abstract class AbstractWidget extends AbstractGuiComponent implements Wid
 
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
-	}
-
-	@Override
-	public List<WidgetControl> getWidgetControls() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }
