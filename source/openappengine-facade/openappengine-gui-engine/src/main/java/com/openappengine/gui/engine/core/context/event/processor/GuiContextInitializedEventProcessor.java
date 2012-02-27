@@ -11,7 +11,6 @@ import com.openappengine.gui.engine.core.component.ui.ValueRefAware;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
-import com.openappengine.gui.engine.core.widget.Widget;
 
 import freemarker.ext.dom.NodeModel;
 
@@ -80,10 +79,10 @@ public class GuiContextInitializedEventProcessor implements LifecycleEventProces
 	 */
 	private void mergeFormWidgetModel(GuiEngineContext context,
 			GuiComponent guiComponent) {
-		if(guiComponent instanceof Widget) {
+		/*if(guiComponent instanceof Widget) {
 			Object formBackingObject = ((Widget) guiComponent).getWidgetDataXml();
 			context.getExternalContext().addModelMapAttribute(guiComponent.getId(), formBackingObject);
-		}
+		}*/
 	}
 
 	/**

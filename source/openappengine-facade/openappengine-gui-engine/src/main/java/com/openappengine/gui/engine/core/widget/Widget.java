@@ -4,7 +4,6 @@
 package com.openappengine.gui.engine.core.widget;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.w3c.dom.Document;
 

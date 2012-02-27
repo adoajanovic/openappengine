@@ -63,11 +63,6 @@ public class ExecutePreRenderActionsEventProcessor implements LifecycleEventProc
 	 * @param guiComponent
 	 */
 	protected void doHandlePreRenderAction(GuiEngineContext context,AbstractExecutableComponent exec) {
-		List<Widget> referencedWidgets = null;
-		if (exec.hasValueField()) {
-			String valueField = exec.getValueField();
-			referencedWidgets = context.getReferencedWidgets(valueField);
-		}
 		ActionDispatcher actionDispatcher = actionDispatcherFactory
 				.createActionDispatcher(context.getELContext(),
 										context.getExternalContext(),
