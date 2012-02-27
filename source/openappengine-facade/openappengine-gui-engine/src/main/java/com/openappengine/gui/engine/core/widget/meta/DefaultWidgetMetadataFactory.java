@@ -15,20 +15,20 @@ import com.openappengine.gui.engine.context.factory.Callback;
  * @author hrishi
  * since Feb 26, 2012
  */
-public class DefaultWidgetMetadataFactory implements WidgetMetadataFactory,Callback<Map<String,WidgetMetadata>> {
+public class DefaultWidgetMetadataFactory implements WidgetMetadataFactory,Callback<Object> {
 	
 	private WidgetMetadataConfigurationReader widgetMetadataConfigurationReader;
 	
-	private Map<String,WidgetMetadata> widgetMetadataMap;
+	private Map<String,WidgetMetadata> widgetMetadataMap = new HashMap<String, WidgetMetadata>();
+	
+	public void initializeDefaultWidgetFactory() {
+		widgetMetadataConfigurationReader.readWidgetMetadata(this);
+	}
 	
 	@Override
 	public WidgetMetadata getWidgetMetadata(String name) {
 		if(StringUtils.isEmpty(name)) {
 			return null;
-		}
-		
-		if(widgetMetadataMap == null) {
-			widgetMetadataMap = this.onCallback();
 		}
 		
 		if(widgetMetadataMap != null) {
@@ -46,23 +46,14 @@ public class DefaultWidgetMetadataFactory implements WidgetMetadataFactory,Callb
 	}
 
 	@Override
-	public Map<String,WidgetMetadata> onCallback() {
-		List<WidgetMetadata> readWidgetMetadata = widgetMetadataConfigurationReader.readWidgetMetadata();
-		Map<String,WidgetMetadata> map = new HashMap<String, WidgetMetadata>();
-		if(readWidgetMetadata != null) {
-			for (WidgetMetadata widgetMetadata : readWidgetMetadata) {
-				map.put(widgetMetadata.getWidgetName(), widgetMetadata);
-			}
-		}
-		return map;
+	public Object onCallback() {
+		List<WidgetMetadata> readWidgetMetadata = widgetMetadataConfigurationReader.readWidgetMetadata(this);
+		return null;
 	}
 
-	public Map<String,WidgetMetadata> getWidgetMetadataMap() {
-		return widgetMetadataMap;
-	}
-
-	public void setWidgetMetadataMap(Map<String,WidgetMetadata> widgetMetadataMap) {
-		this.widgetMetadataMap = widgetMetadataMap;
+	@Override
+	public void registerWidget(WidgetMetadata widgetMetadata) {
+		this.widgetMetadataMap.put(widgetMetadata.getWidgetName(), widgetMetadata);
 	}
 
 }
