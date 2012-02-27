@@ -4,24 +4,17 @@
 package com.openappengine.gui.engine.core.widget;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.util.Assert;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
-import com.openappengine.gui.engine.core.widget.control.DefaultWidgetControlWriter;
-import com.openappengine.gui.engine.core.widget.control.WidgetControlRenderer;
-import com.openappengine.gui.engine.core.widget.control.WidgetControlRendererFactoryInitializer;
-import com.openappengine.gui.engine.core.widget.control.WidgetControlWriter;
 import com.openappengine.gui.engine.core.widget.meta.WidgetContext;
 import com.openappengine.gui.engine.core.widget.meta.WidgetMetadata;
 import com.openappengine.gui.engine.core.widget.meta.WidgetMetadataFactory;
@@ -36,14 +29,7 @@ public class WidgetRenderer {
 	
 	private static final Logger logger = Logger.getLogger(WidgetRenderer.class);
 	
-	private static Map<String, WidgetControlRenderer> widgetControlRenderers;
-	
 	private WidgetMetadataFactory widgetMetadataFactory = WidgetContext.getWidgetMetadataFactory();
-	
-	static {
-		WidgetControlRendererFactoryInitializer initializer = new WidgetControlRendererFactoryInitializer();
-		widgetControlRenderers = initializer.onCallback();
-	}
 	
 	public Document renderWidget(Element widgetEle,GuiEngineContext context) {
 		EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
@@ -101,7 +87,7 @@ public class WidgetRenderer {
 	 * @param xmlDocument
 	 * @param widgetControlEle
 	 * @return 
-	 */
+	 *//*
 	private Element encodeWidgetControl(GuiEngineContext context,Document doc, Element xmlDocument, Element widgetControlEle) {
 		String widgetControlName = widgetControlEle.getNodeName();
 		
@@ -145,6 +131,6 @@ public class WidgetRenderer {
 		Element element = writer.getWidgetControlElement();
 		System.out.println(UtilXml.writeXmlDocument(xmlDocument.getOwnerDocument()));
 		return element;
-	}
+	}*/
 
 }
