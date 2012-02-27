@@ -34,9 +34,6 @@ public class WebGuiApplicationContext extends AbstractGuiEngineContext {
 	
 	protected TransitionEventListener transitionEventListener;
 	
-	//Metadata
-	protected final Map<String,List<Widget>> referencedWidgets = new ConcurrentHashMap<String, List<Widget>>();
-	
 	public WebGuiApplicationContext(Document document) {
 		Assert.notNull(document,"Screen Xml Document could not be created..!");
 		this.setScreenXmlDocument(document);
@@ -71,28 +68,6 @@ public class WebGuiApplicationContext extends AbstractGuiEngineContext {
 	@Override
 	public void setExternalContext(ExternalContext externalContext) {
 		this.externalContext = externalContext;
-	}
-
-	public void addValueReferencedWidget(String valueRef, Widget widget) {
-		if(StringUtils.isEmpty(valueRef) || widget == null) {
-			return;
-		}
-		
-		if(referencedWidgets.containsKey(valueRef)) {
-			getReferencedWidgets(valueRef).add(widget);
-		} else {
-			List<Widget> widgets = new ArrayList<Widget>();
-			widgets.add(widget);
-			referencedWidgets.put(valueRef, widgets);
-		}
-	}
-
-	@Override
-	public List<Widget> getReferencedWidgets(String valueRef) {
-		if(StringUtils.isEmpty(valueRef)) {
-			return null;
-		}
-		return referencedWidgets.get(valueRef);
 	}
 	
 }

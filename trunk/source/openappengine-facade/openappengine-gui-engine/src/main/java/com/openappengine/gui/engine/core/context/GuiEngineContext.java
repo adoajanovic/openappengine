@@ -73,12 +73,6 @@ public interface GuiEngineContext {
 	
 	void setExternalContext(ExternalContext externalContext);
 	
-	@Deprecated
-	List<Widget> getReferencedWidgets(String valueRef);
-	
-	@Deprecated
-	void addValueReferencedWidget(String valueRef, Widget widget);
-
 	Map<String, Variable> getScreenVariables();
 	
 	Object getWidget(String id);
