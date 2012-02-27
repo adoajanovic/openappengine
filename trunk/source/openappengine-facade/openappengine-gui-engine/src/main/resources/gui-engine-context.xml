@@ -18,10 +18,10 @@
 		</property>
 	</bean>
 	
-	<bean id="widgetFactory" class="com.openappengine.gui.engine.core.widget.meta.DefaultWidgetMetadataFactory" scope="singleton">
+	<bean id="widgetFactory" class="com.openappengine.gui.engine.core.widget.meta.DefaultWidgetMetadataFactory" 
+				init-method="initializeDefaultWidgetFactory" scope="singleton">
 		<property name="widgetMetadataConfigurationReader" ref="widgetMetadataConfigurationReader"></property>	
 	</bean>
-	
 	
 	<bean name="widgetContext" class="com.openappengine.gui.engine.core.widget.meta.WidgetContext">
 	</bean>

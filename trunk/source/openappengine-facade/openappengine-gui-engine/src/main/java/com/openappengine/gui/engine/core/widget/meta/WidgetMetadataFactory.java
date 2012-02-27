@@ -9,6 +9,8 @@ package com.openappengine.gui.engine.core.widget.meta;
  */
 public interface WidgetMetadataFactory {
 	
+	void registerWidget(WidgetMetadata widgetMetadata);
+	
 	WidgetMetadata getWidgetMetadata(String name);
 	
 }

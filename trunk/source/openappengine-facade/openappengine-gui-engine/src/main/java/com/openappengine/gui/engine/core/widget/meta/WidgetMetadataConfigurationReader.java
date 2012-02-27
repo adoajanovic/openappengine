@@ -24,44 +24,54 @@ import com.openappengine.utility.UtilXml;
 public class WidgetMetadataConfigurationReader {
 	
 	private String[] locations;
-
+	
 	public void setLocations(String[] locations) {
 		this.locations = locations;
 	}
 	
-	public List<WidgetMetadata> readWidgetMetadata() {
+	public List<WidgetMetadata> readWidgetMetadata(WidgetMetadataFactory widgetMetadataFactory) {
 		List<WidgetMetadata> list = new ArrayList<WidgetMetadata>();
-		if(locations != null) {
-			for (String location : locations) {
-				InputStream inputStream = WidgetMetadataConfigurationReader.class.getClassLoader().getResourceAsStream(location);
-				Assert.notNull(inputStream, "File : " + location + " could not be read.");
-				WidgetMetadata widgetMetadata = readWidgetMetadata(location, inputStream);
+		
+		if(locations == null || locations.length == 0) {
+			return list;
+		}
+		
+		for (String location : locations) {
+			InputStream inputStream = WidgetMetadataConfigurationReader.class.getClassLoader().getResourceAsStream(location);
+			Assert.notNull(inputStream, "File : " + location + " could not be read.");
+			
+			WidgetMetadata widgetMetadata = readWidgetMetadata(location, inputStream, widgetMetadataFactory);
+			if(widgetMetadata != null) {
 				list.add(widgetMetadata);
+				widgetMetadataFactory.registerWidget(widgetMetadata);
 			}
 		}
+		
 		return list;
 	}
 
 	/**
 	 * @param location
 	 * @param inputStream
+	 * @param factory TODO
 	 * @param widgetMetaDataImpl
 	 */
-	private WidgetMetadata readWidgetMetadata(String location, InputStream inputStream) {
+	private WidgetMetadata readWidgetMetadata(String location, InputStream inputStream, WidgetMetadataFactory factory) {
 		Document document = createXmlDocument(location, inputStream);
 		WidgetMetadata widgetMetadataImpl = null;
 		if(document != null) {
-			widgetMetadataImpl = doReadWidget(document.getDocumentElement());	
+			widgetMetadataImpl = doReadWidget(document.getDocumentElement(), factory);	
 		}
 		
 		return widgetMetadataImpl;
 	}
 
 	/**
+	 * @param factory TODO
 	 * @param widgetMetaDataImpl
 	 * @param document
 	 */
-	private WidgetMetadata doReadWidget(Element rootEle) {
+	private WidgetMetadata doReadWidget(Element rootEle, WidgetMetadataFactory factory) {
 		WidgetMetadataImpl widgetMetaDataImpl = new WidgetMetadataImpl();
 		String attrWidgetName = rootEle.getAttribute("name");
 		if(StringUtils.isEmpty(attrWidgetName)) {
@@ -86,8 +96,23 @@ public class WidgetMetadataConfigurationReader {
 			List<WidgetMetadata> childWidgets = new ArrayList<WidgetMetadata>();
 			
 			for (Element childWidgetEle : childWidgetEles) {
-				WidgetMetadata childWidgetMetadata = doReadWidget(childWidgetEle);
-				childWidgets.add(childWidgetMetadata);
+				String attrReferencedWidgetName = childWidgetEle.getAttribute("ref");
+				if(StringUtils.isNotEmpty(attrReferencedWidgetName)) {
+					if(childWidgetEle.getChildNodes() != null && !childWidgetEles.isEmpty()) {
+						throw new IllegalArgumentException("Referenced Widget Node :" + childWidgetEle.getNodeName() + " cannot have children");
+					}
+					
+					WidgetMetadata referencedWidgetFromFactory = factory.getWidgetMetadata(attrReferencedWidgetName);
+					if(referencedWidgetFromFactory != null) {
+						childWidgets.add(referencedWidgetFromFactory);
+					} else {
+						//TODO
+						return null;
+					}
+				} else {
+					WidgetMetadata childWidgetMetadata = doReadWidget(childWidgetEle, factory);
+					childWidgets.add(childWidgetMetadata);
+				}
 			}
 			
 			widgetMetaDataImpl.setChildWidgetsMetadata(childWidgets);
