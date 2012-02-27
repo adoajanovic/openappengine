@@ -7,12 +7,10 @@
 				<textarea id="comments" name="comments" labelId="comments" path="/User_Registration/comments" />
 				<datepicker id="date" name="date" labelId="date" path="/User_Registration/date" />
 				<checkbox id="active" name="active" path="/User_Registration/active" labelId="active"/> 
-				<!-- 
-				<dropdown id="currency" labelId="currency" path="/User_Registration/currency">
+				<dropdown id="currency" name="currency" labelId="currency" path="/User_Registration/currency">
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
-				-->
 		</widget>
 	</page-content>
 </screen>

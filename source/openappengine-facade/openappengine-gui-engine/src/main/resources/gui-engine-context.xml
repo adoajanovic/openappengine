@@ -13,6 +13,7 @@
 				<value>widgetcontrols/passwordMetaData.xml</value>
 				<value>widgetcontrols/datepickerMetaData.xml</value>
 				<value>widgetcontrols/booleanCheckboxMetaData.xml</value>
+				<value>widgetcontrols/dropdownMetaData.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -26,3 +27,4 @@
 	</bean>
 	
 </beans>
+

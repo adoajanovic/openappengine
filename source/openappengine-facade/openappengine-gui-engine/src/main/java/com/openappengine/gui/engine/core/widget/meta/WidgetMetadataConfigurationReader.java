@@ -48,26 +48,51 @@ public class WidgetMetadataConfigurationReader {
 	 * @param widgetMetaDataImpl
 	 */
 	private WidgetMetadata readWidgetMetadata(String location, InputStream inputStream) {
-		WidgetMetadataImpl widgetMetaDataImpl = new WidgetMetadataImpl();
 		Document document = createXmlDocument(location, inputStream);
+		WidgetMetadata widgetMetadataImpl = null;
 		if(document != null) {
-			Element documentElement = document.getDocumentElement();
-			String attrWidgetName = documentElement.getAttribute("name");
-			if(StringUtils.isEmpty(attrWidgetName)) {
-				throw new IllegalArgumentException("Widget Name cannot be blank.");
+			widgetMetadataImpl = doReadWidget(document.getDocumentElement());	
+		}
+		
+		return widgetMetadataImpl;
+	}
+
+	/**
+	 * @param widgetMetaDataImpl
+	 * @param document
+	 */
+	private WidgetMetadata doReadWidget(Element rootEle) {
+		WidgetMetadataImpl widgetMetaDataImpl = new WidgetMetadataImpl();
+		String attrWidgetName = rootEle.getAttribute("name");
+		if(StringUtils.isEmpty(attrWidgetName)) {
+			throw new IllegalArgumentException("Widget Name cannot be blank.");
+		}
+		
+		widgetMetaDataImpl.setWidgetName(attrWidgetName);
+		
+		
+		List<Element> parameterElements = DomUtils.getChildElementsByTagName(rootEle, "parameter");
+		if(parameterElements != null) {
+			for (Element paramEle : parameterElements) {
+				WidgetParameter parameter = doReadWidgetParameter(paramEle);
+				widgetMetaDataImpl.getWidgetParameters().add(parameter);
+			}
+		}
+		
+		
+		//If Widget Has Children
+		List<Element> childWidgetEles = DomUtils.getChildElementsByTagName(rootEle, "widget");
+		if(childWidgetEles != null && !childWidgetEles.isEmpty()) {
+			List<WidgetMetadata> childWidgets = new ArrayList<WidgetMetadata>();
+			
+			for (Element childWidgetEle : childWidgetEles) {
+				WidgetMetadata childWidgetMetadata = doReadWidget(childWidgetEle);
+				childWidgets.add(childWidgetMetadata);
 			}
 			
-			widgetMetaDataImpl.setWidgetName(attrWidgetName);
-			
-			
-			List<Element> parameterElements = DomUtils.getChildElementsByTagName(documentElement, "parameter");
-			if(parameterElements != null) {
-				for (Element paramEle : parameterElements) {
-					WidgetParameter parameter = doReadWidgetParameter(paramEle);
-					widgetMetaDataImpl.getWidgetParameters().add(parameter);
-				}
-			}	 
+			widgetMetaDataImpl.setChildWidgetsMetadata(childWidgets);
 		}
+		
 		
 		return widgetMetaDataImpl;
 	}
