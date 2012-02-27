@@ -14,4 +14,10 @@ public interface WidgetMetadata {
 	List<WidgetParameter> getWidgetParameters();
 
 	String getWidgetName();
+	
+	List<WidgetMetadata> getChildWidgetsMetadata();
+	
+	WidgetMetadata getChildWidgetsByName(String name);
+	
+	boolean hasChildren();
 }

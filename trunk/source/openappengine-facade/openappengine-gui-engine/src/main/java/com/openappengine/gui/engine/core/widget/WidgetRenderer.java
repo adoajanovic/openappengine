@@ -48,29 +48,10 @@ public class WidgetRenderer {
 		Document widgetXmlDoc = UtilXml.makeEmptyXmlDocument("widget");
 		if(widgetControlElements != null) {
 			for (Element widgetControlEle : widgetControlElements) {
-				
 				String widgetControlName = widgetControlEle.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
-				
-				String widgetName = widgetMetadata.getWidgetName();				
-				Element widgetChildEle = widgetXmlDoc.createElement(widgetName);
-				
-				List<WidgetParameter> widgetParameters = widgetMetadata.getWidgetParameters();
-				for (WidgetParameter widgetParameter : widgetParameters) {
-					String attribute = widgetControlEle.getAttribute(widgetParameter.getName());
-					if(widgetParameter.isMandatory() && StringUtils.isEmpty(attribute)) {
-						throw new IllegalArgumentException("Attribute " + widgetParameter.getName() + " cannot be empty.");
-					}
-					
-					widgetChildEle.setAttribute(widgetParameter.getName(), attribute);
-					
-				}
-				
+				Element widgetChildEle = encodeWidget(widgetXmlDoc,widgetControlEle,widgetMetadata);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);
-				
-				//TODO - to be replaced by metadata api.
-				/*Element element = encodeWidgetControl(context, doc, widgetXmlDoc.getDocumentElement(), widgetControlEle);
-				widgetXmlDoc.getDocumentElement().appendChild(element);*/
 			}
 		}
 		
@@ -82,55 +63,36 @@ public class WidgetRenderer {
 	}
 
 	/**
-	 * @param context
-	 * @param doc
-	 * @param xmlDocument
+	 * @param widgetXmlDoc
 	 * @param widgetControlEle
-	 * @return 
-	 *//*
-	private Element encodeWidgetControl(GuiEngineContext context,Document doc, Element xmlDocument, Element widgetControlEle) {
-		String widgetControlName = widgetControlEle.getNodeName();
+	 * @param widgetMetadata 
+	 * @return
+	 */
+	private Element encodeWidget(Document widgetXmlDoc, Element widgetControlEle, WidgetMetadata widgetMetadata) {
+		String widgetName = widgetMetadata.getWidgetName();				
+		Element widgetEle = widgetXmlDoc.createElement(widgetName);
 		
-		String attrPath = widgetControlEle.getAttribute("path");
-		if(StringUtils.isNotEmpty(attrPath)) {
-			Node node = UtilXml.evaluateXPathExpression(doc, attrPath);
-			if(node == null) {
-				throw new IllegalStateException("The XPath Location :" + attrPath + " cannot be found.");
-			}
-		}
-		
-		WidgetControlRenderer widgetControlRenderer = widgetControlRenderers.get(widgetControlName);
-		Assert.notNull(widgetControlRenderer, "No WidgetControlRenderer found for WidgetControl " + widgetControlName);
-		
-		//Initialize Writer for WidgetControl
-		WidgetControlWriter writer = new DefaultWidgetControlWriter(xmlDocument);
-		
-		widgetControlRenderer.encodeBegin(widgetControlEle, context, writer);
-		
-		List<Element> childEles = DomUtils.getChildElements(widgetControlEle);
-		if(childEles != null && !childEles.isEmpty()) {
-		
-			Element encodedElement = writer.getWidgetControlElement();
-			xmlDocument.getOwnerDocument().getDocumentElement().appendChild(encodedElement);
-			
-			if(widgetControlRenderer.rendersChildren()) {
-				widgetControlRenderer.encodeChildren(widgetControlEle, context, writer);
-			} else {
-				for (Element element : childEles) {
-					Element childControlEle = encodeWidgetControl(context, doc, encodedElement, element);
-					encodedElement.appendChild(childControlEle);
-				}
+		List<WidgetParameter> widgetParameters = widgetMetadata.getWidgetParameters();
+		for (WidgetParameter widgetParameter : widgetParameters) {
+			String attribute = widgetControlEle.getAttribute(widgetParameter.getName());
+			if(widgetParameter.isMandatory() && StringUtils.isEmpty(attribute)) {
+				throw new IllegalArgumentException("Attribute " + widgetParameter.getName() + " cannot be empty.");
 			}
 			
-			
-		} else {
-			widgetControlRenderer.encodeEnd(widgetControlEle, context, writer);
+			widgetEle.setAttribute(widgetParameter.getName(), attribute);
 			
 		}
 		
-		Element element = writer.getWidgetControlElement();
-		System.out.println(UtilXml.writeXmlDocument(xmlDocument.getOwnerDocument()));
-		return element;
-	}*/
-
+		if(widgetMetadata.hasChildren()) {
+			List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
+			for (Element childElement : childElements) {
+				WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childElement.getNodeName());
+				Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata);
+				widgetEle.appendChild(childEle);
+				widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
+			}
+		}
+		
+		return widgetEle;
+	}
 }
