@@ -13,6 +13,15 @@
   <@formSingle childWidget />
 </#macro>
 
+<#macro login>
+	<table>
+		<tr>
+			<#recurse node using .namespace />
+		</tr>
+		
+	</table>
+</#macro>
+
 <#macro renderFieldsRecursively parent>
 	<#if parent?children?size != 0>
 		<#foreach node in parent?children>

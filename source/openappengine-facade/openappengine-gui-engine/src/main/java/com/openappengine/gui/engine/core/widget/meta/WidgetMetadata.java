@@ -15,9 +15,15 @@ public interface WidgetMetadata {
 
 	String getWidgetName();
 	
+	String getReference();
+	
 	List<WidgetMetadata> getChildWidgetsMetadata();
 	
 	WidgetMetadata getChildWidgetsByName(String name);
 	
 	boolean hasChildren();
+	
+	List<String> getReferencedWidgets();
+	
+	void addResolvedChildWidget(WidgetMetadata metadata);
 }
