@@ -37,12 +37,7 @@ public class WidgetTemplateProcessor {
 		String entityName = widgetEle.getAttribute("name");
 		String widgetId = widgetEle.getAttribute("id");
 		
-		Entity entityDefinition = entityEngineFacade.findEntityDefinition(entityName);
-		if (entityDefinition == null) {
-			throw new IllegalStateException("Entity " + entityName + " not found for Widget : [id:"
-					+ widgetId + "].");
-		}
-		Document doc = entityDefinition.getDocument();
+		Document doc = getInputEntityXml(entityEngineFacade, entityName,widgetId);
 		
 		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		
@@ -65,6 +60,23 @@ public class WidgetTemplateProcessor {
 	}
 
 	/**
+	 * @param entityEngineFacade
+	 * @param entityName
+	 * @param widgetId
+	 * @return
+	 */
+	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,
+			String entityName, String widgetId) {
+		Entity entityDefinition = entityEngineFacade.findEntityDefinition(entityName);
+		if (entityDefinition == null) {
+			throw new IllegalStateException("Entity " + entityName + " not found for Widget : [id:"
+					+ widgetId + "].");
+		}
+		Document doc = entityDefinition.getDocument();
+		return doc;
+	}
+
+	/**
 	 * @param widgetXmlDoc
 	 * @param widgetControlEle
 	 * @param widgetMetadata 
@@ -76,22 +88,22 @@ public class WidgetTemplateProcessor {
 		
 		List<WidgetParameter> widgetParameters = widgetMetadata.getWidgetParameters();
 		for (WidgetParameter widgetParameter : widgetParameters) {
-			
-			String attribute = widgetControlEle.getAttribute(widgetParameter.getName());
-			if(widgetParameter.isMandatory() && StringUtils.isEmpty(attribute)) {
-				throw new IllegalArgumentException("Attribute " + widgetParameter.getName() + " cannot be empty.");
+			String attributeName = widgetParameter.getName();
+			String attributeValue = widgetControlEle.getAttribute(attributeName);
+			if(widgetParameter.isMandatory() && StringUtils.isEmpty(attributeValue)) {
+				throw new IllegalArgumentException("Attribute " + attributeName + " cannot be empty.");
 			}
 			
-			if(StringUtils.equals(widgetParameter.getName(),"path")) {
-				Node node = UtilXml.evaluateXPathExpression(entityDoc, attribute);
+			if(StringUtils.equals(attributeName,"path")) {
+				Node node = UtilXml.evaluateXPathExpression(entityDoc, attributeValue);
 				if(node == null) {
-					throw new IllegalArgumentException("XPath : " + attribute + " incorrectly configured.");
+					throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
 				}
 				
 				widgetEle.setNodeValue(node.getNodeValue());
 			}
 			
-			widgetEle.setAttribute(widgetParameter.getName(), attribute);
+			widgetEle.setAttribute(attributeName, attributeValue);
 			
 		}
 		
