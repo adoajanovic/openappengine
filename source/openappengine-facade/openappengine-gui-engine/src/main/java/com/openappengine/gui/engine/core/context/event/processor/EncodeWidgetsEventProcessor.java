@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
-import com.openappengine.gui.engine.core.widget.WidgetRenderer;
+import com.openappengine.gui.engine.core.widget.WidgetTemplateProcessor;
 import com.openappengine.utility.UtilXml;
 
 /**
@@ -44,8 +44,8 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 	 * @param context 
 	 */
 	protected Document encodeWidgetControls(Element element, GuiEngineContext context) {
-		WidgetRenderer widgetRenderer = new WidgetRenderer();
-		Document renderedWidgetXml = widgetRenderer.renderWidget(element, context);
+		WidgetTemplateProcessor widgetTemplateProcessor = new WidgetTemplateProcessor();
+		Document renderedWidgetXml = widgetTemplateProcessor.renderWidget(element, context);
 		return renderedWidgetXml;
 	}
 	

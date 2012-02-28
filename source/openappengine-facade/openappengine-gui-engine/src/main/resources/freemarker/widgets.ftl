@@ -9,27 +9,25 @@
 <#include "password.ftl" />
 <#include "dropdown.ftl" />
 
-<!-- Render Widget -->
-<#macro renderWidget childWidget>
-  <@formSingle childWidget />
-</#macro>
-
 <#macro login>
 	<table>
 		<tr>
 			<#recurse node using .namespace />
 		</tr>
-		
 	</table>
 </#macro>
 
 <#macro renderFieldsRecursively parent>
-	<#if parent?children?size != 0>
-		<#foreach node in parent?children>
-			<#recurse node using .namespace />
-		</#foreach>
-	<#else>
+	<#if parent["@rendersChildren"]?has_content>
 		<#visit parent using .namespace />
+	<#else>
+		<#if parent?children?size != 0>
+			<#foreach node in parent?children>
+				<#recurse node using .namespace />
+			</#foreach>
+		<#else>
+			<#visit parent using .namespace />
+		</#if>	
 	</#if>
 </#macro>
 
@@ -121,7 +119,7 @@
 	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
-<#macro formSingle widgetDataXml>
+<#macro renderWidget widgetDataXml>
 	<!-- Form Command Object -->
 	<div>
 		<#if widgetDataXml?has_content>

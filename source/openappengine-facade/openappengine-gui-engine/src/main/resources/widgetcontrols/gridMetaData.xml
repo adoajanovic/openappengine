@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget name="grid">
+<widget name="grid" container="true">
 	<parameter name="id" mandatory="true"></parameter>
 	<parameter name="columns" mandatory="false" default="2"></parameter>
 	<widget ref="textfield" />
