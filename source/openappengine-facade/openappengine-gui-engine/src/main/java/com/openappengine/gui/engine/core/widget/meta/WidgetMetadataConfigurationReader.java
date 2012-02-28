@@ -98,10 +98,6 @@ public class WidgetMetadataConfigurationReader {
 			for (Element childWidgetEle : childWidgetEles) {
 				String attrReferencedWidgetName = childWidgetEle.getAttribute("ref");
 				if(StringUtils.isNotEmpty(attrReferencedWidgetName)) {
-					//TODO
-					/*if(childWidgetEle.getChildNodes() != null && !childWidgetEles.isEmpty()) {
-						throw new IllegalArgumentException("Referenced Widget Node :" + childWidgetEle.getNodeName() + " cannot have children");
-					}*/
 					widgetMetaDataImpl.getReferencedWidgets().add(attrReferencedWidgetName);
 				} else {
 					WidgetMetadata childWidgetMetadata = doReadWidget(childWidgetEle, factory);

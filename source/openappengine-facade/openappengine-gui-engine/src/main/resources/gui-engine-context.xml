@@ -15,6 +15,7 @@
 				<value>widgetcontrols/booleanCheckboxMetaData.xml</value>
 				<value>widgetcontrols/dropdownMetaData.xml</value>
 				<value>widgetcontrols/loginWidgetMetaData.xml</value>
+				<value>widgetcontrols/gridMetaData.xml</value>
 			</array>
 		</property>
 	</bean>

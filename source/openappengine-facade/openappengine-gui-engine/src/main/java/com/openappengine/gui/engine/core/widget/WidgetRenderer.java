@@ -49,8 +49,6 @@ public class WidgetRenderer {
 		Document widgetXmlDoc = UtilXml.makeEmptyXmlDocument("widget");
 		
 		if(widgetControlElements != null) {
-			
-			widgetXmlDoc.getDocumentElement().setAttribute("rendersChildren", "true");
 			for (Element widgetControlEle : widgetControlElements) {
 				String widgetControlName = widgetControlEle.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
@@ -101,6 +99,9 @@ public class WidgetRenderer {
 			List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
 			for (Element childElement : childElements) {
 				WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childElement.getNodeName());
+				if(childWidgetMetadata == null) {
+					//TODO
+				}
 				Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata,entityDoc);
 				widgetEle.appendChild(childEle);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
