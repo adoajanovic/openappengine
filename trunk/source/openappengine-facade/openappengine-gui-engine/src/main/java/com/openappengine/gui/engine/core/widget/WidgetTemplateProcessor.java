@@ -26,9 +26,9 @@ import com.openappengine.utility.UtilXml;
  * @author hrishi
  * since Feb 26, 2012
  */
-public class WidgetRenderer {
+public class WidgetTemplateProcessor {
 	
-	private static final Logger logger = Logger.getLogger(WidgetRenderer.class);
+	private static final Logger logger = Logger.getLogger(WidgetTemplateProcessor.class);
 	
 	private WidgetMetadataFactory widgetMetadataFactory = WidgetContext.getWidgetMetadataFactory();
 	
@@ -96,6 +96,8 @@ public class WidgetRenderer {
 		}
 		
 		if(widgetMetadata.hasChildren()) {
+			widgetEle.setAttribute("rendersChildren", "true");
+			
 			List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
 			for (Element childElement : childElements) {
 				WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childElement.getNodeName());
