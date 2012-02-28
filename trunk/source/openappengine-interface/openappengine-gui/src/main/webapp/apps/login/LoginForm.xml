@@ -4,8 +4,9 @@
 		<widget id="User_Registration" name="User_Registration">
 				<login id="login">
 					<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
-					<password id="password" name="password" labelId="password" path="/User_Registration/password" />
+					<textfield id="password" name="password" labelId="password" path="/User_Registration/password" />
 				</login>
+					<password id="password" name="password" labelId="password" path="/User_Registration/password" />
 				<!-- <textarea id="comments" name="comments" labelId="comments" path="/User_Registration/comments" />
 				<datepicker id="date" name="date" labelId="date" path="/User_Registration/date" />
 				<checkbox id="active" name="active" path="/User_Registration/active" labelId="active"/> 
@@ -13,6 +14,15 @@
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown> -->
+		</widget>
+		
+		<widget id="gridEx" name="User_Registration">
+			<grid id="grid" columns="2">
+				<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
+				<textfield id="username1" name="username1" labelId="username1" path="/User_Registration/username" />
+				<textfield id="username2" name="username2" labelId="username2" path="/User_Registration/username" />
+				<textfield id="username3" name="username3" labelId="username3" path="/User_Registration/username" />
+			</grid>
 		</widget>
 	</page-content>
 </screen>

@@ -1,6 +1,7 @@
 <#import "/spring.ftl" as spring/>
 <#import "common.ftl" as common />
 <#include "datepicker.ftl" />
+<#include "grid.ftl" />
 <#include "textfield.ftl" />
 <#include "textarea.ftl" />
 <#include "checkbox.ftl" />
