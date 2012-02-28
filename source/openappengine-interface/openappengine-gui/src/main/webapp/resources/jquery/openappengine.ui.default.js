@@ -36,7 +36,6 @@ jQuery("input").blur(function(){
   $(this).removeClass('ui-state-active');
 });
 
-
 jQuery("textarea").focus(function(){
   	$(this).addClass('ui-state-active');
 });
@@ -44,6 +43,14 @@ jQuery("textarea").focus(function(){
 /* On Focus CSS Handler */
 jQuery("textarea").blur(function(){
   $(this).removeClass('ui-state-active');
+});
+
+jQuery("input").focusin(function() {
+	$(this).addClass("ui-state-highlight");
+});
+
+jQuery("input").focusout(function() {
+	$(this).removeClass("ui-state-highlight");
 });
 
 //jQuery("tr:odd").addClass("odd");

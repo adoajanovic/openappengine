@@ -1,7 +1,7 @@
 <#import "/spring.ftl" as spring/>
 <#import "common.ftl" as common />
 <#include "datepicker.ftl" />
-<#include "grid.ftl" />
+<#include "formGrid.ftl" />
 <#include "textfield.ftl" />
 <#include "textarea.ftl" />
 <#include "checkbox.ftl" />
@@ -123,15 +123,7 @@
 	<!-- Form Command Object -->
 	<div>
 		<#if widgetDataXml?has_content>
-	 		<!-- Widget : form-single -->
-			<form action="${currentURL}" method="post">
-				<!-- Meta Model Attributes Used for Processing Widget Submits -->
-				<fieldset class="ui-corner-all">
-					<table style="width:auto;">
-						<@renderFieldsRecursively widgetDataXml />
-			 		</table>
-		 		</fieldset>
-	 		</form>
+	 		<@renderFieldsRecursively widgetDataXml />
 		</#if>
 	</div>
 </#macro>

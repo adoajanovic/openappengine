@@ -30,7 +30,7 @@ form {
 	color: #222;
 	border-color: #000;
 	width: auto;
-	padding: 2em;
+	padding: 0.2em;
 	overflow: visible;
 }
 
@@ -471,4 +471,12 @@ p {
 .ui-datepicker-trigger {
 	background:#939393 url(images/calendar.gif) no-repeat;
 	width: 50px;	
+}
+
+.formGridHeader {
+	margin-left: 0.8em;
+}
+
+.ui-widget-headerLabel {
+	padding: 0.8em;	
 }
