@@ -80,8 +80,8 @@ public class WidgetMetadataConfigurationReader {
 		widgetMetaDataImpl.setWidgetName(attrWidgetName);
 		
 		//Node Type
-		String attrNodeType = rootEle.getAttribute("nodeType");
-		if(StringUtils.isNotEmpty(attrWidgetName)) {
+		String attrNodeType = rootEle.getAttribute("nodetype");
+		if(StringUtils.isNotEmpty(attrNodeType)) {
 			widgetMetaDataImpl.setNodeType(attrNodeType);
 		}
 		

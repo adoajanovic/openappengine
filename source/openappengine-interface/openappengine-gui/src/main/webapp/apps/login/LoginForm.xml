@@ -16,7 +16,7 @@
 				</dropdown>
 		</widget> -->
 		
-		<widget id="gridEx" name="User_Registration">
+		<!-- <widget id="gridEx" name="User_Registration">
 			<formGrid id="grid" columns="3" headerLabel="Example Form">
 				<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
 				<datepicker id="date" name="date" labelId="date" path="/User_Registration/date" />
@@ -28,6 +28,17 @@
 				<textfield id="username2" name="username2" labelId="username2" path="/User_Registration/username" />
 				<textfield id="username3" name="username3" labelId="username3" path="/User_Registration/username" />
 			</formGrid>
+		</widget> -->
+		
+		<widget id="user_registration_datatable" name="User_Registration">
+			<dataTable id="datatable" path="/User_Registration">
+				<header>
+					<column id="lblUsername" labelId="Username" />
+					<column id="lblPassword" labelId="Password" />
+				</header>
+				<column id="username" path="/User_Registration/username" />
+				<column id="password" path="/User_Registration/password" />
+			</dataTable>
 		</widget>
 	</page-content>
 </screen>

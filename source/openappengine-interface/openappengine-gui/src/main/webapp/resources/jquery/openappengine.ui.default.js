@@ -26,6 +26,19 @@ jQuery(document).ready(function (){
   }
 );
 
+
+$(function(){
+	jQuery("tbody tr").hover(
+	function(){ jQuery("td", this).addClass('ui-state-hover');},
+	function(){ jQuery("td", this).removeClass('ui-state-hover');}
+	)
+	.toggle(
+	function(){ jQuery("td", this).addClass('ui-state-highlight');},
+	function(){ jQuery("td", this).removeClass('ui-state-highlight');}
+	);
+}); 
+
+
 /* On Focus CSS Handler */
 jQuery("input").focus(function(){
   $(this).addClass('ui-state-active');
