@@ -11,7 +11,7 @@ jQuery(document).ready(function (){
 			changeMonth: true,
 			changeYear: true,
 			showOn: "button",
-			buttonImage: "../../css/images/calendar.gif",
+			/*buttonImage: "../../css/images/calendar.gif",*/
 			buttonImageOnly: true
 		}
 	);

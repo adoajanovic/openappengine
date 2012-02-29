@@ -11,6 +11,7 @@ import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
@@ -37,7 +38,7 @@ public class WidgetTemplateProcessor {
 		String entityName = widgetEle.getAttribute("name");
 		String widgetId = widgetEle.getAttribute("id");
 		
-		Document doc = getInputEntityXml(entityEngineFacade, entityName,widgetId);
+		Document dataXmlDoc = getInputEntityXml(entityEngineFacade, entityName,widgetId);
 		
 		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		
@@ -47,7 +48,7 @@ public class WidgetTemplateProcessor {
 			for (Element widgetControlEle : widgetControlElements) {
 				String widgetControlName = widgetControlEle.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
-				Element widgetChildEle = encodeWidget(widgetXmlDoc,widgetControlEle,widgetMetadata,doc);
+				Element widgetChildEle = encodeWidget(widgetXmlDoc,widgetControlEle,widgetMetadata,dataXmlDoc);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);
 			}
 		}
@@ -95,12 +96,27 @@ public class WidgetTemplateProcessor {
 			}
 			
 			if(StringUtils.equals(attributeName,"path")) {
-				Node node = UtilXml.evaluateXPathExpression(entityDoc, attributeValue);
-				if(node == null) {
-					throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
+				if(StringUtils.equals("node", widgetMetadata.getNodeType())) {
+					Node node = UtilXml.evaluateXPathNode(entityDoc, attributeValue);
+					if(node == null) {
+						throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
+					}
+					widgetEle.setNodeValue(node.getNodeValue());
+				} else if(StringUtils.equals("list", widgetMetadata.getNodeType())) {
+					NodeList nodeList = UtilXml.evaluateXPathNodeList(entityDoc, attributeValue);
+					if(nodeList == null) {
+						throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
+					}
+					
+					/*if(!widgetMetadata.hasChildren()) {
+						throw new IllegalArgumentException("Expected children for this widget.");
+					}*/
+					for (int i = 0 ; i < nodeList.getLength(); i++) {
+						//TODO
+						doEncodeChildWidgets(widgetXmlDoc, widgetControlEle,widgetMetadata, entityDoc, widgetEle);
+					}
 				}
 				
-				widgetEle.setNodeValue(node.getNodeValue());
 			}
 			
 			widgetEle.setAttribute(attributeName, attributeValue);
@@ -108,20 +124,36 @@ public class WidgetTemplateProcessor {
 		}
 		
 		if(widgetMetadata.hasChildren()) {
-			widgetEle.setAttribute("rendersChildren", "true");
-			
-			List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
-			for (Element childElement : childElements) {
-				WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childElement.getNodeName());
-				if(childWidgetMetadata == null) {
-					//TODO
-				}
-				Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata,entityDoc);
-				widgetEle.appendChild(childEle);
-				widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
-			}
+			doEncodeChildWidgets(widgetXmlDoc, widgetControlEle,
+					widgetMetadata, entityDoc, widgetEle);
 		}
 		
 		return widgetEle;
+	}
+
+	/**
+	 * @param widgetXmlDoc
+	 * @param widgetControlEle
+	 * @param widgetMetadata
+	 * @param entityDoc
+	 * @param widgetEle
+	 */
+	private void doEncodeChildWidgets(Document widgetXmlDoc,
+			Element widgetControlEle, WidgetMetadata widgetMetadata,
+			Document entityDoc, Element widgetEle) {
+		widgetEle.setAttribute("rendersChildren", "true");
+		
+		List<Element> childElements = DomUtils.getChildElements(widgetControlEle);
+		for (Element childElement : childElements) {
+			String childNodeName = childElement.getNodeName();
+			WidgetMetadata childWidgetMetadata = widgetMetadata.getChildWidgetsByName(childNodeName);
+			if(childWidgetMetadata == null) {
+				//TODO
+				childWidgetMetadata = widgetMetadataFactory.getWidgetMetadata(childNodeName);
+			}
+			Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata,entityDoc);
+			widgetEle.appendChild(childEle);
+			widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
+		}
 	}
 }

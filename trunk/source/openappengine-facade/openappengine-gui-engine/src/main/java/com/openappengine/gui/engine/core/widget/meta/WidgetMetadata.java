@@ -17,6 +17,8 @@ public interface WidgetMetadata {
 	
 	String getReference();
 	
+	String getNodeType();
+	
 	List<WidgetMetadata> getChildWidgetsMetadata();
 	
 	WidgetMetadata getChildWidgetsByName(String name);
