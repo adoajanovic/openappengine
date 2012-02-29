@@ -45,7 +45,7 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 	 */
 	protected Document encodeWidgetControls(Element element, GuiEngineContext context) {
 		WidgetTemplateProcessor widgetTemplateProcessor = new WidgetTemplateProcessor();
-		Document renderedWidgetXml = widgetTemplateProcessor.renderWidget(element, context);
+		Document renderedWidgetXml = widgetTemplateProcessor.processWidgetTemplate(element, context);
 		return renderedWidgetXml;
 	}
 	

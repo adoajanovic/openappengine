@@ -2,6 +2,7 @@
 <#import "common.ftl" as common />
 <#include "datepicker.ftl" />
 <#include "formGrid.ftl" />
+<#include "dataTable.ftl" />
 <#include "textfield.ftl" />
 <#include "textarea.ftl" />
 <#include "checkbox.ftl" />

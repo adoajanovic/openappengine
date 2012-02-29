@@ -223,13 +223,26 @@ public class UtilXml {
         return document;
     }
     
-    public static Node evaluateXPathExpression(Document doc,String xpathExpression) {
+    public static Node evaluateXPathNode(Node node,String xpathExpression) {
     	try {
     		XPathFactory xPathFactory = XPathFactoryImpl.newInstance();
     		XPath xPath = xPathFactory.newXPath();
     		XPathExpression pathExpression = xPath.compile(xpathExpression);
-    		Object evaluate = pathExpression.evaluate(doc, XPathConstants.NODE);
+    		Object evaluate = pathExpression.evaluate(node, XPathConstants.NODE);
     		return (Node) evaluate;
+    	} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return null;
+    }
+    
+    public static NodeList evaluateXPathNodeList(Node node,String xpathExpression) {
+    	try {
+    		XPathFactory xPathFactory = XPathFactoryImpl.newInstance();
+    		XPath xPath = xPathFactory.newXPath();
+    		XPathExpression pathExpression = xPath.compile(xpathExpression);
+    		Object evaluate = pathExpression.evaluate(node, XPathConstants.NODESET);
+    		return (NodeList) evaluate;
     	} catch (Exception e) {
 			// TODO: handle exception
 		}
