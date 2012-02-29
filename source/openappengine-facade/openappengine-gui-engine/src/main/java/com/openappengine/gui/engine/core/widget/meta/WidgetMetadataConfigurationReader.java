@@ -77,9 +77,13 @@ public class WidgetMetadataConfigurationReader {
 		if(StringUtils.isEmpty(attrWidgetName)) {
 			throw new IllegalArgumentException("Widget Name cannot be blank.");
 		}
-		
 		widgetMetaDataImpl.setWidgetName(attrWidgetName);
 		
+		//Node Type
+		String attrNodeType = rootEle.getAttribute("nodeType");
+		if(StringUtils.isNotEmpty(attrWidgetName)) {
+			widgetMetaDataImpl.setNodeType(attrNodeType);
+		}
 		
 		List<Element> parameterElements = DomUtils.getChildElementsByTagName(rootEle, "parameter");
 		if(parameterElements != null) {

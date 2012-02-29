@@ -8,7 +8,7 @@
 	<#if .node["@headerLabel"]?has_content>
 		<tr>
 			<td colspan=${.node?children?size?number*2}>
-				<div class="ui-widget-header ui-widget-headerLabel">
+				<div class="ui-widget-header ui-widget-headerLabel ui-corner-all">
 					${.node["@headerLabel"]}
 				</div>
 			</td>

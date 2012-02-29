@@ -16,6 +16,7 @@
 				<value>widgetcontrols/dropdownMetaData.xml</value>
 				<value>widgetcontrols/loginWidgetMetaData.xml</value>
 				<value>widgetcontrols/gridMetaData.xml</value>
+				<value>widgetcontrols/dataTableMetaData.xml</value>
 			</array>
 		</property>
 	</bean>

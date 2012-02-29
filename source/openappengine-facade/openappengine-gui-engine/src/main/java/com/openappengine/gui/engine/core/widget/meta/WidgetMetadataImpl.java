@@ -18,6 +18,8 @@ public class WidgetMetadataImpl implements WidgetMetadata {
 	
 	private String widgetName;
 	
+	private String nodeType = "node";
+	
 	private String reference;
 	
 	private List<WidgetParameter> widgetParameters = new ArrayList<WidgetParameter>();
@@ -90,6 +92,14 @@ public class WidgetMetadataImpl implements WidgetMetadata {
 	public void addResolvedChildWidget(WidgetMetadata metadata) {
 		//this.referencedWidgetMetadata.remove(metadata.getWidgetName());
 		this.childWidgetMetadataMap.put(metadata.getWidgetName(), metadata);
+	}
+
+	public String getNodeType() {
+		return nodeType;
+	}
+
+	public void setNodeType(String nodeType) {
+		this.nodeType = nodeType;
 	}
 	
 }

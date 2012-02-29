@@ -19,7 +19,7 @@
 		<widget id="gridEx" name="User_Registration">
 			<formGrid id="grid" columns="3" headerLabel="Example Form">
 				<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
-				<textfield id="username1" name="username1" labelId="username1" path="/User_Registration/username" />
+				<datepicker id="date" name="date" labelId="date" path="/User_Registration/date" />
 				<textfield id="username2" name="username2" labelId="username2" path="/User_Registration/username" />
 				<textfield id="username3" name="username3" labelId="username3" path="/User_Registration/username" />
 				
