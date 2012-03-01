@@ -101,8 +101,8 @@ public class WidgetTemplateProcessor {
 					if(node == null && widgetParameter.isMandatory()) {
 						throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
 					}
-					widgetEle.setTextContent("text");
-					//widgetEle.setNodeValue(node.getNodeValue());
+					//widgetEle.setTextContent("text");
+					widgetEle.setNodeValue(node.getNodeValue());
 				} else if(StringUtils.equals("list", widgetMetadata.getNodeType())) {
 					NodeList nodeList = UtilXml.evaluateXPathNodeList(dataNode, attributeValue);
 					if(nodeList == null && widgetParameter.isMandatory()) {

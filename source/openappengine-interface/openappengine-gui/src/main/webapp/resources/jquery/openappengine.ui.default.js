@@ -29,7 +29,7 @@ jQuery(document).ready(function (){
 
 $(function(){
 	
-	jQuery("tbody td").addClass('ui-widget-content');
+	/*jQuery("tbody td").addClass('ui-widget-content');*/
 	
 	/*jQuery("tbody tr").hover(
 	function(){ jQuery("td", this).addClass('ui-state-hover');},

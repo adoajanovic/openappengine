@@ -9,8 +9,8 @@
 	
 	<td>
 	<select id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget">
-		<#foreach child in .node?children>
-			<option id="${child["@id"]}" value="${child["@value"]}">
+		<#foreach child in .node.option>
+			<option id="${child["@id"]?string}" value="${child["@value"]}">
 				<@common.message child["@labelId"] />
 			</option>
 		</#foreach>
