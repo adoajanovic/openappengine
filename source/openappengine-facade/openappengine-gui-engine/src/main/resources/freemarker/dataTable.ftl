@@ -13,7 +13,7 @@
 			<thead>
 				<tr>
 					<#foreach headerColumn in .node.header?children>
-						<th class="ui-state-default">
+						<th class="ui-state-default tableHeader">
 							${headerColumn["@labelId"]}
 						</th>
 					</#foreach>
