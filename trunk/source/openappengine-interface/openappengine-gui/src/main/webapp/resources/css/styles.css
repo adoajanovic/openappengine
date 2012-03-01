@@ -487,7 +487,7 @@ p {
 
 /* Grid
 ----------------------------------*/
-.ui-grid { width: 500px; padding: .0em; background-image: none;margin-left: 200px;}
+/* .ui-grid { width: 500px; padding: .0em; background-image: none;margin-left: 200px;}
 .ui-grid .ui-grid-content { width: 100%; border-collapse: collapse; }
 .ui-grid table tbody td, .ui-grid .ui-grid-header, .ui-grid table thead a { padding: .4em; }
 .ui-grid table tbody td { text-align: right; font-weight: normal; }
@@ -498,4 +498,4 @@ p {
 .ui-grid .ui-grid-paging { float: right; }
 .ui-grid .ui-grid-paging-prev { float: left; width: 16px; height: 16px; }
 .ui-grid .ui-grid-paging-next { float: right; width: 16px; height: 16px; }
-.ui-grid .ui-grid-results { } 
+.ui-grid .ui-grid-results { }  */
