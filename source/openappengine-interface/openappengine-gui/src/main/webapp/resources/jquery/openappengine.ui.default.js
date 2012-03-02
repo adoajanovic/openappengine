@@ -10,9 +10,9 @@ jQuery(document).ready(function (){
 		{
 			changeMonth: true,
 			changeYear: true,
-			showOn: "button",
+			/*showOn: "button",*/
 			/*buttonImage: "../../css/images/calendar.gif",*/
-			buttonImageOnly: true
+			/*buttonImageOnly: true*/
 		}
 	);
 		
