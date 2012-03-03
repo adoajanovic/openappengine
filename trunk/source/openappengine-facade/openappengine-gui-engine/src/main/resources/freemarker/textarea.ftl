@@ -8,7 +8,7 @@
 	</td>
 	<td>
 		<textarea id="${.node["@id"]}" name="${.node["@name"]}" rows="${.node["@rows"]}" cols="${.node["@cols"]}">
-			${.node}
+			<@common.evalXpathExpression widgetDataXml "path" />
 		</textarea>
 	</td>	
 </#macro>

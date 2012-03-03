@@ -120,12 +120,12 @@
 	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
-<#macro renderWidget widgetDataXml>
-	<!-- Form Command Object -->
+<#macro renderWidget widgetTemplateNode>
+	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
+	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
 	<div>
 		<#if widgetDataXml?has_content>
-	 		<@renderFieldsRecursively widgetDataXml />
+	 		<@renderFieldsRecursively widgetTemplateXml />
 		</#if>
 	</div>
 </#macro>
-

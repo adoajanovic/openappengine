@@ -53,8 +53,8 @@
 	<#assign widgetIds = guiEngineContext.getWidgets() >
  	
  	<#list widgetIds as widgetId>
- 		<#assign widgetDoc = guiEngineContext.getWidget(widgetId) >
- 		<@gui.renderWidget widgetDoc />
+ 		<#assign widgetTemplateNode = guiEngineContext.getWidget(widgetId) >
+ 		<@gui.renderWidget widgetTemplateNode />
 		<!-- Can be replaced with visit directive -->
  	</#list>
  </div>

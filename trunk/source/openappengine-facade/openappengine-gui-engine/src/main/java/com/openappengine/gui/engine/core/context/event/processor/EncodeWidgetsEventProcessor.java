@@ -3,17 +3,23 @@
  */
 package com.openappengine.gui.engine.core.context.event.processor;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
+import com.openappengine.entity.EntityEngineFacade;
+import com.openappengine.entity.context.EntityEngineFacadeContext;
+import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
+import com.openappengine.gui.engine.core.widget.WidgetTemplateNode;
 import com.openappengine.gui.engine.core.widget.WidgetTemplateProcessor;
 import com.openappengine.utility.UtilXml;
 
@@ -32,9 +38,14 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		List<Element> widgetElementList = DomUtils.getChildElementsByTagName(pageContentEle, "widget");
 		if(widgetElementList != null) {
 			for (Element widgetElement : widgetElementList) {
-				Document document = encodeWidgetControls(widgetElement, t);
-				String attrWidgetId = UtilXml.readElementAttribute(widgetElement, "id");
-				t.addWidget(attrWidgetId, document);
+				
+				EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
+				String entityName = widgetElement.getAttribute("name");
+				String widgetId = widgetElement.getAttribute("id");
+				Document widgetDataXml = getInputEntityXml(entityEngineFacade, entityName,widgetId);
+				Document widgetTemplateXml = encodeWidgetControls(widgetElement, t);
+				WidgetTemplateNode node = new WidgetTemplateNode(widgetId, widgetTemplateXml, widgetDataXml);
+				t.addWidget(widgetId, node);
 			}
 		}
 	}
@@ -47,6 +58,33 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		WidgetTemplateProcessor widgetTemplateProcessor = new WidgetTemplateProcessor();
 		Document renderedWidgetXml = widgetTemplateProcessor.processWidgetTemplate(element, context);
 		return renderedWidgetXml;
+	}
+	
+	/**
+	 * @param entityEngineFacade
+	 * @param entityName
+	 * @param widgetId
+	 * @return
+	 */
+	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,
+			String entityName, String widgetId) {
+		Entity entityDefinition = entityEngineFacade.findEntityDefinition(entityName);
+		if (entityDefinition == null) {
+			throw new IllegalStateException("Entity " + entityName + " not found for Widget : [id:"
+					+ widgetId + "].");
+		}
+		Document doc = entityDefinition.getDocument();
+		UtilXml.writeXmlDocument(doc);
+		String xmlAsStr = "<User_Registration><username type=\"String\">hrishi2323</username><password type=\"Password\">sumedh</password><firstName type=\"String\">Hrishikesh</firstName>" +
+				"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
+				"<active type=\"Boolean\"></active><currency type=\"String\">USD</currency></User_Registration>";
+		try {
+			doc = UtilXml.readXmlDocument(xmlAsStr);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return doc;
 	}
 	
 	/**
