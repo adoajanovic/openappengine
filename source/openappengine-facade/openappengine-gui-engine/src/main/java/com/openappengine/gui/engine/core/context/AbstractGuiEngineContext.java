@@ -25,6 +25,7 @@ import com.openappengine.gui.engine.core.el.ExpressionEvaluator;
 import com.openappengine.gui.engine.core.el.SimpleExpressionEvaluator;
 import com.openappengine.gui.engine.core.resolve.ELContextVariableResolver;
 import com.openappengine.gui.engine.core.variable.Variable;
+import com.openappengine.gui.engine.core.widget.WidgetTemplateNode;
 
 /**
  * @author hrishikesh.joshi
@@ -44,7 +45,7 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 	
 	private final Map<String, Variable> screenVariables = new HashMap<String, Variable>();
 	
-	private Map<String,Document> widgetMap = new HashMap<String, Document>();
+	private Map<String,WidgetTemplateNode> widgetMap = new HashMap<String, WidgetTemplateNode>();
 	
 	private ScreenDefinitionParserDelegate delegate;
 
@@ -133,8 +134,8 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 		return screenVariables;
 	}
 	
-	public void addWidget(String id,Document doc) {
-		this.widgetMap.put(id, doc);
+	public void addWidget(String id,WidgetTemplateNode node) {
+		this.widgetMap.put(id, node);
 	}
 	
 	public List<String> getWidgets() {

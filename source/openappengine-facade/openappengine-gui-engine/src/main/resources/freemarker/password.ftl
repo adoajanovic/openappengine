@@ -8,6 +8,8 @@
 		</label>
 	</td>
 	<td>	
-		<input id="${.node["@id"]}" name="${.node["@name"]}" type="password" value="${.node}" class="ui-widget ui-corner-all" />
+		<input id="${.node["@id"]}" name="${.node["@name"]}" type="password" 
+				value = "<@common.evalXpathExpression widgetDataXml "path" />" 
+				class="ui-widget ui-corner-all" />
 	</td>	
 </#macro>

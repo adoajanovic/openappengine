@@ -10,11 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import com.openappengine.entity.EntityEngineFacade;
-import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.widget.meta.WidgetContext;
@@ -34,12 +31,6 @@ public class WidgetTemplateProcessor {
 	private WidgetMetadataFactory widgetMetadataFactory = WidgetContext.getWidgetMetadataFactory();
 	
 	public Document processWidgetTemplate(Element widgetEle,GuiEngineContext context) {
-		EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
-		String entityName = widgetEle.getAttribute("name");
-		String widgetId = widgetEle.getAttribute("id");
-		
-		Document dataXmlDoc = getInputEntityXml(entityEngineFacade, entityName,widgetId);
-		
 		List<Element> widgetControlElements = DomUtils.getChildElements(widgetEle);
 		
 		Document widgetXmlDoc = UtilXml.makeEmptyXmlDocument("widget");
@@ -48,7 +39,7 @@ public class WidgetTemplateProcessor {
 			for (Element inputWidgetElement : widgetControlElements) {
 				String widgetControlName = inputWidgetElement.getNodeName();
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
-				Element widgetChildEle = encodeWidget(widgetXmlDoc,inputWidgetElement,widgetMetadata,dataXmlDoc.getDocumentElement());
+				Element widgetChildEle = encodeWidget(widgetXmlDoc,inputWidgetElement,widgetMetadata);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);
 			}
 		}
@@ -83,7 +74,7 @@ public class WidgetTemplateProcessor {
 	 * @param widgetMetadata 
 	 * @return
 	 */
-	private Element encodeWidget(Document widgetXmlDoc, Element inputWidgetEle, WidgetMetadata widgetMetadata,Node dataNode) {
+	private Element encodeWidget(Document widgetXmlDoc, Element inputWidgetEle, WidgetMetadata widgetMetadata) {
 		String widgetName = widgetMetadata.getWidgetName();				
 		Element widgetEle = widgetXmlDoc.createElement(widgetName);
 		
@@ -95,7 +86,7 @@ public class WidgetTemplateProcessor {
 				throw new IllegalArgumentException("Attribute " + attributeName + " cannot be empty.");
 			}
 			
-			if(StringUtils.equals(attributeName,"path")) {
+			/*if(StringUtils.equals(attributeName,"path")) {
 				if(StringUtils.equals("node", widgetMetadata.getNodeType())) {
 					Node node = UtilXml.evaluateXPathNode(dataNode, attributeValue);
 					if(node == null && widgetParameter.isMandatory()) {
@@ -118,7 +109,7 @@ public class WidgetTemplateProcessor {
 					}
 				}
 				
-			}
+			}*/
 			
 			widgetEle.setAttribute(attributeName, attributeValue);
 			
@@ -126,7 +117,7 @@ public class WidgetTemplateProcessor {
 		
 		if(widgetMetadata.hasChildren() && !StringUtils.equals("list", widgetMetadata.getNodeType())) {
 			doEncodeChildWidgets(widgetXmlDoc, inputWidgetEle,
-					widgetMetadata, dataNode, widgetEle);
+					widgetMetadata, widgetEle);
 		}
 		
 		return widgetEle;
@@ -141,7 +132,7 @@ public class WidgetTemplateProcessor {
 	 */
 	private void doEncodeChildWidgets(Document widgetXmlDoc,
 			Element inputWidgetEle, WidgetMetadata widgetMetadata,
-			Node dataNode, Element widgetEle) {
+			Element widgetEle) {
 		widgetEle.setAttribute("rendersChildren", "true");
 		
 		List<Element> childElements = DomUtils.getChildElements(inputWidgetEle);
@@ -152,7 +143,7 @@ public class WidgetTemplateProcessor {
 				//TODO
 				childWidgetMetadata = widgetMetadataFactory.getWidgetMetadata(childNodeName);
 			}
-			Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata,dataNode);
+			Element childEle = encodeWidget(widgetXmlDoc, childElement,childWidgetMetadata);
 			widgetEle.appendChild(childEle);
 			widgetXmlDoc.getDocumentElement().appendChild(widgetEle);
 		}

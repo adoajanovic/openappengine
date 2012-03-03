@@ -8,6 +8,7 @@
 	</td>
 	
 	<td>
-		<input id="${.node["@id"]}" name="${.node["@name"]}" type="text" value="${.node}" class="datepicker"/>
+		<input id="${.node["@id"]}" name="${.node["@name"]}" type="text" value="${.node}" class="datepicker" 
+			value = "<@common.evalXpathExpression widgetDataXml "path" />" />
 	</td>	
 </#macro>

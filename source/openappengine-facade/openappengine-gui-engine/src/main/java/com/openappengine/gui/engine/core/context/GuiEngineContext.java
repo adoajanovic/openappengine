@@ -16,6 +16,7 @@ import com.openappengine.gui.engine.core.el.ExpressionEvaluator;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.variable.Variable;
 import com.openappengine.gui.engine.core.widget.Widget;
+import com.openappengine.gui.engine.core.widget.WidgetTemplateNode;
 import com.openappengine.gui.engine.fsm.TransitionEventListener;
 
 /**
@@ -77,7 +78,7 @@ public interface GuiEngineContext {
 	
 	Object getWidget(String id);
 	
-	void addWidget(String id,Document doc);
+	void addWidget(String id,WidgetTemplateNode node);
 	
 	List<String> getWidgets();
 }

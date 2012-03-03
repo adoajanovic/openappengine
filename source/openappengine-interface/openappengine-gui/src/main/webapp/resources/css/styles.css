@@ -464,14 +464,14 @@ p {
             padding:0pt;
         }
 
-.ui-datepicker-div {
+/* .ui-datepicker-div {
 	font-size: 0.8em;
 }
 
 .ui-datepicker-trigger {
 	background:#939393 url(images/calendar.gif) no-repeat;
 	width: 50px;	
-}
+} */
 
 .formGridHeader {
 	margin-left: 0.8em;
