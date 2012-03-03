@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <screen>
 	<page-content>
-		<widget id="gridEx" name="User_Registration">
+		<!-- <widget id="gridEx" name="User_Registration">
 			<formGrid id="grid" columns="3" headerLabel="Example Form">
 				<textfield id="username" name="username" labelId="username" path="/User_Registration/username" />
 				<password id="password" name="password" labelId="password" path="/User_Registration/password" />
@@ -13,17 +13,17 @@
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
 			</formGrid>
-		</widget>
+		</widget> -->
 		
-		<!-- <widget id="user_registration_datatable" name="User_Registration">
-			<dataTable id="datatable" path="/User_Registration">
+		<widget id="user_registration_datatable" name="User_Registration">
+			<dataTable id="datatable" path="/Entity/User_Registration">
 				<header>
 					<column id="lblUsername" labelId="Username" />
 					<column id="lblPassword" labelId="Password" />
 				</header>
-				<column id="username" path="/User_Registration/username" />
-				<column id="password" path="/User_Registration/password" />
+				<column id="username" path="username" />
+				<column id="password" path="password" />
 			</dataTable>
-		</widget> -->
+		</widget>
 	</page-content>
 </screen>
