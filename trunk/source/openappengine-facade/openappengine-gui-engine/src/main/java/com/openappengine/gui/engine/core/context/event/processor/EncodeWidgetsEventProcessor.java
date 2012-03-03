@@ -3,15 +3,11 @@
  */
 package com.openappengine.gui.engine.core.context.event.processor;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
@@ -75,9 +71,14 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		}
 		Document doc = entityDefinition.getDocument();
 		UtilXml.writeXmlDocument(doc);
-		String xmlAsStr = "<User_Registration><username type=\"String\">hrishi2323</username><password type=\"Password\">sumedh</password><firstName type=\"String\">Hrishikesh</firstName>" +
-				"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
-				"<active type=\"Boolean\"></active><currency type=\"String\">USD</currency></User_Registration>";
+		String xmlAsStr = "<Entity>" + 
+						"<User_Registration><username type=\"String\">hrishi2323</username><password type=\"Password\">sumedh</password><firstName type=\"String\">Hrishikesh</firstName>" +
+						"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
+						"<active type=\"Boolean\"></active><currency type=\"String\">USD</currency></User_Registration>" + 
+						"<User_Registration><username type=\"String\">hrishi23231</username><password type=\"Password\">sumedh1</password><firstName type=\"String\">Hrishikesh</firstName>" +
+						"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
+						"<active type=\"Boolean\"></active><currency type=\"String\">USD</currency></User_Registration>" +
+						"</Entity>";
 		try {
 			doc = UtilXml.readXmlDocument(xmlAsStr);
 		} catch (Exception e) {

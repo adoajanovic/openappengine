@@ -12,7 +12,7 @@
 		<table class="ui-grid-content ui-widget-content">
 			<thead>
 				<tr>
-					<#foreach headerColumn in .node.header?children>
+					<#foreach headerColumn in .node.header.column>
 						<th class="ui-state-default tableHeader">
 							${headerColumn["@labelId"]}
 						</th>
@@ -20,16 +20,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<#foreach child in .node.column>
-					<#if child_index%cols = 0>
-						<tr>
-					</#if>
-						<td>
-							<#visit child using .namespace />
-						</td>
-					<#if child_index%cols= cols-1>
-						</tr>
-					</#if>
+				<#local tableXPath = .node["@path"]?string>
+				<#foreach dataNode in widgetDataXml[tableXPath]>
+					<#foreach dataColumn in .node.column>
+						<#if dataColumn_index%cols = 0>
+							<tr>
+						</#if>
+							<td>
+								<#local columnXPath = dataColumn["@path"]?string>
+								${dataNode[columnXPath]}
+							</td>
+						<#if dataColumn_index%cols= cols-1>
+							</tr>
+						</#if>
+					</#foreach>	
 				</#foreach>
 			</tbody>
 		</table>	

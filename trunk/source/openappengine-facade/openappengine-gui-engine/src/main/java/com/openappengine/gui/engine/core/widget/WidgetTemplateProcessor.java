@@ -11,8 +11,6 @@ import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.openappengine.entity.EntityEngineFacade;
-import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.widget.meta.WidgetContext;
 import com.openappengine.gui.engine.core.widget.meta.WidgetMetadata;
@@ -49,23 +47,6 @@ public class WidgetTemplateProcessor {
 			logger.trace(xmlStr);
 		}
 		return widgetXmlDoc;
-	}
-
-	/**
-	 * @param entityEngineFacade
-	 * @param entityName
-	 * @param widgetId
-	 * @return
-	 */
-	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,
-			String entityName, String widgetId) {
-		Entity entityDefinition = entityEngineFacade.findEntityDefinition(entityName);
-		if (entityDefinition == null) {
-			throw new IllegalStateException("Entity " + entityName + " not found for Widget : [id:"
-					+ widgetId + "].");
-		}
-		Document doc = entityDefinition.getDocument();
-		return doc;
 	}
 
 	/**
@@ -115,7 +96,7 @@ public class WidgetTemplateProcessor {
 			
 		}
 		
-		if(widgetMetadata.hasChildren() && !StringUtils.equals("list", widgetMetadata.getNodeType())) {
+		if(widgetMetadata.hasChildren()) {
 			doEncodeChildWidgets(widgetXmlDoc, inputWidgetEle,
 					widgetMetadata, widgetEle);
 		}
