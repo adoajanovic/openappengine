@@ -24,12 +24,12 @@ form {
 	/*background-color: #E4EFF3;*/
 	/*background : none repeat scroll 0 0 #F5F5F5;*/
 	border: 1px solid #E5E5E5;
-	font-family: verdana;
+	/* font-family: verdana; */
 	font-size: 11px;
 	border: 1px;
 	color: #222;
 	border-color: #000;
-	width: auto;
+	/* width: auto; */
 	padding: 0.2em;
 	overflow: visible;
 }
@@ -482,20 +482,25 @@ p {
 }
 
 .tableHeader {
-	font-size: 1.1em;
+	/* font-size: 1.1em; */
+}
+
+.ui-state-hover {
+	background: #8b9dc3 url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; 
 }
 
 /* Grid
 ----------------------------------*/
-/* .ui-grid { width: 500px; padding: .0em; background-image: none;margin-left: 200px;}
-.ui-grid .ui-grid-content { width: 100%; border-collapse: collapse; }
+.ui-grid { font:Arial;font-size:10px;width: auto; padding: .0em; background-image: none;margin-left: 175px; margin-top: 10px;}
+.ui-grid .ui-grid-content { width:auto; border-collapse: collapse; /* border: 1px;  */}
 .ui-grid table tbody td, .ui-grid .ui-grid-header, .ui-grid table thead a { padding: .4em; }
-.ui-grid table tbody td { text-align: right; font-weight: normal; }
-.ui-grid .ui-grid-header, .ui-grid .ui-grid-footer { padding: .8em .4em; text-align: center; }
-.ui-grid .ui-grid-footer { background-image: none; font-weight: normal; text-align: left; } 
+.ui-grid table tbody td { /* text-align: right;  */font-weight: normal; }
+.ui-grid table thead tr { /* text-align: right;  */font-weight: bold; }
+/* .ui-grid .ui-grid-header, .ui-grid .ui-grid-footer { padding: .8em .4em; text-align: center; }
+.ui-grid .ui-grid-footer { background-image: none; font-weight: normal; text-align: left; } */ 
 .ui-grid table thead a { display: block; }
-.ui-grid .ui-icon { float: right; }
-.ui-grid .ui-grid-paging { float: right; }
+/* .ui-grid .ui-icon { float: right; } */
+/* .ui-grid .ui-grid-paging { float: right; }
 .ui-grid .ui-grid-paging-prev { float: left; width: 16px; height: 16px; }
 .ui-grid .ui-grid-paging-next { float: right; width: 16px; height: 16px; }
-.ui-grid .ui-grid-results { }  */
+.ui-grid .ui-grid-results { } */ 

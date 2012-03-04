@@ -6,16 +6,6 @@ jQuery(document).ready(function (){
 		
 	jQuery("textarea").addClass('ui-widget');
 		
-	jQuery(".datepicker").datepicker(
-		{
-			changeMonth: true,
-			changeYear: true,
-			/*showOn: "button",*/
-			/*buttonImage: "../../css/images/calendar.gif",*/
-			/*buttonImageOnly: true*/
-		}
-	);
-		
 	$(function() {
 		jQuery(".checkbox" ).button();
 	});
@@ -29,12 +19,12 @@ jQuery(document).ready(function (){
 
 $(function(){
 	
-	/*jQuery("tbody td").addClass('ui-widget-content');*/
+	jQuery(".tableBody td").addClass('ui-widget-content');
 	
-	/*jQuery("tbody tr").hover(
+	jQuery(".tableBody tr").hover(
 	function(){ jQuery("td", this).addClass('ui-state-hover');},
 	function(){ jQuery("td", this).removeClass('ui-state-hover');}
-	)*/
+	)
 }); 
 
 
