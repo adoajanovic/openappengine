@@ -8,25 +8,27 @@
 <#macro dataTable>
 	<#local cols = .node.column?size?number>
 	<form action="${currentURL}" method="post">
-	<div class="ui-grid ui-widget ui-widget-content ui-corner-all">
-		<table class="ui-grid-content ui-widget-content">
+	<div class="ui-grid ui-widget ui-corner-all">
+		<table class="ui-grid-content ui-widget-content ui-corner-all">
 			<thead>
-				<tr>
+				<tr class="ui-widget-header ui-widget-headerLabel ui-corner-all">
 					<#foreach headerColumn in .node.header.column>
-						<th class="ui-state-default tableHeader">
+						<th class="ui-widget-content ui-widget-header ui-widget-headerLabel">
+							<a href="#">
 							${headerColumn["@labelId"]}
+							</a>
 						</th>
 					</#foreach>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="tableBody">
 				<#local tableXPath = .node["@path"]?string>
 				<#foreach dataNode in widgetDataXml[tableXPath]>
 					<#foreach dataColumn in .node.column>
 						<#if dataColumn_index%cols = 0>
-							<tr>
+							<tr class="ui-widget-content">
 						</#if>
-							<td>
+							<td class="ui-grid-content">
 								<#local columnXPath = dataColumn["@path"]?string>
 								${dataNode[columnXPath]}
 							</td>
