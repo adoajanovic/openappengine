@@ -120,7 +120,7 @@ public class ModelReader {
 		
 		// Column Name
 		String columnName = UtilXml.readElementAttribute(fieldElement, "column-name");
-		if (StringUtils.isBlank(name)) {
+		if (StringUtils.isBlank(columnName)) {
 			throw new EntityDefinitionReaderException("Attribute column-name cannot be empty.");
 		}
 		modelField.setColumnName(columnName);
@@ -143,7 +143,7 @@ public class ModelReader {
 		if (StringUtils.isBlank(isNotNull)) {
 			modelField.setNotNull(false);
 		} else {
-			boolean notNull = Boolean.parseBoolean(isPK);
+			boolean notNull = Boolean.parseBoolean(isNotNull);
 			modelField.setNotNull(notNull);
 		}
 

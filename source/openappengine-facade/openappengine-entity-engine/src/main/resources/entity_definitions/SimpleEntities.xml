@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.openappengine.com/EntityDefinition">
+<entities
+	xmlns="http://www.w3.org/2001/XMLSchema-instance"
+    schemaLocation="xsd/entity-definition.xsd">
 	<entity name="User" table-name="User">
-		<field name="username" type="String" is-pk="true" not-null="true">
+		<field name="username" column-name="username" type="String" is-pk="true" not-null="true">
 		</field>
-		<field name="password" type="Password" is-pk="true" not-null="true">
+		<field name="password" column-name="password" type="Password" is-pk="true" not-null="true">
 		</field>
-		<field name="firstName" type="String" not-null="true">
+		<field name="firstName" column-name="firstName" type="String" not-null="true">
 		</field>
-		<field name="lastName" type="String" not-null="true">
+		<field name="lastName" column-name="lastName" type="String" not-null="true">
 		</field>
-		<field name="comments" type="String">
+		<field name="comments" column-name="comments" type="String">
 		</field>
-		<field name="date" type="Date">
+		<field name="date" column-name="date" type="Date">
 		</field>
-		<field name="active" type="Boolean">
+		<field name="active" column-name="active" type="Boolean">
 		</field>
-		<field name="currency" type="String">
+		<field name="currency" column-name="currency" type="String">
 		</field>
 	</entity>
 </entities>
