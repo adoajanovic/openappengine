@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.openappengine.com/EntityDefinition">
+	<entity name="User" table-name="User">
+		<field name="username" type="String" is-pk="true" not-null="true">
+		</field>
+		<field name="password" type="Password" is-pk="true" not-null="true">
+		</field>
+		<field name="firstName" type="String" not-null="true">
+		</field>
+		<field name="lastName" type="String" not-null="true">
+		</field>
+		<field name="comments" type="String">
+		</field>
+		<field name="date" type="Date">
+		</field>
+		<field name="active" type="Boolean">
+		</field>
+		<field name="currency" type="String">
+		</field>
+	</entity>
+</entities>

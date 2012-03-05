@@ -7,28 +7,33 @@
 	
 	<import resource="classpath:repository-context.xml"/>
 	
-	<bean id="entityDefinitionReader" class="com.openappengine.entity.definition.reader.EntityDefinitionReader">
-		<property name="locations">
+	<bean name="entityFileLocations" class="java.util.Arrays" factory-method="asList">
+		<constructor-arg>
 			<array>
-				<value>EntityDefinitions.xml</value>
+				<value>entity_definitions/SimpleEntities.xml</value>
+				<!-- <value>entity_definitions</value> -->
 			</array>
-		</property>
+		</constructor-arg>
+	</bean>
+	
+	<!-- <bean id="entityDefinitionReader" class="com.openappengine.entity.definition.reader.EntityDefinitionReader">
+		<property name="locations" ref="entityFileLocations" />
 	</bean>
 	
     <bean name="defaultFieldTypes" class="java.util.Arrays" factory-method="asList">
-	<constructor-arg>
-		<array>
-			<value>String</value>
-			<value>Password</value>
-			<value>Integer</value>
-			<value>Long</value>
-			<value>Double</value>
-			<value>Boolean</value>
-			<value>Long</value>
-			<value>Date</value>
-			<value>DateTime</value>
-		</array>
-	</constructor-arg>
+		<constructor-arg>
+			<array>
+				<value>String</value>
+				<value>Password</value>
+				<value>Integer</value>
+				<value>Long</value>
+				<value>Double</value>
+				<value>Boolean</value>
+				<value>Long</value>
+				<value>Date</value>
+				<value>DateTime</value>
+			</array>
+		</constructor-arg>
 	</bean>
 	
 	<bean id="entityDefinitionCache" class="com.openappengine.entity.definition.EntityDefinitionCache" init-method="initEntityDefinitionCache" scope="singleton">
@@ -38,6 +43,15 @@
 	<bean id="entityFacade" class="com.openappengine.entity.EntityEngineFacadeImpl" >
 		<property name="entityDefinitionCache" ref="entityDefinitionCache" />
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean> -->
+	
+	<!-- Model -->
+	<bean id="modelReader" class="com.openappengine.entity.model.ModelReader">
+	</bean>
+	
+	<bean id="modelEntityFactory" class="com.openappengine.entity.model.ModelEntityFactory" init-method="initializeFactory">
+		<property name="locations" ref="entityFileLocations"></property>
+		<property name="modelReader" ref="modelReader"></property>
 	</bean>
 	
 	<bean name="entityFacadeContext" class="com.openappengine.entity.context.EntityEngineFacadeContext">
