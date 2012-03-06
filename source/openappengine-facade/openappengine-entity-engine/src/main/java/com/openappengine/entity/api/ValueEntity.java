@@ -3,6 +3,8 @@
  */
 package com.openappengine.entity.api;
 
+import java.util.Map;
+
 import com.openappengine.entity.model.ModelEntity;
 
 /**
@@ -17,7 +19,15 @@ public class ValueEntity extends GenericEntity {
 
 	//Create a new Value Entity.
 	public static ValueEntity createValueEntity(ModelEntity modelEntity) {
-		return null;
+		ValueEntity valueEntity = new ValueEntity();
+		valueEntity.init(modelEntity);
+		return valueEntity;
+	}
+	
+	public static ValueEntity createValueEntity(ModelEntity modelEntity,Map<String,Object> values) {
+		ValueEntity valueEntity = new ValueEntity();
+		valueEntity.init(modelEntity, null, values);
+		return valueEntity;
 	}
 	
 }
