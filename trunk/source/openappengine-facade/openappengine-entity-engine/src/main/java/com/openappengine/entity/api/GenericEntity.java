@@ -22,11 +22,31 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 	
 	protected Map<String, Object> fieldMap = new HashMap<String, Object>();
 	
-	protected Delegator delegator;
+	protected transient Delegator delegator;
 	
 	private ModelEntity modelEntity;
 	
 	private String entityName;
+	
+	public void init(ModelEntity modelEntity) {
+		if(modelEntity == null) {
+			throw new IllegalArgumentException("ModelEntity cannot be null.");
+		}
+		this.modelEntity = modelEntity;
+	}
+	
+	public void init(ModelEntity modelEntity,Delegator delegator) {
+		init(modelEntity);
+		if(delegator == null) {
+			//TODO Create Delegator
+		}
+		this.delegator = delegator;
+	}
+	
+	public void init(ModelEntity modelEntity,Delegator delegator,Map<String, Object> fieldValueMap) {
+		init(modelEntity, delegator);
+		this.fieldMap = fieldValueMap;
+	}
 	
 	//Implementations of Map.
 	@Override
