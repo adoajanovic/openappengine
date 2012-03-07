@@ -35,15 +35,15 @@
 			</array>
 		</constructor-arg>
 	</bean>
-	
-	<bean id="entityDefinitionCache" class="com.openappengine.entity.definition.EntityDefinitionCache" init-method="initEntityDefinitionCache" scope="singleton">
-		<property name="entityDefinitionReader" ref="entityDefinitionReader" />
+	-->
+	<bean id="entityFacade" class="com.openappengine.entity.EntityEngineFacadeImpl" >
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+		<property name="delegator" ref="delegator"></property>
 	</bean>
 	
-	<bean id="entityFacade" class="com.openappengine.entity.EntityEngineFacadeImpl" >
-		<property name="entityDefinitionCache" ref="entityDefinitionCache" />
-		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
-	</bean> -->
+	<bean id="delegator" class="com.openappengine.entity.delegator.EntityDelegator">
+		<property name="modelEntityFactory" ref="modelEntityFactory"></property>
+	</bean>
 	
 	<!-- Model -->
 	<bean id="modelReader" class="com.openappengine.entity.model.ModelReader">

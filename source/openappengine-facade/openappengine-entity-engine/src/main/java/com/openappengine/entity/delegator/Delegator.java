@@ -5,6 +5,8 @@ package com.openappengine.entity.delegator;
 
 import java.util.Map;
 
+import org.w3c.dom.Document;
+
 import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.model.ModelEntity;
 
@@ -66,4 +68,8 @@ public interface Delegator {
 	 * @return
 	 */
 	ModelEntity getModelEntity(String entityName);
+	
+	Document makeValueEntityAsXml(String entityName);
+	
+	Document makeValueEntityAsXml(String entityName,Map<String, Object> values);
 }
