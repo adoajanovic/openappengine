@@ -94,10 +94,6 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>icefaces-repo</id>
-			<url>http://anonsvn.icefaces.org/repo/maven2/snapshots/</url>
-		</repository>
-		<repository>
 			<id>spring-3.0.5</id>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
@@ -121,6 +117,11 @@
 			<name>openappengine-repo</name>
             <url>https://openappengine.googlecode.com/svn/maven/repo</url>
         </repository>
+        <repository>
+	        <id>sonatype</id>
+	        <name>sonatype</name>
+	        <url>https://oss.sonatype.org/content/repositories/releases</url>
+	    </repository>
 	</repositories>
 	<modules>
 		<module>openappengine-infrastructure</module>
