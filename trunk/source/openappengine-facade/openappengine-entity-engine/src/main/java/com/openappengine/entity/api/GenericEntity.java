@@ -20,7 +20,7 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	protected Map<String, Object> fieldMap = new HashMap<String, Object>();
+	private Map<String, Object> fieldValues = new HashMap<String, Object>();
 	
 	protected transient Delegator delegator;
 	
@@ -45,18 +45,18 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 	
 	public void init(ModelEntity modelEntity,Delegator delegator,Map<String, Object> fieldValueMap) {
 		init(modelEntity, delegator);
-		this.fieldMap = fieldValueMap;
+		this.setFieldValues(fieldValueMap);
 	}
 	
 	//Implementations of Map.
 	@Override
 	public int size() {
-		return fieldMap.size();
+		return getFieldValues().size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return fieldMap.isEmpty();
+		return getFieldValues().isEmpty();
 	}
 
 	@Override
@@ -135,7 +135,12 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
-	
-	
 
+	public Map<String, Object> getFieldValues() {
+		return fieldValues;
+	}
+
+	public void setFieldValues(Map<String, Object> fieldValues) {
+		this.fieldValues = fieldValues;
+	}
 }

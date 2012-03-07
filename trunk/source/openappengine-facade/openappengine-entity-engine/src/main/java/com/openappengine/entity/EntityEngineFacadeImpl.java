@@ -19,12 +19,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.entity.definition.EntityDefinitionCache;
+import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.request.EntityRequest;
 import com.openappengine.entity.response.DefaultEntityResponse;
 import com.openappengine.entity.response.EntityResponse;
@@ -41,6 +40,8 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 	
 	private HibernateTemplate hibernateTemplate;
 	
+	private Delegator delegator;
+	
 	private Logger logger = Logger.getLogger("EntityEngine");
 	
 	public EntityResponse createEntityValue(String entityName) {
@@ -54,6 +55,14 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 	public EntityResponse saveEntityValueInstance(EntityRequest entityRequest) {
 		
 		return null;
+	}
+	
+	public Document makeValueEntityAsXml(String entityName,Map<String, Object> values) {
+		return delegator.makeValueEntityAsXml(entityName, values);
+	}
+	
+	public Document makeValueEntityAsXml(String entityName) {
+		return delegator.makeValueEntityAsXml(entityName);
 	}
 	
 	public EntityValue createEntityValue(String entityName, boolean isXml) {
@@ -258,6 +267,10 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 	    this.hibernateTemplate = hibernateTemplate;
+	}
+
+	public void setDelegator(Delegator delegator) {
+		this.delegator = delegator;
 	}
 
 }

@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
-import com.openappengine.entity.definition.Entity;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
@@ -34,7 +33,6 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		List<Element> widgetElementList = DomUtils.getChildElementsByTagName(pageContentEle, "widget");
 		if(widgetElementList != null) {
 			for (Element widgetElement : widgetElementList) {
-				
 				EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
 				String entityName = widgetElement.getAttribute("name");
 				String widgetId = widgetElement.getAttribute("id");
@@ -62,15 +60,8 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 	 * @param widgetId
 	 * @return
 	 */
-	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,
-			String entityName, String widgetId) {
-		Entity entityDefinition = entityEngineFacade.findEntityDefinition(entityName);
-		if (entityDefinition == null) {
-			throw new IllegalStateException("Entity " + entityName + " not found for Widget : [id:"
-					+ widgetId + "].");
-		}
-		Document doc = entityDefinition.getDocument();
-		UtilXml.writeXmlDocument(doc);
+	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,String entityName, String widgetId) {
+		Document doc = entityEngineFacade.makeValueEntityAsXml(entityName);
 		String xmlAsStr = "<Entity>" + 
 						"<User><username type=\"String\">hrishi2323</username><password type=\"Password\">sumedh</password><firstName type=\"String\">Hrishikesh</firstName>" +
 						"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
@@ -96,16 +87,6 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 			e.printStackTrace();
 		} 
 		return doc;
-	}
-	
-	/**
-	 * @param t
-	 * @param widget
-	 * @param transformedDocumentXml
-	 */
-	private void registerWidgetWithModelMap(GuiEngineContext t,
-			String attrWidgetId, Document renderedWidgetXml) {
-		t.getExternalContext().addModelMapAttribute(attrWidgetId, renderedWidgetXml);
 	}
 
 }
