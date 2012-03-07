@@ -5,6 +5,7 @@ package com.openappengine.entity.api;
 
 import java.util.Map;
 
+import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.model.ModelEntity;
 
 /**
@@ -24,9 +25,9 @@ public class ValueEntity extends GenericEntity {
 		return valueEntity;
 	}
 	
-	public static ValueEntity createValueEntity(ModelEntity modelEntity,Map<String,Object> values) {
+	public static ValueEntity createValueEntity(ModelEntity modelEntity,Delegator delegator,Map<String,Object> values) {
 		ValueEntity valueEntity = new ValueEntity();
-		valueEntity.init(modelEntity, null, values);
+		valueEntity.init(modelEntity, delegator, values);
 		return valueEntity;
 	}
 	
