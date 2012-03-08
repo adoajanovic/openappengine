@@ -6,13 +6,15 @@
 	<form action="${currentURL}" method="post">
 	<table class="ui-widget-content ui-corner-all">
 	<#if .node["@headerLabel"]?has_content>
-		<tr>
-			<td colspan=${.node?children?size?number*2}>
-				<div class="ui-widget-header ui-widget-headerLabel ui-corner-all">
-					${.node["@headerLabel"]}
-				</div>
-			</td>
-		</tr>
+			<thead>
+				<tr class="ui-widget-header ui-widget-headerLabel ui-corner-all">
+					<th colspan=${.node?children?size?number*2}>
+						<div class="ui-widget-header ui-widget-headerLabel">
+							${.node["@headerLabel"]}
+						</div>
+					</th>
+				</tr>
+			</thead>
 	</#if>
 	<tr style="margin-bottom:0.8em;">
 		<td>

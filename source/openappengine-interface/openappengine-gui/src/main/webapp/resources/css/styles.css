@@ -227,7 +227,8 @@ p {
 	background-color: #FFF;
 	height: 90%;
 	min-height: 600px;
-	padding: 13px 20px 5px;
+	margin-left: 200px;
+	padding: 10px 20px 5px;
 }
 
 #page-content .message {
@@ -238,7 +239,7 @@ p {
 
 #left-menu {
 	float: left;
-	margin-right: 10px;
+	margin-right: 5px;
 	height: 90%;
 	min-height: 615px;
 	width: 188px;

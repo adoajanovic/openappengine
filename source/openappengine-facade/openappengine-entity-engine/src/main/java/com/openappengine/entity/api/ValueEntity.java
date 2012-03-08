@@ -3,7 +3,6 @@
  */
 package com.openappengine.entity.api;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -56,6 +55,9 @@ public class ValueEntity extends GenericEntity {
 				Element fieldEle = document.createElement(field);
 				fieldEle.setAttribute("type", type);
 				String stringVal = ObjectConverter.convert(value, String.class);
+				if(stringVal == null) {
+					stringVal = "";
+				}
 				
 				fieldEle.appendChild(document.createTextNode(stringVal));
 				entityElement.appendChild(fieldEle);

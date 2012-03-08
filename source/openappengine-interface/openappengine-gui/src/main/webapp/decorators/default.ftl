@@ -11,6 +11,111 @@
 	  <!-- default css -->
 	  <link rel="stylesheet" href="${rc.getContextPath()}/resources/css/styles.css">
 	  
+	  <style type="text/css" media="screen">
+        <!--
+       .drawers-wrapper {
+            position: relative;
+            width: 188px;
+            
+        }
+
+        .drawer {
+            background:transparent url(http://images.apple.com/downloads/images/sideboxlight_bg20070611.gif) repeat-y scroll 0pt;
+            color:#76797C;
+            font-size:11px;
+            line-height:1.3em;
+        }
+
+        .boxcap {
+            height:5px;
+            left:0pt;
+            position:absolute;
+            width:100%;
+            z-index:100;
+            background:transparent url(http://images.apple.com/downloads/images/sidenav_capbottom.png) no-repeat scroll 0%;
+            margin-top:-5px;
+        }
+
+        .captop {
+            background-image:url(http://images.apple.com/downloads/images/box_188captop.png);
+            bottom:auto;
+            top:0pt;
+            margin-top:0;
+        }
+
+        .drawers {
+            margin-bottom:15px;
+            color:#76797C;
+            font-size:11px;
+            line-height: 18px;
+        }
+
+        .drawers A {
+            color:#666666;
+            text-decoration:none;
+            font-family:"Lucida Grande",Geneva,Arial,Verdana,sans-serif;
+            font-size-adjust:none;
+            font-style:normal;
+            font-variant:normal;
+            font-weight:normal;
+        }
+
+        .drawer li {
+            border-bottom:1px solid #E5E5E5;
+            line-height:16px;
+            padding:6px 0pt;
+        }
+
+        UL {
+            list-style: none;
+            padding: 0;
+        }
+
+        UL.drawers {
+            margin: 0;
+        }
+
+        .drawer-handle {
+            background:#939393 url(http://images.apple.com/downloads/images/slider_handlebg188.png) no-repeat scroll 0pt;
+            color:#333333;
+            cursor:default;
+            font-size:12px;
+            font-weight:normal;
+            height:25px;
+            line-height:25px;
+            margin-bottom:0pt;
+            text-indent:15px;
+            width:100%;
+        }
+
+        .drawer-handle.open {
+            background-color:#72839D;
+            background-position:-188px 0pt;
+            color:#FFFFFF;
+        }
+
+        .drawer UL {
+            padding: 0 12px;
+            padding-bottom:0pt;
+        }
+
+        .drawer-content UL {
+            padding-top: 7px;
+        }
+
+        .drawer-content LI A {
+            display:block;
+            overflow:hidden;
+        }
+
+        .alldownloads li {
+            border:0pt none;
+            line-height:18px;
+            padding:0pt;
+        }
+        -->
+        </style>
+	  
 	  <!-- FavIcon -->
 	  <link rel="shortcut icon" href="${rc.getContextPath()}/resources/favicon.ico" type="image/x-icon" />
 	  
@@ -31,32 +136,8 @@
 	  <title>
 	  	${title}
 	  </title>
-	  
-	  <script type="text/javascript">
-	  jQuery(document).ready(function (){
-			//Trim Whitespaces from Text Area.
-			jQuery("textarea").val(function(i,v){
-	    		return v.replace(/\s+/g,' ').replace(/>(\s)</g,'>\n<');
-			}); 
-			
-			jQuery("textarea").addClass('ui-widget');
-			
-			jQuery(".datepicker").datepicker();
-			
-			$(function() {
-				jQuery(".checkbox" ).button();
-			});
-			
-			$(function() {
-				jQuery(".radio" ).button();
-			});
-	  	 }
-	  	);
-	  	
 	  <!-- head -->
 	  ${head}
-	  
-	  
 	</head>
 
 	<#--

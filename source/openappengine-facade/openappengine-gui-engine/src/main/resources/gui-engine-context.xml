@@ -14,6 +14,7 @@
 				<value>widgetcontrols/datepickerMetaData.xml</value>
 				<value>widgetcontrols/booleanCheckboxMetaData.xml</value>
 				<value>widgetcontrols/dropdownMetaData.xml</value>
+				<value>widgetcontrols/actionButtonMetaData.xml</value>
 				<value>widgetcontrols/loginWidgetMetaData.xml</value>
 				<value>widgetcontrols/gridMetaData.xml</value>
 				<value>widgetcontrols/dataTableMetaData.xml</value>

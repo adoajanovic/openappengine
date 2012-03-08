@@ -168,9 +168,13 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 	private void doProcessWidgetPost(HttpServletRequest request,GuiEngineContext guiApplicationContext) throws LinkageError {
 		String widgetType = request.getParameter("widgetType");
 		
+		if(StringUtils.isEmpty(widgetType)) {
+			widgetType = "form-single";
+		}
+		
 		//Get WidgetProcessor Based on the WidgetType Type.
 		WidgetProcessor widgetProcessor = widgetProcessorFactory.
-					getWidgetProcessor(guiApplicationContext.getExternalContext(),
+					createWidgetProcessor(guiApplicationContext.getExternalContext(),
 									   guiApplicationContext.getELContext(),
 									   guiApplicationContext.getTransitionEventListener(),
 									   guiApplicationContext.getMessageContext(),widgetType);

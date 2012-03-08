@@ -62,30 +62,6 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 	 */
 	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,String entityName, String widgetId) {
 		Document doc = entityEngineFacade.makeValueEntityAsXml(entityName);
-		String xmlAsStr = "<Entity>" + 
-						"<User><username type=\"String\">hrishi2323</username><password type=\"Password\">sumedh</password><firstName type=\"String\">Hrishikesh</firstName>" +
-						"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
-						"<active type=\"Boolean\">true</active><currency type=\"String\">USD</currency></User>";
-						if(!widgetId.equals("gridEx")) {
-							xmlAsStr +=
-							"<User><username type=\"String\">hrishi23231</username><password type=\"Password\">sumedh1</password><firstName type=\"String\">Hrishikesh</firstName>" +
-							"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
-							"<active type=\"Boolean\">true</active><currency type=\"String\">USD</currency></User>" +									
-							"<User><username type=\"String\">hrishi23232</username><password type=\"Password\">sumedh2</password><firstName type=\"String\">Hrishikesh</firstName>" +
-							"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
-							"<active type=\"Boolean\">true</active><currency type=\"String\">USD</currency></User>" + 
-							"<User><username type=\"String\">hrishi23233</username><password type=\"Password\">sumedh3</password><firstName type=\"String\">Hrishikesh</firstName>" +
-							"<lastName type=\"String\">Joshi</lastName><comments type=\"String\">Hi.....</comments><date type=\"Date\">03/15/2012</date>" +
-							"<active type=\"Boolean\">true</active><currency type=\"String\">USD</currency></User>";
-						}
-						
-						xmlAsStr += "</Entity>";
-		/*try {
-			doc = UtilXml.readXmlDocument(xmlAsStr);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
 		System.out.println(UtilXml.writeXmlDocument(doc));				
 		return doc;
 	}

@@ -9,6 +9,7 @@
 <#include "radio.ftl" />
 <#include "password.ftl" />
 <#include "dropdown.ftl" />
+<#include "actionButton.ftl" />
 
 <#macro login>
 	<table>
@@ -124,8 +125,10 @@
 	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
 	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
 	<div>
-		<#if widgetDataXml?has_content>
-	 		<@renderFieldsRecursively widgetTemplateXml />
-		</#if>
+		<form method="post" action="${currentURL}">
+			<#if widgetDataXml?has_content>
+		 		<@renderFieldsRecursively widgetTemplateXml />
+			</#if>
+		</form>
 	</div>
 </#macro>
