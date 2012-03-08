@@ -14,6 +14,7 @@
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
+				<actionButton id="submit" name="submit" labelId="submit" action="/login" /> 
 			</formGrid>
 		</widget>
 		

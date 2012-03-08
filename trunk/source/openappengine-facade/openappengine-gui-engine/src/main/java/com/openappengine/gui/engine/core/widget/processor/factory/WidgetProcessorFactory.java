@@ -50,7 +50,7 @@ public class WidgetProcessorFactory {
 		}
 	}
 
-	public WidgetProcessor getWidgetProcessor(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext,String widgetType) {
+	public WidgetProcessor createWidgetProcessor(ExternalContext externalContext,ELContext elContext,TransitionEventListener transitionEventListener,MessageContext messageContext,String widgetType) {
 		if(StringUtils.isEmpty(widgetType)) {
 			throw new IllegalStateException("WidgetType Type Cannot be Empty.");
 		}
