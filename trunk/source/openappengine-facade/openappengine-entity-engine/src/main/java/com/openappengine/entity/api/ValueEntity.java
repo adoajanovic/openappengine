@@ -57,8 +57,7 @@ public class ValueEntity extends GenericEntity {
 				fieldEle.setAttribute("type", type);
 				String stringVal = ObjectConverter.convert(value, String.class);
 				
-				fieldEle.setNodeValue(stringVal);
-				
+				fieldEle.appendChild(document.createTextNode(stringVal));
 				entityElement.appendChild(fieldEle);
 			}
 		}
