@@ -5,12 +5,14 @@ package com.openappengine.entity.api;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.model.ModelEntity;
+import com.openappengine.entity.model.ModelField;
 import com.openappengine.utility.ObjectConverter;
 import com.openappengine.utility.UtilXml;
 
@@ -38,21 +40,26 @@ public class ValueEntity extends GenericEntity {
 	}
 	
 	public Document toXml() {
-		Document document = UtilXml.makeEmptyXmlDocument("entity");
+		Document document = UtilXml.makeEmptyXmlDocument("Entity");
 		Element documentElement = document.getDocumentElement();
-		documentElement.setAttribute("entityName", getEntityName());
 		
-		if(getFieldValues() != null) {
-			Iterator<String> keySetItr = getFieldValues().keySet().iterator();
-			while (keySetItr.hasNext()) {
-				String field = keySetItr.next();
+		Element entityElement = document.createElement(getEntityName());
+		documentElement.appendChild(entityElement);
+		
+		if(getModelEntity().getModelFields() != null) {
+			Set<ModelField> modelFields = getModelEntity().getModelFields();
+			for (ModelField modelField : modelFields) {
+				String field = modelField.getName();
+				String type = modelField.getType();
 				Object value = getFieldValues().get(field);
 				
 				Element fieldEle = document.createElement(field);
+				fieldEle.setAttribute("type", type);
 				String stringVal = ObjectConverter.convert(value, String.class);
+				
 				fieldEle.setNodeValue(stringVal);
 				
-				documentElement.appendChild(fieldEle);
+				entityElement.appendChild(fieldEle);
 			}
 		}
 		
