@@ -121,13 +121,19 @@
 	<input type="submit" id="${id}"  name="${name}"  class="button ui-widget ui-corner-all" value="${value}"/>
 </#macro>
 
+<#macro metadata>
+	<#foreach meta in .node?children>
+		<input type="hidden" name="${meta?node_name}" value="${meta}" />
+	</#foreach>
+</#macro>
+
 <#macro renderWidget widgetTemplateNode>
 	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
 	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
 	<div>
 		<form method="post" action="${currentURL}">
 			<#if widgetDataXml?has_content>
-		 		<@renderFieldsRecursively widgetTemplateXml />
+				<@renderFieldsRecursively widgetTemplateXml />
 			</#if>
 		</form>
 	</div>
