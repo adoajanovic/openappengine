@@ -33,6 +33,7 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 			throw new IllegalArgumentException("ModelEntity cannot be null.");
 		}
 		this.modelEntity = modelEntity;
+		this.entityName = modelEntity.getEntityName();
 	}
 	
 	public void init(ModelEntity modelEntity,Delegator delegator) {

@@ -69,7 +69,25 @@ public interface Delegator {
 	 */
 	ModelEntity getModelEntity(String entityName);
 	
+	/**
+	 * Get {@link ValueEntity} as XML.
+	 * @param entityName
+	 * @return
+	 */
 	Document makeValueEntityAsXml(String entityName);
 	
+	/**
+	 * Get {@link ValueEntity} as XML.
+	 * @param entityName
+	 * @param values
+	 * @return
+	 */
 	Document makeValueEntityAsXml(String entityName,Map<String, Object> values);
+	
+	/**
+	 * Create {@link ValueEntity} from XML Document.
+	 * @param document
+	 * @return
+	 */
+	ValueEntity fromXml(Document document);
 }

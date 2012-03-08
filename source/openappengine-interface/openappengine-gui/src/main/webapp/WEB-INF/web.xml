@@ -60,7 +60,5 @@
     <servlet-name>XmlContextDispatcherSevlet</servlet-name>
     <url-pattern>*.screen</url-pattern>
   </servlet-mapping>
-  <listener>
-    <listener-class>com.openappengine.gui.context.request.ServletRequestContextListener</listener-class>
-  </listener>
+  
 </web-app>

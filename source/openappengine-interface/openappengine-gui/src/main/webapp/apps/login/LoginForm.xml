@@ -17,7 +17,7 @@
 			</formGrid>
 		</widget>
 		
-		<widget id="user_registration_datatable" name="User">
+		<!-- <widget id="user_registration_datatable" name="User">
 			<dataTable id="datatable" path="/Entity/User">
 				<header>
 					<column id="lblUsername" labelId="Username" />
@@ -34,7 +34,7 @@
 				<column id="date" path="date" />
 				<column id="comments" path="comments" />
 			</dataTable>
-		</widget>
+		</widget> -->
 	</page-content>
 </screen>
 

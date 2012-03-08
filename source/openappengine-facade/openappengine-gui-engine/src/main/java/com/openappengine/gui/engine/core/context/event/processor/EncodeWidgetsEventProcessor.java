@@ -80,12 +80,13 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 						}
 						
 						xmlAsStr += "</Entity>";
-		try {
+		/*try {
 			doc = UtilXml.readXmlDocument(xmlAsStr);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} */
+		System.out.println(UtilXml.writeXmlDocument(doc));				
 		return doc;
 	}
 
