@@ -136,6 +136,7 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 	
 	public void addWidget(String id,WidgetTemplateNode node) {
 		this.widgetMap.put(id, node);
+		registerVariable(id, node);
 	}
 	
 	public List<String> getWidgets() {
