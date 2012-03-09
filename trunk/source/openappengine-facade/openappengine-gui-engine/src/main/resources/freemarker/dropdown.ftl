@@ -8,7 +8,7 @@
 	</td>
 	
 	<td>
-		<select id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget">
+		<select id="${.node["@id"]}" name="${.node["@path"]}" class="ui-widget">
 			<#if .node["@path"]?has_content>
 				<#local val = widgetDataXml[.node["@path"]]?trim>
 			</#if>

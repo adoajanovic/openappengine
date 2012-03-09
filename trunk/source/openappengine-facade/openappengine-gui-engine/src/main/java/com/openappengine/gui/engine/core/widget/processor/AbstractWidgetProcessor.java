@@ -5,6 +5,7 @@ package com.openappengine.gui.engine.core.widget.processor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
@@ -42,7 +43,7 @@ public abstract class AbstractWidgetProcessor implements WidgetProcessor {
 		String widgetId = widgetProcessorContext.getWidgetId();
 		
 		Object widgetTemplateNode = widgetProcessorContext.getELContext().getVariable(widgetId);
-		Document bindedXml = ((WidgetTemplateNode) widgetTemplateNode).getWidgetTemplateXml();
+		Document bindedXml = ((WidgetTemplateNode) widgetTemplateNode).getWidgetDataXml();
 		
 		Map<String, Object> requestParameters = widgetProcessorContext.getExternalContext().getRequestParameters();
 		
@@ -63,30 +64,22 @@ public abstract class AbstractWidgetProcessor implements WidgetProcessor {
 	 */
 	private BindingResult bindWidgetXmlDocument(final Document bindedXml,
 			final Map<String, Object> requestParameters) {
-		final Element documentElement = bindedXml.getDocumentElement();
-		
-		XmlVisitor.visitLeafNodes(documentElement, new XmlVisitorCallback() {
-			
-			@Override
-			public void onCallback(Node v) {
-				if(v instanceof Element) {
-					Element element = (Element) v;
-					String attrName = element.getNodeName();
-					String attrType = element.getAttribute("type");
+		Set<String> keys = requestParameters.keySet();
+		for (String key : keys) {
+			String value = (String) requestParameters.get(key);
+			if(key.startsWith("/")) {
+				Node evalNode = UtilXml.evaluateXPathNode(bindedXml, key);
+				if(evalNode != null) {
+					String type = UtilXml.readElementAttribute((Element) evalNode, "type");
+					//TODO - Check for type and binding issues.
 					
-					String value = (String) requestParameters.get(attrName);
-					//TODO - Handle Type Conversion.
-					//Check By Type if the value is valid. if yes, set the text value.
-					element.appendChild(bindedXml.createTextNode(value));
-					documentElement.appendChild(element);
+					evalNode.setTextContent("");
+					evalNode.appendChild(bindedXml.createTextNode(value));
 				}
 			}
-		});
+		}
+		
 		UtilXml.writeXmlDocument(bindedXml);
 		return null;
-	}
-
-	private void doBinding() {
-		
 	}
 }
