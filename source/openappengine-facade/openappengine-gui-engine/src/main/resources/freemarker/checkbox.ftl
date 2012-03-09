@@ -16,7 +16,7 @@
 		<#if .node["@path"]?has_content>
 			<#local val = widgetDataXml[.node["@path"]]?trim>
 		</#if>
-		<input type="checkbox" id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget ui-corner-all" 
+		<input type="checkbox" id="${.node["@id"]}" name="${.node["@path"]}" class="ui-widget ui-corner-all" 
 			<#if val == "true">checked</#if>	 />
 	</td>
 </#macro>

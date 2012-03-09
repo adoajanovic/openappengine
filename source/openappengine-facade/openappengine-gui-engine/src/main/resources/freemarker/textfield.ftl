@@ -10,7 +10,7 @@
 	</#if>
 	</td>
 	<td>
-		<input type="text" id="${.node["@id"]}" name="${.node["@name"]}" 
+		<input type="text" id="${.node["@id"]}" name="${.node["@path"]}" 
 			value = "<@common.evalXpathExpression widgetDataXml "path" />"
 			class="ui-widget ui-corner-all" />
 	</td>
