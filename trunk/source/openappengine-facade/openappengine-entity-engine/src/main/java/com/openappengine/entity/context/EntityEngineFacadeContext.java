@@ -1,6 +1,7 @@
 package com.openappengine.entity.context;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -38,13 +39,13 @@ public class EntityEngineFacadeContext implements ApplicationContextAware {
     	}
 	}
 	
-    public static List<String> getDefaultEntityFieldTypes() {
-    	checkIfEntityEngineIsRunning();
-    	return context.getBean(DEFAULT_FIELD_TYPES, List.class);
-    }
-
-    public static ModelEntityFactory getModelEntityFactory() {
+  public static ModelEntityFactory getModelEntityFactory() {
     	checkIfEntityEngineIsRunning();
     	return context.getBean(MODEL_ENTITY_FACTORY, ModelEntityFactory.class);
+    }
+    
+    public static Map<String,String> getDefaultFieldTypeMap() {
+    	checkIfEntityEngineIsRunning();
+    	return context.getBean(DEFAULT_FIELD_TYPES, Map.class);
     }
 }

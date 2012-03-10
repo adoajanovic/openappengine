@@ -38,10 +38,10 @@
 	<!-- Error Message -->
 	<#if errorMessages?size!=0>
 		<div class="success">
-		<ul>
+		<ul style="margin-left:-35px;">
 			<#list errorMessages as message>
 				<li>
-					<div style="margin-left:18%;">	
+					<div style="margin-left:34px;">	
 						${message}
 					</div>
 				</li>	 

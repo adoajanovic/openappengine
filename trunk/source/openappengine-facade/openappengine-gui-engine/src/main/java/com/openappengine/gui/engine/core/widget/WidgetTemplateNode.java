@@ -4,8 +4,15 @@
 package com.openappengine.gui.engine.core.widget;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.MapBindingResult;
 import org.w3c.dom.Document;
+
+import com.openappengine.entity.api.ValueEntity;
 
 /**
  * @author hrishi
@@ -19,19 +26,21 @@ public class WidgetTemplateNode implements Serializable {
 	
 	private Document widgetTemplateXml;
 	
-	private Document widgetDataXml;
+	private ValueEntity valueEntity;
+	
+	private BindingResult bindingResult;
 
 	/**
 	 * @param widgetId
 	 * @param widgetTemplateXml
 	 * @param widgetDataXml
 	 */
-	public WidgetTemplateNode(String widgetId, Document widgetTemplateXml,
-			Document widgetDataXml) {
+	public WidgetTemplateNode(String widgetId,Document widgetTemplateXml,ValueEntity valueEntity) {
 		super();
 		this.widgetId = widgetId;
 		this.widgetTemplateXml = widgetTemplateXml;
-		this.widgetDataXml = widgetDataXml;
+		this.setValueEntity(valueEntity);
+		this.bindingResult = new MapBindingResult(new HashMap(), widgetId);
 	}
 
 	/**
@@ -66,14 +75,41 @@ public class WidgetTemplateNode implements Serializable {
 	 * @return the widgetDataXml
 	 */
 	public Document getWidgetDataXml() {
-		return widgetDataXml;
+		if(valueEntity != null) {
+			Document xml = valueEntity.toXml();
+			return xml;
+		}
+		return null;
+	}
+	
+	public FieldError getFieldError(String field) {
+		if(bindingResult == null) {
+			return null;
+		}
+		return bindingResult.getFieldError(field);
+	}
+	
+	public List<FieldError> getAllFieldErrors() {
+		if(bindingResult == null) {
+			return null;
+		}
+		return bindingResult.getFieldErrors();
 	}
 
-	/**
-	 * @param widgetDataXml the widgetDataXml to set
-	 */
-	public void setWidgetDataXml(Document widgetDataXml) {
-		this.widgetDataXml = widgetDataXml;
+	public ValueEntity getValueEntity() {
+		return valueEntity;
+	}
+
+	protected void setValueEntity(ValueEntity valueEntity) {
+		this.valueEntity = valueEntity;
+	}
+
+	public BindingResult getBindingResult() {
+		return bindingResult;
+	}
+
+	public void setBindingResult(BindingResult bindingResult) {
+		this.bindingResult = bindingResult;
 	}
 
 }

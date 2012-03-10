@@ -44,6 +44,14 @@ public class ModelEntity implements Serializable {
 	public Set<ModelField> getModelFields() {
 		return new HashSet<ModelField>(fieldsMap.values());
 	}
+	
+	public ModelField getModelField(String fieldName) {
+		if(StringUtils.isEmpty(fieldName)) {
+			return null;
+		}
+		
+		return fieldsMap.get(fieldName);
+	}
 
 	public void addModelField(ModelField modelField) {
 		if(modelField == null) {

@@ -26,6 +26,8 @@ public class ModelField implements Serializable {
 	
 	private boolean pk = false;
 	
+	private boolean required = false;
+	
 	/**
 	 * @param modelEntity
 	 */
@@ -87,8 +89,6 @@ public class ModelField implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((columnName == null) ? 0 : columnName.hashCode());
-		result = prime * result
 				+ ((modelEntity == null) ? 0 : modelEntity.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -103,11 +103,6 @@ public class ModelField implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ModelField other = (ModelField) obj;
-		if (columnName == null) {
-			if (other.columnName != null)
-				return false;
-		} else if (!columnName.equals(other.columnName))
-			return false;
 		if (modelEntity == null) {
 			if (other.modelEntity != null)
 				return false;
@@ -119,6 +114,14 @@ public class ModelField implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
 	}
 	
 }

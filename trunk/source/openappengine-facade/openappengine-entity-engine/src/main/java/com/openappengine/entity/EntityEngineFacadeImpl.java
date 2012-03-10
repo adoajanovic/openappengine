@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.w3c.dom.Document;
 
+import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.entity.definition.EntityDefinitionCache;
 import com.openappengine.entity.delegator.Delegator;
@@ -55,6 +56,14 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 	public EntityResponse saveEntityValueInstance(EntityRequest entityRequest) {
 		
 		return null;
+	}
+	
+	public ValueEntity makeValueEntity(String entityName) {
+		return delegator.makeValueEntity(entityName);
+	}
+	
+	public ValueEntity makeValueEntity(String entityName,Map<String, Object> values) {
+		return delegator.makeValueEntity(entityName, values);
 	}
 	
 	public Document makeValueEntityAsXml(String entityName,Map<String, Object> values) {

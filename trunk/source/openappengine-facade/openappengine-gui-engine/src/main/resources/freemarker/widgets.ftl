@@ -130,6 +130,7 @@
 <#macro renderWidget widgetTemplateNode>
 	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
 	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
+	<#local bindingResult = widgetTemplateNode.bindingResult>
 	<div>
 		<form method="post" action="${currentURL}">
 			<#if widgetDataXml?has_content>
@@ -137,4 +138,18 @@
 			</#if>
 		</form>
 	</div>
+	<script type="text/javascript">
+		<#if bindingResult.hasErrors()>
+			<#local fieldErrors = bindingResult.getFieldErrors() >
+			<#local fieldsConcat = "Required Fields are missing \n">;
+			<#list fieldErrors as fieldError>
+				<#local field = fieldError.getField()>
+				<#if field?has_content>
+					jQuery(document).ready(function (){
+						jQuery('[name="${field}"]').css('border-color','#A80000');
+					});
+				</#if>
+			</#list>
+		</#if>
+	</script>
 </#macro>

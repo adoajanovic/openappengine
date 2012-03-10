@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -134,7 +135,7 @@ public class ModelReader {
 		if (StringUtils.isBlank(isPK)) {
 			modelField.setPk(false);
 		} else {
-			boolean pk = Boolean.parseBoolean(isPK);
+			boolean pk = BooleanUtils.toBoolean(isPK);
 			modelField.setPk(pk);
 		}
 		
@@ -143,8 +144,16 @@ public class ModelReader {
 		if (StringUtils.isBlank(isNotNull)) {
 			modelField.setNotNull(false);
 		} else {
-			boolean notNull = Boolean.parseBoolean(isNotNull);
+			boolean notNull = BooleanUtils.toBoolean(isNotNull);
 			modelField.setNotNull(notNull);
+		}
+		
+		String isRequired = UtilXml.readElementAttribute(fieldElement, "required");
+		if (StringUtils.isBlank(isRequired)) {
+			modelField.setRequired(false);
+		} else {
+			boolean required = BooleanUtils.toBoolean(isRequired);
+			modelField.setRequired(required);
 		}
 
 		return modelField;

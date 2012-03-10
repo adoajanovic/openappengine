@@ -11,6 +11,9 @@ import java.util.Set;
 
 import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.model.ModelEntity;
+import com.openappengine.entity.model.ModelEntityUtils;
+import com.openappengine.entity.model.ModelField;
+import com.openappengine.utility.ObjectConverter;
 
 /**
  * @author hrishi
@@ -42,6 +45,20 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 			//TODO Create Delegator
 		}
 		this.delegator = delegator;
+		
+		initNullFieldValues(modelEntity);
+	}
+
+	/**
+	 * @param modelEntity
+	 */
+	private void initNullFieldValues(ModelEntity modelEntity) {
+		Set<ModelField> modelFields = modelEntity.getModelFields();
+		if(modelFields != null) {
+			for (ModelField modelField : modelFields) {
+				fieldValues.put(modelField.getName(), null);
+			}
+		}
 	}
 	
 	public void init(ModelEntity modelEntity,Delegator delegator,Map<String, Object> fieldValueMap) {
@@ -62,62 +79,66 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 
 	@Override
 	public boolean containsKey(Object key) {
-		// TODO Auto-generated method stub
-		return false;
+		return fieldValues.containsKey(key);
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		// TODO Auto-generated method stub
-		return false;
+		return fieldValues.containsValue(value);
 	}
 
 	@Override
 	public Object get(Object key) {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldValues.get(key);
 	}
 
 	@Override
-	public Object put(String key, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object put(String field, Object value) {
+		ModelField modelField = getModelEntity().getModelField(field);
+		String type = modelField.getType();
+		Class<?> fieldTypeClass;
+		try {
+			fieldTypeClass = ModelEntityUtils.getModelFieldType(type);
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException("No Class found for Type: " + type + ". Cannot save the field " + field + ".");
+		}
+		
+		Object convertedVal = value;
+		
+		if(value != null) {
+			convertedVal = ObjectConverter.convert(value, fieldTypeClass);
+		}
+		return fieldValues.put(field, convertedVal);
 	}
 
 	@Override
 	public Object remove(Object key) {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldValues.remove(key);
 	}
 
 	@Override
 	public void putAll(Map<? extends String, ? extends Object> m) {
-		// TODO Auto-generated method stub
-		
+		fieldValues.putAll(m);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		fieldValues.clear();
 	}
 
 	@Override
 	public Set<String> keySet() {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldValues.keySet();
 	}
 
 	@Override
 	public Collection<Object> values() {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldValues.values();
 	}
 
 	@Override
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldValues.entrySet();
 	}
 	//Map Interface.
 
@@ -143,5 +164,10 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 
 	public void setFieldValues(Map<String, Object> fieldValues) {
 		this.fieldValues = fieldValues;
+	}
+	
+	public boolean isRequired(String field) {
+		ModelField modelField = getModelEntity().getModelField(field);
+		return modelField.isRequired();
 	}
 }

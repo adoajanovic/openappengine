@@ -3,9 +3,9 @@
 	xmlns="http://www.w3.org/2001/XMLSchema-instance"
     schemaLocation="xsd/entity-definition.xsd">
 	<entity name="User" table-name="User">
-		<field name="username" column-name="username" type="String" is-pk="true" not-null="true">
+		<field name="username" column-name="username" type="String" is-pk="true" not-null="true" required="true">
 		</field>
-		<field name="password" column-name="password" type="Password" is-pk="true" not-null="true">
+		<field name="password" column-name="password" type="Password" is-pk="true" not-null="true" required="true">
 		</field>
 		<field name="firstName" column-name="firstName" type="String" not-null="true">
 		</field>
