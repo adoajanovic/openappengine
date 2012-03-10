@@ -138,8 +138,12 @@ public class ResourceBundleMessageContext implements MessageContext {
 	public List<String> getErrorMessages() {
 		List<String> errorMsgs = new ArrayList<String>();
 		for (Message msg : errorMessages) {
-			String message = messageSource.getMessage(msg.getCode(), msg.getMessageArgs(), locale);
-			errorMsgs.add(message);
+			try {
+				String message = messageSource.getMessage(msg.getCode(), msg.getMessageArgs(), locale);
+				errorMsgs.add(message);
+			} catch(NoSuchMessageException e) {
+				errorMsgs.add(msg.getCode());
+			}
 		}
 		return errorMsgs;
 	}

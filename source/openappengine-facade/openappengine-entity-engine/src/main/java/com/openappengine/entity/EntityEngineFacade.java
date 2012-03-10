@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.w3c.dom.Document;
 
+import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.definition.Entity;
 import com.openappengine.entity.response.EntityResponse;
 
@@ -71,4 +72,7 @@ public interface EntityEngineFacade {
 	
 	Document makeValueEntityAsXml(String entityName);
 	
+	ValueEntity makeValueEntity(String entityName);
+	
+	ValueEntity makeValueEntity(String entityName,Map<String, Object> values);
 }

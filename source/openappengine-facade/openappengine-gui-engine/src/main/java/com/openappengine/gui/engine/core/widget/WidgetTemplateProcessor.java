@@ -38,9 +38,14 @@ public class WidgetTemplateProcessor {
 		metadataEle.setAttribute("rendersChildren", "true");
 		widgetXmlDoc.getDocumentElement().appendChild(metadataEle);
 		
+		
 		Element widgetIdMetaEle = widgetXmlDoc.createElement("widgetId");
 		widgetIdMetaEle.appendChild(widgetXmlDoc.createTextNode(widgetEle.getAttribute("id")));
 		metadataEle.appendChild(widgetIdMetaEle);
+		
+		/*Element entityNameEle = widgetXmlDoc.createElement("");
+		entityNameEle.appendChild(widgetXmlDoc.createTextNode(widgetEle.getAttribute("name")));
+		metadataEle.appendChild(entityNameEle);*/
 		
 		if(widgetControlElements != null) {
 			for (Element inputWidgetElement : widgetControlElements) {

@@ -11,31 +11,26 @@
 		<constructor-arg>
 			<array>
 				<value>entity_definitions/SimpleEntities.xml</value>
-				<!-- <value>entity_definitions</value> -->
 			</array>
 		</constructor-arg>
 	</bean>
 	
-	<!-- <bean id="entityDefinitionReader" class="com.openappengine.entity.definition.reader.EntityDefinitionReader">
-		<property name="locations" ref="entityFileLocations" />
-	</bean>
-	
-    <bean name="defaultFieldTypes" class="java.util.Arrays" factory-method="asList">
+	<bean name="defaultFieldTypes" class="java.util.HashMap">
 		<constructor-arg>
-			<array>
-				<value>String</value>
-				<value>Password</value>
-				<value>Integer</value>
-				<value>Long</value>
-				<value>Double</value>
-				<value>Boolean</value>
-				<value>Long</value>
-				<value>Date</value>
-				<value>DateTime</value>
-			</array>
+			<map>
+				<entry key="String" value="java.lang.String" />
+				<entry key="Password" value="java.lang.String" />
+				<entry key="Date" value="java.util.Date" />
+				<entry key="Boolean" value="java.lang.Boolean" />
+				<entry key="Integer" value="java.lang.Integer" />
+				<entry key="Long" value="java.lang.Long" />
+				<entry key="Double" value="java.lang.Double" />
+				<entry key="BigDecimal" value="java.math.BigDecimal" />
+			</map>
 		</constructor-arg>
 	</bean>
-	-->
+	
+
 	<bean id="entityFacade" class="com.openappengine.entity.EntityEngineFacadeImpl" >
 		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
 		<property name="delegator" ref="delegator"></property>

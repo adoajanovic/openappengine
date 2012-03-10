@@ -163,9 +163,8 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 	/**
 	 * @param request
 	 * @param guiApplicationContext
-	 * @throws LinkageError
 	 */
-	private void doProcessWidgetPost(HttpServletRequest request,GuiEngineContext guiApplicationContext) throws LinkageError {
+	private void doProcessWidgetPost(HttpServletRequest request,GuiEngineContext guiApplicationContext) {
 		String widgetType = request.getParameter("widgetType");
 		
 		if(StringUtils.isEmpty(widgetType)) {

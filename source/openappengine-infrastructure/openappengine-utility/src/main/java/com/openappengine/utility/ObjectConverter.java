@@ -19,8 +19,13 @@ package com.openappengine.utility;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.BooleanUtils;
 
 /**
  * Generic object converter.
@@ -106,7 +111,7 @@ public final class ObjectConverter {
         String converterId = from.getClass().getName() + "_" + to.getName();
         Method converter = CONVERTERS.get(converterId);
         if (converter == null) {
-        	throw new UnsupportedOperationException("Cannot convert from " 
+        	throw new ObjectConverterException("Cannot convert from " 
                 + from.getClass().getName() + " to " + to.getName()
                 + ". Requested converter does not exist.");
         }
@@ -115,7 +120,7 @@ public final class ObjectConverter {
         try {
             return to.cast(converter.invoke(to, from));
         } catch (Exception e) {
-            throw new RuntimeException("Cannot convert from " 
+            throw new ObjectConverterException("Cannot convert from " 
                 + from.getClass().getName() + " to " + to.getName()
                 + ". Conversion failed with " + e.getMessage(), e);
         }
@@ -123,6 +128,15 @@ public final class ObjectConverter {
 
     // Converters ---------------------------------------------------------------------------------
 
+    
+    public static Date stringToDate(String value) {
+    	return DateTimeUtil.toDate(value, "00:00:00");
+    }
+    
+    public static String dateToString(Date date) {
+    	return DateTimeUtil.toDateString(date);
+    }
+    
     /**
      * Converts Integer to Boolean. If integer value is 0, then return FALSE, else return TRUE.
      * @param value The Integer to be converted.
@@ -192,9 +206,48 @@ public final class ObjectConverter {
      * @return The converted Boolean value.
      */
     public static Boolean stringToBoolean(String value) {
-        return Boolean.valueOf(value);
+        return BooleanUtils.toBooleanObject(value);
     }
 
     // You can implement more converter methods here.
 
+    /**
+     * 
+     * @author hrishi
+     * since Mar 10, 2012
+     */
+    public static class ObjectConverterException extends RuntimeException {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * 
+		 */
+		public ObjectConverterException() {
+			super();
+		}
+
+		/**
+		 * @param message
+		 * @param cause
+		 */
+		public ObjectConverterException(String message, Throwable cause) {
+			super(message, cause);
+		}
+
+		/**
+		 * @param message
+		 */
+		public ObjectConverterException(String message) {
+			super(message);
+		}
+
+		/**
+		 * @param cause
+		 */
+		public ObjectConverterException(Throwable cause) {
+			super(cause);
+		}
+    	
+    }
 }

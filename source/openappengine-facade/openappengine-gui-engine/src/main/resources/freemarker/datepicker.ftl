@@ -8,7 +8,7 @@
 	</td>
 	
 	<td>
-		<input id="${.node["@id"]}" name="${.node["@path"]}" type="text" value="${.node}" class="datepicker" 
+		<input id="${.node["@id"]}" name="${.node["@name"]}" type="text" value="${.node}" class="datepicker" 
 			value = "<@common.evalXpathExpression widgetDataXml "path" />" />
 	</td>
 	<script type="text/javascript">
@@ -16,8 +16,7 @@
 			jQuery("#${.node["@id"]}").datepicker(
 				{
 					changeMonth: true,
-					changeYear: true,
-					dateFormat: dd/mm/yy
+					changeYear: true
 				}
 			);
 			

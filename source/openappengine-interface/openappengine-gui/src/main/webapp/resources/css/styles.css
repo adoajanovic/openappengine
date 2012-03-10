@@ -337,7 +337,7 @@ p {
 	background-color : #f5f5f5;
     color: #222;
     height: auto;
-    margin-left: -70px;
+    /* margin-left: -70px; */
 }
 
 .success ul {
@@ -348,8 +348,13 @@ p {
 
 .success li{
 	background-image: url(images/green_arrow.gif);
+	size:16px 16px;
 	background-repeat: no-repeat;
-	background-position: 15%;
+	background-position: 0% 2%;
+}
+
+.success li.msg{
+	margin-left: 15px;
 }
 
 .warning {
@@ -504,4 +509,10 @@ p {
 /* .ui-grid .ui-grid-paging { float: right; }
 .ui-grid .ui-grid-paging-prev { float: left; width: 16px; height: 16px; }
 .ui-grid .ui-grid-paging-next { float: right; width: 16px; height: 16px; }
-.ui-grid .ui-grid-results { } */ 
+.ui-grid .ui-grid-results { } */
+
+
+.errorField{  
+  background:#EEE;  
+  border: solid 2px #DFDFDF;  
+}  

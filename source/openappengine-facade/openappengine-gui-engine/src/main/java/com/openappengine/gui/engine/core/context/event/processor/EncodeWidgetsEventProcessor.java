@@ -10,13 +10,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.openappengine.entity.EntityEngineFacade;
+import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.gui.engine.core.context.ApplicationEvent;
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.context.LifecycleEventProcessor;
 import com.openappengine.gui.engine.core.widget.WidgetTemplateNode;
 import com.openappengine.gui.engine.core.widget.WidgetTemplateProcessor;
-import com.openappengine.utility.UtilXml;
 
 /**
  * @author hrishikesh.joshi
@@ -36,9 +36,14 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 				EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
 				String entityName = widgetElement.getAttribute("name");
 				String widgetId = widgetElement.getAttribute("id");
-				Document widgetDataXml = getInputEntityXml(entityEngineFacade, entityName,widgetId);
+				
+				ValueEntity valueEntity = entityEngineFacade.makeValueEntity(entityName);
+				if(valueEntity == null) {
+					throw new IllegalArgumentException("ValueEntity not found for Entity Name : " + entityName);
+				}
+				
 				Document widgetTemplateXml = encodeWidgetControls(widgetElement, t);
-				WidgetTemplateNode node = new WidgetTemplateNode(widgetId, widgetTemplateXml, widgetDataXml);
+				WidgetTemplateNode node = new WidgetTemplateNode(widgetId,widgetTemplateXml,valueEntity);
 				t.addWidget(widgetId, node);
 			}
 		}
@@ -52,18 +57,6 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		WidgetTemplateProcessor widgetTemplateProcessor = new WidgetTemplateProcessor();
 		Document renderedWidgetXml = widgetTemplateProcessor.processWidgetTemplate(element, context);
 		return renderedWidgetXml;
-	}
-	
-	/**
-	 * @param entityEngineFacade
-	 * @param entityName
-	 * @param widgetId
-	 * @return
-	 */
-	private Document getInputEntityXml(EntityEngineFacade entityEngineFacade,String entityName, String widgetId) {
-		Document doc = entityEngineFacade.makeValueEntityAsXml(entityName);
-		System.out.println(UtilXml.writeXmlDocument(doc));				
-		return doc;
 	}
 
 }
