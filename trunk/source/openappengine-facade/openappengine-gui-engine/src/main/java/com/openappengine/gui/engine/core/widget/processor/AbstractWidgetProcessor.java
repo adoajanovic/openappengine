@@ -57,6 +57,12 @@ public abstract class AbstractWidgetProcessor implements WidgetProcessor {
 			return null;
 		}
 		
+		//Call Service/Action
+		
+		//Display the Success Message.
+		widgetProcessorContext.getMessageContext().addSuccessMessage("Action Completed.");
+		
+		//Register WidgetTemplateNode with Context.
 		widgetProcessorContext.getELContext().registerELContextVariable(widgetId, widgetTemplateNode);
 		
 		return null;
