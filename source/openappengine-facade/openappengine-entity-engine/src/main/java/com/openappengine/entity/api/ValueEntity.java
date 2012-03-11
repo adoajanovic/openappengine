@@ -63,7 +63,6 @@ public class ValueEntity extends GenericEntity {
 				entityElement.appendChild(fieldEle);
 			}
 		}
-		
 		return document;
 	}
 	
