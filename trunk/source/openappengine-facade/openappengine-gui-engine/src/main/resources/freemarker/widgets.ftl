@@ -146,7 +146,7 @@
 				<#local field = fieldError.getField()>
 				<#if field?has_content>
 					jQuery(document).ready(function (){
-						jQuery('[name="${field}"]').css('border-color','#A80000');
+						jQuery('[name="${field}"]').addClass(' ui-state-error');
 					});
 				</#if>
 			</#list>

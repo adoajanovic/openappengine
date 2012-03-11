@@ -3,18 +3,18 @@
 	<page-content>
 	
 		<widget id="gridEx" name="User">
-			<formGrid id="grid" columns="3" headerLabel="Example Form">
-				<textfield id="username" name="username" labelId="username" path="/Entity/User/username" />
+			<formGrid id="grid" columns="1" headerLabel="Example Form">
+				<textfield id="username" name="username" labelId="username" path="/Entity/User/username"/>
 				<password id="password" name="password" labelId="password" path="/Entity/User/password" />
 				<datepicker id="date" name="date" labelId="date" path="/Entity/User/date" />
-				<datepicker id="date1" name="date" labelId="date1" path="/Entity/User/date" />
 				<textarea id="comments" name="comments" labelId="comments" path="/Entity/User/comments" />
 				<checkbox id="active" name="active" path="/Entity/User/active" labelId="active"/> 
 				<dropdown id="currency" name="currency" labelId="currency" path="/Entity/User/currency">
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
-				<actionButton id="submit" name="submit" labelId="submit" action="/login" /> 
+				<actionButton id="submit" name="submit" labelId="submit" action="/login" >
+				</actionButton>
 			</formGrid>
 		</widget>
 		
