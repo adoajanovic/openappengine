@@ -260,7 +260,19 @@ public class ResourceBundleMessageContext implements MessageContext {
 	public List<String> getSuccessMessages() {
 		List<String> successMsgs = new ArrayList<String>();
 		for (Message msg : successMessages) {
-			String message = messageSource.getMessage(msg.getCode(), null, locale);
+			
+			String message = "";
+			try {
+				message = messageSource.getMessage(msg.getCode(), null, locale);
+			} catch(NoSuchMessageException e) {
+				if(!throwMessageNotFoundException) {
+					throw e;
+				} else {
+					message = msg.getCode();
+					logger.error("Code :" +  msg.getCode() + " could not found. [Exception Message : " + e.getMessage() + "]");
+				}
+				//DO NOTHING. As we return the code. if the message is not found.
+			}
 			successMsgs.add(message);
 		}
 		return successMsgs;
