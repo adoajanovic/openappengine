@@ -3,11 +3,14 @@
  */
 package com.openappengine.entity.api;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.model.ModelEntity;
@@ -63,7 +66,36 @@ public class ValueEntity extends GenericEntity {
 				entityElement.appendChild(fieldEle);
 			}
 		}
+		
+		//Adopt nodes from related entity.
+		if(getOneMappedRelatedValueEntityMap() != null && !getOneMappedRelatedValueEntityMap().isEmpty()) {
+			Set<Entry<String,ValueEntity>> entrySet = getOneMappedRelatedValueEntityMap().entrySet();
+			for (Entry<String, ValueEntity> entry : entrySet) {
+				String relationshipName = entry.getKey();
+				Element relnEle = document.createElement(relationshipName);
+				
+				ValueEntity value = entry.getValue();
+				Document relnXml = value.toXml();
+				Element entityEle = DomUtils.getChildElementByTagName(relnXml.getDocumentElement(), "Entity");
+				
+				List<Element> relatedEntityChildEles = DomUtils.getChildElements(entityEle);
+				if(relatedEntityChildEles != null) {
+					for (Element relatedEntityChildEle : relatedEntityChildEles) {
+						Node adoptNode = document.adoptNode(relatedEntityChildEle);
+						relnEle.appendChild(adoptNode);
+					}
+				}
+				
+				entityEle.appendChild(relnEle);
+			}
+		}
+		
+		
 		return document;
+	}
+	
+	public ValueEntity makeRelatedValueEntity(String relationshipName) {
+		return getDelegator().makeRelatedValueEntity(this, relationshipName);
 	}
 	
 }

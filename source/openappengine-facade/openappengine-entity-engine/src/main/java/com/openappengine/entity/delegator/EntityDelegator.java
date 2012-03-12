@@ -1,15 +1,19 @@
 package com.openappengine.entity.delegator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.model.ModelEntity;
 import com.openappengine.entity.model.ModelEntityFactory;
+import com.openappengine.entity.model.ModelRelationship;
 import com.openappengine.utility.UtilXml;
 
 public class EntityDelegator implements Delegator {
@@ -28,6 +32,40 @@ public class EntityDelegator implements Delegator {
 		
 		ValueEntity valueEntity = ValueEntity.createValueEntity(modelEntity);
 		valueEntity.init(modelEntity, this);
+		return valueEntity;
+	}
+	
+	public ValueEntity makeRelatedValueEntity(ValueEntity valueEntity, String relationshipName) {
+		if(valueEntity == null) {
+			throw new IllegalArgumentException("ValueEntity cannot be null.");
+		}
+		
+		ModelRelationship modelRelationship = valueEntity.getModelRelationship(relationshipName);
+		if(modelRelationship == null) {
+			throw new IllegalArgumentException(
+					"No ModelRelationship exists for ValueEntity : "
+							+ valueEntity.getEntityName()
+							+ " with relationship title " + relationshipName
+							+ ".");
+		}
+		
+		String relatedEntityName = modelRelationship.getRelatedEntityName();
+		ValueEntity relatedValueEntity = makeValueEntity(relatedEntityName);
+		
+		if(StringUtils.equals("one", modelRelationship.getType())) {
+			valueEntity.getOneMappedRelatedValueEntityMap().put(relationshipName, relatedValueEntity);
+		} else if(StringUtils.equals("many", modelRelationship.getType())) {
+			if(!valueEntity.getManyMappedRelatedValueEntityMap().containsKey(relationshipName)) {
+				Set<ValueEntity> valueEntities = new HashSet<ValueEntity>();
+				valueEntities.add(relatedValueEntity);
+				valueEntity.getManyMappedRelatedValueEntityMap().put(relationshipName, valueEntities);
+			} else {
+				Set<ValueEntity> valueEntities = valueEntity.getManyMappedRelatedValueEntityMap().get(relationshipName);
+				valueEntities.add(relatedValueEntity);
+				valueEntity.getManyMappedRelatedValueEntityMap().put(relationshipName, valueEntities);
+			}
+		}
+		
 		return valueEntity;
 	}
 	
@@ -104,9 +142,12 @@ public class EntityDelegator implements Delegator {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public ModelEntity getModelEntity(String entityName) {
+		if(StringUtils.isEmpty(entityName)) {
+			throw new IllegalArgumentException("EntityName required to find a ModelEntity.");
+		}
 		return getModelEntityFactory().getModelEntity(entityName);
 	}
 
