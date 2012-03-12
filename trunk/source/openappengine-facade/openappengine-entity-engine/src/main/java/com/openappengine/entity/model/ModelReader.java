@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -93,8 +94,33 @@ public class ModelReader {
 						}
 					}
 					
-					//TODO - Read Relationships.
-					
+					//Relationships.
+					List<Element> relationshipEles = DomUtils.getChildElementsByTagName(entityElement, "relationship");
+					if(relationshipEles != null) {
+						List<ModelRelationship> modelRelationships = new ArrayList<ModelRelationship>();
+						for (Element relationshipEle : relationshipEles) {
+							ModelRelationship modelRelationship = new ModelRelationship();
+							modelRelationship.setTitle(UtilXml.readElementAttribute(relationshipEle, "title"));
+							modelRelationship.setType(UtilXml.readElementAttribute(relationshipEle, "type"));
+							modelRelationship.setRelatedEntityName(UtilXml.readElementAttribute(relationshipEle, "related-entity-name"));
+							
+							List<Element> keyMapEles = DomUtils.getChildElementsByTagName(relationshipEle, "key-map");
+							List<RelationshipKeyMap> relationshipKeyMaps = new ArrayList<RelationshipKeyMap>();
+							if(keyMapEles != null) {
+								for (Element keyMapEle : keyMapEles) {
+									RelationshipKeyMap keyMap = new RelationshipKeyMap();
+									keyMap.setFieldName(UtilXml.readElementAttribute(keyMapEle, "field-name"));
+									keyMap.setRelatedFieldName(UtilXml.readElementAttribute(keyMapEle, "related-field-name"));
+									relationshipKeyMaps.add(keyMap);
+								}
+							}
+							modelRelationship.setRelatedFieldMap(relationshipKeyMaps);
+							
+							modelRelationships.add(modelRelationship);
+						}
+						
+						modelEntity.setRelationships(modelRelationships);
+					}
 					
 					factory.registerModelEntity(modelEntity);
 					entityDefinitions.add(modelEntity);
@@ -160,3 +186,4 @@ public class ModelReader {
 	}
 
 }
+

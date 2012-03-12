@@ -90,4 +90,14 @@ public interface Delegator {
 	 * @return
 	 */
 	ValueEntity fromXml(Document document);
+	
+	/**
+	 * Add an entry of the related entity in the original value entity, if does not exists, 
+	 * for the original entity.
+	 *   
+	 * @param valueEntity
+	 * @param relationshipName
+	 * @return
+	 */
+	ValueEntity makeRelatedValueEntity(ValueEntity valueEntity, String relationshipName);
 }

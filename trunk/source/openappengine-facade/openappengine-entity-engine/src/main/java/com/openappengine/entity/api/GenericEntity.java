@@ -6,6 +6,7 @@ package com.openappengine.entity.api;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.model.ModelEntity;
 import com.openappengine.entity.model.ModelEntityUtils;
 import com.openappengine.entity.model.ModelField;
+import com.openappengine.entity.model.ModelRelationship;
 import com.openappengine.utility.ObjectConverter;
 
 /**
@@ -25,7 +27,11 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 	
 	private Map<String, Object> fieldValues = new HashMap<String, Object>();
 	
-	protected transient Delegator delegator;
+	private Map<String,ValueEntity> oneMappedRelatedValueEntityMap = new HashMap<String, ValueEntity>();
+	
+	private Map<String,Set<ValueEntity>> manyMappedRelatedValueEntityMap = new HashMap<String, Set<ValueEntity>>();
+	
+	private transient Delegator delegator;
 	
 	private ModelEntity modelEntity;
 	
@@ -141,6 +147,14 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 		return fieldValues.entrySet();
 	}
 	//Map Interface.
+	
+	public List<ModelRelationship> getModelRelationships() {
+		return getModelEntity().getRelationships();
+	}
+	
+	public ModelRelationship getModelRelationship(String relationName) {
+		return getModelEntity().getModelRelationshipByName(relationName);
+	}
 
 	public ModelEntity getModelEntity() {
 		return modelEntity;
@@ -170,4 +184,26 @@ public class GenericEntity implements Map<String, Object>,Serializable {
 		ModelField modelField = getModelEntity().getModelField(field);
 		return modelField.isRequired();
 	}
+
+	public Delegator getDelegator() {
+		return delegator;
+	}
+
+	public Map<String,ValueEntity> getOneMappedRelatedValueEntityMap() {
+		return oneMappedRelatedValueEntityMap;
+	}
+
+	public void setOneMappedRelatedValueEntityMap(Map<String,ValueEntity> relatedValueEntityMap) {
+		this.oneMappedRelatedValueEntityMap = relatedValueEntityMap;
+	}
+
+	public Map<String,Set<ValueEntity>> getManyMappedRelatedValueEntityMap() {
+		return manyMappedRelatedValueEntityMap;
+	}
+
+	public void setManyMappedRelatedValueEntityMap(
+			Map<String,Set<ValueEntity>> manyMappedRelatedValueEntityMap) {
+		this.manyMappedRelatedValueEntityMap = manyMappedRelatedValueEntityMap;
+	}
+
 }

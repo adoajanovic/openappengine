@@ -31,7 +31,9 @@ public class ModelEntity implements Serializable {
 	
 	protected Map<String, ModelField> fieldsMap = new HashMap<String, ModelField>();
 	
-	protected List<ModelRelationship> relationships = new ArrayList<ModelRelationship>();
+	private List<ModelRelationship> relationships = new ArrayList<ModelRelationship>();
+	
+	private Map<String, ModelRelationship> modelRelationshipMap = new HashMap<String, ModelRelationship>();
 	
 	public String getEntityName() {
 		return entityName;
@@ -69,7 +71,7 @@ public class ModelEntity implements Serializable {
 		if(relationship == null) {
 			throw new IllegalArgumentException("Cannot add a NULL relationship for Model Entity :" + entityName);
 		}
-		this.relationships.add(relationship);
+		this.getRelationships().add(relationship);
 	}
 
 	public boolean isMutable() {
@@ -112,6 +114,24 @@ public class ModelEntity implements Serializable {
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	public List<ModelRelationship> getRelationships() {
+		return relationships;
+	}
+
+	public void setRelationships(List<ModelRelationship> relationships) {
+		this.relationships = relationships;
+		
+		if(this.relationships != null) {
+			for (ModelRelationship modelRelationship : relationships) {
+				this.modelRelationshipMap.put(modelRelationship.getTitle(), modelRelationship);
+			}
+		}
+	}
+	
+	public ModelRelationship getModelRelationshipByName(String relationshipName) {
+		return this.modelRelationshipMap.get(relationshipName);
 	}
 
 }

@@ -19,5 +19,29 @@
 		</field>
 		<field name="currency" column-name="currency" type="String">
 		</field>
+		<relationship type="many" title="person_address" related-entity-name="Address">
+			<key-map field-name="username" related-field-name="username" />
+		</relationship>
+	</entity>
+	
+	<entity name="Address" table-name="Address">
+		<field name="username" column-name="username" type="String" not-null="true">
+		</field>
+		<field name="address1" column-name="address1" type="String" not-null="true">
+		</field>
+		<field name="address2" column-name="address2" type="String" not-null="true">
+		</field>
+		<field name="city" column-name="city" type="String">
+		</field>
+		<field name="state" column-name="state" type="String">
+		</field>
+		<field name="country" column-name="country" type="String">
+		</field>
+		<field name="postalCode" column-name="postalCode" type="String">
+		</field>
+		<field name="fromDate" column-name="fromDate" type="Date">
+		</field>
+		<field name="toDate" column-name="toDate" type="Date">
+		</field>
 	</entity>
 </entities>
