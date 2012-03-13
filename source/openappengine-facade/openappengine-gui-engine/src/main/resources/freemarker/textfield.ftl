@@ -3,11 +3,7 @@
 
 <#macro textfield>
 	<td>
-	<#if .node["@labelId"]??>
-		<label id="${.node["@id"]}_Label" for="${.node["@id"]}">
-			<@common.message .node["@labelId"] />
-		</label>
-	</#if>
+		<@common.displayLabel .node />
 	</td>
 	<td>
 		<input type="text" id="${.node["@id"]}" name="${.node["@name"]}" 
