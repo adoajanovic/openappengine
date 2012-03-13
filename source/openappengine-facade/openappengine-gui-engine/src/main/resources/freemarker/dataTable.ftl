@@ -23,20 +23,22 @@
 			</thead>
 			<tbody class="tableBody">
 				<#local tableXPath = .node["@path"]?string>
-				<#foreach dataNode in widgetDataXml[tableXPath]>
-					<#foreach dataColumn in .node.column>
-						<#if dataColumn_index%cols = 0>
-							<tr class="ui-widget-content">
-						</#if>
-							<td class="ui-grid-content">
-								<#local columnXPath = dataColumn["@path"]?string>
-								${dataNode[columnXPath]}
-							</td>
-						<#if dataColumn_index%cols= cols-1>
-							</tr>
-						</#if>
-					</#foreach>	
-				</#foreach>
+				<#if widgetDataXml[tableXPath]??>
+					<#foreach dataNode in widgetDataXml[tableXPath]>
+						<#foreach dataColumn in .node.column>
+							<#if dataColumn_index%cols = 0>
+								<tr class="ui-widget-content">
+							</#if>
+								<td class="ui-grid-content">
+									<#local columnXPath = dataColumn["@path"]?string>
+									${dataNode[columnXPath]}
+								</td>
+							<#if dataColumn_index%cols= cols-1>
+								</tr>
+							</#if>
+						</#foreach>	
+					</#foreach>
+				</#if>
 			</tbody>
 		</table>	
 	</div>

@@ -72,25 +72,44 @@ public class ValueEntity extends GenericEntity {
 			Set<Entry<String,ValueEntity>> entrySet = getOneMappedRelatedValueEntityMap().entrySet();
 			for (Entry<String, ValueEntity> entry : entrySet) {
 				String relationshipName = entry.getKey();
-				Element relnEle = document.createElement(relationshipName);
+				//Element relnEle = document.createElement(relationshipName);
 				
 				ValueEntity value = entry.getValue();
 				Document relnXml = value.toXml();
-				Element entityEle = DomUtils.getChildElementByTagName(relnXml.getDocumentElement(), "Entity");
 				
-				List<Element> relatedEntityChildEles = DomUtils.getChildElements(entityEle);
+				List<Element> relatedEntityChildEles = DomUtils.getChildElements(relnXml.getDocumentElement());
 				if(relatedEntityChildEles != null) {
 					for (Element relatedEntityChildEle : relatedEntityChildEles) {
 						Node adoptNode = document.adoptNode(relatedEntityChildEle);
-						relnEle.appendChild(adoptNode);
+						entityElement.appendChild(adoptNode);
 					}
 				}
-				
-				entityEle.appendChild(relnEle);
 			}
 		}
 		
+		if(getManyMappedRelatedValueEntityMap() != null && !getManyMappedRelatedValueEntityMap().isEmpty()) {
+			Set<Entry<String, Set<ValueEntity>>> entrySet = getManyMappedRelatedValueEntityMap().entrySet();
+			for (Entry<String, Set<ValueEntity>> entry : entrySet) {
+				String relationshipName = entry.getKey();
+				
+				Set<ValueEntity> values = entry.getValue();
+				for (ValueEntity value : values) {
+					Document relnXml = value.toXml();
+					UtilXml.writeXmlDocument(relnXml);
+					//Element entityEle = DomUtils.getChildElementByTagName(relnXml.getDocumentElement(), "Entity");
+					
+					List<Element> relatedEntityChildEles = DomUtils.getChildElements(relnXml.getDocumentElement());
+					if(relatedEntityChildEles != null) {
+						for (Element relatedEntityChildEle : relatedEntityChildEles) {
+							Node adoptNode = document.adoptNode(relatedEntityChildEle);
+							entityElement.appendChild(adoptNode);
+						}
+					}
+				}
+			}
+		}
 		
+		UtilXml.writeXmlDocument(document);
 		return document;
 	}
 	

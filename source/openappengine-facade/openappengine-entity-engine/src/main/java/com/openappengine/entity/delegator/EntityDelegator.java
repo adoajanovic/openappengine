@@ -32,6 +32,7 @@ public class EntityDelegator implements Delegator {
 		
 		ValueEntity valueEntity = ValueEntity.createValueEntity(modelEntity);
 		valueEntity.init(modelEntity, this);
+		
 		return valueEntity;
 	}
 	
