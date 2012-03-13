@@ -41,6 +41,7 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 				if(valueEntity == null) {
 					throw new IllegalArgumentException("ValueEntity not found for Entity Name : " + entityName);
 				}
+				valueEntity.makeRelatedValueEntity("PersonAddress");
 				
 				Document widgetTemplateXml = encodeWidgetControls(widgetElement, t);
 				WidgetTemplateNode node = new WidgetTemplateNode(widgetId,widgetTemplateXml,valueEntity);

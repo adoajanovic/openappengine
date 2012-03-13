@@ -19,7 +19,7 @@
 		</field>
 		<field name="currency" column-name="currency" type="String">
 		</field>
-		<relationship type="many" title="person_address" related-entity-name="Address">
+		<relationship type="many" title="PersonAddress" related-entity-name="Address">
 			<key-map field-name="username" related-field-name="username" />
 		</relationship>
 	</entity>
