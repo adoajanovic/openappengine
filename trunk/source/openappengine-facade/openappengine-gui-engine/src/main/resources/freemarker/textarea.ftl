@@ -2,9 +2,7 @@
 
 <#macro textarea>
 	<td>
-		<label id="${.node["@id"]}_Label" for="${.node["@id"]}">
-			<@common.message .node["@labelId"] />
-		</label>
+		<@common.displayLabel .node />
 	</td>
 	<td>
 		<textarea id="${.node["@id"]}" name="${.node["@name"]}" rows="${.node["@rows"]}" cols="${.node["@cols"]}">

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="entity.makeValueEntity" class="com.openappengine.service.entity.EntityService"
+		invokeMethod="makeValueEntity">
+		<description>
+			Make a new ValueEntity instance without saving it.
+		</description>
+		<parameter name="entityName" type="java.lang.String" mode="IN" optional="false" />
+		<parameter name="valueEntity" type="com.openappengine.entity.api.ValueEntity" mode="OUT" optional="false" />
+	</service>
+</services>

@@ -3,9 +3,7 @@
 
 <#macro password>
 	<td>
-		<label id="${.node["@id"]}_Label" for="${.node["@id"]}">
-			<@common.message .node["@labelId"] />
-		</label>
+		<@common.displayLabel .node />
 	</td>
 	<td>	
 		<input id="${.node["@id"]}" name="${.node["@name"]}" type="password" 

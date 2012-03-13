@@ -17,3 +17,9 @@
 		${dataDoc[.node["@" + xpath]]}<#t>
 	</#if>
 </#macro>
+
+<#macro displayLabel node>
+	<label id="${.node["@id"]}_Label" for="${.node["@id"]}">
+			<@message .node["@labelId"] />
+	</label>
+</#macro>

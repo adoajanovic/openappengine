@@ -32,6 +32,13 @@
 	</repositories>
   
   <dependencies>
+  	
+  	<dependency>
+  		<groupId>com.openappengine</groupId>
+  		<artifactId>openappengine-service-engine</artifactId>
+  		<version>1.0.0-SNAPSHOT</version>
+  	</dependency>
+  
   	<dependency>
   		<groupId>com.openappengine</groupId>
   		<artifactId>openappengine-entity-engine</artifactId>
