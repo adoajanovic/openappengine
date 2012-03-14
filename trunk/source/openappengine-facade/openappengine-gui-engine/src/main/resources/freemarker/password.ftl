@@ -5,9 +5,10 @@
 	<td>
 		<@common.displayLabel .node />
 	</td>
-	<td>	
+	<td>
+		<#local field = .node["@name"]>	
 		<input id="${.node["@id"]}" name="${.node["@name"]}" type="password" 
-				value = "<@common.evalXpathExpression widgetDataXml "path" />" 
+				value = "<@common.evaluateValue values field />" 
 				class="ui-widget ui-corner-all" />
 	</td>	
 </#macro>

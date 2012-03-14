@@ -130,14 +130,11 @@
 <#macro renderWidget widgetTemplateNode>
 	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
 	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
-	<#assign valueEntity = widgetTemplateNode.valueEntity>
+	<#assign values = widgetTemplateNode.getFieldValues()>
 	<#local bindingResult = widgetTemplateNode.bindingResult>
 	<div>
-		${widgetHelper.getValue(valueEntity,"username")}
 		<form method="post" action="${currentURL}">
-			<#if valueEntity??>
-				<@renderFieldsRecursively widgetTemplateXml />
-			</#if>
+			<@renderFieldsRecursively widgetTemplateXml />
 		</form>
 	</div>
 	<script type="text/javascript">

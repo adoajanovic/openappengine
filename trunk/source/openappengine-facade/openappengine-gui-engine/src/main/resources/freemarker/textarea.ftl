@@ -5,8 +5,9 @@
 		<@common.displayLabel .node />
 	</td>
 	<td>
+		<#local field = .node["@name"]>	
 		<textarea id="${.node["@id"]}" name="${.node["@name"]}" rows="${.node["@rows"]}" cols="${.node["@cols"]}">
-			<@common.evalXpathExpression widgetDataXml "path" />
+			<@common.evaluateValue values field />
 		</textarea>
 	</td>	
 </#macro>

@@ -6,6 +6,7 @@ package com.openappengine.gui.engine.core.widget;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -71,6 +72,16 @@ public class WidgetTemplateNode implements Serializable {
 		this.widgetTemplateXml = widgetTemplateXml;
 	}
 
+	
+	public Map<String, Object> getFieldValues() {
+		if(valueEntity != null) {
+			//valueEntity.put("username", "hrishi");
+			return valueEntity.getFieldValues();
+		}
+		
+		return new HashMap<String, Object>();
+	}
+	
 	/**
 	 * @return the widgetDataXml
 	 */

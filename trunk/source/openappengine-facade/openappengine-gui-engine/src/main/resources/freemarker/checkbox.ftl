@@ -11,9 +11,8 @@
 	</td>
 	
 	<td>
-		<#if .node["@path"]?has_content>
-			<#local val = widgetDataXml[.node["@path"]]?trim>
-		</#if>
+		<#local field = .node["@name"]>	
+		<#local val = "<@common.evaluateValue values field />">
 		<input type="checkbox" id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget ui-corner-all" 
 			<#if val == "true">checked</#if>	 />
 	</td>

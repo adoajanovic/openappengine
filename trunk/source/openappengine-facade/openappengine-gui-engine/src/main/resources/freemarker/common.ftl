@@ -12,6 +12,14 @@
 	${root.metadata.widgetId?string} + ${path}
 </#macro>
 
+<#macro evaluateValue values fieldName defaultValue="">
+	<#if values[fieldName]??>
+		${values[fieldName]?trim}
+	<#else>
+		${defaultValue}	
+	</#if>
+</#macro>
+
 <#macro evalXpathExpression dataDoc xpath>
 	<#if .node["@" + xpath]?has_content>
 		${dataDoc[.node["@" + xpath]]}<#t>

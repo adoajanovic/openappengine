@@ -7,9 +7,8 @@
 	
 	<td>
 		<select id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget">
-			<#if .node["@path"]?has_content>
-				<#local val = widgetDataXml[.node["@path"]]?trim>
-			</#if>
+			<#local field = .node["@name"]>	
+			<#local val = "<@common.evaluateValue values field />">
 			<#foreach child in .node.option>
 				<option id="${child["@id"]?string}" value="${child["@value"]}"
 					<#if val == child["@value"]>selected = "selected"</#if>	>

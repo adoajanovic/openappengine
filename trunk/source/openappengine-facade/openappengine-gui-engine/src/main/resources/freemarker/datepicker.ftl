@@ -6,7 +6,9 @@
 	</td>
 	
 	<td>
-		<input type="text" id="${.node["@id"]}" name="${.node["@name"]}" class="datepicker" value = "<@common.evalXpathExpression widgetDataXml "path"/>"
+		<#local field = .node["@name"]>
+		<input type="text" id="${.node["@id"]}" name="${.node["@name"]}" class="datepicker"  
+		 value = "<@common.evaluateValue values field />"
 			class="ui-widget ui-corner-all" />	
 	</td>
 	<script type="text/javascript">
