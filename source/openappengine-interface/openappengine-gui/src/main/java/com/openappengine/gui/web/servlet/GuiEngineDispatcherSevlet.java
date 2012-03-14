@@ -29,6 +29,7 @@ import com.openappengine.gui.engine.context.factory.WebContextFactoryInitializat
 import com.openappengine.gui.engine.core.context.GuiEngineContext;
 import com.openappengine.gui.engine.core.ext.ExternalContext;
 import com.openappengine.gui.engine.core.ext.ExternalWebContext;
+import com.openappengine.gui.engine.core.widget.WidgetHelper;
 import com.openappengine.gui.engine.core.widget.context.HttpServletWidgetProcessorContextFactory;
 import com.openappengine.gui.engine.core.widget.context.WidgetProcessorContextFactory;
 import com.openappengine.gui.engine.core.widget.processor.WidgetProcessor;
@@ -148,6 +149,7 @@ public class GuiEngineDispatcherSevlet extends HttpServlet {
 		httpServletRequest.setAttribute("currentURL", httpServletRequest.getRequestURL());
 		httpServletRequest.setAttribute("messageContext", guiEngineContext.getMessageContext());
 		httpServletRequest.setAttribute("guiEngineContext", guiEngineContext);
+		httpServletRequest.setAttribute("widgetHelper", new WidgetHelper());
 		
 		//contextFactory.processLifecycleInitializedEvent(guiApplicationContext);
 		

@@ -5,6 +5,7 @@ package com.openappengine.service.entity;
 
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.api.ValueEntity;
+import com.openappengine.entity.context.EntityEngineFacadeContext;
 import com.openappengine.service.AbstractBaseService;
 
 /**
@@ -22,7 +23,7 @@ public class EntityService extends AbstractBaseService {
 	 * Make EntityValue by Entity Name
 	 */
 	public void makeValueEntity() {
-		EntityEngineFacade facade = getServiceContext().getEngineFacade();
+		EntityEngineFacade facade = EntityEngineFacadeContext.getEntityFacade();
 		valueEntity = facade.makeValueEntity(getEntityName());
 	}
 

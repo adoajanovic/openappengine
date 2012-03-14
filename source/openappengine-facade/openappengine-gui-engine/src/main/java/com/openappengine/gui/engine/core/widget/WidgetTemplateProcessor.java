@@ -50,6 +50,9 @@ public class WidgetTemplateProcessor {
 		if(widgetControlElements != null) {
 			for (Element inputWidgetElement : widgetControlElements) {
 				String widgetControlName = inputWidgetElement.getNodeName();
+				if(StringUtils.equals(widgetControlName, "pre-action")) {
+					continue;
+				}
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
 				Element widgetChildEle = encodeWidget(widgetXmlDoc,inputWidgetElement,widgetMetadata);
 				widgetXmlDoc.getDocumentElement().appendChild(widgetChildEle);

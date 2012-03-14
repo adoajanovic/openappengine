@@ -34,18 +34,29 @@ public class DefaultServiceDispatcher implements ServiceDispatcher {
 			throw new ServiceDispatcherException("Service not found by name :" + serviceName);
 		}
 		
-		List<ModelServiceParameter> parameters = modelService.getParameters();
+		List<ModelServiceParameter> parameters = modelService.getInParams();
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		
 		if(parameters != null) {
 			for (ModelServiceParameter parameter : parameters) {
-				Object paramVal = context.get(parameter.getName());
+				String paramName = parameter.getName();
+				Object paramVal = context.get(paramName);
 				if(BooleanUtils.isFalse(parameter.getOptional()) && paramVal == null) {
-					throw new ServiceException("Service Parameter :" + serviceName + " is required.!! This cannot be null");
+					throw new ServiceException("Service Parameter :" + paramName + " is required.!! This cannot be null");
+				}
+				
+				if(paramVal != null) {
+					if(!parameter.getType().isAssignableFrom(paramVal.getClass())) {
+						throw new ServiceException("Service Parameter :"
+								+ paramName + " is of type "
+								+ parameter.getType().getName()
+								+ ". But the parameter is of type "
+								+ paramVal.getClass().getName() + ".");
+					}
 				}
 			
-				inputMap.put(parameter.getName(), paramVal);
+				inputMap.put(paramName, paramVal);
 			}
 		}
 		

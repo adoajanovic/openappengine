@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -38,14 +39,21 @@ public class PojoServiceEngine implements ServiceEngine {
 			throw new ServiceException("Illegal Access to Service Class" + serviceClass.getName());
 		}
 		
+		BeanWrapper beanWrapper = new BeanWrapperImpl(service);
+		Set<String> paramNames = context.keySet();
+		if(paramNames != null) {
+			for (String paramName : paramNames) {
+				beanWrapper.setPropertyValue(paramName, context.get(paramName));
+			}
+		}
+		
 		Method invokeMethod = modelService.getInvokeMethod();
 		try {
-			invokeMethod.invoke(service, new Object[]{});
+			invokeMethod.invoke(beanWrapper.getWrappedInstance(), new Object[]{});
 		} catch (Exception e) {
 			throw new ServiceException("Exception encountered while invoking method " + modelService.getInvokeMethod().getName());
 		}
 		
-		BeanWrapper beanWrapper = new BeanWrapperImpl(service);
 		Map<String, Object> outputMap = new HashMap<String, Object>();
 		
 		if(!service.isError()) {

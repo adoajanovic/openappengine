@@ -67,6 +67,7 @@ public class ModelServiceReader {
 		if(StringUtils.isEmpty(serviceName)) {
 			throw new RuntimeException("Service Name cannot be empty.");
 		}
+		modelService.setName(serviceName);
 		
 		String className = UtilXml.readElementAttribute(serviceEle, "class");
 		if(StringUtils.isEmpty(className)) {
