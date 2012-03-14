@@ -47,7 +47,7 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 	
 	private Map<String,WidgetTemplateNode> widgetMap = new HashMap<String, WidgetTemplateNode>();
 	
-	private ScreenDefinitionParserDelegate delegate;
+	private ScreenDefinitionParserDelegate parserDelegate;
 
 	public AbstractGuiEngineContext() {
 		initializeStrategies();
@@ -61,7 +61,7 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 		
 		messageContext = new ResourceBundleMessageContext();
 		
-		delegate = new ScreenDefinitionParserDelegate();
+		setParserDelegate(new ScreenDefinitionParserDelegate());
 		
 		initializeExpressionEvaluator();
 	}
@@ -119,7 +119,7 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 		validateScreenXmlDoc();
 		
 		Element preRenderActionElement = DomUtils.getChildElementByTagName(screenXmlDocument.getDocumentElement(), "pre-actions");
-		GuiElementDefinitionParser parser = delegate.getScreenElementDefinitionParser("pre-actions");
+		GuiElementDefinitionParser parser = getParserDelegate().getScreenElementDefinitionParser("pre-actions");
 		PreRenderActions preRenderActions = parser.parse(preRenderActionElement,PreRenderActions.class);
 		return preRenderActions;
 	}
@@ -147,5 +147,13 @@ public abstract class AbstractGuiEngineContext implements GuiEngineContext {
 	@Override
 	public Object getWidget(String id) {
 		return widgetMap.get(id);
+	}
+
+	public ScreenDefinitionParserDelegate getParserDelegate() {
+		return parserDelegate;
+	}
+
+	protected void setParserDelegate(ScreenDefinitionParserDelegate parserDelegate) {
+		this.parserDelegate = parserDelegate;
 	}
 }

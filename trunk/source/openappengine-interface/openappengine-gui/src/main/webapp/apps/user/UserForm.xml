@@ -3,6 +3,11 @@
 	<page-content>
 	
 		<widget id="UserForm_Widget" name="User">
+			<pre-action>
+				<entity-create entity-name="CodeType" entity-mode="xml" value-field="codeTypeValue" auto-field-map="true" condition="codeTypeId >= 1">
+				</entity-create>
+			</pre-action>
+			
 			<formGrid id="UserForm_Grid" columns="1" headerLabel="User Form">
 				<textfield id="username" name="username" labelId="username" path="/Entity/User/username"/>
 				<password id="password" name="password" labelId="password" path="/Entity/User/password" />

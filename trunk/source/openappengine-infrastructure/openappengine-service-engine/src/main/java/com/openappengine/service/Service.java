@@ -27,5 +27,8 @@ public interface Service {
 	List<String> getErrorMessages();
 	
 	void setServiceContext(ServiceContext context);
+	
+	boolean isSuccess();
 
+	boolean isError();
 }

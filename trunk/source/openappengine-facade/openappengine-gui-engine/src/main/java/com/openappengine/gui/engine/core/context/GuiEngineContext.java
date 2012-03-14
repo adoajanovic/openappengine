@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 
+import com.openappengine.gui.engine.context.factory.support.ScreenDefinitionParserDelegate;
 import com.openappengine.gui.engine.core.ELContext;
 import com.openappengine.gui.engine.core.Resolver;
 import com.openappengine.gui.engine.core.component.executable.PreRenderActions;
@@ -81,4 +82,6 @@ public interface GuiEngineContext {
 	void addWidget(String id,WidgetTemplateNode node);
 	
 	List<String> getWidgets();
+	
+	ScreenDefinitionParserDelegate getParserDelegate();
 }
