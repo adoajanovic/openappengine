@@ -82,6 +82,14 @@ public class WidgetTemplateNode implements Serializable {
 		return null;
 	}
 	
+	public Object getValue(String fieldName) {
+		if(valueEntity != null) {
+			return valueEntity.get(fieldName);
+		}
+		
+		return null;
+	}
+	
 	public FieldError getFieldError(String field) {
 		if(bindingResult == null) {
 			return null;

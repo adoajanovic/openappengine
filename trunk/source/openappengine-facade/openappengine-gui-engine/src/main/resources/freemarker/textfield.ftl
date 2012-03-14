@@ -1,6 +1,10 @@
 <#import "/spring.ftl" as spring/>
 <#import "common.ftl" as common />
 
+<#macro evaluateValue fieldName>
+	${valueEntity.get(fieldName)}
+</#macro>
+
 <#macro textfield>
 	<td>
 		<@common.displayLabel .node />
