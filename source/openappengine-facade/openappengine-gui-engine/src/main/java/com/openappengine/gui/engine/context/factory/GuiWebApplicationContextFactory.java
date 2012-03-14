@@ -33,8 +33,6 @@ public class GuiWebApplicationContextFactory extends AbstractGuiContextFactory {
 		Document document = getScreenXmlDocument(resource);
 		WebGuiApplicationContext context = new WebGuiApplicationContext(document);
 		
-		/*GuiRootComponent uiRoot = createGuiRoot(resource, context);
-		uiRoot.setContext(context);*/
 		registerGuiEngineContext(resource, context);
 		return context;
 	}

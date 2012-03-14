@@ -22,5 +22,17 @@
 		<property name="modelServiceReader" ref="modelServiceReader"></property>
 		<property name="locations" ref="serviceLocations"></property>
 	</bean>
+	
+	<!-- POJO Service Engine -->
+	<bean id="pojoServiceEngine" class="com.openappengine.service.api.PojoServiceEngine">
+	</bean>
+	
+	<bean id="defaultServiceDispatcher" class="com.openappengine.service.api.DefaultServiceDispatcher">
+		<property name="factory" ref="modelServiceFactory"></property>
+		<property name="serviceEngine" ref="pojoServiceEngine"></property>
+	</bean>
+	
+	<bean name="serviceEngineContext" class="com.openappengine.service.api.ServiceEngineContext">
+	</bean>
 
 </beans>

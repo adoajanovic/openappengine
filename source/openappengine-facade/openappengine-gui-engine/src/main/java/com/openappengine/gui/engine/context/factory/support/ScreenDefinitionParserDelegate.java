@@ -4,7 +4,6 @@
 package com.openappengine.gui.engine.context.factory.support;
 
 import org.springframework.util.Assert;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.openappengine.gui.engine.context.factory.FactoryConstants;

@@ -18,6 +18,10 @@ public abstract class AbstractBaseService implements Service {
 	private List<String> errorMessages = new ArrayList<String>();
 	
 	private List<String> successMessages = new ArrayList<String>();
+	
+	private boolean success;
+	
+	private boolean error;
 
 	@Override
 	public void addSuccessMessage(String successMessage) {
@@ -52,6 +56,22 @@ public abstract class AbstractBaseService implements Service {
 	
 	protected ServiceContext getServiceContext() {
 		return serviceContext;
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+	protected void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	protected void setError(boolean error) {
+		this.error = error;
 	}
 
 }

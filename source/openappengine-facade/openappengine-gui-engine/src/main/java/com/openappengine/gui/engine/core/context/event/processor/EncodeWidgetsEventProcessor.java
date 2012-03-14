@@ -33,6 +33,17 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		List<Element> widgetElementList = DomUtils.getChildElementsByTagName(pageContentEle, "widget");
 		if(widgetElementList != null) {
 			for (Element widgetElement : widgetElementList) {
+				
+				Element preActionEle = DomUtils.getChildElementByTagName(widgetElement, "pre-actions");
+				if(preActionEle != null) {
+					List<Element> actionEles = DomUtils.getChildElements(preActionEle);
+					if(actionEles != null) {
+						for (Element actionEle : actionEles) {
+							//TODO Handle Each Action Ele and make calls to the Action Dispatcher.
+						}
+					}
+				}
+				
 				EntityEngineFacade entityEngineFacade = EntityEngineFacadeContext.getEntityFacade();
 				String entityName = widgetElement.getAttribute("name");
 				String widgetId = widgetElement.getAttribute("id");
