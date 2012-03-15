@@ -6,7 +6,7 @@
 	</td>
 	
 	<td>
-		<#local field = .node["@name"]>
+		<#local field = .node["@path"]>
 		<input type="text" id="${.node["@id"]}" name="${.node["@name"]}" class="datepicker"  
 		 value = "<@common.evaluateValue values field />"
 			class="ui-widget ui-corner-all" />	

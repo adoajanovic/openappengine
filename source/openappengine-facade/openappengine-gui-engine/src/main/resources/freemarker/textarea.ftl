@@ -5,7 +5,7 @@
 		<@common.displayLabel .node />
 	</td>
 	<td>
-		<#local field = .node["@name"]>	
+		<#local field = .node["@path"]>	
 		<textarea id="${.node["@id"]}" name="${.node["@name"]}" rows="${.node["@rows"]}" cols="${.node["@cols"]}">
 			<@common.evaluateValue values field />
 		</textarea>
