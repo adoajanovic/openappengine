@@ -14,9 +14,9 @@
 
 <#macro evaluateValue values fieldName defaultValue="">
 	<#if values[fieldName]??>
-		${values[fieldName]?trim}
+		${values[fieldName]}<#t>
 	<#else>
-		${defaultValue}	
+		${defaultValue}<#t>	
 	</#if>
 </#macro>
 
