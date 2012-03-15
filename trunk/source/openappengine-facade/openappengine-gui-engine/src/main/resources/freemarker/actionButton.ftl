@@ -7,4 +7,11 @@
 			value="${.node["@labelId"]}"
 			class="ui-widget ui-corner-all" />
 	</td>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery("#${.node["@id"]}").bind("click", function () {
+				$("#${widgetId}").mask("Waiting...");
+			});
+		});
+	</script>	
 </#macro>

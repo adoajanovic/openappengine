@@ -7,7 +7,7 @@
 	
 	<td>
 		<select id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget">
-			<#local field = .node["@name"]>	
+			<#local field = .node["@path"]>	
 			<#local val = "<@common.evaluateValue values field />">
 			<#foreach child in .node.option>
 				<option id="${child["@id"]?string}" value="${child["@value"]}"

@@ -14,7 +14,11 @@
 
 <#macro evaluateValue values fieldName defaultValue="">
 	<#if values[fieldName]??>
-		${values[fieldName]}<#t>
+		<#if values[fieldName]?is_date>
+			${values[fieldName]?date}<#t>
+		<#else>	
+			${values[fieldName]}<#t>
+		</#if>
 	<#else>
 		${defaultValue}<#t>	
 	</#if>
