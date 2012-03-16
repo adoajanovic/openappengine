@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.MapBindingResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.openappengine.entity.api.ValueEntity;
 
@@ -30,6 +31,8 @@ public class WidgetTemplateNode implements Serializable {
 	private ValueEntity valueEntity;
 	
 	private BindingResult bindingResult;
+	
+	private Map<String, Element> actionMap = new HashMap<String, Element>();
 
 	/**
 	 * @param widgetId
@@ -129,6 +132,14 @@ public class WidgetTemplateNode implements Serializable {
 
 	public void setBindingResult(BindingResult bindingResult) {
 		this.bindingResult = bindingResult;
+	}
+
+	public Map<String, Element> getActionMap() {
+		return actionMap;
+	}
+
+	public void addAction(String name,Element action) {
+		this.actionMap.put(name, action);
 	}
 
 }

@@ -3,8 +3,8 @@
 
 <#macro actionButton>
 	<td>
-		<input type="submit" id="${.node["@id"]}" name="${.node["@action"]}" 
-			value="${.node["@labelId"]}"
+		<input type="submit" id="${.node["@id"]}" name="action" 
+			value="${.node["@action"]}"
 			class="ui-widget ui-corner-all" />
 	</td>
 	<script type="text/javascript">

@@ -7,10 +7,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.w3c.dom.Element;
 
 import com.openappengine.gui.engine.core.widget.WidgetTemplateNode;
 import com.openappengine.gui.engine.core.widget.binder.DefaultHttpServletWidgetBinder;
@@ -42,7 +44,8 @@ public abstract class AbstractWidgetProcessor implements WidgetProcessor {
 		Assert.notNull(widgetTemplateNode, "WidgetTemplateNode not found for Widget ID " + widgetId);
 		
 		HttpServletWidgetBinder binder = new DefaultHttpServletWidgetBinder(widgetTemplateNode);
-		binder.bind((HttpServletRequest) widgetProcessorContext.getExternalContext().getRequest());
+		HttpServletRequest request = (HttpServletRequest) widgetProcessorContext.getExternalContext().getRequest();
+		binder.bind(request);
 		widgetTemplateNode.setBindingResult(binder.getBindingResult());
 		
 		if(binder.hasErrors()) {
@@ -58,6 +61,11 @@ public abstract class AbstractWidgetProcessor implements WidgetProcessor {
 		}
 		
 		//Call Service/Action
+		String actionParam = request.getParameter("action");
+		if(StringUtils.isNotEmpty(actionParam)) {
+			Element actionEle = widgetTemplateNode.getActionMap().get(actionParam);
+			//Process Action.
+		}
 		
 		//Display the Success Message.
 		widgetProcessorContext.getMessageContext().addSuccessMessage("Action Completed.");

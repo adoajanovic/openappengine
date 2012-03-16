@@ -2,17 +2,18 @@
 <screen>
 	<page-content>
 		
-		<pre-actions>
-			<entity-make-one entity-name="User" value-field="UserValue" auto-field-map="true">
-			</entity-make-one>
-		</pre-actions>
-	
 		<widget id="UserForm_Widget" name="User" value="valueEntity">
 			<pre-action>
 				<service-call service="entity.makeValueEntity">
 					<parameter name="entityName" value="User" mode="IN"/>
 				</service-call>
 			</pre-action>
+			
+			<action name="registerUser">
+				<service-call service="user.registerUser">
+					<parameter name="user" value="valueEntity" mode="IN"/>
+				</service-call>
+			</action>
 			
 			<formGrid id="UserForm_Grid" columns="1" headerLabel="User Form">
 				<textfield id="username" name="username" labelId="username" path="username"/>
@@ -24,10 +25,7 @@
 					<option id="id1" labelId="INR" value="INR" />
 					<option id="id2" labelId="USD" value="USD" />
 				</dropdown>
-				<actionButton id="submit" name="submit" labelId="submit" action="/login" >
-					<service-call service="entity.makeValueEntity">
-						<parameter name="entityName" value="User" mode="IN"/>
-					</service-call>
+				<actionButton id="submit" name="submit" labelId="submit" action="registerUser" >
 				</actionButton>
 			</formGrid>
 		</widget>
