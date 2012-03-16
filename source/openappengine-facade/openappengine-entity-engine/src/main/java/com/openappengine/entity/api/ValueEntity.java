@@ -117,4 +117,9 @@ public class ValueEntity extends GenericEntity {
 		return getDelegator().makeRelatedValueEntity(this, relationshipName);
 	}
 	
+	public ValueEntity storeValueEntity() {
+		//TODO - fetch the delegator and save this value entity
+		return this;
+	}
+	
 }

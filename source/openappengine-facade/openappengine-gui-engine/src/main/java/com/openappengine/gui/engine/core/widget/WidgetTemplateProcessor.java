@@ -43,14 +43,10 @@ public class WidgetTemplateProcessor {
 		widgetIdMetaEle.appendChild(widgetXmlDoc.createTextNode(widgetEle.getAttribute("id")));
 		metadataEle.appendChild(widgetIdMetaEle);
 		
-		/*Element entityNameEle = widgetXmlDoc.createElement("");
-		entityNameEle.appendChild(widgetXmlDoc.createTextNode(widgetEle.getAttribute("name")));
-		metadataEle.appendChild(entityNameEle);*/
-		
 		if(widgetControlElements != null) {
 			for (Element inputWidgetElement : widgetControlElements) {
 				String widgetControlName = inputWidgetElement.getNodeName();
-				if(StringUtils.equals(widgetControlName, "pre-action")) {
+				if(StringUtils.equals(widgetControlName, "pre-action") || StringUtils.equals(widgetControlName, "action")) {
 					continue;
 				}
 				WidgetMetadata widgetMetadata = widgetMetadataFactory.getWidgetMetadata(widgetControlName);
@@ -83,31 +79,6 @@ public class WidgetTemplateProcessor {
 			if(widgetParameter.isMandatory() && StringUtils.isEmpty(attributeValue)) {
 				throw new IllegalArgumentException("Attribute " + attributeName + " cannot be empty.");
 			}
-			
-			/*if(StringUtils.equals(attributeName,"path")) {
-				if(StringUtils.equals("node", widgetMetadata.getNodeType())) {
-					Node node = UtilXml.evaluateXPathNode(dataNode, attributeValue);
-					if(node == null && widgetParameter.isMandatory()) {
-						throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
-					}
-					//widgetEle.setTextContent("text");
-					widgetEle.setNodeValue(node.getNodeValue());
-				} else if(StringUtils.equals("list", widgetMetadata.getNodeType())) {
-					NodeList nodeList = UtilXml.evaluateXPathNodeList(dataNode, attributeValue);
-					if(nodeList == null && widgetParameter.isMandatory()) {
-						throw new IllegalArgumentException("XPath : " + attributeValue + " incorrectly configured.");
-					}
-					
-					for (int i = 0 ; i < nodeList.getLength(); i++) {
-						//TODO
-						Node node = nodeList.item(i);
-						if(node instanceof Element) {
-							doEncodeChildWidgets(widgetXmlDoc, inputWidgetEle,widgetMetadata, node, widgetEle);
-						}
-					}
-				}
-				
-			}*/
 			
 			widgetEle.setAttribute(attributeName, attributeValue);
 			

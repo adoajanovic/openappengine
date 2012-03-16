@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="user.registerUser" class="com.openappengine.service.user.UserService" invokeMethod="registerUser">
+		<description>
+			Register the User.
+		</description>
+		<parameter name="user" type="com.openappengine.entity.api.ValueEntity" mode="IN_OUT" optional="false" />
+	</service>
+</services>

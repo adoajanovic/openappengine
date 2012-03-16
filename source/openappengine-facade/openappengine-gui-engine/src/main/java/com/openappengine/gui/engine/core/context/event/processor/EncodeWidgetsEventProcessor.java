@@ -41,64 +41,89 @@ public class EncodeWidgetsEventProcessor implements LifecycleEventProcessor<GuiE
 		if(widgetElementList != null) {
 			for (Element widgetElement : widgetElementList) {
 				
+				//Process Widget PreActions.
 				Element preActionEle = DomUtils.getChildElementByTagName(widgetElement, "pre-action");
-				if(preActionEle != null) {
-					List<Element> serviceCallEles = DomUtils.getChildElementsByTagName(preActionEle,"service-call");
-					if(serviceCallEles != null) {
-						for (Element serviceCallEle : serviceCallEles) {
-							//TODO Handle Each Action Ele and make calls to the Action Dispatcher.
-							String serviceName = UtilXml.readElementAttribute(serviceCallEle, "service");
-							if(StringUtils.isEmpty(serviceName)) {
-								//
-								t.getMessageContext().addErrorMessage("Attribute 'service' is mandatory for a service call. Cannot execute service :" + serviceName);
-								continue;
-							}
-							
-							List<Element> parameterEles = DomUtils.getChildElementsByTagName(serviceCallEle, "parameter");
-							Map<String,Object> params = new HashMap<String, Object>();
-							if(parameterEles != null) {
-								for (Element parameterEle : parameterEles) {
-									String name = UtilXml.readElementAttribute(parameterEle, "name");
-									if(StringUtils.isEmpty(name)) {
-										t.getMessageContext().addErrorMessage("Attribute 'name' is mandatory for a service call-parameter." +
-												" Cannot execute service :" + serviceName);
-										continue;		
-									}
-									
-									String value = UtilXml.readElementAttribute(parameterEle, "value");
-									params.put(name, value);
-								}
-							}
-							
-							//Call
-							try {
-								ServiceDispatcher defaultServiceDispatcher = ServiceEngineContext.getDefaultServiceDispatcher();
-								Map<String, Object> resultMap = defaultServiceDispatcher.runSync(serviceName, params);
-								if(resultMap != null) {
-									Set<Entry<String,Object>> entrySet = resultMap.entrySet();
-									if(entrySet != null) {
-										for (Entry<String, Object> entry : entrySet) {
-											String key = entry.getKey();
-											Object value = entry.getValue();
-											t.getELContext().registerELContextVariable(key, value);
-										}
-									}
-								}
-							} catch (ServiceException e) {
-								t.getMessageContext().addErrorMessage("Service :" + serviceName + " returned error/s.");
-							}
-						}
-					}
-				}
+				processWidgetPreActions(t, preActionEle);
 				
 				String widgetId = widgetElement.getAttribute("id");
 				String valueRef = widgetElement.getAttribute("value");
-				
 				Document widgetTemplateXml = encodeWidgetControls(widgetElement, t);
 				ValueEntity valueEntity = t.getELContext().getVariable(valueRef,ValueEntity.class);;
 				
 				WidgetTemplateNode node = new WidgetTemplateNode(widgetId,widgetTemplateXml,valueEntity);
+				
+				
+				//Read Actions.
+				List<Element> actionEles = DomUtils.getChildElementsByTagName(widgetElement, "action");
+				if(actionEles != null) {
+					for (Element actionEle : actionEles) {
+						String actionName = UtilXml.readElementAttribute(actionEle, "name");
+						if(StringUtils.isEmpty(actionName)) {
+							throw new IllegalArgumentException("Action Name cannot be empty.");
+						}
+						
+						node.addAction(actionName, actionEle);
+					}
+				}
+				
+				
 				t.addWidget(widgetId, node);
+			}
+		}
+	}
+
+	/**
+	 * @param t
+	 * @param preActionEle
+	 */
+	private void processWidgetPreActions(GuiEngineContext t,
+			Element preActionEle) {
+		if(preActionEle != null) {
+			List<Element> serviceCallEles = DomUtils.getChildElementsByTagName(preActionEle,"service-call");
+			if(serviceCallEles != null) {
+				for (Element serviceCallEle : serviceCallEles) {
+					//TODO Handle Each Action Ele and make calls to the Action Dispatcher.
+					String serviceName = UtilXml.readElementAttribute(serviceCallEle, "service");
+					if(StringUtils.isEmpty(serviceName)) {
+						//
+						t.getMessageContext().addErrorMessage("Attribute 'service' is mandatory for a service call. Cannot execute service :" + serviceName);
+						continue;
+					}
+					
+					List<Element> parameterEles = DomUtils.getChildElementsByTagName(serviceCallEle, "parameter");
+					Map<String,Object> params = new HashMap<String, Object>();
+					if(parameterEles != null) {
+						for (Element parameterEle : parameterEles) {
+							String name = UtilXml.readElementAttribute(parameterEle, "name");
+							if(StringUtils.isEmpty(name)) {
+								t.getMessageContext().addErrorMessage("Attribute 'name' is mandatory for a service call-parameter." +
+										" Cannot execute service :" + serviceName);
+								continue;		
+							}
+							
+							String value = UtilXml.readElementAttribute(parameterEle, "value");
+							params.put(name, value);
+						}
+					}
+					
+					//Call
+					try {
+						ServiceDispatcher defaultServiceDispatcher = ServiceEngineContext.getDefaultServiceDispatcher();
+						Map<String, Object> resultMap = defaultServiceDispatcher.runSync(serviceName, params);
+						if(resultMap != null) {
+							Set<Entry<String,Object>> entrySet = resultMap.entrySet();
+							if(entrySet != null) {
+								for (Entry<String, Object> entry : entrySet) {
+									String key = entry.getKey();
+									Object value = entry.getValue();
+									t.getELContext().registerELContextVariable(key, value);
+								}
+							}
+						}
+					} catch (ServiceException e) {
+						t.getMessageContext().addErrorMessage("Service :" + serviceName + " returned error/s.");
+					}
+				}
 			}
 		}
 	}

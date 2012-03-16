@@ -129,7 +129,6 @@
 
 <#macro renderWidget widgetTemplateNode>
 	<#assign widgetTemplateXml = widgetTemplateNode.widgetTemplateXml>
-	<#assign widgetDataXml = widgetTemplateNode.widgetDataXml>
 	<#assign values = widgetTemplateNode.getFieldValues()>
 	<#assign widgetId = widgetTemplateNode.widgetId>
 	<#local bindingResult = widgetTemplateNode.bindingResult>
