@@ -13,7 +13,8 @@
 	<td>
 		<#local field = .node["@path"]>	
 		<#local val = "<@common.evaluateValue values field />">
-		<input type="checkbox" id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget ui-corner-all" 
+		<input type="checkbox" id="${.node["@id"]}" name="${.node["@name"]}" class="ui-widget ui-corner-all"
+			value="${val}"  
 			<#if val == "true">checked</#if>	 />
 	</td>
 </#macro>

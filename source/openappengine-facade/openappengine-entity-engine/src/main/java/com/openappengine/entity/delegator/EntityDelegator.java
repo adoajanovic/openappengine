@@ -130,6 +130,11 @@ public class EntityDelegator implements Delegator {
 		//Store to the persistence layer
 		return valueEntity;
 	}
+	
+	public ValueEntity createEntity(ValueEntity valueEntity) {
+		
+		return valueEntity;
+	}
 
 	@Override
 	public ValueEntity storeEntity(String entityName, Map<String, Object> values) {

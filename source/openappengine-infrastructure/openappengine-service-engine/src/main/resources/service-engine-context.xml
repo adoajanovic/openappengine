@@ -11,6 +11,7 @@
 		<constructor-arg>
 			<array>
 				<value>service_definitions/EntityServices.xml</value>
+				<value>service_definitions/UserServices.xml</value>
 			</array>
 		</constructor-arg>
 	</bean>

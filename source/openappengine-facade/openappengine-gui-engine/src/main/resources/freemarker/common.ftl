@@ -15,7 +15,7 @@
 <#macro evaluateValue values fieldName defaultValue="">
 	<#if values[fieldName]??>
 		<#if values[fieldName]?is_date>
-			${values[fieldName]?date}<#t>
+			${values[fieldName]?string("MM/dd/yyyy")}<#t>
 		<#else>	
 			${values[fieldName]}<#t>
 		</#if>

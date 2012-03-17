@@ -11,7 +11,7 @@
 			
 			<action name="registerUser">
 				<service-call service="user.registerUser">
-					<parameter name="user" value="valueEntity" mode="IN"/>
+					<parameter name="user" value="#{valueEntity}" mode="IN"/>
 				</service-call>
 			</action>
 			
