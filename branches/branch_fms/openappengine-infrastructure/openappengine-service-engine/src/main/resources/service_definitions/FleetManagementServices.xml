@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <services>
-	<service name="user.registerUser" class="com.openappengine.service.fms.FleetVehicleService" invokeMethod="addFleetVehicleType">
+	<service name="fms.addFleetVehicleType" class="com.openappengine.service.fms.FleetVehicleService" invokeMethod="addFleetVehicleType">
 		<description>
 			Add new Fleet Vehicle Type.
 		</description>
