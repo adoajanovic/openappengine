@@ -1,22 +1,22 @@
 package com.openappengine.repository.context;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.openappengine.repository.GenericRepository;
+import com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer;
 
-public class EntityContext implements ApplicationContextAware {
+public class RepositoryContext implements ApplicationContextAware {
 	
 	private static EntityContextPrvdr entityContextPrvdr;
 	
-	private static EntityContext instance = new EntityContext();
+	private static RepositoryContext instance = new RepositoryContext();
 	
-	protected EntityContext() {
+	protected RepositoryContext() {
 	}
 	
-	public static EntityContext getInstance() {
+	public static RepositoryContext getInstance() {
 		if(entityContextPrvdr == null) {
 			throw new EntityContextConfigurationException("EntityContext has not been initialized");
 		}
@@ -26,19 +26,19 @@ public class EntityContext implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext ctx)
 			throws BeansException {
 		entityContextPrvdr = new EntityContextPrvdr(ctx);
-		instance = new EntityContext();
+		instance = new RepositoryContext();
 	}
 	
 	public EntityContextPrvdr getEntityContext() {
 		return entityContextPrvdr;
 	}
 	
-	public SessionFactory getSessionFactory() {
-		return (SessionFactory) entityContextPrvdr.getBean("sessionFactory");
+	public JdbcTemplate getJdbcTemplate() {
+		return (JdbcTemplate) entityContextPrvdr.getBean("jdbcTemplate");
 	}
 	
-	public GenericRepository getGenericRepository() {
-		return (GenericRepository) entityContextPrvdr.getBean("genericRepository");
+	public MySQLSequenceIncrementer getIncrementer() {
+		return (MySQLSequenceIncrementer) entityContextPrvdr.getBean("incrementer");
 	}
 	
 	private class EntityContextPrvdr {

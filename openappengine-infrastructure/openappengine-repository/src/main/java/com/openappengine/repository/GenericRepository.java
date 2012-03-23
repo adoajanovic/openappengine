@@ -3,23 +3,31 @@
  */
 package com.openappengine.repository;
 
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.openappengine.repository.context.RepositoryContext;
+import com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer;
+
 
 
 /**
  * @author hrishi
  *
  */
-public class GenericRepository<T> {
+public class GenericRepository {
 	
-	protected HibernateTemplate hibernateTemplate;
+	private static RepositoryContext repositoryContext = RepositoryContext.getInstance();
 	
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
-	}
+	protected JdbcTemplate jdbcTemplate;
 	
-	public void store(T t) {
-		hibernateTemplate.save(t);
+	protected MySQLSequenceIncrementer incrementer;
+	
+	protected Logger logger = Logger.getLogger(getClass());
+	
+	public GenericRepository() {
+		jdbcTemplate = repositoryContext.getJdbcTemplate();
+		incrementer = repositoryContext.getIncrementer();
 	}
 	
 }

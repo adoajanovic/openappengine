@@ -13,6 +13,10 @@
 	<name>openappengine-entity-engine</name>
 	<description>openappengine-entity-engine</description>
 	
+	<properties>
+		<spring.version>3.0.5.RELEASE</spring.version>
+  	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>xerces</groupId>
@@ -26,6 +30,47 @@
 	      <artifactId>sqlck</artifactId>
 	      <version>1.0</version>
 	    </dependency>
+	    
+	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--
+		    Transaction Management Abstraction (depends on spring-core, spring-beans, spring-aop, spring-context)
+		    Define this if you use Spring Transactions or DAO Exception Hierarchy
+		    (org.springframework.transaction.*/org.springframework.dao.*)
+		-->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-tx</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>
+		 
+		<!--
+		    JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
+		    Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*)
+		-->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jdbc</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
