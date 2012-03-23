@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Ref: http://nedlowe.co.uk/wordpress/?p=52 -->
+<decorators defaultdir="/decorators">
+    <decorator name="master" page="default.ftl">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

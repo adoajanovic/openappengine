@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="process1">
+	<start-state>
+		<transition name="defaultTransition1" to="state1" />
+		<event type="node-leave">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler" />
+		</event>
+		<event type="node-leave">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler2" />
+		</event>
+	</start-state>
+	<state name="state1">
+		<transition name="t1" to="end1" />
+		<event type="node-enter">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler" />
+		</event>
+		<event type="node-leave">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler2" />
+		</event>
+	</state>
+	<end-state name="end1">
+		<event type="node-enter">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler" />
+		</event>
+		<event type="node-enter">
+			<action src="com.openappengine.bpm.procreader.TestActionHandler" />
+		</event>
+	</end-state>
+</process-definition>

@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>openappengine-parent</artifactId>
+		<groupId>com.openappengine</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.openappengine</groupId>
+	<artifactId>openappengine-container</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>openappengine-container</name>
+	<description>openappengine-container</description>
+	<dependencies>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-utility</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>openappengine-repository</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>openappengine-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-servicedef</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+	</dependencies>
+</project>
