@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- Context Holder -->
-	<bean class="com.openappengine.repository.context.EntityContext" />
+	<bean class="com.openappengine.repository.context.RepositoryContext" />
 
 	<!-- holding properties for database connectivity / -->
 	<context:property-placeholder location="classpath:db.properties" />
@@ -20,35 +20,13 @@
         <property name="maxActive" value="5" />
         <property name="maxWait" value="5000" />
     </bean>
-
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-		<property name="packagesToScan" value="com.openappengine.model.code" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
-				<prop key="hibernate.show_sql">true</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-
-	<tx:annotation-driven transaction-manager="transactionManager"  />
-
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
-		<constructor-arg ref="sessionFactory"></constructor-arg>
-	</bean>
-
-	<bean id="genericRepository" class="com.openappengine.repository.GenericRepository" scope="singleton">
-		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
-	</bean>
+    
+    <bean id="incrementer" class="com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
 
 </beans>

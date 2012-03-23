@@ -54,9 +54,9 @@
 				<inherited>true</inherited>
 				<configuration>
 					<buildcommands>
-					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
-					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
-					   <buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</buildcommand>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</buildcommand>
 					</buildcommands>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
@@ -66,7 +66,7 @@
 						<classpathContainer>org.eclipse.jst.j2ee.internal.web.container/artifact</classpathContainer>
 					</classpathContainers>
 					<additionalProjectnatures>
-					   <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
 					</additionalProjectnatures>
 				</configuration>
 			</plugin>
