@@ -25,7 +25,11 @@ public class FleetVehicleRepositoryImpl extends GenericRepository implements Fle
 
 	@Override
 	public void updateFleetVehicleType(FleetVehicleType fleetVehicleType) {
-		// TODO Auto-generated method stub
+		String sqlInsertFleetVehicleType = "UPDATE fms_fleet_vehicle_type SET FT_FLEET_TYPE_DESC = ? WHERE FT_FLEET_VEHICLE_TYPE_ID = ?";
+		int rowsUpdated = jdbcTemplate.update(sqlInsertFleetVehicleType, new Object[]{fleetVehicleType.getFleetVehicleTypeDesc(), fleetVehicleType.getFleetVehicleTypeId()});
+		if(rowsUpdated > 0) {
+			logger.debug("FleetVehicleType updated.");
+		}
 	}
 
 	
