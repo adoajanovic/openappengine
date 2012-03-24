@@ -4,12 +4,13 @@
 package com.openappengine.service.fms;
 
 import com.openappengine.model.fms.FleetVehicleType;
+import com.openappengine.service.AbstractBaseService;
 
 /**
  * @author hrishi
  *
  */
-public class FleetVehicleService {
+public class FleetVehicleService extends AbstractBaseService {
 	
 	private FleetVehicleRepository fleetVehicleRepository = new FleetVehicleRepositoryImpl();
 	
@@ -28,7 +29,7 @@ public class FleetVehicleService {
 	}
 	
 	public void updateFleetVehicleInfo() {
-		
+		fleetVehicleRepository.updateFleetVehicleType(fleetVehicleType);
 	}
 	
 	public void discontinueFleetVehicle() {

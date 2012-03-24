@@ -6,4 +6,11 @@
 		</description>
 		<parameter name="fleetVehicleType" type="com.openappengine.model.fms.FleetVehicleType" mode="IN_OUT" optional="false" />
 	</service>
+	
+	<service name="fms.updateFleetVehicleType" class="com.openappengine.service.fms.FleetVehicleService" invokeMethod="updateFleetVehicleInfo">
+		<description>
+			Update Fleet Vehicle Type.
+		</description>
+		<parameter name="fleetVehicleType" type="com.openappengine.model.fms.FleetVehicleType" mode="IN_OUT" optional="false" />
+	</service>
 </services>
