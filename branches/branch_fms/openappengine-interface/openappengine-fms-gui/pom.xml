@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>openappengine-interface</artifactId>
+		<groupId>com.openappengine</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.openappengine</groupId>
+	<artifactId>openappengine-fms-gui</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>openappengine-fms-gui</name>
+	<description>openappengine-fms-gui</description>
+	<dependencies>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-service-engine</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.openappengine</groupId>
+			<artifactId>openappengine-utility</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Apache Pivot -->
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-wtk</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-web</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-wtk-terra</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-charts</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>
