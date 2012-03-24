@@ -44,6 +44,7 @@
 		</dependency>
 	</dependencies>
 	<modules>
-	    <module>openappengine-gui</module>
+	    <!-- <module>openappengine-gui</module> -->
+		<module>openappengine-fms-gui</module>
 	</modules>
 </project>
