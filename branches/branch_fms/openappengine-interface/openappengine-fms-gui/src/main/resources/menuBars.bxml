@@ -1,4 +1,4 @@
-<menus:MenuBars title="Menu Bars" maximized="true"
+<menus:MenuBars title="OpenAppEngine :: Fleet Management System" maximized="true"
     styles="{padding:{top:0, left:4, bottom:4, right:4}, showWindowControls:false}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
@@ -16,12 +16,12 @@
  
     <menuBar>
         <MenuBar>
-        	<MenuBar.Item buttonData="Vehicle">
+        	<MenuBar.Item buttonData="Configuration">
                 <Menu>
                     <Menu.Section>
                         <Menu.Item action="vehicleTypeNew">
                             <buttonData>
-                                <content:MenuItemData text="New Vehicle Type" keyboardShortcut="CMD-V"/>
+                                <content:MenuItemData text="Vehicle Types" keyboardShortcut="CMD-V"/>
                             </buttonData>
                         </Menu.Item>
                     </Menu.Section>

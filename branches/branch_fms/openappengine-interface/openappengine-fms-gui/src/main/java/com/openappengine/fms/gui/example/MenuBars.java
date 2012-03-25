@@ -3,7 +3,7 @@ package com.openappengine.fms.gui.example;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
- 
+
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.beans.Bindable;
@@ -19,12 +19,15 @@ import org.apache.pivot.wtk.MenuBar;
 import org.apache.pivot.wtk.MenuHandler;
 import org.apache.pivot.wtk.TabPane;
 import org.apache.pivot.wtk.TextInput;
-import org.apache.pivot.wtk.TextInputSelectionListener;
 import org.apache.pivot.wtk.TextInputContentListener;
+import org.apache.pivot.wtk.TextInputSelectionListener;
  
 public class MenuBars extends Frame implements Bindable {
     @BXML private FileBrowserSheet fileBrowserSheet;
+    
     @BXML private TabPane tabPane = null;
+    
+    private java.util.Map<String, Object> tabs = new java.util.HashMap<String, Object>();
  
     private MenuHandler menuHandler = new MenuHandler.Adapter() {
         TextInputContentListener textInputTextListener = new TextInputContentListener.Adapter() {
@@ -83,17 +86,18 @@ public class MenuBars extends Frame implements Bindable {
  
                 Component tab;
                 try {
-                	InputStream is = getClass().getClassLoader().getResourceAsStream("AddVehicleType.bxml");
+                	InputStream is = getClass().getClassLoader().getResourceAsStream("VehicleType.bxml");
                     tab = new Border((Component)bxmlSerializer.readObject(is));
                 } catch (IOException exception) {
                     throw new RuntimeException(exception);
                 } catch (SerializationException exception) {
                     throw new RuntimeException(exception);
                 }
- 
-                tabPane.getTabs().add(tab);
-                TabPane.setTabData(tab, "New Vehicle Type");
-                tabPane.setSelectedIndex(tabPane.getTabs().getLength() - 1);
+                String tabTitle = "New Vehicle Type";
+                getTabPane().getTabs().add(tab);
+                tabs.put(tabTitle, tab);
+				TabPane.setTabData(tab, tabTitle);
+                getTabPane().setSelectedIndex(getTabPane().getTabs().getLength() - 1);
             }
         });
         
@@ -113,9 +117,9 @@ public class MenuBars extends Frame implements Bindable {
                     throw new RuntimeException(exception);
                 }
  
-                tabPane.getTabs().add(tab);
-                TabPane.setTabData(tab, "Document " + tabPane.getTabs().getLength());
-                tabPane.setSelectedIndex(tabPane.getTabs().getLength() - 1);
+                getTabPane().getTabs().add(tab);
+                TabPane.setTabData(tab, "Document " + getTabPane().getTabs().getLength());
+                getTabPane().setSelectedIndex(getTabPane().getTabs().getLength() - 1);
             }
         });
  
@@ -154,4 +158,12 @@ public class MenuBars extends Frame implements Bindable {
     @Override
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
     }
+
+	public TabPane getTabPane() {
+		return tabPane;
+	}
+
+	public void setTabPane(TabPane tabPane) {
+		this.tabPane = tabPane;
+	}
 }

@@ -1,25 +1,19 @@
-  <Form:VehicleTypeForm xmlns:bxml="http://pivot.apache.org/bxml"
+  <Form:VehicleTypeDetailForm xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:Form="com.openappengine.fms.gui.example"
-    xmlns="org.apache.pivot.wtk">
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
     
 	    <Form.Section heading="Vehicle Type">
 	        <BoxPane bxml:id="nameBoxPane" Form.label="Name">
-	            <TextInput bxml:id="vehicleTypeTextInput" prompt="Vehicle Type"/>
+	            <TextInput bxml:id="fleetVehicleTypeDesc" prompt="Vehicle Type"/>
 	        </BoxPane>
-	    </Form.Section>
 	    
-	    <Form.Section>
 		    <FlowPane bxml:id="flowPane" styles="{padding:2}">
 			    <PushButton buttonData="Save"
 			    	bxml:id="saveButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
 				    xmlns="org.apache.pivot.wtk"/>
-				
-				<PushButton buttonData="Reset"
-			    	bxml:id="resetButton"
-				    xmlns:bxml="http://pivot.apache.org/bxml"
-				    xmlns="org.apache.pivot.wtk"/>
 		    </FlowPane>
 		</Form.Section>    
-	</Form:VehicleTypeForm>
+  </Form:VehicleTypeDetailForm>
