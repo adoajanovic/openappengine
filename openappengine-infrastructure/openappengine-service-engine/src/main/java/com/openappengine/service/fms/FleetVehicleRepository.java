@@ -3,6 +3,8 @@
  */
 package com.openappengine.service.fms;
 
+import java.util.List;
+
 import com.openappengine.model.fms.FleetVehicleType;
 
 /**
@@ -20,4 +22,7 @@ public interface FleetVehicleRepository {
 	
 	void updateFleetVehicleType(FleetVehicleType fleetVehicleType);
 	
+	List<FleetVehicleType> fetchAllFleetVehicleTypes();
+	
+	FleetVehicleType findFleetVehicleTypeById(Integer vehicleTypeId);
 }
