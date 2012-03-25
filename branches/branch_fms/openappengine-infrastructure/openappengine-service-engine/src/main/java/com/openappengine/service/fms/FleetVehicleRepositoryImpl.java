@@ -3,6 +3,12 @@
  */
 package com.openappengine.service.fms;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.openappengine.model.fms.FleetVehicleType;
 import com.openappengine.repository.GenericRepository;
 
@@ -11,6 +17,17 @@ import com.openappengine.repository.GenericRepository;
  *
  */
 public class FleetVehicleRepositoryImpl extends GenericRepository implements FleetVehicleRepository {
+	
+	private RowMapper<FleetVehicleType> rowMapper = new RowMapper<FleetVehicleType>() {
+
+		@Override
+		public FleetVehicleType mapRow(ResultSet rs, int rowNum) throws SQLException {
+			FleetVehicleType fleetVehicleType = new FleetVehicleType();
+			fleetVehicleType.setFleetVehicleTypeId(rs.getInt("FT_FLEET_VEHICLE_TYPE_ID"));
+			fleetVehicleType.setFleetVehicleTypeDesc(rs.getString("FT_FLEET_TYPE_DESC"));
+			return fleetVehicleType;
+		}
+	};
 
 	@Override
 	public void saveFleetVehicleType(FleetVehicleType fleetVehicleType) throws FleetVehicleRepositoryException {
@@ -32,5 +49,19 @@ public class FleetVehicleRepositoryImpl extends GenericRepository implements Fle
 		}
 	}
 
+	@Override
+	public List<FleetVehicleType> fetchAllFleetVehicleTypes() {
+		String sqlFetchAll = "SELECT FT_FLEET_VEHICLE_TYPE_ID, FT_FLEET_TYPE_DESC FROM fms_fleet_vehicle_type";
+		List<FleetVehicleType> list = jdbcTemplate.query(sqlFetchAll, rowMapper);
+		
+		return list;
+	}
+
+	@Override
+	public FleetVehicleType findFleetVehicleTypeById(Integer vehicleTypeId) {
+		String sql = "SELECT FT_FLEET_VEHICLE_TYPE_ID, FT_FLEET_TYPE_DESC FROM fms_fleet_vehicle_type WHERE FT_FLEET_VEHICLE_TYPE_ID = ?";
+		FleetVehicleType fleetVehicleType = jdbcTemplate.queryForObject(sql, new Object[]{vehicleTypeId} ,rowMapper);
+		return fleetVehicleType;
+	}
 	
 }
