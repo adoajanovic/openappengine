@@ -28,4 +28,6 @@ public interface FleetVehicleRepository {
 	FleetVehicleType findFleetVehicleTypeById(Integer vehicleTypeId);
 	
 	void saveFleetVehicle(FleetVehicle fleetVehicle) throws FleetVehicleRepositoryException;
+	
+	List<FleetVehicle> fetchAllFleetVehicles();
 }

@@ -5,6 +5,7 @@ package com.openappengine.fms.facade;
 
 import java.util.List;
 
+import com.openappengine.model.fms.FleetVehicle;
 import com.openappengine.model.fms.FleetVehicleType;
 
 /**
@@ -17,4 +18,5 @@ public interface FleetManagerFacade {
 	
 	FleetVehicleType findFleetVehicleType(Integer vehicletTypeId);
 
+	List<FleetVehicle> getAllFleetVehicles();
 }

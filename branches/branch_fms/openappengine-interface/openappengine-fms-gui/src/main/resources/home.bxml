@@ -11,6 +11,7 @@
     <actionMappings>
     	<Window.ActionMapping action="vehicleTypeNew" keyStroke="CMD-T"/>
     	<Window.ActionMapping action="vehicleNew" keyStroke="CMD-V"/>
+    	<Window.ActionMapping action="vehicleListing" keyStroke="CMD-L"/>
         <Window.ActionMapping action="fileNew" keyStroke="CMD-N"/>
         <Window.ActionMapping action="fileOpen" keyStroke="CMD-O"/>
     </actionMappings>
@@ -36,6 +37,12 @@
                         <Menu.Item action="vehicleNew">
                             <buttonData>
                                 <content:MenuItemData text="New Vehicle Form" keyboardShortcut="CMD-T"/>
+                            </buttonData>
+                        </Menu.Item>
+                        
+                        <Menu.Item action="vehicleListing">
+                            <buttonData>
+                                <content:MenuItemData text="Vehicle Listing" keyboardShortcut="CMD-L"/>
                             </buttonData>
                         </Menu.Item>
                     </Menu.Section>

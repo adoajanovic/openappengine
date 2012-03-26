@@ -2,6 +2,7 @@ package com.openappengine.fms.facade;
 
 import java.util.List;
 
+import com.openappengine.model.fms.FleetVehicle;
 import com.openappengine.model.fms.FleetVehicleType;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
@@ -24,6 +25,11 @@ public class FleetManagerFacadeImpl implements FleetManagerFacade {
 	public FleetVehicleType findFleetVehicleType(Integer vehicletTypeId) {
 		FleetVehicleType fleetVehicleType = fleetVehicleRepository.findFleetVehicleTypeById(vehicletTypeId);
 		return fleetVehicleType;
+	}
+
+	@Override
+	public List<FleetVehicle> getAllFleetVehicles() {
+		return fleetVehicleRepository.fetchAllFleetVehicles();
 	}
 
 }
