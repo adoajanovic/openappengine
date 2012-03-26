@@ -1,0 +1,48 @@
+  <Form:VehicleForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+    
+	    <Form.Section heading="Add New Vehicle">
+	        <BoxPane bxml:id="vehicleBoxPane" Form.label="Name">
+	            <TextInput bxml:id="vehicleTextInput" prompt="Vehicle Name"/>
+	        </BoxPane>
+	    	
+	    	<BoxPane bxml:id="vehicleTypeBoxPane" Form.label="Vehicle Type">
+	        	<ListButton bxml:id="vehicleType" listDataKey="id" />
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="fromDateBoxPane" Form.label="From Date">
+	        	<CalendarButton bxml:id="fromDate" /> 
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="toDateBoxPane" Form.label="To Date">
+	        	<CalendarButton bxml:id="toDate" />
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="licencePlateNumberBoxPane" Form.label="Licence Plate Number">
+	            <TextInput bxml:id="licencePlateNumberTextInput" prompt="Licence Plate Number"/>
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="makeBoxPane" Form.label="Vehicle Make">
+	            <TextInput bxml:id="makeTextInput" prompt="Vehicle Make"/>
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="vehicleModelBoxPane" Form.label="Vehicle Model">
+	            <TextInput bxml:id="vehicleModelTextInput" prompt="Vehicle Model"/>
+	        </BoxPane>
+	        
+			<FlowPane bxml:id="flowPane" styles="{padding:2}">
+			    <PushButton buttonData="Save"
+			    	bxml:id="saveButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+				
+				<PushButton buttonData="Reset"
+			    	bxml:id="resetButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+		    </FlowPane>
+		</Form.Section>
+	</Form:VehicleForm>

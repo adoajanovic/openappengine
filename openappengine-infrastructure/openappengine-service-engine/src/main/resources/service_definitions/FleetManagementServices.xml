@@ -13,4 +13,12 @@
 		</description>
 		<parameter name="fleetVehicleType" type="com.openappengine.model.fms.FleetVehicleType" mode="IN_OUT" optional="false" />
 	</service>
+	
+	<service name="fms.addFleetVehicle" class="com.openappengine.service.fms.FleetVehicleService" invokeMethod="addFleetVehicle">
+		<description>
+			Add a Fleet Vehicle.
+		</description>
+		<parameter name="fleetVehicle" type="com.openappengine.model.fms.FleetVehicle" mode="IN_OUT" optional="false" />
+	</service>
+	
 </services>

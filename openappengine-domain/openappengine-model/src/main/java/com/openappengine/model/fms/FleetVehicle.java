@@ -11,9 +11,16 @@ import java.util.Date;
  */
 public class FleetVehicle {
 	
-	private Long vehicleId;
+	public static enum FleetVehicleStatus {
+		ACTIVE,
+		SUSPENDED,
+	}
 	
-	private String vehicleType;
+	private int vehicleId;
+	
+	private FleetVehicleType type;
+	
+	private String fleetVehicleType;
 	
 	private String status;
 	
@@ -27,20 +34,12 @@ public class FleetVehicle {
 	
 	private String vehicleMake;
 
-	public Long getVehicleId() {
+	public int getVehicleId() {
 		return vehicleId;
 	}
 
-	public void setVehicleId(Long vehicleId) {
+	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
-	}
-
-	public String getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
 	}
 
 	public String getStatus() {
@@ -89,6 +88,22 @@ public class FleetVehicle {
 
 	public void setVehicleMake(String vehicleMake) {
 		this.vehicleMake = vehicleMake;
+	}
+
+	public FleetVehicleType getType() {
+		return type;
+	}
+
+	public void setType(FleetVehicleType type) {
+		this.type = type;
+	}
+
+	public String getFleetVehicleType() {
+		return fleetVehicleType;
+	}
+
+	public void setFleetVehicleType(String fleetVehicleType) {
+		this.fleetVehicleType = fleetVehicleType;
 	}
 
 }
