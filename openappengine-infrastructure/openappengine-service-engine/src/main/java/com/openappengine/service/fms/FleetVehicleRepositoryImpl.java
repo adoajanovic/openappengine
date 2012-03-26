@@ -85,5 +85,31 @@ public class FleetVehicleRepositoryImpl extends GenericRepository implements Fle
 			fleetVehicle.getStatus()
 		});
 	}
+
+	@Override
+	public List<FleetVehicle> fetchAllFleetVehicles() {
+		String sqlFetch = "SELECT FV_VEHICLE_ID, FT_FLEET_TYPE_DESC, FV_TYPE_ID, FV_VEHICLE_MODEL, FV_VEHICLE_MAKE, FV_LICENCE_PLATE_NUMBER, FV_FROM_DATE, FV_TO_DATE, FV_STATUS FROM fms_fleet_vehicle INNER JOIN fms_fleet_vehicle_type ON FT_FLEET_VEHICLE_TYPE_ID = FV_TYPE_ID WHERE FV_STATUS = ?";
+		List<FleetVehicle> list = jdbcTemplate.query(sqlFetch, new Object[]{"ACTIVE"}, new RowMapper<FleetVehicle>() {
+
+			@Override
+			public FleetVehicle mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				FleetVehicle f = new FleetVehicle();
+				f.setFromDate(rs.getDate("FV_FROM_DATE"));
+				f.setToDate(rs.getDate("FV_TO_DATE"));
+				f.setLicensePlateNumber(rs.getString("FV_LICENCE_PLATE_NUMBER"));
+				f.setStatus(rs.getString("FV_STATUS"));
+				FleetVehicleType type = new FleetVehicleType();
+				type.setFleetVehicleTypeDesc(rs.getString("FT_FLEET_TYPE_DESC"));
+				type.setFleetVehicleTypeId(rs.getInt("FV_TYPE_ID"));
+				f.setType(type);
+				f.setVehicleId(rs.getInt("FV_VEHICLE_ID"));
+				f.setVehicleMake(rs.getString("FV_VEHICLE_MAKE"));
+				f.setVehicleModel(rs.getString("FV_VEHICLE_MODEL"));
+				return f;
+			}
+		});
+		return list;
+	}
 	
 }

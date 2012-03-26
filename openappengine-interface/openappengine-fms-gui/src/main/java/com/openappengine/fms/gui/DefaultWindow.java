@@ -85,6 +85,8 @@ public class DefaultWindow extends Frame implements Bindable {
         
         addAction_VehicleNew();
         
+        addAction_VehicleListing();
+        
         Action.getNamedActions().put("fileNew", new Action() {
             @Override
             public void perform(Component source) {
@@ -172,6 +174,18 @@ public class DefaultWindow extends Frame implements Bindable {
                 bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
  
                 PivotUtils.addTab(DefaultWindow.this, "Vehicle.bxml", new HashMap<String, Object>(), "New Vehicle");
+            }
+        });
+	}
+	
+	private void addAction_VehicleListing() {
+		Action.getNamedActions().put("vehicleListing", new Action() {
+            @Override
+            public void perform(Component source) {
+                BXMLSerializer bxmlSerializer = new BXMLSerializer();
+                bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
+ 
+                PivotUtils.addTab(DefaultWindow.this, "VehicleListing.bxml", new HashMap<String, Object>(), "Vehicle Listing");
             }
         });
 	}
