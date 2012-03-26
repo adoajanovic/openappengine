@@ -1,6 +1,6 @@
   <Form:VehicleTypeDetailForm xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
-    xmlns:Form="com.openappengine.fms.gui.example"
+    xmlns:Form="com.openappengine.fms.form"
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk">
     

@@ -3,11 +3,13 @@
  */
 package com.openappengine.model.fms;
 
+import com.openappengine.model.valueobject.ValueObject;
+
 /**
  * @author hrishi
  *
  */
-public class FleetVehicleType {
+public class FleetVehicleType implements ValueObject<FleetVehicleType>{
 	
 	private int fleetVehicleTypeId;
 	
@@ -29,4 +31,10 @@ public class FleetVehicleType {
 		this.fleetVehicleTypeDesc = fleetVehicleTypeDesc;
 	}
 
+	@Override
+	public boolean sameValueAs(FleetVehicleType other) {
+		return this.equals(other);
+	}
+
+	
 }

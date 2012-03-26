@@ -3,6 +3,9 @@
  */
 package com.openappengine.service.fms;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.openappengine.model.fms.FleetVehicle;
 import com.openappengine.model.fms.FleetVehicleType;
 import com.openappengine.service.AbstractBaseService;
 
@@ -15,6 +18,8 @@ public class FleetVehicleService extends AbstractBaseService {
 	private FleetVehicleRepository fleetVehicleRepository = new FleetVehicleRepositoryImpl();
 	
 	private FleetVehicleType fleetVehicleType;
+
+	private FleetVehicle fleetVehicle;
 	
 	public void addFleetVehicleType() {
 		try {
@@ -25,7 +30,14 @@ public class FleetVehicleService extends AbstractBaseService {
 	}
 	
 	public void addFleetVehicle() {
-		
+		try {
+			if(StringUtils.isEmpty(getFleetVehicle().getStatus())) {
+				getFleetVehicle().setStatus(FleetVehicle.FleetVehicleStatus.ACTIVE.toString());
+			}
+			fleetVehicleRepository.saveFleetVehicle(getFleetVehicle());
+		} catch (FleetVehicleRepositoryException e) {
+			// TODO
+		}	
 	}
 	
 	public void updateFleetVehicleInfo() {
@@ -42,6 +54,14 @@ public class FleetVehicleService extends AbstractBaseService {
 
 	public void setFleetVehicleType(FleetVehicleType fleetVehicleType) {
 		this.fleetVehicleType = fleetVehicleType;
+	}
+
+	public FleetVehicle getFleetVehicle() {
+		return fleetVehicle;
+	}
+
+	public void setFleetVehicle(FleetVehicle fleetVehicle) {
+		this.fleetVehicle = fleetVehicle;
 	}
 
 }

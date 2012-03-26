@@ -121,7 +121,7 @@ public class ModelServiceReader {
 					Class<?> typeClass = Class.forName(type);
 					parameter.setType(typeClass);
 				} catch (ClassNotFoundException e) {
-					throw new RuntimeException("Parameter Type " + type + " not found.");	
+					throw new RuntimeException("Parameter Type " + type + " not found.",e);	
 				}
 				
 				String optionalStr = UtilXml.readElementAttribute(parameterEle, "optional");

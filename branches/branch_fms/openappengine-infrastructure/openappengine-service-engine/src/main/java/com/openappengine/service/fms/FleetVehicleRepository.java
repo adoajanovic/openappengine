@@ -5,6 +5,7 @@ package com.openappengine.service.fms;
 
 import java.util.List;
 
+import com.openappengine.model.fms.FleetVehicle;
 import com.openappengine.model.fms.FleetVehicleType;
 
 /**
@@ -25,4 +26,6 @@ public interface FleetVehicleRepository {
 	List<FleetVehicleType> fetchAllFleetVehicleTypes();
 	
 	FleetVehicleType findFleetVehicleTypeById(Integer vehicleTypeId);
+	
+	void saveFleetVehicle(FleetVehicle fleetVehicle) throws FleetVehicleRepositoryException;
 }
