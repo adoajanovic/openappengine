@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metadata modelVersion="1.1.0">
+<metadata>
   <groupId>com.openappengine</groupId>
   <artifactId>openappengine-infrastructure</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20120324.040634</timestamp>
-      <buildNumber>3</buildNumber>
+      <buildNumber>4</buildNumber>
     </snapshot>
-    <lastUpdated>20120324040634</lastUpdated>
-    <snapshotVersions>
-      <snapshotVersion>
-        <extension>pom</extension>
-        <value>1.0.0-20120324.040634-3</value>
-        <updated>20120324040634</updated>
-      </snapshotVersion>
-    </snapshotVersions>
+    <lastUpdated>20120326025813</lastUpdated>
   </versioning>
 </metadata>
