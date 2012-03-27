@@ -12,6 +12,7 @@
     	<Window.ActionMapping action="vehicleTypeNew" keyStroke="CMD-T"/>
     	<Window.ActionMapping action="vehicleNew" keyStroke="CMD-V"/>
     	<Window.ActionMapping action="vehicleListing" keyStroke="CMD-L"/>
+        <Window.ActionMapping action="customerNew" keyStroke="CMD-C"/>
         <Window.ActionMapping action="fileNew" keyStroke="CMD-N"/>
         <Window.ActionMapping action="fileOpen" keyStroke="CMD-O"/>
     </actionMappings>
@@ -30,7 +31,6 @@
                 </Menu>
             </MenuBar.Item>
             
-            
             <MenuBar.Item buttonData="Fleet Manager">
                 <Menu>
                     <Menu.Section>
@@ -45,6 +45,19 @@
                                 <content:MenuItemData text="Vehicle Listing" keyboardShortcut="CMD-L"/>
                             </buttonData>
                         </Menu.Item>
+                    </Menu.Section>
+                </Menu>
+            </MenuBar.Item>
+            
+            <MenuBar.Item buttonData="Customer">
+                <Menu>
+                    <Menu.Section>
+                        <Menu.Item action="customerNew">
+                            <buttonData>
+                                <content:MenuItemData text="New Customer Form" keyboardShortcut="CMD-C"/>
+                            </buttonData>
+                        </Menu.Item>
+                       
                     </Menu.Section>
                 </Menu>
             </MenuBar.Item>
