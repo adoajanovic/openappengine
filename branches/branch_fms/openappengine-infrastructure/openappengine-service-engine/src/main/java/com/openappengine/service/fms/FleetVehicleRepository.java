@@ -29,5 +29,9 @@ public interface FleetVehicleRepository {
 	
 	void saveFleetVehicle(FleetVehicle fleetVehicle) throws FleetVehicleRepositoryException;
 	
+	void updateFleetVehicle(FleetVehicle fleetVehicle) throws FleetVehicleRepositoryException;
+	
 	List<FleetVehicle> fetchAllFleetVehicles();
+
+	FleetVehicle getFleetVehicleById(int fleetVehicleId);
 }

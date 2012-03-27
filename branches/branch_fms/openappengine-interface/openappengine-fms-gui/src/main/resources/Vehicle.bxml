@@ -4,12 +4,9 @@
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk">
     
-	    <Form.Section heading="Add New Vehicle">
-	        <BoxPane bxml:id="vehicleBoxPane" Form.label="Name">
-	            <TextInput bxml:id="vehicleTextInput" prompt="Vehicle Name"/>
-	        </BoxPane>
-	    	
-	    	<BoxPane bxml:id="vehicleTypeBoxPane" Form.label="Vehicle Type">
+	    <Form.Section heading="Vehicle Form">
+	        
+	        <BoxPane bxml:id="vehicleTypeBoxPane" Form.label="Vehicle Type">
 	        	<ListButton bxml:id="vehicleType" listDataKey="id" />
 	        </BoxPane>
 	        

@@ -15,7 +15,6 @@ import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
-import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.CalendarButton;
 import org.apache.pivot.wtk.Component;
@@ -41,8 +40,6 @@ public class VehicleForm extends Form implements Bindable {
 	private FleetManagerFacade fleetManagerFacade = new FleetManagerFacadeImpl();
 	
 	@BXML
-	private TextInput vehicleTextInput;
-	@BXML
 	private ListButton vehicleType;
 	@BXML
 	private CalendarButton fromDate;
@@ -62,6 +59,27 @@ public class VehicleForm extends Form implements Bindable {
 	@Override
 	public void initialize(Map<String, Object> namespace, URL location,Resources resources) {
 
+		if(namespace.get("VehicleId") != null) {
+			Integer vehicleId = (Integer) namespace.get("VehicleId");
+			FleetVehicle fleetVehicle = fleetManagerFacade.getFleetVehicle(vehicleId);
+			if(fleetVehicle != null) {
+				vehicleType.setButtonData(fleetVehicle.getType().getFleetVehicleTypeDesc());
+				fromDate.setSelectedDate(DateTimeUtil.toDateString(fleetVehicle.getFromDate(), "yyyy-MM-dd"));
+				toDate.setSelectedDate(DateTimeUtil.toDateString(fleetVehicle.getToDate(), "yyyy-MM-dd"));
+				licencePlateNumberTextInput.setText(fleetVehicle.getLicensePlateNumber());
+				makeTextInput.setText(fleetVehicle.getVehicleMake());
+				vehicleModelTextInput.setText(fleetVehicle.getVehicleModel());
+			}
+		} else {
+			populateForm_NewMode();
+		}
+
+
+		//Save
+		initSaveButton();
+	}
+
+	private void populateForm_NewMode() {
 		//vehicleType - ListButton
 		ArrayList<String> listData = new ArrayList<String>();
 		vehicleTypes = fleetManagerFacade.getAllFleetVehicleTypes();
@@ -79,8 +97,9 @@ public class VehicleForm extends Form implements Bindable {
 		
 		//toDate
 		toDate.setSelectedDate(DateTimeUtil.toDateString(toDt, "yyyy-MM-dd"));
-		
-		//Save
+	}
+
+	private void initSaveButton() {
 		saveButton.setAction(new Action() {
 					
 					@Override

@@ -89,7 +89,12 @@ public class FleetVehicleRepositoryImpl extends GenericRepository implements Fle
 	@Override
 	public List<FleetVehicle> fetchAllFleetVehicles() {
 		String sqlFetch = "SELECT FV_VEHICLE_ID, FT_FLEET_TYPE_DESC, FV_TYPE_ID, FV_VEHICLE_MODEL, FV_VEHICLE_MAKE, FV_LICENCE_PLATE_NUMBER, FV_FROM_DATE, FV_TO_DATE, FV_STATUS FROM fms_fleet_vehicle INNER JOIN fms_fleet_vehicle_type ON FT_FLEET_VEHICLE_TYPE_ID = FV_TYPE_ID WHERE FV_STATUS = ?";
-		List<FleetVehicle> list = jdbcTemplate.query(sqlFetch, new Object[]{"ACTIVE"}, new RowMapper<FleetVehicle>() {
+		List<FleetVehicle> list = jdbcTemplate.query(sqlFetch, new Object[]{"ACTIVE"}, fleetVehicleRowMapper());
+		return list;
+	}
+
+	private RowMapper<FleetVehicle> fleetVehicleRowMapper() {
+		return new RowMapper<FleetVehicle>() {
 
 			@Override
 			public FleetVehicle mapRow(ResultSet rs, int rowNum)
@@ -108,8 +113,29 @@ public class FleetVehicleRepositoryImpl extends GenericRepository implements Fle
 				f.setVehicleModel(rs.getString("FV_VEHICLE_MODEL"));
 				return f;
 			}
+		};
+	}
+	
+	@Override
+	public FleetVehicle getFleetVehicleById(int fleetVehicleId) {
+		String sql = "SELECT FV_VEHICLE_ID, FT_FLEET_TYPE_DESC, FV_TYPE_ID, FV_VEHICLE_MODEL, FV_VEHICLE_MAKE, FV_LICENCE_PLATE_NUMBER, FV_FROM_DATE, FV_TO_DATE, FV_STATUS FROM fms_fleet_vehicle INNER JOIN fms_fleet_vehicle_type ON FT_FLEET_VEHICLE_TYPE_ID = FV_TYPE_ID WHERE FV_VEHICLE_ID = ? ";
+		FleetVehicle fleetVehicle = jdbcTemplate.queryForObject(sql, new Object[]{fleetVehicleId}, fleetVehicleRowMapper());
+		return fleetVehicle;
+	}
+
+	@Override
+	public void updateFleetVehicle(FleetVehicle f) throws FleetVehicleRepositoryException {
+		String sqlUpdate = "UPDATE fms_fleet_vehicle FV_TYPE_ID = ?, FV_VEHICLE_MODEL = ?, FV_VEHICLE_MAKE = ?, FV_LICENCE_PLATE_NUMBER = ?, FV_FROM_DATE = ?, FV_TO_DATE = ?, FV_STATUS = ? WHERE FV_VEHICLE_ID = ?";
+		jdbcTemplate.update(sqlUpdate, new Object[]{
+			f.getType().getFleetVehicleTypeId(),
+			f.getVehicleModel(),
+			f.getVehicleMake(),
+			f.getLicensePlateNumber(),
+			f.getFromDate(),
+			f.getToDate(),
+			f.getStatus(),
+			f.getVehicleId()
 		});
-		return list;
 	}
 	
 }
