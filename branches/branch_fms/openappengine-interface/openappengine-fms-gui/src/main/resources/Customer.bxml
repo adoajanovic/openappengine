@@ -1,0 +1,74 @@
+  <Form:CustomerForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+  
+  	<Form.Section heading="Personal Information">
+	        <BoxPane bxml:id="nameBoxPane" Form.label="Name">
+	        	<ListButton bxml:id="salutation"
+				    listData="['Mr.', 'Mrs.', 'Ms.', 'Dr.']" />
+	            <TextInput bxml:id="firstName" prompt="First Name"/>
+	            <TextInput bxml:id="middleName" prompt="Middle Name"/>
+	            <TextInput bxml:id="lastName" prompt="Last Name"/>
+	        </BoxPane>
+	            
+	        <BoxPane bxml:id="genderBoxPane" Form.label="Gender">    
+	            <ListButton bxml:id="gender"
+				    listData="['M', 'F']" />
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id="birthDateBoxPane" Form.label="Date of Birth">
+				<CalendarButton bxml:id="birthDate" />
+			</BoxPane>     
+	</Form.Section>
+	
+	<Form.Section heading="Address">
+	        
+	        <BoxPane Form.label="Home" orientation="vertical">
+		        <TextInput bxml:id = "address1" prompt="Street" textSize="24"/>
+		        <TextInput bxml:id = "address2" prompt="Street" textSize="24"/>
+		        
+		        <BoxPane>
+		           <TextInput prompt="City"/>
+		           <TextInput prompt="State" textSize="6"/>
+		           <TextInput prompt="Country" textSize="6"/>
+		    	   <TextInput prompt="Zip" textSize="10"/>
+		        </BoxPane>
+		    </BoxPane>
+		    		    
+	</Form.Section>
+	
+	<Form.Section heading="Phone">
+	     	<BoxPane Form.label="Phone 1" orientation="vertical">
+		        <ListButton bxml:id="addressType1"
+				    listData="['Residence', 'Mobile']" />
+				<TextInput bxml:id = "infoString1" prompt="Street" textSize="24"/>
+		    </BoxPane>
+		    
+		    <BoxPane Form.label="Phone 2" orientation="vertical">
+		        <ListButton bxml:id="addressType2"
+				    listData="['Residence', 'Mobile']" />
+				<TextInput bxml:id = "infoString2" prompt="Street" textSize="24"/>
+		    </BoxPane>
+	</Form.Section>
+	
+	<Form.Section heading="Email">
+	      <TextInput bxml:id="email1" Form.label="Email Address 1" />
+	      <TextInput bxml:id="email2" Form.label="Email Address 2" />
+	</Form.Section>
+	
+	<Form.Section>
+		<FlowPane bxml:id="flowPane" styles="{padding:2}">
+			    <PushButton buttonData="Save"
+			    	bxml:id="saveButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+				
+				<PushButton buttonData="Reset"
+			    	bxml:id="resetButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+		</FlowPane>
+	</Form.Section>
+  </Form:CustomerForm>

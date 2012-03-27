@@ -87,6 +87,8 @@ public class DefaultWindow extends Frame implements Bindable {
         
         addAction_VehicleListing();
         
+        addAction_CustomerNew();
+        
         Action.getNamedActions().put("fileNew", new Action() {
             @Override
             public void perform(Component source) {
@@ -189,6 +191,19 @@ public class DefaultWindow extends Frame implements Bindable {
             }
         });
 	}
+	
+	private void addAction_CustomerNew() {
+		Action.getNamedActions().put("customerNew", new Action() {
+            @Override
+            public void perform(Component source) {
+                BXMLSerializer bxmlSerializer = new BXMLSerializer();
+                bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
+ 
+                PivotUtils.addTab(DefaultWindow.this, "Customer.bxml", new HashMap<String, Object>(), "New Vehicle");
+            }
+        });
+	}
+	
  
     @Override
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
