@@ -11,7 +11,7 @@ import java.util.List;
  * @since  Mar 13, 2012
  *
  */
-public abstract class AbstractBaseService implements Service {
+public abstract class AbstractDomainService implements Service {
 	
 	private ServiceContext serviceContext;
 	

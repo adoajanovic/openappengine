@@ -20,8 +20,6 @@ public class FleetVehicle {
 	
 	private FleetVehicleType type;
 	
-	private String fleetVehicleType;
-	
 	private String status;
 	
 	private Date fromDate;
@@ -96,14 +94,6 @@ public class FleetVehicle {
 
 	public void setType(FleetVehicleType type) {
 		this.type = type;
-	}
-
-	public String getFleetVehicleType() {
-		return fleetVehicleType;
-	}
-
-	public void setFleetVehicleType(String fleetVehicleType) {
-		this.fleetVehicleType = fleetVehicleType;
 	}
 
 }

@@ -3,25 +3,9 @@ package com.openappengine.model.party;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.entity.Entity;
 
-@javax.persistence.Entity
-@Table(name = "PM_PARTY")
-@Inheritance(strategy=InheritanceType.JOINED)
 public class Party implements Entity<Party, Integer> {
 
 	// TODO - Needs to be configurable.
@@ -42,33 +26,20 @@ public class Party implements Entity<Party, Integer> {
 	 */
 	public static final String PARTY_STATUS_TERMINATED = "Terminated";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PM_PARTY_ID", unique = true, nullable = false)
 	private int partyId;
 
-	@Lob()
-	@Column(name = "PM_DESCRIPTION", length = 100)
 	private String description;
 
-	@Column(name = "PM_EXTERNAL_ID", length = 50)
 	private String externalId;
 
-	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100,insertable=false,updatable=false)
 	private String partyType;
 
-	@Column(name = "PM_PREFERRED_CURRENCY_UOM", length = 50)
 	private String preferredCurrencyUom;
 
-	@Column(name = "PM_STATUS", nullable = false, length = 50)
 	private String status;
 
-	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "CM_PARTY_ID", nullable = false)
 	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
 
-	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
 	private Set<Address> addresses = new HashSet<Address>();
 
 	public Party() {

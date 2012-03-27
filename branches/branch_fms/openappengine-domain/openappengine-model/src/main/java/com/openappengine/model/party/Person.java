@@ -5,66 +5,39 @@ package com.openappengine.model.party;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 /**
  * @author hrishi
  * 
  */
 
-@Entity
-@Table(name="PM_PERSON")
 public class Person extends Party {
 	
-	@Column(name = "PM_SALUTAION", length = 100, nullable = true)
 	private String salutation;
 
-	@Column(name = "PM_FIRST_NAME", length = 100, nullable = false)
 	private String firstName;
 
-	@Column(name = "PM_MIDDLE_NAME", length = 100, nullable = true)
 	private String middleName;
 
-	@Column(name = "PM_LAST_NAME", length = 100, nullable = false)
 	private String lastName;
 
-	@Column(name = "PM_SUFFIX", length = 50, nullable = true)
 	private String suffix;
 
-	@Column(name = "PM_NICK_NAME", length = 50, nullable = true)
 	private String nickname;
 
-	@Column(name = "PM_GENDER", nullable = true)
 	private boolean gender;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PM_BIRTH_DATE", nullable = true)
 	private Date birthDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PM_DECEASED_DATE", nullable = true)
 	private Date deceasedDate;
 
-	@Column(name = "PM_MARITAL_STATUS", length = 10, nullable = true)
 	private String maritalStatus;
 
-	@Column(name = "PM_SSN", length = 50, nullable = true)
 	private String socialSecurityNumber;
 
-	@Column(name = "PM_PASSPORT_NUMBER", length = 50, nullable = true)
 	private String passportNumber;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PM_PASSPORT_EXPIRATION_DATE", nullable = true)
 	private Date passportExpireDate;
 
-	@Lob()
-	@Column(name = "PM_COMMENTS", length = 100, nullable = true)
 	private String comments;
 
 	public String getSalutation() {
