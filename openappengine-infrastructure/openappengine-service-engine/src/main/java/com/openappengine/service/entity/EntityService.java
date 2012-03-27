@@ -6,14 +6,14 @@ package com.openappengine.service.entity;
 import com.openappengine.entity.EntityEngineFacade;
 import com.openappengine.entity.api.ValueEntity;
 import com.openappengine.entity.context.EntityEngineFacadeContext;
-import com.openappengine.service.AbstractBaseService;
+import com.openappengine.service.AbstractDomainService;
 
 /**
  * @author hrishikesh.joshi
  * @since  Mar 13, 2012
  *
  */
-public class EntityService extends AbstractBaseService {
+public class EntityService extends AbstractDomainService {
 	
 	private String entityName;
 	

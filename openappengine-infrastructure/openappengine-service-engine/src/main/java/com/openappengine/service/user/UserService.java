@@ -4,19 +4,19 @@
 package com.openappengine.service.user;
 
 import com.openappengine.entity.api.ValueEntity;
-import com.openappengine.service.AbstractBaseService;
+import com.openappengine.service.AbstractDomainService;
 
 /**
  * @author hrishikesh.joshi
  * @since  Mar 16, 2012
  *
  */
-public class UserService extends AbstractBaseService {
+public class UserService extends AbstractDomainService {
 	
 	private ValueEntity user;
 	
 	public void registerUser() {
-		getUser().storeValueEntity();
+		//getUser().storeValueEntity();
 	}
 
 	public ValueEntity getUser() {

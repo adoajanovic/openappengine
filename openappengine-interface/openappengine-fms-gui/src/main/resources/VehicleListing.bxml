@@ -3,18 +3,20 @@
     xmlns:Form="com.openappengine.fms.form"
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk">
-	    <Form.Section heading="Vehicle Type">
+    
+	    <Form.Section heading="Vehicles">
 			<Border>
 				<ScrollPane>
 		            <TableView bxml:id="vehicleTableView">
 		                <columns>
-		                    <TableView.Column name="VehicleId" headerData="Id"/>
-		                    <TableView.Column name="VehicleType" headerData="Vehicle Type"/>
-		                    <TableView.Column name="FromDate" headerData="From Date"/>
-		                    <TableView.Column name="ToDate" headerData="To Date"/>
-		                    <TableView.Column name="LicensePlateNo" headerData="Plate No."/>
-		                    <TableView.Column name="Make" headerData="Make"/>
-		                    <TableView.Column name="Model" headerData="Model"/>
+		                    <TableView.Column name="VehicleId" width="60" headerData="Id"/>
+		                    <TableView.Column name="VehicleType" width="200" headerData="Vehicle Type"/>
+		                    <TableView.Column name="Model" width="200" headerData="Model"/>
+		                    <TableView.Column name="Make" width="200" headerData="Make"/>
+		                    <TableView.Column name="LicensePlateNo" width="200" headerData="License Plate No."/>
+		                    <TableView.Column name="FromDate" width="200" headerData="From Date"/>
+		                    <TableView.Column name="ToDate" width="200" headerData="To Date"/>
+		                    <TableView.Column name="Status" width="200" headerData="Status"/>
 		                </columns>
 		            </TableView>
 		 

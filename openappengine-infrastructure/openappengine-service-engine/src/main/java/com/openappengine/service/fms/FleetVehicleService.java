@@ -7,13 +7,13 @@ import org.apache.commons.lang.StringUtils;
 
 import com.openappengine.model.fms.FleetVehicle;
 import com.openappengine.model.fms.FleetVehicleType;
-import com.openappengine.service.AbstractBaseService;
+import com.openappengine.service.AbstractDomainService;
 
 /**
  * @author hrishi
  *
  */
-public class FleetVehicleService extends AbstractBaseService {
+public class FleetVehicleService extends AbstractDomainService {
 	
 	private FleetVehicleRepository fleetVehicleRepository = new FleetVehicleRepositoryImpl();
 	
