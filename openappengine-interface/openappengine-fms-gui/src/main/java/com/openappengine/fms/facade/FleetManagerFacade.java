@@ -19,4 +19,6 @@ public interface FleetManagerFacade {
 	FleetVehicleType findFleetVehicleType(Integer vehicletTypeId);
 
 	List<FleetVehicle> getAllFleetVehicles();
+
+	FleetVehicle getFleetVehicle(int fleetVehicleId);
 }

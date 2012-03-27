@@ -32,4 +32,8 @@ public class FleetManagerFacadeImpl implements FleetManagerFacade {
 		return fleetVehicleRepository.fetchAllFleetVehicles();
 	}
 
+	@Override
+	public FleetVehicle getFleetVehicle(int fleetVehicleId) {
+		return fleetVehicleRepository.getFleetVehicleById(fleetVehicleId);
+	}
 }
