@@ -6,4 +6,12 @@
 		</description>
 		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
 	</service>
+	
+	<service name="party.getActiveParties" class="com.openappengine.service.party.PartyServices" invokeMethod="getActiveParties">
+		<description>
+			Get All Active Parties.
+		</description>
+		<parameter name="personPartyList" type="java.util.List" mode="OUT" optional="false" />
+	</service>
+	
 </services>

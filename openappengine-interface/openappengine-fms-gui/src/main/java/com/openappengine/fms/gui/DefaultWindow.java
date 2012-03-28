@@ -89,6 +89,8 @@ public class DefaultWindow extends Frame implements Bindable {
         
         addAction_CustomerNew();
         
+        addAction_CustomerList();
+        
         Action.getNamedActions().put("fileNew", new Action() {
             @Override
             public void perform(Component source) {
@@ -199,7 +201,19 @@ public class DefaultWindow extends Frame implements Bindable {
                 BXMLSerializer bxmlSerializer = new BXMLSerializer();
                 bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
  
-                PivotUtils.addTab(DefaultWindow.this, "Customer.bxml", new HashMap<String, Object>(), "New Vehicle");
+                PivotUtils.addTab(DefaultWindow.this, "Customer.bxml", new HashMap<String, Object>(), "New Customer");
+            }
+        });
+	}
+	
+	private void addAction_CustomerList() {
+		Action.getNamedActions().put("customerList", new Action() {
+            @Override
+            public void perform(Component source) {
+                BXMLSerializer bxmlSerializer = new BXMLSerializer();
+                bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
+ 
+                PivotUtils.addTab(DefaultWindow.this, "CustomerListing.bxml", new HashMap<String, Object>(), "Customer Listing");
             }
         });
 	}

@@ -13,6 +13,7 @@
     	<Window.ActionMapping action="vehicleNew" keyStroke="CMD-V"/>
     	<Window.ActionMapping action="vehicleListing" keyStroke="CMD-L"/>
         <Window.ActionMapping action="customerNew" keyStroke="CMD-C"/>
+        <Window.ActionMapping action="customerList" keyStroke="CMD-A"/>
         <Window.ActionMapping action="fileNew" keyStroke="CMD-N"/>
         <Window.ActionMapping action="fileOpen" keyStroke="CMD-O"/>
     </actionMappings>
@@ -57,7 +58,12 @@
                                 <content:MenuItemData text="New Customer Form" keyboardShortcut="CMD-C"/>
                             </buttonData>
                         </Menu.Item>
-                       
+                        
+                        <Menu.Item action="customerList">
+                            <buttonData>
+                                <content:MenuItemData text="Customer Listing" keyboardShortcut="CMD-A"/>
+                            </buttonData>
+                        </Menu.Item>
                     </Menu.Section>
                 </Menu>
             </MenuBar.Item>

@@ -3,6 +3,9 @@
  */
 package com.openappengine.service.party;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.Person;
 import com.openappengine.service.AbstractDomainService;
@@ -16,6 +19,8 @@ import com.openappengine.service.api.ServiceException;
 public class PartyServices extends AbstractDomainService {
 	
 	private Person person;
+	
+	private List<Person> personPartyList = new ArrayList<Person>();
 	
 	private PartyRepository partyRepository = new PartyRepository();
 	
@@ -43,6 +48,10 @@ public class PartyServices extends AbstractDomainService {
 		partyRepository.savePerson(person);
 	}
 
+	public void getActiveParties() {
+		personPartyList = partyRepository.fetchAllActivePersonParty();
+	}
+	
 	public Person getPerson() {
 		return person;
 	}
@@ -50,5 +59,15 @@ public class PartyServices extends AbstractDomainService {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+
+	public List<Person> getPersonPartyList() {
+		return personPartyList;
+	}
+
+	public void setPersonPartyList(List<Person> personPartyList) {
+		this.personPartyList = personPartyList;
+	}
+
+	
 
 }

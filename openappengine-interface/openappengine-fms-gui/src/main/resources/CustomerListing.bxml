@@ -1,0 +1,26 @@
+  <Form:CustomerListingForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+    
+	    <Form.Section heading="Customer">
+			<Border>
+				<ScrollPane>
+		            <TableView bxml:id="customerTableView">
+		                <columns>
+		                    <TableView.Column name="CustomerId" headerData="Id"/>
+		                    <TableView.Column name="Name" headerData="Name"/>
+		                    <TableView.Column name="BirthDate" headerData="Date of Birth"/>
+		                    <TableView.Column name="Gender" headerData="Gender"/>
+		                    <TableView.Column name="Status" headerData="Status"/>
+		                </columns>
+		            </TableView>
+		 
+		            <columnHeader>
+		                <TableViewHeader tableView="$customerTableView"/>
+		            </columnHeader>
+		        </ScrollPane>
+	        </Border>
+		</Form.Section>    
+	</Form:CustomerListingForm>
