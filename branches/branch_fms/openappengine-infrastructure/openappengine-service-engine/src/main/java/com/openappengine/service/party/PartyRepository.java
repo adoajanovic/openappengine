@@ -35,13 +35,14 @@ public class PartyRepository extends GenericRepository {
 	}
 	
 	public List<Person> fetchAllActivePersonParty() {
-		String sql = "SELECT PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
+		String sql = "SELECT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
 					 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_STATUS = ?";
-		List<Person> list = jdbcTemplate.query(sql, new Object[]{}, new RowMapper<Person>() {
+		List<Person> list = jdbcTemplate.query(sql, new Object[]{"ACTIVE"}, new RowMapper<Person>() {
 
 			@Override
 			public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Person p = new Person();
+				p.setPartyId(rs.getInt("pm_party.PM_PARTY_ID"));
 				p.setBirthDate(rs.getDate("PM_BIRTH_DATE"));
 				p.setComments(rs.getString("PM_COMMENTS"));
 				p.setDeceasedDate(rs.getDate("PM_DECEASED_DATE"));
