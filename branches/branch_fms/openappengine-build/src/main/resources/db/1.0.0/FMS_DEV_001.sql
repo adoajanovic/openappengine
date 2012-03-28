@@ -834,6 +834,12 @@ CREATE TABLE `pm_party` (
   UNIQUE KEY `PM_PARTY_ID` (`PM_PARTY_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+
+DROP TABLE IF EXISTS `pm_party_sequence`;
+CREATE TABLE `pm_party_sequence` (
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `pm_party_sequence`(value) VALUES(0);
 --
 -- Dumping data for table `pm_party`
 --
@@ -886,7 +892,7 @@ CREATE TABLE `pm_person` (
   `PM_COMMENTS` text,
   `PM_DECEASED_DATE` datetime DEFAULT NULL,
   `PM_FIRST_NAME` varchar(100) NOT NULL,
-  `PM_GENDER` bit(1) DEFAULT NULL,
+  `PM_GENDER` varchar(10) DEFAULT NULL,
   `PM_LAST_NAME` varchar(100) NOT NULL,
   `PM_MARITAL_STATUS` varchar(10) DEFAULT NULL,
   `PM_MIDDLE_NAME` varchar(100) DEFAULT NULL,
@@ -913,6 +919,12 @@ CREATE TABLE `pm_person` (
 --
 -- Definition of table `prod_product`
 --
+DROP TABLE IF EXISTS `prod_product_sequence`;
+CREATE TABLE `prod_product_sequence` (
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `prod_product_sequence`(value) VALUES(0);
+
 
 DROP TABLE IF EXISTS `prod_product`;
 CREATE TABLE `prod_product` (
