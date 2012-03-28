@@ -18,6 +18,27 @@ public class ServiceException extends Exception {
 	public ServiceException(String string) {
 		super(string);
 	}
+	
+	public ServiceException() {
+		super();
+		
+	}
+
+
+
+	public ServiceException(String message, Throwable cause) {
+		super(message, cause);
+		
+	}
+
+
+
+	public ServiceException(Throwable cause) {
+		super(cause);
+		
+	}
+
+
 
 	private static final long serialVersionUID = 1L;
 

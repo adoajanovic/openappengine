@@ -24,7 +24,7 @@ public class Person extends Party {
 
 	private String nickname;
 
-	private boolean gender;
+	private String gender;
 
 	private Date birthDate;
 
@@ -88,11 +88,11 @@ public class Person extends Party {
 		this.nickname = nickname;
 	}
 
-	public boolean isGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -158,7 +158,6 @@ public class Person extends Party {
 		int result = super.hashCode();
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + (gender ? 1231 : 1237);
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result

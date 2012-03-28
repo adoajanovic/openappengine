@@ -26,8 +26,8 @@
 	<Form.Section heading="Address">
 	        
 	        <BoxPane Form.label="Home" orientation="vertical">
-		        <TextInput bxml:id = "address1" prompt="Street" textSize="24"/>
-		        <TextInput bxml:id = "address2" prompt="Street" textSize="24"/>
+		        <TextInput bxml:id = "address1" prompt="Street Address 1" textSize="24"/>
+		        <TextInput bxml:id = "address2" prompt="Street Address 2" textSize="24"/>
 		        
 		        <BoxPane>
 		           <TextInput prompt="City"/>

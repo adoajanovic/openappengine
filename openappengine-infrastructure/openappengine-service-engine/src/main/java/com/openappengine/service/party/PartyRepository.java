@@ -6,7 +6,9 @@ package com.openappengine.service.party;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -23,8 +25,35 @@ public class PartyRepository extends GenericRepository {
 	
 	public Party findPersonById(int personId) {
 		String sql = "SELECT * FROM pm_party WHERE PM_PARTY_ID = ?";
-		Party party = jdbcTemplate.queryForObject(sql, new Object[] {personId}, partyRowMapper());
+		Party party = null;
+		try {
+			party = jdbcTemplate.queryForObject(sql, new Object[] {personId}, partyRowMapper());
+		} catch(EmptyResultDataAccessException e1) {
+			//TODO - No Party Exists.
+		}
 		return party;
+	}
+	
+	public List<Person> fetchAllActivePersonParty() {
+		String sql = "SELECT PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
+					 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_STATUS = ?";
+		List<Person> list = jdbcTemplate.query(sql, new Object[]{}, new RowMapper<Person>() {
+
+			@Override
+			public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Person p = new Person();
+				p.setBirthDate(rs.getDate("PM_BIRTH_DATE"));
+				p.setComments(rs.getString("PM_COMMENTS"));
+				p.setDeceasedDate(rs.getDate("PM_DECEASED_DATE"));
+				p.setFirstName(rs.getString("PM_FIRST_NAME"));
+				p.setMiddleName(rs.getString("PM_MIDDLE_NAME"));
+				p.setLastName(rs.getString("PM_LAST_NAME"));
+				p.setGender(rs.getString("PM_GENDER"));
+				return p;
+			}
+			
+		});
+		return list;
 	}
 	
 	public int saveParty(final Party party) {
@@ -59,7 +88,7 @@ public class PartyRepository extends GenericRepository {
 				p.getBirthDate(),
 				p.getDeceasedDate(),
 				p.getMaritalStatus(),
-				p.isGender(),
+				p.getGender(),
 				p.getComments(),
 				p.getPassportExpireDate(),
 				p.getPassportNumber(),
