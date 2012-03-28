@@ -38,6 +38,7 @@ public class PartyServices extends AbstractDomainService {
 		newParty.setStatus("ACTIVE");
 		
 		partyRepository.saveParty(newParty);
+		person.setPartyId(newParty.getPartyId());
 		
 		partyRepository.savePerson(person);
 	}

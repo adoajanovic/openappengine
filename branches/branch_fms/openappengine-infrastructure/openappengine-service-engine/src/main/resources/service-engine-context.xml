@@ -17,6 +17,7 @@
 				<value>service_definitions/EntityServices.xml</value>
 				<value>service_definitions/UserServices.xml</value>
 				<value>service_definitions/FleetManagementServices.xml</value>
+				<value>service_definitions/PartyServices.xml</value>
 			</array>
 		</constructor-arg>
 	</bean>

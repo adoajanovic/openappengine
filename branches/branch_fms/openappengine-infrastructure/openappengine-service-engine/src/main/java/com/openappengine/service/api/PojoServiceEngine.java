@@ -51,7 +51,7 @@ public class PojoServiceEngine implements ServiceEngine {
 		try {
 			invokeMethod.invoke(beanWrapper.getWrappedInstance(), new Object[]{});
 		} catch (Exception e) {
-			throw new ServiceException("Exception encountered while invoking method " + modelService.getInvokeMethod().getName());
+			throw new ServiceException("Exception encountered while invoking method " + modelService.getInvokeMethod().getName(),e);
 		}
 		
 		Map<String, Object> outputMap = new HashMap<String, Object>();

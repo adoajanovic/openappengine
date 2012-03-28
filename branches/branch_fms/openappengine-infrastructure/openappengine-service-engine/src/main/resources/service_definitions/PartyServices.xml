@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="party.createPerson" class="com.openappengine.service.party.PartyServices" invokeMethod="createPerson">
+		<description>
+			Create Person.
+		</description>
+		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
+	</service>
+</services>
