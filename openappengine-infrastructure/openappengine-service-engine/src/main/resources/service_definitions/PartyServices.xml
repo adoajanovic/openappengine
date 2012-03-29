@@ -14,4 +14,12 @@
 		<parameter name="personPartyList" type="java.util.List" mode="OUT" optional="false" />
 	</service>
 	
+	<service name="party.findPersonById" class="com.openappengine.service.party.PartyServices" invokeMethod="findPersonById">
+		<description>
+			Find Parties By Id.
+		</description>
+		<parameter name="personId" type="java.lang.Integer" mode="IN" optional="false" />
+		<parameter name="person" type="com.openappengine.model.party.Person" mode="OUT" optional="false" />
+	</service>
+	
 </services>

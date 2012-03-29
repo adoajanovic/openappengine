@@ -23,6 +23,7 @@ import com.openappengine.model.party.Person;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
 import com.openappengine.service.api.ServiceException;
+import com.openappengine.utility.DateTimeUtil;
 
 /**
  * @author hrishikesh.joshi
@@ -73,6 +74,30 @@ public class CustomerForm extends Form implements Bindable {
 	
 	@Override
 	public void initialize(Map<String, Object> namespace, URL location,Resources resources) {
+		
+		Integer customerId = (Integer) namespace.get("CustomerId");
+		if(customerId != null) {
+			ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
+			
+			java.util.Map<String, Object> context = new HashMap<String, Object>();
+			java.util.Map<String, Object> resultMap = new HashMap<String, Object>();
+			try {
+				context.put("personId", customerId);
+				resultMap = sd.runSync("party.findPersonById", context);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+			}
+			
+			Person p = (Person) resultMap.get("person");
+			if(p != null) {
+				salutation.setSelectedItem(p.getSalutation());
+				firstName.setText(p.getFirstName());
+				middleName.setText(p.getMiddleName());
+				lastName.setText(p.getLastName());
+				birthDate.setSelectedDate(DateTimeUtil.toDateString(p.getBirthDate(), "yyyy-MM-dd"));
+				gender.setSelectedItem(p.getGender());
+			}
+		}
 		
 		saveButton.setAction(new Action() {
 			

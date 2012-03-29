@@ -16,6 +16,7 @@ import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.TableViewSelectionListener;
 
+import com.openappengine.fms.util.PivotUtils;
 import com.openappengine.model.party.Person;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
@@ -50,7 +51,7 @@ public class CustomerListingForm extends Form implements Bindable {
 			for (Person person : personList) {
 				HashMap<String, Object> row = new HashMap<String, Object>();
 				row.put("CustomerId", person.getPartyId());
-				row.put("Name", person.getFirstName() + person.getLastName());
+				row.put("Name", person.getLastName() + "," + person.getFirstName());
 				row.put("BirthDate", person.getBirthDate());
 				row.put("Gender", person.getGender());
 				row.put("Status", person.getStatus());
@@ -64,7 +65,14 @@ public class CustomerListingForm extends Form implements Bindable {
 
 			@Override
 			public void selectedRowChanged(TableView tableView,Object previousSelectedRow) {
-				//TODO 
+				Map<String, Object> selectedRow = (Map<String, Object>) tableView.getSelectedRow();
+				if(selectedRow == null) {
+					return;
+				}
+				
+				org.apache.pivot.collections.HashMap<String, Object> namespace = new org.apache.pivot.collections.HashMap<String, Object>();
+				namespace.put("CustomerId", selectedRow.get("CustomerId"));
+				PivotUtils.addTab(CustomerListingForm.this, "Customer.bxml",namespace,"");
 			}
 			
 		});
