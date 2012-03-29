@@ -4,6 +4,8 @@ import com.openappengine.model.valueobject.ValueObject;
 
 public class PartyContactMech implements ValueObject<PartyContactMech> {
 	
+	private int partyId;
+	
 	private int partyContactMechId;
 	
 	private String contactMechPurpose;
@@ -20,15 +22,6 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 		this.infoString = infoString;
 	}
 	
-	public int getPartyContactMechId() {
-		return partyContactMechId;
-	}
-
-	public void setPartyContactMechId(int partyContactMechId) {
-		this.partyContactMechId = partyContactMechId;
-	}
-
-
 	public PartyContactMech() {
     }
 
@@ -60,6 +53,14 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 		return this.equals(other);
 	}
 
+	public int getPartyId() {
+		return partyId;
+	}
+
+	public void setPartyId(int partyId) {
+		this.partyId = partyId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,6 +73,7 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 				+ ((contactMechType == null) ? 0 : contactMechType.hashCode());
 		result = prime * result
 				+ ((infoString == null) ? 0 : infoString.hashCode());
+		result = prime * result + partyId;
 		return result;
 	}
 
@@ -99,6 +101,17 @@ public class PartyContactMech implements ValueObject<PartyContactMech> {
 				return false;
 		} else if (!infoString.equals(other.infoString))
 			return false;
+		if (partyId != other.partyId)
+			return false;
 		return true;
 	}
+
+	public int getPartyContactMechId() {
+		return partyContactMechId;
+	}
+
+	public void setPartyContactMechId(int partyContactMechId) {
+		this.partyContactMechId = partyContactMechId;
+	}
+	
 }
