@@ -23,6 +23,8 @@ public class PartyServices extends AbstractDomainService {
 	private List<Person> personPartyList = new ArrayList<Person>();
 	
 	private PartyRepository partyRepository = new PartyRepository();
+
+	private int personId;
 	
 	public void createPerson() throws ServiceException {
 		if(person == null) {
@@ -52,6 +54,10 @@ public class PartyServices extends AbstractDomainService {
 		personPartyList = partyRepository.fetchAllActivePersonParty();
 	}
 	
+	public Person findPersonById() {
+		return partyRepository.fetchPersonParty(getPersonId());
+	}
+	
 	public Person getPerson() {
 		return person;
 	}
@@ -66,6 +72,14 @@ public class PartyServices extends AbstractDomainService {
 
 	public void setPersonPartyList(List<Person> personPartyList) {
 		this.personPartyList = personPartyList;
+	}
+
+	public int getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(int personId) {
+		this.personId = personId;
 	}
 
 	

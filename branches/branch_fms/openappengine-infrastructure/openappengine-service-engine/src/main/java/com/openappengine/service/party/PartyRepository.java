@@ -34,10 +34,28 @@ public class PartyRepository extends GenericRepository {
 		return party;
 	}
 	
+	public Person fetchPersonParty(int partyId) {
+		String sql = "SELECT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
+				 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_PARTY_ID = ?";
+		try {
+			return jdbcTemplate.queryForObject(sql, new Object[] {partyId}, personRowMapper());
+		} catch(EmptyResultDataAccessException e1) {
+			//TODO - No Party Exists.
+		}
+		
+		return null;
+		
+	}
+	
 	public List<Person> fetchAllActivePersonParty() {
 		String sql = "SELECT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
 					 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_STATUS = ?";
-		List<Person> list = jdbcTemplate.query(sql, new Object[]{"ACTIVE"}, new RowMapper<Person>() {
+		List<Person> list = jdbcTemplate.query(sql, new Object[]{"ACTIVE"}, personRowMapper());
+		return list;
+	}
+
+	private RowMapper<Person> personRowMapper() {
+		return new RowMapper<Person>() {
 
 			@Override
 			public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -53,8 +71,7 @@ public class PartyRepository extends GenericRepository {
 				return p;
 			}
 			
-		});
-		return list;
+		};
 	}
 	
 	public int saveParty(final Party party) {
