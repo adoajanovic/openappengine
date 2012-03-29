@@ -5,6 +5,7 @@
 			Create Person.
 		</description>
 		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
+		<parameter name="partyContactMechs" type="java.util.List" mode="IN_OUT" optional="true" />
 	</service>
 	
 	<service name="party.getActiveParties" class="com.openappengine.service.party.PartyServices" invokeMethod="getActiveParties">
@@ -22,4 +23,11 @@
 		<parameter name="person" type="com.openappengine.model.party.Person" mode="OUT" optional="false" />
 	</service>
 	
+	<service name="party.updatePerson" class="com.openappengine.service.party.PartyServices" invokeMethod="updatePerson">
+		<description>
+			Update Person Party
+		</description>
+		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
+		<parameter name="partyContactMechs" type="java.util.List" mode="IN_OUT" optional="true" />
+	</service>
 </services>

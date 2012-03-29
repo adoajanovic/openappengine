@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openappengine.model.party.Party;
+import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.service.AbstractDomainService;
 import com.openappengine.service.api.ServiceException;
@@ -20,11 +21,30 @@ public class PartyServices extends AbstractDomainService {
 	
 	private Person person;
 	
+	private List<PartyContactMech> partyContactMechs;
+	
 	private List<Person> personPartyList = new ArrayList<Person>();
 	
 	private PartyRepository partyRepository = new PartyRepository();
 
 	private int personId;
+	
+	public void updatePerson() throws ServiceException {
+		int partyId = person.getPartyId();
+		Party party = partyRepository.findPersonById(partyId);
+		if(party == null) {
+			throw new ServiceException("Person Does Not Exist.");
+		}
+		
+		partyRepository.updatePerson(person);
+		
+		//Update Party Contact Mechs.
+		if(partyContactMechs != null) {
+			for (PartyContactMech partyContactMech : partyContactMechs) {
+				partyRepository.updateContactMech(partyContactMech);
+			}
+		}
+	}
 	
 	public void createPerson() throws ServiceException {
 		if(person == null) {
@@ -48,14 +68,21 @@ public class PartyServices extends AbstractDomainService {
 		person.setPartyId(newParty.getPartyId());
 		
 		partyRepository.savePerson(person);
+		
+		//Save Party Contact Mechs.
+		if(partyContactMechs != null) {
+			for (PartyContactMech partyContactMech : partyContactMechs) {
+				partyRepository.saveContactMech(partyContactMech);
+			}
+		}
 	}
 
 	public void getActiveParties() {
 		personPartyList = partyRepository.fetchAllActivePersonParty();
 	}
 	
-	public Person findPersonById() {
-		return partyRepository.fetchPersonParty(getPersonId());
+	public void findPersonById() {
+		person = partyRepository.fetchPersonParty(getPersonId());
 	}
 	
 	public Person getPerson() {
@@ -80,6 +107,14 @@ public class PartyServices extends AbstractDomainService {
 
 	public void setPersonId(int personId) {
 		this.personId = personId;
+	}
+
+	public List<PartyContactMech> getPartyContactMechs() {
+		return partyContactMechs;
+	}
+
+	public void setPartyContactMechs(List<PartyContactMech> partyContactMechs) {
+		this.partyContactMechs = partyContactMechs;
 	}
 
 	

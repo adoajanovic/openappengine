@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.openappengine.model.party.Party;
+import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.repository.GenericRepository;
 
@@ -44,11 +45,32 @@ public class PartyRepository extends GenericRepository {
 		}
 		
 		return null;
-		
+	}
+	
+	public void saveContactMech(PartyContactMech partyContactMech) {
+		String sql = "INSERT INTO pm_party_contact_mech(PM_CONTACT_MECH_ID,PM_CONTACT_MECH_PURPOSE,PM_CONTACT_MECH_TYPE,PM_INFO_STRING,PM_PARTY_ID) VALUES(?,?,?,?,?)";
+		jdbcTemplate.update(sql, new Object[]{
+				partyContactMech.getPartyContactMechId(),
+				partyContactMech.getContactMechPurpose(),
+				partyContactMech.getContactMechType(),
+				partyContactMech.getInfoString(),
+				partyContactMech.getPartyId()
+		});
+	}
+	
+	public void updateContactMech(PartyContactMech partyContactMech) {
+		String sql = "UPDATE pm_party_contact_mech SET PM_CONTACT_MECH_PURPOSE = ?,PM_CONTACT_MECH_TYPE = ?,PM_INFO_STRING = ?,PM_PARTY_ID = ? WHERE PM_CONTACT_MECH_ID = ?";
+		jdbcTemplate.update(sql, new Object[]{
+				partyContactMech.getContactMechPurpose(),
+				partyContactMech.getContactMechType(),
+				partyContactMech.getInfoString(),
+				partyContactMech.getPartyId(),
+				partyContactMech.getPartyContactMechId(),
+		});
 	}
 	
 	public List<Person> fetchAllActivePersonParty() {
-		String sql = "SELECT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
+		String sql = "SELECT DISTINCT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
 					 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_STATUS = ?";
 		List<Person> list = jdbcTemplate.query(sql, new Object[]{"ACTIVE"}, personRowMapper());
 		return list;
@@ -61,6 +83,7 @@ public class PartyRepository extends GenericRepository {
 			public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Person p = new Person();
 				p.setPartyId(rs.getInt("pm_party.PM_PARTY_ID"));
+				p.setSalutation(rs.getString("PM_SALUTAION"));
 				p.setBirthDate(rs.getDate("PM_BIRTH_DATE"));
 				p.setComments(rs.getString("PM_COMMENTS"));
 				p.setDeceasedDate(rs.getDate("PM_DECEASED_DATE"));
@@ -91,6 +114,29 @@ public class PartyRepository extends GenericRepository {
 				ps.setString(6, party.getStatus());
 			}
 		});
+		return update;
+	}
+	
+	public int updatePerson(final Person p) {
+		String sqlInsert = "UPDATE pm_person SET PM_SALUTAION = ?,PM_FIRST_NAME = ?,PM_MIDDLE_NAME = ?,PM_LAST_NAME = ?,PM_NICK_NAME = ?,PM_BIRTH_DATE = ?,PM_DECEASED_DATE = ?,PM_MARITAL_STATUS = ?,PM_GENDER = ?,PM_COMMENTS = ?,PM_PASSPORT_EXPIRATION_DATE = ?,PM_PASSPORT_NUMBER = ?,PM_SSN = ?,PM_SUFFIX = ? WHERE PM_PARTY_ID = ?";
+		int update = jdbcTemplate.update(sqlInsert, new Object[]{
+				p.getSalutation(),
+				p.getFirstName(),
+				p.getMiddleName(),
+				p.getLastName(),
+				p.getNickname(),
+				p.getBirthDate(),
+				p.getDeceasedDate(),
+				p.getMaritalStatus(),
+				p.getGender(),
+				p.getComments(),
+				p.getPassportExpireDate(),
+				p.getPassportNumber(),
+				p.getSocialSecurityNumber(),
+				p.getSuffix(),
+				p.getPartyId(),
+		});
+		
 		return update;
 	}
 	
