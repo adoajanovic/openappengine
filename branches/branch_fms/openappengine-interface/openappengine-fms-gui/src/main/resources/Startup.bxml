@@ -1,23 +1,20 @@
-<menus:DefaultWindow title="OpenAppEngine :: Fleet Management System" maximized="true"
+<menus:StartupWindow title="OpenAppEngine :: Fleet Management System" maximized="true"
     styles="{padding:{top:0, left:4, bottom:4, right:4}, showWindowControls:false}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:menus="com.openappengine.fms.gui"
     xmlns="org.apache.pivot.wtk">
-    <bxml:define>
-        <FileBrowserSheet bxml:id="fileBrowserSheet"/>
-    </bxml:define>
- 
+   
+    <!-- Action Mapping -->
     <actionMappings>
     	<Window.ActionMapping action="vehicleTypeNew" keyStroke="CMD-T"/>
     	<Window.ActionMapping action="vehicleNew" keyStroke="CMD-V"/>
     	<Window.ActionMapping action="vehicleListing" keyStroke="CMD-L"/>
         <Window.ActionMapping action="customerNew" keyStroke="CMD-C"/>
         <Window.ActionMapping action="customerList" keyStroke="CMD-A"/>
-        <Window.ActionMapping action="fileNew" keyStroke="CMD-N"/>
-        <Window.ActionMapping action="fileOpen" keyStroke="CMD-O"/>
     </actionMappings>
  
+ 	<!-- Menu Bar -->
     <menuBar>
         <MenuBar>
         	<MenuBar.Item buttonData="Configuration">
@@ -67,28 +64,11 @@
                     </Menu.Section>
                 </Menu>
             </MenuBar.Item>
-            
-            <MenuBar.Item buttonData="File">
-                <Menu>
-                    <Menu.Section>
-                        <Menu.Item action="fileNew">
-                            <buttonData>
-                                <content:MenuItemData text="New" keyboardShortcut="CMD-N"/>
-                            </buttonData>
-                        </Menu.Item>
- 
-                        <Menu.Item action="fileOpen">
-                            <buttonData>
-                                <content:MenuItemData text="Open" keyboardShortcut="CMD-O"/>
-                            </buttonData>
-                        </Menu.Item>
-                    </Menu.Section>
-                </Menu>
-            </MenuBar.Item>
         </MenuBar>
     </menuBar>
  
     <Border styles="{backgroundColor:null, padding:2}">
         <TabPane bxml:id="tabPane"/>
     </Border>
-</menus:DefaultWindow>
+    
+</menus:StartupWindow>

@@ -18,7 +18,7 @@ import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 
-import com.openappengine.model.party.Party;
+import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
@@ -56,11 +56,11 @@ public class CustomerForm extends Form implements Bindable {
 	@BXML
 	private TextInput zip;
 	@BXML
-	private ListButton addressType1;
+	private ListButton phoneType1;
 	@BXML
 	private TextInput infoString1;
 	@BXML
-	private ListButton addressType2;
+	private ListButton phoneType2;
 	@BXML
 	private TextInput infoString2;
 	@BXML
@@ -73,10 +73,11 @@ public class CustomerForm extends Form implements Bindable {
 	private PushButton resetButton;
 	
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location,Resources resources) {
+	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
 		
 		Integer customerId = (Integer) namespace.get("CustomerId");
 		if(customerId != null) {
+			saveButton.setButtonData("Update");
 			ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
 			
 			java.util.Map<String, Object> context = new HashMap<String, Object>();
@@ -89,20 +90,14 @@ public class CustomerForm extends Form implements Bindable {
 			}
 			
 			Person p = (Person) resultMap.get("person");
-			if(p != null) {
-				salutation.setSelectedItem(p.getSalutation());
-				firstName.setText(p.getFirstName());
-				middleName.setText(p.getMiddleName());
-				lastName.setText(p.getLastName());
-				birthDate.setSelectedDate(DateTimeUtil.toDateString(p.getBirthDate(), "yyyy-MM-dd"));
-				gender.setSelectedItem(p.getGender());
-			}
+			refreshFormData(p);
 		}
 		
 		saveButton.setAction(new Action() {
 			
 			@Override
 			public void perform(Component c) {
+				Integer customerId = (Integer) namespace.get("CustomerId");
 				Person party = new Person();
 				party.setBirthDate(birthDate.getSelectedDate().toCalendar().getTime());
 				party.setFirstName(firstName.getText());
@@ -111,20 +106,50 @@ public class CustomerForm extends Form implements Bindable {
 				party.setGender(gender.getSelectedItem().toString());
 				party.setPreferredCurrencyUom("INR");
 				party.setSalutation((String) salutation.getSelectedItem());
-
+				
+				PartyContactMech partyContactMech = new PartyContactMech();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType((String) phoneType1.getSelectedItem());
+				partyContactMech.setInfoString(infoString1.getText());
+				
+				String serviceName = "";
+				if(customerId != null) {
+					party.setPartyId(customerId);
+					serviceName = "party.updatePerson";
+				} else {
+					serviceName = "party.createPerson";
+				}
+				
 				ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
 				java.util.Map<String, Object> context = new HashMap<String, Object>();
 				context.put("person", party);
 				try {
-					sd.runSync("party.createPerson", context);
+					sd.runSync(serviceName, context);
 				} catch (ServiceException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				refreshFormData(party);
 			}
 			
 		});
 		
+	}
+
+	/**
+	 * @param resultMap
+	 */
+	private void refreshFormData(Person p) {
+		if(p != null) {
+			salutation.setSelectedItem(p.getSalutation());
+			firstName.setText(p.getFirstName());
+			middleName.setText(p.getMiddleName());
+			lastName.setText(p.getLastName());
+			birthDate.setSelectedDate(DateTimeUtil.toDateString(p.getBirthDate(), "yyyy-MM-dd"));
+			gender.setSelectedItem(p.getGender());
+			saveButton.setButtonData("Update");
+		}
 	}
 
 }

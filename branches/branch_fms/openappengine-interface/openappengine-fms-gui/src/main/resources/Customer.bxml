@@ -41,13 +41,13 @@
 	
 	<Form.Section heading="Phone">
 	     	<BoxPane Form.label="Phone 1" orientation="vertical">
-		        <ListButton bxml:id="addressType1"
+		        <ListButton bxml:id="phoneType1"
 				    listData="['Residence', 'Mobile']" />
 				<TextInput bxml:id = "infoString1" prompt="Street" textSize="24"/>
 		    </BoxPane>
 		    
 		    <BoxPane Form.label="Phone 2" orientation="vertical">
-		        <ListButton bxml:id="addressType2"
+		        <ListButton bxml:id="phoneType2"
 				    listData="['Residence', 'Mobile']" />
 				<TextInput bxml:id = "infoString2" prompt="Street" textSize="24"/>
 		    </BoxPane>

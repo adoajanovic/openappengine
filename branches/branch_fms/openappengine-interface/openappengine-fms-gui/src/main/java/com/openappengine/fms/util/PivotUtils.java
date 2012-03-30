@@ -14,7 +14,7 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TabPane;
 import org.apache.pivot.wtk.Window;
 
-import com.openappengine.fms.gui.DefaultWindow;
+import com.openappengine.fms.gui.StartupWindow;
 
 /**
  * @author hrishi
@@ -31,7 +31,7 @@ public class PivotUtils {
 	}
 	
 	public static void addTab(Component c, String bxmlFile,HashMap<String, Object> namespace,String title) {
-		DefaultWindow window = (DefaultWindow) getWindow(c);
+		StartupWindow window = (StartupWindow) getWindow(c);
 		TabPane tabPane = window.getTabPane();
 		Component component = PivotUtils.getResourceAsBorderComponent(bxmlFile,namespace);
 		tabPane.getTabs().add(component);

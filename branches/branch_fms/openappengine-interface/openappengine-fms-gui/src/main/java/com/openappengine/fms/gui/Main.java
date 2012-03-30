@@ -22,7 +22,7 @@ public class Main implements Application {
 		new ServiceEngineContextStartup().startup();
 		
 		final BXMLSerializer bxmlSerializer = new BXMLSerializer();
-		InputStream is = getClass().getClassLoader().getResourceAsStream("home.bxml");
+		InputStream is = getClass().getClassLoader().getResourceAsStream("Startup.bxml");
         window = (Window)bxmlSerializer.readObject(is);
         
         window.open(display);

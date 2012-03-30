@@ -6,6 +6,14 @@
     
 	    <Form.Section heading="Customer">
 			<Border>
+	    		
+	    		<BoxPane orientation="vertical" styles="{horizontalAlignment:'right', verticalAlignment:'center'}">
+	                <LinkButton bxml:id="refresh">
+	                	<content:ButtonData icon="../images/ajax-refresh-icon.gif" />
+	                </LinkButton>
+            	</BoxPane>
+	    		
+	    		
 				<ScrollPane>
 		            <TableView bxml:id="customerTableView">
 		                <columns>
