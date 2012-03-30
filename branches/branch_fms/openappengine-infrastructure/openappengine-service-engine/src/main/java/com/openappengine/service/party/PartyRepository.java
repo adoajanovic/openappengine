@@ -3,14 +3,14 @@
  */
 package com.openappengine.service.party;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.util.Assert;
 
 import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
@@ -25,46 +25,45 @@ import com.openappengine.repository.GenericRepository;
 public class PartyRepository extends GenericRepository {
 	
 	public Party findPersonById(int personId) {
-		String sql = "SELECT * FROM pm_party WHERE PM_PARTY_ID = ?";
-		Party party = null;
-		try {
-			party = jdbcTemplate.queryForObject(sql, new Object[] {personId}, partyRowMapper());
-		} catch(EmptyResultDataAccessException e1) {
-			//TODO - No Party Exists.
+		DetachedCriteria criteria = DetachedCriteria.forClass(Person.class);
+		criteria.add(Restrictions.eq("partyId", personId));
+		List personList = hibernateTemplate.findByCriteria(criteria);
+		if(personList != null && !personList.isEmpty()) {
+			return (Party) personList.get(0);
 		}
-		return party;
-	}
-	
-	public Person fetchPersonParty(int partyId) {
-		String sql = "SELECT pm_party.PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX " +
-				 " FROM pm_person INNER JOIN pm_party WHERE pm_party.PM_PARTY_ID = ?";
-		try {
-			return jdbcTemplate.queryForObject(sql, new Object[] {partyId}, personRowMapper());
-		} catch(EmptyResultDataAccessException e1) {
-			//TODO - No Party Exists.
-		}
-		
 		return null;
 	}
 	
-	public void saveContactMech(PartyContactMech partyContactMech) {
+	public Person fetchPersonParty(int partyId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Person.class);
+		criteria.add(Restrictions.eq("partyId", partyId));
+		List personList = hibernateTemplate.findByCriteria(criteria);
+		if(personList != null && !personList.isEmpty()) {
+			return (Person) personList.get(0);
+		}
+		return null;
+	}
+	
+	public void saveContactMech(int partyId,PartyContactMech partyContactMech) {
 		String sql = "INSERT INTO pm_party_contact_mech(PM_CONTACT_MECH_ID,PM_CONTACT_MECH_PURPOSE,PM_CONTACT_MECH_TYPE,PM_INFO_STRING,PM_PARTY_ID) VALUES(?,?,?,?,?)";
+		int nextValue = incrementer.nextValue("pm_party_contact_mech_sequence");
+		partyContactMech.setPartyContactMechId(nextValue);
 		jdbcTemplate.update(sql, new Object[]{
 				partyContactMech.getPartyContactMechId(),
 				partyContactMech.getContactMechPurpose(),
 				partyContactMech.getContactMechType(),
 				partyContactMech.getInfoString(),
-				partyContactMech.getPartyId()
+				partyId
 		});
 	}
 	
-	public void updateContactMech(PartyContactMech partyContactMech) {
+	public void updateContactMech(int partyId,PartyContactMech partyContactMech) {
 		String sql = "UPDATE pm_party_contact_mech SET PM_CONTACT_MECH_PURPOSE = ?,PM_CONTACT_MECH_TYPE = ?,PM_INFO_STRING = ?,PM_PARTY_ID = ? WHERE PM_CONTACT_MECH_ID = ?";
 		jdbcTemplate.update(sql, new Object[]{
 				partyContactMech.getContactMechPurpose(),
 				partyContactMech.getContactMechType(),
 				partyContactMech.getInfoString(),
-				partyContactMech.getPartyId(),
+				partyId,
 				partyContactMech.getPartyContactMechId(),
 		});
 	}
@@ -97,70 +96,19 @@ public class PartyRepository extends GenericRepository {
 		};
 	}
 	
-	public int saveParty(final Party party) {
-		String sql = "INSERT INTO pm_party(PM_PARTY_ID,PM_DESCRIPTION,PM_EXTERNAL_ID,PM_PARTY_TYPE,PM_PREFERRED_CURRENCY_UOM,PM_STATUS) VALUES(?,?,?,?,?,?)";
-		
-		int partyId = incrementer.nextValue("pm_party_sequence");
-		party.setPartyId(partyId);
-		
-		int update = jdbcTemplate.update(sql, new PreparedStatementSetter() {
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, party.getPartyId());
-				ps.setString(2, party.getDescription());
-				ps.setString(3, party.getExternalId());
-				ps.setString(4, party.getPartyType());
-				ps.setString(5, party.getPreferredCurrencyUom());
-				ps.setString(6, party.getStatus());
-			}
-		});
-		return update;
+	public void saveParty(final Party party) {
+		Assert.notNull(party, "Party is Null. Cannot save the party instance.");
+		hibernateTemplate.save(party);
 	}
 	
-	public int updatePerson(final Person p) {
-		String sqlInsert = "UPDATE pm_person SET PM_SALUTAION = ?,PM_FIRST_NAME = ?,PM_MIDDLE_NAME = ?,PM_LAST_NAME = ?,PM_NICK_NAME = ?,PM_BIRTH_DATE = ?,PM_DECEASED_DATE = ?,PM_MARITAL_STATUS = ?,PM_GENDER = ?,PM_COMMENTS = ?,PM_PASSPORT_EXPIRATION_DATE = ?,PM_PASSPORT_NUMBER = ?,PM_SSN = ?,PM_SUFFIX = ? WHERE PM_PARTY_ID = ?";
-		int update = jdbcTemplate.update(sqlInsert, new Object[]{
-				p.getSalutation(),
-				p.getFirstName(),
-				p.getMiddleName(),
-				p.getLastName(),
-				p.getNickname(),
-				p.getBirthDate(),
-				p.getDeceasedDate(),
-				p.getMaritalStatus(),
-				p.getGender(),
-				p.getComments(),
-				p.getPassportExpireDate(),
-				p.getPassportNumber(),
-				p.getSocialSecurityNumber(),
-				p.getSuffix(),
-				p.getPartyId(),
-		});
-		
-		return update;
+	public void updatePerson(final Person p) {
+		Assert.notNull(p, "Person is Null. Cannot update the person instance.");
+		hibernateTemplate.update(p);
 	}
 	
-	public int savePerson(final Person p) {
-		String sqlInsert = "INSERT INTO pm_person(PM_PARTY_ID,PM_SALUTAION,PM_FIRST_NAME,PM_MIDDLE_NAME,PM_LAST_NAME,PM_NICK_NAME,PM_BIRTH_DATE,PM_DECEASED_DATE,PM_MARITAL_STATUS,PM_GENDER,PM_COMMENTS,PM_PASSPORT_EXPIRATION_DATE,PM_PASSPORT_NUMBER,PM_SSN,PM_SUFFIX) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		int update = jdbcTemplate.update(sqlInsert, new Object[]{
-				p.getPartyId(),
-				p.getSalutation(),
-				p.getFirstName(),
-				p.getMiddleName(),
-				p.getLastName(),
-				p.getNickname(),
-				p.getBirthDate(),
-				p.getDeceasedDate(),
-				p.getMaritalStatus(),
-				p.getGender(),
-				p.getComments(),
-				p.getPassportExpireDate(),
-				p.getPassportNumber(),
-				p.getSocialSecurityNumber(),
-				p.getSuffix()
-		});
-		
-		return update;
+	public void savePerson(final Person p) {
+		Assert.notNull(p, "Person is Null. Cannot save the party instance.");
+		hibernateTemplate.save(p);
 	}
 
 	/**

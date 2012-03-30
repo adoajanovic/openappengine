@@ -5,6 +5,7 @@ package com.openappengine.repository;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.openappengine.repository.context.RepositoryContext;
 import com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer;
@@ -21,6 +22,8 @@ public class GenericRepository {
 	
 	protected JdbcTemplate jdbcTemplate;
 	
+	protected HibernateTemplate hibernateTemplate;
+	
 	protected MySQLSequenceIncrementer incrementer;
 	
 	protected Logger logger = Logger.getLogger(getClass());
@@ -28,6 +31,7 @@ public class GenericRepository {
 	public GenericRepository() {
 		jdbcTemplate = repositoryContext.getJdbcTemplate();
 		incrementer = repositoryContext.getIncrementer();
+		hibernateTemplate = repositoryContext.getHibernateTemplate();
 	}
 	
 }

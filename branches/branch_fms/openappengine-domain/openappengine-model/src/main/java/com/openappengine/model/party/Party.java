@@ -1,11 +1,25 @@
 package com.openappengine.model.party;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.entity.Entity;
 
+@javax.persistence.Entity(name="PM_PARTY")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Party implements Entity<Party, Integer> {
 
 	// TODO - Needs to be configurable.
@@ -26,20 +40,33 @@ public class Party implements Entity<Party, Integer> {
 	 */
 	public static final String PARTY_STATUS_TERMINATED = "Terminated";
 
+	@Id
+	@Column(name = "PM_PARTY_ID", unique = true, nullable = false)
 	private int partyId;
 
+	@Lob()
+	@Column(name = "PM_DESCRIPTION", length = 100)
 	private String description;
 
+	@Column(name = "PM_EXTERNAL_ID", length = 50)
 	private String externalId;
 
+	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100,insertable=false,updatable=false)
 	private String partyType;
 
+	@Column(name = "PM_PREFERRED_CURRENCY_UOM", length = 50)
 	private String preferredCurrencyUom;
 
+	@Column(name = "PM_STATUS", nullable = false, length = 50)
 	private String status;
 
-	private Set<PartyContactMech> partyContactMechs = new HashSet<PartyContactMech>();
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "PM_PARTY_ID", nullable = false)
+	private List<PartyContactMech> partyContactMechs = new ArrayList<PartyContactMech>();
 
+	/*@OneToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })*/
+	@Transient
 	private Set<Address> addresses = new HashSet<Address>();
 
 	public Party() {
@@ -93,11 +120,11 @@ public class Party implements Entity<Party, Integer> {
 		this.status = status;
 	}
 
-	public Set<PartyContactMech> getPartyContactMechs() {
+	public List<PartyContactMech> getPartyContactMechs() {
 		return partyContactMechs;
 	}
 
-	public void setPartyContactMechs(Set<PartyContactMech> partyContactMeches) {
+	public void setPartyContactMechs(List<PartyContactMech> partyContactMeches) {
 		this.partyContactMechs = partyContactMeches;
 	}
 

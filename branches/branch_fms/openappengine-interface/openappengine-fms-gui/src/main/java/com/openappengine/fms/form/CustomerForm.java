@@ -5,9 +5,13 @@ package com.openappengine.fms.form;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
@@ -17,6 +21,7 @@ import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
@@ -73,6 +78,7 @@ public class CustomerForm extends Form implements Bindable {
 	private PushButton resetButton;
 	
 	@Override
+	@Transactional
 	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
 		
 		Integer customerId = (Integer) namespace.get("CustomerId");
@@ -109,8 +115,29 @@ public class CustomerForm extends Form implements Bindable {
 				
 				PartyContactMech partyContactMech = new PartyContactMech();
 				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType((String) phoneType1.getSelectedItem());
+				partyContactMech.setContactMechType("PHONE_" + (String) phoneType1.getSelectedItem());
 				partyContactMech.setInfoString(infoString1.getText());
+				List<PartyContactMech> contactMechs = new java.util.ArrayList<PartyContactMech>();
+				contactMechs.add(partyContactMech);
+				
+				
+				partyContactMech = new PartyContactMech();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("PHONE_" + (String) phoneType2.getSelectedItem());
+				partyContactMech.setInfoString(infoString2.getText());
+				contactMechs.add(partyContactMech);
+				
+				partyContactMech = new PartyContactMech();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("EMAIL");
+				partyContactMech.setInfoString(email1.getText());
+				contactMechs.add(partyContactMech);
+				
+				partyContactMech = new PartyContactMech();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("EMAIL");
+				partyContactMech.setInfoString(email2.getText());
+				contactMechs.add(partyContactMech);
 				
 				String serviceName = "";
 				if(customerId != null) {
@@ -123,6 +150,7 @@ public class CustomerForm extends Form implements Bindable {
 				ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
 				java.util.Map<String, Object> context = new HashMap<String, Object>();
 				context.put("person", party);
+				context.put("partyContactMechs", contactMechs);
 				try {
 					sd.runSync(serviceName, context);
 				} catch (ServiceException e) {
@@ -148,6 +176,46 @@ public class CustomerForm extends Form implements Bindable {
 			lastName.setText(p.getLastName());
 			birthDate.setSelectedDate(DateTimeUtil.toDateString(p.getBirthDate(), "yyyy-MM-dd"));
 			gender.setSelectedItem(p.getGender());
+			List<PartyContactMech> partyContactMechs = p.getPartyContactMechs();
+			
+			List<PartyContactMech> phones = new java.util.ArrayList<PartyContactMech>();
+			List<PartyContactMech> emails = new java.util.ArrayList<PartyContactMech>();
+			
+			
+			if(partyContactMechs != null) {
+				for (PartyContactMech partyContactMech : partyContactMechs) {
+					if(StringUtils.startsWith(partyContactMech.getContactMechType(),"PHONE_")) {
+						phones.add(partyContactMech);
+					} else if(StringUtils.equals(partyContactMech.getContactMechType(), "EMAIL")) {
+						emails.add(partyContactMech);
+					}
+				}
+			}
+			
+			if(!phones.isEmpty()) {
+				if(phones.size() > 0) {
+					PartyContactMech contactMech = phones.get(0);
+					phoneType1.setSelectedItem(contactMech.getContactMechType());
+					infoString1.setText(contactMech.getInfoString());
+				}
+				
+				if(phones.size() > 1) {
+					PartyContactMech contactMech = phones.get(1);
+					phoneType2.setSelectedItem(contactMech.getContactMechType());
+					infoString2.setText(contactMech.getInfoString());
+				}
+			}
+			
+			if(!emails.isEmpty()) {
+				if(emails.size() > 0) {
+					email1.setText(emails.get(0).getInfoString());
+				}
+				
+				if(emails.size() > 1) {
+					email1.setText(emails.get(1).getInfoString());
+				}
+			}
+			
 			saveButton.setButtonData("Update");
 		}
 	}
