@@ -4,6 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer;
 
@@ -35,6 +36,10 @@ public class RepositoryContext implements ApplicationContextAware {
 	
 	public JdbcTemplate getJdbcTemplate() {
 		return (JdbcTemplate) entityContextPrvdr.getBean("jdbcTemplate");
+	}
+	
+	public HibernateTemplate getHibernateTemplate() {
+		return (HibernateTemplate) entityContextPrvdr.getBean("hibernateTemplate");
 	}
 	
 	public MySQLSequenceIncrementer getIncrementer() {

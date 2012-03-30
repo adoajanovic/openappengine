@@ -41,7 +41,7 @@ public class PartyServices extends AbstractDomainService {
 		//Update Party Contact Mechs.
 		if(partyContactMechs != null) {
 			for (PartyContactMech partyContactMech : partyContactMechs) {
-				partyRepository.updateContactMech(partyContactMech);
+				partyRepository.updateContactMech(partyId,partyContactMech);
 			}
 		}
 	}
@@ -72,7 +72,7 @@ public class PartyServices extends AbstractDomainService {
 		//Save Party Contact Mechs.
 		if(partyContactMechs != null) {
 			for (PartyContactMech partyContactMech : partyContactMechs) {
-				partyRepository.saveContactMech(partyContactMech);
+				partyRepository.saveContactMech(person.getPartyId(),partyContactMech);
 			}
 		}
 	}
