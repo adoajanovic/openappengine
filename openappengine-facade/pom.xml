@@ -54,13 +54,6 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
-		<!--
-		 <dependency>
-			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-servicedef</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency> -->
-		
 		<dependency>
 			<groupId>xstream</groupId>
 			<artifactId>xstream</artifactId>
