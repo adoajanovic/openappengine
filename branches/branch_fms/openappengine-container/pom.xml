@@ -28,11 +28,6 @@
 			<artifactId>openappengine-model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.openappengine</groupId>
-			<artifactId>openappengine-servicedef</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>2.7.6</version>
