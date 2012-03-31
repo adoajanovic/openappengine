@@ -4,30 +4,21 @@
 package com.openappengine.fms.form;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.pivot.beans.BXML;
-import org.apache.pivot.beans.Bindable;
-import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.CalendarButton;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.openappengine.model.party.PartyContactMech;
-import com.openappengine.model.party.Person;
-import com.openappengine.service.api.ServiceDispatcher;
-import com.openappengine.service.api.ServiceEngineContext;
-import com.openappengine.service.api.ServiceException;
+import com.openappengine.fms.interfaces.dto.ContactMechDTO;
+import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.utility.DateTimeUtil;
 
 /**
@@ -35,7 +26,11 @@ import com.openappengine.utility.DateTimeUtil;
  * @since  Mar 27, 2012
  *
  */
-public class CustomerForm extends Form implements Bindable {
+public class CustomerForm extends FleetManagerForm {
+	
+	//DTO
+	private CustomerDTO dto;
+	
 	@BXML
 	private ListButton salutation;
 	@BXML
@@ -78,112 +73,142 @@ public class CustomerForm extends Form implements Bindable {
 	private PushButton resetButton;
 	
 	@Override
-	@Transactional
 	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
 		
 		Integer customerId = (Integer) namespace.get("CustomerId");
-		if(customerId != null) {
-			saveButton.setButtonData("Update");
-			ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
+		if(customerId != null && customerId.intValue() != 0) {
+			this.setFormMode(Mode.EDIT);
 			
-			java.util.Map<String, Object> context = new HashMap<String, Object>();
-			java.util.Map<String, Object> resultMap = new HashMap<String, Object>();
-			try {
-				context.put("personId", customerId);
-				resultMap = sd.runSync("party.findPersonById", context);
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-			}
+			dto = getFleetManagerServiceFacade().loadCustomerDTO(customerId);
+			refreshFormData(dto);
 			
-			Person p = (Person) resultMap.get("person");
-			refreshFormData(p);
+			saveButton.setButtonData("Edit");
+		} else {
+			this.setFormMode(Mode.NEW);
+			
+			saveButton.setButtonData("Save");
 		}
 		
+		//TODO
+		initSaveAction(namespace);
+		
+	}
+
+	private void initSaveAction(final Map<String, Object> namespace) {
 		saveButton.setAction(new Action() {
 			
 			@Override
 			public void perform(Component c) {
-				Integer customerId = (Integer) namespace.get("CustomerId");
-				Person party = new Person();
-				party.setBirthDate(birthDate.getSelectedDate().toCalendar().getTime());
-				party.setFirstName(firstName.getText());
-				party.setMiddleName(middleName.getText());
-				party.setLastName(lastName.getText());
-				party.setGender(gender.getSelectedItem().toString());
-				party.setPreferredCurrencyUom("INR");
-				party.setSalutation((String) salutation.getSelectedItem());
+				if(isNewMode()) {
+					dto = new CustomerDTO();
+				}
+				dto.setBirthDate(birthDate.getSelectedDate().toCalendar().getTime());
+				dto.setFirstName(firstName.getText());
+				dto.setMiddleName(middleName.getText());
+				dto.setLastName(lastName.getText());
+				dto.setGender(gender.getSelectedItem().toString());
+				dto.setSalutation((String) salutation.getSelectedItem());
 				
-				PartyContactMech partyContactMech = new PartyContactMech();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("PHONE_" + (String) phoneType1.getSelectedItem());
-				partyContactMech.setInfoString(infoString1.getText());
-				List<PartyContactMech> contactMechs = new java.util.ArrayList<PartyContactMech>();
-				contactMechs.add(partyContactMech);
+				List<ContactMechDTO> contactMechs = new java.util.ArrayList<ContactMechDTO>();
 				
+				List<ContactMechDTO> partyContactMechs = dto.getContactMechDTOs();
+				List<ContactMechDTO> phones = new java.util.ArrayList<ContactMechDTO>();
+				List<ContactMechDTO> emails = new java.util.ArrayList<ContactMechDTO>();
 				
-				partyContactMech = new PartyContactMech();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("PHONE_" + (String) phoneType2.getSelectedItem());
-				partyContactMech.setInfoString(infoString2.getText());
-				contactMechs.add(partyContactMech);
+				if(partyContactMechs != null) {
+					for (ContactMechDTO dto : partyContactMechs) {
+						if(StringUtils.startsWith(dto.getContactMechType(),"PHONE_")) {
+							phones.add(dto);
+						} else if(StringUtils.equals(dto.getContactMechType(), "EMAIL")) {
+							emails.add(dto);
+						}
+					}
+				}
 				
-				partyContactMech = new PartyContactMech();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("EMAIL");
-				partyContactMech.setInfoString(email1.getText());
-				contactMechs.add(partyContactMech);
-				
-				partyContactMech = new PartyContactMech();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("EMAIL");
-				partyContactMech.setInfoString(email2.getText());
-				contactMechs.add(partyContactMech);
-				
-				String serviceName = "";
-				if(customerId != null) {
-					party.setPartyId(customerId);
-					serviceName = "party.updatePerson";
+				ContactMechDTO partyContactMech;
+				if(phones.size() > 0) {
+					partyContactMech = phones.get(0);
 				} else {
-					serviceName = "party.createPerson";
+					partyContactMech = new ContactMechDTO();
 				}
+				String type1 = (String) phoneType1.getSelectedItem();
+				String phone1 = infoString1.getText();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("PHONE_" + type1);
+				partyContactMech.setInfoString(phone1);
+				contactMechs.add(partyContactMech);
 				
-				ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
-				java.util.Map<String, Object> context = new HashMap<String, Object>();
-				context.put("person", party);
-				context.put("partyContactMechs", contactMechs);
-				try {
-					sd.runSync(serviceName, context);
-				} catch (ServiceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				if(phones.size() > 1) {
+					partyContactMech = phones.get(1);
+				} else {
+					partyContactMech = new ContactMechDTO();
 				}
+				String type2 = (String) phoneType2.getSelectedItem();
+				String phone2 = infoString2.getText();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("PHONE_" + type2);
+				partyContactMech.setInfoString(phone2);
+				contactMechs.add(partyContactMech);
 				
-				refreshFormData(party);
+				if(emails.size() > 0) {
+					partyContactMech = emails.get(0);
+				} else {
+					partyContactMech = new ContactMechDTO();
+				}
+				String emailTxt1 = email1.getText();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("EMAIL");
+				partyContactMech.setInfoString(emailTxt1);
+				contactMechs.add(partyContactMech);
+				
+				if(emails.size() > 1) {
+					partyContactMech = emails.get(1);
+				} else {
+					partyContactMech = new ContactMechDTO();
+				}
+				String emailTxt2 = email2.getText();
+				partyContactMech.setContactMechPurpose("DEFAULT");
+				partyContactMech.setContactMechType("EMAIL");
+				partyContactMech.setInfoString(emailTxt2);
+				contactMechs.add(partyContactMech);
+				
+				dto.setContactMechDTOs(contactMechs);
+				
+				if(isNewMode()) {
+					getFleetManagerServiceFacade().saveCustomer(dto);
+					refreshFormData(dto);
+					setFormMode(Mode.EDIT);
+				} else if(isEditMode()) {
+					Integer customerId = (Integer) namespace.get("CustomerId");
+					dto.setPartyId(customerId);
+					getFleetManagerServiceFacade().updateCustomer(dto);
+				}
 			}
 			
 		});
-		
 	}
 
 	/**
 	 * @param resultMap
 	 */
-	private void refreshFormData(Person p) {
-		if(p != null) {
-			salutation.setSelectedItem(p.getSalutation());
-			firstName.setText(p.getFirstName());
-			middleName.setText(p.getMiddleName());
-			lastName.setText(p.getLastName());
-			birthDate.setSelectedDate(DateTimeUtil.toDateString(p.getBirthDate(), "yyyy-MM-dd"));
-			gender.setSelectedItem(p.getGender());
-			List<PartyContactMech> partyContactMechs = p.getPartyContactMechs();
+	private void refreshFormData(CustomerDTO dto) {
+		if(dto != null) {
+			salutation.setSelectedItem(dto.getSalutation());
+			firstName.setText(dto.getFirstName());
+			middleName.setText(dto.getMiddleName());
+			lastName.setText(dto.getLastName());
+			birthDate.setSelectedDate(DateTimeUtil.toDateString(dto.getBirthDate(), "yyyy-MM-dd"));
+			gender.setSelectedItem(dto.getGender());
 			
-			List<PartyContactMech> phones = new java.util.ArrayList<PartyContactMech>();
-			List<PartyContactMech> emails = new java.util.ArrayList<PartyContactMech>();
+			List<ContactMechDTO> partyContactMechs = dto.getContactMechDTOs();
+			
+			List<ContactMechDTO> phones = new java.util.ArrayList<ContactMechDTO>();
+			List<ContactMechDTO> emails = new java.util.ArrayList<ContactMechDTO>();
 			
 			
 			if(partyContactMechs != null) {
-				for (PartyContactMech partyContactMech : partyContactMechs) {
+				for (ContactMechDTO partyContactMech : partyContactMechs) {
 					if(StringUtils.startsWith(partyContactMech.getContactMechType(),"PHONE_")) {
 						phones.add(partyContactMech);
 					} else if(StringUtils.equals(partyContactMech.getContactMechType(), "EMAIL")) {
@@ -194,14 +219,14 @@ public class CustomerForm extends Form implements Bindable {
 			
 			if(!phones.isEmpty()) {
 				if(phones.size() > 0) {
-					PartyContactMech contactMech = phones.get(0);
-					phoneType1.setSelectedItem(contactMech.getContactMechType());
+					ContactMechDTO contactMech = phones.get(0);
+					phoneType1.setSelectedItem(StringUtils.substringAfter(contactMech.getContactMechType(), "PHONE_"));
 					infoString1.setText(contactMech.getInfoString());
 				}
 				
 				if(phones.size() > 1) {
-					PartyContactMech contactMech = phones.get(1);
-					phoneType2.setSelectedItem(contactMech.getContactMechType());
+					ContactMechDTO contactMech = phones.get(1);
+					phoneType2.setSelectedItem(StringUtils.substringAfter(contactMech.getContactMechType(), "PHONE_"));
 					infoString2.setText(contactMech.getInfoString());
 				}
 			}
@@ -212,12 +237,13 @@ public class CustomerForm extends Form implements Bindable {
 				}
 				
 				if(emails.size() > 1) {
-					email1.setText(emails.get(1).getInfoString());
+					email2.setText(emails.get(1).getInfoString());
 				}
 			}
 			
 			saveButton.setButtonData("Update");
 		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.openappengine.repository.context;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -44,6 +45,10 @@ public class RepositoryContext implements ApplicationContextAware {
 	
 	public MySQLSequenceIncrementer getIncrementer() {
 		return (MySQLSequenceIncrementer) entityContextPrvdr.getBean("incrementer");
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return (SessionFactory) entityContextPrvdr.getBean("sessionFactory");
 	}
 	
 	private class EntityContextPrvdr {
