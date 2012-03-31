@@ -7,12 +7,15 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import com.openappengine.model.addressbook.Address;
@@ -28,20 +31,24 @@ public class Party implements Entity<Party, Integer> {
 	/**
 	 * Active Party.
 	 */
-	public static final String PARTY_STATUS_ACTIVE = "Active";
+	public static final String PARTY_STATUS_ACTIVE = "ACTIVE";
 
 	/**
 	 * Suspended Party.
 	 */
-	public static final String PARTY_STATUS_SUSPENDED = "Suspended";
+	public static final String PARTY_STATUS_SUSPENDED = "SUSPENDED";
 
 	/**
 	 * Terminated Party.
 	 */
-	public static final String PARTY_STATUS_TERMINATED = "Terminated";
+	public static final String PARTY_STATUS_TERMINATED = "TERMINATED";
 
 	@Id
 	@Column(name = "PM_PARTY_ID", unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="partyGenerator")  
+	@TableGenerator(name="partyGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
+	                allocationSize=1 // flush every 1 insert  
+	)
 	private int partyId;
 
 	@Lob()
@@ -51,7 +58,7 @@ public class Party implements Entity<Party, Integer> {
 	@Column(name = "PM_EXTERNAL_ID", length = 50)
 	private String externalId;
 
-	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100,insertable=false,updatable=false)
+	@Column(name = "PM_PARTY_TYPE", nullable = false, length = 100)
 	private String partyType;
 
 	@Column(name = "PM_PREFERRED_CURRENCY_UOM", length = 50)

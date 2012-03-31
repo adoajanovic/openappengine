@@ -6,7 +6,6 @@ package com.openappengine.service.party;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.service.AbstractDomainService;
@@ -30,20 +29,7 @@ public class PartyServices extends AbstractDomainService {
 	private int personId;
 	
 	public void updatePerson() throws ServiceException {
-		int partyId = person.getPartyId();
-		Party party = partyRepository.findPersonById(partyId);
-		if(party == null) {
-			throw new ServiceException("Person Does Not Exist.");
-		}
-		
 		partyRepository.updatePerson(person);
-		
-		//Update Party Contact Mechs.
-		if(partyContactMechs != null) {
-			for (PartyContactMech partyContactMech : partyContactMechs) {
-				partyRepository.updateContactMech(partyId,partyContactMech);
-			}
-		}
 	}
 	
 	public void createPerson() throws ServiceException {
@@ -51,30 +37,15 @@ public class PartyServices extends AbstractDomainService {
 			throw new ServiceException("Person cannot be null");
 		}
 		
-		int partyId = person.getPartyId();
-		Party party = partyRepository.findPersonById(partyId);
-		if(party != null) {
-			throw new ServiceException("Person Already Exists.");
-		}
-		
-		Party newParty = new Party();
-		newParty.setDescription(person.getComments());
-		newParty.setExternalId("NA");
-		newParty.setPartyType("PERSON");
-		newParty.setPreferredCurrencyUom("INR");
-		newParty.setStatus("ACTIVE");
-		
-		partyRepository.saveParty(newParty);
-		person.setPartyId(newParty.getPartyId());
-		
-		partyRepository.savePerson(person);
-		
-		//Save Party Contact Mechs.
 		if(partyContactMechs != null) {
-			for (PartyContactMech partyContactMech : partyContactMechs) {
-				partyRepository.saveContactMech(person.getPartyId(),partyContactMech);
+			for (PartyContactMech contactMech : partyContactMechs) {
+				person.getPartyContactMechs().add(contactMech);
+				contactMech.setParty(person);
 			}
 		}
+		
+		//Save Party Contact Mechs.
+		partyRepository.savePersonPartyWithDefaultValues(person);
 	}
 
 	public void getActiveParties() {
