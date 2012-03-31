@@ -17,6 +17,7 @@ import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 
+import com.openappengine.fms.interfaces.dto.AddressDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.utility.DateTimeUtil;
@@ -175,6 +176,19 @@ public class CustomerForm extends FleetManagerForm {
 				
 				dto.setContactMechDTOs(contactMechs);
 				
+				AddressDTO addressDTO = dto.getAddressDTO();
+				if(addressDTO == null) {
+					addressDTO = new AddressDTO();
+				}
+				
+				addressDTO.setAddress1(address1.getText());
+				addressDTO.setAddress2(address2.getText());
+				addressDTO.setCity(city.getText());
+				addressDTO.setStateProvince(state.getText());
+				addressDTO.setCountry(country.getText());
+				addressDTO.setPostalCode(zip.getText());
+				dto.setAddressDTO(addressDTO);
+				
 				if(isNewMode()) {
 					getFleetManagerServiceFacade().saveCustomer(dto);
 					refreshFormData(dto);
@@ -200,6 +214,16 @@ public class CustomerForm extends FleetManagerForm {
 			lastName.setText(dto.getLastName());
 			birthDate.setSelectedDate(DateTimeUtil.toDateString(dto.getBirthDate(), "yyyy-MM-dd"));
 			gender.setSelectedItem(dto.getGender());
+			
+			if(dto.getAddressDTO() != null) {
+				AddressDTO addressDTO = dto.getAddressDTO();
+				address1.setText(addressDTO.getAddress1());
+				address2.setText(addressDTO.getAddress2());
+				city.setText(addressDTO.getCity());
+				state.setText(addressDTO.getStateProvince());
+				zip.setText(addressDTO.getPostalCode());
+				country.setText(addressDTO.getCountry());
+			}
 			
 			List<ContactMechDTO> partyContactMechs = dto.getContactMechDTOs();
 			

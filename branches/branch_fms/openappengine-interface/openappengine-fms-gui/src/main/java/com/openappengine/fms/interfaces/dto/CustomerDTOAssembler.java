@@ -6,6 +6,7 @@ package com.openappengine.fms.interfaces.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.model.party.Address;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 
@@ -41,8 +42,16 @@ public class CustomerDTOAssembler {
 				contactMechDTOs.add(contactMechDTO);
 			}
 		}
-		
 		customerDTO.setContactMechDTOs(contactMechDTOs);
+		
+		List<Address> addresses = person.getAddresses();
+		if(addresses != null && !addresses.isEmpty()) {
+			for (Address address : addresses) {
+				AddressDTO addressDTO = new AddressDTOAssembler().toDTO(address);
+				customerDTO.setAddressDTO(addressDTO);
+				break;
+			}
+		}
 		
 		return customerDTO;
 	}
@@ -70,6 +79,15 @@ public class CustomerDTOAssembler {
 				PartyContactMech partyContactMech = contactMechDTOAssembler.fromDTO(contactMech);
 				p.getPartyContactMechs().add(partyContactMech);
 			}
+		}
+		
+		AddressDTO addressDTO = dto.getAddressDTO();
+		if(addressDTO != null) {
+			Address address = new AddressDTOAssembler().fromDTO(addressDTO);
+			String toName = p.getFirstName() + " " + p.getLastName();
+			address.setToName(toName);
+			address.setAttnName(toName);
+			p.addAddress(address);
 		}
 		
 		return p;
