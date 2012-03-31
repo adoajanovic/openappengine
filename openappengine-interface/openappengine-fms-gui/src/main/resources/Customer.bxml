@@ -30,10 +30,10 @@
 		        <TextInput bxml:id = "address2" prompt="Street Address 2" textSize="24"/>
 		        
 		        <BoxPane>
-		           <TextInput prompt="City"/>
-		           <TextInput prompt="State" textSize="6"/>
-		           <TextInput prompt="Country" textSize="6"/>
-		    	   <TextInput prompt="Zip" textSize="10"/>
+		           <TextInput bxml:id = "city" prompt="City"/>
+		           <TextInput bxml:id = "state" prompt="State" textSize="6"/>
+		           <TextInput bxml:id = "country" prompt="Country" textSize="6"/>
+		    	   <TextInput bxml:id = "zip" prompt="Zip" textSize="10"/>
 		        </BoxPane>
 		    </BoxPane>
 		    		    

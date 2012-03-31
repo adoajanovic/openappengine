@@ -1,20 +1,15 @@
 /**
  * 
  */
-package com.openappengine.model.addressbook;
-
-import java.util.HashSet;
-import java.util.Set;
+package com.openappengine.model.party;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import com.openappengine.model.valueobject.ValueObject;
 
@@ -28,8 +23,11 @@ import com.openappengine.model.valueobject.ValueObject;
 public class Address implements ValueObject<Address>{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="AB_ADDRESS_BOOK_ID")
+	@Column(name = "AB_ADDRESS_BOOK_ID", unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="addressGenerator")  
+	@TableGenerator(name="addressGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
+	                allocationSize=1 // flush every 1 insert  
+	)
 	private int addressBookId;
 	
 	@Column(name="AB_TO_NAME", nullable=false, length=100)
@@ -62,9 +60,9 @@ public class Address implements ValueObject<Address>{
 	@Column(name="AB_STATE_PROVINCE", nullable=false, length=100)
 	private String stateProvince;
 	
-	@OneToMany
+	/*@OneToMany
 	@JoinTable(name= "AB_ADDRESS_TYPE", joinColumns = { @JoinColumn(name = "AT_ADDRESS_BOOK_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AT_ADDRESS_TYPE_ID") })
-	private Set<AddressType> addressTypes = new HashSet<AddressType>();
+	private Set<AddressType> addressTypes = new HashSet<AddressType>();*/
 	
 	public int getAddressBookId() {
 		return addressBookId;
@@ -230,24 +228,9 @@ public class Address implements ValueObject<Address>{
 		return true;
 	}
 
+	@Override
 	public boolean sameValueAs(Address other) {
-		return this.equals(other);
+		// TODO Auto-generated method stub
+		return false;
 	}
-
-	public Set<AddressType> getAddressTypes() {
-		return addressTypes;
-	}
-
-	public void setAddressTypes(Set<AddressType> addressTypes) {
-		this.addressTypes = addressTypes;
-	}
-	
-	public void addAddressType(AddressType addressType) {
-		if(addressType == null) {
-			return;
-		}
-		
-		this.addressTypes.add(addressType);
-	}
-
 }

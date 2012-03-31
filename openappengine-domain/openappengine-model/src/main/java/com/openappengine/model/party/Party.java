@@ -1,9 +1,7 @@
 package com.openappengine.model.party;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,12 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
 
-import com.openappengine.model.addressbook.Address;
 import com.openappengine.model.entity.Entity;
 
 @javax.persistence.Entity(name="PM_PARTY")
@@ -71,10 +68,9 @@ public class Party implements Entity<Party, Integer> {
 	@JoinColumn(name = "PM_PARTY_ID", nullable = false)
 	private List<PartyContactMech> partyContactMechs = new ArrayList<PartyContactMech>();
 
-	/*@OneToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })*/
-	@Transient
-	private Set<Address> addresses = new HashSet<Address>();
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name = "PARTY_ADDRESS", joinColumns = { @JoinColumn(name = "PM_PARTY_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "AB_ADDRESS_ID") })
+	private List<Address> addresses = new ArrayList<Address>();
 
 	public Party() {
 	}
@@ -209,11 +205,11 @@ public class Party implements Entity<Party, Integer> {
 		return partyId;
 	}
 
-	public Set<Address> getAddresses() {
+	public List<Address> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 	

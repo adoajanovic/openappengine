@@ -1,11 +1,12 @@
 package com.openappengine.fms.interfaces.dto;
 
-import com.openappengine.model.addressbook.Address;
+import com.openappengine.model.party.Address;
 
 public class AddressDTOAssembler {
 	
 	public AddressDTO toDTO(Address address) {
 		AddressDTO dto = new AddressDTO();
+		dto.setAddressBookId(address.getAddressBookId());
 		dto.setAddress1(address.getAddress1());
 		dto.setAddress2(address.getAddress2());
 		dto.setCity(address.getCity());
@@ -17,6 +18,7 @@ public class AddressDTOAssembler {
 	
 	public Address fromDTO(AddressDTO addressDTO) {
 		Address address = new Address();
+		address.setAddressBookId(addressDTO.getAddressBookId());
 		address.setAddress1(addressDTO.getAddress1());
 		address.setAddress2(addressDTO.getAddress2());
 		address.setCity(addressDTO.getCity());
