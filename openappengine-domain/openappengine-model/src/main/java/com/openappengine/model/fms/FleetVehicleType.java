@@ -3,13 +3,13 @@
  */
 package com.openappengine.model.fms;
 
-import com.openappengine.model.valueobject.ValueObject;
+import java.io.Serializable;
 
 /**
  * @author hrishi
  *
  */
-public class FleetVehicleType implements ValueObject<FleetVehicleType>{
+public class FleetVehicleType implements Serializable {
 	
 	private int fleetVehicleTypeId;
 	
@@ -30,11 +30,5 @@ public class FleetVehicleType implements ValueObject<FleetVehicleType>{
 	public void setFleetVehicleTypeDesc(String fleetVehicleTypeDesc) {
 		this.fleetVehicleTypeDesc = fleetVehicleTypeDesc;
 	}
-
-	@Override
-	public boolean sameValueAs(FleetVehicleType other) {
-		return this.equals(other);
-	}
-
 	
 }
