@@ -3,6 +3,8 @@
  */
 package com.openappengine.model.party;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import com.openappengine.model.valueobject.ValueObject;
-
 /**
  * @author hrishi
  *
@@ -20,7 +20,7 @@ import com.openappengine.model.valueobject.ValueObject;
 
 @Entity
 @Table(name="AB_ADDRESS_BOOK")
-public class Address implements ValueObject<Address>{
+public class Address implements Serializable {
 
 	@Id
 	@Column(name = "AB_ADDRESS_BOOK_ID", unique = true, nullable = false)
@@ -226,11 +226,5 @@ public class Address implements ValueObject<Address>{
 		} else if (!stateProvince.equals(other.stateProvince))
 			return false;
 		return true;
-	}
-
-	@Override
-	public boolean sameValueAs(Address other) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

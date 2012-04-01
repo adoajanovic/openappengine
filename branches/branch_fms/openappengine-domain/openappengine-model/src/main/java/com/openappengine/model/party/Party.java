@@ -1,5 +1,6 @@
 package com.openappengine.model.party;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,9 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
-import com.openappengine.model.entity.Entity;
-
 @javax.persistence.Entity(name="PM_PARTY")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Party implements Entity<Party, Integer> {
+public class Party implements Serializable {
 
 	// TODO - Needs to be configurable.
 	public static final Long DEFAULT_START_EXTERNAL_ID = new Long("1000000");

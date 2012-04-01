@@ -28,7 +28,6 @@ import com.openappengine.entity.delegator.Delegator;
 import com.openappengine.entity.request.EntityRequest;
 import com.openappengine.entity.response.DefaultEntityResponse;
 import com.openappengine.entity.response.EntityResponse;
-import com.openappengine.model.code.CodeType;
 import com.openappengine.utility.ObjectConverter;
 
 /**
@@ -102,19 +101,6 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 		Class<?> entityClass = entityDefinition.getEntityClass();
 		entityValue = new EntityFacadeDelegator().createEntityValue(entityName,entityDefinition,entityClass);
 		return entityValue;
-	}
-	
-	public EntityValue createEntityValue(String entityName,Serializable id) {
-	    //PojoEntityValue entityValue = createEntityValue(entityName);
-	    if(id != null) {
-		    Session session = hibernateTemplate.getSessionFactory().openSession();
-        	Object attachedInstance = hibernateTemplate.load(CodeType.class,id);
-        	Entity entityDefinition = findEntityDefinition(entityName);
-        	EntityValue pojoEntityValue = new PojoEntityValue(entityName,entityDefinition,attachedInstance);
-			session.flush();
-			return pojoEntityValue;
-	    }
-		return null;
 	}
 	
 	public List<EntityValue> findEntityValues(String entityName,Map<String,Object> parameters) {
@@ -280,6 +266,12 @@ public class EntityEngineFacadeImpl implements EntityEngineFacade {
 
 	public void setDelegator(Delegator delegator) {
 		this.delegator = delegator;
+	}
+
+	@Override
+	public EntityValue createEntityValue(String entityName, Serializable id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
