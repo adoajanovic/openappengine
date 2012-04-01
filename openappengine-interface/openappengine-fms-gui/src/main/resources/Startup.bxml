@@ -12,6 +12,7 @@
     	<Window.ActionMapping action="vehicleListing" keyStroke="CMD-L"/>
         <Window.ActionMapping action="customerNew" keyStroke="CMD-C"/>
         <Window.ActionMapping action="customerList" keyStroke="CMD-A"/>
+        <Window.ActionMapping action="productNew" keyStroke="CMD-N"/>
     </actionMappings>
  
  	<!-- Menu Bar -->
@@ -46,6 +47,18 @@
                     </Menu.Section>
                 </Menu>
             </MenuBar.Item>
+            
+            <MenuBar.Item buttonData="Product">
+                <Menu>
+                    <Menu.Section>
+                        <Menu.Item action="productNew">
+                            <buttonData>
+                                <content:MenuItemData text="New Product Form" keyboardShortcut="CMD-N"/>
+                            </buttonData>
+                        </Menu.Item>
+                    </Menu.Section>    
+                 </Menu>
+            </MenuBar.Item>            
             
             <MenuBar.Item buttonData="Customer">
                 <Menu>

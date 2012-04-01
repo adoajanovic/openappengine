@@ -1,0 +1,66 @@
+  <Form:ProductForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+  
+  	<Form.Section heading="Product Information">
+	        <BoxPane Form.label="Product Name" orientation="vertical">
+		        <TextInput bxml:id = "productName" prompt="Product Name" textSize="24"/>
+	        </BoxPane>
+	        
+	        <BoxPane Form.label="Description" orientation="vertical">
+		        <TextInput bxml:id = "description" prompt="Description" />
+	        </BoxPane>
+	        
+	        <BoxPane Form.label="Introduction Date">
+				<CalendarButton bxml:id="introductionDate" />
+			</BoxPane>
+			     
+			<BoxPane Form.label="Fixed Amount" orientation="vertical">
+		        <TextInput bxml:id = "fixedAmount" prompt="Fixed Amount" textSize="24"/>
+	        </BoxPane>
+	        
+	        <BoxPane Form.label="Is Taxable ?">    
+	            <ListButton bxml:id="taxable"
+				    listData="['Yes', 'No']" />
+	        </BoxPane>
+	</Form.Section>
+	
+	<Form.Section heading="Product Financials">
+	        
+	        <BoxPane bxml:id = "taxBox" orientation="horizontal">
+		        <BoxPane bxml:id = "taxTypeBox" Form.label="Tax Type">    
+		            <ListButton bxml:id="taxType"
+					    listData="['Service Tax', 'Entertainment Tax']" />
+		        </BoxPane>
+		        
+		        <BoxPane bxml:id = "taxAmtBox" Form.label="Tax" >
+			        <TextInput bxml:id = "taxAmount" prompt="Tax" textSize="10"/>
+		        </BoxPane>
+		        
+		        <BoxPane bxml:id = "totalTaxBox" Form.label="Total Tax" >
+			    	<TextInput bxml:id = "totalTax" textSize="10" enabled="false" />
+			    </BoxPane>
+	        </BoxPane>
+	        
+	        <BoxPane bxml:id = "totalAmountBox" Form.label="Total" orientation="vertical">
+		        <TextInput bxml:id = "totalAmount" textSize="10"/>
+	        </BoxPane>
+	        		    		    
+	</Form.Section>
+	
+	<Form.Section>
+		<FlowPane bxml:id="flowPane" styles="{padding:2}">
+			    <PushButton buttonData="Save"
+			    	bxml:id="saveButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+				
+				<PushButton buttonData="Reset"
+			    	bxml:id="resetButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+		</FlowPane>
+	</Form.Section>
+  </Form:ProductForm>
