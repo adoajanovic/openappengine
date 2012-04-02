@@ -1,0 +1,32 @@
+  <Form:TaxForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+	
+	<Form.Section heading="Tax Info">
+	        <BoxPane bxml:id = "taxTypeBox" Form.label="Tax Type">    
+		            <ListButton bxml:id="taxType"
+					    listData="['Service Tax', 'Entertainment Tax']" />
+	        </BoxPane>
+		        
+	        <BoxPane bxml:id = "taxPercentageBox" Form.label="Tax" >
+		        <TextInput bxml:id = "taxPercentage" text="%taxPercentage" prompt="Tax Percentage" textSize="6" textKey="taxPercentage"/>
+	        </BoxPane>
+	        
+	</Form.Section>
+	
+	<Form.Section>
+		<FlowPane bxml:id="flowPane" styles="{padding:2}">
+			    <PushButton buttonData="Save"
+			    	bxml:id="saveButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+				
+				<PushButton buttonData="Reset"
+			    	bxml:id="resetButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+		</FlowPane>
+	</Form.Section>
+  </Form:TaxForm>
