@@ -39,13 +39,15 @@ CREATE TABLE `ab_address_book` (
   `AB_STATE_PROVINCE` varchar(100) NOT NULL,
   `AB_TO_NAME` varchar(100) NOT NULL,
   PRIMARY KEY (`AB_ADDRESS_BOOK_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ab_address_book`
 --
 
 /*!40000 ALTER TABLE `ab_address_book` DISABLE KEYS */;
+INSERT INTO `ab_address_book` (`AB_ADDRESS_BOOK_ID`,`AB_ADDRESS_1`,`AB_ADDRESS_2`,`AB_ATTN_NAME`,`AB_CITY`,`AB_COUNTRY`,`AB_DIRECTIONS`,`AB_POSTAL_CODE`,`AB_POSTAL_CODE_EXT`,`AB_STATE_PROVINCE`,`AB_TO_NAME`) VALUES 
+ (1,'111','222','asas asasas','333','555',NULL,'666',NULL,'444','asas asasas');
 /*!40000 ALTER TABLE `ab_address_book` ENABLE KEYS */;
 
 
@@ -114,6 +116,27 @@ CREATE TABLE `ab_type` (
 
 /*!40000 ALTER TABLE `ab_type` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ab_type` ENABLE KEYS */;
+
+
+--
+-- Definition of table `ad_table_sequences`
+--
+
+DROP TABLE IF EXISTS `ad_table_sequences`;
+CREATE TABLE `ad_table_sequences` (
+  `TS_SEQUENCE_NAME` varchar(100) NOT NULL,
+  `TS_SEQUENCE_VALUE` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ad_table_sequences`
+--
+
+/*!40000 ALTER TABLE `ad_table_sequences` DISABLE KEYS */;
+INSERT INTO `ad_table_sequences` (`TS_SEQUENCE_NAME`,`TS_SEQUENCE_VALUE`) VALUES 
+ ('PM_PARTY',3),
+ ('AB_ADDRESS_BOOK',2);
+/*!40000 ALTER TABLE `ad_table_sequences` ENABLE KEYS */;
 
 
 --
@@ -371,6 +394,55 @@ CREATE TABLE `fm_payment_type` (
 
 
 --
+-- Definition of table `fm_tax_rate_product`
+--
+
+DROP TABLE IF EXISTS `fm_tax_rate_product`;
+CREATE TABLE `fm_tax_rate_product` (
+  `TR_TAX_RATE_ID` int(11) NOT NULL,
+  `TR_TAX_RATE_TYPE_ID` int(11) DEFAULT NULL,
+  `TR_PRODUCT_ID` int(11) DEFAULT NULL,
+  `TR_MIN_ITEM_PRICE` decimal(18,2) DEFAULT NULL,
+  `TR_MIN_PURCHASE` decimal(18,2) DEFAULT NULL,
+  `TR_TAX_PERCENTAGE` decimal(18,6) DEFAULT NULL,
+  `TR_FROM_DATE` datetime DEFAULT NULL,
+  `TR_TO_DATE` datetime DEFAULT NULL,
+  `TR_DESCRIPTION` longtext CHARACTER SET latin1,
+  PRIMARY KEY (`TR_TAX_RATE_ID`),
+  KEY `FK_TAX_RATE_PRODUCT_ID` (`TR_PRODUCT_ID`),
+  KEY `FK_TAX_RATE_TYPE_ID` (`TR_TAX_RATE_TYPE_ID`),
+  CONSTRAINT `FK_TAX_RATE_PRODUCT_ID` FOREIGN KEY (`TR_PRODUCT_ID`) REFERENCES `prod_product` (`PD_PRODUCT_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_TAX_RATE_TYPE_ID` FOREIGN KEY (`TR_TAX_RATE_TYPE_ID`) REFERENCES `fm_tax_type` (`TT_TAX_TYPE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
+
+--
+-- Dumping data for table `fm_tax_rate_product`
+--
+
+/*!40000 ALTER TABLE `fm_tax_rate_product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fm_tax_rate_product` ENABLE KEYS */;
+
+
+--
+-- Definition of table `fm_tax_type`
+--
+
+DROP TABLE IF EXISTS `fm_tax_type`;
+CREATE TABLE `fm_tax_type` (
+  `TT_TAX_TYPE_ID` int(11) NOT NULL,
+  `TT_DESCRIPTION` longtext CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`TT_TAX_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
+
+--
+-- Dumping data for table `fm_tax_type`
+--
+
+/*!40000 ALTER TABLE `fm_tax_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fm_tax_type` ENABLE KEYS */;
+
+
+--
 -- Definition of table `fms_driver`
 --
 
@@ -561,6 +633,7 @@ CREATE TABLE `fms_fleet_vehicle` (
 
 /*!40000 ALTER TABLE `fms_fleet_vehicle` DISABLE KEYS */;
 INSERT INTO `fms_fleet_vehicle` (`FV_VEHICLE_ID`,`FV_TYPE_ID`,`FV_VEHICLE_MODEL`,`FV_VEHICLE_MAKE`,`FV_LICENCE_PLATE_NUMBER`,`FV_FROM_DATE`,`FV_TO_DATE`,`FV_STATUS`) VALUES 
+ (1,17,'12212','1212','ASASA','2012-03-27','2013-03-27','ACTIVE'),
  (25,10,'Model1','Make1','MH01-1234-8765','2012-03-26','2013-03-26','ACTIVE');
 /*!40000 ALTER TABLE `fms_fleet_vehicle` ENABLE KEYS */;
 
@@ -626,7 +699,7 @@ CREATE TABLE `fms_fleet_vehicle_sequence` (
 
 /*!40000 ALTER TABLE `fms_fleet_vehicle_sequence` DISABLE KEYS */;
 INSERT INTO `fms_fleet_vehicle_sequence` (`value`) VALUES 
- (0);
+ (1);
 /*!40000 ALTER TABLE `fms_fleet_vehicle_sequence` ENABLE KEYS */;
 
 
@@ -815,6 +888,8 @@ CREATE TABLE `party_address` (
 --
 
 /*!40000 ALTER TABLE `party_address` DISABLE KEYS */;
+INSERT INTO `party_address` (`PM_PARTY_ID`,`AB_ADDRESS_ID`) VALUES 
+ (2,1);
 /*!40000 ALTER TABLE `party_address` ENABLE KEYS */;
 
 
@@ -832,21 +907,18 @@ CREATE TABLE `pm_party` (
   `PM_STATUS` varchar(50) NOT NULL,
   PRIMARY KEY (`PM_PARTY_ID`),
   UNIQUE KEY `PM_PARTY_ID` (`PM_PARTY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
-
-DROP TABLE IF EXISTS `pm_party_sequence`;
-CREATE TABLE `pm_party_sequence` (
-  `value` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `pm_party_sequence`(value) VALUES(0);
 --
 -- Dumping data for table `pm_party`
 --
 
 /*!40000 ALTER TABLE `pm_party` DISABLE KEYS */;
 INSERT INTO `pm_party` (`PM_PARTY_ID`,`PM_DESCRIPTION`,`PM_EXTERNAL_ID`,`PM_PARTY_TYPE`,`PM_PREFERRED_CURRENCY_UOM`,`PM_STATUS`) VALUES 
- (1,'awd','1000000','CUSTOMER','INR','Active');
+ (1,NULL,NULL,'PERSON',NULL,'ACTIVE'),
+ (2,NULL,NULL,'PERSON',NULL,'ACTIVE'),
+ (34,NULL,NULL,'PERSON',NULL,'ACTIVE'),
+ (35,NULL,NULL,'PERSON',NULL,'ACTIVE');
 /*!40000 ALTER TABLE `pm_party` ENABLE KEYS */;
 
 
@@ -861,18 +933,80 @@ CREATE TABLE `pm_party_contact_mech` (
   `PM_CONTACT_MECH_TYPE` varchar(50) NOT NULL,
   `PM_INFO_STRING` varchar(100) NOT NULL,
   `PM_PARTY_ID` int(11) NOT NULL,
+  `CM_CONTACT_MECH_ID` int(11) DEFAULT NULL,
+  `CM_CONTACT_MECH_PURPOSE` varchar(50) DEFAULT NULL,
+  `CM_CONTACT_MECH_TYPE` varchar(50) DEFAULT NULL,
+  `CM_INFO_STRING` varchar(100) DEFAULT NULL,
+  `CM_PARTY_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`PM_CONTACT_MECH_ID`),
   UNIQUE KEY `PM_CONTACT_MECH_ID` (`PM_CONTACT_MECH_ID`),
   KEY `FK73E907375B2F090D` (`PM_PARTY_ID`),
-  CONSTRAINT `FK73E907375B2F090D` FOREIGN KEY (`PM_PARTY_ID`) REFERENCES `pm_party` (`PM_PARTY_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `FK73E90737CB91F540` (`CM_PARTY_ID`),
+  CONSTRAINT `FK73E907375B2F090D` FOREIGN KEY (`PM_PARTY_ID`) REFERENCES `pm_party` (`PM_PARTY_ID`),
+  CONSTRAINT `FK73E90737CB91F540` FOREIGN KEY (`CM_PARTY_ID`) REFERENCES `pm_party` (`PM_PARTY_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pm_party_contact_mech`
 --
 
 /*!40000 ALTER TABLE `pm_party_contact_mech` DISABLE KEYS */;
+INSERT INTO `pm_party_contact_mech` (`PM_CONTACT_MECH_ID`,`PM_CONTACT_MECH_PURPOSE`,`PM_CONTACT_MECH_TYPE`,`PM_INFO_STRING`,`PM_PARTY_ID`,`CM_CONTACT_MECH_ID`,`CM_CONTACT_MECH_PURPOSE`,`CM_CONTACT_MECH_TYPE`,`CM_INFO_STRING`,`CM_PARTY_ID`) VALUES 
+ (46,'DEFAULT','PHONE_Residence','R11',34,NULL,NULL,NULL,NULL,NULL),
+ (47,'DEFAULT','PHONE_Mobile','M11',34,NULL,NULL,NULL,NULL,NULL),
+ (48,'DEFAULT','EMAIL','ER1',34,NULL,NULL,NULL,NULL,NULL),
+ (49,'DEFAULT','EMAIL','ER2',34,NULL,NULL,NULL,NULL,NULL),
+ (50,'DEFAULT','PHONE_Residence','022-22036583',35,NULL,NULL,NULL,NULL,NULL),
+ (51,'DEFAULT','PHONE_Mobile','+91-9819791978',35,NULL,NULL,NULL,NULL,NULL),
+ (52,'DEFAULT','EMAIL','hrishi2323@gmail.com',35,NULL,NULL,NULL,NULL,NULL),
+ (53,'DEFAULT','EMAIL','hrishikeshjoshi0@gmail.com',35,NULL,NULL,NULL,NULL,NULL),
+ (70,'DEFAULT','PHONE_Mobile','22',1,NULL,NULL,NULL,NULL,NULL),
+ (71,'DEFAULT','PHONE_Residence','33',1,NULL,NULL,NULL,NULL,NULL),
+ (72,'DEFAULT','EMAIL','sumedh0909@gmail.com',1,NULL,NULL,NULL,NULL,NULL),
+ (73,'DEFAULT','EMAIL','sumedh.ketkar@moryasolutions.com',1,NULL,NULL,NULL,NULL,NULL),
+ (74,'DEFAULT','PHONE_Residence','as',2,NULL,NULL,NULL,NULL,NULL),
+ (75,'DEFAULT','PHONE_Residence','as',2,NULL,NULL,NULL,NULL,NULL),
+ (76,'DEFAULT','EMAIL','as',2,NULL,NULL,NULL,NULL,NULL),
+ (77,'DEFAULT','EMAIL','as',2,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pm_party_contact_mech` ENABLE KEYS */;
+
+
+--
+-- Definition of table `pm_party_contact_mech_sequence`
+--
+
+DROP TABLE IF EXISTS `pm_party_contact_mech_sequence`;
+CREATE TABLE `pm_party_contact_mech_sequence` (
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pm_party_contact_mech_sequence`
+--
+
+/*!40000 ALTER TABLE `pm_party_contact_mech_sequence` DISABLE KEYS */;
+INSERT INTO `pm_party_contact_mech_sequence` (`value`) VALUES 
+ (77);
+/*!40000 ALTER TABLE `pm_party_contact_mech_sequence` ENABLE KEYS */;
+
+
+--
+-- Definition of table `pm_party_sequence`
+--
+
+DROP TABLE IF EXISTS `pm_party_sequence`;
+CREATE TABLE `pm_party_sequence` (
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pm_party_sequence`
+--
+
+/*!40000 ALTER TABLE `pm_party_sequence` DISABLE KEYS */;
+INSERT INTO `pm_party_sequence` (`value`) VALUES 
+ (35);
+/*!40000 ALTER TABLE `pm_party_sequence` ENABLE KEYS */;
 
 
 --
@@ -882,7 +1016,7 @@ CREATE TABLE `pm_party_contact_mech` (
 DROP TABLE IF EXISTS `pm_person`;
 CREATE TABLE `pm_person` (
   `PM_BIRTH_DATE` datetime DEFAULT NULL,
-  `PM_COMMENTS` text,
+  `PM_COMMENTS` longtext,
   `PM_DECEASED_DATE` datetime DEFAULT NULL,
   `PM_FIRST_NAME` varchar(100) NOT NULL,
   `PM_GENDER` varchar(10) DEFAULT NULL,
@@ -906,18 +1040,17 @@ CREATE TABLE `pm_person` (
 --
 
 /*!40000 ALTER TABLE `pm_person` DISABLE KEYS */;
+INSERT INTO `pm_person` (`PM_BIRTH_DATE`,`PM_COMMENTS`,`PM_DECEASED_DATE`,`PM_FIRST_NAME`,`PM_GENDER`,`PM_LAST_NAME`,`PM_MARITAL_STATUS`,`PM_MIDDLE_NAME`,`PM_NICK_NAME`,`PM_PASSPORT_EXPIRATION_DATE`,`PM_PASSPORT_NUMBER`,`PM_SALUTAION`,`PM_SSN`,`PM_SUFFIX`,`PM_PARTY_ID`) VALUES 
+ ('2012-03-31 00:00:00',NULL,NULL,'Sumedh','M','Ketkar',NULL,'Raghunath',NULL,NULL,NULL,'Mr.',NULL,NULL,1),
+ ('2012-04-01 00:00:00',NULL,NULL,'asas','M','asasas',NULL,'asasas',NULL,NULL,NULL,'Mr.',NULL,NULL,2),
+ ('2012-03-09 00:00:00',NULL,NULL,'Pradnya','M','Joshi',NULL,'Shrikant',NULL,NULL,NULL,'Mr.',NULL,NULL,34),
+ ('1987-01-23 00:00:00',NULL,NULL,'Hrishikesh','M','Joshi',NULL,'Shrikant',NULL,NULL,NULL,'Mr.',NULL,NULL,35);
 /*!40000 ALTER TABLE `pm_person` ENABLE KEYS */;
 
 
 --
 -- Definition of table `prod_product`
 --
-DROP TABLE IF EXISTS `prod_product_sequence`;
-CREATE TABLE `prod_product_sequence` (
-  `value` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `prod_product_sequence`(value) VALUES(0);
-
 
 DROP TABLE IF EXISTS `prod_product`;
 CREATE TABLE `prod_product` (
@@ -926,23 +1059,23 @@ CREATE TABLE `prod_product` (
   `PD_INTRODUCTION_DATE` datetime DEFAULT NULL,
   `PD_SUPPORT_DISCONTINUATION_DATE` datetime DEFAULT NULL,
   `PD_SALES_DISCONTINUATION_DATE` datetime DEFAULT NULL,
-  `PD_SALES_DISC_WHEN_NOT_AVAIL` char(1) COLLATE latin1_general_cs DEFAULT NULL,
+  `PD_SALES_DISC_WHEN_NOT_AVAIL` bit(1) DEFAULT NULL,
   `PD_INTERNAL_NAME` varchar(255) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_COMMENTS` varchar(255) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_PRODUCT_NAME` varchar(100) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_DESCRIPTION` varchar(255) COLLATE latin1_general_cs DEFAULT NULL,
-  `PD_REQUIRE_INVENTORY` char(1) COLLATE latin1_general_cs DEFAULT NULL,
+  `PD_REQUIRE_INVENTORY` bit(1) DEFAULT NULL,
   `PD_QUANTITY_UOM_ID` varchar(20) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_QUANTITY_INCLUDED` decimal(18,6) DEFAULT NULL,
   `PD_PIECES_INCLUDED` decimal(20,0) DEFAULT NULL,
-  `PD_REQUIRE_AMOUNT` char(1) COLLATE latin1_general_cs DEFAULT NULL,
+  `PD_REQUIRE_AMOUNT` bit(1) DEFAULT NULL,
   `PD_FIXED_AMOUNT` decimal(18,2) DEFAULT NULL,
   `PD_AMOUNT_UOM_TYPE_ID` varchar(20) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_WEIGHT_UOM_ID` varchar(20) COLLATE latin1_general_cs DEFAULT NULL,
   `PD_WEIGHT` decimal(18,6) DEFAULT NULL,
-  `PD_RETURNABLE` char(1) COLLATE latin1_general_cs DEFAULT NULL,
-  `PD_TAXABLE` char(1) COLLATE latin1_general_cs DEFAULT NULL,
-  `PD_IS_VIRTUAL` char(1) COLLATE latin1_general_cs DEFAULT NULL,
+  `PD_RETURNABLE` bit(1) DEFAULT NULL,
+  `PD_TAXABLE` bit(1) DEFAULT NULL,
+  `PD_IS_VIRTUAL` bit(1) DEFAULT NULL,
   `PD_CREATED_DATE` datetime DEFAULT NULL,
   PRIMARY KEY (`PD_PRODUCT_ID`),
   KEY `FK_PROD_PRODUCT_TYPE_ID` (`PD_PRODUCT_TYPE_ID`),
@@ -1063,14 +1196,3 @@ CREATE TABLE `so_sales_hdr` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
-DROP TABLE IF EXISTS `fms_party_product`;
-CREATE TABLE `fms_party_product` (
-  `PR_USER_ID` int(11) NOT NULL,
-  `PR_PRODUCT_ID` int(11) NOT NULL,
-  PRIMARY KEY (`PR_USER_ID`,PR_PRODUCT_ID),
-  KEY `PR_USER_ID` (`PR_USER_ID`),
-  KEY `PR_PRODUCT_ID` (`PR_PRODUCT_ID`),
-  CONSTRAINT `FK_PR_USER_ID` FOREIGN KEY (`PR_USER_ID`) REFERENCES `pm_party` (`PM_PARTY_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_PR_PRODUCT_ID` FOREIGN KEY (`PR_PRODUCT_ID`) REFERENCES `prod_product` (`PD_PRODUCT_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
