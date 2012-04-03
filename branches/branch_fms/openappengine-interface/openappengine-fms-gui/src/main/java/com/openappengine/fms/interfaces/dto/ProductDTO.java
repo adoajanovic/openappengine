@@ -32,6 +32,8 @@ public class ProductDTO implements Serializable {
 	private String taxable;
 
 	private String productType;
+	
+	private ProductTypeDTO productTypeDTO;
 
 	public int getProductId() {
 		return productId;
@@ -103,5 +105,13 @@ public class ProductDTO implements Serializable {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+
+	public ProductTypeDTO getProductTypeDTO() {
+		return productTypeDTO;
+	}
+
+	public void setProductTypeDTO(ProductTypeDTO productTypeDTO) {
+		this.productTypeDTO = productTypeDTO;
 	}
 }

@@ -42,16 +42,6 @@ CREATE TABLE `ab_address_book` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ab_address_book`
---
-
-/*!40000 ALTER TABLE `ab_address_book` DISABLE KEYS */;
-INSERT INTO `ab_address_book` (`AB_ADDRESS_BOOK_ID`,`AB_ADDRESS_1`,`AB_ADDRESS_2`,`AB_ATTN_NAME`,`AB_CITY`,`AB_COUNTRY`,`AB_DIRECTIONS`,`AB_POSTAL_CODE`,`AB_POSTAL_CODE_EXT`,`AB_STATE_PROVINCE`,`AB_TO_NAME`) VALUES 
- (1,'111','222','asas asasas','333','555',NULL,'666',NULL,'444','asas asasas');
-/*!40000 ALTER TABLE `ab_address_book` ENABLE KEYS */;
-
-
---
 -- Definition of table `ab_address_type`
 --
 
@@ -127,17 +117,6 @@ CREATE TABLE `ad_table_sequences` (
   `TS_SEQUENCE_NAME` varchar(100) NOT NULL,
   `TS_SEQUENCE_VALUE` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ad_table_sequences`
---
-
-/*!40000 ALTER TABLE `ad_table_sequences` DISABLE KEYS */;
-INSERT INTO `ad_table_sequences` (`TS_SEQUENCE_NAME`,`TS_SEQUENCE_VALUE`) VALUES 
- ('PM_PARTY',3),
- ('AB_ADDRESS_BOOK',2);
-/*!40000 ALTER TABLE `ad_table_sequences` ENABLE KEYS */;
-
 
 --
 -- Definition of table `cn_contract_det`
@@ -230,21 +209,6 @@ CREATE TABLE `co_code_type` (
   PRIMARY KEY (`CT_CODE_TYPE_ID`),
   UNIQUE KEY `CT_CODE_TYPE_ID` (`CT_CODE_TYPE_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `co_code_type`
---
-
-/*!40000 ALTER TABLE `co_code_type` DISABLE KEYS */;
-INSERT INTO `co_code_type` (`CT_CODE_TYPE_ID`,`CT_CODE_TYPE_VALUE`) VALUES 
- (18,'Errors1'),
- (19,'Teams'),
- (20,'asdada'),
- (21,'1111'),
- (23,'Hrishikesh'),
- (24,'Mom');
-/*!40000 ALTER TABLE `co_code_type` ENABLE KEYS */;
-
 
 --
 -- Definition of table `fm_invoice`
@@ -628,17 +592,6 @@ CREATE TABLE `fms_fleet_vehicle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fms_fleet_vehicle`
---
-
-/*!40000 ALTER TABLE `fms_fleet_vehicle` DISABLE KEYS */;
-INSERT INTO `fms_fleet_vehicle` (`FV_VEHICLE_ID`,`FV_TYPE_ID`,`FV_VEHICLE_MODEL`,`FV_VEHICLE_MAKE`,`FV_LICENCE_PLATE_NUMBER`,`FV_FROM_DATE`,`FV_TO_DATE`,`FV_STATUS`) VALUES 
- (1,17,'12212','1212','ASASA','2012-03-27','2013-03-27','ACTIVE'),
- (25,10,'Model1','Make1','MH01-1234-8765','2012-03-26','2013-03-26','ACTIVE');
-/*!40000 ALTER TABLE `fms_fleet_vehicle` ENABLE KEYS */;
-
-
---
 -- Definition of table `fms_fleet_vehicle_maint`
 --
 
@@ -694,16 +647,6 @@ CREATE TABLE `fms_fleet_vehicle_sequence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fms_fleet_vehicle_sequence`
---
-
-/*!40000 ALTER TABLE `fms_fleet_vehicle_sequence` DISABLE KEYS */;
-INSERT INTO `fms_fleet_vehicle_sequence` (`value`) VALUES 
- (1);
-/*!40000 ALTER TABLE `fms_fleet_vehicle_sequence` ENABLE KEYS */;
-
-
---
 -- Definition of table `fms_fleet_vehicle_std_cost`
 --
 
@@ -742,14 +685,6 @@ CREATE TABLE `fms_fleet_vehicle_std_cost_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fms_fleet_vehicle_std_cost_type`
---
-
-/*!40000 ALTER TABLE `fms_fleet_vehicle_std_cost_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fms_fleet_vehicle_std_cost_type` ENABLE KEYS */;
-
-
---
 -- Definition of table `fms_fleet_vehicle_type`
 --
 
@@ -762,30 +697,6 @@ CREATE TABLE `fms_fleet_vehicle_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `fms_fleet_vehicle_type`
---
-
-/*!40000 ALTER TABLE `fms_fleet_vehicle_type` DISABLE KEYS */;
-INSERT INTO `fms_fleet_vehicle_type` (`FT_FLEET_VEHICLE_TYPE_ID`,`FT_FLEET_TYPE_DESC`) VALUES 
- (6,' Varad1'),
- (17,'2'),
- (19,'A'),
- (18,'asdasd'),
- (20,'B'),
- (9,'Bus'),
- (14,'Hi1'),
- (15,'Hrishikesh'),
- (23,'Nachi'),
- (24,'NachiketB'),
- (16,'Sumedh1'),
- (13,'Sumo'),
- (22,'Tanmay'),
- (10,'Tempo'),
- (12,'Truck');
-/*!40000 ALTER TABLE `fms_fleet_vehicle_type` ENABLE KEYS */;
-
-
---
 -- Definition of table `fms_fleet_vehicle_type_sequence`
 --
 
@@ -793,16 +704,6 @@ DROP TABLE IF EXISTS `fms_fleet_vehicle_type_sequence`;
 CREATE TABLE `fms_fleet_vehicle_type_sequence` (
   `value` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `fms_fleet_vehicle_type_sequence`
---
-
-/*!40000 ALTER TABLE `fms_fleet_vehicle_type_sequence` DISABLE KEYS */;
-INSERT INTO `fms_fleet_vehicle_type_sequence` (`value`) VALUES 
- (25);
-/*!40000 ALTER TABLE `fms_fleet_vehicle_type_sequence` ENABLE KEYS */;
-
 
 --
 -- Definition of table `in_inventory_master`
@@ -884,16 +785,6 @@ CREATE TABLE `party_address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `party_address`
---
-
-/*!40000 ALTER TABLE `party_address` DISABLE KEYS */;
-INSERT INTO `party_address` (`PM_PARTY_ID`,`AB_ADDRESS_ID`) VALUES 
- (2,1);
-/*!40000 ALTER TABLE `party_address` ENABLE KEYS */;
-
-
---
 -- Definition of table `pm_party`
 --
 
@@ -908,19 +799,6 @@ CREATE TABLE `pm_party` (
   PRIMARY KEY (`PM_PARTY_ID`),
   UNIQUE KEY `PM_PARTY_ID` (`PM_PARTY_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pm_party`
---
-
-/*!40000 ALTER TABLE `pm_party` DISABLE KEYS */;
-INSERT INTO `pm_party` (`PM_PARTY_ID`,`PM_DESCRIPTION`,`PM_EXTERNAL_ID`,`PM_PARTY_TYPE`,`PM_PREFERRED_CURRENCY_UOM`,`PM_STATUS`) VALUES 
- (1,NULL,NULL,'PERSON',NULL,'ACTIVE'),
- (2,NULL,NULL,'PERSON',NULL,'ACTIVE'),
- (34,NULL,NULL,'PERSON',NULL,'ACTIVE'),
- (35,NULL,NULL,'PERSON',NULL,'ACTIVE');
-/*!40000 ALTER TABLE `pm_party` ENABLE KEYS */;
-
 
 --
 -- Definition of table `pm_party_contact_mech`
@@ -947,31 +825,6 @@ CREATE TABLE `pm_party_contact_mech` (
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pm_party_contact_mech`
---
-
-/*!40000 ALTER TABLE `pm_party_contact_mech` DISABLE KEYS */;
-INSERT INTO `pm_party_contact_mech` (`PM_CONTACT_MECH_ID`,`PM_CONTACT_MECH_PURPOSE`,`PM_CONTACT_MECH_TYPE`,`PM_INFO_STRING`,`PM_PARTY_ID`,`CM_CONTACT_MECH_ID`,`CM_CONTACT_MECH_PURPOSE`,`CM_CONTACT_MECH_TYPE`,`CM_INFO_STRING`,`CM_PARTY_ID`) VALUES 
- (46,'DEFAULT','PHONE_Residence','R11',34,NULL,NULL,NULL,NULL,NULL),
- (47,'DEFAULT','PHONE_Mobile','M11',34,NULL,NULL,NULL,NULL,NULL),
- (48,'DEFAULT','EMAIL','ER1',34,NULL,NULL,NULL,NULL,NULL),
- (49,'DEFAULT','EMAIL','ER2',34,NULL,NULL,NULL,NULL,NULL),
- (50,'DEFAULT','PHONE_Residence','022-22036583',35,NULL,NULL,NULL,NULL,NULL),
- (51,'DEFAULT','PHONE_Mobile','+91-9819791978',35,NULL,NULL,NULL,NULL,NULL),
- (52,'DEFAULT','EMAIL','hrishi2323@gmail.com',35,NULL,NULL,NULL,NULL,NULL),
- (53,'DEFAULT','EMAIL','hrishikeshjoshi0@gmail.com',35,NULL,NULL,NULL,NULL,NULL),
- (70,'DEFAULT','PHONE_Mobile','22',1,NULL,NULL,NULL,NULL,NULL),
- (71,'DEFAULT','PHONE_Residence','33',1,NULL,NULL,NULL,NULL,NULL),
- (72,'DEFAULT','EMAIL','sumedh0909@gmail.com',1,NULL,NULL,NULL,NULL,NULL),
- (73,'DEFAULT','EMAIL','sumedh.ketkar@moryasolutions.com',1,NULL,NULL,NULL,NULL,NULL),
- (74,'DEFAULT','PHONE_Residence','as',2,NULL,NULL,NULL,NULL,NULL),
- (75,'DEFAULT','PHONE_Residence','as',2,NULL,NULL,NULL,NULL,NULL),
- (76,'DEFAULT','EMAIL','as',2,NULL,NULL,NULL,NULL,NULL),
- (77,'DEFAULT','EMAIL','as',2,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `pm_party_contact_mech` ENABLE KEYS */;
-
-
---
 -- Definition of table `pm_party_contact_mech_sequence`
 --
 
@@ -981,16 +834,6 @@ CREATE TABLE `pm_party_contact_mech_sequence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pm_party_contact_mech_sequence`
---
-
-/*!40000 ALTER TABLE `pm_party_contact_mech_sequence` DISABLE KEYS */;
-INSERT INTO `pm_party_contact_mech_sequence` (`value`) VALUES 
- (77);
-/*!40000 ALTER TABLE `pm_party_contact_mech_sequence` ENABLE KEYS */;
-
-
---
 -- Definition of table `pm_party_sequence`
 --
 
@@ -998,16 +841,6 @@ DROP TABLE IF EXISTS `pm_party_sequence`;
 CREATE TABLE `pm_party_sequence` (
   `value` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pm_party_sequence`
---
-
-/*!40000 ALTER TABLE `pm_party_sequence` DISABLE KEYS */;
-INSERT INTO `pm_party_sequence` (`value`) VALUES 
- (35);
-/*!40000 ALTER TABLE `pm_party_sequence` ENABLE KEYS */;
-
 
 --
 -- Definition of table `pm_person`
@@ -1034,19 +867,6 @@ CREATE TABLE `pm_person` (
   KEY `FKC203BBD75B2F090D` (`PM_PARTY_ID`),
   CONSTRAINT `FKC203BBD75B2F090D` FOREIGN KEY (`PM_PARTY_ID`) REFERENCES `pm_party` (`PM_PARTY_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pm_person`
---
-
-/*!40000 ALTER TABLE `pm_person` DISABLE KEYS */;
-INSERT INTO `pm_person` (`PM_BIRTH_DATE`,`PM_COMMENTS`,`PM_DECEASED_DATE`,`PM_FIRST_NAME`,`PM_GENDER`,`PM_LAST_NAME`,`PM_MARITAL_STATUS`,`PM_MIDDLE_NAME`,`PM_NICK_NAME`,`PM_PASSPORT_EXPIRATION_DATE`,`PM_PASSPORT_NUMBER`,`PM_SALUTAION`,`PM_SSN`,`PM_SUFFIX`,`PM_PARTY_ID`) VALUES 
- ('2012-03-31 00:00:00',NULL,NULL,'Sumedh','M','Ketkar',NULL,'Raghunath',NULL,NULL,NULL,'Mr.',NULL,NULL,1),
- ('2012-04-01 00:00:00',NULL,NULL,'asas','M','asasas',NULL,'asasas',NULL,NULL,NULL,'Mr.',NULL,NULL,2),
- ('2012-03-09 00:00:00',NULL,NULL,'Pradnya','M','Joshi',NULL,'Shrikant',NULL,NULL,NULL,'Mr.',NULL,NULL,34),
- ('1987-01-23 00:00:00',NULL,NULL,'Hrishikesh','M','Joshi',NULL,'Shrikant',NULL,NULL,NULL,'Mr.',NULL,NULL,35);
-/*!40000 ALTER TABLE `pm_person` ENABLE KEYS */;
-
 
 --
 -- Definition of table `prod_product`
@@ -1083,14 +903,6 @@ CREATE TABLE `prod_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
 
 --
--- Dumping data for table `prod_product`
---
-
-/*!40000 ALTER TABLE `prod_product` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prod_product` ENABLE KEYS */;
-
-
---
 -- Definition of table `prod_product_type`
 --
 
@@ -1100,14 +912,6 @@ CREATE TABLE `prod_product_type` (
   `PT_PRODUCT_TYPE_DESC` varchar(255) NOT NULL,
   PRIMARY KEY (`PT_PRODUCT_TYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `prod_product_type`
---
-
-/*!40000 ALTER TABLE `prod_product_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prod_product_type` ENABLE KEYS */;
-
 
 --
 -- Definition of table `so_sales_det`
@@ -1146,14 +950,6 @@ CREATE TABLE `so_sales_det` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `so_sales_det`
---
-
-/*!40000 ALTER TABLE `so_sales_det` DISABLE KEYS */;
-/*!40000 ALTER TABLE `so_sales_det` ENABLE KEYS */;
-
-
---
 -- Definition of table `so_sales_hdr`
 --
 
@@ -1178,16 +974,6 @@ CREATE TABLE `so_sales_hdr` (
   PRIMARY KEY (`SO_SALES_ID`),
   UNIQUE KEY `SO_SALES_ID` (`SO_SALES_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `so_sales_hdr`
---
-
-/*!40000 ALTER TABLE `so_sales_hdr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `so_sales_hdr` ENABLE KEYS */;
-
-
-
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

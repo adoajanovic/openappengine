@@ -6,6 +6,8 @@ package com.openappengine.fms.interfaces;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
+import com.openappengine.fms.interfaces.dto.ProductDTO;
+import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 
 
 /**
@@ -38,5 +40,15 @@ public interface FleetManagerServiceFacade {
 	 * @param dto
 	 */
 	void updateCustomer(CustomerDTO dto);
+
+	/**
+	 * @return
+	 */
+	List<ProductTypeDTO> loadAllProductTypes();
+
+	/**
+	 * @param dto
+	 */
+	void addNewProduct(ProductDTO dto);
 	
 }

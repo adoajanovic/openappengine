@@ -13,6 +13,8 @@ import java.math.BigDecimal;
  */
 public class TaxDTO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private BigDecimal taxPercentage;
 	
 	private String taxType;

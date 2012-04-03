@@ -27,9 +27,9 @@ public class ProdProductType implements Serializable {
 	@Column(name="PT_PRODUCT_TYPE_DESC")
 	private String ptProductTypeDesc;
 
-	//bi-directional many-to-one association to ProdProduct
+	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="prodProductType")
-	private Set<ProdProduct> prodProducts;
+	private Set<Product> products;
 
     public ProdProductType() {
     }
@@ -50,12 +50,12 @@ public class ProdProductType implements Serializable {
 		this.ptProductTypeDesc = ptProductTypeDesc;
 	}
 
-	public Set<ProdProduct> getProdProducts() {
-		return this.prodProducts;
+	public Set<Product> getProdProducts() {
+		return this.products;
 	}
 
-	public void setProdProducts(Set<ProdProduct> prodProducts) {
-		this.prodProducts = prodProducts;
+	public void setProdProducts(Set<Product> products) {
+		this.products = products;
 	}
 	
 }

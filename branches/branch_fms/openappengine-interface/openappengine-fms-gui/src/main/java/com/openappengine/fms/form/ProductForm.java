@@ -7,24 +7,22 @@ import java.net.URL;
 
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.BeanAdapter;
+import org.apache.pivot.collections.ArrayList;
+import org.apache.pivot.collections.Dictionary;
 import org.apache.pivot.collections.HashMap;
+import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
+import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Dimensions;
-import org.apache.pivot.wtk.Display;
-import org.apache.pivot.wtk.Form;
-import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
-import org.apache.pivot.wtk.Window;
-import org.apache.pivot.wtk.WindowStateListener;
+import org.apache.pivot.wtk.content.ListItem;
 
 import com.openappengine.fms.interfaces.dto.ProductDTO;
-import com.openappengine.fms.interfaces.dto.TaxDTO;
-import com.openappengine.fms.util.PivotUtils;
+import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 
 /**
  * @author hrishi
@@ -35,32 +33,48 @@ public class ProductForm extends FleetManagerForm {
 	private ProductDTO productDTO;
 	
 	@BXML
-	private ListButton taxable;
+	private ListButton productType;
 	
 	@BXML
 	private PushButton saveButton;
 	
 	@BXML
-	private LinkButton addTaxButton;
-	
-	private Form taxForm;
-	
-	private Dialog dialog;
+	private PushButton resetButton;
 	
 	@Override
 	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
 		
-		taxable.setSelectedItem("Yes");
-		
 		saveButton.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
+				ProductTypeDTO productTypeDTO = (ProductTypeDTO) productType.getSelectedItem();
+				productDTO.setProductTypeDTO(productTypeDTO);
+				
 				source.getWindow().store(new BeanAdapter(productDTO));
-				System.out.println(productDTO);
+				
+				getFleetManagerServiceFacade().addNewProduct(productDTO);
+				
 			}
 		});
 		
-		addTaxButton.setAction(new Action() {
+		resetButton.setAction(new Action() {
+			@Override
+			public void perform(Component source) {
+				productDTO = new ProductDTO();
+				ProductForm.this.load(new BeanAdapter(productDTO));
+			}
+		});
+		
+		List<Object> listData = new ArrayList<Object>();
+		java.util.List<ProductTypeDTO> productTypes = getFleetManagerServiceFacade().loadAllProductTypes();
+		if(productTypes != null) {
+			for (ProductTypeDTO productTypeDTO : productTypes) {
+				listData.add(productTypeDTO);
+			}
+		}
+		productType.setListData(listData);
+		
+		/*addTaxButton.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
 				Map<String, Object> windowNS = new HashMap<String, Object>();
@@ -74,16 +88,18 @@ public class ProductForm extends FleetManagerForm {
 					@Override
 					public void windowClosed(Window window, Display display,
 							Window owner) {
-						TaxDTO taxDTO = ((TaxForm)taxForm).getTaxDTO();
+						taxDTO = ((TaxForm)taxForm).getTaxDTO();
+						if(taxDTO != null) {
+							taxPanel.load(new BeanAdapter(taxDTO));
+						}
 					}
 					
 				});
 				dialog.open(getWindow());
 			}
-		});
+		});*/
 		
 		productDTO = new ProductDTO();
-		productDTO.setProductName("Example");
 		this.load(new BeanAdapter(productDTO));
 	}
 }
