@@ -11,8 +11,13 @@ import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTOAssembler;
+import com.openappengine.fms.interfaces.dto.ProductDTO;
+import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
+import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
+import com.openappengine.model.product.ProdProductType;
+import com.openappengine.model.product.Product;
 import com.openappengine.repository.RepositoryUtils;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
@@ -118,7 +123,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 		java.util.Map<String, Object> resultMap = new java.util.HashMap<String, Object>();
 		try {
-			resultMap = sd.runSync("party.getActiveParties", context);
+			resultMap = sd.runSync("party.fetchProductTypes", context);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -135,5 +140,51 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		}
 		RepositoryUtils.closeOpenSession();
 		return customerDTOs;
+	}
+	
+	@Override
+	public void addNewProduct(ProductDTO dto) {
+		RepositoryUtils.openSession();
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		Product product = new ProductDTOAssembler().fromDTO(dto);
+		context.put("product", product);
+		
+		try {
+			resultMap = serviceDispatcher.runSync("product.addNewProduct", context);
+		} catch (ServiceException e) {
+			
+		}
+		
+		RepositoryUtils.closeOpenSession();
+	}
+
+	@Override
+	public List<ProductTypeDTO> loadAllProductTypes() {
+		RepositoryUtils.openSession();
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			resultMap = serviceDispatcher.runSync("product.findAllProductTypes", context);
+		} catch (ServiceException e) {
+		}
+		
+		List<ProdProductType> productTypes = (List<ProdProductType>) resultMap.get("productTypes");
+		List<ProductTypeDTO> productTypeDTOs = new ArrayList<ProductTypeDTO>();
+		if(productTypes != null) {
+			for (ProdProductType prodProductType : productTypes) {
+				ProductTypeDTO dto = new ProductTypeDTO();
+				dto.setProductTypeDesc(prodProductType.getPtProductTypeDesc());
+				dto.setProductTypeId(prodProductType.getPtProductTypeId());
+				productTypeDTOs.add(dto);
+			}
+		}
+		
+		RepositoryUtils.closeOpenSession();
+		return productTypeDTOs;
 	}
 }

@@ -28,7 +28,7 @@ import com.openappengine.model.fm.FmTaxRateProduct;
  */
 @Entity
 @Table(name="prod_product")
-public class ProdProduct implements Serializable {
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -118,7 +118,7 @@ public class ProdProduct implements Serializable {
 	@JoinColumn(name="PD_PRODUCT_TYPE_ID")
 	private ProdProductType prodProductType;
 
-    public ProdProduct() {
+    public Product() {
     }
 
 	public int getPdProductId() {

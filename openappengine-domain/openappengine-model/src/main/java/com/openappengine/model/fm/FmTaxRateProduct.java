@@ -20,7 +20,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.openappengine.model.product.ProdProduct;
+import com.openappengine.model.product.Product;
 
 /**
  * @author hrishi
@@ -42,7 +42,7 @@ public class FmTaxRateProduct implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="TR_PRODUCT_ID")
-	private ProdProduct product;
+	private Product product;
 	
 	@ManyToOne
 	@JoinColumn(name="TR_TAX_RATE_TYPE_ID")
@@ -77,11 +77,11 @@ public class FmTaxRateProduct implements Serializable {
 		this.taxRateId = taxRateId;
 	}
 
-	public ProdProduct getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProdProduct product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 

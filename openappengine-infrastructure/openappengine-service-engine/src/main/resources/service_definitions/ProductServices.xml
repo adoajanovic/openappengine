@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="product.findAllProductTypes" class="com.openappengine.service.product.ProductServices" invokeMethod="fetchProductTypes">
+		<description>
+			Fetch All Product Types.
+		</description>
+		
+		<parameter name="productTypes" type="java.util.List" mode="OUT" optional="false" />
+		
+	</service>
+	
+	<service name="product.addNewProduct" class="com.openappengine.service.product.ProductServices" invokeMethod="addNewProduct">
+		<description>
+			Add New Product.
+		</description>
+		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN_OUT" optional="false" />
+	</service>
+</services>

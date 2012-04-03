@@ -3,7 +3,7 @@
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.openappengine.model.product.ProdProduct;
+import com.openappengine.model.product.Product;
 
 
 /**
@@ -28,10 +28,10 @@ public class FmsFleetTaskUser implements Serializable {
 	@JoinColumn(name="FTU_FLEET_TASK_ID")
 	private FmsFleetTask fmsFleetTask;
 
-	//bi-directional many-to-one association to ProdProduct
+	//bi-directional many-to-one association to Product
     @ManyToOne
 	@JoinColumn(name="FTU_FLEET_SERVICE_ID")
-	private ProdProduct prodProduct;
+	private Product product;
 
     public FmsFleetTaskUser() {
     }
@@ -60,12 +60,12 @@ public class FmsFleetTaskUser implements Serializable {
 		this.fmsFleetTask = fmsFleetTask;
 	}
 	
-	public ProdProduct getProdProduct() {
-		return this.prodProduct;
+	public Product getProdProduct() {
+		return this.product;
 	}
 
-	public void setProdProduct(ProdProduct prodProduct) {
-		this.prodProduct = prodProduct;
+	public void setProdProduct(Product product) {
+		this.product = product;
 	}
 	
 }
