@@ -3,23 +3,25 @@
  */
 package com.openappengine.fms.form;
 
+import java.math.BigDecimal;
 import java.net.URL;
 
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.ArrayList;
-import org.apache.pivot.collections.Dictionary;
-import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.Button.State;
+import org.apache.pivot.wtk.ButtonStateListener;
+import org.apache.pivot.wtk.Checkbox;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Dimensions;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
-import org.apache.pivot.wtk.content.ListItem;
+import org.apache.pivot.wtk.TextInput;
+import org.apache.pivot.wtk.TextInputListener;
 
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
@@ -40,6 +42,21 @@ public class ProductForm extends FleetManagerForm {
 	
 	@BXML
 	private PushButton resetButton;
+	
+	@BXML
+	private Checkbox includesTax;
+	
+	@BXML
+	private TextInput priceNet;
+	
+	@BXML
+	private TextInput priceGross;
+	
+	@BXML
+	private TextInput tax;
+	
+	@BXML
+	private TextInput amount;
 	
 	@Override
 	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
@@ -73,6 +90,7 @@ public class ProductForm extends FleetManagerForm {
 			}
 		}
 		productType.setListData(listData);
+		productType.setSelectedItem("Service");
 		
 		/*addTaxButton.setAction(new Action() {
 			@Override
@@ -98,6 +116,47 @@ public class ProductForm extends FleetManagerForm {
 				dialog.open(getWindow());
 			}
 		});*/
+		
+		priceNet.setText("0.0");
+		priceGross.setText("0.0");
+		tax.setText("0.0");
+		
+		priceNet.getTextInputListeners().add(new TextInputListener.Adapter() {
+
+			@Override
+			public void textValidChanged(TextInput textInput) {
+				ProductTypeDTO dto = (ProductTypeDTO) productType.getSelectedItem();
+				if(dto == null) {
+					return;
+				}
+				
+				ProductForm.this.store(productDTO);
+				BigDecimal taxAmount = getFleetManagerServiceFacade().calculateTaxAmount(dto,new BigDecimal(priceNet.getText()));
+				productDTO.setTaxAmount(taxAmount);
+				ProductForm.this.load(new BeanAdapter(productDTO));
+			}
+		});
+		
+		includesTax.getButtonStateListeners().add(new ButtonStateListener() {
+			
+			@Override
+			public void stateChanged(Button button, State previousState) {
+				State state = button.getState();
+				ProductForm.this.store(productDTO);
+				
+				ProductTypeDTO dto = (ProductTypeDTO) productType.getSelectedItem();
+				if(dto == null) {
+					return;
+				}
+				if(State.UNSELECTED.equals(state)) {
+					BigDecimal taxAmount = getFleetManagerServiceFacade().calculateTaxAmount(dto,new BigDecimal(priceNet.getText()));
+					productDTO.setTaxAmount(taxAmount);
+				} else {
+					
+				}
+				ProductForm.this.load(new BeanAdapter(productDTO));	
+			}
+		});
 		
 		productDTO = new ProductDTO();
 		this.load(new BeanAdapter(productDTO));

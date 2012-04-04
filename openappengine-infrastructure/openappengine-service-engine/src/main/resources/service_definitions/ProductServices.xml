@@ -15,4 +15,14 @@
 		</description>
 		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN_OUT" optional="false" />
 	</service>
+	
+	<service name="product.calculateTax" class="com.openappengine.service.product.ProductTaxServices" invokeMethod="calculateTax">
+		<description>
+			Calculate the Tax given the net amount and the product type.
+		</description>
+		<parameter name="productType" type="com.openappengine.model.product.ProdProductType" mode="IN" optional="false" />
+		<parameter name="priceNet" type="java.math.BigDecimal" mode="IN" optional="false" />
+		<parameter name="calculatedTax" type="java.math.BigDecimal" mode="OUT" optional="false" />
+	</service>
+	
 </services>

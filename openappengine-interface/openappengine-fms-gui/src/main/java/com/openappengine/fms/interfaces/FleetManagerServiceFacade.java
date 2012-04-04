@@ -3,11 +3,13 @@
  */
 package com.openappengine.fms.interfaces;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
+import com.openappengine.model.product.ProdProductType;
 
 
 /**
@@ -50,5 +52,12 @@ public interface FleetManagerServiceFacade {
 	 * @param dto
 	 */
 	void addNewProduct(ProductDTO dto);
+
+	/**
+	 * @param type
+	 * @param netPrice
+	 * @return
+	 */
+	BigDecimal calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice);
 	
 }

@@ -1,5 +1,6 @@
 package com.openappengine.fms.interfaces;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -186,5 +187,27 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 		RepositoryUtils.closeOpenSession();
 		return productTypeDTOs;
+	}
+	
+	@Override
+	public BigDecimal calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice) {
+		RepositoryUtils.openSession();
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		ProdProductType type = new ProdProductType();
+		type.setPtProductTypeId(dto.getProductTypeId());
+		type.setPtProductTypeDesc(dto.getProductTypeDesc());
+		
+		context.put("productType", type);
+		context.put("priceNet", netPrice);
+		try {
+			resultMap = serviceDispatcher.runSync("product.calculateTax", context);
+		} catch (ServiceException e) {
+		}
+		
+		RepositoryUtils.closeOpenSession();
+		return (BigDecimal) resultMap.get("calculatedTax");
 	}
 }

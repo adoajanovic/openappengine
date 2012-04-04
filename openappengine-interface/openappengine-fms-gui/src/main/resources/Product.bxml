@@ -23,14 +23,25 @@
 			     
 			<FlowPane xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk" Form.label="Amount">    
 				<BoxPane orientation="vertical">
-			        <TextInput bxml:id = "fixedAmount" prompt="Fixed Amount" textSize="24" textKey="fixedAmount" text="%fixedAmount" />
+			        <TextInput bxml:id = "amount" prompt="Amount" textSize="24" textKey="fixedAmount" text="%fixedAmount" />
 		        </BoxPane>
 		        
 		        <BoxPane Form.label="Amount" orientation="vertical">
 			        <Checkbox bxml:id="includesTax" buttonData="Includes Tax" />
 		        </BoxPane>
-		        
 	        </FlowPane>
+	        
+	        <BoxPane Form.label="Net Price" orientation="vertical">
+		        <TextInput bxml:id = "priceNet" textKey="netPrice" text="%netPrice" enabled="false" />
+	        </BoxPane>
+	        
+	        <BoxPane Form.label="Tax" orientation="vertical">
+		        <TextInput bxml:id = "tax" textKey="taxAmount" text="%taxAmount" enabled="false" />
+	        </BoxPane>
+	        
+	        <BoxPane Form.label="Gross Price" orientation="vertical">
+		        <TextInput bxml:id = "priceGross" textKey="grossPrice" text="%grossPrice" enabled="false" />
+	        </BoxPane>
 	</Form.Section>
 	
 	<!--
@@ -53,15 +64,15 @@
 	
 	<Form.Section bxml:id = "total" heading="Total">
 			<BoxPane Form.label="Taxable Total">
-				<TextInput bxml:id="taxAmount" />
+				<TextInput bxml:id="taxAmount" enabled="false" />
 			</BoxPane>
 			
 		    <BoxPane Form.label="Total Tax">
-				<TextInput bxml:id="totalTax" />
+				<TextInput bxml:id="totalTax" enabled="false"/>
 			</BoxPane>
 			
 			<BoxPane Form.label="Taxable Amount">
-				<TextInput bxml:id="totalAmount" />
+				<TextInput bxml:id="totalAmount" enabled="false"/>
 			</BoxPane>
 	</Form.Section>
 	-->

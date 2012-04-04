@@ -30,6 +30,12 @@ public class ProductDTO implements Serializable {
 	private Date supportDiscontinuationDate;
 
 	private String taxable;
+	
+	private BigDecimal taxAmount = new BigDecimal(0.0);
+	
+	private BigDecimal netPrice = new BigDecimal(0.0);;
+	
+	private BigDecimal grossPrice = new BigDecimal(0.0);;
 
 	private String productType;
 	
@@ -113,5 +119,29 @@ public class ProductDTO implements Serializable {
 
 	public void setProductTypeDTO(ProductTypeDTO productTypeDTO) {
 		this.productTypeDTO = productTypeDTO;
+	}
+
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(BigDecimal taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	public BigDecimal getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(BigDecimal netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	public BigDecimal getGrossPrice() {
+		return grossPrice;
+	}
+
+	public void setGrossPrice(BigDecimal grossPrice) {
+		this.grossPrice = grossPrice;
 	}
 }

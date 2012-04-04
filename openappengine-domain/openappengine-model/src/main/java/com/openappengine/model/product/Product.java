@@ -110,9 +110,6 @@ public class Product implements Serializable {
 	/*@OneToMany(mappedBy="prodProduct")
 	private Set<FmsFleetTaskUser> fmsFleetTaskUsers;*/
 	
-	@OneToMany(mappedBy="product")
-	private List<FmTaxRateProduct> taxRates;
-
 	//bi-directional many-to-one association to ProdProductType
     @ManyToOne
 	@JoinColumn(name="PD_PRODUCT_TYPE_ID")
@@ -303,14 +300,6 @@ public class Product implements Serializable {
 
 	public void setProdProductType(ProdProductType prodProductType) {
 		this.prodProductType = prodProductType;
-	}
-
-	public List<FmTaxRateProduct> getTaxRates() {
-		return taxRates;
-	}
-
-	public void setTaxRates(List<FmTaxRateProduct> taxRates) {
-		this.taxRates = taxRates;
 	}
 	
 }
