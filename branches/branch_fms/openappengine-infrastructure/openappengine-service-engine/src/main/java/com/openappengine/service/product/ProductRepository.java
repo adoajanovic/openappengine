@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import com.openappengine.model.fm.FmTaxRateProduct;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.GenericRepository;
@@ -45,5 +46,12 @@ public class ProductRepository extends GenericRepository {
 		}
 		
 		return null;
+	}
+	
+	public List<FmTaxRateProduct> fetchTaxRatesForProductType(ProdProductType productType) {
+		Session session = RepositoryUtils.getExistingSession();
+		productType = (ProdProductType) session.merge(productType);
+		List<FmTaxRateProduct> taxRates = productType.getTaxRates();
+		return taxRates;
 	}
 }

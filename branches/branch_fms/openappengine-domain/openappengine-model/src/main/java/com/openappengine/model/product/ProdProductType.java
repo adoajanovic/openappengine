@@ -4,6 +4,9 @@ package com.openappengine.model.product;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.openappengine.model.fm.FmTaxRateProduct;
+
+import java.util.List;
 import java.util.Set;
 
 
@@ -30,6 +33,9 @@ public class ProdProductType implements Serializable {
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="prodProductType")
 	private Set<Product> products;
+	
+	@OneToMany(mappedBy="productType")
+	private List<FmTaxRateProduct> taxRates;
 
     public ProdProductType() {
     }
@@ -56,6 +62,14 @@ public class ProdProductType implements Serializable {
 
 	public void setProdProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	public List<FmTaxRateProduct> getTaxRates() {
+		return taxRates;
+	}
+
+	public void setTaxRates(List<FmTaxRateProduct> taxRates) {
+		this.taxRates = taxRates;
 	}
 	
 }

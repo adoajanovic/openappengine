@@ -20,6 +20,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 
 /**
@@ -27,7 +28,7 @@ import com.openappengine.model.product.Product;
  *
  */
 @Entity
-@Table(name="FM_TAX_RATE_PRODUCT")
+@Table(name="FM_TAX_RATE_PRODUCT_TYPE")
 public class FmTaxRateProduct implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,8 +42,8 @@ public class FmTaxRateProduct implements Serializable {
 	private int taxRateId;
 	
 	@ManyToOne
-	@JoinColumn(name="TR_PRODUCT_ID")
-	private Product product;
+	@JoinColumn(name="TR_PRODUCT_TYPE_ID")
+	private ProdProductType productType;
 	
 	@ManyToOne
 	@JoinColumn(name="TR_TAX_RATE_TYPE_ID")
@@ -75,14 +76,6 @@ public class FmTaxRateProduct implements Serializable {
 
 	public void setTaxRateId(int taxRateId) {
 		this.taxRateId = taxRateId;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 	public FmTaxType getTaxType() {
@@ -139,5 +132,13 @@ public class FmTaxRateProduct implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public ProdProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProdProductType productType) {
+		this.productType = productType;
 	}
 }
