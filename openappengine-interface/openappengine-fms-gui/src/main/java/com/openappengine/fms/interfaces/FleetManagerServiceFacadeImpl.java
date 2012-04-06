@@ -12,6 +12,7 @@ import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTOAssembler;
+import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
@@ -156,8 +157,10 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		try {
 			resultMap = serviceDispatcher.runSync("product.addNewProduct", context);
 		} catch (ServiceException e) {
-			
+			throw new FleetManagerServiceException("Exception encountered while calling Service Engine.");			
 		}
+		
+		
 		
 		RepositoryUtils.closeOpenSession();
 	}
@@ -190,7 +193,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 	}
 	
 	@Override
-	public BigDecimal calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice) {
+	public ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice) {
 		RepositoryUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
@@ -208,6 +211,11 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		}
 		
 		RepositoryUtils.closeOpenSession();
-		return (BigDecimal) resultMap.get("calculatedTax");
+		
+		ProductAmountDTO productAmountDTO = new ProductAmountDTO();
+		productAmountDTO.setCalculatedTax((BigDecimal) resultMap.get("calculatedTax"));
+		productAmountDTO.setPriceGross((BigDecimal) resultMap.get("priceGross"));
+		productAmountDTO.setPriceNet(netPrice);
+		return productAmountDTO;
 	}
 }

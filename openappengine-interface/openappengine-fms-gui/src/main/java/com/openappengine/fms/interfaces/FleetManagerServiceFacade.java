@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
+import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.model.product.ProdProductType;
@@ -58,6 +59,6 @@ public interface FleetManagerServiceFacade {
 	 * @param netPrice
 	 * @return
 	 */
-	BigDecimal calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice);
+	ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice);
 	
 }

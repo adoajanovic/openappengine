@@ -32,8 +32,7 @@ public class ProductRepository extends GenericRepository {
 	public void saveProduct(Product product) {
 		Session session = RepositoryUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(ProdProductType.class);
-		
-		session.save(product);
+		session.saveOrUpdate(product);
 	}
 	
 	public ProdProductType getProdProductType(String type) {
@@ -50,8 +49,8 @@ public class ProductRepository extends GenericRepository {
 	
 	public List<FmTaxRateProduct> fetchTaxRatesForProductType(ProdProductType productType) {
 		Session session = RepositoryUtils.getExistingSession();
-		productType = (ProdProductType) session.merge(productType);
-		List<FmTaxRateProduct> taxRates = productType.getTaxRates();
-		return taxRates;
+		Criteria criteria = session.createCriteria(FmTaxRateProduct.class);
+		criteria.add(Restrictions.eq("productType", productType));
+		return criteria.list();
 	}
 }

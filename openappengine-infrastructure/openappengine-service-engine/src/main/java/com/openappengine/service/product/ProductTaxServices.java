@@ -27,13 +27,17 @@ public class ProductTaxServices extends AbstractDomainService {
 	
 	public void calculateTax() {
 		List<FmTaxRateProduct> taxRates = productRepository.fetchTaxRatesForProductType(getProductType());
-		BigDecimal tax = new BigDecimal(0.0);
+		BigDecimal totalTax = new BigDecimal(0.0);
+		
 		if(taxRates != null) {
 			for (FmTaxRateProduct fmTaxRateProduct : taxRates) {
-				tax.add(fmTaxRateProduct.getTaxPercentage());
+				BigDecimal taxPercentage = fmTaxRateProduct.getTaxPercentage();
+				if(taxPercentage != null) {
+					totalTax = taxPercentage.multiply(priceNet).divide(new BigDecimal(100));
+				}
 			}
 		}
-		calculatedTax = tax.multiply(priceNet).divide(new BigDecimal(100));
+		calculatedTax = totalTax;
 	}
 
 	public BigDecimal getCalculatedTax() {
