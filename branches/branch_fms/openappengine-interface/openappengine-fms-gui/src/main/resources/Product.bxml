@@ -3,79 +3,32 @@
     xmlns:Form="com.openappengine.fms.form"
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk">
-  
+	
   	<Form.Section heading="Product Information">
-	        <BoxPane Form.label="Product Name" orientation="vertical">
-		        <TextInput bxml:id = "productName" textKey="productName" text="%productName" prompt="Product Name" textSize="24"/>
-	        </BoxPane>
+		   	<TextInput bxml:id = "productName" Form.label="Product Name" textKey="productName" textSize="24"/>
 	        
-	        <BoxPane Form.label="Description" orientation="vertical">
-		        <TextInput bxml:id = "description" prompt="Description" textKey="description" text="%description" />
-	        </BoxPane>
+	        <ListButton bxml:id="productType" Form.label="Product Type" />
 	        
-	        <BoxPane Form.label="Product Type">    
-	            <ListButton bxml:id="productType" />
-	        </BoxPane>
-	        
-	        <BoxPane Form.label="Introduction Date">
-				<CalendarButton bxml:id="introductionDate" />
-			</BoxPane>
-			     
-			<FlowPane xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk" Form.label="Amount">    
-				<BoxPane orientation="vertical">
-			        <TextInput bxml:id = "amount" prompt="Amount" textSize="24" textKey="fixedAmount" text="%fixedAmount" />
-		        </BoxPane>
-		        
-		        <BoxPane Form.label="Amount" orientation="vertical">
-			        <Checkbox bxml:id="includesTax" buttonData="Includes Tax" />
-		        </BoxPane>
-	        </FlowPane>
-	        
-	        <BoxPane Form.label="Net Price" orientation="vertical">
-		        <TextInput bxml:id = "priceNet" textKey="netPrice" text="%netPrice" enabled="false" />
-	        </BoxPane>
-	        
-	        <BoxPane Form.label="Tax" orientation="vertical">
-		        <TextInput bxml:id = "tax" textKey="taxAmount" text="%taxAmount" enabled="false" />
-	        </BoxPane>
-	        
-	        <BoxPane Form.label="Gross Price" orientation="vertical">
-		        <TextInput bxml:id = "priceGross" textKey="grossPrice" text="%grossPrice" enabled="false" />
-	        </BoxPane>
-	</Form.Section>
-	
-	<!--
-	<Form.Section bxml:id = "actions">
-			<FlowPane xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
-				 <LinkButton bxml:id="addTaxButton"> 
-	              	<content:ButtonData icon="../images/Add_Icon.jpg" text="Add Tax"/>
-	             </LinkButton>
-			</FlowPane>
-	</Form.Section>
-	-->
-	
-	<!--
-	<Form.Section bxml:id = "taxes" heading="Taxation Information">
-		    <Panel bxml:id = "taxPanel">
-				<TextInput bxml:id="taxType" textKey="taxDescription" text="%taxType" />
-		    	<TextInput bxml:id="taxPercentage" textKey="taxPercentage" text="%taxPercentage" />
-			</Panel>
-	</Form.Section>
-	
-	<Form.Section bxml:id = "total" heading="Total">
-			<BoxPane Form.label="Taxable Total">
-				<TextInput bxml:id="taxAmount" enabled="false" />
-			</BoxPane>
+			<CalendarButton bxml:id="introductionDate" Form.label="Introduction Date"/>
 			
-		    <BoxPane Form.label="Total Tax">
-				<TextInput bxml:id="totalTax" enabled="false"/>
-			</BoxPane>
+			<CalendarButton bxml:id="discontinuationDate" Form.label="Discontinuation Date"/>
+	             
+			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="fixedAmount" />
 			
-			<BoxPane Form.label="Taxable Amount">
-				<TextInput bxml:id="totalAmount" enabled="false"/>
-			</BoxPane>
+			<TextInput bxml:id = "tax" textKey="taxAmount" Form.label = "Tax" enabled="false" />
+			
+	        <TextInput bxml:id = "grossAmount" textKey="grossPrice" Form.label="Amount (Gross)" enabled="false" />
+	        
+	        <Label Form.label="Description" />
+		    <Border styles="{color:10}">
+               <ScrollPane horizontalScrollBarPolicy="fill"
+                          verticalScrollBarPolicy="fill"
+                          preferredWidth="400"
+                          preferredHeight="200">
+              		<TextArea bxml:id = "description" Form.label="Description" textKey="description" />
+               </ScrollPane>
+            </Border>
 	</Form.Section>
-	-->
 	
 	<Form.Section>
 		<FlowPane bxml:id="flowPane" styles="{padding:2}">
