@@ -22,6 +22,7 @@ public class ProductDTOAssembler {
 		product.setPdIntroductionDate(dto.getIntroductionDate());
 		product.setPdProductId(dto.getProductId());
 		product.setPdProductName(dto.getProductName());
+		product.setPdQuantityUom(dto.getQuantityUom());
 		
 		ProductTypeDTO productTypeDTO = dto.getProductTypeDTO();
 		ProdProductType prodProductType = new ProdProductType();

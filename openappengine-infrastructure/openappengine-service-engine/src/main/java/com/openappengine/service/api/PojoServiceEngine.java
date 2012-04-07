@@ -13,7 +13,10 @@ import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import com.openappengine.repository.RepositoryUtils;
+import com.openappengine.service.DefaultServiceContext;
 import com.openappengine.service.Service;
+import com.openappengine.service.ServiceContext;
 import com.openappengine.service.model.ModelService;
 import com.openappengine.service.model.ModelServiceParameter;
 
@@ -38,6 +41,12 @@ public class PojoServiceEngine implements ServiceEngine {
 		} catch (IllegalAccessException e) {
 			throw new ServiceException("Illegal Access to Service Class" + serviceClass.getName());
 		}
+		
+		//Set ServiceContext
+		DefaultServiceContext serviceContext = new DefaultServiceContext();
+		serviceContext.setHibernateSession(RepositoryUtils.getExistingSession());
+		
+		service.setServiceContext(serviceContext);
 		
 		BeanWrapper beanWrapper = new BeanWrapperImpl(service);
 		Set<String> paramNames = context.keySet();

@@ -16,6 +16,37 @@
 		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN_OUT" optional="false" />
 	</service>
 	
+	<service name="product.addNetPrice" class="com.openappengine.service.product.ProductServices" invokeMethod="addNetPrice">
+		<description>
+			Add New Product Net Price.
+		</description>
+		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN" optional="false" />
+		<parameter name="priceNet" type="java.math.BigDecimal" mode="IN" optional="false" />
+		<parameter name="fromDate" type="java.util.Date" mode="IN" optional="false" />
+		<parameter name="toDate" type="java.util.Date" mode="IN" optional="true" />
+	</service>
+	
+	<service name="product.addTaxPrice" class="com.openappengine.service.product.ProductServices" invokeMethod="addTaxPrice">
+		<description>
+			Add New Product Tax Price.
+		</description>
+		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN" optional="false" />
+		<parameter name="priceTax" type="java.math.BigDecimal" mode="IN" optional="false" />
+		<parameter name="fromDate" type="java.util.Date" mode="IN" optional="false" />
+		<parameter name="toDate" type="java.util.Date" mode="IN" optional="true" />
+	</service>
+	
+	<service name="product.addGrossPrice" class="com.openappengine.service.product.ProductServices" invokeMethod="addGrossPrice">
+		<description>
+			Add New Product Gross Price.
+		</description>
+		<parameter name="product" type="com.openappengine.model.product.Product" mode="IN" optional="false" />
+		<parameter name="priceGross" type="java.math.BigDecimal" mode="IN" optional="false" />
+		<parameter name="fromDate" type="java.util.Date" mode="IN" optional="false" />
+		<parameter name="toDate" type="java.util.Date" mode="IN" optional="true" />
+	</service>
+	
+	
 	<service name="product.calculateTax" class="com.openappengine.service.product.ProductServices" invokeMethod="calculateProductAmounts">
 		<description>
 			Calculate the Tax given the net amount and the product type.

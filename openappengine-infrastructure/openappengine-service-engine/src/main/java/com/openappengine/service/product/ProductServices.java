@@ -4,9 +4,12 @@
 package com.openappengine.service.product;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.openappengine.model.fm.FmTaxRateProduct;
+import com.openappengine.model.product.ProdProductPrice;
+import com.openappengine.model.product.ProdProductPriceType;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.service.AbstractDomainService;
@@ -28,6 +31,12 @@ public class ProductServices extends AbstractDomainService {
 	
 	private BigDecimal priceNet;
 	
+	private BigDecimal priceTax;
+	
+	private Date fromDate;
+	
+	private Date toDate;
+	
 	private BigDecimal priceGross;
 	
 	private ProdProductType productType;
@@ -38,6 +47,48 @@ public class ProductServices extends AbstractDomainService {
 	
 	public void addNewProduct() {
 		productRepository.saveProduct(product);
+	}
+	
+	public void addNetPrice() {
+		ProdProductPrice prodProductPrice = new ProdProductPrice();
+		prodProductPrice.setPpPrice(priceNet);
+		prodProductPrice.setPpFromDate(fromDate);
+		prodProductPrice.setPpToDate(toDate);
+		prodProductPrice.setPpCurrencyUomId("INR");
+		prodProductPrice.setProdProduct(product);
+		
+		ProdProductPriceType productPriceType = productRepository
+				.getProductPriceType(serviceContext.getHibernateSession(),"NET PRICE");
+		prodProductPrice.setProdProductPriceType(productPriceType);
+		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
+	}
+	
+	public void addTaxPrice() {
+		ProdProductPrice prodProductPrice = new ProdProductPrice();
+		prodProductPrice.setPpPrice(priceTax);
+		prodProductPrice.setPpFromDate(fromDate);
+		prodProductPrice.setPpToDate(toDate);
+		prodProductPrice.setPpCurrencyUomId("INR");
+		prodProductPrice.setProdProduct(product);
+		
+		ProdProductPriceType productPriceType = productRepository
+				.getProductPriceType(serviceContext.getHibernateSession(),"TAX PRICE");
+		prodProductPrice.setProdProductPriceType(productPriceType);
+		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
+	}
+	
+	public void addGrossPrice() {
+		ProdProductPrice prodProductPrice = new ProdProductPrice();
+		prodProductPrice.setPpPrice(priceGross);
+		prodProductPrice.setPpFromDate(fromDate);
+		prodProductPrice.setPpToDate(toDate);
+		prodProductPrice.setPpCurrencyUomId("INR");
+		prodProductPrice.setProdProduct(product);
+		
+		ProdProductPriceType productPriceType = productRepository
+				.getProductPriceType(serviceContext.getHibernateSession(),"GROSS PRICE");
+		prodProductPrice.setProdProductPriceType(productPriceType);
+		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
 	}
 	
 	public void calculateProductAmounts() {
@@ -106,6 +157,30 @@ public class ProductServices extends AbstractDomainService {
 
 	public void setPriceGross(BigDecimal priceGross) {
 		this.priceGross = priceGross;
-	} 
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+
+	public BigDecimal getPriceTax() {
+		return priceTax;
+	}
+
+	public void setPriceTax(BigDecimal priceTax) {
+		this.priceTax = priceTax;
+	}
 	
 }

@@ -2,11 +2,13 @@ package com.openappengine.fms.interfaces;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTOAssembler;
@@ -18,6 +20,7 @@ import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
+import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.RepositoryUtils;
@@ -146,23 +149,58 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 	
 	@Override
 	public void addNewProduct(ProductDTO dto) {
-		RepositoryUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		Product product = new ProductDTOAssembler().fromDTO(dto);
 		context.put("product", product);
-		
+				
+		Session session = null;
 		try {
+			session = RepositoryUtils.openSession();
+			
 			resultMap = serviceDispatcher.runSync("product.addNewProduct", context);
+			product = (Product) resultMap.get("product");
+			
+			//Add Net Price
+			context = new HashMap<String, Object>();
+			context.put("product", product);
+			context.put("priceNet", dto.getNetPrice());
+			context.put("fromDate", dto.getIntroductionDate());
+			context.put("toDate", dto.getSalesDiscontinuationDate());
+			serviceDispatcher.runSyncIgnoreResult("product.addNetPrice", context);
+			
+			//Add Tax Price
+			context = new HashMap<String, Object>();
+			context.put("product", product);
+			context.put("priceTax", dto.getTaxAmount());
+			context.put("fromDate", dto.getIntroductionDate());
+			context.put("toDate", dto.getSalesDiscontinuationDate());
+			serviceDispatcher.runSyncIgnoreResult("product.addTaxPrice", context);
+			
+			//Add Gross Price
+			context = new HashMap<String, Object>();
+			context.put("product", product);
+			context.put("priceGross", dto.getGrossPrice());
+			context.put("fromDate", dto.getIntroductionDate());
+			context.put("toDate", dto.getSalesDiscontinuationDate());
+			serviceDispatcher.runSyncIgnoreResult("product.addGrossPrice", context);
+			
 		} catch (ServiceException e) {
-			throw new FleetManagerServiceException("Exception encountered while calling Service Engine.");			
+			if(session != null) {
+				Transaction transaction = session.getTransaction();
+				if(transaction != null) {
+					if(!transaction.wasRolledBack()) {
+						transaction.rollback();
+					}
+				}
+			}
+			throw new FleetManagerServiceException("Exception encountered while calling Service Engine.");
+		} finally {
+			RepositoryUtils.closeOpenSession();
 		}
 		
-		
-		
-		RepositoryUtils.closeOpenSession();
 	}
 
 	@Override

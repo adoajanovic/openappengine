@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class AbstractDomainService implements Service {
 	
-	private ServiceContext serviceContext;
+	protected ServiceContext serviceContext;
 	
 	private List<String> errorMessages = new ArrayList<String>();
 	

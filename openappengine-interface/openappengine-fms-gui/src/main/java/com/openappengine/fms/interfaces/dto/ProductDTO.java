@@ -31,6 +31,8 @@ public class ProductDTO implements Serializable {
 
 	private String taxable;
 	
+	private String quantityUom = "PER 1 PERSON";
+	
 	private BigDecimal taxAmount = new BigDecimal(0.0);
 	
 	private BigDecimal netPrice = new BigDecimal(0.0);;
@@ -144,4 +146,13 @@ public class ProductDTO implements Serializable {
 	public void setGrossPrice(BigDecimal grossPrice) {
 		this.grossPrice = grossPrice;
 	}
+
+	public String getQuantityUom() {
+		return quantityUom;
+	}
+
+	public void setQuantityUom(String quantityUom) {
+		this.quantityUom = quantityUom;
+	}
+
 }

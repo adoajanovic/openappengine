@@ -1,13 +1,9 @@
 package com.openappengine.model.product;
 
-
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.openappengine.model.fm.FmTaxRateProduct;
-
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -20,22 +16,19 @@ public class ProdProductType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="addressGenerator")  
-	@TableGenerator(name="addressGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="seqGenerator")  
+	@TableGenerator(name="seqGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
 	                allocationSize=1 // flush every 1 insert  
 	)
-	@Column(name="PT_PRODUCT_TYPE_ID")
+	@Column(name="PT_PRODUCT_TYPE_ID", unique=true, nullable=false)
 	private int ptProductTypeId;
 
-	@Column(name="PT_PRODUCT_TYPE_DESC")
+	@Column(name="PT_PRODUCT_TYPE_DESC", nullable=false, length=255)
 	private String ptProductTypeDesc;
 
-	//bi-directional many-to-one association to Product
+	//bi-directional many-to-one association to ProdProduct
 	@OneToMany(mappedBy="prodProductType")
-	private Set<Product> products;
-	
-	@OneToMany(mappedBy="productType")
-	private List<FmTaxRateProduct> taxRates;
+	private List<Product> prodProducts;
 
     public ProdProductType() {
     }
@@ -56,20 +49,12 @@ public class ProdProductType implements Serializable {
 		this.ptProductTypeDesc = ptProductTypeDesc;
 	}
 
-	public Set<Product> getProdProducts() {
-		return this.products;
+	public List<Product> getProdProducts() {
+		return this.prodProducts;
 	}
 
-	public void setProdProducts(Set<Product> products) {
-		this.products = products;
-	}
-
-	public List<FmTaxRateProduct> getTaxRates() {
-		return taxRates;
-	}
-
-	public void setTaxRates(List<FmTaxRateProduct> taxRates) {
-		this.taxRates = taxRates;
+	public void setProdProducts(List<Product> prodProducts) {
+		this.prodProducts = prodProducts;
 	}
 	
 }

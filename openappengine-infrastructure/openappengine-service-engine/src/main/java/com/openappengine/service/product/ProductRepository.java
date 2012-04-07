@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.openappengine.model.fm.FmTaxRateProduct;
+import com.openappengine.model.product.ProdProductPriceType;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.GenericRepository;
@@ -31,7 +32,6 @@ public class ProductRepository extends GenericRepository {
 	
 	public void saveProduct(Product product) {
 		Session session = RepositoryUtils.getExistingSession();
-		Criteria criteria = session.createCriteria(ProdProductType.class);
 		session.saveOrUpdate(product);
 	}
 	
@@ -52,5 +52,13 @@ public class ProductRepository extends GenericRepository {
 		Criteria criteria = session.createCriteria(FmTaxRateProduct.class);
 		criteria.add(Restrictions.eq("productType", productType));
 		return criteria.list();
+	}
+	
+	public ProdProductPriceType getProductPriceType(Session session, String productType) {
+		Criteria criteria = session.createCriteria(ProdProductPriceType.class);
+		criteria.add(Restrictions.eq("ptDescription", productType));
+		List list = criteria.list();
+		if(list == null || list.isEmpty()) return null;
+		return (ProdProductPriceType) list.get(0);
 	}
 }

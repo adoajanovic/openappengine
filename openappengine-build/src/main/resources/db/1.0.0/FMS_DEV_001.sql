@@ -905,13 +905,41 @@ CREATE TABLE `prod_product` (
 --
 -- Definition of table `prod_product_type`
 --
-
 DROP TABLE IF EXISTS `prod_product_type`;
 CREATE TABLE `prod_product_type` (
   `PT_PRODUCT_TYPE_ID` int(11) NOT NULL,
   `PT_PRODUCT_TYPE_DESC` varchar(255) NOT NULL,
   PRIMARY KEY (`PT_PRODUCT_TYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Definition of table `prod_product_price_type`
+--
+DROP TABLE IF EXISTS `prod_product_price_type`;
+CREATE TABLE `prod_product_price_type` (
+  `PT_PRODUCT_PRICE_TYPE_ID` int(11) NOT NULL,
+  `PT_DESCRIPTION` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`PT_PRODUCT_PRICE_TYPE_ID`)
+);
+
+--
+-- Definition of table `prod_product_price`
+--
+DROP TABLE IF EXISTS `prod_product_price`;
+CREATE TABLE `prod_product_price` (
+  `PP_PROD_PRODUCT_PRICE_ID` int(11) NOT NULL,
+  `PP_PRODUCT_ID` int(11) NOT NULL,
+  `PP_PRODUCT_PRICE_TYPE_ID` int(11) NOT NULL,
+  `PP_CURRENCY_UOM_ID` varchar(20) DEFAULT 'INR',
+  `PP_FROM_DATE` datetime NOT NULL,
+  `PP_TO_DATE` datetime DEFAULT NULL,
+  `PP_PRICE` decimal(18,3) DEFAULT NULL,
+  PRIMARY KEY (`PP_PROD_PRODUCT_PRICE_ID`),
+  KEY `PROD_PRICE_PROD` (`PP_PRODUCT_ID`),
+  KEY `PROD_PRICE_TYPE` (`PP_PRODUCT_PRICE_TYPE_ID`),
+  CONSTRAINT `PROD_PRICE_PROD` FOREIGN KEY (`PP_PRODUCT_ID`) REFERENCES `prod_product` (`PD_PRODUCT_ID`),
+  CONSTRAINT `PROD_PRICE_TYPE` FOREIGN KEY (`PP_PRODUCT_PRICE_TYPE_ID`) REFERENCES `prod_product_price_type` (`PT_PRODUCT_PRICE_TYPE_ID`)
+);
 
 --
 -- Definition of table `so_sales_det`
