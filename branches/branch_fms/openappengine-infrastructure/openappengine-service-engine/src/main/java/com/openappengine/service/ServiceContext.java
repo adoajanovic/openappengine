@@ -3,6 +3,8 @@
  */
 package com.openappengine.service;
 
+import org.hibernate.Session;
+
 import com.openappengine.entity.EntityEngineFacade;
 
 /**
@@ -16,5 +18,7 @@ import com.openappengine.entity.EntityEngineFacade;
 public interface ServiceContext {
 	
 	EntityEngineFacade getEngineFacade();
+	
+	Session getHibernateSession();
 
 }

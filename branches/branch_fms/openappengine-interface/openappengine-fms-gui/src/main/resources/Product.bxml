@@ -12,8 +12,10 @@
 			<CalendarButton bxml:id="introductionDate" Form.label="Introduction Date"/>
 			
 			<CalendarButton bxml:id="discontinuationDate" Form.label="Discontinuation Date"/>
-	             
-			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="fixedAmount" />
+			
+			<TextInput bxml:id = "quantityUom" textKey="quantityUom" Form.label = "Qty. UOM (For Persons)" />
+			
+			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="netPrice" />
 			
 			<TextInput bxml:id = "tax" textKey="taxAmount" Form.label = "Tax" enabled="false" />
 			

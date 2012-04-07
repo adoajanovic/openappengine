@@ -1,25 +1,11 @@
 package com.openappengine.model.product;
 
-
 import java.io.Serializable;
+import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.openappengine.model.fm.FmTaxRateProduct;
 
 
 /**
@@ -32,30 +18,30 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="addressGenerator")  
-	@TableGenerator(name="addressGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="seqGenerator")  
+	@TableGenerator(name="seqGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
 	                allocationSize=1 // flush every 1 insert  
 	)
-	@Column(name="PD_PRODUCT_ID")
+	@Column(name="PD_PRODUCT_ID", unique=true, nullable=false)
 	private int pdProductId;
 
-	@Column(name="PD_AMOUNT_UOM_TYPE_ID")
-	private String pdAmountUomTypeId;
+	@Column(name="PD_AMOUNT_UOM_TYPE", length=20)
+	private String pdAmountUomType;
 
-	@Column(name="PD_COMMENTS")
+	@Column(name="PD_COMMENTS", length=255)
 	private String pdComments;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="PD_CREATED_DATE")
 	private Date pdCreatedDate;
 
-	@Column(name="PD_DESCRIPTION")
+	@Column(name="PD_DESCRIPTION", length=255)
 	private String pdDescription;
 
-	@Column(name="PD_FIXED_AMOUNT")
+	@Column(name="PD_FIXED_AMOUNT", precision=10, scale=2)
 	private BigDecimal pdFixedAmount;
 
-	@Column(name="PD_INTERNAL_NAME")
+	@Column(name="PD_INTERNAL_NAME", length=255)
 	private String pdInternalName;
 
     @Temporal( TemporalType.TIMESTAMP)
@@ -63,31 +49,31 @@ public class Product implements Serializable {
 	private Date pdIntroductionDate;
 
 	@Column(name="PD_IS_VIRTUAL")
-	private boolean pdIsVirtual;
+	private Boolean pdIsVirtual;
 
-	@Column(name="PD_PIECES_INCLUDED")
+	@Column(name="PD_PIECES_INCLUDED", precision=10)
 	private BigDecimal pdPiecesIncluded;
 
-	@Column(name="PD_PRODUCT_NAME")
+	@Column(name="PD_PRODUCT_NAME", length=100)
 	private String pdProductName;
 
-	@Column(name="PD_QUANTITY_INCLUDED")
+	@Column(name="PD_QUANTITY_INCLUDED", precision=10, scale=6)
 	private BigDecimal pdQuantityIncluded;
 
-	@Column(name="PD_QUANTITY_UOM_ID")
-	private String pdQuantityUomId;
+	@Column(name="PD_QUANTITY_UOM", length=255)
+	private String pdQuantityUom;
 
 	@Column(name="PD_REQUIRE_AMOUNT")
-	private boolean pdRequireAmount;
+	private Boolean pdRequireAmount;
 
 	@Column(name="PD_REQUIRE_INVENTORY")
-	private boolean pdRequireInventory;
+	private Boolean pdRequireInventory;
 
 	@Column(name="PD_RETURNABLE")
-	private boolean pdReturnable;
+	private Boolean pdReturnable;
 
 	@Column(name="PD_SALES_DISC_WHEN_NOT_AVAIL")
-	private boolean pdSalesDiscWhenNotAvail;
+	private Boolean pdSalesDiscWhenNotAvail;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="PD_SALES_DISCONTINUATION_DATE")
@@ -98,22 +84,22 @@ public class Product implements Serializable {
 	private Date pdSupportDiscontinuationDate;
 
 	@Column(name="PD_TAXABLE")
-	private boolean pdTaxable;
+	private Boolean pdTaxable;
 
-	@Column(name="PD_WEIGHT")
+	@Column(name="PD_WEIGHT", precision=10, scale=6)
 	private BigDecimal pdWeight;
 
-	@Column(name="PD_WEIGHT_UOM_ID")
+	@Column(name="PD_WEIGHT_UOM_ID", length=20)
 	private String pdWeightUomId;
 
-	//bi-directional many-to-one association to FmsFleetTaskUser
-	/*@OneToMany(mappedBy="prodProduct")
-	private Set<FmsFleetTaskUser> fmsFleetTaskUsers;*/
-	
 	//bi-directional many-to-one association to ProdProductType
     @ManyToOne
-	@JoinColumn(name="PD_PRODUCT_TYPE_ID")
+	@JoinColumn(name="PD_PRODUCT_TYPE_ID", nullable=false)
 	private ProdProductType prodProductType;
+
+	//bi-directional many-to-one association to ProdProductPrice
+	@OneToMany(mappedBy="prodProduct")
+	private List<ProdProductPrice> prodProductPrices;
 
     public Product() {
     }
@@ -126,12 +112,12 @@ public class Product implements Serializable {
 		this.pdProductId = pdProductId;
 	}
 
-	public String getPdAmountUomTypeId() {
-		return this.pdAmountUomTypeId;
+	public String getPdAmountUomType() {
+		return this.pdAmountUomType;
 	}
 
-	public void setPdAmountUomTypeId(String pdAmountUomTypeId) {
-		this.pdAmountUomTypeId = pdAmountUomTypeId;
+	public void setPdAmountUomType(String pdAmountUomType) {
+		this.pdAmountUomType = pdAmountUomType;
 	}
 
 	public String getPdComments() {
@@ -182,11 +168,11 @@ public class Product implements Serializable {
 		this.pdIntroductionDate = pdIntroductionDate;
 	}
 
-	public boolean getPdIsVirtual() {
+	public Boolean getPdIsVirtual() {
 		return this.pdIsVirtual;
 	}
 
-	public void setPdIsVirtual(boolean pdIsVirtual) {
+	public void setPdIsVirtual(Boolean pdIsVirtual) {
 		this.pdIsVirtual = pdIsVirtual;
 	}
 
@@ -214,43 +200,43 @@ public class Product implements Serializable {
 		this.pdQuantityIncluded = pdQuantityIncluded;
 	}
 
-	public String getPdQuantityUomId() {
-		return this.pdQuantityUomId;
+	public String getPdQuantityUom() {
+		return this.pdQuantityUom;
 	}
 
-	public void setPdQuantityUomId(String pdQuantityUomId) {
-		this.pdQuantityUomId = pdQuantityUomId;
+	public void setPdQuantityUom(String pdQuantityUom) {
+		this.pdQuantityUom = pdQuantityUom;
 	}
 
-	public boolean getPdRequireAmount() {
+	public Boolean getPdRequireAmount() {
 		return this.pdRequireAmount;
 	}
 
-	public void setPdRequireAmount(boolean pdRequireAmount) {
+	public void setPdRequireAmount(Boolean pdRequireAmount) {
 		this.pdRequireAmount = pdRequireAmount;
 	}
 
-	public boolean getPdRequireInventory() {
+	public Boolean getPdRequireInventory() {
 		return this.pdRequireInventory;
 	}
 
-	public void setPdRequireInventory(boolean pdRequireInventory) {
+	public void setPdRequireInventory(Boolean pdRequireInventory) {
 		this.pdRequireInventory = pdRequireInventory;
 	}
 
-	public boolean getPdReturnable() {
+	public Boolean getPdReturnable() {
 		return this.pdReturnable;
 	}
 
-	public void setPdReturnable(boolean pdReturnable) {
+	public void setPdReturnable(Boolean pdReturnable) {
 		this.pdReturnable = pdReturnable;
 	}
 
-	public boolean getPdSalesDiscWhenNotAvail() {
+	public Boolean getPdSalesDiscWhenNotAvail() {
 		return this.pdSalesDiscWhenNotAvail;
 	}
 
-	public void setPdSalesDiscWhenNotAvail(boolean pdSalesDiscWhenNotAvail) {
+	public void setPdSalesDiscWhenNotAvail(Boolean pdSalesDiscWhenNotAvail) {
 		this.pdSalesDiscWhenNotAvail = pdSalesDiscWhenNotAvail;
 	}
 
@@ -270,11 +256,11 @@ public class Product implements Serializable {
 		this.pdSupportDiscontinuationDate = pdSupportDiscontinuationDate;
 	}
 
-	public boolean getPdTaxable() {
+	public Boolean getPdTaxable() {
 		return this.pdTaxable;
 	}
 
-	public void setPdTaxable(boolean pdTaxable) {
+	public void setPdTaxable(Boolean pdTaxable) {
 		this.pdTaxable = pdTaxable;
 	}
 
@@ -300,6 +286,14 @@ public class Product implements Serializable {
 
 	public void setProdProductType(ProdProductType prodProductType) {
 		this.prodProductType = prodProductType;
+	}
+	
+	public List<ProdProductPrice> getProdProductPrices() {
+		return this.prodProductPrices;
+	}
+
+	public void setProdProductPrices(List<ProdProductPrice> prodProductPrices) {
+		this.prodProductPrices = prodProductPrices;
 	}
 	
 }
