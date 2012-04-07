@@ -1,0 +1,87 @@
+  <Form:SalesOrderForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+	
+	<Form.Section heading="Sales Order">
+			<FlowPane>
+				<Border styles="{padding:2}">
+					<LinkButton bxml:id="addLineItemLink" tooltipText="Add Line Item">
+					    <content:ButtonData icon="../images/add.png" />
+					</LinkButton>
+				</Border>	
+				
+				<Border styles="{padding:2}">
+					<LinkButton bxml:id="searchCustomerLink" tooltipText="Attach Customer">
+					    <content:ButtonData icon="../images/person.png" />
+					</LinkButton>
+				</Border>
+			</FlowPane>    
+	</Form.Section>
+	
+  	<Form.Section heading="Customer">
+  	
+  			<Checkbox buttonData="One-time customer" />
+
+			<Label Form.label="Name" />  			  			
+  			<FlowPane>
+  				<ListButton bxml:id="salutation" selectedItemKey="party.salutation" listData="['Mr.', 'Mrs.', 'Ms.', 'Dr.']" />
+	            <TextInput bxml:id="firstName" textKey="party.firstName" prompt="First Name"/>
+	            <TextInput bxml:id="middleName" textKey="party.middleName" prompt="Middle Name"/>
+	            <TextInput bxml:id="lastName" textKey="party.lastName" prompt="Last Name"/>
+  			</FlowPane>
+	        
+	        <CalendarButton bxml:id="birthDate" selectedDateKey="party.birthDate" Form.label="Birth Date" >
+	        	<selectedDateBindMapping>
+	        		<CalendarDateBinding xmlns="com.openappengine.fms.util" />
+	        	</selectedDateBindMapping>
+	        </CalendarButton>
+			
+			<BoxPane Form.label="Address" orientation="vertical">
+		        <TextInput bxml:id = "address1" textKey="party.addressDTO.address1" prompt="Street Address 1" textSize="24"/>
+		        <TextInput bxml:id = "address2" textKey="party.addressDTO.address2" prompt="Street Address 2" textSize="24"/>
+		        
+		        <BoxPane>
+		           <TextInput bxml:id = "city" prompt="City" textKey="party.addressDTO.city" />
+		           <TextInput bxml:id = "state" prompt="State" textSize="6" textKey="party.addressDTO.stateProvince" />
+		           <TextInput bxml:id = "country" prompt="Country" textSize="6" textKey="party.addressDTO.country" />
+		    	   <TextInput bxml:id = "zip" prompt="Zip" textSize="10" textKey="party.addressDTO.postalCode"/>
+		        </BoxPane>
+		    </BoxPane>
+	</Form.Section>
+	
+	<Form.Section heading="Lines">
+		<ScrollPane>
+		       <TableView bxml:id="lineItemsTableView">
+		          <columns>
+		             <TableView.Column name="lineNo" headerData="Line No."/>
+		             <TableView.Column name="productName" headerData="Item"/>
+		             <TableView.Column name="unit" headerData="Unit"/>
+		             <TableView.Column name="unitPrice" headerData="Unit Price"/>
+		             <TableView.Column name="quantity" headerData="Quantity"/>
+		             <TableView.Column name="tax" headerData="Tax"/>
+		             <TableView.Column name="total" headerData="Amount"/>
+		       	  </columns>
+		       </TableView>
+		 
+		 	   <columnHeader>
+		       		<TableViewHeader tableView="$lineItemsTableView"/>
+		       </columnHeader>
+		 </ScrollPane>
+	</Form.Section>
+				       
+	<Form.Section>
+		<FlowPane bxml:id="flowPane" styles="{padding:2}">
+			    <PushButton buttonData="Save"
+			    	bxml:id="saveButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+				
+				<PushButton buttonData="Reset"
+			    	bxml:id="resetButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+		</FlowPane>
+	</Form.Section>
+  </Form:SalesOrderForm>
