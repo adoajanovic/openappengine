@@ -5,7 +5,7 @@
 	xmlns="org.apache.pivot.wtk">
 	
   	<Form.Section heading="Product Information">
-		   	<TextInput bxml:id = "productName" Form.label="Product Name" textKey="productName" textSize="24"/>
+	        <TextInput bxml:id = "productName" Form.label="Product Name" textKey="productName" textSize="24"/>
 	        
 	        <ListButton bxml:id="productType" Form.label="Product Type" />
 	        
@@ -15,7 +15,11 @@
 			
 			<TextInput bxml:id = "quantityUom" textKey="quantityUom" Form.label = "Qty. UOM (For Persons)" />
 			
-			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="netPrice" />
+			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="netPrice" >
+				<validator>
+					<DecimalValidator xmlns = "org.apache.pivot.wtk.validation" />
+				</validator>
+			</TextInput>
 			
 			<TextInput bxml:id = "tax" textKey="taxAmount" Form.label = "Tax" enabled="false" />
 			

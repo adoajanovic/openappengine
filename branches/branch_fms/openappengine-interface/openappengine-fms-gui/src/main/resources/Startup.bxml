@@ -13,6 +13,7 @@
         <Window.ActionMapping action="customerNew" keyStroke="CMD-C"/>
         <Window.ActionMapping action="customerList" keyStroke="CMD-A"/>
         <Window.ActionMapping action="productNew" keyStroke="CMD-N"/>
+        <Window.ActionMapping action="salesOrderNew" keyStroke="CMD-O"/>
     </actionMappings>
  
  	<!-- Menu Bar -->
@@ -58,7 +59,19 @@
                         </Menu.Item>
                     </Menu.Section>    
                  </Menu>
-            </MenuBar.Item>            
+            </MenuBar.Item>
+            
+            <MenuBar.Item buttonData="Order">
+                <Menu>
+                    <Menu.Section>
+                        <Menu.Item action="salesOrderNew">
+                            <buttonData>
+                                <content:MenuItemData text="New Order Form" keyboardShortcut="CMD-O"/>
+                            </buttonData>
+                        </Menu.Item>
+                    </Menu.Section>    
+                 </Menu>
+            </MenuBar.Item>             
             
             <MenuBar.Item buttonData="Customer">
                 <Menu>

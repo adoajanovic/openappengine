@@ -3,8 +3,12 @@
  */
 package com.openappengine.fms.form;
 
+import java.net.URL;
+
 import org.apache.log4j.Logger;
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.Map;
+import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Form;
 
 import com.openappengine.fms.interfaces.FleetManagerServiceFacade;
@@ -50,5 +54,13 @@ public abstract class FleetManagerForm extends Form implements Bindable {
 	
 	public boolean isNewMode() {
 		return Mode.NEW.equals(formMode);
+	}
+
+	protected void initFormBean(Map<String, Object> namespace) {
+	}
+
+	@Override
+	public void initialize(Map<String, Object> namespace, URL location,Resources resources) {
+		initFormBean(namespace);
 	}
 }

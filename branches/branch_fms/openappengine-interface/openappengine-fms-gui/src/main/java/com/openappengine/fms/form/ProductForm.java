@@ -39,7 +39,7 @@ public class ProductForm extends FleetManagerForm {
 	
 	@Override
 	public void initialize(final Map<String, Object> namespace, URL location,Resources resources) {
-		initFormBean();
+		initFormBean(namespace);
 		
 		final ListButton productType = (ListButton) namespace.get("productType");
 		final TextInput netAmount = (TextInput) namespace.get("netAmount");
@@ -75,17 +75,6 @@ public class ProductForm extends FleetManagerForm {
 				
 				ProductForm.this.load(new BeanAdapter(productDTO));
 			}
-
-			private void resetAmounts(final Map<String, Object> namespace) {
-				TextInput netAmount = (TextInput) namespace.get("netAmount");
-				netAmount.setText("0.0");
-				
-				TextInput tax = (TextInput) namespace.get("tax");
-				tax.setText("0.0");
-				
-				TextInput grossAmount = (TextInput) namespace.get("grossAmount");
-				grossAmount.setText("0.0");
-			}
 		});
 		
 		resetButton.setAction(new Action() {
@@ -99,9 +88,17 @@ public class ProductForm extends FleetManagerForm {
 			@Override
 			public void perform(Component source) {
 				ProductTypeDTO productTypeDTO = (ProductTypeDTO) productType.getSelectedItem();
+				java.util.List<String> msgs = new java.util.ArrayList<String>();
+				if(productTypeDTO == null) {
+					msgs.add("Please select the Product Type.");
+				}
 				productDTO.setProductTypeDTO(productTypeDTO);
 				
-				ProductForm.this.store(productDTO);
+				try {
+					ProductForm.this.store(productDTO);
+				} catch (Exception e) {
+					msgs.add("Error in validation.");
+				}
 				
 				try {
 					getFleetManagerServiceFacade().addNewProduct(productDTO);
@@ -116,8 +113,19 @@ public class ProductForm extends FleetManagerForm {
 		this.load(new BeanAdapter(productDTO));
 	}
 	
+	private void resetAmounts(final Map<String, Object> namespace) {
+		TextInput netAmount = (TextInput) namespace.get("netAmount");
+		netAmount.setText("0.0");
+		
+		TextInput tax = (TextInput) namespace.get("tax");
+		tax.setText("0.0");
+		
+		TextInput grossAmount = (TextInput) namespace.get("grossAmount");
+		grossAmount.setText("0.0");
+	}
+	
 	private void initForm(final Map<String, Object> namespace) {
-		initFormBean();
+		initFormBean(namespace);
 		setFormDefaults(namespace);
 		ProductForm.this.load(new BeanAdapter(productDTO));
 	}
@@ -132,7 +140,8 @@ public class ProductForm extends FleetManagerForm {
 		initProductTypeList(productType);
 	}
 
-	private void initFormBean() {
+	@Override
+	protected void initFormBean(Map<String, Object> namespace) {
 		productDTO = new ProductDTO();
 		Date introductionDate = new Date();
 		Date salesDiscontinuationDate = DateUtils.addDays(introductionDate, 365);
