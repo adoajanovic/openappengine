@@ -5,7 +5,6 @@
 			Create Person.
 		</description>
 		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
-		<!-- <parameter name="partyContactMechs" type="java.util.List" mode="IN_OUT" optional="true" /> -->
 	</service>
 	
 	<service name="party.getActiveParties" class="com.openappengine.service.party.PartyServices" invokeMethod="getActiveParties">
@@ -30,4 +29,15 @@
 		<parameter name="person" type="com.openappengine.model.party.Person" mode="IN_OUT" optional="false" />
 		<parameter name="partyContactMechs" type="java.util.List" mode="IN_OUT" optional="true" />
 	</service>
+	
+	<service name="party.findPersonsByName" class="com.openappengine.service.party.PartySearchService" invokeMethod="findPersonsByName">
+		<description>
+			Find Person by name.
+		</description>
+		<parameter name="firstName" type="java.lang.String" mode="IN" optional="true" />
+		<parameter name="middleName" type="java.lang.String" mode="IN" optional="true" />
+		<parameter name="lastName" type="java.lang.String" mode="IN" optional="true" />
+		<parameter name="persons" type="java.util.List" mode="OUT" optional="false" />
+	</service>
+	
 </services>
