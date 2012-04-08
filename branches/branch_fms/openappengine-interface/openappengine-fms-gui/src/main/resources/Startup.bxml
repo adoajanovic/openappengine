@@ -66,7 +66,7 @@
                     <Menu.Section>
                         <Menu.Item action="salesOrderNew">
                             <buttonData>
-                                <content:MenuItemData text="New Order Form" keyboardShortcut="CMD-O"/>
+                                <content:MenuItemData icon="../images/sales_order.png" text="New Order Form" keyboardShortcut="CMD-O"/>
                             </buttonData>
                         </Menu.Item>
                     </Menu.Section>    

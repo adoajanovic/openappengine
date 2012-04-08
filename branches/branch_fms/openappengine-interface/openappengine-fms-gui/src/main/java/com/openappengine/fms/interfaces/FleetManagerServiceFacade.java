@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
+import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
-import com.openappengine.model.product.ProdProductType;
 
 
 /**
@@ -60,5 +60,7 @@ public interface FleetManagerServiceFacade {
 	 * @return
 	 */
 	ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice);
+
+	org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName,String middleName, String lastName);
 	
 }

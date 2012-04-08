@@ -1,0 +1,34 @@
+  <Form:AddOrderItemForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+  
+  	<Form.Section heading="Order Item">
+	        
+	        <TextInput bxml:id="productName" textKey="productName" Form.label="Order Item"/>
+	        
+	        <TextInput bxml:id="quantity" textKey="quantity" Form.label="Order Item"/>
+	        
+	        <TextInput bxml:id="price" textKey="price" Form.label="Price"/>
+	        
+	        <TextInput bxml:id="taxAmount" textKey="taxAmount" Form.label="Tax Amount"/>
+	        
+	        <TextInput bxml:id="taxPercentage" textKey="taxPercentage" Form.label="Tax Percentage"/>
+	        
+	        <TextInput bxml:id="total" textKey="total" Form.label="Total Amount"/>
+	        
+	</Form.Section>
+	
+	<Form.Section>
+		<PushButton buttonData="Add" 
+				    	bxml:id="addOrderItemButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+					    
+		<PushButton buttonData="Reset" 
+				    	bxml:id="addOrderItemButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>			    
+	</Form.Section>
+  </Form:AddOrderItemForm>

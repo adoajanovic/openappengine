@@ -1,0 +1,79 @@
+  <Form:CustomerSearchForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+  
+  	<Form.Section heading="Customer">
+  			<GridPane columnCount="2" bxml:id="searchFilter">
+  				<GridPane.Row>
+  					<Label text="First Name"/>
+	            	<TextInput bxml:id="firstName" textKey="firstNameParam" Form.label="First Name"/>
+	            </GridPane.Row>
+	            
+	            <GridPane.Row>
+	            	<Label text="Middle Name"/>
+	            	<TextInput bxml:id="middleName" textKey="middleNameParam" Form.label="Middle Name"/>
+	            </GridPane.Row>
+	            
+	            <GridPane.Row>
+	            	<Label text="Last Name"/>
+	            	<TextInput bxml:id="lastName" textKey="lastNameParam" Form.label="Last Name"/>
+	            </GridPane.Row>
+	            
+	            <GridPane.Row>
+	            	<Label text="Mobile No."/>
+	  				<TextInput bxml:id="mobileNo" textKey="mobileNoParam" Form.label="Mobile No." />
+	  			</GridPane.Row>
+	  			
+	  			<GridPane.Row>
+	  				<Label text="Residence No."/>
+	  				<TextInput bxml:id="residenceNo" textKey="residenceNoParam" Form.label="Residence No." />
+	  			</GridPane.Row>
+  			</GridPane>
+  			
+			<FlowPane bxml:id="flowPane" styles="{padding:2}">
+				    <PushButton buttonData="Search"
+				    	bxml:id="searchButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+					
+					<PushButton buttonData="Clear"
+				    	bxml:id="clearButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+			</FlowPane>
+	</Form.Section>
+	
+	<Form.Section heading="Search Results">
+		<Border styles="{padding:2}">
+			<ScrollPane>
+			       <TableView bxml:id="customerSearchResultsTableView" tableDataKey="customerSearchResults" >
+			          <columns>
+			             <TableView.Column name="firstName" headerData="First Name"/>
+			             <TableView.Column name="middleName" headerData="Middle Name"/>
+			             <TableView.Column name="lastName" headerData="Last Name"/>
+			             <TableView.Column name="address1" headerData="Address 1"/>
+			             <TableView.Column name="address2" headerData="Address 2"/>
+			             <TableView.Column name="city" headerData="Address 2"/>
+			             <TableView.Column name="residenceNo" headerData="Residence"/>
+			             <TableView.Column name="mobileNo" headerData="Mobile"/>
+			             <TableView.Column name="email1" headerData="Email 1"/>
+			             <TableView.Column name="email2" headerData="Email 2"/>
+			       	  </columns>
+			       </TableView>
+			 
+			 	   <columnHeader>
+			       		<TableViewHeader tableView="$customerSearchResultsTableView"/>
+			       </columnHeader>
+			 </ScrollPane>
+		 </Border>
+	</Form.Section>
+	
+	<Form.Section>
+		<PushButton buttonData="Select"
+				    	bxml:id="selectButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+	</Form.Section>
+  </Form:CustomerSearchForm>

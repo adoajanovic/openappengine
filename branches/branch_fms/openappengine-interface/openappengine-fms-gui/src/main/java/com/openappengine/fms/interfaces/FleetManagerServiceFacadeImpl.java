@@ -2,11 +2,11 @@ package com.openappengine.fms.interfaces;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -14,13 +14,14 @@ import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTOAssembler;
+import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
+import com.openappengine.model.party.Address;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
-import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.RepositoryUtils;
@@ -203,6 +204,70 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 	}
 
+	@Override
+	public org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName, String middleName,String lastName) {
+		RepositoryUtils.openSession();
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		org.apache.pivot.collections.List<CustomerSearchResultDTO> customerSearchResults = new org.apache.pivot.collections.ArrayList<CustomerSearchResultDTO>();
+		
+		context.put("firstName", firstName);
+		context.put("middleName", middleName);
+		context.put("lastName", lastName);
+		
+		try {
+			resultMap = serviceDispatcher.runSync("party.findPersonsByName", context);
+		} catch (ServiceException e) {
+			
+		}
+		
+		List<Person> persons = (List<Person>) resultMap.get("persons");
+		if(persons != null) {
+			for (Person person : persons) {
+				CustomerSearchResultDTO dto = new CustomerSearchResultDTO();
+				dto.setSalutation(person.getSalutation());
+				dto.setStatus(person.getStatus());
+				dto.setPartyId(person.getPartyId());
+				dto.setFirstName(person.getFirstName());
+				dto.setMiddleName(person.getMiddleName());
+				dto.setLastName(person.getLastName());
+				
+				List<Address> addresses = person.getAddresses();
+				if(addresses != null && !addresses.isEmpty()) {
+					Address address = addresses.get(0);
+					dto.setAddress1(address.getAddress1());
+					dto.setAddress2(address.getAddress2());
+					dto.setCity(address.getCity());
+				}
+				
+				List<PartyContactMech> partyContactMechs = person.getPartyContactMechs();
+				if(partyContactMechs != null && !partyContactMechs.isEmpty()) {
+					for (PartyContactMech partyContactMech : partyContactMechs) {
+						String infoString = partyContactMech.getInfoString();
+						if(StringUtils.equalsIgnoreCase(partyContactMech.getContactMechType(),"EMAIL")) {
+							if(StringUtils.isEmpty(dto.getEmail1())) {
+								dto.setEmail1(infoString);
+							} else {
+								dto.setEmail2(infoString);
+							}
+						} else if(StringUtils.equalsIgnoreCase(partyContactMech.getContactMechType(),"PHONE_Residence")) {
+							dto.setResidenceNo(infoString);
+						}  else if(StringUtils.equalsIgnoreCase(partyContactMech.getContactMechType(),"PHONE_Mobile")) {
+							dto.setMobileNo(infoString);
+						}
+					}
+				}
+				
+				customerSearchResults.add(dto);
+			}
+		}
+		
+		RepositoryUtils.closeOpenSession();
+		return customerSearchResults;
+	}
+	
 	@Override
 	public List<ProductTypeDTO> loadAllProductTypes() {
 		RepositoryUtils.openSession();
