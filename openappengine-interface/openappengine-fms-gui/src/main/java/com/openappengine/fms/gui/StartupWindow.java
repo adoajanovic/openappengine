@@ -11,7 +11,11 @@ import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.util.concurrent.Task;
+import org.apache.pivot.util.concurrent.TaskExecutionException;
+import org.apache.pivot.util.concurrent.TaskListener;
 import org.apache.pivot.wtk.Action;
+import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Frame;
@@ -19,11 +23,15 @@ import org.apache.pivot.wtk.MenuHandler;
 import org.apache.pivot.wtk.TabPane;
 
 import com.openappengine.fms.util.PivotUtils;
+import com.openappengine.service.ServiceEngineContextStartup;
  
 public class StartupWindow extends Frame implements Bindable {
 	
     @BXML 
     private TabPane tabPane = null;
+    
+    @BXML 
+    private ActivityIndicator activityIndicator;
     
     private java.util.Map<String, Object> tabs = new java.util.HashMap<String, Object>();
  
@@ -43,6 +51,29 @@ public class StartupWindow extends Frame implements Bindable {
         addAction_CustomerNew();
         
         addAction_CustomerList();
+        
+        Task<Void> startup = new Task<Void>() {
+			
+			@Override
+			public Void execute() throws TaskExecutionException {
+				activityIndicator.setActive(true);
+				new ServiceEngineContextStartup().startup();
+				return null;
+			}
+		};
+		
+		startup.execute(new TaskListener<Void>() {
+			
+			@Override
+			public void taskExecuted(Task<Void> task) {
+				activityIndicator.setActive(false);
+			}
+			
+			@Override
+			public void executeFailed(Task<Void> task) {
+				activityIndicator.setActive(false);
+			}
+		});
     }
 
 	private void addAction_VehicleTypeNew() {

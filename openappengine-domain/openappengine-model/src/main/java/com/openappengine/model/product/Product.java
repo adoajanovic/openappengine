@@ -3,6 +3,8 @@ package com.openappengine.model.product;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.openappengine.model.fm.OiOrderItem;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Product implements Serializable {
 	@Column(name="PD_PRODUCT_ID", unique=true, nullable=false)
 	private int pdProductId;
 
-	@Column(name="PD_AMOUNT_UOM_TYPE", length=20)
+	@Column(name="PD_AMOUNT_UOM_TYPE_ID")
 	private String pdAmountUomType;
 
 	@Column(name="PD_COMMENTS", length=255)
@@ -60,7 +62,7 @@ public class Product implements Serializable {
 	@Column(name="PD_QUANTITY_INCLUDED", precision=10, scale=6)
 	private BigDecimal pdQuantityIncluded;
 
-	@Column(name="PD_QUANTITY_UOM", length=255)
+	@Column(name="PD_QUANTITY_UOM_ID")
 	private String pdQuantityUom;
 
 	@Column(name="PD_REQUIRE_AMOUNT")
@@ -100,6 +102,9 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to ProdProductPrice
 	@OneToMany(mappedBy="prodProduct")
 	private List<ProdProductPrice> prodProductPrices;
+	
+	@OneToMany(mappedBy="product")
+	private List<OiOrderItem> orderItems;
 
     public Product() {
     }
@@ -294,6 +299,14 @@ public class Product implements Serializable {
 
 	public void setProdProductPrices(List<ProdProductPrice> prodProductPrices) {
 		this.prodProductPrices = prodProductPrices;
+	}
+
+	public List<OiOrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OiOrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 	
 }

@@ -30,7 +30,7 @@ public class CustomerSearchForm extends FleetManagerForm {
 	
 	private CustomerSearchFilter customerSearchFilter;
 	
-	private int selectedId;
+	private Integer selectedId;
 	
 	public class CustomerSearchFilter {
 		
@@ -127,7 +127,7 @@ public class CustomerSearchForm extends FleetManagerForm {
 		searchFilterPane.load(new BeanAdapter(customerSearchFilter));
 	}
 
-	public int getSelectedId() {
+	public Integer getSelectedId() {
 		return selectedId;
 	}
 }

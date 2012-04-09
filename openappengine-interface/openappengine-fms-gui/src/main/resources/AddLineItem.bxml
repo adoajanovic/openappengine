@@ -27,7 +27,7 @@
 					    xmlns="org.apache.pivot.wtk"/>
 					    
 		<PushButton buttonData="Reset" 
-				    	bxml:id="addOrderItemButton"
+				    	bxml:id="resetButton"
 					    xmlns:bxml="http://pivot.apache.org/bxml"
 					    xmlns="org.apache.pivot.wtk"/>			    
 	</Form.Section>
