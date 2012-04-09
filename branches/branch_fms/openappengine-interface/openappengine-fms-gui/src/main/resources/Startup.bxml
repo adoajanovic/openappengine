@@ -93,7 +93,9 @@
         </MenuBar>
     </menuBar>
  
+
     <Border styles="{backgroundColor:null, padding:2}">
+		<ActivityIndicator bxml:id="activityIndicator" preferredWidth="48" preferredHeight="48"/>
         <TabPane bxml:id="tabPane"/>
     </Border>
     

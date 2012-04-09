@@ -3,13 +3,9 @@
  */
 package com.openappengine.fms.form;
 
-import java.util.Date;
-
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.Map;
-import org.apache.pivot.util.Vote;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Dialog;
@@ -32,7 +28,7 @@ public class SalesOrderForm extends FleetManagerForm {
 
 	private SalesOrderDTO salesOrderDTO;
 	
-	private int partyId;
+	private Integer partyId;
 	
 	@Override
 	protected void initFormBean(Map<String, Object> namespace) {
@@ -69,9 +65,11 @@ public class SalesOrderForm extends FleetManagerForm {
 					@Override
 					public void windowClosed(Window window, Display display,Window owner) {
 						partyId = ((CustomerSearchForm)customerSearchForm).getSelectedId();
-						CustomerDTO customerDTO = getFleetManagerServiceFacade().loadCustomerDTO(partyId);
-						salesOrderDTO.setParty(customerDTO);
-						SalesOrderForm.this.load(new BeanAdapter(salesOrderDTO));
+						if(partyId != null) {
+							CustomerDTO customerDTO = getFleetManagerServiceFacade().loadCustomerDTO(partyId);
+							salesOrderDTO.setParty(customerDTO);
+							SalesOrderForm.this.load(new BeanAdapter(salesOrderDTO));
+						}
 					}
 				});
 				

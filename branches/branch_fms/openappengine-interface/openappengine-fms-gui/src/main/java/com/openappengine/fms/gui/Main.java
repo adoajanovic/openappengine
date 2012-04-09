@@ -4,6 +4,9 @@ import java.io.InputStream;
 
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.util.concurrent.Task;
+import org.apache.pivot.util.concurrent.TaskExecutionException;
+import org.apache.pivot.util.concurrent.TaskListener;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.Display;
@@ -19,12 +22,9 @@ public class Main implements Application {
 	public void startup(Display display, Map<String, String> properties)
 			throws Exception {
 		
-		new ServiceEngineContextStartup().startup();
-		
 		final BXMLSerializer bxmlSerializer = new BXMLSerializer();
 		InputStream is = getClass().getClassLoader().getResourceAsStream("Startup.bxml");
         window = (Window)bxmlSerializer.readObject(is);
-        
         window.open(display);
 	}
 
