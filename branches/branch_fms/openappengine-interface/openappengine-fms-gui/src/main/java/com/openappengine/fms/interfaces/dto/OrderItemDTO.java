@@ -7,17 +7,19 @@ public class OrderItemDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private int productId;
+	
 	private String productName;
 	
-	private BigDecimal quantity;
+	private BigDecimal quantity = new BigDecimal(1);
 	
-	private BigDecimal netPrice;
+	private BigDecimal netPrice = new BigDecimal(0.0);
 	
-	private BigDecimal taxAmount;
+	private BigDecimal taxAmount = new BigDecimal(0.0);
 	
-	private BigDecimal taxPercentage;
+	private BigDecimal unitPrice = new BigDecimal(0.0);
 	
-	private BigDecimal total;
+	private BigDecimal total= new BigDecimal(0.0);
 
 	public String getProductName() {
 		return productName;
@@ -59,12 +61,19 @@ public class OrderItemDTO implements Serializable {
 		this.taxAmount = taxAmount;
 	}
 
-	public BigDecimal getTaxPercentage() {
-		return taxPercentage;
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
 	}
 
-	public void setTaxPercentage(BigDecimal taxPercentage) {
-		this.taxPercentage = taxPercentage;
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 }

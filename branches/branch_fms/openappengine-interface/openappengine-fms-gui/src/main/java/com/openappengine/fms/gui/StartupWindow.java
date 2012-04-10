@@ -51,29 +51,6 @@ public class StartupWindow extends Frame implements Bindable {
         addAction_CustomerNew();
         
         addAction_CustomerList();
-        
-        Task<Void> startup = new Task<Void>() {
-			
-			@Override
-			public Void execute() throws TaskExecutionException {
-				activityIndicator.setActive(true);
-				new ServiceEngineContextStartup().startup();
-				return null;
-			}
-		};
-		
-		startup.execute(new TaskListener<Void>() {
-			
-			@Override
-			public void taskExecuted(Task<Void> task) {
-				activityIndicator.setActive(false);
-			}
-			
-			@Override
-			public void executeFailed(Task<Void> task) {
-				activityIndicator.setActive(false);
-			}
-		});
     }
 
 	private void addAction_VehicleTypeNew() {

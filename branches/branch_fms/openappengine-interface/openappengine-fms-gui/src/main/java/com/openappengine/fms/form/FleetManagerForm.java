@@ -62,9 +62,13 @@ public abstract class FleetManagerForm extends Form implements Bindable {
 	protected void initFormActions(Map<String, Object> namespace) {
 	}
 
+	protected void initFormElements(Map<String, Object> namespace) {
+	}
+	
 	@Override
 	public void initialize(Map<String, Object> namespace, URL location,Resources resources) {
 		initFormBean(namespace);
 		initFormActions(namespace);
+		initFormElements(namespace);
 	}
 }

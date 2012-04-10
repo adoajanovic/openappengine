@@ -6,17 +6,19 @@
   
   	<Form.Section heading="Order Item">
 	        
-	        <TextInput bxml:id="productName" textKey="productName" Form.label="Order Item"/>
+	        <ListButton bxml:id="productName" textKey="productName" Form.label="Order Item"/>
 	        
-	        <TextInput bxml:id="quantity" textKey="quantity" Form.label="Order Item"/>
+	        <TextInput bxml:id="quantity" textKey="quantity" Form.label="Quantity">
+	        	<validator>
+					<DecimalValidator xmlns = "org.apache.pivot.wtk.validation" />
+				</validator>
+	        </TextInput>
 	        
-	        <TextInput bxml:id="price" textKey="price" Form.label="Price"/>
+	        <TextInput bxml:id="netPrice" textKey="netPrice" Form.label="Price" enabled="false" />
 	        
-	        <TextInput bxml:id="taxAmount" textKey="taxAmount" Form.label="Tax Amount"/>
+	        <TextInput bxml:id="taxAmount" textKey="taxAmount" Form.label="Tax Amount" enabled="false"/>
 	        
-	        <TextInput bxml:id="taxPercentage" textKey="taxPercentage" Form.label="Tax Percentage"/>
-	        
-	        <TextInput bxml:id="total" textKey="total" Form.label="Total Amount"/>
+	        <TextInput bxml:id="total" textKey="total" Form.label="Total Amount" enabled="false"/>
 	        
 	</Form.Section>
 	

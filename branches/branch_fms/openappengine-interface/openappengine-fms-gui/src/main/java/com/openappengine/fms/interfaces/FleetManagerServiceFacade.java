@@ -10,6 +10,7 @@ import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
+import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 
 
@@ -62,5 +63,7 @@ public interface FleetManagerServiceFacade {
 	ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice);
 
 	org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName,String middleName, String lastName);
+
+	org.apache.pivot.collections.List<ProductItemListDTO> getAllActiveProducts();
 	
 }

@@ -18,10 +18,12 @@ import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
+import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.model.party.Address;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
+import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.RepositoryUtils;
@@ -204,6 +206,50 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 	}
 
+	@Override
+	public org.apache.pivot.collections.List<ProductItemListDTO> getAllActiveProducts() {
+		RepositoryUtils.openSession();
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		org.apache.pivot.collections.List<ProductItemListDTO> prods = new org.apache.pivot.collections.ArrayList<ProductItemListDTO>();
+		
+		try {
+			resultMap = serviceDispatcher.runSync("product.loadAllActiveProducts", context);
+		} catch (ServiceException e) {
+		}
+		
+		List<Product> products = (List<Product>) resultMap.get("products");
+		
+		if(products != null) {
+			for (Product product : products) {
+				ProductItemListDTO dto = new ProductItemListDTO();
+				dto.setProductId(product.getPdProductId());
+				dto.setProductName(product.getPdProductName());
+				dto.setProductId(product.getPdProductId());
+				
+				List<ProdProductPrice> prodProductPrices = product.getProdProductPrices();
+				if(prodProductPrices != null) {
+					for (ProdProductPrice prodProductPrice : prodProductPrices) {
+						if(prodProductPrice.getProdProductPriceType() != null) {
+							if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("NET PRICE")) {
+								dto.setNetPrice(prodProductPrice.getPpPrice());
+							} else if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("TAX PRICE")) {
+								dto.setTaxPrice(prodProductPrice.getPpPrice());
+							}
+						}
+					}
+				}
+				
+				
+				prods.add(dto);
+			}
+		}
+		RepositoryUtils.closeOpenSession();
+		return prods;
+	}
+	
+	
 	@Override
 	public org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName, String middleName,String lastName) {
 		RepositoryUtils.openSession();

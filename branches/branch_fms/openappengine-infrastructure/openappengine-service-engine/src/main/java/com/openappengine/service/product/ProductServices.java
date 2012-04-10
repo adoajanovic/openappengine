@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+
 import com.openappengine.model.fm.FmTaxRateProduct;
 import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductPriceType;
@@ -21,6 +24,8 @@ import com.openappengine.service.AbstractDomainService;
  */
 public class ProductServices extends AbstractDomainService {
 	
+	private static final String NET_PRICE = "NET PRICE";
+
 	private ProductRepository productRepository = new ProductRepository();
 
 	private Product product;
@@ -41,6 +46,8 @@ public class ProductServices extends AbstractDomainService {
 	
 	private ProdProductType productType;
 	
+	private List<Product> products;
+	
 	public void fetchProductTypes() {
 		productTypes = productRepository.fetchAllProductTypes();
 	}
@@ -58,7 +65,7 @@ public class ProductServices extends AbstractDomainService {
 		prodProductPrice.setProdProduct(product);
 		
 		ProdProductPriceType productPriceType = productRepository
-				.getProductPriceType(serviceContext.getHibernateSession(),"NET PRICE");
+				.getProductPriceType(serviceContext.getHibernateSession(),NET_PRICE);
 		prodProductPrice.setProdProductPriceType(productPriceType);
 		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
 	}
@@ -108,6 +115,13 @@ public class ProductServices extends AbstractDomainService {
 		if(calculatedTax != null) {
 			priceGross = priceNet.add(calculatedTax);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadAllActiveProducts() {
+		Session session = serviceContext.getHibernateSession();
+		Criteria criteria = session.createCriteria(Product.class);
+		products = criteria.list();
 	}
 	
 	//Accessors
@@ -181,6 +195,14 @@ public class ProductServices extends AbstractDomainService {
 
 	public void setPriceTax(BigDecimal priceTax) {
 		this.priceTax = priceTax;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 	
 }
