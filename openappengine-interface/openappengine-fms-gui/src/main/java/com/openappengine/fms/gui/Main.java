@@ -21,7 +21,7 @@ public class Main implements Application {
 	@Override
 	public void startup(Display display, Map<String, String> properties)
 			throws Exception {
-		
+		new ServiceEngineContextStartup().startup();
 		final BXMLSerializer bxmlSerializer = new BXMLSerializer();
 		InputStream is = getClass().getClassLoader().getResourceAsStream("Startup.bxml");
         window = (Window)bxmlSerializer.readObject(is);

@@ -69,6 +69,7 @@ public class OhOrderHeader implements Serializable {
 	@Column(name="OH_TRANSACTION_ID")
 	private String transactionId;
 	
+	
 	@Column(name="OH_GRAND_TOTAL")
 	private BigDecimal grandTotal;
 
