@@ -33,6 +33,8 @@ public class SalesOrderDTO implements Serializable {
 		
 		private BigDecimal quantity;
 		
+		private BigDecimal netPrice;
+		
 		private BigDecimal tax;
 		
 		private BigDecimal total;
@@ -91,6 +93,14 @@ public class SalesOrderDTO implements Serializable {
 
 		public void setTotal(BigDecimal total) {
 			this.total = total;
+		}
+
+		public BigDecimal getNetPrice() {
+			return netPrice;
+		}
+
+		public void setNetPrice(BigDecimal netPrice) {
+			this.netPrice = netPrice;
 		}
 		
 	}

@@ -58,9 +58,9 @@
 			          <columns>
 			             <TableView.Column name="lineNo" headerData="Line No."/>
 			             <TableView.Column name="productName" headerData="Item"/>
-			             <TableView.Column name="unit" headerData="Unit"/>
 			             <TableView.Column name="unitPrice" headerData="Unit Price"/>
 			             <TableView.Column name="quantity" headerData="Quantity"/>
+			             <TableView.Column name="netPrice" headerData="Net Price"/>
 			             <TableView.Column name="tax" headerData="Tax"/>
 			             <TableView.Column name="total" headerData="Amount"/>
 			       	  </columns>

@@ -16,6 +16,7 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.WindowStateListener;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
+import com.openappengine.fms.interfaces.dto.OrderItemDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
 import com.openappengine.fms.util.PivotUtils;
@@ -49,6 +50,27 @@ public class SalesOrderForm extends FleetManagerForm {
 				Dialog dialog = new Dialog(true);
 				dialog.setTitle("Add Line Item");
 				dialog.setContent(addOrderItemForm);
+				
+				dialog.getWindowStateListeners().add(new WindowStateListener.Adapter(){
+					@Override
+					public void windowClosed(Window window, Display display,
+							Window owner) {
+						OrderItemDTO orderItemDTO = ((AddOrderItemForm)addOrderItemForm).getSelectedItemDTO();
+						int lineNo = salesOrderDTO.getLineItems().getLength() + 1;
+						if(orderItemDTO != null) {
+							LineItemDTO lineItemDTO = salesOrderDTO.new LineItemDTO();
+							lineItemDTO.setLineNo(lineNo);
+							lineItemDTO.setProductName(orderItemDTO.getProductName());
+							lineItemDTO.setQuantity(orderItemDTO.getQuantity());
+							lineItemDTO.setTax(orderItemDTO.getTotalTax());
+							lineItemDTO.setNetPrice(orderItemDTO.getNetPrice());
+							lineItemDTO.setTotal(orderItemDTO.getTotal());
+							lineItemDTO.setUnitPrice(orderItemDTO.getUnitPrice());
+							salesOrderDTO.getLineItems().add(lineItemDTO);
+						}
+					}
+				});
+				
 				dialog.open(getWindow());
 			}
 		});
@@ -91,9 +113,9 @@ public class SalesOrderForm extends FleetManagerForm {
 		date = DateUtils.setMonths(date, 0);
 		date = DateUtils.setYears(date, 1987);
 		salesOrderDTO.getParty().setBirthDate(date);
-		 */
 		
 		LineItemDTO lineItemDTO = salesOrderDTO.new LineItemDTO();
 		salesOrderDTO.getLineItems().add(lineItemDTO);
+		 */
 	}
 }
