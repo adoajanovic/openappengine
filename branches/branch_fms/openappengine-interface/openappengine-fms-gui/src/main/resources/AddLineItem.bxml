@@ -6,12 +6,14 @@
   
   	<Form.Section heading="Order Item">
 	        
-	        <ListButton bxml:id="productName" textKey="productName" Form.label="Order Item"/>
+	        <ListButton bxml:id="productName" Form.label="Order Item"/>
 	        
 	        <TextInput bxml:id="quantity" textKey="quantity" Form.label="Quantity">
+	        	<!--
 	        	<validator>
 					<DecimalValidator xmlns = "org.apache.pivot.wtk.validation" />
 				</validator>
+				-->
 	        </TextInput>
 	        
 	        <TextInput bxml:id="netPrice" textKey="netPrice" Form.label="Price" enabled="false" />

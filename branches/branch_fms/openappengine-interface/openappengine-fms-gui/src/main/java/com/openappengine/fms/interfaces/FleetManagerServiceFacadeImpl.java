@@ -191,6 +191,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			serviceDispatcher.runSyncIgnoreResult("product.addGrossPrice", context);
 			
 		} catch (ServiceException e) {
+			e.printStackTrace();
 			if(session != null) {
 				Transaction transaction = session.getTransaction();
 				if(transaction != null) {

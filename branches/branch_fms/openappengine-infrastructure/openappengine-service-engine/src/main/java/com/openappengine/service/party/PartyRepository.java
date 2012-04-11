@@ -88,22 +88,12 @@ public class PartyRepository extends GenericRepository {
 	public void savePersonPartyWithDefaultValues(final Person p) {
 		Session session = RepositoryUtils.getExistingSession();
 		Assert.notNull(p, "Person is Null. Cannot save the party instance.");
-		/*int partyId = incrementer.nextValue("pm_party_sequence");
-		
-		p.setPartyId(partyId);*/
+
 		p.setDescription(p.getComments());
 		p.setExternalId("NA");
 		p.setPartyType("PERSON");
 		p.setPreferredCurrencyUom("INR");
 		p.setStatus("ACTIVE");
-		
-		List<PartyContactMech> partyContactMechs = p.getPartyContactMechs();
-		if(partyContactMechs != null) {
-			for (PartyContactMech contactMech : partyContactMechs) {
-				int contactMechId = incrementer.nextValue("pm_party_contact_mech_sequence");
-				contactMech.setPartyContactMechId(contactMechId);
-			}
-		}
 		
 		session.save(p);
 	}

@@ -4,16 +4,23 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 @Entity
 @Table(name="PM_PARTY_CONTACT_MECH")
 public class PartyContactMech implements Serializable {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="partyContactMechGenerator")  
+	@TableGenerator(name="partyContactMechGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",
+	                allocationSize=1 // flush every 1 insert  
+	)
 	@Column(name="PM_CONTACT_MECH_ID")
 	private int partyContactMechId;
 	
