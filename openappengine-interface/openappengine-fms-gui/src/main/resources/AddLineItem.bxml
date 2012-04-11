@@ -18,7 +18,7 @@
 	        
 	        <TextInput bxml:id="netPrice" textKey="netPrice" Form.label="Price" enabled="false" />
 	        
-	        <TextInput bxml:id="taxAmount" textKey="taxAmount" Form.label="Tax Amount" enabled="false"/>
+	        <TextInput bxml:id="taxAmount" textKey="totalTax" Form.label="Tax Amount" enabled="false"/>
 	        
 	        <TextInput bxml:id="total" textKey="total" Form.label="Total Amount" enabled="false"/>
 	        

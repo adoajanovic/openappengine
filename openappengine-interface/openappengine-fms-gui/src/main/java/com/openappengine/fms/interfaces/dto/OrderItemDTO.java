@@ -19,6 +19,8 @@ public class OrderItemDTO implements Serializable {
 	
 	private BigDecimal unitPrice = new BigDecimal(0.0);
 	
+	private BigDecimal totalTax = new BigDecimal(0.0);
+	
 	private BigDecimal total= new BigDecimal(0.0);
 
 	public String getProductName() {
@@ -75,5 +77,13 @@ public class OrderItemDTO implements Serializable {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public BigDecimal getTotalTax() {
+		return totalTax;
+	}
+
+	public void setTotalTax(BigDecimal totalTax) {
+		this.totalTax = totalTax;
 	}
 }

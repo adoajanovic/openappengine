@@ -9,10 +9,13 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Alert;
+import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.MessageType;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TextInputContentListener;
 
@@ -26,16 +29,27 @@ import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 public class AddOrderItemForm extends FleetManagerForm {
 	
 	private OrderItemDTO orderItemDTO;
+	
+	private OrderItemDTO selectedItemDTO;
 
 	@Override
 	protected void initFormBean(Map<String, Object> namespace) {
-		orderItemDTO = new OrderItemDTO();
-		load(new BeanAdapter(orderItemDTO));
+		setOrderItemDTO(new OrderItemDTO());
+		load(new BeanAdapter(getOrderItemDTO()));
 	}
 
 	@Override
 	protected void initFormActions(Map<String, Object> namespace) {
-		
+		PushButton addOrderItemButton = (PushButton) namespace.get("addOrderItemButton");
+		addOrderItemButton.setAction(new Action() {
+			@Override
+			public void perform(Component source) {
+				//TODO - Perform Validation.
+				store(getOrderItemDTO());
+				selectedItemDTO = getOrderItemDTO();
+				AddOrderItemForm.this.getWindow().close();
+			}
+		});
 	}
 
 	@Override
@@ -53,12 +67,17 @@ public class AddOrderItemForm extends FleetManagerForm {
 			public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
 				ProductItemListDTO dto = (ProductItemListDTO) listButton.getSelectedItem();
 				if(dto != null) {
-					orderItemDTO.setNetPrice(dto.getNetPrice());
-					orderItemDTO.setTaxAmount(dto.getTaxPrice());
-					BigDecimal total = dto.getNetPrice().add(dto.getTaxPrice());
-					orderItemDTO.setUnitPrice(total);
+					BigDecimal orderQty = orderItemDTO.getQuantity();
+					BigDecimal total = (orderQty.multiply(dto.getNetPrice())).add((orderQty.multiply(dto.getTaxPrice())));
+					BigDecimal totalTax = orderQty.multiply(dto.getTaxPrice());
 					
-					load(new BeanAdapter(orderItemDTO));
+					getOrderItemDTO().setProductName(dto.getProductName());
+					getOrderItemDTO().setNetPrice(dto.getNetPrice());
+					getOrderItemDTO().setTaxAmount(dto.getTaxPrice());
+					getOrderItemDTO().setUnitPrice(dto.getNetPrice());
+					getOrderItemDTO().setTotal(total);
+					getOrderItemDTO().setTotalTax(totalTax);
+					load(new BeanAdapter(getOrderItemDTO()));
 				}
 			}
 		});
@@ -68,27 +87,17 @@ public class AddOrderItemForm extends FleetManagerForm {
 			
 			@Override
 			public void textInserted(TextInput textInput, int index, int count) {
-				String qty = quantity.getText();
-				
-				if(productName.getSelectedItem() == null) {
-					Alert.alert(MessageType.WARNING, "Select Product from the drop-down", getWindow());
-				}
-				if(!NumberUtils.isNumber(qty)) {
-					return;
-				}
-				
-				BigDecimal quantity = new BigDecimal(qty);
-				orderItemDTO.setQuantity(quantity);
-				
-				BigDecimal totalAmount = quantity.multiply(orderItemDTO.getUnitPrice());
-				orderItemDTO.setTotal(totalAmount);
-				total.setText(totalAmount.toString());
-				load(new BeanAdapter(orderItemDTO));
+				onQuantityValueChange(productName, quantity, total);
 			}
 
 			@Override
 			public void textRemoved(TextInput textInput, int index, int count) {
-				String qty = quantity.getText();
+				onQuantityValueChange(productName, quantity, total);
+			}
+
+			private void onQuantityValueChange(final ListButton productName,
+					final TextInput quantityTxt, final TextInput total) {
+				String qty = quantityTxt.getText();
 				
 				if(productName.getSelectedItem() == null) {
 					Alert.alert(MessageType.WARNING, "Select Product from the drop-down", getWindow());
@@ -99,14 +108,39 @@ public class AddOrderItemForm extends FleetManagerForm {
 				}
 				
 				BigDecimal quantity = new BigDecimal(qty);
-				orderItemDTO.setQuantity(quantity);
+				getOrderItemDTO().setQuantity(quantity);
 				
-				BigDecimal totalAmount = quantity.multiply(orderItemDTO.getUnitPrice());
-				orderItemDTO.setTotal(totalAmount);
-				total.setText(totalAmount.toString());
-				load(new BeanAdapter(orderItemDTO));
+				ProductItemListDTO dto = (ProductItemListDTO) productName.getSelectedItem();
+				
+				BigDecimal orderQty = orderItemDTO.getQuantity();
+				BigDecimal totalAmt = (orderQty.multiply(dto.getNetPrice())).add((orderQty.multiply(dto.getTaxPrice())));
+				BigDecimal totalTax = orderQty.multiply(dto.getTaxPrice());
+				BigDecimal netPrice = quantity.multiply(dto.getNetPrice());
+				
+				getOrderItemDTO().setTotalTax(totalTax);
+				getOrderItemDTO().setTotal(totalAmt);
+				getOrderItemDTO().setNetPrice(netPrice);
+				
+				total.setText(totalAmt.toString());
+				load(new BeanAdapter(getOrderItemDTO()));
 			}
 			
 		});
+	}
+
+	public OrderItemDTO getOrderItemDTO() {
+		return orderItemDTO;
+	}
+
+	private void setOrderItemDTO(OrderItemDTO orderItemDTO) {
+		this.orderItemDTO = orderItemDTO;
+	}
+
+	public OrderItemDTO getSelectedItemDTO() {
+		return selectedItemDTO;
+	}
+
+	public void setSelectedItemDTO(OrderItemDTO selectedItemDTO) {
+		this.selectedItemDTO = selectedItemDTO;
 	}
 }
