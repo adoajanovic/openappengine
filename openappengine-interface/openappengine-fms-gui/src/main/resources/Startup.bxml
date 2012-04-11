@@ -1,8 +1,8 @@
-<menus:StartupWindow title="OpenAppEngine :: Fleet Management System" maximized="true"
+<startup:StartupWindow title="OpenAppEngine :: Fleet Management System" maximized="true"
     styles="{padding:{top:0, left:4, bottom:4, right:4}, showWindowControls:false}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
-    xmlns:menus="com.openappengine.fms.gui"
+    xmlns:startup="com.openappengine.fms.gui"
     xmlns="org.apache.pivot.wtk">
    
     <!-- Action Mapping -->
@@ -99,4 +99,4 @@
         <TabPane bxml:id="tabPane"/>
     </Border>
     
-</menus:StartupWindow>
+</startup:StartupWindow>

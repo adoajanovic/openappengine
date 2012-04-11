@@ -27,7 +27,7 @@ public class Product implements Serializable {
 	@Column(name="PD_PRODUCT_ID", unique=true, nullable=false)
 	private int pdProductId;
 
-	@Column(name="PD_AMOUNT_UOM_TYPE_ID")
+	@Column(name="PD_AMOUNT_UOM_TYPE")
 	private String pdAmountUomType;
 
 	@Column(name="PD_COMMENTS", length=255)
@@ -62,7 +62,7 @@ public class Product implements Serializable {
 	@Column(name="PD_QUANTITY_INCLUDED", precision=10, scale=6)
 	private BigDecimal pdQuantityIncluded;
 
-	@Column(name="PD_QUANTITY_UOM_ID")
+	@Column(name="PD_QUANTITY_UOM")
 	private String pdQuantityUom;
 
 	@Column(name="PD_REQUIRE_AMOUNT")
