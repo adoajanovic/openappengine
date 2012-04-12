@@ -36,9 +36,6 @@ public class OiOrderItem implements Serializable {
 	)
 	private int orderItemId;
 	
-	@Column(name = "OI_ORDER_ID", unique = true, nullable = false)
-	private int orderId;
-	
 	@Column(name = "OI_ORDER_ITEM_SEQ_ID", nullable = false)
 	private String orderItemSequenceId;
 	
@@ -78,6 +75,10 @@ public class OiOrderItem implements Serializable {
 	
 	@Column(name = "OI_STATUS_ID")
 	private String status;
+	
+	@ManyToOne
+	@JoinColumn(name = "OI_ORDER_ID", unique = true, nullable = false)
+	private OhOrderHeader orderHeader;
 
 	public String getOrderItemSequenceId() {
 		return orderItemSequenceId;
@@ -183,20 +184,20 @@ public class OiOrderItem implements Serializable {
 		this.status = status;
 	}
 
-	public int getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
 	public int getOrderItemId() {
 		return orderItemId;
 	}
 
 	public void setOrderItemId(int orderItemId) {
 		this.orderItemId = orderItemId;
+	}
+
+	public OhOrderHeader getOrderHeader() {
+		return orderHeader;
+	}
+
+	public void setOrderHeader(OhOrderHeader orderHeader) {
+		this.orderHeader = orderHeader;
 	}
 	
 }

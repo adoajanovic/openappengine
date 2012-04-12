@@ -6,12 +6,14 @@ package com.openappengine.model.fm;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -69,9 +71,11 @@ public class OhOrderHeader implements Serializable {
 	@Column(name="OH_TRANSACTION_ID")
 	private String transactionId;
 	
-	
 	@Column(name="OH_GRAND_TOTAL")
 	private BigDecimal grandTotal;
+	
+	@OneToMany(mappedBy="orderHeader")
+	private List<OiOrderItem> orderItems;
 
 	public int getOrderId() {
 		return orderId;
@@ -175,6 +179,14 @@ public class OhOrderHeader implements Serializable {
 
 	public void setCurrencyUom(String currencyUom) {
 		this.currencyUom = currencyUom;
+	}
+
+	public List<OiOrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OiOrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 }
