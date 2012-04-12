@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="order.getNextOrderNumber" class="com.openappengine.service.order.OrderCommonServices" invokeMethod="getNextOrderNumber">
+		<description>
+			Get the next order number.
+		</description>
+		<parameter name="orderNumber" type="java.lang.String" mode="OUT" optional="false" />
+	</service>
+</services>
