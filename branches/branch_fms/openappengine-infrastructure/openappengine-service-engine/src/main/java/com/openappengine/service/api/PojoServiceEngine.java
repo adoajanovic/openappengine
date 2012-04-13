@@ -13,7 +13,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-import com.openappengine.repository.RepositoryUtils;
+import com.openappengine.repository.HibernateUtils;
 import com.openappengine.service.DefaultServiceContext;
 import com.openappengine.service.Service;
 import com.openappengine.service.ServiceContext;
@@ -44,7 +44,7 @@ public class PojoServiceEngine implements ServiceEngine {
 		
 		//Set ServiceContext
 		DefaultServiceContext serviceContext = new DefaultServiceContext();
-		serviceContext.setHibernateSession(RepositoryUtils.getExistingSession());
+		serviceContext.setHibernateSession(HibernateUtils.getExistingSession());
 		
 		service.setServiceContext(serviceContext);
 		

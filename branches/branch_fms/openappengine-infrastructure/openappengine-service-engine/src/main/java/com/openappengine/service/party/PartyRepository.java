@@ -16,7 +16,7 @@ import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.repository.GenericRepository;
-import com.openappengine.repository.RepositoryUtils;
+import com.openappengine.repository.HibernateUtils;
 
 /**
  * @author hrishikesh.joshi
@@ -38,7 +38,7 @@ public class PartyRepository extends GenericRepository {
 	}
 	
 	public Person fetchPersonParty(int partyId) {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(Person.class);
 		criteria.add(Restrictions.eq("partyId", partyId));
 		criteria.addOrder(Order.asc("partyId"));
@@ -55,7 +55,7 @@ public class PartyRepository extends GenericRepository {
 
 	public void saveContactMech(PartyContactMech partyContactMech) {
 		Assert.notNull(partyContactMech, "PartyContactMech found null. Cannot save PartyContactMech");
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		int nextValue = incrementer.nextValue("pm_party_contact_mech_sequence");
 		partyContactMech.setPartyContactMechId(nextValue);
 		
@@ -64,14 +64,14 @@ public class PartyRepository extends GenericRepository {
 	
 	public void updateContactMech(int partyId,PartyContactMech partyContactMech) {
 		Assert.notNull(partyContactMech, "PartyContactMech found null, cannot update PartyContactMech");
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		if(partyContactMech.getPartyContactMechId() !=  0) {
 			session.update(partyContactMech);
 		} 
 	}
 	
 	public List<Person> fetchAllActivePersonParty() {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(Person.class);
 		criteria.add(Restrictions.eq("status", Party.PARTY_STATUS_ACTIVE));
 		@SuppressWarnings("unchecked")
@@ -81,12 +81,12 @@ public class PartyRepository extends GenericRepository {
 
 	public void updatePerson(final Person p) {
 		Assert.notNull(p, "Person is Null. Cannot update the person instance.");
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		session.update(p);
 	}
 	
 	public void savePersonPartyWithDefaultValues(final Person p) {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Assert.notNull(p, "Person is Null. Cannot save the party instance.");
 
 		p.setDescription(p.getComments());

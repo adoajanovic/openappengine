@@ -5,6 +5,7 @@ package com.openappengine.model.fm;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,7 +76,7 @@ public class OhOrderHeader implements Serializable {
 	private BigDecimal grandTotal;
 	
 	@OneToMany(mappedBy="orderHeader")
-	private List<OiOrderItem> orderItems;
+	private List<OiOrderItem> orderItems = new ArrayList<OiOrderItem>();
 
 	public int getOrderId() {
 		return orderId;

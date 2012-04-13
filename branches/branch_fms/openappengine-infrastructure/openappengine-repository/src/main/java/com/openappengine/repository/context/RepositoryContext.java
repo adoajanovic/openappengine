@@ -51,6 +51,11 @@ public class RepositoryContext implements ApplicationContextAware {
 		return (SessionFactory) entityContextPrvdr.getBean("sessionFactory");
 	}
 	
+	public <T> T getRepository(Class<T> t) {
+		return entityContextPrvdr.getBean(t);
+	}
+
+	
 	private class EntityContextPrvdr {
 		
 		private ApplicationContext entityApplicationContext;
@@ -63,6 +68,9 @@ public class RepositoryContext implements ApplicationContextAware {
 			return entityApplicationContext.getBean(beanName);
 		}
 		
+		private <T> T getBean(Class<T> cls) {
+			return entityApplicationContext.getBean(cls);
+		}
 	}
 	
 }

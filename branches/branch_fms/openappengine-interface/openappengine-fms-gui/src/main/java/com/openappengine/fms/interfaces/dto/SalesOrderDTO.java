@@ -17,11 +17,17 @@ public class SalesOrderDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String orderName;
+	
+	private BigDecimal grandTotal;
+	
 	private CustomerDTO party = new CustomerDTO();
 	
 	private List<LineItemDTO> lineItems = new ArrayList<SalesOrderDTO.LineItemDTO>();
 	
 	public class LineItemDTO {
+		
+		private int productId;
 		
 		private int lineNo;
 		
@@ -102,6 +108,14 @@ public class SalesOrderDTO implements Serializable {
 		public void setNetPrice(BigDecimal netPrice) {
 			this.netPrice = netPrice;
 		}
+
+		public int getProductId() {
+			return productId;
+		}
+
+		public void setProductId(int productId) {
+			this.productId = productId;
+		}
 		
 	}
 
@@ -119,6 +133,22 @@ public class SalesOrderDTO implements Serializable {
 
 	public void setLineItems(List<LineItemDTO> lineItems) {
 		this.lineItems = lineItems;
+	}
+
+	public String getOrderName() {
+		return orderName;
+	}
+
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
+
+	public BigDecimal getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(BigDecimal grandTotal) {
+		this.grandTotal = grandTotal;
 	}
 
 }

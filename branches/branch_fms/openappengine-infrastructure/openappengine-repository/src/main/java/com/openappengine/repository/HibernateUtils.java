@@ -3,6 +3,8 @@
  */
 package com.openappengine.repository;
 
+import java.io.Serializable;
+
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,13 +18,13 @@ import com.openappengine.repository.context.RepositoryContext;
  * @author hrishi
  *
  */
-public abstract class RepositoryUtils {
+public abstract class HibernateUtils {
 	
 	private static SessionFactory sessionFactory;
 	
 	private static RepositoryContext repositoryContext;
 	
-	private RepositoryUtils() {
+	private HibernateUtils() {
 		
 	}
 
@@ -54,5 +56,11 @@ public abstract class RepositoryUtils {
 			session.close();
 		}
 		TransactionSynchronizationManager.unbindResourceIfPossible(sessionFactory);
+	}
+	
+	public static <T> T findOneById(Serializable id, Class<T> t) {
+		Session session = HibernateUtils.openSession();
+		Object instance = session.get(t, id);
+		return (T) instance;
 	}
 }

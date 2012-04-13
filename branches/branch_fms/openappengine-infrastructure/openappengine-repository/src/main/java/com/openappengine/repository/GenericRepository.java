@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.openappengine.repository.context.RepositoryContext;
 import com.openappengine.repository.jdbc.support.MySQLSequenceIncrementer;
@@ -41,5 +40,4 @@ public class GenericRepository {
 		incrementer = repositoryContext.getIncrementer();
 		hibernateTemplate = repositoryContext.getHibernateTemplate();
 	}
-	
 }

@@ -14,7 +14,7 @@ import com.openappengine.model.product.ProdProductPriceType;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.GenericRepository;
-import com.openappengine.repository.RepositoryUtils;
+import com.openappengine.repository.HibernateUtils;
 
 /**
  * @author hrishikesh.joshi
@@ -25,18 +25,18 @@ public class ProductRepository extends GenericRepository {
 
 	@SuppressWarnings("unchecked")
 	public List<ProdProductType> fetchAllProductTypes() {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(ProdProductType.class);
 		return criteria.list();
 	}
 	
 	public void saveProduct(Product product) {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		session.saveOrUpdate(product);
 	}
 	
 	public ProdProductType getProdProductType(String type) {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(ProdProductType.class);
 		criteria.add(Restrictions.eq("ptProductTypeDesc", type));
 		List list = criteria.list();
@@ -48,7 +48,7 @@ public class ProductRepository extends GenericRepository {
 	}
 	
 	public List<FmTaxRateProduct> fetchTaxRatesForProductType(ProdProductType productType) {
-		Session session = RepositoryUtils.getExistingSession();
+		Session session = HibernateUtils.getExistingSession();
 		Criteria criteria = session.createCriteria(FmTaxRateProduct.class);
 		criteria.add(Restrictions.eq("productType", productType));
 		return criteria.list();

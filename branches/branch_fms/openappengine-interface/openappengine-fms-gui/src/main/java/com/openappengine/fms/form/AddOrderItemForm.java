@@ -77,6 +77,8 @@ public class AddOrderItemForm extends FleetManagerForm {
 					getOrderItemDTO().setUnitPrice(dto.getNetPrice());
 					getOrderItemDTO().setTotal(total);
 					getOrderItemDTO().setTotalTax(totalTax);
+					getOrderItemDTO().setProductId(dto.getProductId());
+					
 					load(new BeanAdapter(getOrderItemDTO()));
 				}
 			}
@@ -120,6 +122,7 @@ public class AddOrderItemForm extends FleetManagerForm {
 				getOrderItemDTO().setTotalTax(totalTax);
 				getOrderItemDTO().setTotal(totalAmt);
 				getOrderItemDTO().setNetPrice(netPrice);
+				getOrderItemDTO().setProductId(dto.getProductId());
 				
 				total.setText(totalAmt.toString());
 				load(new BeanAdapter(getOrderItemDTO()));

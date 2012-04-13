@@ -3,6 +3,9 @@ package com.openappengine.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.openappengine.repository.GenericRepository;
+import com.openappengine.repository.context.RepositoryContext;
+
 /**
  * This is an Abstract Base Class for all the POJO Services,
  * with the common methods to set the context, and other house functions.
@@ -15,6 +18,8 @@ public abstract class AbstractDomainService implements Service {
 	
 	protected ServiceContext serviceContext;
 	
+	private static RepositoryContext repositoryContext;
+	
 	private List<String> errorMessages = new ArrayList<String>();
 	
 	private List<String> successMessages = new ArrayList<String>();
@@ -22,6 +27,14 @@ public abstract class AbstractDomainService implements Service {
 	private boolean success;
 	
 	private boolean error;
+	
+	static {
+		repositoryContext = RepositoryContext.getInstance();
+	}
+	
+	public <T extends GenericRepository> T getRepository(Class<T> t) { 
+		return repositoryContext.getRepository(t);
+	}
 
 	@Override
 	public void addSuccessMessage(String successMessage) {
