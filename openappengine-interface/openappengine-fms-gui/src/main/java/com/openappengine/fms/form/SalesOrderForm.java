@@ -12,6 +12,7 @@ import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Display;
 import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.LinkButton;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.WindowStateListener;
 
@@ -42,6 +43,7 @@ public class SalesOrderForm extends FleetManagerForm {
 	protected void initFormActions(Map<String, Object> namespace) {
 		LinkButton searchCustomerLink = (LinkButton) namespace.get("searchCustomerLink");
 		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
+		PushButton saveButton = (PushButton) namespace.get("saveButton");
 		
 		addLineItemLink.setAction(new Action() {
 			@Override
@@ -59,6 +61,7 @@ public class SalesOrderForm extends FleetManagerForm {
 						int lineNo = salesOrderDTO.getLineItems().getLength() + 1;
 						if(orderItemDTO != null) {
 							LineItemDTO lineItemDTO = salesOrderDTO.new LineItemDTO();
+							lineItemDTO.setProductId(orderItemDTO.getProductId());
 							lineItemDTO.setLineNo(lineNo);
 							lineItemDTO.setProductName(orderItemDTO.getProductName());
 							lineItemDTO.setQuantity(orderItemDTO.getQuantity());
@@ -96,6 +99,14 @@ public class SalesOrderForm extends FleetManagerForm {
 				});
 				
 				dialog.open(getWindow());
+			}
+		});
+		
+		saveButton.setAction(new Action() {
+			@Override
+			public void perform(Component source) {
+				SalesOrderForm.this.store(salesOrderDTO);
+				getFleetManagerServiceFacade().createOrder(salesOrderDTO);
 			}
 		});
 	}

@@ -34,6 +34,9 @@ public class FleetManagerFacadeImpl implements FleetManagerFacade {
 
 	@Override
 	public FleetVehicle getFleetVehicle(int fleetVehicleId) {
+		Runtime runtime = Runtime.getRuntime();
+		runtime.totalMemory();
+		runtime.freeMemory();
 		return fleetVehicleRepository.getFleetVehicleById(fleetVehicleId);
 	}
 }

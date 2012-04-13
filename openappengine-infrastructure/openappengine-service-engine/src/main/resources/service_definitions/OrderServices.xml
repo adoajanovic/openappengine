@@ -6,4 +6,11 @@
 		</description>
 		<parameter name="orderNumber" type="java.lang.String" mode="OUT" optional="false" />
 	</service>
+	
+	<service name="order.createOrder" class="com.openappengine.service.order.OrderServices" invokeMethod="createOrder">
+		<description>
+			Create Order.
+		</description>
+		<parameter name="orderHeader" type="com.openappengine.model.fm.OhOrderHeader" mode="IN" optional="false" />
+	</service>
 </services>

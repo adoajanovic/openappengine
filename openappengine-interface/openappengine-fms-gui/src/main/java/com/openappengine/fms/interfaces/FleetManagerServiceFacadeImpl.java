@@ -20,16 +20,22 @@ import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
 import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
+import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
+import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
+import com.openappengine.model.fm.OhOrderHeader;
+import com.openappengine.model.fm.OiOrderItem;
 import com.openappengine.model.party.Address;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
-import com.openappengine.repository.RepositoryUtils;
+import com.openappengine.repository.HibernateUtils;
+import com.openappengine.repository.context.RepositoryContext;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
 import com.openappengine.service.api.ServiceException;
+import com.openappengine.utility.DateTimeUtil;
 	
 /**
  * 
@@ -45,7 +51,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 
 	@Override
 	public CustomerDTO loadCustomerDTO(Integer partyId) {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -66,13 +72,13 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		CustomerDTOAssembler assembler = new CustomerDTOAssembler();
 		CustomerDTO dto = assembler.toDTO(person);
 		
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		return dto;
 	}
 
 	@Override
 	public void saveCustomer(CustomerDTO dto) {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		String serviceName = "";
 		serviceName = "party.createPerson";
 		Person person = new CustomerDTOAssembler().fromDTO(dto);
@@ -94,12 +100,12 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			e.printStackTrace();
 		}
 		
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 	}
 	
 	@Override
 	public void updateCustomer(CustomerDTO dto) {
-		Session session = RepositoryUtils.openSession();
+		Session session = HibernateUtils.openSession();
 		String serviceName = "";
 		serviceName = "party.updatePerson";
 		Person person = new CustomerDTOAssembler().fromDTO(dto);
@@ -120,12 +126,12 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 	}
 
 	@Override
 	public List<CustomerDTO> loadActiveCustomerDTOs() {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		ServiceDispatcher sd = ServiceEngineContext.getDefaultServiceDispatcher();
 		java.util.Map<String, Object> context = new java.util.HashMap<String, Object>();
 		
@@ -146,7 +152,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				customerDTOs.add(dto);
 			}
 		}
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		return customerDTOs;
 	}
 	
@@ -161,7 +167,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				
 		Session session = null;
 		try {
-			session = RepositoryUtils.openSession();
+			session = HibernateUtils.openSession();
 			
 			resultMap = serviceDispatcher.runSync("product.addNewProduct", context);
 			product = (Product) resultMap.get("product");
@@ -202,14 +208,14 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 			throw new FleetManagerServiceException("Exception encountered while calling Service Engine.");
 		} finally {
-			RepositoryUtils.closeOpenSession();
+			HibernateUtils.closeOpenSession();
 		}
 		
 	}
 
 	@Override
 	public org.apache.pivot.collections.List<ProductItemListDTO> getAllActiveProducts() {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -246,14 +252,14 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				prods.add(dto);
 			}
 		}
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		return prods;
 	}
 	
 	
 	@Override
 	public org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName, String middleName,String lastName) {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -311,13 +317,13 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 		}
 		
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		return customerSearchResults;
 	}
 	
 	@Override
 	public List<ProductTypeDTO> loadAllProductTypes() {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -338,13 +344,13 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 		}
 		
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		return productTypeDTOs;
 	}
 	
 	@Override
 	public ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice) {
-		RepositoryUtils.openSession();
+		HibernateUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -360,12 +366,74 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		} catch (ServiceException e) {
 		}
 		
-		RepositoryUtils.closeOpenSession();
+		HibernateUtils.closeOpenSession();
 		
 		ProductAmountDTO productAmountDTO = new ProductAmountDTO();
 		productAmountDTO.setCalculatedTax((BigDecimal) resultMap.get("calculatedTax"));
 		productAmountDTO.setPriceGross((BigDecimal) resultMap.get("priceGross"));
 		productAmountDTO.setPriceNet(netPrice);
 		return productAmountDTO;
+	}
+	
+	@Override
+	public void createOrder(SalesOrderDTO salesOrderDTO) {
+		if(salesOrderDTO == null) {
+			throw new FleetManagerServiceException("No instance of SalesOrder found.");
+		}
+		
+		OhOrderHeader orderHeader = new OhOrderHeader();
+		
+		if(salesOrderDTO.getParty() == null) {
+			throw new FleetManagerServiceException("No party attached with the Sales Order.");
+		}
+		
+		int partyId = salesOrderDTO.getParty().getPartyId();
+		orderHeader.setBillingAccountId(""+partyId);
+		orderHeader.setCurrencyUom("UOM");
+		orderHeader.setEntryDate(DateTimeUtil.nowDate());
+		orderHeader.setExternalId(""); //TODO
+		
+		BigDecimal grandTotal = salesOrderDTO.getGrandTotal();
+		orderHeader.setGrandTotal(grandTotal);
+		
+		orderHeader.setOrderType("SALES ORDER");
+		orderHeader.setOrderName(salesOrderDTO.getOrderName());
+		orderHeader.setStatus("ORDER STORED");	//TODO
+		
+		if(salesOrderDTO.getLineItems() == null || salesOrderDTO.getLineItems().isEmpty()) {
+			throw new FleetManagerServiceException("No Line items found. Cannot create Order");
+		}
+		
+		org.apache.pivot.collections.List<LineItemDTO> lineItems = salesOrderDTO.getLineItems();
+		for (LineItemDTO lineItemDTO : lineItems) {
+			OiOrderItem item = new OiOrderItem();
+			item.setOrderHeader(orderHeader);
+			item.setItemDescription(lineItemDTO.getProductName());
+			item.setOrderItemSequenceId(""+lineItemDTO.getLineNo());
+			item.setOrderItemType("SV");
+			
+			Product product = HibernateUtils.findOneById(lineItemDTO.getProductId(), Product.class);
+			if(product == null) {
+				throw new FleetManagerServiceException("No product found for line no " + lineItemDTO.getLineNo());
+			}
+			item.setProduct(product);
+			item.setQuantity(lineItemDTO.getQuantity());
+			item.setUnitListPrice(lineItemDTO.getUnitPrice());
+			item.setUnitPrice(lineItemDTO.getUnitPrice());
+			item.setStatus("ORDER ITEM STORED");
+			
+			orderHeader.getOrderItems().add(item);
+		}
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		context.put("orderHeader", orderHeader);
+		try {
+			serviceDispatcher.runSync("order.createOrder", context);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HibernateUtils.closeOpenSession();
 	}
 }

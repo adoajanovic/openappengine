@@ -12,6 +12,7 @@ import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
+import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 
 
 /**
@@ -65,5 +66,7 @@ public interface FleetManagerServiceFacade {
 	org.apache.pivot.collections.List<CustomerSearchResultDTO> findPartyByName(String firstName,String middleName, String lastName);
 
 	org.apache.pivot.collections.List<ProductItemListDTO> getAllActiveProducts();
+
+	void createOrder(SalesOrderDTO salesOrderDTO);
 	
 }
