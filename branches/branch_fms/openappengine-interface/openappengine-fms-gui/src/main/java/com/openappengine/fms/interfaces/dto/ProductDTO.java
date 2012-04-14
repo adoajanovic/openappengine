@@ -35,7 +35,7 @@ public class ProductDTO implements Serializable {
 	
 	private BigDecimal taxAmount = new BigDecimal(0.0);
 	
-	private BigDecimal netPrice = new BigDecimal(0.0);;
+	private BigDecimal listPrice = new BigDecimal(0.0);;
 	
 	private BigDecimal grossPrice = new BigDecimal(0.0);;
 
@@ -131,12 +131,12 @@ public class ProductDTO implements Serializable {
 		this.taxAmount = taxAmount;
 	}
 
-	public BigDecimal getNetPrice() {
-		return netPrice;
+	public BigDecimal getListPrice() {
+		return listPrice;
 	}
 
-	public void setNetPrice(BigDecimal netPrice) {
-		this.netPrice = netPrice;
+	public void setListPrice(BigDecimal netPrice) {
+		this.listPrice = netPrice;
 	}
 
 	public BigDecimal getGrossPrice() {

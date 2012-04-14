@@ -16,7 +16,7 @@
 				-->
 	        </TextInput>
 	        
-	        <TextInput bxml:id="netPrice" textKey="netPrice" Form.label="Price" enabled="false" />
+	        <TextInput bxml:id="listPrice" textKey="listPrice" Form.label="Price" enabled="false" />
 	        
 	        <TextInput bxml:id="taxAmount" textKey="totalTax" Form.label="Tax Amount" enabled="false"/>
 	        

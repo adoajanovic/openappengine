@@ -3,6 +3,8 @@
  */
 package com.openappengine.fms.form;
 
+import java.math.BigDecimal;
+
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.Map;
@@ -21,6 +23,7 @@ import com.openappengine.fms.interfaces.dto.OrderItemDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
 import com.openappengine.fms.util.PivotUtils;
+import com.openappengine.service.api.ServiceException;
 
 /**
  * @author hrishi
@@ -35,6 +38,14 @@ public class SalesOrderForm extends FleetManagerForm {
 	@Override
 	protected void initFormBean(Map<String, Object> namespace) {
 		refreshFormDTO();
+		
+		try {
+			String salesOrderExternalId = getFleetManagerServiceFacade().getSalesOrderExternalId();
+			salesOrderDTO.setExternalId(salesOrderExternalId);
+			
+		} catch (ServiceException e) {
+			throw new RuntimeException();
+		}
 		
 		this.load(new BeanAdapter(salesOrderDTO));
 	}
@@ -66,10 +77,19 @@ public class SalesOrderForm extends FleetManagerForm {
 							lineItemDTO.setProductName(orderItemDTO.getProductName());
 							lineItemDTO.setQuantity(orderItemDTO.getQuantity());
 							lineItemDTO.setTax(orderItemDTO.getTotalTax());
-							lineItemDTO.setNetPrice(orderItemDTO.getNetPrice());
+							lineItemDTO.setNetPrice(orderItemDTO.getListPrice());
 							lineItemDTO.setTotal(orderItemDTO.getTotal());
 							lineItemDTO.setUnitPrice(orderItemDTO.getUnitPrice());
+							
+							if(salesOrderDTO.getGrandTotal() == null) {
+								salesOrderDTO.setGrandTotal(new BigDecimal(0.0));
+							}
+							
+							BigDecimal total = salesOrderDTO.getGrandTotal().add(lineItemDTO.getTotal());
+							salesOrderDTO.setGrandTotal(total);
 							salesOrderDTO.getLineItems().add(lineItemDTO);
+							
+							SalesOrderForm.this.load(new BeanAdapter(salesOrderDTO));
 						}
 					}
 				});

@@ -13,15 +13,19 @@
 			
 			<CalendarButton bxml:id="discontinuationDate" Form.label="Discontinuation Date"/>
 			
-			<TextInput bxml:id = "quantityUom" textKey="quantityUom" Form.label = "Qty. UOM (For Persons)" />
+			<TextInput bxml:id = "quantityUom" textKey="quantityUom" Form.label = "Unit" />
 			
-			<TextInput bxml:id = "netAmount" Form.label="Amount(Net)" textSize="24" textKey="netPrice" >
+			<TextInput bxml:id = "listPrice" Form.label="Amount(Net)" textSize="24" textKey="listPrice" >
 				<validator>
 					<DecimalValidator xmlns = "org.apache.pivot.wtk.validation" />
 				</validator>
 			</TextInput>
 			
-			<TextInput bxml:id = "tax" textKey="taxAmount" Form.label = "Tax" enabled="false" />
+			<TextInput bxml:id = "tax" textKey="taxAmount" Form.label = "Tax" enabled="false">
+				<validator>
+					<DecimalValidator xmlns = "org.apache.pivot.wtk.validation" />
+				</validator>
+			</TextInput>
 			
 	        <TextInput bxml:id = "grossAmount" textKey="grossPrice" Form.label="Amount (Gross)" enabled="false" />
 	        

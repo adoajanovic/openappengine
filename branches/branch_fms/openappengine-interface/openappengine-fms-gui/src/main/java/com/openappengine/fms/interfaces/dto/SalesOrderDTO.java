@@ -19,7 +19,9 @@ public class SalesOrderDTO implements Serializable {
 	
 	private String orderName;
 	
-	private BigDecimal grandTotal;
+	private String externalId;
+	
+	private BigDecimal grandTotal = new BigDecimal(0.0);
 	
 	private CustomerDTO party = new CustomerDTO();
 	
@@ -149,6 +151,14 @@ public class SalesOrderDTO implements Serializable {
 
 	public void setGrandTotal(BigDecimal grandTotal) {
 		this.grandTotal = grandTotal;
+	}
+
+	public String getExternalId() {
+		return externalId;
+	}
+
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
 	}
 
 }

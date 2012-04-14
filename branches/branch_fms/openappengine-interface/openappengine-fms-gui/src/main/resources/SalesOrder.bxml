@@ -4,7 +4,7 @@
 	xmlns:collections="org.apache.pivot.collections"
 	xmlns="org.apache.pivot.wtk">
 	
-	<Form.Section heading="Sales Order">
+	<Form.Section>
 			<FlowPane>
 				<Border styles="{padding:2}">
 					<LinkButton bxml:id="addLineItemLink" tooltipText="Add Line Item">
@@ -18,6 +18,12 @@
 					</LinkButton>
 				</Border>
 			</FlowPane>    
+	</Form.Section>
+	
+	<Form.Section heading="Sales Order Information">
+		<TextInput bxml:id = "externalId" textKey="externalId" Form.label="External Id" enabled="false"/>
+		
+		<TextInput bxml:id = "grandTotal" textKey="grandTotal" Form.label="Grand Total" enabled="false"/>
 	</Form.Section>
 	
   	<Form.Section heading="Customer">
@@ -72,7 +78,7 @@
 			 </ScrollPane>
 		 </Border>
 	</Form.Section>
-				       
+	
 	<Form.Section>
 		<FlowPane bxml:id="flowPane" styles="{padding:2}">
 			    <PushButton buttonData="Save"
