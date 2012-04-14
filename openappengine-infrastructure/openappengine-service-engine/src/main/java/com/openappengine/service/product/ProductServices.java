@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.springframework.util.Assert;
 
 import com.openappengine.model.fm.FmTaxRateProduct;
+import com.openappengine.model.product.PriceTypeConstants;
 import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductPriceType;
 import com.openappengine.model.product.ProdProductType;
@@ -24,8 +26,6 @@ import com.openappengine.service.AbstractDomainService;
  */
 public class ProductServices extends AbstractDomainService {
 	
-	private static final String NET_PRICE = "NET PRICE";
-
 	private ProductRepository productRepository = new ProductRepository();
 
 	private Product product;
@@ -34,7 +34,7 @@ public class ProductServices extends AbstractDomainService {
 	
 	private BigDecimal calculatedTax;
 	
-	private BigDecimal priceNet;
+	private BigDecimal listPrice;
 	
 	private BigDecimal priceTax;
 	
@@ -43,6 +43,8 @@ public class ProductServices extends AbstractDomainService {
 	private Date toDate;
 	
 	private BigDecimal priceGross;
+	
+	private String taxType;
 	
 	private ProdProductType productType;
 	
@@ -56,49 +58,21 @@ public class ProductServices extends AbstractDomainService {
 		productRepository.saveProduct(product);
 	}
 	
-	public void addNetPrice() {
+	public void addListPrice() {
 		ProdProductPrice prodProductPrice = new ProdProductPrice();
-		prodProductPrice.setPpPrice(priceNet);
+		prodProductPrice.setPpPrice(getListPrice());
 		prodProductPrice.setPpFromDate(fromDate);
 		prodProductPrice.setPpToDate(toDate);
 		prodProductPrice.setPpCurrencyUomId("INR");
 		prodProductPrice.setProdProduct(product);
 		
-		ProdProductPriceType productPriceType = productRepository
-				.getProductPriceType(serviceContext.getHibernateSession(),NET_PRICE);
+		ProdProductPriceType productPriceType = productRepository.getProductPriceType(serviceContext.getHibernateSession(),PriceTypeConstants.PRICE_TYPE_LIST_PRICE);
+		Assert.notNull(productPriceType, "Product Price Type " + PriceTypeConstants.PRICE_TYPE_LIST_PRICE + " not found.!");
 		prodProductPrice.setProdProductPriceType(productPriceType);
 		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
 	}
 	
-	public void addTaxPrice() {
-		ProdProductPrice prodProductPrice = new ProdProductPrice();
-		prodProductPrice.setPpPrice(priceTax);
-		prodProductPrice.setPpFromDate(fromDate);
-		prodProductPrice.setPpToDate(toDate);
-		prodProductPrice.setPpCurrencyUomId("INR");
-		prodProductPrice.setProdProduct(product);
-		
-		ProdProductPriceType productPriceType = productRepository
-				.getProductPriceType(serviceContext.getHibernateSession(),"TAX PRICE");
-		prodProductPrice.setProdProductPriceType(productPriceType);
-		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
-	}
-	
-	public void addGrossPrice() {
-		ProdProductPrice prodProductPrice = new ProdProductPrice();
-		prodProductPrice.setPpPrice(priceGross);
-		prodProductPrice.setPpFromDate(fromDate);
-		prodProductPrice.setPpToDate(toDate);
-		prodProductPrice.setPpCurrencyUomId("INR");
-		prodProductPrice.setProdProduct(product);
-		
-		ProdProductPriceType productPriceType = productRepository
-				.getProductPriceType(serviceContext.getHibernateSession(),"GROSS PRICE");
-		prodProductPrice.setProdProductPriceType(productPriceType);
-		serviceContext.getHibernateSession().saveOrUpdate(prodProductPrice);
-	}
-	
-	public void calculateProductAmounts() {
+	public void calculateTax() {
 		List<FmTaxRateProduct> taxRates = productRepository.fetchTaxRatesForProductType(getProductType());
 		BigDecimal totalTax = new BigDecimal(0.0);
 		
@@ -106,14 +80,14 @@ public class ProductServices extends AbstractDomainService {
 			for (FmTaxRateProduct fmTaxRateProduct : taxRates) {
 				BigDecimal taxPercentage = fmTaxRateProduct.getTaxPercentage();
 				if(taxPercentage != null) {
-					totalTax = taxPercentage.multiply(priceNet).divide(new BigDecimal(100));
+					totalTax = taxPercentage.multiply(getListPrice()).divide(new BigDecimal(100));
 				}
 			}
 		}
 		calculatedTax = totalTax;
 		
 		if(calculatedTax != null) {
-			priceGross = priceNet.add(calculatedTax);
+			priceGross = getListPrice().add(calculatedTax);
 		}
 	}
 	
@@ -147,14 +121,6 @@ public class ProductServices extends AbstractDomainService {
 
 	public void setCalculatedTax(BigDecimal calculatedTax) {
 		this.calculatedTax = calculatedTax;
-	}
-
-	public BigDecimal getPriceNet() {
-		return priceNet;
-	}
-
-	public void setPriceNet(BigDecimal priceNet) {
-		this.priceNet = priceNet;
 	}
 
 	public ProdProductType getProductType() {
@@ -203,6 +169,22 @@ public class ProductServices extends AbstractDomainService {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public String getTaxType() {
+		return taxType;
+	}
+
+	public void setTaxType(String taxType) {
+		this.taxType = taxType;
+	}
+
+	public BigDecimal getListPrice() {
+		return listPrice;
+	}
+
+	public void setListPrice(BigDecimal listPrice) {
+		this.listPrice = listPrice;
 	}
 	
 }

@@ -13,7 +13,7 @@ public class OrderItemDTO implements Serializable {
 	
 	private BigDecimal quantity = new BigDecimal(1);
 	
-	private BigDecimal netPrice = new BigDecimal(0.0);
+	private BigDecimal listPrice = new BigDecimal(0.0);
 	
 	private BigDecimal taxAmount = new BigDecimal(0.0);
 	
@@ -37,14 +37,6 @@ public class OrderItemDTO implements Serializable {
 
 	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
-	}
-
-	public BigDecimal getNetPrice() {
-		return netPrice;
-	}
-
-	public void setNetPrice(BigDecimal netPrice) {
-		this.netPrice = netPrice;
 	}
 
 	public BigDecimal getTotal() {
@@ -85,5 +77,13 @@ public class OrderItemDTO implements Serializable {
 
 	public void setTotalTax(BigDecimal totalTax) {
 		this.totalTax = totalTax;
+	}
+
+	public BigDecimal getListPrice() {
+		return listPrice;
+	}
+
+	public void setListPrice(BigDecimal listPrice) {
+		this.listPrice = listPrice;
 	}
 }

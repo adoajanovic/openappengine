@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service name="tax.loadAllTaxTypes" class="com.openappengine.service.tax.TaxServices" invokeMethod="loadAllTaxTypes">
+		<description>
+			Find All Tax Types.
+		</description>
+		<parameter name="taxTypes" type="java.util.List" mode="OUT" optional="false" />
+	</service>
+</services>

@@ -68,14 +68,15 @@ public class AddOrderItemForm extends FleetManagerForm {
 				ProductItemListDTO dto = (ProductItemListDTO) listButton.getSelectedItem();
 				if(dto != null) {
 					BigDecimal orderQty = orderItemDTO.getQuantity();
-					BigDecimal total = (orderQty.multiply(dto.getNetPrice())).add((orderQty.multiply(dto.getTaxPrice())));
+					BigDecimal totalProductPrice = dto.getTotalProductPrice();
+					BigDecimal totalOrderAmt = totalProductPrice.multiply(orderQty);
 					BigDecimal totalTax = orderQty.multiply(dto.getTaxPrice());
 					
 					getOrderItemDTO().setProductName(dto.getProductName());
-					getOrderItemDTO().setNetPrice(dto.getNetPrice());
+					getOrderItemDTO().setListPrice(dto.getNetPrice());
 					getOrderItemDTO().setTaxAmount(dto.getTaxPrice());
 					getOrderItemDTO().setUnitPrice(dto.getNetPrice());
-					getOrderItemDTO().setTotal(total);
+					getOrderItemDTO().setTotal(totalOrderAmt);
 					getOrderItemDTO().setTotalTax(totalTax);
 					getOrderItemDTO().setProductId(dto.getProductId());
 					
@@ -121,7 +122,7 @@ public class AddOrderItemForm extends FleetManagerForm {
 				
 				getOrderItemDTO().setTotalTax(totalTax);
 				getOrderItemDTO().setTotal(totalAmt);
-				getOrderItemDTO().setNetPrice(netPrice);
+				getOrderItemDTO().setListPrice(netPrice);
 				getOrderItemDTO().setProductId(dto.getProductId());
 				
 				total.setText(totalAmt.toString());

@@ -42,13 +42,13 @@ public class ProductForm extends FleetManagerForm {
 		initFormBean(namespace);
 		
 		final ListButton productType = (ListButton) namespace.get("productType");
-		final TextInput netAmount = (TextInput) namespace.get("netAmount");
+		final TextInput listPrice = (TextInput) namespace.get("listPrice");
 		final PushButton resetButton = (PushButton) namespace.get("resetButton");
 		final PushButton saveButton = (PushButton) namespace.get("saveButton");
 		
 		setFormDefaults(namespace);
 		
-		netAmount.getTextInputContentListeners().add(new TextInputContentListener.Adapter() {
+		listPrice.getTextInputContentListeners().add(new TextInputContentListener.Adapter() {
 			@Override
 			public void textInserted(TextInput textInput, int index, int count) {
 				ProductTypeDTO productTypeDTO = (ProductTypeDTO) productType.getSelectedItem();
@@ -58,7 +58,7 @@ public class ProductForm extends FleetManagerForm {
 				
 				BigDecimal netPrice;
 				try {
-					netPrice = NumberUtils.parseNumber(netAmount.getText(), BigDecimal.class);
+					netPrice = NumberUtils.parseNumber(listPrice.getText(), BigDecimal.class);
 				} catch (Exception e) {
 					resetAmounts(namespace);
 					Alert.alert(MessageType.ERROR, "Invalid Value for Price (Net).", ProductForm.this.getWindow());
@@ -69,7 +69,7 @@ public class ProductForm extends FleetManagerForm {
 
 				ProductAmountDTO productAmountDTO = getFleetManagerServiceFacade().calculateTaxAmount(productTypeDTO, netPrice);
 				
-				productDTO.setNetPrice(productAmountDTO.getPriceNet());
+				productDTO.setListPrice(productAmountDTO.getListPrice());
 				productDTO.setGrossPrice(productAmountDTO.getPriceGross());
 				productDTO.setTaxAmount(productAmountDTO.getCalculatedTax());
 				

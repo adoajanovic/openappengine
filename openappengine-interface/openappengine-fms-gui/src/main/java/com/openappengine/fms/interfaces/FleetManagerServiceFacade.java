@@ -13,6 +13,7 @@ import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
+import com.openappengine.service.api.ServiceException;
 
 
 /**
@@ -68,5 +69,7 @@ public interface FleetManagerServiceFacade {
 	org.apache.pivot.collections.List<ProductItemListDTO> getAllActiveProducts();
 
 	void createOrder(SalesOrderDTO salesOrderDTO);
+
+	String getSalesOrderExternalId() throws ServiceException;
 	
 }

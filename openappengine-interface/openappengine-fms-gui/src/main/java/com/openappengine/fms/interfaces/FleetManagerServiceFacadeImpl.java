@@ -22,6 +22,7 @@ import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
+import com.openappengine.model.fm.FmTaxRateProduct;
 import com.openappengine.model.fm.OhOrderHeader;
 import com.openappengine.model.fm.OiOrderItem;
 import com.openappengine.model.party.Address;
@@ -72,7 +73,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		CustomerDTOAssembler assembler = new CustomerDTOAssembler();
 		CustomerDTO dto = assembler.toDTO(person);
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		return dto;
 	}
 
@@ -100,7 +101,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			e.printStackTrace();
 		}
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 	}
 	
 	@Override
@@ -126,7 +127,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 	}
 
 	@Override
@@ -152,7 +153,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				customerDTOs.add(dto);
 			}
 		}
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		return customerDTOs;
 	}
 	
@@ -172,29 +173,13 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			resultMap = serviceDispatcher.runSync("product.addNewProduct", context);
 			product = (Product) resultMap.get("product");
 			
-			//Add Net Price
+			//Add List Price
 			context = new HashMap<String, Object>();
 			context.put("product", product);
-			context.put("priceNet", dto.getNetPrice());
+			context.put("listPrice", dto.getListPrice());
 			context.put("fromDate", dto.getIntroductionDate());
 			context.put("toDate", dto.getSalesDiscontinuationDate());
-			serviceDispatcher.runSyncIgnoreResult("product.addNetPrice", context);
-			
-			//Add Tax Price
-			context = new HashMap<String, Object>();
-			context.put("product", product);
-			context.put("priceTax", dto.getTaxAmount());
-			context.put("fromDate", dto.getIntroductionDate());
-			context.put("toDate", dto.getSalesDiscontinuationDate());
-			serviceDispatcher.runSyncIgnoreResult("product.addTaxPrice", context);
-			
-			//Add Gross Price
-			context = new HashMap<String, Object>();
-			context.put("product", product);
-			context.put("priceGross", dto.getGrossPrice());
-			context.put("fromDate", dto.getIntroductionDate());
-			context.put("toDate", dto.getSalesDiscontinuationDate());
-			serviceDispatcher.runSyncIgnoreResult("product.addGrossPrice", context);
+			serviceDispatcher.runSyncIgnoreResult("product.addListPrice", context);
 			
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -208,7 +193,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 			throw new FleetManagerServiceException("Exception encountered while calling Service Engine.");
 		} finally {
-			HibernateUtils.closeOpenSession();
+			HibernateUtils.closeSession();
 		}
 		
 	}
@@ -236,23 +221,46 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				dto.setProductId(product.getPdProductId());
 				
 				List<ProdProductPrice> prodProductPrices = product.getProdProductPrices();
+				BigDecimal listPrice = new BigDecimal(0.0);
 				if(prodProductPrices != null) {
 					for (ProdProductPrice prodProductPrice : prodProductPrices) {
 						if(prodProductPrice.getProdProductPriceType() != null) {
-							if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("NET PRICE")) {
-								dto.setNetPrice(prodProductPrice.getPpPrice());
-							} else if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("TAX PRICE")) {
-								dto.setTaxPrice(prodProductPrice.getPpPrice());
+							if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("LIST PRICE")) {
+								listPrice = prodProductPrice.getPpPrice();
+								dto.setNetPrice(listPrice);
 							}
 						}
 					}
 				}
 				
+				ProdProductType prodProductType = product.getProdProductType();
+				ProductTypeDTO typeDTO = new ProductTypeDTO();
+				typeDTO.setProductTypeDesc(prodProductType.getPtProductTypeDesc());
+				typeDTO.setProductTypeId(prodProductType.getPtProductTypeId());
+				
+				//
+				Map<String, Object> context1 = new HashMap<String, Object>();
+				Map<String, Object> resultMap1 = new HashMap<String, Object>();
+				context1.put("productType", prodProductType);
+				context1.put("listPrice", listPrice);
+				try {
+					resultMap1 = serviceDispatcher.runSync("product.calculateTax", context1);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+				}
+				
+				ProductAmountDTO productAmountDTO = new ProductAmountDTO();
+				productAmountDTO.setCalculatedTax((BigDecimal) resultMap1.get("calculatedTax"));
+				productAmountDTO.setPriceGross((BigDecimal) resultMap1.get("priceGross"));
+				productAmountDTO.setListPrice(listPrice);
+				
+				dto.setTaxPrice(productAmountDTO.getCalculatedTax());
+				dto.setTotalProductPrice(productAmountDTO.getPriceGross());
 				
 				prods.add(dto);
 			}
 		}
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		return prods;
 	}
 	
@@ -317,7 +325,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 		}
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		return customerSearchResults;
 	}
 	
@@ -344,12 +352,12 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			}
 		}
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		return productTypeDTOs;
 	}
 	
 	@Override
-	public ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal netPrice) {
+	public ProductAmountDTO calculateTaxAmount(ProductTypeDTO dto, BigDecimal listPrice) {
 		HibernateUtils.openSession();
 		
 		Map<String, Object> context = new HashMap<String, Object>();
@@ -360,19 +368,29 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		type.setPtProductTypeDesc(dto.getProductTypeDesc());
 		
 		context.put("productType", type);
-		context.put("priceNet", netPrice);
+		context.put("listPrice", listPrice);
 		try {
 			resultMap = serviceDispatcher.runSync("product.calculateTax", context);
 		} catch (ServiceException e) {
 		}
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 		
 		ProductAmountDTO productAmountDTO = new ProductAmountDTO();
 		productAmountDTO.setCalculatedTax((BigDecimal) resultMap.get("calculatedTax"));
 		productAmountDTO.setPriceGross((BigDecimal) resultMap.get("priceGross"));
-		productAmountDTO.setPriceNet(netPrice);
+		productAmountDTO.setListPrice(listPrice);
 		return productAmountDTO;
+	}
+	
+	@Override
+	public String getSalesOrderExternalId() throws ServiceException {
+		HibernateUtils.openSession();
+		Map<String, Object> context = new HashMap<String, Object>();
+		Map<String, Object> res = serviceDispatcher.runSync("order.getNextOrderNumber", context);
+		String orderNumber = (String) res.get("orderNumber");
+		HibernateUtils.closeSession();
+		return orderNumber;
 	}
 	
 	@Override
@@ -434,6 +452,6 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			e.printStackTrace();
 		}
 		
-		HibernateUtils.closeOpenSession();
+		HibernateUtils.closeSession();
 	}
 }
