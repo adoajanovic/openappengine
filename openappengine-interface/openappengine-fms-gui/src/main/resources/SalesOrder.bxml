@@ -21,6 +21,8 @@
 		
 		<TextInput bxml:id = "grandTotal" textKey="grandTotal" Form.label="Grand Total" enabled="false"/>
 		
+		<TextInput bxml:id = "status" textKey="status" Form.label="Status" enabled="false"/>
+		
 		<TextInput bxml:id = "orderName" textKey="orderName" Form.label="Order Name"/>
 	</Form.Section>
 	
@@ -51,6 +53,18 @@
 		    	   <TextInput bxml:id = "zip" prompt="Zip" textSize="10" textKey="party.addressDTO.postalCode" enabled="false"/>
 		        </BoxPane>
 		    </BoxPane>
+	</Form.Section>
+	
+	<Form.Section>
+		<FlowPane>
+			<LinkButton bxml:id="editLineItemLink" tooltipText="Edit Line Item">
+			    <content:ButtonData icon="../images/edit.png" />
+			</LinkButton>
+				
+			<LinkButton bxml:id="deleteLineItemLink" tooltipText="Delete">
+			    <content:ButtonData icon="../images/remove.png" />
+			</LinkButton>
+		</FlowPane>
 	</Form.Section>
 	
 	<Form.Section heading="Lines">

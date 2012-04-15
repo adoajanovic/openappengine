@@ -41,11 +41,23 @@ public class AddOrderItemForm extends FleetManagerForm {
 	@Override
 	protected void initFormActions(Map<String, Object> namespace) {
 		PushButton addOrderItemButton = (PushButton) namespace.get("addOrderItemButton");
+		final ListButton productName = (ListButton) namespace.get("productName");
+		
 		addOrderItemButton.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
 				//TODO - Perform Validation.
+				if(productName.getSelectedItem() == null) {
+					Alert.alert(MessageType.ERROR, "No Product Selected.", getWindow());
+					return;
+				}
+				
 				store(getOrderItemDTO());
+				if(orderItemDTO.getQuantity() == null || orderItemDTO.getQuantity().equals(0.0)) {
+					Alert.alert(MessageType.ERROR, "Quantity selected should be positive.", getWindow());
+					return;
+				}
+				
 				selectedItemDTO = getOrderItemDTO();
 				AddOrderItemForm.this.getWindow().close();
 			}

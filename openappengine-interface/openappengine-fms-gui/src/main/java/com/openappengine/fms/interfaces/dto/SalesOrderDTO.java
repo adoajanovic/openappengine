@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
+import org.apache.pivot.wtk.media.Image;
 
 /**
  * @author hrishi
@@ -18,6 +19,8 @@ public class SalesOrderDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String orderName;
+	
+	private String status;
 	
 	private String externalId;
 	
@@ -159,6 +162,14 @@ public class SalesOrderDTO implements Serializable {
 
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
