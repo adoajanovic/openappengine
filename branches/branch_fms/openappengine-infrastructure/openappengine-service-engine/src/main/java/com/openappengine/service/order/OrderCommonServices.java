@@ -18,7 +18,7 @@ public class OrderCommonServices extends AbstractDomainService {
 	public void getNextOrderNumber() {
 		int nextOrderNumber = orderRepository.nextOrderNumber();
 		String number = String.format("%05d", nextOrderNumber);
-		orderNumber = "SO" + number;
+		orderNumber = "OR" + number;
 	}
 	
 	//Getters+Setters

@@ -12,5 +12,33 @@
 			Create Order.
 		</description>
 		<parameter name="orderHeader" type="com.openappengine.model.fm.OhOrderHeader" mode="IN" optional="false" />
+		<parameter name="orderId" type="java.lang.Integer" mode="OUT" optional="false" />
+	</service>
+	
+	<service name="order.findOrders" class="com.openappengine.service.order.OrderServices" invokeMethod="findOrders">
+		<description>
+			Find Orders.
+		</description>
+		<parameter name="status" type="java.lang.String" mode="IN" optional="false" />
+		<parameter name="externalId" type="java.lang.String" mode="IN" optional="true" />
+		<parameter name="fromDate" type="java.util.Date" mode="IN" optional="true" />
+		<parameter name="toDate" type="java.util.Date" mode="IN" optional="true" />
+		<parameter name="orders" type="java.util.List" mode="OUT" optional="false" />
+	</service>
+	
+	<service name="order.findOrderByExternalId" class="com.openappengine.service.order.OrderServices" invokeMethod="findOrderByExternalId">
+		<description>
+			Find Order by External Id.
+		</description>
+		<parameter name="externalId" type="java.lang.String" mode="IN" optional="false" />
+		<parameter name="orderHeader" type="com.openappengine.model.fm.OhOrderHeader" mode="OUT" optional="false" />
+	</service>
+	
+	<service name="order.changeOrderStatus" class="com.openappengine.service.order.OrderServices" invokeMethod="changeOrderStatus">
+		<description>
+			Change Order Status.
+		</description>
+		<parameter name="externalId" type="java.lang.String" mode="IN" optional="false" />
+		<parameter name="status" type="java.lang.String" mode="IN" optional="false" />
 	</service>
 </services>

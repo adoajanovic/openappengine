@@ -16,7 +16,6 @@ import org.springframework.beans.BeanWrapperImpl;
 import com.openappengine.repository.HibernateUtils;
 import com.openappengine.service.DefaultServiceContext;
 import com.openappengine.service.Service;
-import com.openappengine.service.ServiceContext;
 import com.openappengine.service.model.ModelService;
 import com.openappengine.service.model.ModelServiceParameter;
 

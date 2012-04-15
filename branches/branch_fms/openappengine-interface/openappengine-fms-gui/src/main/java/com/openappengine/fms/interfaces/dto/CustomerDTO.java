@@ -4,6 +4,7 @@
 package com.openappengine.fms.interfaces.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +34,9 @@ public class CustomerDTO implements Serializable {
 
 	private String comments;
 	
-	private AddressDTO addressDTO;
+	private AddressDTO addressDTO = new AddressDTO();
 	
-	private List<ContactMechDTO> contactMechDTOs;
+	private List<ContactMechDTO> contactMechDTOs = new ArrayList<ContactMechDTO>();
 
 	public String getSalutation() {
 		return salutation;
