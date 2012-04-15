@@ -533,6 +533,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				dto.setExternalId(orderHeader.getExternalId());
 				dto.setGrandTotal(orderHeader.getGrandTotal());
 				dto.setOrderName(orderHeader.getOrderName());
+				dto.setStatus(orderHeader.getStatus());
 				
 				CustomerDTO partyDTO = new CustomerDTO();
 				String billingAccountId = orderHeader.getBillingAccountId();
