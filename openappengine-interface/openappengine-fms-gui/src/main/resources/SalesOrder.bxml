@@ -6,17 +6,13 @@
 	
 	<Form.Section>
 			<FlowPane>
-				<Border styles="{padding:2}">
 					<LinkButton bxml:id="addLineItemLink" tooltipText="Add Line Item">
 					    <content:ButtonData icon="../images/add.png" />
 					</LinkButton>
-				</Border>	
 				
-				<Border styles="{padding:2}">
 					<LinkButton bxml:id="searchCustomerLink" tooltipText="Attach Customer">
 					    <content:ButtonData icon="../images/person.png" />
 					</LinkButton>
-				</Border>
 			</FlowPane>    
 	</Form.Section>
 	
@@ -24,12 +20,12 @@
 		<TextInput bxml:id = "externalId" textKey="externalId" Form.label="External Id" enabled="false"/>
 		
 		<TextInput bxml:id = "grandTotal" textKey="grandTotal" Form.label="Grand Total" enabled="false"/>
+		
+		<TextInput bxml:id = "orderName" textKey="orderName" Form.label="Order Name"/>
 	</Form.Section>
 	
   	<Form.Section heading="Customer">
   	
-  			<Checkbox buttonData="One-time customer" />
-
 			<Label Form.label="Name" />  			  			
   			<FlowPane>
   				<ListButton bxml:id="salutation" selectedItemKey="party.salutation" listData="['Mr.', 'Mrs.', 'Ms.', 'Dr.']"  enabled="false"/>
@@ -90,6 +86,12 @@
 			    	bxml:id="resetButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
 				    xmlns="org.apache.pivot.wtk"/>
+				    
+				<PushButton buttonData="Cancel Order"
+			    	bxml:id="cancelButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk"/>
+					        
 		</FlowPane>
 	</Form.Section>
   </Form:SalesOrderForm>

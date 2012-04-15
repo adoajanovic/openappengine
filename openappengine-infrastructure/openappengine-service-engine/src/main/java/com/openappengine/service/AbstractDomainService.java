@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.openappengine.repository.GenericRepository;
 import com.openappengine.repository.context.RepositoryContext;
+import com.openappengine.utility.UtilValidate;
 
 /**
  * This is an Abstract Base Class for all the POJO Services,
@@ -72,7 +73,10 @@ public abstract class AbstractDomainService implements Service {
 	}
 
 	public boolean isSuccess() {
-		return success;
+		if(UtilValidate.isEmpty(errorMessages)) {
+			return true;
+		}
+		return false;
 	}
 
 	protected void setSuccess(boolean success) {
@@ -80,7 +84,7 @@ public abstract class AbstractDomainService implements Service {
 	}
 
 	public boolean isError() {
-		return error;
+		return !isSuccess();
 	}
 
 	protected void setError(boolean error) {

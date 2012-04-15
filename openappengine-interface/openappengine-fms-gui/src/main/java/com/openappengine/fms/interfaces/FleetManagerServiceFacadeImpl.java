@@ -2,6 +2,7 @@ package com.openappengine.fms.interfaces;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +10,15 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.util.Assert;
 
 import com.openappengine.fms.interfaces.dto.ContactMechDTO;
 import com.openappengine.fms.interfaces.dto.ContactMechDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
+import com.openappengine.fms.interfaces.dto.OrderListItemDTO;
+import com.openappengine.fms.interfaces.dto.OrderSearchDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTOAssembler;
@@ -22,21 +26,21 @@ import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
-import com.openappengine.model.fm.FmTaxRateProduct;
 import com.openappengine.model.fm.OhOrderHeader;
 import com.openappengine.model.fm.OiOrderItem;
 import com.openappengine.model.party.Address;
+import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductType;
 import com.openappengine.model.product.Product;
 import com.openappengine.repository.HibernateUtils;
-import com.openappengine.repository.context.RepositoryContext;
 import com.openappengine.service.api.ServiceDispatcher;
 import com.openappengine.service.api.ServiceEngineContext;
 import com.openappengine.service.api.ServiceException;
 import com.openappengine.utility.DateTimeUtil;
+import com.openappengine.utility.UtilValidate;
 	
 /**
  * 
@@ -407,16 +411,17 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 		int partyId = salesOrderDTO.getParty().getPartyId();
 		orderHeader.setBillingAccountId(""+partyId);
-		orderHeader.setCurrencyUom("UOM");
+		orderHeader.setCurrencyUom("INR");
 		orderHeader.setEntryDate(DateTimeUtil.nowDate());
-		orderHeader.setExternalId(""); //TODO
+		orderHeader.setOrderDate(DateTimeUtil.nowDate());
+		orderHeader.setExternalId(salesOrderDTO.getExternalId()); 
 		
 		BigDecimal grandTotal = salesOrderDTO.getGrandTotal();
 		orderHeader.setGrandTotal(grandTotal);
 		
-		orderHeader.setOrderType("SALES ORDER");
+		orderHeader.setOrderType("SALES_ORDER");
 		orderHeader.setOrderName(salesOrderDTO.getOrderName());
-		orderHeader.setStatus("ORDER STORED");	//TODO
+		orderHeader.setStatus("ORDER_CREATED");	//TODO
 		
 		if(salesOrderDTO.getLineItems() == null || salesOrderDTO.getLineItems().isEmpty()) {
 			throw new FleetManagerServiceException("No Line items found. Cannot create Order");
@@ -438,20 +443,150 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			item.setQuantity(lineItemDTO.getQuantity());
 			item.setUnitListPrice(lineItemDTO.getUnitPrice());
 			item.setUnitPrice(lineItemDTO.getUnitPrice());
-			item.setStatus("ORDER ITEM STORED");
+			item.setTaxPrice(lineItemDTO.getTax());
+			item.setLineTotalPrice(lineItemDTO.getTotal());
+			item.setStatus("ORDER_ITEM_STORED");
 			
 			orderHeader.getOrderItems().add(item);
 		}
 		
 		Map<String, Object> context = new HashMap<String, Object>();
 		context.put("orderHeader", orderHeader);
+		Map<String, Object> orderResultContext = null;
 		try {
-			serviceDispatcher.runSync("order.createOrder", context);
+			orderResultContext = serviceDispatcher.runSync("order.createOrder", context);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		if(orderResultContext != null && orderResultContext.containsKey("orderId")) {
+			Integer orderId = (Integer) orderResultContext.get("orderId");
+			
+			Map<String,Object> createInvoiceContext = new HashMap<String, Object>();
+			createInvoiceContext.put("orderId", orderId);
+			try {
+				serviceDispatcher.runSync("invoice.createInvoice", createInvoiceContext);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		HibernateUtils.closeSession();
 	}
+	
+	@Override
+	public org.apache.pivot.collections.List<OrderListItemDTO> loadOrderListItems(OrderSearchDTO orderSearchDTO) {
+		HibernateUtils.openSession();
+		Map<String, Object> context = new HashMap<String, Object>();
+		org.apache.pivot.collections.List<OrderListItemDTO> dtos = new org.apache.pivot.collections.ArrayList<OrderListItemDTO>();
+		try {
+			context.put("status", orderSearchDTO.getOrderStatus());
+			context.put("fromDate", orderSearchDTO.getFromDate());
+			context.put("toDate",orderSearchDTO.getToDate());
+			context.put("externalId", orderSearchDTO.getExternalId());
+			
+			Map<String, Object> result = serviceDispatcher.runSync("order.findOrders", context);
+			List<OhOrderHeader> orderHeaders = (List<OhOrderHeader>) result.get("orders");
+			if(!UtilValidate.isEmpty(orderHeaders)) {
+				for (OhOrderHeader ohOrderHeader : orderHeaders) {
+					OrderListItemDTO dto = new OrderListItemDTO();
+					
+					dto.setExternalId(ohOrderHeader.getExternalId());
+					dto.setGrandTotal(ohOrderHeader.getGrandTotal());
+					dto.setOrderDate(ohOrderHeader.getOrderDate());
+					dto.setOrderName(ohOrderHeader.getOrderName());
+					dto.setStatus(ohOrderHeader.getStatus());
+					
+					List<OiOrderItem> orderItems = ohOrderHeader.getOrderItems();
+					if(!UtilValidate.isEmpty(orderItems)) {
+						BigDecimal totalTax = new BigDecimal(0.0);
+						for (OiOrderItem oiOrderItem : orderItems) {
+							totalTax = totalTax.add(oiOrderItem.getTaxPrice());
+						}
+						
+						dto.setTotalTax(totalTax);
+					}
+					dtos.add(dto);
+				}
+			}
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HibernateUtils.closeSession();
+		return dtos;
+	}
+	
+	@Override
+	public SalesOrderDTO getSalesOrderDTO(String externalId) {
+		SalesOrderDTO dto = new SalesOrderDTO();
+		Session session = HibernateUtils.openSession();
+		
+		Map<String, Object> context = new HashMap<String, Object>();
+		context.put("externalId", externalId);
+		try {
+			Map<String, Object> resultMap = serviceDispatcher.runSync("order.findOrderByExternalId", context);
+			OhOrderHeader orderHeader = (OhOrderHeader) resultMap.get("orderHeader");
+			if(orderHeader != null) {
+				dto.setExternalId(orderHeader.getExternalId());
+				dto.setGrandTotal(orderHeader.getGrandTotal());
+				dto.setOrderName(orderHeader.getOrderName());
+				
+				CustomerDTO partyDTO = new CustomerDTO();
+				String billingAccountId = orderHeader.getBillingAccountId();
+				
+				Person party = (Person) session.get(Person.class, Integer.valueOf(billingAccountId));
+				partyDTO = new CustomerDTOAssembler().toDTO(party);
+				dto.setParty(partyDTO);
+				
+				org.apache.pivot.collections.List<LineItemDTO> lineItems = new org.apache.pivot.collections.ArrayList<SalesOrderDTO.LineItemDTO>();
+				List<OiOrderItem> orderItems = orderHeader.getOrderItems();
+				if(!UtilValidate.isEmpty(orderItems)) {
+					for (OiOrderItem oiOrderItem : orderItems) {
+						LineItemDTO lineItemDTO = dto.new LineItemDTO();
+						lineItemDTO.setLineNo(Integer.valueOf(oiOrderItem.getOrderItemSequenceId()));
+						lineItemDTO.setNetPrice(lineItemDTO.getNetPrice());
+						lineItemDTO.setProductId(lineItemDTO.getProductId());
+						
+						Product prod = (Product) session.get(Product.class, lineItemDTO.getProductId());
+						if(prod != null) {
+							lineItemDTO.setProductName(prod.getPdProductName());
+						}
+						lineItemDTO.setQuantity(oiOrderItem.getQuantity());
+						lineItemDTO.setTax(oiOrderItem.getTaxPrice());
+						lineItemDTO.setUnitPrice(oiOrderItem.getUnitPrice());
+						lineItemDTO.setTotal(oiOrderItem.getLineTotalPrice());
+						
+						lineItems.add(lineItemDTO);
+					}
+				}
+				dto.setLineItems(lineItems);
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		
+		HibernateUtils.closeSession();
+		return dto;
+	}
+	
+	@Override
+	public void cancelSalesOrder(String externalId) {
+		Assert.notNull(externalId,"OrderId cannot be null.");
+		HibernateUtils.openSession();
+		Map<String, Object> context = new HashMap<String, Object>();
+		context.put("status", "ORDER_CANCELLED");
+		context.put("externalId", externalId);
+		
+		try {
+			serviceDispatcher.runSyncIgnoreResult("order.changeOrderStatus", context);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HibernateUtils.closeSession();
+	}
+	
 }

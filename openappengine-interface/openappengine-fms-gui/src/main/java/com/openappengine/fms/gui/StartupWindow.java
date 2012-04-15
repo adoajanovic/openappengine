@@ -48,6 +48,8 @@ public class StartupWindow extends Frame implements Bindable {
         
         addAction_SalesOrderNew();
         
+        addAction_SalesOrderList();
+        
         addAction_CustomerNew();
         
         addAction_CustomerList();
@@ -134,6 +136,18 @@ public class StartupWindow extends Frame implements Bindable {
                 bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
  
                 PivotUtils.addTab(StartupWindow.this, "SalesOrder.bxml", new HashMap<String, Object>(), "New Order");
+            }
+        });
+	}
+	
+	private void addAction_SalesOrderList() {
+		Action.getNamedActions().put("salesOrderList", new Action() {
+            @Override
+            public void perform(Component source) {
+                BXMLSerializer bxmlSerializer = new BXMLSerializer();
+                bxmlSerializer.getNamespace().put("menuHandler", menuHandler);
+ 
+                PivotUtils.addTab(StartupWindow.this, "OrderListing.bxml", new HashMap<String, Object>(), "Order Listing");
             }
         });
 	}

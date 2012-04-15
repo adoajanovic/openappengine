@@ -4,18 +4,15 @@
 package com.openappengine.fms.form;
 
 import java.net.URL;
-import java.util.List;
 
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Alert;
-import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.GridPane;
 import org.apache.pivot.wtk.MessageType;
-import org.apache.pivot.wtk.Panel;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TableView;
 

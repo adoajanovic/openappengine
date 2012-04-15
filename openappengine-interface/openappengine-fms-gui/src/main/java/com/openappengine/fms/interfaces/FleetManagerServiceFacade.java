@@ -4,10 +4,13 @@
 package com.openappengine.fms.interfaces;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
+import com.openappengine.fms.interfaces.dto.OrderListItemDTO;
+import com.openappengine.fms.interfaces.dto.OrderSearchDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
 import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
@@ -71,5 +74,11 @@ public interface FleetManagerServiceFacade {
 	void createOrder(SalesOrderDTO salesOrderDTO);
 
 	String getSalesOrderExternalId() throws ServiceException;
+
+	org.apache.pivot.collections.List<OrderListItemDTO> loadOrderListItems(OrderSearchDTO dto);
+
+	SalesOrderDTO getSalesOrderDTO(String externalId);
+
+	void cancelSalesOrder(String externalId);
 	
 }

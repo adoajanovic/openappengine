@@ -5,6 +5,7 @@ package com.openappengine.fms.form;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.Map;
@@ -15,6 +16,7 @@ import org.apache.pivot.wtk.Display;
 import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.PushButton;
+import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.WindowStateListener;
 
@@ -38,13 +40,37 @@ public class SalesOrderForm extends FleetManagerForm {
 	@Override
 	protected void initFormBean(Map<String, Object> namespace) {
 		refreshFormDTO();
+		LinkButton searchCustomerLink = (LinkButton) namespace.get("searchCustomerLink");
+		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
+		PushButton saveButton = (PushButton) namespace.get("saveButton");
+		PushButton resetButton = (PushButton) namespace.get("resetButton");
+		TextInput orderName = (TextInput) namespace.get("orderName");
+		PushButton cancelButton = (PushButton) namespace.get("cancelButton");
 		
-		try {
-			String salesOrderExternalId = getFleetManagerServiceFacade().getSalesOrderExternalId();
-			salesOrderDTO.setExternalId(salesOrderExternalId);
+		String externalId = (String) namespace.get("paramExternalId");
+		if(!StringUtils.isEmpty(externalId)) {
+			salesOrderDTO.setExternalId(externalId);
 			
-		} catch (ServiceException e) {
-			throw new RuntimeException();
+			salesOrderDTO = getFleetManagerServiceFacade().getSalesOrderDTO(externalId);
+			
+			searchCustomerLink.setVisible(false);
+			addLineItemLink.setVisible(false);
+			saveButton.setVisible(false);
+			resetButton.setVisible(false);
+			orderName.setEnabled(false);
+			
+			cancelButton.setVisible(true);
+		} else {
+			try {
+				String salesOrderExternalId = getFleetManagerServiceFacade().getSalesOrderExternalId();
+				salesOrderDTO.setExternalId(salesOrderExternalId);
+				
+				
+			} catch (ServiceException e) {
+				throw new RuntimeException();
+			}
+			
+			cancelButton.setVisible(false);
 		}
 		
 		this.load(new BeanAdapter(salesOrderDTO));
@@ -55,10 +81,14 @@ public class SalesOrderForm extends FleetManagerForm {
 		LinkButton searchCustomerLink = (LinkButton) namespace.get("searchCustomerLink");
 		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
 		PushButton saveButton = (PushButton) namespace.get("saveButton");
+		PushButton cancelButton = (PushButton) namespace.get("cancelButton");
 		
 		addLineItemLink.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
+				
+				SalesOrderForm.this.store(salesOrderDTO);
+				
 				final Form addOrderItemForm = (Form) PivotUtils.readObject("AddLineItem.bxml", new HashMap<String, Object>());
 				Dialog dialog = new Dialog(true);
 				dialog.setTitle("Add Line Item");
@@ -101,6 +131,9 @@ public class SalesOrderForm extends FleetManagerForm {
 		searchCustomerLink.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
+				
+				SalesOrderForm.this.store(salesOrderDTO);
+				
 				final Form customerSearchForm = (Form) PivotUtils.readObject("CustomerSearch.bxml", new HashMap<String, Object>());
 				Dialog dialog = new Dialog(true);
 				dialog.setContent(customerSearchForm);
@@ -129,24 +162,18 @@ public class SalesOrderForm extends FleetManagerForm {
 				getFleetManagerServiceFacade().createOrder(salesOrderDTO);
 			}
 		});
+		
+		if(cancelButton.isVisible()) {
+			cancelButton.setAction(new Action() {
+				@Override
+				public void perform(Component source) {
+					getFleetManagerServiceFacade().cancelSalesOrder(salesOrderDTO.getExternalId());
+				}
+			});
+		}
 	}
 
 	private void refreshFormDTO() {
 		salesOrderDTO = new SalesOrderDTO();
-		
-		/*salesOrderDTO.getParty().setSalutation("Mr.");
-		salesOrderDTO.getParty().setFirstName("Hrishikesh");
-		salesOrderDTO.getParty().setMiddleName("Shrikant");
-		salesOrderDTO.getParty().setLastName("Joshi");
-
-		Date date = new Date();
-		date = DateUtils.setDays(date, 23);
-		date = DateUtils.setMonths(date, 0);
-		date = DateUtils.setYears(date, 1987);
-		salesOrderDTO.getParty().setBirthDate(date);
-		
-		LineItemDTO lineItemDTO = salesOrderDTO.new LineItemDTO();
-		salesOrderDTO.getLineItems().add(lineItemDTO);
-		 */
 	}
 }

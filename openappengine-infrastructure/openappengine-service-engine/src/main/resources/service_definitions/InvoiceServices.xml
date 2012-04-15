@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	
+	<service name="invoice.getNextInvoiceReferenceNumber" class="com.openappengine.service.invoice.InvoiceServices" invokeMethod="getNextInvoiceReferenceNumber">
+		<description>
+			Get the Invoice Number.
+		</description>
+		<parameter name="invoiceReferenceNo" type="java.lang.String" mode="OUT" optional="false" />
+	</service>
+	
+	<service name="invoice.createInvoice" class="com.openappengine.service.invoice.InvoiceServices" invokeMethod="createInvoiceForOrder">
+		<description>
+			Create Invoice for Order.
+		</description>
+		<parameter name="orderId" type="java.lang.Integer" mode="IN" optional="false" />
+		<parameter name="invoiceId" type="java.lang.Integer" mode="OUT" optional="false" />
+	</service>
+	
+</services>

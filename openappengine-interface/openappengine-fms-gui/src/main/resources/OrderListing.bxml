@@ -1,0 +1,75 @@
+  <Form:OrderListingForm xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:Form="com.openappengine.fms.form"
+	xmlns:collections="org.apache.pivot.collections"
+	xmlns="org.apache.pivot.wtk">
+  
+  	<Form.Section heading="Search">
+  			<GridPane columnCount="2" bxml:id="searchFilter">
+  				<!--
+  				<GridPane.Row>
+  					<Label text="Order Number"/>
+	            	<TextInput bxml:id="externalId" textKey="externalId" Form.label="First Name"/>
+	            </GridPane.Row>
+	            -->
+	            
+	            <GridPane.Row>
+  					<Label text="From"/>
+	            	<CalendarButton bxml:id="toDate" selectedDateKey="fromDate" Form.label="From Date">
+			        	<selectedDateBindMapping>
+			        		<CalendarDateBinding xmlns="com.openappengine.fms.util" />
+			        	</selectedDateBindMapping>
+			        </CalendarButton>
+	            </GridPane.Row>
+	            
+	            <GridPane.Row>
+  					<Label text="To"/>
+	            	<CalendarButton bxml:id="fromDate" selectedDateKey="toDate" Form.label="To Date">
+			        	<selectedDateBindMapping>
+			        		<CalendarDateBinding xmlns="com.openappengine.fms.util" />
+			        	</selectedDateBindMapping>
+			        </CalendarButton>
+	            </GridPane.Row>
+  			</GridPane>
+  			
+			<FlowPane bxml:id="flowPane" styles="{padding:2}">
+				    <PushButton buttonData="Search"
+				    	bxml:id="searchButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+					
+					<PushButton buttonData="Clear"
+				    	bxml:id="clearButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+			</FlowPane>
+	</Form.Section>
+	
+	<Form.Section heading="Orders">
+		<Border styles="{padding:2}">
+			<ScrollPane>
+			       <TableView bxml:id="orderTableView" tableDataKey="orderListItems" >
+			          <columns>
+			             <TableView.Column name="externalId" headerData="Order No."/>
+			             <TableView.Column name="orderName" headerData="Order Name"/>
+			             <TableView.Column name="orderDate" headerData="Order Date"/>
+			             <TableView.Column name="status" headerData="Status"/>
+			             <TableView.Column name="totalTax" headerData="Total Tax"/>
+			             <TableView.Column name="grandTotal" headerData="Grand Total"/>
+			       	  </columns>
+			       </TableView>
+			 
+			 	   <columnHeader>
+			       		<TableViewHeader tableView="$orderTableView"/>
+			       </columnHeader>
+			 </ScrollPane>
+		 </Border>
+	</Form.Section>
+	
+	<Form.Section>
+		<PushButton buttonData="Open"
+				    	bxml:id="openButton"
+					    xmlns:bxml="http://pivot.apache.org/bxml"
+					    xmlns="org.apache.pivot.wtk"/>
+	</Form.Section>
+  </Form:OrderListingForm>

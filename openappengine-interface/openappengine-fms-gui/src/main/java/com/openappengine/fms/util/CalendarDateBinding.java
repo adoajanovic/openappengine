@@ -3,12 +3,15 @@
  */
 package com.openappengine.fms.util;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.pivot.util.CalendarDate;
 import org.apache.pivot.wtk.Calendar.SelectedDateBindMapping;
+
+import com.openappengine.utility.DateTimeUtil;
 
 /**
  * @author hrishi
@@ -30,11 +33,11 @@ public class CalendarDateBinding implements SelectedDateBindMapping {
 	@Override
 	public Object valueOf(CalendarDate calendarDate) {
 		if(calendarDate !=  null) {
-			Date date = new Date();
-			date = DateUtils.setDays(date, calendarDate.day);
-			date = DateUtils.setMonths(date, calendarDate.month);
-			date = DateUtils.setYears(date, calendarDate.year);
-			return date;
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DATE, calendarDate.day + 1);
+			calendar.set(Calendar.MONTH, calendarDate.month);
+			calendar.set(Calendar.YEAR, calendarDate.year);
+			return calendar.getTime();
 		}
 		return null;
 	}
