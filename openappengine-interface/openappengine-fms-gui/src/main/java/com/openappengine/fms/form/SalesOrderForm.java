@@ -62,15 +62,26 @@ public class SalesOrderForm extends FleetManagerForm {
 			salesOrderDTO = getFleetManagerServiceFacade().getSalesOrderDTO(externalId);
 			salesOrderDTO.setExternalId(externalId);
 			
-			searchCustomerLink.setVisible(false);
-			addLineItemLink.setVisible(false);
-			saveButton.setVisible(false);
-			resetButton.setVisible(false);
-			orderName.setEnabled(false);
-			editLineItemLink.setVisible(false);
-			deleteLineItemLink.setVisible(false);
-			
-			cancelButton.setVisible(true);
+			if(StringUtils.equals(salesOrderDTO.getStatus(), "ORDER_CREATED")) {
+				searchCustomerLink.setVisible(false);
+				addLineItemLink.setVisible(false);
+				saveButton.setVisible(false);
+				resetButton.setVisible(false);
+				orderName.setEnabled(false);
+				editLineItemLink.setVisible(false);
+				deleteLineItemLink.setVisible(false);
+				cancelButton.setVisible(true);
+			} else if(!StringUtils.equals(status, "ORDER_CANCELLED")) {
+				searchCustomerLink.setVisible(false);
+				addLineItemLink.setVisible(false);
+				saveButton.setVisible(false);
+				resetButton.setVisible(false);
+				orderName.setEnabled(false);
+				editLineItemLink.setVisible(false);
+				deleteLineItemLink.setVisible(false);
+				
+				cancelButton.setVisible(false);
+			}
 		} else {
 			try {
 				externalId = getFleetManagerServiceFacade().getSalesOrderExternalId();
@@ -87,7 +98,7 @@ public class SalesOrderForm extends FleetManagerForm {
 	}
 
 	@Override
-	protected void initFormActions(Map<String, Object> namespace) {
+	protected void initFormActions(final Map<String, Object> namespace) {
 		LinkButton searchCustomerLink = (LinkButton) namespace.get("searchCustomerLink");
 		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
 		PushButton saveButton = (PushButton) namespace.get("saveButton");
@@ -211,8 +222,19 @@ public class SalesOrderForm extends FleetManagerForm {
 				if(StringUtils.isEmpty(salesOrderDTO.getOrderName())) {
 					salesOrderDTO.setOrderName(externalId);
 				}
+				boolean success = true;
+				try {
+					getFleetManagerServiceFacade().createOrder(salesOrderDTO);
+				} catch (Exception e) {
+					success = false;
+					Alert.alert(MessageType.ERROR, "Error encountered while saving the Order. Exception : " + e.getLocalizedMessage(), getWindow());
+				}
 				
-				getFleetManagerServiceFacade().createOrder(salesOrderDTO);
+				if(success) {
+					Alert.alert(MessageType.INFO, "Sales Order : " + salesOrderDTO.getExternalId() + " saved.",getWindow());
+					namespace.put("paramExternalId", salesOrderDTO.getExternalId());
+					initFormBean(namespace);
+				}
 			}
 		});
 		

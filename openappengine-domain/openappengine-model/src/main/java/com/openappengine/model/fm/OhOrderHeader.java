@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -75,7 +76,7 @@ public class OhOrderHeader implements Serializable {
 	@Column(name="OH_GRAND_TOTAL")
 	private BigDecimal grandTotal;
 	
-	@OneToMany(mappedBy="orderHeader")
+	@OneToMany(mappedBy="orderHeader",cascade=CascadeType.ALL)
 	private List<OiOrderItem> orderItems = new ArrayList<OiOrderItem>();
 
 	public int getOrderId() {

@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
+
+import com.openappengine.utility.DateTimeUtil;
+
 /**
  * @author hrishi
  *
@@ -19,9 +24,11 @@ public class OrderListItemDTO implements Serializable {
 	
 	private String orderName;
 	
-	private Date orderDate;
+	private String orderDate;
 	
 	private String status;
+	
+	private BigDecimal taxableAmount;
 	
 	private BigDecimal totalTax;
 	
@@ -43,11 +50,11 @@ public class OrderListItemDTO implements Serializable {
 		this.orderName = orderName;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -73,6 +80,14 @@ public class OrderListItemDTO implements Serializable {
 
 	public void setGrandTotal(BigDecimal grandTotal) {
 		this.grandTotal = grandTotal;
+	}
+
+	public BigDecimal getTaxableAmount() {
+		return taxableAmount;
+	}
+
+	public void setTaxableAmount(BigDecimal taxableAmount) {
+		this.taxableAmount = taxableAmount;
 	}
 
 }

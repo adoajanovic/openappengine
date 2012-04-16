@@ -7,11 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.pivot.util.CalendarDate;
 import org.apache.pivot.wtk.Calendar.SelectedDateBindMapping;
-
-import com.openappengine.utility.DateTimeUtil;
 
 /**
  * @author hrishi
@@ -24,7 +21,7 @@ public class CalendarDateBinding implements SelectedDateBindMapping {
 		if(value instanceof Date) {
 			GregorianCalendar calendar = new GregorianCalendar();
 			calendar.setTime((Date) value);
-			CalendarDate calendarDate = new CalendarDate(calendar);
+			CalendarDate calendarDate = new CalendarDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE)-1);
 			return calendarDate;
 		}
 		return null;

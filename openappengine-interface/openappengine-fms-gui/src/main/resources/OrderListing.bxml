@@ -6,12 +6,15 @@
   
   	<Form.Section heading="Search">
   			<GridPane columnCount="2" bxml:id="searchFilter">
-  				<!--
   				<GridPane.Row>
   					<Label text="Order Number"/>
-	            	<TextInput bxml:id="externalId" textKey="externalId" Form.label="First Name"/>
+	            	<TextInput bxml:id="externalId" textKey="externalId" Form.label="Order Number"/>
 	            </GridPane.Row>
-	            -->
+	            
+	            <GridPane.Row>
+  					<Label text="Order Status"/>
+	            	<ListButton bxml:id="status" Form.label="Order Status" selectedItemKey="status" listData="['','ORDER_CREATED', 'ORDER_CANCELLED']"/>
+	            </GridPane.Row>
 	            
 	            <GridPane.Row>
   					<Label text="From"/>
@@ -45,17 +48,27 @@
 			</FlowPane>
 	</Form.Section>
 	
+	
+	<Form.Section>
+		<FlowPane>
+			<LinkButton bxml:id="openButton" tooltipText="Open Order">
+			    <content:ButtonData icon="../images/detail.png" />
+			</LinkButton>
+		</FlowPane>
+	</Form.Section>
+	
 	<Form.Section heading="Orders">
 		<Border styles="{padding:2}">
 			<ScrollPane>
 			       <TableView bxml:id="orderTableView" tableDataKey="orderListItems" >
 			          <columns>
-			             <TableView.Column name="externalId" headerData="Order No."/>
-			             <TableView.Column name="orderName" headerData="Order Name"/>
-			             <TableView.Column name="orderDate" headerData="Order Date"/>
-			             <TableView.Column name="status" headerData="Status"/>
-			             <TableView.Column name="totalTax" headerData="Total Tax"/>
-			             <TableView.Column name="grandTotal" headerData="Grand Total"/>
+			             <TableView.Column name="externalId" width="100" headerData="Order No."/>
+			             <TableView.Column name="orderName" width="100" headerData="Order Name"/>
+			             <TableView.Column name="orderDate" width="125" headerData="Order Date" />
+			             <TableView.Column name="status" width="125" headerData="Status"/>
+			             <TableView.Column name="taxableAmount" width="100" headerData="Taxable Amount"/>
+			             <TableView.Column name="totalTax" width="100" headerData="Tax"/>
+			             <TableView.Column name="grandTotal" width="100" headerData="Total"/>
 			       	  </columns>
 			       </TableView>
 			 
@@ -66,10 +79,60 @@
 		 </Border>
 	</Form.Section>
 	
-	<Form.Section>
-		<PushButton buttonData="Open"
-				    	bxml:id="openButton"
-					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>
+	<Form.Section heading="Orders Created">
+		<GridPane columnCount="2" bxml:id="summaryTotal">
+  				<GridPane.Row>
+  					<Label text="Total Taxable"/>
+					<TextInput bxml:id="totalTaxableAmount" textKey="totalTaxableAmount" Form.label="Total Taxable" enabled="false"/>			 	
+	            </GridPane.Row>
+	            
+			 	<GridPane.Row>
+  					<Label text="Total Tax"/>
+			 		<TextInput bxml:id="totalTax" textKey="totalTax" Form.label="Total Tax" enabled="false"/>
+			 	</GridPane.Row>
+			 	
+			 	<GridPane.Row>
+  					<Label text="Grand Total"/>
+			 		<TextInput bxml:id="grandTotal" textKey="grandTotal" Form.label="Grand Total" enabled="false"/>
+			 	</GridPane.Row>	
+		</GridPane>
+	</Form.Section>
+	
+	<Form.Section heading="Orders Cancelled">
+		<GridPane columnCount="2" bxml:id="summaryCancelled">
+  				<GridPane.Row>
+  					<Label text="Total Taxable"/>
+					<TextInput bxml:id="totalTaxableAmountCancelled" textKey="totalTaxableAmountCancelled" Form.label="Total Taxable" enabled="false"/>			 	
+	            </GridPane.Row>
+	            
+			 	<GridPane.Row>
+  					<Label text="Total Tax"/>
+			 		<TextInput bxml:id="totalTaxCancelled" textKey="totalTaxCancelled" Form.label="Total Tax" enabled="false"/>
+			 	</GridPane.Row>
+			 	
+			 	<GridPane.Row>
+  					<Label text="Grand Total"/>
+			 		<TextInput bxml:id="grandTotalCancelled" textKey="grandTotalCancelled" Form.label="Grand Total" enabled="false"/>
+			 	</GridPane.Row>	
+		</GridPane>
+	</Form.Section>
+	
+	<Form.Section heading="Net">
+		<GridPane columnCount="2" bxml:id="summaryNet">
+  				<GridPane.Row>
+  					<Label text="Total Taxable"/>
+					<TextInput bxml:id="totalTaxableAmountNet" textKey="totalTaxableAmountNet" Form.label="Total Taxable" enabled="false"/>			 	
+	            </GridPane.Row>
+	            
+			 	<GridPane.Row>
+  					<Label text="Total Tax"/>
+			 		<TextInput bxml:id="totalTaxNet" textKey="totalTaxNet" Form.label="Total Tax" enabled="false"/>
+			 	</GridPane.Row>
+			 	
+			 	<GridPane.Row>
+  					<Label text="Grand Total"/>
+			 		<TextInput bxml:id="grandTotalNet" textKey="grandTotalNet" Form.label="Grand Total" enabled="false"/>
+			 	</GridPane.Row>	
+		</GridPane>
 	</Form.Section>
   </Form:OrderListingForm>

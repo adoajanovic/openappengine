@@ -229,7 +229,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				if(prodProductPrices != null) {
 					for (ProdProductPrice prodProductPrice : prodProductPrices) {
 						if(prodProductPrice.getProdProductPriceType() != null) {
-							if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("LIST PRICE")) {
+							if(prodProductPrice.getProdProductPriceType().getPtDescription().equals("LIST_PRICE")) {
 								listPrice = prodProductPrice.getPpPrice();
 								dto.setNetPrice(listPrice);
 							}
@@ -460,7 +460,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			e.printStackTrace();
 		}
 		
-		if(orderResultContext != null && orderResultContext.containsKey("orderId")) {
+		/*if(orderResultContext != null && orderResultContext.containsKey("orderId")) {
 			Integer orderId = (Integer) orderResultContext.get("orderId");
 			
 			Map<String,Object> createInvoiceContext = new HashMap<String, Object>();
@@ -471,7 +471,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		HibernateUtils.closeSession();
 	}
@@ -495,17 +495,19 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 					
 					dto.setExternalId(ohOrderHeader.getExternalId());
 					dto.setGrandTotal(ohOrderHeader.getGrandTotal());
-					dto.setOrderDate(ohOrderHeader.getOrderDate());
+					dto.setOrderDate(DateTimeUtil.toDateString(ohOrderHeader.getOrderDate(),"yyyy.MM.dd"));
 					dto.setOrderName(ohOrderHeader.getOrderName());
 					dto.setStatus(ohOrderHeader.getStatus());
 					
 					List<OiOrderItem> orderItems = ohOrderHeader.getOrderItems();
 					if(!UtilValidate.isEmpty(orderItems)) {
 						BigDecimal totalTax = new BigDecimal(0.0);
+						BigDecimal taxable = new BigDecimal(0.0);
 						for (OiOrderItem oiOrderItem : orderItems) {
 							totalTax = totalTax.add(oiOrderItem.getTaxPrice());
+							taxable = taxable.add(oiOrderItem.getUnitPrice());
 						}
-						
+						dto.setTaxableAmount(taxable);
 						dto.setTotalTax(totalTax);
 					}
 					dtos.add(dto);
