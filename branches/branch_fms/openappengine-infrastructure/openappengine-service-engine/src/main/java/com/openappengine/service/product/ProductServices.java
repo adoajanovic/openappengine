@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.springframework.util.Assert;
 
 import com.openappengine.model.fm.FmTaxRateProduct;
-import com.openappengine.model.product.PriceTypeConstants;
 import com.openappengine.model.product.ProdProductPrice;
 import com.openappengine.model.product.ProdProductPriceType;
 import com.openappengine.model.product.ProdProductType;

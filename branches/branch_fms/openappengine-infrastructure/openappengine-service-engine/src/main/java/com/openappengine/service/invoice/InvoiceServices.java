@@ -9,9 +9,6 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
-import com.openappengine.model.fm.FmInvoice;
-import com.openappengine.model.fm.FmInvoiceItem;
-import com.openappengine.model.fm.FmInvoiceItemPK;
 import com.openappengine.model.fm.OhOrderHeader;
 import com.openappengine.model.fm.OiOrderItem;
 import com.openappengine.model.party.Party;
@@ -43,7 +40,7 @@ public class InvoiceServices extends AbstractDomainService {
 		invoiceReferenceNo = "IN" + number;
 	}
 	
-	public void createInvoiceForOrder() {
+	public void createInvoiceForOrder() {/*
 		Session session = serviceContext.getHibernateSession();
 		OhOrderHeader order = (OhOrderHeader) session.get(OhOrderHeader.class, orderId);
 		if(order == null) {
@@ -115,7 +112,7 @@ public class InvoiceServices extends AbstractDomainService {
 			session.flush();
 			invoiceId = invoice.getInInvoiceId();
 		}
-	}
+	*/}
 
 	public int getOrderId() {
 		return orderId;

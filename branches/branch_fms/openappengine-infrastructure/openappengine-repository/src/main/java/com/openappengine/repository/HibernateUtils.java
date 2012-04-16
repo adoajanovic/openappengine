@@ -49,7 +49,7 @@ public abstract class HibernateUtils {
 		return session;
 	}
 
-	public static void closeOpenSession() {
+	public static void closeSession() {
 		Session session = SessionFactoryUtils.getSession(sessionFactory, false);
 		if(session != null) {
 			session.getTransaction().commit();

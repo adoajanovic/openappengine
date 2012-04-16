@@ -76,6 +76,12 @@ public class OiOrderItem implements Serializable {
 	@Column(name = "OI_STATUS_ID")
 	private String status;
 	
+	@Column(name = "OI_TAX_PRICE")
+	private BigDecimal taxPrice;
+	
+	@Column(name = "OI_LINE_TOTAL_PRICE")
+	private BigDecimal lineTotalPrice;
+	
 	@ManyToOne
 	@JoinColumn(name = "OI_ORDER_ID", unique = true, nullable = false)
 	private OhOrderHeader orderHeader;
@@ -198,6 +204,22 @@ public class OiOrderItem implements Serializable {
 
 	public void setOrderHeader(OhOrderHeader orderHeader) {
 		this.orderHeader = orderHeader;
+	}
+
+	public BigDecimal getTaxPrice() {
+		return taxPrice;
+	}
+
+	public void setTaxPrice(BigDecimal taxPrice) {
+		this.taxPrice = taxPrice;
+	}
+
+	public BigDecimal getLineTotalPrice() {
+		return lineTotalPrice;
+	}
+
+	public void setLineTotalPrice(BigDecimal lineTotalPrice) {
+		this.lineTotalPrice = lineTotalPrice;
 	}
 	
 }

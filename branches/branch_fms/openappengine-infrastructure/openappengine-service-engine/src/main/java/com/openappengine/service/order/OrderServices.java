@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import com.openappengine.model.fm.OhOrderHeader;
 import com.openappengine.service.AbstractDomainService;
+import com.openappengine.service.api.ServiceException;
 
 /**
  * @author hrishikesh.joshi
@@ -36,9 +37,17 @@ public class OrderServices extends AbstractDomainService {
 	
 	private String externalId;
 	
-	public void createOrder() {
+	public void createOrder() throws ServiceException {
 		OrderRepository orderRepository = getRepository(OrderRepository.class);
 		orderRepository.createOrder(orderHeader);
+		
+		Session session = serviceContext.getHibernateSession();
+		Criteria criteria = session.createCriteria(OhOrderHeader.class);
+		criteria.add(Restrictions.eq("externalId", externalId));
+		OhOrderHeader orderHeader1 = (OhOrderHeader) criteria.uniqueResult();
+		if(orderHeader1 != null) {
+			throw new ServiceException("Order Id : " + orderHeader.getExternalId() + " already exists.");
+		}
 		
 		orderId = orderHeader.getOrderId();
 	}
@@ -46,8 +55,10 @@ public class OrderServices extends AbstractDomainService {
 	public void findOrders() {
 		Session session = serviceContext.getHibernateSession();
 		Criteria criteria = session.createCriteria(OhOrderHeader.class);
-		criteria.add(Restrictions.eq("status", status));
-
+		if(StringUtils.isNotEmpty(status)) {
+			criteria.add(Restrictions.eq("status", status));
+		}
+		
 		if(StringUtils.isNotEmpty(externalId)) {
 			criteria.add(Restrictions.like("externalId", externalId,MatchMode.ANYWHERE));
 		}
