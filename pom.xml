@@ -126,7 +126,6 @@
 	<modules>
 		<module>openappengine-infrastructure</module>
 		<module>openappengine-domain</module>
-		<module>openappengine-container</module>
 		<module>openappengine-facade</module>
 		<module>openappengine-interface</module>
 		<module>openappengine-build</module>
