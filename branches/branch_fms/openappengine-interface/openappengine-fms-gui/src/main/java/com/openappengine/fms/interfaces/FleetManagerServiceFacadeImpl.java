@@ -504,8 +504,11 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 						BigDecimal totalTax = new BigDecimal(0.0);
 						BigDecimal taxable = new BigDecimal(0.0);
 						for (OiOrderItem oiOrderItem : orderItems) {
-							totalTax = totalTax.add(oiOrderItem.getTaxPrice());
-							taxable = taxable.add(oiOrderItem.getUnitPrice());
+							if(oiOrderItem.getTaxPrice() != null && oiOrderItem.getUnitPrice() != null) {
+								totalTax = totalTax.add(oiOrderItem.getTaxPrice());
+								taxable = taxable.add(oiOrderItem.getUnitPrice());
+							}
+							
 						}
 						dto.setTaxableAmount(taxable);
 						dto.setTotalTax(totalTax);
