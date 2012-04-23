@@ -8,4 +8,6 @@ public interface ReportServiceFacade {
 
 	byte[] createPdfReport(InputStream is, Collection<?> data, Map params) throws ReportServiceException;
 
+	byte[] createPdfReport(String jasperTemplate, Object reportBean) throws ReportServiceException;
+
 }

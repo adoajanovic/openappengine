@@ -25,14 +25,16 @@
 	</Form.Section>
 	
 	<Form.Section>
-		<PushButton buttonData="Add" 
-				    	bxml:id="addOrderItemButton"
-					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>
-					    
-		<PushButton buttonData="Reset" 
-				    	bxml:id="resetButton"
-					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>			    
+		<FlowPane>
+			<PushButton buttonData="Add" 
+					    	bxml:id="addOrderItemButton"
+						    xmlns:bxml="http://pivot.apache.org/bxml"
+						    xmlns="org.apache.pivot.wtk"/>
+						    
+			<PushButton buttonData="Reset" 
+					    	bxml:id="resetButton"
+						    xmlns:bxml="http://pivot.apache.org/bxml"
+						    xmlns="org.apache.pivot.wtk"/>
+		</FlowPane>			    			    
 	</Form.Section>
   </Form:AddOrderItemForm>

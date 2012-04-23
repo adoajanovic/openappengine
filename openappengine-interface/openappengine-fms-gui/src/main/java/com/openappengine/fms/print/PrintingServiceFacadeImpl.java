@@ -5,11 +5,9 @@ package com.openappengine.fms.print;
 
 import java.awt.print.PrinterException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
-import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
@@ -28,8 +26,8 @@ import javax.print.attribute.standard.Sides;
 public class PrintingServiceFacadeImpl implements PrintingServiceFacade {
 	
 	@Override
-	public void printDocument(File file) {
-		DocFlavor flavor = DocFlavor.URL.AUTOSENSE;
+	public void printDocument(byte[] bytes) {
+		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 		
 		PrintService ps = PrintServiceLookup.lookupDefaultPrintService();
 		if(ps == null) {
@@ -41,20 +39,16 @@ public class PrintingServiceFacadeImpl implements PrintingServiceFacade {
 	    aset.add(Sides.ONE_SIDED);
 	    
 	    SimpleDoc simpleDoc = null;
-		try {
-			simpleDoc = new SimpleDoc(file.toURL(), flavor, null);
-		} catch (MalformedURLException e) {
-			throw new PrintingServiceException("Could not read the document.");
-		}
+		simpleDoc = new SimpleDoc(bytes, flavor, null);
 		
 	    try {
 			printJob.print(simpleDoc, null);
 		} catch (PrintException e) {
-			throw new PrintingServiceException("Error while printing the document.");
+			throw new PrintingServiceException("Error while printing the document.",e);
 		}
 	}
 
-	/*public static void main(String[] args) throws PrinterException, PrintException, FileNotFoundException, MalformedURLException {
+	public static void main(String[] args) throws PrinterException, PrintException, FileNotFoundException, MalformedURLException {
 		DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
 		PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
 		patts.add(Sides.DUPLEX);
@@ -64,9 +58,9 @@ public class PrintingServiceFacadeImpl implements PrintingServiceFacade {
 	    aset.add(new Copies(1));
 	    aset.add(Sides.ONE_SIDED);
 	    
-	    File pdfFile = new File("C:\\Users\\hrishi\\datasource.xml");
-	    SimpleDoc simpleDoc = new SimpleDoc(pdfFile.toURL(), DocFlavor.URL.AUTOSENSE, null);
+	    File pdfFile = new File("F:\\Order.pdf");
+	    SimpleDoc simpleDoc = new SimpleDoc(pdfFile.toURL(), flavor, null);
 	    printJob.print(simpleDoc, null);
-	}*/
+	}
 	
 }

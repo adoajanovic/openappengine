@@ -7,109 +7,214 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
-    <field name="partyFrom" class="java.lang.String">
-		<fieldDescription><![CDATA[partyFrom]]></fieldDescription>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<field name="fromParty" class="java.lang.String">
+		<fieldDescription><![CDATA[fromParty]]></fieldDescription>
 	</field>
-	<field name="country" class="java.lang.String">
-		<fieldDescription><![CDATA[country]]></fieldDescription>
+	<field name="fromPartyAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[fromPartyAddress]]></fieldDescription>
 	</field>
-	<field name="occupation" class="java.lang.String">
-		<fieldDescription><![CDATA[occupation]]></fieldDescription>
+	<field name="fromPartyPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[fromPartyPhone]]></fieldDescription>
 	</field>
-	<field name="name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
+	<field name="fromPartyWebsite" class="java.lang.String">
+		<fieldDescription><![CDATA[fromPartyWebsite]]></fieldDescription>
 	</field>
-	<field name="place" class="java.lang.String">
-		<fieldDescription><![CDATA[place]]></fieldDescription>
+	<field name="fromPartyLogo" class="java.io.InputStream">
+		<fieldDescription><![CDATA[fromPartyLogo]]></fieldDescription>
 	</field>
-	<group name="dummy">
-		<groupExpression><![CDATA["dummy"]]></groupExpression>
-		<groupHeader>
-			<band height="23">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="5" width="535" height="15" backcolor="#FFFFFF"/>
-					<box>
-						<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="136" y="5" width="150" height="15"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Occupation]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="286" y="5" width="128" height="15"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[Place]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="414" y="5" width="121" height="15"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Country]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="0" y="5" width="136" height="15"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Name]]></text>
-				</staticText>
-			</band>
-		</groupHeader>
-	</group>
+	<field name="receiptBookNo" class="java.lang.String">
+		<fieldDescription><![CDATA[receiptBookNo]]></fieldDescription>
+	</field>
+	<field name="orderDate" class="java.util.Date">
+		<fieldDescription><![CDATA[orderDate]]></fieldDescription>
+	</field>
+	<field name="lineTotalPrice" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[lineTotalPrice]]></fieldDescription>
+	</field>
+	<field name="totalTax" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[totalTax]]></fieldDescription>
+	</field>
+	<field name="grandTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[grandTotal]]></fieldDescription>
+	</field>
+	<field name="orderItems" class="java.util.List">
+		<fieldDescription><![CDATA[orderItems]]></fieldDescription>
+	</field>
+	<field name="toPartyName" class="java.lang.String">
+		<fieldDescription><![CDATA[toPartyName]]></fieldDescription>
+	</field>
 	<pageHeader>
-		<band height="50">
+		<band height="64">
 			<frame>
-				<reportElement x="105" y="0" width="414" height="36"/>
-				<textField>
-					<reportElement x="0" y="0" width="414" height="15"/>
-					<textElement/>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{partyFrom}]]></textFieldExpression>
+				<reportElement x="87" y="0" width="448" height="50"/>
+				<textField isBlankWhenNull="true">
+					<reportElement x="90" y="0" width="230" height="21"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Bodoni MT" size="15"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fromParty}]]></textFieldExpression>
 				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="14" y="21" width="430" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fromPartyAddress}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="81" y="32" width="115" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fromPartyPhone}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="247" y="34" width="197" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{fromPartyWebsite}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="32" width="64" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Telephone No :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="208" y="34" width="39" height="16"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[Website : ]]></text>
+				</staticText>
 			</frame>
+			<image>
+				<reportElement x="0" y="0" width="87" height="59"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$F{fromPartyLogo}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="59" width="535" height="1"/>
+			</line>
 		</band>
 	</pageHeader>
-	<detail>
-		<band height="16">
+	<columnHeader>
+		<band height="45">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="535" height="14" backcolor="#FFFFFF"/>
-				<box>
-					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
-				</box>
-				<textElement/>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="136" y="0" width="150" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{occupation}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="286" y="0" width="128" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{place}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="414" y="0" width="121" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+				<reportElement x="407" y="12" width="39" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{country}]]></textFieldExpression>
+				<text><![CDATA[Bill No.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="12" width="74" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{receiptBookNo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="136" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			<staticText>
+				<reportElement x="407" y="30" width="50" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order Date]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy" isBlankWhenNull="true">
+				<reportElement x="461" y="30" width="74" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{orderDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="101" y="11" width="76" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Customer Name ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="188" y="13" width="164" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{toPartyName}]]></textFieldExpression>
 			</textField>
 		</band>
+	</columnHeader>
+	<detail>
+		<band height="52">
+			<subreport>
+				<reportElement x="101" y="0" width="430" height="49"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderItems})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "R_Order_LineItems.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="0" y="0" width="535" height="1"/>
+			</line>
+		</band>
 	</detail>
+	<columnFooter>
+		<band height="52">
+			<line>
+				<reportElement x="0" y="6" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="49" width="535" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="354" y="21" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Total Tax ]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement x="419" y="21" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{totalTax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="354" y="7" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="419" y="7" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{lineTotalPrice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="354" y="35" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement x="419" y="35" width="100" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{grandTotal}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<frame>
+					<reportElement x="352" y="7" width="179" height="42"/>
+				</frame>
+			</elementGroup>
+		</band>
+	</columnFooter>
 </jasperReport>

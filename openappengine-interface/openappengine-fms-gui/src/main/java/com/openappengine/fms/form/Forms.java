@@ -1,12 +1,12 @@
 package com.openappengine.fms.form;
 import java.net.URL;
- 
+
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
-import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Form;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.MessageType;

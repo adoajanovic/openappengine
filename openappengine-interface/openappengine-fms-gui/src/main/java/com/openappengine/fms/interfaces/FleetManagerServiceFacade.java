@@ -4,7 +4,6 @@
 package com.openappengine.fms.interfaces;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
@@ -80,5 +79,7 @@ public interface FleetManagerServiceFacade {
 	SalesOrderDTO getSalesOrderDTO(String externalId);
 
 	void cancelSalesOrder(String externalId);
+
+	void printOrder(String externalId);
 	
 }

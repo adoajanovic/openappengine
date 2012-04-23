@@ -1,8 +1,8 @@
 package com.openappengine.fms.interfaces;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,8 @@ import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.CustomerDTOAssembler;
 import com.openappengine.fms.interfaces.dto.CustomerSearchResultDTO;
 import com.openappengine.fms.interfaces.dto.OrderListItemDTO;
+import com.openappengine.fms.interfaces.dto.OrderReportDTO;
+import com.openappengine.fms.interfaces.dto.OrderReportDTO.OrderReportLineItem;
 import com.openappengine.fms.interfaces.dto.OrderSearchDTO;
 import com.openappengine.fms.interfaces.dto.ProductAmountDTO;
 import com.openappengine.fms.interfaces.dto.ProductDTO;
@@ -26,10 +28,14 @@ import com.openappengine.fms.interfaces.dto.ProductItemListDTO;
 import com.openappengine.fms.interfaces.dto.ProductTypeDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
+import com.openappengine.fms.print.PrintingServiceFacade;
+import com.openappengine.fms.print.PrintingServiceFacadeImpl;
+import com.openappengine.fms.report.ReportServiceException;
+import com.openappengine.fms.report.ReportServiceFacade;
+import com.openappengine.fms.report.ReportServiceFacadeImpl;
 import com.openappengine.model.fm.OhOrderHeader;
 import com.openappengine.model.fm.OiOrderItem;
 import com.openappengine.model.party.Address;
-import com.openappengine.model.party.Party;
 import com.openappengine.model.party.PartyContactMech;
 import com.openappengine.model.party.Person;
 import com.openappengine.model.product.ProdProductPrice;
@@ -142,7 +148,7 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		
 		java.util.Map<String, Object> resultMap = new java.util.HashMap<String, Object>();
 		try {
-			resultMap = sd.runSync("party.fetchProductTypes", context);
+			resultMap = sd.runSync("party.getActiveParties", context);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -460,6 +466,11 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 			e.printStackTrace();
 		}
 		
+		if(orderResultContext != null && orderResultContext.containsKey("orderId")) {
+			Integer orderId = (Integer) orderResultContext.get("orderId");
+			salesOrderDTO.setOrderId(orderId);
+		}
+		
 		/*if(orderResultContext != null && orderResultContext.containsKey("orderId")) {
 			Integer orderId = (Integer) orderResultContext.get("orderId");
 			
@@ -474,6 +485,93 @@ public class FleetManagerServiceFacadeImpl implements FleetManagerServiceFacade 
 		}*/
 		
 		HibernateUtils.closeSession();
+	}
+	
+	@Override
+	public void printOrder(String externalId) {
+		if(externalId == null) {
+			throw new RuntimeException("OrderId cannot be null.");
+		}
+		
+		Session session = HibernateUtils.openSession();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("externalId", externalId);
+		
+		Map<String, Object> result;
+		try {
+			result = serviceDispatcher.runSync("order.findOrderByExternalId",params);
+		} catch (ServiceException e1) {
+			throw new RuntimeException("No Order found for Id " + externalId);
+		}
+		
+		if(result.get("orderHeader") == null) {
+			throw new RuntimeException("No Order found for Id " + externalId);
+		}
+		
+		
+		OhOrderHeader orderHeader = (OhOrderHeader) result.get("orderHeader");
+		
+		OrderReportDTO dto = new OrderReportDTO();
+		
+		dto.setFromParty("Prathamesh Tours");
+		dto.setFromPartyAddress("4, Sharada Estate, Opp. Janakalyan Society, Vazira Naka, Borivali (W), Mumbai.");
+		InputStream logoIs = ReportServiceFacadeImpl.class.getClassLoader().getResourceAsStream("app_data/demo_logo.jpg");;
+		dto.setFromPartyLogo(logoIs);
+		dto.setFromPartyPhone("9869441359");
+		dto.setFromPartyWebsite("http://www.prathameshtours.com");
+		
+		String billingAccountId = orderHeader.getBillingAccountId();
+		Person party = (Person) session.get(Person.class, Integer.valueOf(billingAccountId));
+		dto.setToPartyName(party.getFirstName() + " " + party.getLastName());
+		
+		dto.setOrderDate(orderHeader.getOrderDate());
+		dto.setReceiptBookNo(orderHeader.getExternalId());
+		
+		List<OrderReportLineItem> orderItemsDTO = new ArrayList<OrderReportDTO.OrderReportLineItem>();
+		
+		List<OiOrderItem> orderItems = orderHeader.getOrderItems();
+		
+		BigDecimal totalPrice = new BigDecimal(0.0);
+		BigDecimal totalTax = new BigDecimal(0.0);
+		
+		if(orderItems != null) {
+			for (OiOrderItem oiOrderItem : orderItems) {
+				OrderReportLineItem lineItem = dto.new OrderReportLineItem();
+				
+				lineItem.setProductName(oiOrderItem.getProduct().getPdProductName());
+				lineItem.setQuantity(oiOrderItem.getQuantity());
+				
+				lineItem.setUnitListPrice(oiOrderItem.getUnitListPrice());
+				BigDecimal total = oiOrderItem.getUnitListPrice().multiply(oiOrderItem.getQuantity());
+				
+				lineItem.setTotal(total);
+				lineItem.setTax(oiOrderItem.getTaxPrice());
+				lineItem.setLineTotal(oiOrderItem.getLineTotalPrice());
+				
+				totalPrice = totalPrice.add(total);
+				totalTax = totalTax.add(oiOrderItem.getTaxPrice());
+				
+
+				orderItemsDTO.add(lineItem);
+			}
+		}
+		
+		dto.setOrderItems(orderItemsDTO);
+		
+		dto.setLineTotalPrice(totalPrice);
+		dto.setTotalTax(totalTax);
+		dto.setGrandTotal(orderHeader.getGrandTotal());
+		
+		ReportServiceFacade reportServiceFacade = new ReportServiceFacadeImpl();
+		try {
+			byte[] bytes = reportServiceFacade.createPdfReport("R_Order.jasper", dto);
+			PrintingServiceFacade printingServiceFacade = new PrintingServiceFacadeImpl();
+			printingServiceFacade.printDocument(bytes);
+		} catch (ReportServiceException e) {
+			throw new RuntimeException("Exeption encountered while printing SalesOrder",e);
+		} finally {
+			HibernateUtils.closeSession();
+		}
 	}
 	
 	@Override

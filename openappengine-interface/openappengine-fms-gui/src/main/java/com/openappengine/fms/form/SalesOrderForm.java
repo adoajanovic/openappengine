@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import org.apache.commons.lang.StringUtils;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.collections.HashMap;
-import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Alert;
@@ -26,6 +25,7 @@ import org.apache.pivot.wtk.WindowStateListener;
 
 import com.openappengine.fms.interfaces.dto.CustomerDTO;
 import com.openappengine.fms.interfaces.dto.OrderItemDTO;
+import com.openappengine.fms.interfaces.dto.OrderReportDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO;
 import com.openappengine.fms.interfaces.dto.SalesOrderDTO.LineItemDTO;
 import com.openappengine.fms.util.PivotUtils;
@@ -51,6 +51,8 @@ public class SalesOrderForm extends FleetManagerForm {
 		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
 		PushButton saveButton = (PushButton) namespace.get("saveButton");
 		PushButton resetButton = (PushButton) namespace.get("resetButton");
+		PushButton printButton = (PushButton) namespace.get("printButton");
+		
 		TextInput orderName = (TextInput) namespace.get("orderName");
 		PushButton cancelButton = (PushButton) namespace.get("cancelButton");
 		LinkButton editLineItemLink = (LinkButton) namespace.get("editLineItemLink");
@@ -71,6 +73,7 @@ public class SalesOrderForm extends FleetManagerForm {
 				editLineItemLink.setVisible(false);
 				deleteLineItemLink.setVisible(false);
 				cancelButton.setVisible(true);
+				printButton.setVisible(true);
 			} else if(!StringUtils.equals(status, "ORDER_CANCELLED")) {
 				searchCustomerLink.setVisible(false);
 				addLineItemLink.setVisible(false);
@@ -81,6 +84,7 @@ public class SalesOrderForm extends FleetManagerForm {
 				deleteLineItemLink.setVisible(false);
 				
 				cancelButton.setVisible(false);
+				printButton.setVisible(false);
 			}
 		} else {
 			try {
@@ -92,6 +96,7 @@ public class SalesOrderForm extends FleetManagerForm {
 			}
 			
 			cancelButton.setVisible(false);
+			printButton.setVisible(false);
 		}
 		
 		this.load(new BeanAdapter(salesOrderDTO));
@@ -103,6 +108,7 @@ public class SalesOrderForm extends FleetManagerForm {
 		LinkButton addLineItemLink = (LinkButton) namespace.get("addLineItemLink");
 		PushButton saveButton = (PushButton) namespace.get("saveButton");
 		PushButton cancelButton = (PushButton) namespace.get("cancelButton");
+		PushButton printButton = (PushButton) namespace.get("printButton");
 		PushButton resetButton = (PushButton) namespace.get("resetButton");
 		LinkButton editLineItemLink = (LinkButton) namespace.get("editLineItemLink");
 		LinkButton deleteLineItemLink = (LinkButton) namespace.get("deleteLineItemLink");
@@ -233,6 +239,7 @@ public class SalesOrderForm extends FleetManagerForm {
 				if(success) {
 					Alert.alert(MessageType.INFO, "Sales Order : " + salesOrderDTO.getExternalId() + " saved.",getWindow());
 					namespace.put("paramExternalId", salesOrderDTO.getExternalId());
+					//getFleetManagerServiceFacade().printOrder(salesOrderDTO.getOrderId());
 					initFormBean(namespace);
 				}
 			}
@@ -247,11 +254,20 @@ public class SalesOrderForm extends FleetManagerForm {
 			});
 		}
 		
+		
+		
 		resetButton.setAction(new Action() {
 			@Override
 			public void perform(Component source) {
 				refreshFormDTO();
 				SalesOrderForm.this.load(new BeanAdapter(salesOrderDTO));
+			}
+		});
+		
+		printButton.setAction(new Action() {
+			@Override
+			public void perform(Component source) {
+				getFleetManagerServiceFacade().printOrder(externalId);	
 			}
 		});
 	}
