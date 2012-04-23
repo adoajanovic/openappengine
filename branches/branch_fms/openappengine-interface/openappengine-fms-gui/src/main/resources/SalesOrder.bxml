@@ -91,21 +91,33 @@
 	
 	<Form.Section>
 		<FlowPane bxml:id="flowPane" styles="{padding:2}">
-			    <PushButton buttonData="Save"
+			    <PushButton 
 			    	bxml:id="saveButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
-				    xmlns="org.apache.pivot.wtk"/>
+				    xmlns="org.apache.pivot.wtk">
+				    <content:ButtonData icon="../images/save.png" text="Save" />
+				</PushButton>	    
 				
-				<PushButton buttonData="Reset"
+				<PushButton 
 			    	bxml:id="resetButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
-				    xmlns="org.apache.pivot.wtk"/>
+				    xmlns="org.apache.pivot.wtk">
+				    <content:ButtonData icon="../images/reset.png" text="Reset" />	
+				</PushButton>    
 				    
-				<PushButton buttonData="Cancel Order"
+				<PushButton 
 			    	bxml:id="cancelButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
-				    xmlns="org.apache.pivot.wtk"/>
-					        
+				    xmlns="org.apache.pivot.wtk">
+				    <content:ButtonData icon="../images/cancel.png" text="Cancel Order" />
+				</PushButton>	    
+				
+				<PushButton
+			    	bxml:id="printButton"
+				    xmlns:bxml="http://pivot.apache.org/bxml"
+				    xmlns="org.apache.pivot.wtk">	 
+				    <content:ButtonData icon="../images/print.png" text="Print" />
+				</PushButton>    	       
 		</FlowPane>
 	</Form.Section>
   </Form:SalesOrderForm>

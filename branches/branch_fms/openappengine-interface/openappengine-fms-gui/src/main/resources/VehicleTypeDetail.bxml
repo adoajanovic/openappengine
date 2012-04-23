@@ -10,10 +10,12 @@
 	        </BoxPane>
 	    
 		    <FlowPane bxml:id="flowPane" styles="{padding:2}">
-			    <PushButton buttonData="Save"
+			    <PushButton 
 			    	bxml:id="saveButton"
 				    xmlns:bxml="http://pivot.apache.org/bxml"
-				    xmlns="org.apache.pivot.wtk"/>
+				    xmlns="org.apache.pivot.wtk">
+				    <content:ButtonData icon="../images/save.png" text="Save" />
+				</PushButton>
 		    </FlowPane>
 		</Form.Section>    
   </Form:VehicleTypeDetailForm>

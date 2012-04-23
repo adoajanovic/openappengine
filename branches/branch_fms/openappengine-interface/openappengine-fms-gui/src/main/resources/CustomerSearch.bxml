@@ -33,15 +33,19 @@
   			</GridPane>
   			
 			<FlowPane bxml:id="flowPane" styles="{padding:2}">
-				    <PushButton buttonData="Search"
+				    <PushButton 
 				    	bxml:id="searchButton"
 					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>
+					    xmlns="org.apache.pivot.wtk">
+					    <content:ButtonData icon="../images/find.png" text="Search" />	
+					</PushButton>    
 					
-					<PushButton buttonData="Clear"
+					<PushButton 
 				    	bxml:id="clearButton"
 					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>
+					    xmlns="org.apache.pivot.wtk">
+					    <content:ButtonData icon="../images/reset.png" text="Clear" />	
+					</PushButton>    	    
 			</FlowPane>
 	</Form.Section>
 	
@@ -71,9 +75,10 @@
 	</Form.Section>
 	
 	<Form.Section>
-		<PushButton buttonData="Select"
-				    	bxml:id="selectButton"
+		<PushButton bxml:id="selectButton"
 					    xmlns:bxml="http://pivot.apache.org/bxml"
-					    xmlns="org.apache.pivot.wtk"/>
+					    xmlns="org.apache.pivot.wtk">
+			<content:ButtonData icon="../images/detail.png" text="Select" />			    
+		</PushButton>			    
 	</Form.Section>
   </Form:CustomerSearchForm>
