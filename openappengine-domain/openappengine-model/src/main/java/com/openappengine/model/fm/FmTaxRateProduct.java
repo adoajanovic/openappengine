@@ -21,7 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.openappengine.model.product.ProdProductType;
-import com.openappengine.model.product.Product;
 
 /**
  * @author hrishi
@@ -40,7 +39,7 @@ public class FmTaxRateProduct implements Serializable {
 	                allocationSize=1 // flush every 1 insert  
 	)
 	private int taxRateId;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="TR_PRODUCT_TYPE_ID")
 	private ProdProductType productType;

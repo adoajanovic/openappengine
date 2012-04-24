@@ -92,7 +92,7 @@ public class SalesOrderForm extends FleetManagerForm {
 				status = "ORDER_PROCESSING";
 				refreshFormDTO();
 			} catch (ServiceException e) {
-				throw new RuntimeException();
+				throw new RuntimeException(e);
 			}
 			
 			cancelButton.setVisible(false);

@@ -5,7 +5,7 @@ package com.openappengine.repository.jdbc.support;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
+import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer;
 
 /**
  * @author hrishi
@@ -18,7 +18,7 @@ public class MySQLSequenceIncrementer {
 	private DataSource dataSource;
 	
 	public int nextValue(String tableName) {
-		MySQLMaxValueIncrementer incrementer = new MySQLMaxValueIncrementer(dataSource, tableName, COLUMN_SEQ);
+		H2SequenceMaxValueIncrementer incrementer = new H2SequenceMaxValueIncrementer(dataSource, tableName);
 		return incrementer.nextIntValue();
 	}
 
