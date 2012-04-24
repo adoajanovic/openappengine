@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name="prod_product_price")
 public class ProdProductPrice implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
