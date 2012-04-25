@@ -11,9 +11,11 @@ import org.apache.pivot.beans.BXML;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Action;
+import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.CalendarButton;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ListButton;
+import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 
@@ -107,7 +109,7 @@ public class CustomerForm extends FleetManagerForm {
 				dto.setFirstName(firstName.getText());
 				dto.setMiddleName(middleName.getText());
 				dto.setLastName(lastName.getText());
-				dto.setGender(gender.getSelectedItem().toString());
+				dto.setGender(gender.getSelectedItem() != null?gender.getSelectedItem().toString():null);
 				dto.setSalutation((String) salutation.getSelectedItem());
 				
 				List<ContactMechDTO> contactMechs = new java.util.ArrayList<ContactMechDTO>();
@@ -132,25 +134,37 @@ public class CustomerForm extends FleetManagerForm {
 				} else {
 					partyContactMech = new ContactMechDTO();
 				}
-				String type1 = (String) phoneType1.getSelectedItem();
-				String phone1 = infoString1.getText();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("PHONE_" + type1);
-				partyContactMech.setInfoString(phone1);
-				contactMechs.add(partyContactMech);
 				
-				
-				if(phones.size() > 1) {
-					partyContactMech = phones.get(1);
-				} else {
+				if(phoneType1.getSelectedItem() != null) {
 					partyContactMech = new ContactMechDTO();
+					if(!StringUtils.isEmpty(infoString1.getText())) {
+						String type1 = (String) phoneType1.getSelectedItem();
+						String phone1 = infoString1.getText();
+						partyContactMech.setContactMechPurpose("DEFAULT");
+						partyContactMech.setContactMechType("PHONE_" + type1);
+						partyContactMech.setInfoString(phone1);
+						contactMechs.add(partyContactMech);
+					} else {
+						Alert.alert(MessageType.ERROR, "Phone No. 1 not provided.", getWindow());
+						return;
+					}
 				}
-				String type2 = (String) phoneType2.getSelectedItem();
-				String phone2 = infoString2.getText();
-				partyContactMech.setContactMechPurpose("DEFAULT");
-				partyContactMech.setContactMechType("PHONE_" + type2);
-				partyContactMech.setInfoString(phone2);
-				contactMechs.add(partyContactMech);
+				
+				if(phoneType2.getSelectedItem() != null) {
+					partyContactMech = new ContactMechDTO();
+					if(!StringUtils.isEmpty(infoString2.getText())) {
+						String type2 = (String) phoneType2.getSelectedItem();
+						String phone2 = infoString2.getText();
+						partyContactMech.setContactMechPurpose("DEFAULT");
+						partyContactMech.setContactMechType("PHONE_" + type2);
+						partyContactMech.setInfoString(phone2);
+						contactMechs.add(partyContactMech);
+					} else {
+						Alert.alert(MessageType.ERROR, "Phone No. 2 not provided.", getWindow());
+						return;
+					}
+				}
+				
 				
 				if(emails.size() > 0) {
 					partyContactMech = emails.get(0);
