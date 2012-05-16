@@ -6,10 +6,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'party.label', default: 'Party')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		<jq:resources />
-        <jqui:resources theme="smoothness" />
-        <jqgrid:resources />
-        <script type="text/javascript">
+		<script type="text/javascript">
 	        $(document).ready(function() {
                          <jqgrid:grid
                                 id="party"
