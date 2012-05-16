@@ -1,5 +1,6 @@
 package com.openappengine.model.party
 
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonController {
@@ -14,6 +15,33 @@ class PersonController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [personInstanceList: Person.list(params), personInstanceTotal: Person.count()]
     }
+	
+	def listJSON = {
+		def sortIndex = params.sidx ?: 'name'
+		def sortOrder  = params.sord ?: 'asc'
+		def maxRows = Integer.valueOf(params.rows)
+		def currentPage = Integer.valueOf(params.page) ?: 1
+		def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
+		def contacts = Person.list (params)
+		def totalRows = Person.count()
+		def numberOfPages = Math.ceil(totalRows / maxRows)
+
+		def results = contacts?.collect {
+			[
+						cell: [
+							it.firstName,
+							it.lastName,
+							it.externalId,
+							it.status,
+							it.description,
+						],
+						id: it.partyId
+					]
+		}
+
+		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages]
+		render jsonData as JSON
+	}
 
     def create() {
         [personInstance: new Person(params)]

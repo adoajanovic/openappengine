@@ -134,14 +134,16 @@ class PartyController {
 		def maxRows = Integer.valueOf(params.rows)
 		def currentPage = Integer.valueOf(params.page) ?: 1
 		def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
-		def contacts = Party.list (params)
-		def totalRows = Party.count()
+		def contacts = Person.list (params)
+		def totalRows = Person.count()
 		def numberOfPages = Math.ceil(totalRows / maxRows)
 
 		def results = contacts?.collect {
 			[
 						cell: [
 							it.externalId,
+							it.firstName,
+							it.lastName,
 							it.description,
 							it.status
 						],

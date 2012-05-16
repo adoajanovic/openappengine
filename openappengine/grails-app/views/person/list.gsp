@@ -6,6 +6,43 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<script type="text/javascript">
+	        $(document).ready(function() {
+                         <jqgrid:grid
+                                id="person"
+                                url="'${createLink(action: 'listJSON')}'"
+                                editurl="'${createLink(action: 'editJSON')}'"
+                                colNames="'First Name','Last Name','External Id', 'Status', 'Description'"
+                                colModel="
+                                		  {name:'firstName', editable: false},
+                                		  {name:'lastName', editable: false},
+                                		  {name:'externalId', editable: false},
+                                          {name:'status', editable: true},
+                                          {name:'description', editable: true}"
+                                sortname="'externalId'"
+                                caption="'Party List'"
+                                height="300"
+                                autowidth="true"
+                                scrollOffset="0"
+                                viewrecords="true"
+                                showPager="true"
+                                datatype="'json'">
+                                <jqgrid:navigation id="partyStandard" add="true" edit="true" 
+                                      del="true" search="true" refresh="true" />
+                         </jqgrid:grid>
+               });
+               
+               $(document).ready(function() {
+					var objRows = $("#list_accounts tr"); 
+					var objHeader = $("#list_accounts .jqgfirstrow td"); 
+					if (objRows.length > 1) { 
+						var objFirstRowColumns = $(objRows[1]).children("td"); 
+						for (i = 0; i < objFirstRowColumns.length; i++) { 
+							$(objFirstRowColumns[i]).css("width", $(objHeader[i]).css("width"));
+						 } 
+					} 	               
+               });
+        </script>
 	</head>
 	<body>
 		<a href="#list-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -20,46 +57,9 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-						<g:sortableColumn property="partyId" title="${message(code: 'person.partyId.label', default: 'Party Id')}" />
-					
-						<g:sortableColumn property="firstName" title="${message(code: 'person.birthDate.label', default: 'First Name')}" />
-					
-						<g:sortableColumn property="lastName" title="${message(code: 'person.comments.label', default: 'Last Name')}" />
-					
-						<g:sortableColumn property="birthDate" title="${message(code: 'person.deceasedDate.label', default: 'Birth Date')}" />
-					
-						<g:sortableColumn property="status" title="${message(code: 'person.description.label', default: 'Status')}" />
-					
-						<g:sortableColumn property="externalId" title="${message(code: 'person.externalId.label', default: 'External Id')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${personInstanceList}" status="i" var="personInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${personInstance.partyId}">${fieldValue(bean: personInstance, field: "partyId")}</g:link></td>
-					
-						<td>${fieldValue(bean: personInstance, field: "firstName")}</td>
-						
-						<td>${fieldValue(bean: personInstance, field: "lastName")}</td>
-					
-						<td><g:formatDate date="${personInstance.birthDate}" /></td>
-					
-						<td>${fieldValue(bean: personInstance, field: "status")}</td>
-					
-						<td>${fieldValue(bean: personInstance, field: "externalId")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${personInstanceTotal}" />
-			</div>
+			
+			<!-- jqgrid -->
+			<jqgrid:wrapper id="person" />
 		</div>
 	</body>
 </html>

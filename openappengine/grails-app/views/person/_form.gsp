@@ -43,12 +43,6 @@
 	</label>
 	<g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" />
 </div>
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'maritalStatus', 'error')} ">
-	<label for="maritalStatus">
-		<g:message code="person.maritalStatus.label" default="Marital Status" />
-	</label>
-	<g:textField name="maritalStatus" value="${personInstance?.maritalStatus}" />
-</div>
 <div class="fieldcontain ${hasErrors(bean: personInstance, field: 'description', 'error')} ">
 	<label for="description">
 		<g:message code="person.description.label" default="Description" />
