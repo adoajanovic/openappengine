@@ -5,7 +5,6 @@
 <div class="fieldcontain ${hasErrors(bean: partyInstance, field: 'partyId', 'error')} ">
 	<label for="partyId">
 		<g:message code="party.partyId.label" default="Party Id" />
-		
 	</label>
 	<g:field type="number" name="partyId" value="${fieldValue(bean: partyInstance, field: 'partyId')}" />
 </div>

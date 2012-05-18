@@ -6,7 +6,9 @@ import org.springframework.dao.DataIntegrityViolationException
 class PersonController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	
+	def partyService
+	
     def index() {
         redirect(action: "list", params: params)
     }
@@ -17,30 +19,19 @@ class PersonController {
     }
 	
 	def listJSON = {
-		def sortIndex = params.sidx ?: 'name'
-		def sortOrder  = params.sord ?: 'asc'
-		def maxRows = Integer.valueOf(params.rows)
-		def currentPage = Integer.valueOf(params.page) ?: 1
-		def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
 		def contacts = Person.list (params)
 		def totalRows = Person.count()
-		def numberOfPages = Math.ceil(totalRows / maxRows)
-
+		
 		def results = contacts?.collect {
 			[
-						cell: [
-							it.firstName,
-							it.lastName,
-							it.externalId,
-							it.status,
-							it.description,
-						],
-						id: it.partyId
-					]
+			 "firstName" : it.firstName,
+			 "lastName" : it.lastName,
+			 "externalId" : it.externalId,
+			 "status" : it.status
+			]
 		}
-
-		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages]
-		render jsonData as JSON
+		
+		render results as JSON
 	}
 
     def create() {
@@ -50,10 +41,9 @@ class PersonController {
     def save() {
         def personInstance = new Person(params)
 		personInstance.partyType = "PERSON"
-        if (!personInstance.save(flush: true)) {
-            render(view: "create", model: [personInstance: personInstance])
-            return
-        }
+        		
+		partyService.createPersonParty(personInstance)
+		render(view: "create", model: [personInstance: personInstance])
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), personInstance.partyId])
         redirect(action: "show", id: personInstance.partyId)

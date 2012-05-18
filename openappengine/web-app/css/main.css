@@ -1,7 +1,11 @@
 /* FONT STACK */
 body,
 input, select, textarea {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-family: Verdana,Arial,sans-serif; 
+	font-size: 0.75em;
+}
+option {
+	font-family: Verdana,Arial,sans-serif; 
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -11,6 +15,7 @@ h1, h2, h3, h4, h5, h6 {
 /* BASE LAYOUT */
 
 html {
+	font-family: Verdana,Arial,sans-serif; font-size: 1.0em;
 	background-color: #ddd;
 	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
@@ -22,6 +27,10 @@ html {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
+}
+
+label {
+	font-family: Verdana,Arial,sans-serif; font-size: 0.80em;
 }
 
 html.no-cssgradients {
@@ -251,11 +260,12 @@ label {
 input, select, textarea {
 	background-color: #fcfcfc;
 	border: 1px solid #cccccc;
-	font-size: 1em;
+	font-size: 0.95em;
 	padding: 0.2em 0.4em;
 }
 
 select {
+	font-size: 0.85em;
 	padding: 0.2em 0.2em 0.2em 0;
 }
 
