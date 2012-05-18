@@ -14,9 +14,20 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
-		<jq:resources />
-        <jqui:resources theme="smoothness" />
-        <jqgrid:resources />
+
+		<link rel="stylesheet" href="${resource(dir: 'css/smoothness', file: 'jquery-ui-1.8.2.custom.css')}" type="text/css">
+		<script src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>
+		<script src="${resource(dir: 'js/external', file: 'jquery.tmpl.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.core.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.button.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataview.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.grid.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataviewlocal.js')}"></script>
+		<script src="${resource(dir: 'js', file: 'pager.js')}"></script>
+		<script src="${resource(dir: 'js', file: 'dataview-odata.js')}"></script>
+		
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>

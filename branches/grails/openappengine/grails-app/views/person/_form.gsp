@@ -5,7 +5,7 @@
 	<label for="externalId">
 		<g:message code="person.externalId.label" default="External Id" />
 	</label>
-	<g:textField name="externalId" value="${personInstance?.externalId}" />
+	<g:textField class="ui-widget" name="externalId" value="${personInstance?.externalId}" />
 </div>
 <div class="fieldcontain ${hasErrors(bean: personInstance, field: 'firstName', 'error')} ">
 	<label for="firstName">
