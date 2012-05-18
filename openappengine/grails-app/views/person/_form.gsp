@@ -7,12 +7,6 @@
 	</label>
 	<g:textField name="externalId" value="${personInstance?.externalId}" />
 </div>
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'salutation', 'error')} ">
-	<label for="salutation">
-		<g:message code="person.salutation.label" default="Salutation" />
-	</label>
-	<g:textField name="salutation" value="${personInstance?.salutation}" />
-</div>
 <div class="fieldcontain ${hasErrors(bean: personInstance, field: 'firstName', 'error')} ">
 	<label for="firstName">
 		<g:message code="person.firstName.label" default="First Name" />
