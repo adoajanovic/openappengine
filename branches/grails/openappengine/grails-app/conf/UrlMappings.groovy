@@ -8,6 +8,7 @@ class UrlMappings {
 		}
 
 		"/"(view:"/index")
+		"/grid"(view:"/grid")
 		"500"(view:'/error')
 	}
 }
