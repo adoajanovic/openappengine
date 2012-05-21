@@ -13,6 +13,7 @@
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'errors.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 
 		<link rel="stylesheet" href="${resource(dir: 'css/smoothness', file: 'jquery-ui-1.8.2.custom.css')}" type="text/css">
@@ -25,8 +26,8 @@
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataview.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.grid.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataviewlocal.js')}"></script>
-		<script src="${resource(dir: 'js', file: 'pager.js')}"></script>
 		<script src="${resource(dir: 'js', file: 'dataview-odata.js')}"></script>
+		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.base.css')}" type="text/css">
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxcore.js')}"></script>
@@ -46,13 +47,15 @@
     	<script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxlistbox.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxwindow.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxpanel.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxvalidator.js')}"></script>
+	    
 	    <script type="text/javascript">
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#jqxMenu").jqxMenu({ width: '600', height: '30px', theme: theme });
-                $("#jqxMenu").css('visibility', 'visible');
-                $("#jqxMenu").jqxMenu('disable', 'fin', true);
+                $("#menubar").jqxMenu({ theme: theme });
+                $("#menubar").css('visibility', 'visible');
+                $("#menubar").jqxMenu('disable', 'fin', true);
             });
         </script> 
          
@@ -60,40 +63,36 @@
         <r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
-		<div id='jqxWidget' style='height: auto;'>
-			<div id='jqxMenu' style='visibility: hidden; margin-left: 60px;'>
-				<ul>
-					<li><a href="#Home">Home</a></li>
-					<li>Party
-						<ul>
-							<li>
-								<a href="/openappengine/person/create">New</a>
-							</li>
-							<li><a href="/openappengine/person/list">List</a></li>
-							<%--<li>Software Solutions
-								<ul style='width: 220px;'>
-									<li><a href="#ConsumerPhoto">Consumer photo and video</a></li>
-									<li><a href="#Mobile">Mobile</a></li>
-									<li><a href="#RIA">Rich Internet applications</a></li>
-									<li><a href="#TechnicalCommunication">Technical
-											communication</a></li>
-									<li><a href="#Training">Training and eLearning</a></li>
-									<li><a href="#WebConferencing">Web conferencing</a></li>
-								</ul>
-							</li>
-							--%>
-						</ul>
-					</li>
-					<li>Products
-						<ul>
-							<li><a href="#">New</a></li>
-							<li><a href="#">List</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+		<div id='menubar' style='visibility: hidden;'>
+			<ul>
+				<li><a href="#Home">Home</a></li>
+				<li>Party
+					<ul>
+						<li><a href="/openappengine/person/create">New</a></li>
+						<li><a href="/openappengine/person/list">List</a></li>
+						<%--<li>Software Solutions
+									<ul style='width: 220px;'>
+										<li><a href="#ConsumerPhoto">Consumer photo and video</a></li>
+										<li><a href="#Mobile">Mobile</a></li>
+										<li><a href="#RIA">Rich Internet applications</a></li>
+										<li><a href="#TechnicalCommunication">Technical
+												communication</a></li>
+										<li><a href="#Training">Training and eLearning</a></li>
+										<li><a href="#WebConferencing">Web conferencing</a></li>
+									</ul>
+								</li>
+								--%>
+					</ul>
+				</li>
+				<li>Products
+					<ul>
+						<li><a href="#">New</a></li>
+						<li><a href="#">List</a></li>
+					</ul>
+				</li>
+			</ul>
 		</div>
+		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<div id="body-content">
 				<g:layoutBody/>
 		</div>

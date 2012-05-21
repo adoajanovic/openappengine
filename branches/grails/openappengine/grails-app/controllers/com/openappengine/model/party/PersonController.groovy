@@ -53,11 +53,9 @@ class PersonController {
 		personInstance.partyType = "PERSON"
 		
 		def addressInstance = new Address(params)
-		addressInstance.setToName(personInstance.firstName + " " + personInstance.lastName)
 		personInstance.addAddress(addressInstance);
         		
 		partyService.createPersonParty(personInstance)
-		render(view: "create", model: [personInstance: personInstance])
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), personInstance.partyId])
         redirect(action: "show", id: personInstance.partyId)

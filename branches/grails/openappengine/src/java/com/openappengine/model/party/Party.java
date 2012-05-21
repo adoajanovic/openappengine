@@ -17,6 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
+import org.apache.commons.lang.StringUtils;
+
 @javax.persistence.Entity(name="PM_PARTY")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Party implements Serializable {
@@ -215,6 +217,11 @@ public class Party implements Serializable {
 	public void addAddress(Address address) {
 		if(address == null) {
 			return;
+		}
+		if(StringUtils.isEmpty(address.getToName())) {
+			if(StringUtils.equals("PERSON", this.partyType)) {
+				address.setToName(((Person)this).getFirstName() + " " + ((Person)this).getLastName());
+			}
 		}
 		addresses.add(address);
 	}
