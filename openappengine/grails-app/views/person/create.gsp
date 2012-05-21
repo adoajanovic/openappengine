@@ -22,7 +22,7 @@
 			</ul>
 			</g:hasErrors>
 			<g:form action="save" >
-				<div id='jqxWidget'>
+				<%--<div id='jqxWidget'>
 			        <div id='jqxTabs'>
 			            <ul>
 			                <li style="margin-left: 30px;">Personal Info</li>
@@ -45,8 +45,9 @@
 			            </div>
 			        </div>
 			    </div>
-			    <fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+			    --%>
+			    <fieldset class="form">
+					<g:render template="tabbedForm"/>
 				</fieldset>
 			</g:form>
 		</div>

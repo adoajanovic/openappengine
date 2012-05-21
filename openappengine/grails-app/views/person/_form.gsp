@@ -1,59 +1,6 @@
 <%@page import="com.openappengine.master.*"%>
 <%@ page import="com.openappengine.model.party.Person"%>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var theme = getTheme();
-            // Create jqxTabs.
-            $('#jqxTabs').jqxTabs({ width: 580, height: 370, position: 'top', theme: theme });
-            $('#animation').bind('change', function (event) {
-                var checked = event.args.checked;
-                $('#jqxTabs').jqxTabs({ selectionTracker: checked });
-            });
-        });
-    </script>
-    
-    <script type="text/javascript">
-	        $(document).ready(function () {
-	            var theme = getTheme();
-	            $('#sendButton').jqxButton({ width: 60, height: 25, theme: theme });
-
-	            $('#sendButton').bind('click', function () {
-	                $('#testForm').jqxValidator('validate');
-	            });
-
-	            // initialize validator.
-	            $('#testForm').jqxValidator({
-	             rules: [
-	                    { input: '#userInput', message: 'Username is required!', action: 'keyup, blur', rule: 'required' },
-	                    { input: '#userInput', message: 'Your username must be between 3 and 12 characters!', action: 'keyup', rule: 'length=3,12' },
-	                    { input: '#realNameInput', message: 'Your real name must contain only letters!', action: 'keyup', rule: 'notNumber' },
-	                    { input: '#realNameInput', message: 'Your real name must be between 3 and 12 characters!', action: 'keyup', rule: 'length=3,12' },
-	                    { input: '#birthInput', message: 'Your birth date must be between 1/1/1900 and 1/1/2012.', action: 'valuechanged', rule: function () {
-	                        var date = $('#birthInput').jqxDateTimeInput('value');
-	                        var result = date.dateTime.getFullYear() >= 1900 && date.dateTime.getFullYear() <= 2012;
-	                        return result;
-	                    }
-	                    },
-	                    { input: '#passwordInput', message: 'Password is required!', action: 'keyup', rule: 'required' },
-	                    { input: '#passwordInput', message: 'Your password must be between 4 and 12 characters!', action: 'keyup', rule: 'length=4,12' },
-	                    { input: '#passwordConfirmInput', message: 'Password is required!', action: 'keyup', rule: 'required' },
-	                    { input: '#passwordConfirmInput', message: 'Passwords doesn\'t match!', action: 'keyup, focus', rule: function (input) {
-	                        if (input.val() === $('#passwordInput').val()) {
-	                            return true;
-	                        }
-	                        return false;
-	                    }
-	                    },
-	                    { input: '#emailInput', message: 'E-mail is required!', action: 'keyup', rule: 'required' },
-	                    { input: '#emailInput', message: 'Invalid e-mail!', action: 'keyup', rule: 'email' },
-	                    { input: '#ssnInput', message: 'Invalid SSN!', action: 'valuechanged, blur', rule: 'ssn' },
-	                    { input: '#phoneInput', message: 'Invalid phone number!', action: 'valuechanged, blur', rule: 'phone' },
-	                    { input: '#zipInput', message: 'Invalid zip code!', action: 'valuechanged, blur', rule: 'zipCode' },
-	                    { input: '#acceptInput', message: 'You have to accept the terms', action: 'change', rule: 'required', position: 'right:0,0'}], theme: theme
-	            });
-	        });
-	    </script>
 <br/>
 
 <%--<div>

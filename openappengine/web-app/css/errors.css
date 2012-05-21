@@ -6,6 +6,14 @@ h2 {
 	font-size: 1.1em;
 }
 
+label.error {
+	font-style: italic;
+	font-family: Verdana,Arial,sans-serif; 
+	font-size: 0.9em;
+	color: #cd0a0a;
+	margin-left: 10px; 
+}
+
 .filename {
 	font-style: italic;
 }

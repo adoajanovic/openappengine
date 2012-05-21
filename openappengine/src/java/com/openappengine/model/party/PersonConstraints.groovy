@@ -8,5 +8,6 @@ package com.openappengine.model.party
  *
  */
 constraints = {
-		
+	firstName nullable:false
+	lastName nullable:false
 }
