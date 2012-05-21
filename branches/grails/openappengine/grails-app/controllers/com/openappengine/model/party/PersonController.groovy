@@ -24,6 +24,7 @@ class PersonController {
 		
 		def results = contacts?.collect {
 			[
+			 "id" : it.partyId,	
 			 "firstName" : it.firstName,
 			 "lastName" : it.lastName,
 			 "externalId" : it.externalId,
@@ -35,12 +36,25 @@ class PersonController {
 	}
 
     def create() {
-        [personInstance: new Person(params)]
+        [personInstance: new Person(params),addressInstance: new Address(params)]
     }
+	
+	def createAddress() {
+		[addressInstance: new Address(params)]
+		render(view: "create")
+	}
+	
+	def addAddress() {
+		def addressInstance = new Address(params)
+	}
 
     def save() {
         def personInstance = new Person(params)
 		personInstance.partyType = "PERSON"
+		
+		def addressInstance = new Address(params)
+		addressInstance.setToName(personInstance.firstName + " " + personInstance.lastName)
+		personInstance.addAddress(addressInstance);
         		
 		partyService.createPersonParty(personInstance)
 		render(view: "create", model: [personInstance: personInstance])
@@ -50,14 +64,17 @@ class PersonController {
     }
 
     def show() {
-        def personInstance = Person.get(params.id)
-        if (!personInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [personInstance: personInstance]
+		String externalId = params.id
+		if(externalId != null) { 
+			def personInstance = Person.findByExternalId(externalId)
+			
+			if (!personInstance) {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])
+				redirect(action: "list")
+				return
+			}
+			[personInstance: personInstance]
+		}
     }
 
     def edit() {

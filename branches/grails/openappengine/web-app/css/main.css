@@ -223,6 +223,7 @@ fieldset,
 	position: relative;
 	zoom: 1;
 	border: none;
+	font-size: 0.85em;
 }
 
 .property-list .fieldcontain {
@@ -238,8 +239,8 @@ fieldset,
 .fieldcontain label,
 .fieldcontain .property-label {
 	color: #666666;
-	text-align: right;
-	width: 25%;
+	text-align: left;
+	width: 18%;
 }
 
 .fieldcontain .property-label {
@@ -248,7 +249,6 @@ fieldset,
 
 .fieldcontain .property-value {
 	display: block;
-	margin-left: 27%;
 }
 
 label {
