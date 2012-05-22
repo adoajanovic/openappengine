@@ -18,6 +18,10 @@
 		<mapping class='com.openappengine.model.party.PartyContactMech' />
 		<mapping class='com.openappengine.model.party.Address' />
 		
+		<mapping class='com.openappengine.model.product.Product' />
+		<mapping class='com.openappengine.model.product.ProdProductPrice'/>
+		
+		
 		
 	</session-factory>
 

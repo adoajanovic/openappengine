@@ -1,15 +1,16 @@
 /* FONT STACK */
 body,
 input, select, textarea {
+	padding: 0.25em;
 	font-family: Verdana,Arial,sans-serif; 
-	font-size: 1.1em;
+	font-size: 1.0em;
 }
 option {
 	font-family: Verdana,Arial,sans-serif; 
 }
 
 #menubar {
-	margin-right: 100px;
+	margin-right: 10%;
 	float: right; 
 }
 
@@ -25,7 +26,6 @@ h1, h2, h3, h4, h5, h6 {
 /* BASE LAYOUT */
 
 html {
-	font-family: Verdana,Arial,sans-serif; font-size: 1.0em;
 	background-color: #ddd;
 	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
@@ -40,7 +40,8 @@ html {
 }
 
 label {
-	font-family: Verdana,Arial,sans-serif; font-size: 1.0em;
+	font-family: Verdana,Arial,sans-serif; 
+	font-size: 0.95em;
 }
 
 html.no-cssgradients {
@@ -64,8 +65,8 @@ body {
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
 	        box-shadow: 0 0 0.3em #255b17;
-	font-size: 80%;	        
 }
+
 #body-content {
 	min-height: 600px;
 }
@@ -123,10 +124,29 @@ img {
 	border-bottom: 1px solid #CCCCCC;
 	margin: 0.8em 1em 0.3em;
 	padding: 0 0.25em;
+	font-size: 1.0em;
+}
+
+.scaffold-list {
+	border: 1px;
+}
+
+.scaffold-list table{
+	border: 1px;
+	font-size:0.84em;
+	width: auto;
 }
 
 .scaffold-list h1 {
 	border: none;
+}
+
+.scaffold-list td {
+	font-size: 0.85em;
+}
+
+.scaffold-list th {
+	font-size: 0.85em;
 }
 
 .footer {
@@ -251,6 +271,7 @@ fieldset,
 	color: #666666;
 	text-align: left;
 	width: 18%;
+	font-size: 0.84em;
 }
 
 .fieldcontain .property-label {
@@ -258,6 +279,7 @@ fieldset,
 }
 
 .fieldcontain .property-value {
+	font-size: 0.84em;
 	display: block;
 }
 
@@ -270,8 +292,7 @@ label {
 input, select, textarea {
 	background-color: #fcfcfc;
 	border: 1px solid #cccccc;
-	font-size: 0.95em;
-	padding: 0.2em 0.4em;
+	font-size: 0.85em;
 }
 
 select {
@@ -594,6 +615,8 @@ th:hover, tr:hover {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
+	font-size: 0.80em;
+	font: verdana;
 }
 
 .buttons .delete {
@@ -612,3 +635,11 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+/*
+	Icons
+*/
+.view_detail {
+	background: url(../images/view_detail.png) no-repeat transparent;
+}
+

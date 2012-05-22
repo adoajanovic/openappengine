@@ -30,6 +30,11 @@
 		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.base.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.summer.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.darkblue.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.energyblue.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.shinyblack.css')}" type="text/css">
+		
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxcore.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxbuttons.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxscrollbar.js')}"></script>
@@ -53,7 +58,7 @@
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#menubar").jqxMenu({ theme: theme });
+                $("#menubar").jqxMenu({ theme: 'darkblue' });
                 $("#menubar").css('visibility', 'visible');
                 $("#menubar").jqxMenu('disable', 'fin', true);
             });
@@ -68,8 +73,17 @@
 				<li><a href="#Home">Home</a></li>
 				<li>Party
 					<ul>
-						<li><a href="/openappengine/person/create">New</a></li>
-						<li><a href="/openappengine/person/list">List</a></li>
+						<li><a href="/openappengine/person/create">
+								<img src="${resource(dir: 'images', file: 'document_new.png')}" alt="New"/>
+								New Party
+							</a>
+						</li>
+						<li>
+							<a href="/openappengine/person/list">
+								<img src="${resource(dir: 'images', file: 'document_list.png')}" alt="Product List"/>
+								Party List
+							</a>
+						</li>
 						<%--<li>Software Solutions
 									<ul style='width: 220px;'>
 										<li><a href="#ConsumerPhoto">Consumer photo and video</a></li>
@@ -81,13 +95,23 @@
 										<li><a href="#WebConferencing">Web conferencing</a></li>
 									</ul>
 								</li>
-								--%>
+						--%>
 					</ul>
 				</li>
 				<li>Products
 					<ul>
-						<li><a href="#">New</a></li>
-						<li><a href="#">List</a></li>
+						<li>
+							<a href="/openappengine/product/create">
+								<img src="${resource(dir: 'images', file: 'document_new.png')}" alt="New"/>
+								New Product
+							</a>
+						</li>
+						<li>
+							<a href="/openappengine/product/list">
+								<img src="${resource(dir: 'images', file: 'document_list.png')}" alt="New"/>
+								Product List
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>
