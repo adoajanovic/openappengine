@@ -22,11 +22,6 @@
 						firstname: "Enter your firstname"
 					},
 					
-					// specifying a submitHandler prevents the default submit, good for the demo
-					submitHandler: function() {
-						alert("submitted!");
-					},
-					
 					// set this class to error-labels to indicate valid fields
 					success: function(label) {
 						// set &nbsp; as text for IE
@@ -38,15 +33,10 @@
 	</head>
 	<body>
 		<form name="personForm" id="personForm" action="save" >
-			<div id="errors">
+			<div id="validation-errors">
 				
 			</div>
-			<div id='jqxTabs' style="width: auto, height:auto;">
-				<ul>
-					<li style="margin-left: 30px;">Personal Info</li>
-					<li>Address</li>
-				</ul>
-				<div class="section">
+			<div class="section">
 					<div id="personForm">
 						<!-- Person Form -->
 						<fieldset class="form">
@@ -60,10 +50,9 @@
 							<g:render template="/address/form" />
 						</fieldset>
 					</div>
-				</div>
 			</div>
 			<fieldset class="buttons">
-						<g:submitButton name="create" id="saveButton" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				<g:submitButton name="create" id="saveButton" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 			</fieldset>
 		</form>
 	</body>

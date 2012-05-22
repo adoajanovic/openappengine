@@ -15,8 +15,7 @@
 	<label for="externalId"> <g:message
 			code="person.externalId.label" default="External Id" />
 	</label>
-	<g:textField class="ui-widget" name="externalId"
-		value="${personInstance?.externalId}" />
+	<g:textField name="externalId" value="${personInstance?.externalId}" />
 </div>
 <div
 	class="fieldcontain ${hasErrors(bean: personInstance, field: 'firstName', 'error')} ">
@@ -60,7 +59,7 @@
 			code="person.description.label" default="Description" />
 
 	</label>
-	<g:textField name="description" value="${personInstance?.description}" />
+	<g:textArea name="description" value="${personInstance?.description}" rows="5" cols="40"/>
 </div>
 <div
 	class="fieldcontain ${hasErrors(bean: personInstance, field: 'preferredCurrencyUom', 'error')} ">

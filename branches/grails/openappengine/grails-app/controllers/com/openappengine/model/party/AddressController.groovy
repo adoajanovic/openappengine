@@ -26,8 +26,8 @@ class AddressController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'address.label', default: 'Address'), addressInstance.id])
-        redirect(action: "show", id: addressInstance.id)
+		flash.message = message(code: 'default.created.message', args: [message(code: 'address.label', default: 'Address'), addressInstance.addressBookId])
+        redirect(action: "show", id: addressInstance.addressBookId)
     }
 
     def show() {
@@ -78,8 +78,8 @@ class AddressController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'address.label', default: 'Address'), addressInstance.id])
-        redirect(action: "show", id: addressInstance.id)
+		flash.message = message(code: 'default.updated.message', args: [message(code: 'address.label', default: 'Address'), addressInstance.addressBookId])
+        redirect(action: "show", id: addressInstance.addressBookId)
     }
 
     def delete() {
