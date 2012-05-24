@@ -19,6 +19,21 @@ class ProductController {
     def create() {
         [productInstance: new Product(params)]
     }
+	
+	def terminateProduct() {
+		 def productInstance = Product.get(params.id)
+		 if (!productInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])
+            return
+         }
+		 
+		 def terminationDate = params.terminationDate
+		 productInstance.update(flush:true)
+		 
+		 flash.message = message(code: 'default.product.terminated.message', 
+			 	args: [message(code: 'product.label', default: 'Product'), productInstance.pdProductId])
+		 redirect(action: "show", id: productInstance.pdProductId)
+	}
 
     def save() {
         def productInstance = new Product(params)

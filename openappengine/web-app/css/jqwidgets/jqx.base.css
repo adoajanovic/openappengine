@@ -568,8 +568,6 @@
     padding: 0px;
     overflow: hidden;
     text-align: left;
-    font-size: 0.9em;
-    font-family: Arial;
 }
 .jqx-menu-dropdown-column
 {
@@ -2775,8 +2773,7 @@ of the horizontal scrollbar.*/
 /*applied to all widgets*/
 .jqx-widget{direction: ltr; -webkit-tap-highlight-color: rgba(0,0,0,0); font-family: Verdana,Arial,sans-serif; font-style: normal; font-size: 13px;}
 
-.jqx-item{ color: inherit; border: 1px solid transparent; background: transparent; font-size: 0.8em;
-    font-family: Verdana;}
+.jqx-item{ color: inherit; border: 1px solid transparent; background: transparent; }
 
 /*applied to containers to set a background and border color. Tabs, NavigationBar, Calendar content.*/
 .jqx-widget-content {-webkit-tap-highlight-color: rgba(0,0,0,0); font-family: Verdana,Arial,sans-serif; font-style: normal; font-size: 13px; border-color: #c7c7c7; background: #fff; }
