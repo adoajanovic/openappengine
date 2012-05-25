@@ -18,6 +18,11 @@ class ContractController {
     def create() {
         [contractInstance: new Contract(params)]
     }
+	
+	def addLineItem() {
+		[lineItem : new ContractLineItem(params)]
+		redirect(action: "show")
+	}
 
     def save() {
         def contractInstance = new Contract(params)

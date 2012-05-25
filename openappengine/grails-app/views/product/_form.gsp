@@ -25,8 +25,7 @@
 			code="product.pdIntroductionDate.label"
 			default="Introduction Date" />
 	</label>
-	<g:datePicker name="pdIntroductionDate" precision="day"
-		value="${productInstance?.pdIntroductionDate}" />
+	<g:jqDatePicker name="pdIntroductionDate" value="${productInstance?.pdIntroductionDate}" />
 </div>
 
 <div

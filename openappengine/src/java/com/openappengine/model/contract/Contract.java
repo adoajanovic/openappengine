@@ -3,6 +3,7 @@
  */
 package com.openappengine.model.contract;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Contract {
 	private String partyId;
 	
 	@OneToMany(mappedBy="contract",cascade=CascadeType.ALL)
-	private List<ContractLineItem> lineItems;
+	private List<ContractLineItem> lineItems = new ArrayList<ContractLineItem>();
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="CH_FROM_DATE",nullable=false)
