@@ -30,6 +30,7 @@
 		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.base.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.classic.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.summer.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.darkblue.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.energyblue.css')}" type="text/css">
@@ -58,7 +59,7 @@
             $(document).ready(function () {
                 var theme = getTheme();
                 // Create a jqxMenu
-                $("#menubar").jqxMenu({ theme: 'darkblue' });
+                $("#menubar").jqxMenu({ theme: 'classic' });
                 $("#menubar").css('visibility', 'visible');
                 $("#menubar").jqxMenu('disable', 'fin', true);
             });
@@ -70,7 +71,7 @@
 	<body>
 		<div id='menubar' style='visibility: hidden;'>
 			<ul>
-				<li><a href="#Home">Home</a></li>
+				<li><a href="/openappengine">Home</a></li>
 				<li>Party
 					<ul>
 						<li><a href="/openappengine/person/create">
@@ -110,6 +111,16 @@
 							<a href="/openappengine/product/list">
 								<img src="${resource(dir: 'images', file: 'document_list.png')}" alt="New"/>
 								Product List
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>Contract
+					<ul>
+						<li>
+							<a href="/openappengine/contract/create">
+								<img src="${resource(dir: 'images', file: 'document_new.png')}" alt="New"/>
+								New Contract
 							</a>
 						</li>
 					</ul>
