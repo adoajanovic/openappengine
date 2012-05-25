@@ -21,6 +21,9 @@
 		<script src="${resource(dir: 'js/external', file: 'jquery.tmpl.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.core.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.datepicker.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dialog.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.button.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataview.js')}"></script>

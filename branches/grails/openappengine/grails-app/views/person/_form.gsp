@@ -50,8 +50,7 @@
 	<label for="birthDate"> <g:message
 			code="person.birthDate.label" default="Birth Date" />
 	</label>
-	<g:datePicker name="birthDate" precision="day"
-		value="${personInstance?.birthDate}" />
+	<g:jqDatePicker name="birthDate" value="${personInstance?.birthDate}" />
 </div>
 <div
 	class="fieldcontain ${hasErrors(bean: personInstance, field: 'description', 'error')} ">

@@ -13,7 +13,7 @@
 		<g:message code="contract.fromDate.label" default="From Date" />
 		
 	</label>
-	<g:datePicker name="fromDate" precision="day" value="${contractInstance?.fromDate}" />
+	<g:jqDatePicker name="fromDate" value="${contractInstance?.fromDate}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractInstance, field: 'toDate', 'error')} ">
@@ -21,7 +21,7 @@
 		<g:message code="contract.toDate.label" default="To Date" />
 		
 	</label>
-	<g:datePicker name="toDate" precision="day" value="${contractInstance?.toDate}" />
+	<g:jqDatePicker name="toDate" value="${contractInstance?.toDate}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractInstance, field: 'orderRecurrence', 'error')} ">

@@ -20,12 +20,51 @@
 			</ul>
 			</g:hasErrors>
 			<g:form action="save" >
+				<fieldset class="buttons">
+					<button id="addLineItemBtn">
+						<img src="${resource(dir: 'images', file: 'add_item.png')}" alt="Add Line Item"/>
+						Add Line Item
+					</button>
+				</fieldset>
 				<fieldset class="form">
 					<g:render template="form"/>
+					
+					<div id="childList">
+						<table>
+							<thead>
+								<tr>
+									<th>Line Item</th>
+									<th>Quantity</th>
+									<th>From Date</th>
+									<th>To Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<g:each var="lineItem" in="${contractInstance.lineItems}" status="i">
+									<tr id="row0">
+							        	<td>
+	    									<g:textField name='lineItem[${i}].itemDescription' value='${lineItem.itemDescription}'/>
+							        	</td>
+							        	<td>
+	    									<g:textField name='lineItem[${i}].quantity' value='${lineItem.quantity}'/>
+							        	</td>
+							        	<td>
+	    									<g:textField name='lineItem[${i}].fromDate' value='${lineItem.fromDate}'/>
+							        	</td>
+							        	<td>
+	    									<g:textField name='lineItem[${i}].toDate' value='${lineItem.toDate}'/>
+							        	</td>
+									</tr>
+							    </g:each>
+							</tbody>
+						</table>
+					</div>
 				</fieldset>
+				
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
+				
 			</g:form>
 		</div>
 	</body>
