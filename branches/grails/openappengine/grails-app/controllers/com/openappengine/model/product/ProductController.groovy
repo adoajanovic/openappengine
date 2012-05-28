@@ -4,6 +4,8 @@ import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
+	
+	def sequenceGeneratorService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -61,6 +63,12 @@ class ProductController {
 
         [productInstance: productInstance]
     }
+	
+	def getProduct() {
+		Integer productId = Integer.parseInt(params.id)
+		def productInstance = Product.get(productId)
+		render productInstance.pdProductName
+	 }
 
     def edit() {
         def productInstance = Product.get(params.id)

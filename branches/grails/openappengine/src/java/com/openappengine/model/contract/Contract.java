@@ -38,7 +38,7 @@ public class Contract {
 	@Column(name="CH_CONTRACT_NUMBER",unique=true, nullable=false)
 	private String contractNumber;
 	
-	@Column(name="CH_PARTY_EXTERNAL_ID",unique=true, nullable=false)
+	@Column(name="CH_PARTY_EXTERNAL_ID",nullable=false)
 	private String partyId;
 	
 	@OneToMany(mappedBy="contract",cascade=CascadeType.ALL)
@@ -51,10 +51,6 @@ public class Contract {
 	@Temporal(TemporalType.DATE)
 	@Column(name="CH_TO_DATE")
 	private Date toDate;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="CH_DISCONTINUE_DATE", nullable=true)
-	private Date discontinueDate;
 	
 	@Column(name="CH_ORDER_RECURRENCE", nullable=false)
 	private String orderRecurrence;
@@ -74,6 +70,21 @@ public class Contract {
 	public void setLineItems(List<ContractLineItem> lineItems) {
 		this.lineItems = lineItems;
 	}
+	
+	public void addNewLineItem(ContractLineItem lineItem) {
+		if(lineItem == null) {
+			return;
+		}
+		lineItem.initLineItem();
+		this.lineItems.add(lineItem);
+	}
+	
+	public void suspendLineItem(ContractLineItem lineItem) {
+		if(lineItem == null) {
+			return;
+		}
+		lineItem.suspendLineItem();
+	}
 
 	public Date getFromDate() {
 		return fromDate;
@@ -89,14 +100,6 @@ public class Contract {
 
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
-	}
-
-	public Date getDiscontinueDate() {
-		return discontinueDate;
-	}
-
-	public void setDiscontinueDate(Date discontinueDate) {
-		this.discontinueDate = discontinueDate;
 	}
 
 	public String getOrderRecurrence() {

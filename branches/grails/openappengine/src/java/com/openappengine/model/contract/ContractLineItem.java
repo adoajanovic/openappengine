@@ -5,6 +5,7 @@ package com.openappengine.model.contract;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.openappengine.model.product.Product;
 
@@ -28,6 +31,10 @@ public class ContractLineItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final String CONTRACT_LINE_ITEM_STATUS_ACTIVE = "ACTIVE";
+	
+	public static final String CONTRACT_LINE_ITEM_STATUS_SUSPENDED = "SUSPENDED";
+	
 	@Id
 	@Column(name = "CI_LINE_ITEM_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="seqGenerator")  
@@ -35,9 +42,6 @@ public class ContractLineItem implements Serializable {
 	                allocationSize=1 // flush every 1 insert  
 	)
 	private int lineItemId;
-	
-	@Column(name = "CI_ORDER_ITEM_TYPE_ID")
-	private String itemType;
 	
 	@ManyToOne
 	@JoinColumn(name="CI_PRODUCT_ID", nullable=false)
@@ -49,15 +53,21 @@ public class ContractLineItem implements Serializable {
 	@Column(name = "CI_SELECTED_AMOUNT")
 	private BigDecimal selectedAmouunt;
 	
-	@Column(name = "CI_ITEM_DESCRIPTION")
-	private String itemDescription;
-	
 	@Column(name = "CI_STATUS_ID")
 	private String status;
 	
 	@ManyToOne
 	@JoinColumn(name = "CN_CONTRACT_ID", unique = true, nullable = false)
 	private Contract contract;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="CI_FROM_DATE",nullable=false)
+	private Date fromDate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="CI_TO_DATE")
+	private Date toDate;
+	
 
 	public Product getProduct() {
 		return product;
@@ -83,14 +93,6 @@ public class ContractLineItem implements Serializable {
 		this.selectedAmouunt = selectedAmouunt;
 	}
 
-	public String getItemDescription() {
-		return itemDescription;
-	}
-
-	public void setItemDescription(String itemDescription) {
-		this.itemDescription = itemDescription;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -114,12 +116,28 @@ public class ContractLineItem implements Serializable {
 	public void setLineItemId(int lineItemId) {
 		this.lineItemId = lineItemId;
 	}
-
-	public String getItemType() {
-		return itemType;
+	
+	public void initLineItem() {
+		this.setStatus(ContractLineItem.CONTRACT_LINE_ITEM_STATUS_ACTIVE);
+	}
+	
+	public void suspendLineItem() {
+		this.setStatus(ContractLineItem.CONTRACT_LINE_ITEM_STATUS_SUSPENDED);
 	}
 
-	public void setItemType(String itemType) {
-		this.itemType = itemType;
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 }

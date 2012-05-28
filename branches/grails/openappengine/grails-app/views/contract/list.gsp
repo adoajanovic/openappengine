@@ -16,37 +16,41 @@
 			<table>
 				<thead>
 					<tr>
-					
-						<g:sortableColumn property="contractId" title="${message(code: 'contract.contractId.label', default: 'Contract Id')}" />
-					
 						<g:sortableColumn property="contractNumber" title="${message(code: 'contract.contractNumber.label', default: 'Contract Number')}" />
 					
-						<g:sortableColumn property="discontinueDate" title="${message(code: 'contract.discontinueDate.label', default: 'Discontinue Date')}" />
-					
 						<g:sortableColumn property="fromDate" title="${message(code: 'contract.fromDate.label', default: 'From Date')}" />
+						
+						<g:sortableColumn property="toDate" title="${message(code: 'contract.toDate.label', default: 'To Date')}" />
 					
 						<g:sortableColumn property="orderRecurrence" title="${message(code: 'contract.orderRecurrence.label', default: 'Order Recurrence')}" />
 					
-						<g:sortableColumn property="partyId" title="${message(code: 'contract.partyId.label', default: 'Party Id')}" />
-					
+						<g:sortableColumn property="partyId" title="${message(code: 'contract.party.label', default: 'Party')}" />
+						
+						<th/>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${contractInstanceList}" status="i" var="contractInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${contractInstance.id}">${fieldValue(bean: contractInstance, field: "contractId")}</g:link></td>
-					
 						<td>${fieldValue(bean: contractInstance, field: "contractNumber")}</td>
 					
-						<td><g:formatDate date="${contractInstance.discontinueDate}" /></td>
-					
-						<td><g:formatDate date="${contractInstance.fromDate}" /></td>
+						<td><g:formatDate date="${contractInstance.fromDate}" format="yyyy-MM-dd"/></td>
+						
+						<td><g:formatDate date="${contractInstance.toDate}" format="yyyy-MM-dd"/></td>
 					
 						<td>${fieldValue(bean: contractInstance, field: "orderRecurrence")}</td>
 					
-						<td>${fieldValue(bean: contractInstance, field: "partyId")}</td>
+						<td>
+							<g:set var="party" value="${com.openappengine.model.party.Party.findByExternalId(contractInstance.partyId)}" />
+							${party?.externalId + " - " + party?.firstName + " " + party?.lastName}
+						</td>
 					
+						<td>
+							<g:link action="show" id="${contractInstance.contractId}">
+								<img src="${resource(dir: 'images', file: 'edit.png')}" alt="Party" style="width: 16px;height: 16px;" />
+							</g:link>
+						</td>
 					</tr>
 				</g:each>
 				</tbody>

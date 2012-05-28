@@ -24,6 +24,8 @@
 		<mapping class='com.openappengine.model.contract.Contract' />
 		<mapping class='com.openappengine.model.contract.ContractLineItem'/>
 		
+		<mapping class='com.openappengine.model.ad.AdSequence'/>
+		
 	</session-factory>
 
 </hibernate-configuration>

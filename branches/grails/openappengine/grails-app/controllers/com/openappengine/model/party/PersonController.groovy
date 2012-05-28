@@ -134,4 +134,22 @@ class PersonController {
             redirect(action: "show", id: params.id)
         }
     }
+	
+	def listJSON() {
+		def persons = Person.list (params)
+		def totalRows = Person.count()
+
+		def results = persons?.collect {
+						cell: [
+							it.externalId,
+							it.firstName,
+							it.lastName,
+							it.description,
+							it.status
+						]
+		}
+
+		def jsonData = [results]
+		render jsonData as JSON
+	}
 }
