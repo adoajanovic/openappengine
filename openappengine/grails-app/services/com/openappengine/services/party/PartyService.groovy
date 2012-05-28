@@ -1,4 +1,4 @@
-package openappengine
+package com.openappengine.services.party
 
 import com.openappengine.model.party.Person
 

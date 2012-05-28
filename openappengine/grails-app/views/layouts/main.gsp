@@ -18,18 +18,24 @@
 
 		<link rel="stylesheet" href="${resource(dir: 'css/smoothness', file: 'jquery-ui-1.8.2.custom.css')}" type="text/css">
 		<script src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>
+		<script src="${resource(dir: 'js/external', file: 'jquery.bgiframe-2.1.2.js')}"></script>
 		<script src="${resource(dir: 'js/external', file: 'jquery.tmpl.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.core.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.datepicker.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.mouse.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.draggable.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.position.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.resizable.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dialog.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.button.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataview.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.grid.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataviewlocal.js')}"></script>
-		<script src="${resource(dir: 'js', file: 'dataview-odata.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.autocomplete.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.menu.js')}"></script>
 		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.base.css')}" type="text/css">
@@ -40,23 +46,8 @@
 		<link rel="stylesheet" href="${resource(dir: 'css/jqwidgets', file: 'jqx.shinyblack.css')}" type="text/css">
 		
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxcore.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxbuttons.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxscrollbar.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxmenu.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxgrid.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxgrid.selection.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxgrid.columnsresize.js')}"></script> 
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxdata.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'gettheme.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxmenu.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxtabs.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxbuttons.js')}"></script>
-    	<script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxcheckbox.js')}"></script>
-    	<script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxscrollbar.js')}"></script>
-    	<script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxlistbox.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxwindow.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxpanel.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jqwidgets', file: 'jqxvalidator.js')}"></script>
 	    
 	    <script type="text/javascript">
             $(document).ready(function () {

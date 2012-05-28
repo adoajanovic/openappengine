@@ -14,86 +14,93 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list contract">
-			
-				<g:if test="${contractInstance?.contractId}">
-				<li class="fieldcontain">
-					<span id="contractId-label" class="property-label"><g:message code="contract.contractId.label" default="Contract Id" /></span>
-					
-						<span class="property-value" aria-labelledby="contractId-label"><g:fieldValue bean="${contractInstance}" field="contractId"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${contractInstance?.contractNumber}">
-				<li class="fieldcontain">
-					<span id="contractNumber-label" class="property-label"><g:message code="contract.contractNumber.label" default="Contract Number" /></span>
-					
+					<li class="fieldcontain">
+						<span id="contractNumber-label" class="property-label"><g:message code="contract.contractNumber.label" default="Contract Number" /></span>
 						<span class="property-value" aria-labelledby="contractNumber-label"><g:fieldValue bean="${contractInstance}" field="contractNumber"/></span>
-					
-				</li>
+					</li>
 				</g:if>
-			
-				<g:if test="${contractInstance?.discontinueDate}">
-				<li class="fieldcontain">
-					<span id="discontinueDate-label" class="property-label"><g:message code="contract.discontinueDate.label" default="Discontinue Date" /></span>
-					
-						<span class="property-value" aria-labelledby="discontinueDate-label"><g:formatDate date="${contractInstance?.discontinueDate}" /></span>
-					
-				</li>
+				
+				<g:if test="${contractInstance?.partyId}">
+					<li class="fieldcontain">
+						<span id="partyId-label" class="property-label"><g:message code="contract.partyId.label" default="Party" /></span>
+						<span class="property-value" aria-labelledby="partyId-label">
+							<g:set var="party" value="${com.openappengine.model.party.Person.findByExternalId(contractInstance.partyId)}" />
+							${party.externalId + " - " + party.firstName + " " + party.lastName}
+						</span>
+					</li>
 				</g:if>
 			
 				<g:if test="${contractInstance?.fromDate}">
-				<li class="fieldcontain">
-					<span id="fromDate-label" class="property-label"><g:message code="contract.fromDate.label" default="From Date" /></span>
-					
-						<span class="property-value" aria-labelledby="fromDate-label"><g:formatDate date="${contractInstance?.fromDate}" /></span>
-					
-				</li>
+					<li class="fieldcontain">
+						<span id="fromDate-label" class="property-label"><g:message code="contract.fromDate.label" default="From Date" /></span>
+						<span class="property-value" aria-labelledby="fromDate-label"><g:formatDate format="yyyy-MM-dd" date="${contractInstance?.fromDate}" /></span>
+					</li>
 				</g:if>
-			
-				<g:if test="${contractInstance?.lineItems}">
-				<li class="fieldcontain">
-					<span id="lineItems-label" class="property-label"><g:message code="contract.lineItems.label" default="Line Items" /></span>
-					
-						<g:each in="${contractInstance.lineItems}" var="l">
-						<span class="property-value" aria-labelledby="lineItems-label"><g:link controller="contractLineItem" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
+				
+				<g:if test="${contractInstance?.toDate}">
+					<li class="fieldcontain">
+						<span id="toDate-label" class="property-label"><g:message code="contract.toDate.label" default="To Date" /></span>
+						<span class="property-value" aria-labelledby="toDate-label"><g:formatDate format="yyyy-MM-dd" date="${contractInstance?.toDate}" /></span>
+					</li>
 				</g:if>
 			
 				<g:if test="${contractInstance?.orderRecurrence}">
-				<li class="fieldcontain">
-					<span id="orderRecurrence-label" class="property-label"><g:message code="contract.orderRecurrence.label" default="Order Recurrence" /></span>
-					
+					<li class="fieldcontain">
+						<span id="orderRecurrence-label" class="property-label"><g:message code="contract.orderRecurrence.label" default="Order Recurrence" /></span>
 						<span class="property-value" aria-labelledby="orderRecurrence-label"><g:fieldValue bean="${contractInstance}" field="orderRecurrence"/></span>
-					
-				</li>
+					</li>
 				</g:if>
-			
-				<g:if test="${contractInstance?.partyId}">
-				<li class="fieldcontain">
-					<span id="partyId-label" class="property-label"><g:message code="contract.partyId.label" default="Party Id" /></span>
-					
-						<span class="property-value" aria-labelledby="partyId-label"><g:fieldValue bean="${contractInstance}" field="partyId"/></span>
-					
-				</li>
+				
+				<br /><br />
+				<g:if test="${contractInstance?.lineItems}">
+						<span id="lineItems-label"><g:message code="contract.lineItems.label" default="Line Items" /></span>
+						
+						<table style="width=70%;font: Tahoma;font-size: 12px;">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Product</th>
+								<th>Quantity</th>
+								<th>Amount</th>
+								<th>Status</th>
+								<th/>
+							</tr>
+						</thead>
+						<tbody>
+						<g:each in="${contractInstance.lineItems}" var="l" status="i">
+							<tr>
+								<td>
+									${(i+1)}
+								</td>
+								<td>
+									${l.product?.pdProductName}
+								</td>
+								<td>
+									${l.quantity}
+								</td>
+								<td>
+									${l.selectedAmouunt}
+								</td>
+								<td>
+									${l.status}
+								</td>
+								<td>
+									<g:link controller="contractLineItem" action="show" id="${l.lineItemId}">
+										<img src="${resource(dir: 'images', file: 'edit.png')}" alt="Party" style="width: 16px;height: 16px;" />
+									</g:link>
+								</td>
+							</tr>	
+						</g:each>
+						</tbody>													
+						</table>
 				</g:if>
-			
-				<g:if test="${contractInstance?.toDate}">
-				<li class="fieldcontain">
-					<span id="toDate-label" class="property-label"><g:message code="contract.toDate.label" default="To Date" /></span>
-					
-						<span class="property-value" aria-labelledby="toDate-label"><g:formatDate date="${contractInstance?.toDate}" /></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
+			
 			<g:form>
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${contractInstance?.id}" />
-					<g:link class="edit" action="edit" id="${contractInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:hiddenField name="id" value="${contractInstance?.contractId}" />
+					<g:link class="edit" action="edit" id="${contractInstance?.contractId}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

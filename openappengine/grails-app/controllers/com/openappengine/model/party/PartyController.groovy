@@ -15,7 +15,7 @@ class PartyController {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		[partyInstanceList: Party.list(params), partyInstanceTotal: Party.count()]
 	}
-
+	
 	def create() {
 		[partyInstance: new Party(params)]
 	}
@@ -126,32 +126,5 @@ class PartyController {
 			])
 			redirect(action: "show", id: params.id)
 		}
-	}
-
-	def listJSON = {
-		def sortIndex = params.sidx ?: 'name'
-		def sortOrder  = params.sord ?: 'asc'
-		def maxRows = Integer.valueOf(params.rows)
-		def currentPage = Integer.valueOf(params.page) ?: 1
-		def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
-		def contacts = Person.list (params)
-		def totalRows = Person.count()
-		def numberOfPages = Math.ceil(totalRows / maxRows)
-
-		def results = contacts?.collect {
-			[
-						cell: [
-							it.externalId,
-							it.firstName,
-							it.lastName,
-							it.description,
-							it.status
-						],
-						id: it.partyId
-					]
-		}
-
-		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages]
-		render jsonData as JSON
 	}
 }
