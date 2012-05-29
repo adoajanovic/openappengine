@@ -16,7 +16,7 @@
 		<g:message code="contract.fromDate.label" default="From Date" />
 		
 	</label>
-	<g:jqDatePicker name="fromDate" value="${contractLineItemInstance?.fromDate}" />
+	<g:jqDatePicker id="lineItemFromDate" name="fromDate" value="${contractLineItemInstance?.fromDate}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'toDate', 'error')} ">
@@ -24,7 +24,7 @@
 		<g:message code="contract.toDate.label" default="To Date" />
 		
 	</label>
-	<g:jqDatePicker name="toDate" value="${contractLineItemInstance?.toDate}" />
+	<g:jqDatePicker id="lineItemToDate" name="toDate" value="${contractLineItemInstance?.toDate}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'quantity', 'error')} ">

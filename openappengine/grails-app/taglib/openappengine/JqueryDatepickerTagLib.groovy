@@ -17,7 +17,7 @@ class JqueryDatepickerTagLib {
 
 		//Code to parse selected date into hidden fields required by grails
 		out.println "<script type=\"text/javascript\"> \$(document).ready(function(){"
-		out.println "\$(\"#${name}\").datepicker({"
+		out.println "\$(\"#${id}\").datepicker({"
 		out.println " changeMonth: true, changeYear: true, "
 		out.println "onClose: function(dateText, inst) {"
 		out.println "\$(\"#${name}_month\").attr(\"value\",new Date(dateText).getMonth() +1);"

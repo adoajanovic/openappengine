@@ -22,7 +22,7 @@ public class AdSequence implements Serializable {
 	
 	@Id
 	@Column(name="AD_SEQUENCE_NAME", unique=true, nullable=false)
-	private int sequenceName;
+	private String sequenceName;
 	
 	@Column(name="AD_SEQUENCE_PREFIX",nullable=true)
 	private String prefix;
@@ -30,11 +30,11 @@ public class AdSequence implements Serializable {
 	@Column(name="AD_SEQUENCE_VALUE",nullable=false)
 	private Integer sequenceValue;
 
-	public int getSequenceName() {
+	public String getSequenceName() {
 		return sequenceName;
 	}
 
-	public void setSequenceName(int sequenceName) {
+	public void setSequenceName(String sequenceName) {
 		this.sequenceName = sequenceName;
 	}
 
