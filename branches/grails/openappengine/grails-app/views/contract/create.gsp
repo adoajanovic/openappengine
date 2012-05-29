@@ -33,20 +33,18 @@
 
 							$("#lineItems tbody").append("<tr>" +
 									"<td id='lineItems[" + (count-1) +"].productId'>" + response + "</td>" + 
-									"<td id='lineItems[" + (count-1) +"].itemDescription'>" + $("#itemDescription").val() + "</td>" + 
 									"<td id='lineItems[" + (count-1) +"].quantity'>" + $("#quantity").val() + "</td>" +
 									"<td id='lineItems[" + (count-1) +"].selectedAmouunt'>" + $("#selectedAmouunt").val() + "</td>" +
-									"<td id='lineItems[" + (count-1) +"].fromDate'>" + $("#fromDate").val() + "</td>" +
-									"<td id='lineItems[" + (count-1) +"].toDate'>" + $("#toDate").val() + "</td>" +
+									"<td id='lineItems[" + (count-1) +"].fromDate'>" + $("#lineItemFromDate").val() + "</td>" +
+									"<td id='lineItems[" + (count-1) +"].toDate'>" + $("#lineItemToDate").val() + "</td>" +
 							"</tr>" );
 
 							$("#contractForm").append(
 									"<input type='hidden' name='lineItems[" + (count-1) +"].productId' value='" + $("#pdProductId").val() + "' />" +
-									"<input type='hidden' name='lineItems[" + (count-1) +"].itemDescription' value='" + $("#itemDescription").val() + "' />" +
 									"<input type='hidden' name='lineItems[" + (count-1) +"].quantity' value='" + $("#quantity").val() + "' />" +
 									"<input type='hidden' name='lineItems[" + (count-1) +"].selectedAmouunt' value='" + $("#selectedAmouunt").val() + "' />" + 
-									"<input type='hidden' name='lineItems[" + (count-1) +"].fromDate' value='" + $("#fromDate").val() + "' />"
-									"<input type='hidden' name='lineItems[" + (count-1) +"].toDate' value='" + $("#toDate").val() + "' />"
+									"<input type='hidden' name='lineItems[" + (count-1) +"].fromDate' value='" + $("#lineItemFromDate").val() + "' />" +
+									"<input type='hidden' name='lineItems[" + (count-1) +"].toDate' value='" + $("#lineItemToDate").val() + "' />"
 							);
 
 														
@@ -59,9 +57,9 @@
 					},
 					close: function() {
 						$("#pdProductId").val("");
-						$("#itemDescription").val("");
-						$("#quantity").val("");
 						$("#selectedAmouunt").val("");
+						$("lineItemFromDate").val();
+						$("lineItemToDate").val();
 					}
 				});
 
@@ -114,9 +112,10 @@
                         <thead>
                             <tr>
                             	<th>Product</th>
-                            	<th>Description</th>
                             	<th>Quantity</th>
                             	<th>Amount</th>
+                            	<th>From Date</th>
+                            	<th>To Date</th>
                             </tr>
                         </thead>
                         <tbody>
