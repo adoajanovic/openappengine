@@ -43,8 +43,8 @@
 									"<input type='hidden' name='lineItems[" + (count-1) +"].productId' value='" + $("#pdProductId").val() + "' />" +
 									"<input type='hidden' name='lineItems[" + (count-1) +"].quantity' value='" + $("#quantity").val() + "' />" +
 									"<input type='hidden' name='lineItems[" + (count-1) +"].selectedAmouunt' value='" + $("#selectedAmouunt").val() + "' />" + 
-									"<input type='hidden' name='lineItems[" + (count-1) +"].fromDate' value='" + $("#lineItemFromDate").val() + "' />" +
-									"<input type='hidden' name='lineItems[" + (count-1) +"].toDate' value='" + $("#lineItemToDate").val() + "' />"
+									"<input type='hidden' name='lineItems[" + (count-1) +"].lineItemFromDate' value='" + $("#lineItemFromDate").val() + "' />" +
+									"<input type='hidden' name='lineItems[" + (count-1) +"].lineItemToDate' value='" + $("#lineItemToDate").val() + "' />"
 							);
 
 														
