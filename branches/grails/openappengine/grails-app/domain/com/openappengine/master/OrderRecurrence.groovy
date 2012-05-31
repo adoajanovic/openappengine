@@ -11,6 +11,7 @@ public enum OrderRecurrence {
 
 	M('1'),
 	Q('3'),
+	T('4'),
 	Y('12'),
 		
 	final String name

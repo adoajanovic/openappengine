@@ -58,6 +58,15 @@ class ContractController {
 			lineItem.contract = contractInstance
 			Product product = Product.get(params["lineItems["+i+"].productId"])
 			lineItem.product = product
+			
+			String fromDt = params["lineItems["+i+"].lineItemFromDate"]
+			String toDt = params["lineItems["+i+"].lineItemToDate"]
+			Date fromDate = Date.parse("MM/dd/yyyy", fromDt);
+			Date toDate = Date.parse("MM/dd/yyyy", toDt);
+			
+			lineItem.fromDate = fromDate
+			lineItem.toDate = toDate
+			
 			bindData(lineItem, params["lineItems["+i+"]"])
 			contractInstance.lineItems[i] = lineItem
 		}

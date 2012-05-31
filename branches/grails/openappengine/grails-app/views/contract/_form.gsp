@@ -26,7 +26,7 @@
 	<label for="orderRecurrence">
 		<g:message code="contract.orderRecurrence.label" default="Order Recurrence" />
 	</label>
-	<g:select name="preferredCuorderRecurrencerrencyUom" from="${OrderRecurrence?.values()}"
+	<g:select name="orderRecurrence" from="${OrderRecurrence?.values()}"
 		value="${contractInstance?.orderRecurrence}" optionKey="key" />	
 </div>
 
