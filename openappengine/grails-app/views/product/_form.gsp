@@ -46,15 +46,6 @@
 </div>
 
 <div
-	class="fieldcontain ${hasErrors(bean: productInstance, field: 'pdFixedAmount', 'error')} ">
-	<label for="pdFixedAmount"> 
-	<g:message
-			code="product.pdFixedAmount.label" default="Fixed Amount" />
-	</label>
-	<g:textField name="pdFixedAmount" value="${productInstance?.pdFixedAmount}" />
-</div>
-
-<div
 	class="fieldcontain ${hasErrors(bean: productInstance, field: 'pdDescription', 'error')} ">
 	<label for="pdDescription"> <g:message
 			code="product.pdDescription.label" default="Pd Description" />
@@ -69,4 +60,13 @@
 			code="product.pdIsVirtual.label" default="Is Virtual" />
 	</label>
 	<g:checkBox name="pdIsVirtual" value="${productInstance?.pdIsVirtual}" />
+</div>
+
+<div
+	class="fieldcontain">
+	<label for="initPrice"> <g:message
+			code="product.pdDescription.label" default="Price" />
+	</label>
+	<g:textField name="initPrice"
+		value="${params.initPrice}" />
 </div>

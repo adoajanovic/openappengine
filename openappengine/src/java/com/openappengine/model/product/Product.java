@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -104,7 +105,7 @@ public class Product implements Serializable {
 	private String pdProductType;
 
 	//bi-directional many-to-one association to ProdProductPrice
-	@OneToMany(mappedBy="prodProduct")
+	@OneToMany(mappedBy="prodProduct",cascade=CascadeType.ALL)
 	private List<ProdProductPrice> prodProductPrices;
 	
     public Product() {
@@ -300,5 +301,17 @@ public class Product implements Serializable {
 
 	public void setPdProductType(String pdProductType) {
 		this.pdProductType = pdProductType;
+	}
+	
+	public BigDecimal getProductPrice(Date date) {
+		if(prodProductPrices != null && !prodProductPrices.isEmpty()) {
+			for (ProdProductPrice prodPrice : prodProductPrices) {
+				if (date.after(prodPrice.getPpFromDate())
+						&& date.before(prodPrice.getPpToDate())) {
+					return prodPrice.getPpPrice();
+				}
+			}
+		}
+		return null;
 	}
 }

@@ -45,6 +45,9 @@ public class OhOrderHeader implements Serializable {
 	@Column(name="OH_ORDER_NAME")
 	private String orderName;
 	
+	@Column(name="OH_CONTRACT_NUMBER",nullable=false)
+	private String contractNumber;
+	
 	@Column(name="OH_EXTERNAL_ID")
 	private String externalId;
 	
@@ -75,6 +78,14 @@ public class OhOrderHeader implements Serializable {
 	
 	@Column(name="OH_GRAND_TOTAL")
 	private BigDecimal grandTotal;
+	
+	@Column(name="OH_FROM_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fromDate;
+	
+	@Column(name="OH_TO_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date toDate;
 	
 	@OneToMany(mappedBy="orderHeader",cascade=CascadeType.ALL)
 	private List<OiOrderItem> orderItems = new ArrayList<OiOrderItem>();
@@ -189,6 +200,34 @@ public class OhOrderHeader implements Serializable {
 
 	public void setOrderItems(List<OiOrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+	
+	public void addOrderItem(OiOrderItem item) {
+		orderItems.add(item);
+	}
+
+	public String getContractNumber() {
+		return contractNumber;
+	}
+
+	public void setContractNumber(String contractNumber) {
+		this.contractNumber = contractNumber;
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 
 }

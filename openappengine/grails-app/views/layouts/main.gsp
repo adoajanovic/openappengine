@@ -117,6 +117,12 @@
 								New Contract
 							</a>
 						</li>
+						<li>
+							<a href="/openappengine/contract/createOrder">
+								<img src="${resource(dir: 'images', file: 'document_list.png')}" alt="Monthly Invoices"/>
+								Generate Monthly Invoices
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>

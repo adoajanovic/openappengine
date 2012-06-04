@@ -52,6 +52,9 @@ public class Contract {
 	@Column(name="CH_TO_DATE")
 	private Date toDate;
 	
+	@Column(name="CH_IS_ACTIVE")
+	private Boolean active = Boolean.TRUE;
+	
 	@Column(name="CH_ORDER_RECURRENCE", nullable=false)
 	private String orderRecurrence;
 
@@ -124,6 +127,14 @@ public class Contract {
 
 	public void setPartyId(String partyId) {
 		this.partyId = partyId;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 	
 }
