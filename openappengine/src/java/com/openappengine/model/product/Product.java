@@ -306,8 +306,8 @@ public class Product implements Serializable {
 	public BigDecimal getProductPrice(Date date) {
 		if(prodProductPrices != null && !prodProductPrices.isEmpty()) {
 			for (ProdProductPrice prodPrice : prodProductPrices) {
-				if (date.after(prodPrice.getPpFromDate())
-						&& date.before(prodPrice.getPpToDate())) {
+				if ((date.after(prodPrice.getPpFromDate()) || date.equals(prodPrice.getPpFromDate()))
+						&& (date.before(prodPrice.getPpToDate()) || date.equals(prodPrice.getPpToDate()))) {
 					return prodPrice.getPpPrice();
 				}
 			}

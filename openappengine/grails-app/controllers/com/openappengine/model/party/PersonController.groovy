@@ -7,6 +7,8 @@ class PersonController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
+	def sequenceGeneratorService
+	
 	def partyService
 	
     def index() {
@@ -36,7 +38,10 @@ class PersonController {
 	}
 
     def create() {
-        [personInstance: new Person(params),addressInstance: new Address(params)]
+		String personId = sequenceGeneratorService.getNextSequenceNumber("Person")
+		def p = new Person(params)
+		p.externalId = personId
+        [personInstance: p,addressInstance: new Address(params)]
     }
 	
 	def createAddress() {
