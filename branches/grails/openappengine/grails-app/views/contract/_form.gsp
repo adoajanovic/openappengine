@@ -44,6 +44,6 @@
 	<label for="lineItems">
 		<g:message code="contract.lineItems.label" default="Line Items" />
 	</label>
-	<g:select name="lineItems" from="${com.openappengine.model.contract.ContractLineItem.list()}" multiple="multiple" optionKey="id" size="5" required="" value="${contractInstance?.lineItems*.id}" class="many-to-many"/>
+	<g:select name="lineItems" from="${com.openappengine.model.contract.ContractLineItem.list()}" multiple="multiple" optionKey="id" size="5" required="" value="${contractInstance?.lineItems*.lineItemId}" class="many-to-many"/>
 </div>
 </g:if>
