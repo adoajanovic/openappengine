@@ -35,16 +35,6 @@
 							bean="${productInstance}" field="pdInternalName" /></span></li>
 			</g:if>
 			
-			<g:if test="${productInstance?.pdIntroductionDate}">
-				<li class="fieldcontain"><span id="pdIntroductionDate-label"
-					class="property-label"><g:message
-							code="product.pdIntroductionDate.label"
-							default="Introduction Date" /></span> <span class="property-value"
-					aria-labelledby="pdIntroductionDate-label">
-					<g:formatDate format="yyyy-MM-dd"
-							date="${productInstance?.pdIntroductionDate}" /></span></li>
-			</g:if>
-			
 			<g:if test="${productInstance?.pdProductType}">
 				<li class="fieldcontain"><span id="pdProductType-label"
 					class="property-label"><g:message
@@ -90,6 +80,16 @@
 						code="product.pdCreatedDate.label" default="Created Date" /></span> <span
 				class="property-value" aria-labelledby="pdCreatedDate-label"><g:formatDate format="yyyy-MM-dd"
 						date="${productInstance?.pdCreatedDate}" /></span></li>
+			
+			<g:if test="${productInstance?.pdIntroductionDate}">
+				<li class="fieldcontain"><span id="pdIntroductionDate-label"
+					class="property-label"><g:message
+							code="product.pdIntroductionDate.label"
+							default="Introduction Date" /></span> <span class="property-value"
+					aria-labelledby="pdIntroductionDate-label">
+					<g:formatDate format="yyyy-MM-dd"
+							date="${productInstance?.pdIntroductionDate}" /></span></li>
+			</g:if>			
 
 			<li class="fieldcontain"><span
 				id="pdSalesDiscontinuationDate-label" class="property-label"><g:message
@@ -108,25 +108,53 @@
 							date="${productInstance?.pdSupportDiscontinuationDate}" /></span></li>
 
 			<g:if test="${productInstance?.prodProductPrices}">
-				<li class="fieldcontain"><span id="prodProductPrices-label"
-					class="property-label"><g:message
-							code="product.prodProductPrices.label"
-							default="Prod Product Prices" /></span> <g:each
-						in="${productInstance.prodProductPrices}" var="p">
-						<span class="property-value"
-							aria-labelledby="prodProductPrices-label"><g:link
-								controller="prodProductPrice" action="show" id="${p.pdProductId}">
-								${p?.encodeAsHTML()}
-							</g:link></span>
-					</g:each></li>
+				<li class="fieldcontain">
+					<span id="prodProductPrices-label" class="property-label">
+						<g:message code="product.prodProductPrices.label"
+									default="Price" />
+					</span> 
+					
+					<table>
+						<thead>
+							<tr>
+								<th>From Date</th>
+								<th>To Date</th>
+								<th>Price</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${productInstance.prodProductPrices}" var="p">
+								<tr>
+									<td>
+										<g:formatDate format="yyyy-MM-dd" date="${p.ppFromDate}"/>
+									</td>
+									<td>
+										<g:formatDate format="yyyy-MM-dd" date="${p.ppToDate}"/>
+									</td>
+									<td>
+										<g:formatNumber number="${p.ppPrice}" type="number" maxFractionDigits="2" />
+									</td>
+									<td>
+										<g:link controller="productPrice" action="edit" id="${p.ppProdProductPriceId}">
+											Edit
+										</g:link>
+									</td>
+								</tr>
+							</g:each>
+						</tbody>
+					</table>
+				</li>
 			</g:if>
-
 		</ol>
 		<g:form>
 			<fieldset class="buttons">
 				<g:hiddenField name="id" value="${productInstance?.pdProductId}" />
 				<g:link class="edit" action="edit" id="${productInstance?.pdProductId}">
 					<g:message code="default.button.edit.label" default="Edit" />
+				</g:link>
+				<g:link class="edit" action="addPrice" id="${productInstance?.pdProductId}">
+					<g:message code="default.button.price.label" default="Add Price" />
 				</g:link>
 				<g:actionSubmit class="delete" action="delete"
 					value="${message(code: 'default.button.delete.label', default: 'Delete')}"

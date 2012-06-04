@@ -1,5 +1,6 @@
 package com.openappengine.model.contract
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException
 
 import com.openappengine.model.product.Product;
@@ -10,6 +11,8 @@ class ContractController {
 	def contractService
 	
 	def sequenceGeneratorService
+	
+	def orderService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -32,6 +35,27 @@ class ContractController {
 	def addLineItem() {
 		[lineItem : new ContractLineItem(params)]
 		redirect(action: "show")
+	}
+	
+	def createOrder() {
+		Date now = new Date()
+
+		Calendar c = Calendar.instance
+		c.setTime(now)
+		c.set(Calendar.DAY_OF_MONTH, 1)
+		
+		params.fromDate = c.getTime()
+		
+		c.add(Calendar.MONTH, 1);
+		c.set(Calendar.DAY_OF_MONTH, 1)
+		c.add(Calendar.DATE, -1);
+		params.toDate = c.getTime()
+		
+	}
+	
+	def createAllOrders() {
+		orderService.createAllOrders(params.fromDate, params.toDate)
+		return ""
 	}
 
     def save() {

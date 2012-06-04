@@ -68,6 +68,8 @@ public class ContractLineItem implements Serializable {
 	@Column(name="CI_TO_DATE")
 	private Date toDate;
 	
+	@Column(name="CI_IS_ACTIVE")
+	private Boolean active = Boolean.TRUE; 
 
 	public Product getProduct() {
 		return product;
@@ -139,5 +141,13 @@ public class ContractLineItem implements Serializable {
 
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

@@ -9,6 +9,7 @@ class ContractService {
 
 	@Transactional
     def createService(Contract contract) throws ContractCreationException {
+		contract.active = true
 		try {
 			if(contract.lineItems != null) {
 				for (ContractLineItem lineItem : contract.lineItems) {

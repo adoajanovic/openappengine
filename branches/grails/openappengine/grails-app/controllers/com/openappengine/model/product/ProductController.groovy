@@ -22,6 +22,10 @@ class ProductController {
         [productInstance: new Product(params)]
     }
 	
+	def addPrice() {
+		redirect(action: "show", id: params.id)
+	}
+	
 	def terminateProduct() {
 		 def productInstance = Product.get(params.id)
 		 if (!productInstance) {
@@ -44,6 +48,18 @@ class ProductController {
 		productInstance.pdCreatedDate = new Date()
 		productInstance.pdSalesDiscontinuationDate= endDate
 		productInstance.pdSupportDiscontinuationDate = endDate
+		
+		def prodPrice = new ProdProductPrice()
+		prodPrice.ppFromDate = productInstance.pdIntroductionDate
+		prodPrice.ppToDate = endDate
+		prodPrice.ppPrice = params.initPrice.toBigDecimal()
+		prodPrice.prodProduct = productInstance
+		
+		def prodProductPrices = new ArrayList<ProdProductPrice>()
+		prodProductPrices.add(prodPrice)
+		
+		productInstance.prodProductPrices = prodProductPrices
+		
         if (!productInstance.save(flush: true)) {
             render(view: "create", model: [productInstance: productInstance])
             return
