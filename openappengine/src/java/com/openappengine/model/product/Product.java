@@ -2,6 +2,7 @@ package com.openappengine.model.product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.openappengine.model.fm.tax.FmTaxRate;
+import com.openappengine.model.fm.tax.FmTaxType;
+import com.openappengine.model.party.Address;
 
 /**
  * The persistent class for the prod_product database table.
@@ -107,6 +114,10 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to ProdProductPrice
 	@OneToMany(mappedBy="prodProduct",cascade=CascadeType.ALL)
 	private List<ProdProductPrice> prodProductPrices;
+	
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name = "PRODUCT_TAX", joinColumns = { @JoinColumn(name = "PD_PRODUCT_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "TT_TAX_TYPE_ID") })
+	private List<FmTaxType> productTaxes = new ArrayList<FmTaxType>();
 	
     public Product() {
     }
@@ -313,5 +324,13 @@ public class Product implements Serializable {
 			}
 		}
 		return null;
+	}
+
+	public List<FmTaxType> getProductTaxes() {
+		return productTaxes;
+	}
+
+	public void setProductTaxes(List<FmTaxType> productTaxes) {
+		this.productTaxes = productTaxes;
 	}
 }

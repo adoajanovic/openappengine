@@ -29,7 +29,7 @@ public class Person extends Party {
 	@Column(name = "PM_MIDDLE_NAME", length = 100, nullable = true)
 	private String middleName;
 
-	@Column(name = "PM_LAST_NAME", length = 100, nullable = false)
+	@Column(name = "PM_LAST_NAME", length = 100, nullable = true)
 	private String lastName;
 
 	@Column(name = "PM_SUFFIX", length = 50, nullable = true)
