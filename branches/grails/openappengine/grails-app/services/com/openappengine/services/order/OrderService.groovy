@@ -1,10 +1,14 @@
 package com.openappengine.services.order
 
 
+import java.util.List;
+
 import com.openappengine.model.contract.Contract
 import com.openappengine.model.contract.ContractLineItem;
 import com.openappengine.model.fm.OhOrderHeader
 import com.openappengine.model.fm.OiOrderItem
+import com.openappengine.model.fm.tax.FmTaxRate;
+import com.openappengine.model.fm.tax.FmTaxType;
 import com.openappengine.model.product.Product;
 
 class OrderService {
@@ -56,6 +60,8 @@ class OrderService {
 		order.orderType = "SO"
 		order.status = "NEW"
 		
+		def date = new Date()
+		
 		List<ContractLineItem> lineItems = contractInstance.lineItems
 		if(lineItems != null && !lineItems.isEmpty()) {
 			int i = 0
@@ -69,6 +75,8 @@ class OrderService {
 					item.priceModified = false
 					
 					item.unitPrice = lineItem.product.getProductPrice(fromDate)
+					item.taxPrice = getTaxAmount(lineItem.product,fromDate)
+					item.lineTotalPrice = item.unitPrice + item.taxPrice  
 					i++
 					
 					order.addOrderItem(item)
@@ -78,4 +86,28 @@ class OrderService {
 		
 		order.save(flush:true)
     }
+	
+	
+	//TODO
+	def BigDecimal getTaxAmount(Product product,Date date) {
+		if (product.productTaxes != null && !product.productTaxes.isEmpty()) {
+			for (FmTaxType prodTax : product.productTaxes) {
+				List<FmTaxRate> taxRates = prodTax.getTaxRates();
+				if (taxRates != null) {
+					if (taxRates != null && !taxRates.isEmpty()) {
+						for (FmTaxRate taxRate : taxRates) {
+							if(taxRate.fixedPrice) {
+								if ((date.after(taxRate.getFromDate()) || date.equals(taxRate.getFromDate()))
+										&& (date.before(taxRate.getToDate()) || date.equals(taxRate.getToDate()))) {
+									return taxRate.getFixedTaxAmount();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return 0;
+	}
 }

@@ -22,30 +22,6 @@
 			</ul>
 			</g:hasErrors>
 			<g:form action="save" >
-				<%--<div id='jqxWidget'>
-			        <div id='jqxTabs'>
-			            <ul>
-			                <li style="margin-left: 30px;">Personal Info</li>
-			                <li>Address</li>
-			            </ul>
-			            <div class="section">
-			                <div id="personForm">
-			                   <!-- Person Form -->
-			                   <fieldset class="form">
-									<g:render template="form"/>
-								</fieldset>
-			                </div>
-			            </div>
-			            <div class="section">
-			                <div id="addressForm">
-			                	<fieldset class="form">
-									<g:render template="/address/form"/>
-								</fieldset>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			    --%>
 			    <fieldset class="form">
 					<g:render template="tabbedForm"/>
 				</fieldset>

@@ -130,7 +130,7 @@ img {
 
 .scaffold-list table {
 	border: 1px;
-	font-size: 11px;
+	font-size: 12px;
 	width: auto;
 }
 
@@ -139,7 +139,7 @@ img {
 }
 
 .scaffold-list td {
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .scaffold-list th {
@@ -274,7 +274,7 @@ fieldset,.property-list {
 }
 
 .fieldcontain .property-value {
-	font-size: 11px;
+	font-size: 12px;
 	display: block;
 	font-family: Tahoma;
 }
@@ -288,7 +288,7 @@ label {
 input,select,textarea {
 	background-color: #fcfcfc;
 	border: 1px solid #cccccc;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 select {

@@ -39,6 +39,13 @@
 	<g:textField name="lastName" value="${personInstance?.lastName}" />
 </div>
 <div
+	class="fieldcontain ${hasErrors(bean: personInstance, field: 'suffix', 'error')} ">
+	<label for="suffix"> <g:message code="person.suffix.label"
+			default="Suffix" />
+	</label>
+	<g:textField name="suffix" value="${personInstance?.suffix}" />
+</div>
+<div
 	class="fieldcontain ${hasErrors(bean: personInstance, field: 'gender', 'error')} ">
 	<label for="gender"> <g:message code="person.gender.label"
 			default="Gender" />

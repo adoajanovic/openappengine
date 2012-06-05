@@ -4,14 +4,6 @@
 	<head>
 		<script type="text/javascript">
 	        $(document).ready(function () {
-	            var theme = getTheme();
-	            // Create jqxTabs.
-	            $('#jqxTabs').jqxTabs({ position: 'top', theme: theme });
-	            $('#jqxTabs').bind('change', function (event) {
-	                var checked = event.args.checked;
-	                $('#jqxTabs').jqxTabs({ selectionTracker: checked });
-	            });
-
 	            var validator = $("form").validate({
 					rules: {
 						firstName: "required",
@@ -36,22 +28,16 @@
 			<div id="validation-errors">
 				
 			</div>
-			<div class="section">
-					<div id="personForm">
-						<!-- Person Form -->
-						<fieldset class="form">
-							<g:render template="form" />
-						</fieldset>
-					</div>
-				</div>
-				<div class="section">
-					<div id="addressForm">
-						<fieldset class="form">
-							<g:render template="/address/form" />
-						</fieldset>
-					</div>
-			</div>
-			<fieldset class="buttons">
+		<div class="section">
+			<!-- Person Form -->
+			<fieldset class="form">
+				<g:render template="form" />
+			</fieldset>
+			<fieldset class="form">
+				<g:render template="/address/form" />
+			</fieldset>
+		</div>
+		<fieldset class="buttons">
 				<g:submitButton name="create" id="saveButton" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 			</fieldset>
 		</form>
