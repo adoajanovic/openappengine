@@ -54,7 +54,7 @@ class ContractController {
 	}
 	
 	def createAllOrders() {
-		orderService.createAllOrders(params.fromDate, params.toDate)
+		orderService.createAllOrdersFromContracts(params.fromDate, params.toDate)
 		return ""
 	}
 
