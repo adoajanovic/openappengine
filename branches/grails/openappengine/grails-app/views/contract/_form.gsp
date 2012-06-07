@@ -1,6 +1,13 @@
 <%@page import="com.openappengine.master.OrderRecurrence"%>
 <%@ page import="com.openappengine.model.contract.Contract" %>
 
+<div>
+	<label for="partyId">
+		<g:message code="contract.partyId.label" default="Party Id" />
+	</label>
+	<richui:autoComplete name="partyId" action="${createLinkTo('dir': 'person/searchAJAX')}" />
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: contractInstance, field: 'contractNumber', 'error')} ">
 	<label for="contractNumber">
 		<g:message code="contract.contractNumber.label" default="Contract Number" />
@@ -28,15 +35,6 @@
 	</label>
 	<g:select name="orderRecurrence" from="${OrderRecurrence?.values()}"
 		value="${contractInstance?.orderRecurrence}" optionKey="key" />	
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: contractInstance, field: 'partyId', 'error')} ">
-	<label for="partyId">
-		<g:message code="contract.partyId.label" default="Party Id" />
-	</label>
-	<g:select name="partyId" from="${com.openappengine.model.party.Person.list()}" 
-		optionKey="externalId" optionValue="${{it.externalId + " - " + it.firstName?.toUpperCase() + " " + it.lastName?.toUpperCase() }}" 
-		required="true" value="${contractLineItemInstance?.partyId}"/>	
 </div>
 
 <g:if test="${contractInstance?.lineItems}">

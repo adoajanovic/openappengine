@@ -157,4 +157,21 @@ class PersonController {
 		def jsonData = [results]
 		render jsonData as JSON
 	}
+	
+	def searchAJAX = {
+		def persons = Person.findAllByFirstNameLike("%${params.query}%")        //Create XML response
+		render(contentType: "text/xml") {
+			results() {
+				persons.each { person ->
+					result(){
+						name(person.firstName + " " + person.lastName + "(" + person.externalId + ")")
+						value(person.externalId)
+						//Optional id which will be available in onItemSelect
+						id(person.partyId)
+					}
+				}
+			}
+		}
+	}
+
 }

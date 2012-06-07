@@ -30,7 +30,7 @@ environments {
 			dbCreate = "update" // one of 'create', 'create-drop','update'
 			url = "jdbc:mysql://localhost:3306/openappengine_d01?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
-			password = "admin"
+			password = ""
 		}
 		hibernate {
 			show_sql = true

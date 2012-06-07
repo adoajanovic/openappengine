@@ -24,8 +24,6 @@
 						
 						<g:sortableColumn property="pdSalesDiscontinuationDate" title="${message(code: 'product.pdSalesDiscontinuationDate.label', default: 'Discontinuation Date')}" />
 					
-						<g:sortableColumn property="pdFixedAmount" title="${message(code: 'product.pdFixedAmount.label', default: 'Fixed Amount')}" />
-					
 						<g:sortableColumn property="pdTaxable" title="${message(code: 'product.pdTaxable.label', default: 'Taxable')}" />
 					
 					</tr>
@@ -42,8 +40,6 @@
 					
 						<td><g:formatDate format="yyyy-MM-dd" date="${productInstance.pdSalesDiscontinuationDate}" /></td>
 					
-						<td><g:formatNumber number="${productInstance.pdFixedAmount}" type="number" maxFractionDigits="2" /></td>
-						
 						<td><g:formatBoolean boolean="${productInstance.pdTaxable}" true="Y" false="N" /></td>
 					
 					</tr>
@@ -53,6 +49,7 @@
 			<div class="pagination">
 				<g:paginate total="${productInstanceTotal}" />
 			</div>
+			<g:jasperReport jasper="all-products" format="PDF" name="all-products" />
 		</div>
 	</body>
 </html>
