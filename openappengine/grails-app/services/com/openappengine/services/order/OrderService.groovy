@@ -1,7 +1,11 @@
 package com.openappengine.services.order
 
 
+import groovy.util.logging.Log
+
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.openappengine.model.contract.Contract
 import com.openappengine.model.contract.ContractLineItem;
@@ -10,10 +14,11 @@ import com.openappengine.model.fm.OiOrderItem
 import com.openappengine.model.fm.tax.FmTaxRate;
 import com.openappengine.model.fm.tax.FmTaxType;
 import com.openappengine.model.product.Product;
+import com.openappengine.util.DateUtils;
 
 class OrderService {
 	
-	def createAllOrders(Date fromDate, Date toDate) {
+	def createAllOrdersFromContracts(Date fromDate, Date toDate) {
 		def c = Contract.createCriteria()
 		def results = c.list {
 			eq("active", Boolean.TRUE)
@@ -21,12 +26,12 @@ class OrderService {
 		
 		if(results != null && !results.isEmpty()) {
 			for (Contract contract : results) {
-				createOrder(contract.contractNumber, contract.fromDate, contract.toDate);
+				createOrderFromContract(contract.contractNumber, contract.fromDate, contract.toDate);
 			}
 		}
 	}
 
-    def createOrder(String contractNumber, Date fromDate, Date toDate) {
+    def createOrderFromContract(String contractNumber, Date fromDate, Date toDate) {
 		if(contractNumber == null) {
 			throw new IllegalArgumentException("Contract Number cannot be null.");
 		}
@@ -44,7 +49,9 @@ class OrderService {
 		
 		if(results != null && !results.isEmpty()) {
 			OhOrderHeader orderHeader = results.get(0)
-			if(orderHeader.toDate > fromDate) {
+			if(DateUtils.isDateBetweenTwoDatesInclusive(orderHeader.fromDate, orderHeader.toDate, fromDate) 
+				|| DateUtils.isDateBetweenTwoDatesInclusive(orderHeader.fromDate, orderHeader.toDate, toDate)) {
+				Logger.info "Order already exists."
 				return
 			}
 		}
@@ -75,7 +82,7 @@ class OrderService {
 					item.priceModified = false
 					
 					item.unitPrice = lineItem.product.getProductPrice(fromDate)
-					item.taxPrice = getTaxAmount(lineItem.product,fromDate)
+					item.taxPrice = calculateTaxAmount(lineItem.product,fromDate)
 					item.lineTotalPrice = item.unitPrice + item.taxPrice  
 					i++
 					
@@ -89,25 +96,25 @@ class OrderService {
 	
 	
 	//TODO
-	def BigDecimal getTaxAmount(Product product,Date date) {
+	def BigDecimal calculateTaxAmount(Product product,Date date) {
+		BigDecimal total = new BigDecimal(0.0);
+		
 		if (product.productTaxes != null && !product.productTaxes.isEmpty()) {
 			for (FmTaxType prodTax : product.productTaxes) {
 				List<FmTaxRate> taxRates = prodTax.getTaxRates();
-				if (taxRates != null) {
-					if (taxRates != null && !taxRates.isEmpty()) {
-						for (FmTaxRate taxRate : taxRates) {
-							if(taxRate.fixedPrice) {
-								if ((date.after(taxRate.getFromDate()) || date.equals(taxRate.getFromDate()))
-										&& (date.before(taxRate.getToDate()) || date.equals(taxRate.getToDate()))) {
-									return taxRate.getFixedTaxAmount();
-								}
+				if (taxRates != null && !taxRates.isEmpty()) {
+					for (FmTaxRate taxRate : taxRates) {
+						if(taxRate.fixedPrice) {
+							if(DateUtils.isDateBetweenTwoDatesInclusive(taxRate.getFromDate(), taxRate.getToDate(), date)) {
+								total.add(taxRate.getFixedTaxAmount());
 							}
 						}
+						//TODO
 					}
 				}
 			}
 		}
 		
-		return 0;
+		return total;
 	}
 }
