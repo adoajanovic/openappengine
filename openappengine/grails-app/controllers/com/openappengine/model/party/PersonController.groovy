@@ -159,15 +159,16 @@ class PersonController {
 	}
 	
 	def searchAJAX = {
-		def persons = Person.findAllByFirstNameLike("%${params.query}%")        //Create XML response
+		//Create XML response
+		def persons = Person.findAllByFirstNameLike("%${params.query}%")
+		        
 		render(contentType: "text/xml") {
 			results() {
 				persons.each { person ->
 					result(){
-						name(person.firstName + " " + person.lastName + "(" + person.externalId + ")")
-						value(person.externalId)
+						name(person.firstName + " " + person.lastName)
 						//Optional id which will be available in onItemSelect
-						id(person.partyId)
+						id(person.firstName)	//TODO - Change to externalID.
 					}
 				}
 			}
