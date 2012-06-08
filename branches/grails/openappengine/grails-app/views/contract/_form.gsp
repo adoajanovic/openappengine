@@ -1,11 +1,19 @@
 <%@page import="com.openappengine.master.OrderRecurrence"%>
 <%@ page import="com.openappengine.model.contract.Contract" %>
-
+<script type="text/javascript">
+	formatResult = function(oResultData, sQuery, sResultMatch) {
+	    var sMarkup = (sResultMatch) ? sResultMatch : "";
+	    return oResultData[1];
+	};
+</script>
 <div>
 	<label for="partyId">
 		<g:message code="contract.partyId.label" default="Party Id" />
 	</label>
-	<richui:autoComplete name="partyId" action="${createLinkTo('dir': 'person/searchAJAX')}" />
+	
+	<richui:autoComplete name="partyId" action="${createLinkTo('dir': 'person/searchAJAX')}" 
+		onItemSelect="alert(id);" formatResult="formatResult" />
+	<g:hiddenField name="partyId" value="" /> 	
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractInstance, field: 'contractNumber', 'error')} ">
