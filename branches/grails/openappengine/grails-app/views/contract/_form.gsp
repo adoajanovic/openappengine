@@ -3,16 +3,22 @@
 <script type="text/javascript">
 	formatResult = function(oResultData, sQuery, sResultMatch) {
 	    var sMarkup = (sResultMatch) ? sResultMatch : "";
-	    return oResultData[1];
+	    return oResultData[0];
+	};
+
+	setHiddenField = function(id) {
+		var hiddenField = YAHOO.util.Dom.get("partyId"); 
+		hiddenField.value = id;
+		//alert(hiddenField.value); 
 	};
 </script>
 <div>
-	<label for="partyId">
+	<label for="partyIdAC">
 		<g:message code="contract.partyId.label" default="Party Id" />
 	</label>
 	
-	<richui:autoComplete name="partyId" action="${createLinkTo('dir': 'person/searchAJAX')}" 
-		onItemSelect="alert(id);" formatResult="formatResult" />
+	<richui:autoComplete name="partyIdAC" action="${createLinkTo('dir': 'person/searchAJAX')}" style="width:200px;" 
+		onItemSelect="setHiddenField(id);" formatResult="formatResult" />
 	<g:hiddenField name="partyId" value="" /> 	
 </div>
 

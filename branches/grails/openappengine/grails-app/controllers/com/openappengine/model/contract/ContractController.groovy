@@ -54,8 +54,12 @@ class ContractController {
 	}
 	
 	def createAllOrders() {
-		orderService.createAllOrdersFromContracts(params.fromDate, params.toDate)
-		return ""
+		def fromDate = Date.parse("MM/dd/yyyy", params.fromDate)
+		def toDate = Date.parse("MM/dd/yyyy", params.toDate)
+		orderService.createAllOrdersFromContracts(fromDate, toDate)
+		flash.message = message(code: 'default.created.error.message', args: [
+			message(code: 'contract.label', default: 'Order Generated')])
+		render(view: "orderSuccess")
 	}
 
     def save() {

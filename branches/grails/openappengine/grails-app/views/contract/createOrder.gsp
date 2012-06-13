@@ -30,14 +30,14 @@
 						<label for="toDate">
 							<g:message code="ohOrderHeader.toDate.label" default="From Date" />
 						</label>
-						<g:datePicker name="fromDate" precision="day" value="${params?.fromDate}" />
+						<g:jqDatePicker name="fromDate" value="${params?.fromDate}" />
 					</div>
 					
 					<div class="fieldcontain ${hasErrors(bean: ohOrderHeaderInstance, field: 'toDate', 'error')} ">
 						<label for="toDate">
 							<g:message code="ohOrderHeader.toDate.label" default="To Date" />
 						</label>
-						<g:datePicker name="toDate" precision="day" value="${params?.toDate}" />
+						<g:jqDatePicker name="toDate" value="${params?.toDate}" />
 					</div>					
 				</fieldset>
 				

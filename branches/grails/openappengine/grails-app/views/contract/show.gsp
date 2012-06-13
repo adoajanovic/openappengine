@@ -62,7 +62,6 @@
 								<th>No</th>
 								<th>Product</th>
 								<th>Quantity</th>
-								<th>Amount</th>
 								<th>Status</th>
 								<th/>
 							</tr>
@@ -78,9 +77,6 @@
 								</td>
 								<td>
 									${l.quantity}
-								</td>
-								<td>
-									${l.selectedAmouunt}
 								</td>
 								<td>
 									${l.status}
