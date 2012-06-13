@@ -3,6 +3,7 @@
  */
 package com.openappengine.model.contract;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +58,9 @@ public class Contract {
 	
 	@Column(name="CH_ORDER_RECURRENCE", nullable=false)
 	private String orderRecurrence;
+	
+	@Column(name="CH_AR_AMOUNT")
+	private BigDecimal arAmount = new BigDecimal(0.0); 
 
 	public int getContractId() {
 		return contractId;
@@ -135,6 +139,14 @@ public class Contract {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public BigDecimal getArAmount() {
+		return arAmount;
+	}
+
+	public void setArAmount(BigDecimal arAmount) {
+		this.arAmount = arAmount;
 	}
 	
 }

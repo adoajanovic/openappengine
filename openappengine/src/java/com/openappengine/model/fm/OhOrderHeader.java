@@ -48,6 +48,9 @@ public class OhOrderHeader implements Serializable {
 	@Column(name="OH_CONTRACT_NUMBER",nullable=false)
 	private String contractNumber;
 	
+	@Column(name="OH_PARTY_NUMBER",nullable=false)
+	private String partyNumber;
+	
 	@Column(name="OH_EXTERNAL_ID")
 	private String externalId;
 	
@@ -228,6 +231,14 @@ public class OhOrderHeader implements Serializable {
 
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+
+	public String getPartyNumber() {
+		return partyNumber;
+	}
+
+	public void setPartyNumber(String partyNumber) {
+		this.partyNumber = partyNumber;
 	}
 
 }

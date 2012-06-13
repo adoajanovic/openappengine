@@ -14,15 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.openappengine.model.fm.tax.FmTaxRate;
 import com.openappengine.model.fm.tax.FmTaxType;
-import com.openappengine.model.party.Address;
 
 /**
  * The persistent class for the prod_product database table.
@@ -115,8 +114,10 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy="prodProduct",cascade=CascadeType.ALL)
 	private List<ProdProductPrice> prodProductPrices;
 	
-	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinTable(name = "PRODUCT_TAX", joinColumns = { @JoinColumn(name = "PD_PRODUCT_ID", unique = true) }, inverseJoinColumns = { @JoinColumn(name = "TT_TAX_TYPE_ID") })
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="PRODUCT_TAX",
+                joinColumns={@JoinColumn(name="PD_PRODUCT_ID")},
+                inverseJoinColumns={@JoinColumn(name="TT_TAX_TYPE_ID")})
 	private List<FmTaxType> productTaxes = new ArrayList<FmTaxType>();
 	
     public Product() {

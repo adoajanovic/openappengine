@@ -6,6 +6,7 @@ import groovy.util.logging.Log
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openappengine.model.contract.Contract
 import com.openappengine.model.contract.ContractLineItem;
@@ -18,6 +19,11 @@ import com.openappengine.util.DateUtils;
 
 class OrderService {
 	
+	def sequenceGeneratorService
+	
+	def paymentService
+	
+	@Transactional
 	def createAllOrdersFromContracts(Date fromDate, Date toDate) {
 		def c = Contract.createCriteria()
 		def results = c.list {
@@ -26,7 +32,7 @@ class OrderService {
 		
 		if(results != null && !results.isEmpty()) {
 			for (Contract contract : results) {
-				createOrderFromContract(contract.contractNumber, contract.fromDate, contract.toDate);
+				createOrderFromContract(contract.contractNumber, fromDate, toDate);
 			}
 		}
 	}
@@ -51,7 +57,7 @@ class OrderService {
 			OhOrderHeader orderHeader = results.get(0)
 			if(DateUtils.isDateBetweenTwoDatesInclusive(orderHeader.fromDate, orderHeader.toDate, fromDate) 
 				|| DateUtils.isDateBetweenTwoDatesInclusive(orderHeader.fromDate, orderHeader.toDate, toDate)) {
-				Logger.info "Order already exists."
+				log.info "Order already exists."
 				return
 			}
 		}
@@ -66,8 +72,13 @@ class OrderService {
 		order.externalId = ""
 		order.orderType = "SO"
 		order.status = "NEW"
+		order.partyNumber = contractInstance.partyId
+		
+		String orderNumber = sequenceGeneratorService.getNextSequenceNumber("Order")
+		order.externalId = orderNumber
 		
 		def date = new Date()
+		def grandTotal = new BigDecimal(0.0)
 		
 		List<ContractLineItem> lineItems = contractInstance.lineItems
 		if(lineItems != null && !lineItems.isEmpty()) {
@@ -83,17 +94,23 @@ class OrderService {
 					
 					item.unitPrice = lineItem.product.getProductPrice(fromDate)
 					item.taxPrice = calculateTaxAmount(lineItem.product,fromDate)
-					item.lineTotalPrice = item.unitPrice + item.taxPrice  
-					i++
+					item.lineTotalPrice = item.unitPrice + item.taxPrice
 					
+					grandTotal += item.lineTotalPrice
 					order.addOrderItem(item)
+					
+					i++
 				}
 			}
 		}
 		
+		
+		order.grandTotal = grandTotal
+		
+		//Contract AR Amount
+		contractInstance.arAmount = contractInstance.arAmount + order.grandTotal; 
 		order.save(flush:true)
     }
-	
 	
 	//TODO
 	def BigDecimal calculateTaxAmount(Product product,Date date) {
@@ -106,7 +123,7 @@ class OrderService {
 					for (FmTaxRate taxRate : taxRates) {
 						if(taxRate.fixedPrice) {
 							if(DateUtils.isDateBetweenTwoDatesInclusive(taxRate.getFromDate(), taxRate.getToDate(), date)) {
-								total.add(taxRate.getFixedTaxAmount());
+								total += taxRate.getFixedTaxAmount();
 							}
 						}
 						//TODO
