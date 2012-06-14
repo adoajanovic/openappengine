@@ -82,6 +82,7 @@
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<!-- 
 		<div id="status" role="complementary">
 			<h1>Application Status</h1>
 			<ul>
@@ -102,7 +103,10 @@
 				</g:each>
 			</ul>
 		</div>
+		 -->
+		 
 		<div id="page-body" role="main">
+			<!-- 
 			<h1>Welcome to Grails</h1>
 			<p>Congratulations, you have successfully started your first Grails application! At the moment
 			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
@@ -117,6 +121,7 @@
 					</g:each>
 				</ul>
 			</div>
+			 -->
 		</div>
 	</body>
 </html>

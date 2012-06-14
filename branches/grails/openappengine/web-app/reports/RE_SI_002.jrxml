@@ -3,21 +3,26 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Title" isDefault="false" fontName="Times New Roman" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
-	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Times New Roman" fontSize="18"/>
-	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Times New Roman" fontSize="12" isBold="true"/>
-	<style name="Detail" isDefault="false" fontName="Times New Roman" fontSize="12"/>
+	<style name="Title" fontName="Times New Roman" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Times New Roman" fontSize="12"/>
 	<subDataset name="dataset1"/>
-	<parameter name="PARAMETER_INVOICE_ID" class="java.lang.String"/>
+	<parameter name="PARAMETER_ORDER_ID" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT COUNT(oi.order_item_id)as NoofAlaCarteChannels,il.price as price,oi.order_id, COUNT((oi.order_item_id))*il.price as AlaCartPrice
-FROM tbl_order_items oi , tbl_invoice_line_items il
-WHERE oi.order_item_id=il.order_item_id and oi.service_id IN (SELECT service_id from tbl_services where parent_service_id=(SELECT service_id from tbl_services where service_name='root')) and il.price!=0 and il.invoice_id=$P{PARAMETER_INVOICE_ID};]]>
+		<![CDATA[SELECT oi.oi_unit_price,oi.oi_tax_price,oi.oi_line_total_price,oi.oi_quantity,prod.pd_product_name
+FROM
+fm_order_item oi, fm_order_header oh,prod_product prod
+WHERE
+oi.oi_order_id = oh.oh_order_id AND
+prod.pd_product_id = oi.oi_product_id AND
+oh.oh_external_id =$P{PARAMETER_ORDER_ID};]]>
 	</queryString>
-	<field name="NoofAlaCarteChannels" class="java.lang.Long"/>
-	<field name="price" class="java.lang.Double"/>
-	<field name="order_id" class="java.lang.String"/>
-	<field name="AlaCartPrice" class="java.lang.Double"/>
+	<field name="oi_unit_price" class="java.math.BigDecimal"/>
+	<field name="oi_tax_price" class="java.math.BigDecimal"/>
+	<field name="oi_line_total_price" class="java.math.BigDecimal"/>
+	<field name="oi_quantity" class="java.math.BigDecimal"/>
+	<field name="pd_product_name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -32,20 +37,34 @@ WHERE oi.order_item_id=il.order_item_id and oi.service_id IN (SELECT service_id 
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="178" y="1" width="100" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="123" y="0" width="70" height="15"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Times New Roman" size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{price}]]></textFieldExpression>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{oi_unit_price}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="2" y="1" width="100" height="20"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="100" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="9"/>
 				</textElement>
-				<text><![CDATA[Pay Package]]></text>
-			</staticText>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pd_product_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="207" y="0" width="67" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{oi_tax_price}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="292" y="0" width="44" height="15"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{oi_line_total_price}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
