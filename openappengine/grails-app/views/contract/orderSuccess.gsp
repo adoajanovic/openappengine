@@ -12,30 +12,6 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			
-			<div class="fieldcontain">
-				<label for="fromDate">
-					<g:message code="orderExtraction.fromDate.label" default="From Date" />
-				</label>
-				
-				<g:formatDate name="fromDate" format="yyyy-MM-dd" date="${params.fromDate}" readonly="true"/>
-			</div>
-			
-			<div class="fieldcontain">
-				<label for="toDate">
-					<g:message code="orderExtraction.toDate.label" default="To Date" />
-				</label>
-				
-				<g:formatDate name="toDate" format="yyyy-MM-dd" date="${params.toDate}" readonly="true"/>
-			</div>
-			
-			<div class="fieldcontain">
-				<label for="orderExtractionCount">
-					<g:message code="orderExtraction.count.label" default="Total Orders Extracted" />
-				</label>
-				<input type="text" name="orderExtractionCount" value="${params.count}" readonly="true"/>
-			</div>
-			
 		</div>
 	</body>
 </html>

@@ -61,7 +61,7 @@ public class OhOrderHeader implements Serializable {
 	private char priority;
 	
 	@Column(name="OH_ENTRY_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date entryDate;
 	
 	@Column(name="OH_STATUS_ID")
@@ -83,11 +83,11 @@ public class OhOrderHeader implements Serializable {
 	private BigDecimal grandTotal;
 	
 	@Column(name="OH_FROM_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date fromDate;
 	
 	@Column(name="OH_TO_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date toDate;
 	
 	@OneToMany(mappedBy="orderHeader",cascade=CascadeType.ALL)

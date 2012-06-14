@@ -43,7 +43,7 @@
 				
 				<fieldset class="buttons">
 					<g:submitButton name="createOrder" 
-							class="save" value="${message(code: 'default.button.create.label', default: 'Create Order')}" />
+							class="save" value="${message(code: 'default.button.createOrder.label', default: 'Create Order')}" />
 				</fieldset>
 			</g:form>
 		</div>
