@@ -1,11 +1,13 @@
 package com.openappengine.model.party
 
 import grails.converters.JSON
+
+import org.hibernate.criterion.MatchMode;
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST",filter:"POST"]
 	
 	def sequenceGeneratorService
 	
@@ -20,17 +22,40 @@ class PersonController {
         [personInstanceList: Person.list(params), personInstanceTotal: Person.count()]
     }
 	
+	def filter() {
+		def criteria = Person.createCriteria()
+		
+		def persons = criteria.list {
+			like("firstName", "${params.firstName}")
+		}
+		
+		def results = persons?.collect {
+				[
+				 "partyId" : it.partyId,
+				 "firstName" : it.firstName,
+				 "lastName" : it.lastName,
+				 "externalId" : it.externalId,
+				 "partyType" : it.partyType
+				]
+		}
+		render results as JSON
+	}
+	
 	def listJSON = {
-		def contacts = Person.list (params)
-		def totalRows = Person.count()
+		def c = Person.criteria()
+		def contacts = c.list {
+			like("firstName", params.firstName,MatchMode.START)
+		}
 		
 		def results = contacts?.collect {
 			[
-			 "id" : it.partyId,	
-			 "firstName" : it.firstName,
-			 "lastName" : it.lastName,
-			 "externalId" : it.externalId,
-			 "status" : it.status
+				person:[
+				 "id" : it.partyId,	
+				 "firstName" : it.firstName,
+				 "lastName" : it.lastName,
+				 "externalId" : it.externalId,
+				 "status" : it.status
+				]
 			]
 		}
 		
