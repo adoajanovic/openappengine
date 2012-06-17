@@ -1,5 +1,6 @@
 package com.openappengine.model.product
 
+import grails.converters.JSON
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -17,7 +18,45 @@ class ProductController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [productInstanceList: Product.list(params), productInstanceTotal: Product.count()]
     }
-
+	
+	def filterProducts() {
+		def criteria = Product.createCriteria()
+		
+		def products = criteria.list {
+			if(params.productName) {
+				like("pdProductName", "${params.productName}%")
+			} else {
+				like("pdProductName", "%%")
+			}
+		}
+		
+		List productsFilter = new ArrayList()
+		
+		products?.each {
+			BigDecimal price  = it.getProductPrice(new Date())
+			
+			def min = params.priceMin.toBigDecimal()
+			def max = params.priceMax.toBigDecimal()
+			
+			if(price >= min && price <= max) {
+				productsFilter.add(it)
+			}
+		}
+		
+		def results = productsFilter?.collect {
+				BigDecimal price  = it.getProductPrice(new Date())
+				[
+					"pdProductId" : it.pdProductId,
+					"pdProductName" : it.pdProductName,
+					"pdIntroductionDate" : it.pdIntroductionDate,
+					"pdSalesDiscontinuationDate" : it.pdSalesDiscontinuationDate,
+					"pdPrice" : price
+				]
+		}
+		
+		render results as JSON
+	}
+	
     def create() {
         [productInstance: new Product(params)]
     }

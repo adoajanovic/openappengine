@@ -7,63 +7,104 @@
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		
-		<script type="text/javascript">
-	        $(document).ready(function () {
-	            var theme = getTheme();
-	
-	            var url="${createLink(action: 'listJSON')}";
-	
-	            // prepare the data
-	            var source =
-	            {
-	                datatype: "json",
-	                datafields: [
-	                    { name: 'firstName' },
-	                    { name: 'lastName' },
-	                    { name: 'externalId'},
-	                    { name: 'status' },
-	                ],
-	                id: 'partyId',
-	                url: url
-	            };
-	            var dataAdapter = new $.jqx.dataAdapter(source);
+		<script>
+			$(function() {
+				$( "#slider-range-max" ).slider({
+					range: true,
+					min: 0,
+					max: 500,
+					values: [ 75, 300 ],
+					slide: function( event, ui ) {
+						$("#amount").val(ui.values[0] + " - " + ui.values[1]);
+					}
+				});
+				$("#amount").val($( "#slider-range-max" ).slider( "values", 0 ) + " - " + $( "#slider-range-max" ).slider( "values", 1 ));
+			});
+		
+			$(function() {
+				$('#searchForm').submit(function() {
+					$.ajax({
+                        type : "POST",
+                        url : '/openappengine/person/filter',
+                        data : {firstName:$('#firstName').val()},
+                        dataType : "json",
+                        success: function(result) {
+                        	$('#listing').html('');
 
-	            var linkrenderer = function (row, column, value) {
-	                value = <a href="/openappengine/person/show/">value</a>
-	                var format = { target: "_self" };
-	                var html = $.jqx.dataFormat.formatlink(value, format);
-	                return html;
-	            }
-
-	            var cellsrenderer = function (row, columnfield, value, defaulthtml, columnproperties) {
-	               	return '<a href="show?id=' + value + '">' + value + '</a>';
-	            }
-	
-	            $("#jqxgrid").jqxGrid(
-	            {
-	                source: dataAdapter,
-	                theme: theme,
-	                columnsresize: true,
-	                sortable:true,
-	                columns: [
-	                  { text: 'First Name', datafield: 'firstName', width: 250 },
-	                  { text: 'Last Name', datafield: 'lastName', width: 250 },
-	                  { text: 'External Id', datafield: 'externalId', width: 180 ,cellsrenderer: cellsrenderer},
-	                  { text: 'Status', datafield: 'status', width: 120 }
-	              ]
-	            });
-	        });
-	    </script>
+                        	$.each(result, function(i, person) {
+                               var d = '<tr>' 
+                               		   + '<td>'  + person.partyId + '</td>'
+		                               + '<td>' + person.firstName + '</td>'
+		                               + '<td>' + person.lastName + '</td>'
+		                               + '<td>' + person.externalId + '</td>'
+		                               + '<td>' + person.partyType + '</td>'
+		                               + '</tr>';
+                               	
+                        	   $(d).appendTo('#listing');
+                        	});
+	                    },
+	                    error : function() {
+                            alert("Sorry, The requested property could not be found.");
+               			}
+                	});
+					return false;
+				});
+			});
+			</script>
 	</head>
 	<body>
-		<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-		<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-		</g:if>
-		
 		<br/>
-		<div id='jqxWidget' style="ui-widget">
-	        <div id="jqxgrid"></div>
-	    </div>
-</body>
+		
+		<form id="searchForm">
+			First Name: <input id="firstName" name="firstName" type="text" />
+			<input id="searchButton" type="submit" value="search"/> <br/>
+			
+			<label for="amount">Range:</label>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+			<div id="slider-range-max" style="width:400px;"></div>
+		</form>
+		
+		<div id="list-person" class="content scaffold-list" role="main">
+			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<table>
+				<thead>
+					<tr>
+						<g:sortableColumn property="partyId" title="${message(code: 'person.partyId.label', default: 'Party Id')}" />
+					
+						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" />
+					
+						<g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}" />
+					
+						<g:sortableColumn property="externalId" title="${message(code: 'person.externalId.label', default: 'External Id')}" />
+					
+						<g:sortableColumn property="partyType" title="${message(code: 'person.partyType.label', default: 'Party Type')}" />
+					
+					</tr>
+				</thead>
+				<tbody id="listing">
+				<g:each in="${personInstanceList}" status="i" var="personInstance">
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td><g:link action="show" id="${personInstance.partyId}">${fieldValue(bean: personInstance, field: "partyId")}</g:link></td>
+					
+						<td>${fieldValue(bean: personInstance, field: "firstName")}</td>
+					
+						<td>${fieldValue(bean: personInstance, field: "lastName")}</td>
+					
+						<td>${fieldValue(bean: personInstance, field: "externalId")}</td>
+					
+						<td>${fieldValue(bean: personInstance, field: "partyType")}</td>
+					
+					</tr>
+				</g:each>
+				</tbody>
+			</table>
+			<div class="pagination">
+				<g:paginate total="${personInstanceTotal}" />
+			</div>
+		</div>
+	</body>
 </html>

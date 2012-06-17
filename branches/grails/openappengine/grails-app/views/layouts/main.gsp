@@ -35,6 +35,7 @@
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.grid.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataviewlocal.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.autocomplete.js')}"></script>
+		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.slider.js')}"></script>
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.menu.js')}"></script>
 		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		

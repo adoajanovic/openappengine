@@ -631,3 +631,24 @@ a.skip {
 .view_detail {
 	background: url(../images/view_detail.png) no-repeat transparent;
 }
+
+/*
+* Loaders
+*/
+#overlay { 
+  background-image:#EEE;
+  display:none; 
+  position:absolute;
+  filter:alpha(opacity=50); /* IE */
+    opacity: 0.5; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+    z-index: 10;
+}
+
+#overlay .loaderMsgDiv {
+    position: relative;
+    top: 50%;
+    left: 40%;
+    background-repeat:no-repeat;
+    background-position:center;
+}
