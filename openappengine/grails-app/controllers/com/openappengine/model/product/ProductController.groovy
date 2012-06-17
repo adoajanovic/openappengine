@@ -109,15 +109,34 @@ class ProductController {
     }
 
     def show() {
-        def productInstance = Product.get(params.id)
+        def productInstance = Product.get(params.id?.toInteger())
         if (!productInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])
             redirect(action: "list")
             return
         }
-
-        [productInstance: productInstance]
+		render(view: "show", model: [productInstance: productInstance])
     }
+	
+	def viewDetailJSON() {
+		def productInstance = Product.get(params.id?.toInteger())
+		if (!productInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])
+			redirect(action: "list")
+			return
+		}
+		
+		BigDecimal price  = productInstance.getProductPrice(new Date())
+		def jsonObj = [
+			"pdProductId" : productInstance.pdProductId,
+			"pdProductName" : productInstance.pdProductName,
+			"pdIntroductionDate" : productInstance.pdIntroductionDate,
+			"pdSalesDiscontinuationDate" : productInstance.pdSalesDiscontinuationDate,
+			"pdPrice" : price
+		]
+		
+		render jsonObj as JSON
+	}
 	
 	def getProduct() {
 		Integer productId = Integer.parseInt(params.id)
