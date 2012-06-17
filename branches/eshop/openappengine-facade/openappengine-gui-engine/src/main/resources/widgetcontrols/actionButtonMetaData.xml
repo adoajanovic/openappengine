@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget name="actionButton">
-	<parameter name="id" mandatory="true"></parameter>
-	<parameter name="labelId" mandatory="false"></parameter>
-	<parameter name="action" mandatory="true"></parameter>
-</widget>
