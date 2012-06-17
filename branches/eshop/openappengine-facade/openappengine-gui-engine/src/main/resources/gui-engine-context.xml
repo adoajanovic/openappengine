@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<import resource="classpath:service-engine-context.xml"/>
+	
+	<bean id="widgetMetadataConfigurationReader" class="com.openappengine.gui.engine.core.widget.meta.WidgetMetadataConfigurationReader" scope="singleton">
+		<property name="locations">
+			<array>
+				<value>widgetcontrols/textfieldMetaData.xml</value>
+				<value>widgetcontrols/textareaMetaData.xml</value>
+				<value>widgetcontrols/passwordMetaData.xml</value>
+				<value>widgetcontrols/datepickerMetaData.xml</value>
+				<value>widgetcontrols/booleanCheckboxMetaData.xml</value>
+				<value>widgetcontrols/dropdownMetaData.xml</value>
+				<value>widgetcontrols/actionButtonMetaData.xml</value>
+				<value>widgetcontrols/loginWidgetMetaData.xml</value>
+				<value>widgetcontrols/gridMetaData.xml</value>
+				<value>widgetcontrols/dataTableMetaData.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean id="widgetFactory" class="com.openappengine.gui.engine.core.widget.meta.DefaultWidgetMetadataFactory" 
+				init-method="initializeDefaultWidgetFactory" scope="singleton">
+		<property name="widgetMetadataConfigurationReader" ref="widgetMetadataConfigurationReader"></property>	
+	</bean>
+	
+	<bean name="widgetContext" class="com.openappengine.gui.engine.core.widget.meta.WidgetContext">
+	</bean>
+	
+</beans>
+

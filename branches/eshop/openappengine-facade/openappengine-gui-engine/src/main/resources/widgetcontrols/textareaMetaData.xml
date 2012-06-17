@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget name="textarea">
+	<parameter name="id" mandatory="true"></parameter>
+	<parameter name="labelId" mandatory="false"></parameter>
+	<parameter name="path" mandatory="true"></parameter>
+	<parameter name="name" mandatory="true"></parameter>
+	<parameter name="required" mandatory="false" default="false"></parameter>
+	<parameter name="value" mandatory="false"></parameter>
+	<parameter name="rows" mandatory="false" default="20"></parameter>
+	<parameter name="cols" mandatory="false" default="20"></parameter>
+</widget>

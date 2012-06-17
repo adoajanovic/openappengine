@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget name="dataTable" nodetype="list">
+	<parameter name="id" mandatory="true"></parameter>
+	<parameter name="path" mandatory="true"></parameter>
+	<widget name="header">
+		<widget name="column">
+			<parameter name="id" mandatory="false"></parameter>
+			<parameter name="labelId" mandatory="false"></parameter>
+			<parameter name="path" mandatory="false"></parameter>
+		</widget>	
+	</widget>
+	<widget name="column">
+		<parameter name="id" mandatory="false"></parameter>
+		<parameter name="path" mandatory="true"></parameter>
+	</widget>
+</widget>

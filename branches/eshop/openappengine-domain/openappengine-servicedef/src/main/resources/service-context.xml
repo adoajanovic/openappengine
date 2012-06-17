@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<import resource="repository-context.xml"/>
+	
+	<import resource="factory-context.xml"/>
+	
+	<bean id="serviceContext" class="com.openappengine.service.context.ServiceContext"></bean>	
+	
+	<!-- Model Repository -->	
+	<bean id="codeRepository" class="com.openappengine.repository.CodeRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="salesOrderRepository" class="com.openappengine.repository.SalesOrderRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="partyManagerRepository" class="com.openappengine.repository.PartyManagerRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="adTableRepository" class="com.openappengine.repository.ADTableRepository" scope="singleton">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="adDataListRepository" class="com.openappengine.repository.ADDataListRepository">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<!-- Model Service -->
+	<bean id="codeService" class="com.openappengine.service.impl.CodeServiceImpl" >
+		<property name="codeRepository" ref="codeRepository"></property>
+	</bean>
+	
+	<bean id="salesOrderService" class="com.openappengine.service.impl.SalesOrderServiceImpl" >
+		<property name="salesOrderRepository" ref="salesOrderRepository"></property>
+	</bean>
+	
+	<bean id="partyManagerService" class="com.openappengine.service.impl.PartyManagerServiceImpl">
+		<property name="partyManagerRepository" ref="partyManagerRepository"></property>
+		<property name="partyAggregateFactory" ref="partyAggregateFactory"></property>
+	</bean>
+	
+	<bean id="applicationDictionaryService" class="com.openappengine.service.impl.ApplicationDictionaryServiceImpl">
+		<property name="adTableRepository" ref="adTableRepository"></property>
+		<property name="adDataListRepository" ref="adDataListRepository"></property>
+	</bean>
+	
+</beans>

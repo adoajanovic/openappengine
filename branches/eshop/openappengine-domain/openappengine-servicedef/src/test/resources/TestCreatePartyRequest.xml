@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CreatePartyRequest>
+	<Party>
+		<PartyId>-999</PartyId>
+		<Description>Morya Solutions</Description>
+		<ExternalId>10010010</ExternalId>
+		<PartyType>Subscriber</PartyType>
+		<PreferredCurrencyUom>INR</PreferredCurrencyUom>
+		<Status>ENBLD</Status>
+		<PartyContactMech>
+			<ContactMechId>-999</ContactMechId>
+			<ContactMechPurpose>BILLING</ContactMechPurpose>
+			<ContactMechType>POSTAL_ADDRESS</ContactMechType>
+			<InfoString>Thakurdwar,Mumbai</InfoString>
+			<PartyId>-999</PartyId>
+		</PartyContactMech>
+	</Party>
+</CreatePartyRequest>
