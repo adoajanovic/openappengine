@@ -6,8 +6,8 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<script src="${resource(dir: 'js', file: 'jquery.betterTooltip.js')}"></script>
 		<script>
-
 			//Ajax Search Function
 			var ajaxFilter = function() {
 				var $divListing = $('#productTable');
@@ -58,7 +58,12 @@
 		                               + '<td>' + product.pdProductName + '</td>'
 		                               + '<td>' + product.pdIntroductionDate + '</td>'
 		                               + '<td>' + product.pdSalesDiscontinuationDate + '</td>'
-		                               + '<td>' + product.pdPrice + '</td>'
+		                               + '<td>' + product.pdPrice + '</td>'  
+		                               + '<td>'
+		   							   + '<a class="toolTipTrigger" rel=' + product.pdProductId + ' href="#">'
+		   							   + 'View Details'
+		   							   + '</a'
+		   							   + '</td>'
 	                               + '</tr>';
 	                       	
 	                	   $(d).appendTo('#productTableData');
@@ -135,6 +140,12 @@
 			<input id="searchButton" type="submit" value="search"/> <br/>
 		</form>
 		
+		<div id="overlay">
+				<div class="loaderMsgDiv" style="border:1;color:#f6931f; font-weight:bold;color:#f6931f;height:50px;width:150px;z-index: 20;">
+					 <img id="overlay-img" src="${resource(dir: 'images', file: 'ajax-loader.gif')}" alt="loading" width="100px;"/>
+					 <b>Loading...</b> 
+				</div>
+		</div>
 		<br/>
 		
 		<div id="list-product" class="content scaffold-list" role="main">
@@ -142,12 +153,6 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<div id="overlay">
-			<div class="loaderMsgDiv" style="border:1;color:#f6931f; font-weight:bold;color:#f6931f;height:50px;width:150px;z-index: 20;">
-				 <img id="overlay-img" src="${resource(dir: 'images', file: 'ajax-loader.gif')}" alt="loading" width="100px;"/>
-				 <b>Loading...</b> 
-			</div>
-		</div>
 			<table id="productTable">
 				<thead id="productTableHeader">
 					<tr>
@@ -160,7 +165,8 @@
 						<g:sortableColumn property="pdSalesDiscontinuationDate" title="${message(code: 'product.pdSalesDiscontinuationDate.label', default: 'Discontinuation Date')}" />
 					
 						<g:sortableColumn property="pdFixedAmount" title="${message(code: 'product.pdFixedAmount.label', default: 'Amount')}" />
-					
+						
+						<th></th>
 					</tr>
 				</thead>
 				<tbody id="productTableData">
@@ -178,7 +184,12 @@
 						<td>
 							<g:formatNumber number="${pdFixedAmount}" type="number" maxFractionDigits="2" />
 						</td>
-					
+						
+						<td>
+							<g:link class="toolTipTrigger" rel="${productInstance.pdProductId}" action="show" id="${productInstance.pdProductId}">
+								View Details
+							</g:link>
+						</td>
 					</tr>
 				</g:each>
 				</tbody>
