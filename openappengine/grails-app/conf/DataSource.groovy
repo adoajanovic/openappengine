@@ -21,16 +21,15 @@ hibernate {
 // environment specific settings
 environments {
     development {
-        /*dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE"
-        }*/
+		grails.paypal.server = "https://www.sandbox.paypal.com/cgi-bin/webscr"
+		grails.paypal.email = "testpp_1211202427_biz@g2one.com"
+		grails.serverURL = "http://812.99.101.131"
 		
 		dataSource {
 			dbCreate = "update" // one of 'create', 'create-drop','update'
 			url = "jdbc:mysql://localhost:3306/openappengine_d01?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
-			password = ""
+			password = "admin"
 		}
 		hibernate {
 			show_sql = true
@@ -58,5 +57,9 @@ environments {
                validationQuery="SELECT 1"
             }
         }
+		
+		grails.paypal.server = "https://www.paypal.com/cgi-bin/webscr"
+		grails.paypal.email = "example@business.com"
+		grails.serverURL = "http://www.grails.org"
     }
 }
