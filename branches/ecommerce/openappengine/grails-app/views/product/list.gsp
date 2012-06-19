@@ -7,7 +7,7 @@
 		<g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<script src="${resource(dir: 'js', file: 'jquery.betterTooltip.js')}"></script>
-		<script>
+			<script>
 			//Ajax Search Function
 			var ajaxFilter = function() {
 				var $divListing = $('#productTable');
@@ -105,6 +105,14 @@
 		</script>
 	</head>
 	<body>
+		<script id="productDetailTooltipTemplate" type="text/x-jQuery-tmpl">
+			<table>
+        		  	<tr><td>Name: </td><td> ${pdProductName} </td></tr>
+                  	<tr><td>Introduction Date: </td><td> ${pdIntroductionDate} </td></tr>
+                  	<tr><td>Discontinuation Date:</td><td> ${pdSalesDiscontinuationDate}  </td></tr>
+                 	<tr><td>Price : </td><td> ${pdPrice} </td></tr>
+            </table>   
+		</script>
 		<br/>
 		
 		<form id="searchForm">
@@ -173,7 +181,11 @@
 				<g:each in="${productInstanceList}" status="i" var="productInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${productInstance.pdProductId}">${fieldValue(bean: productInstance, field: "pdProductId")}</g:link></td>
+						<td>
+							<g:link class="toolTipTrigger" rel="${productInstance.pdProductId}" action="show" id="${productInstance.pdProductId}">
+								${fieldValue(bean: productInstance, field: "pdProductId")}
+							</g:link>
+						</td>
 					
 						<td>${fieldValue(bean: productInstance, field: "pdProductName")}</td>
 					
