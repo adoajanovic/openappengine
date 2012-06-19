@@ -1,3 +1,4 @@
+
 $(function()
 {
   var hideDelay = 500;  
@@ -60,8 +61,10 @@ $(function()
                   + '<tr><td>Discontinuation Date:</td><td>' + data.pdSalesDiscontinuationDate + '</td></tr>'
                   + '<tr><td>Price : </td><td>' + data.pdPrice + '</td></tr>'
               + '</table>';
+        	  
+        	  $("productDetailTooltipTemplate").tmpl(data).appendTo("#toolTipContainer"); 
       	
-        	  $(d).appendTo('#toolTipContainer');
+        	  //$(d).appendTo('#toolTipContainer');
           }
       });
 

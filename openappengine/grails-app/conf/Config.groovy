@@ -1,3 +1,5 @@
+import grails.plugins.springsecurity.SecurityConfigType
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -91,3 +93,19 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'openappengine.sec.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'openappengine.sec.UserRole'
+grails.plugins.springsecurity.authority.className = 'openappengine.sec.Role'
+
+grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/login/auth'
+grails.plugins.springsecurity.auth.loginFormUrl = '/login/auth'
+
+grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugins.springsecurity.interceptUrlMap = [
+	'/timeline':         ['ROLE_USER'],
+	'/person/*':         ['IS_AUTHENTICATED_REMEMBERED'],
+	'/post/followAjax':  ['ROLE_USER'],
+	'/post/addPostAjax': ['ROLE_USER', 'IS_AUTHENTICATED_FULLY'],
+	'/**':               ['IS_AUTHENTICATED_ANONYMOUSLY']
+]

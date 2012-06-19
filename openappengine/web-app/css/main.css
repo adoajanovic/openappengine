@@ -69,7 +69,10 @@ body {
 }
 
 #grailsLogo {
-	background-color: #ABCFDF;
+	background-color: #336699;
+	min-height:3em;
+	height: 4em;
+	color:#EEE;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -147,7 +150,7 @@ img {
 }
 
 .footer {
-	background: #ABCFDF;
+	background: #336699;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -675,33 +678,17 @@ a.skip {
 	margin-left: 10px;
 }
 
-/* .tooltip:after triangle decoration {
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-top: 10px solid #111;
-	content: '';
-	position: absolute;
-	left: 50%;
-	bottom: -10px;
-	margin-left: -10px;
+
+/*-----------------------------------------------------------------------------------------------*/
+/*                                         LAYOUT HEADER - USER STATS                            */
+/*-----------------------------------------------------------------------------------------------*/
+#header_stat {
+	font: Tahoma;
+	font-size: 10.5px;
+	color:#EEE;
 }
 
-.tooltip.top:after {
-	border-top-color: transparent;
-	border-bottom: 10px solid #111;
-	top: -20px;
-	bottom: auto;
+#header_stat a:link,a:visited,a:hover {
+	color: #FFF;
+	text-decoration: none;
 }
-
-.tooltip.left:after {
-	left: 10px;
-	margin: 0;
-}
-
-.tooltip.right:after {
-	right: 10px;
-	left: auto;
-	margin: 0;
-} */
