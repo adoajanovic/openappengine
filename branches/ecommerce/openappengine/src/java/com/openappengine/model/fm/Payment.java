@@ -27,6 +27,12 @@ public class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final String PENDING = "PENDING";
+	public static final String INVALID = "INVALID";
+	public static final String FAILED = "FAILED";
+	public static final String COMPLETE = "COMPLETE";
+	public static final String CANCELLED = "CANCELLED";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="seqGenerator")  
 	@TableGenerator(name="seqGenerator", table="ad_table_sequences",pkColumnName="TS_SEQUENCE_NAME",valueColumnName="TS_SEQUENCE_VALUE",

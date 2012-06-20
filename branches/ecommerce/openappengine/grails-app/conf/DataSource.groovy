@@ -23,13 +23,13 @@ environments {
     development {
 		grails.paypal.server = "https://www.sandbox.paypal.com/cgi-bin/webscr"
 		grails.paypal.email = "testpp_1211202427_biz@g2one.com"
-		grails.serverURL = "http://812.99.101.131"
+		grails.serverURL = "http://localhost:9000/openappengine"
 		
 		dataSource {
 			dbCreate = "update" // one of 'create', 'create-drop','update'
 			url = "jdbc:mysql://localhost:3306/openappengine_d01?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
-			password = "admin"
+			password = ""
 		}
 		hibernate {
 			show_sql = true

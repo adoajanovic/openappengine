@@ -110,6 +110,9 @@ class OrderService {
 		//Contract AR Amount
 		contractInstance.arAmount = contractInstance.arAmount + order.grandTotal; 
 		order.save(flush:true)
+		
+		//Create a Payment Pending for this Order.
+		paymentService.createPendingPaymentForOrder(contractInstance.contractNumber, orderNumber, contractInstance.partyId, grandTotal)
     }
 	
 	//TODO
