@@ -19,7 +19,7 @@ class PaymentService {
 		payment.contractExternalId = contractExternalId
 		payment.orderNumber = orderNumber
 		payment.partyExternalIdFrom = partyExternalId
-		payment.status = "PENDING"
+		payment.status = Payment.PENDING
 		payment.paymentNumber = sequenceGeneratorService.getNextSequenceNumber("Payment")
 		
 		payment.save()
@@ -37,7 +37,7 @@ class PaymentService {
 		payment.contractExternalId = contractExternalId
 		payment.orderNumber = orderNumber
 		payment.partyExternalIdFrom = partyExternalId
-		payment.status = "PENDING"
+		payment.status = Payment.COMPLETE
 		payment.paymentNumber = sequenceGeneratorService.getNextSequenceNumber("Payment")
 		
 		payment.save()

@@ -24,9 +24,9 @@
 
 	#login .inner .fheader {
 		padding: 18px 26px 14px 26px;
-		background-color: #f7f7ff;
+		background: #336699;
 		margin: 0px 0 14px 0;
-		color: #2e3741;
+		color: #eee;
 		font-size: 18px;
 		font-weight: bold;
 	}

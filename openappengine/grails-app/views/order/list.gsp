@@ -35,7 +35,7 @@
 				<g:each in="${ohOrderHeaderInstanceList}" status="i" var="ohOrderHeaderInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${ohOrderHeaderInstance.id}">${fieldValue(bean: ohOrderHeaderInstance, field: "orderId")}</g:link></td>
+						<td><g:link action="show" id="${ohOrderHeaderInstance.orderId}">${fieldValue(bean: ohOrderHeaderInstance, field: "orderId")}</g:link></td>
 					
 						<td>${fieldValue(bean: ohOrderHeaderInstance, field: "billingAccountId")}</td>
 					

@@ -692,3 +692,14 @@ a.skip {
 	color: #FFF;
 	text-decoration: none;
 }
+
+#header_top_links{
+	font: Tahoma;
+	font-size: 10.5px;
+	color:#EEE;
+}
+
+#header_top_links a:link,a:visited,a:hover {
+	color: #FFF;
+	text-decoration: none;
+}
