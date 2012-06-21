@@ -47,6 +47,7 @@ class OrderService {
 			throw new IllegalArgumentException("No Instance of Contract found.");
 		}
 		
+		//TODO - Refactor
 		def c = OhOrderHeader.createCriteria()
 		def results = c.list {
 			like("contractNumber",contractNumber)
@@ -71,7 +72,7 @@ class OrderService {
 		order.orderDate = new Date()
 		order.externalId = ""
 		order.orderType = "SO"
-		order.status = "NEW"
+		order.status = "INVOICED"
 		order.partyNumber = contractInstance.partyId
 		
 		String orderNumber = sequenceGeneratorService.getNextSequenceNumber("Order")

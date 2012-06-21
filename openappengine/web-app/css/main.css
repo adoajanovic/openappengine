@@ -18,6 +18,7 @@ option {
 }
 
 h1,h2,h3,h4,h5,h6 {
+	font: Tahoma;
 	line-height: 1.1;
 }
 
@@ -87,7 +88,7 @@ body {
 }
 
 a:link,a:visited,a:hover {
-	color: #48802c;
+	color: #336699;
 }
 
 a:hover,a:active {
@@ -96,8 +97,10 @@ a:hover,a:active {
 }
 
 h1 {
-	color: #48802c;
+	color: #336699;
+	font: Tahoma;
 	font-weight: normal;
+	font-size: 12px;
 	margin: 0.8em 0 0.3em 0;
 }
 
@@ -124,7 +127,7 @@ img {
 	margin: 0.8em 1em 0.3em;
 	padding: 0 0.25em;
 	font-family: Tahoma;
-	font-size: 15px;
+	font-size: 13px;
 }
 
 .scaffold-list {
@@ -326,7 +329,7 @@ input:focus,select:focus,textarea:focus {
 }
 
 .required-indicator {
-	color: #48802C;
+	color: #336699;
 	display: inline-block;
 	font-weight: bold;
 	margin-left: 0.3em;
@@ -689,17 +692,32 @@ a.skip {
 }
 
 #header_stat a:link,a:visited,a:hover {
-	color: #FFF;
+	color: #222;
 	text-decoration: none;
 }
 
 #header_top_links{
 	font: Tahoma;
 	font-size: 10.5px;
-	color:#EEE;
+	font-weight:bold;
+	color:#222;
 }
 
 #header_top_links a:link,a:visited,a:hover {
 	color: #FFF;
 	text-decoration: none;
+}
+
+.ui-menubar { list-style: none; margin: 0; padding-left: 0; }
+
+.ui-menubar-item { float: left;}
+
+.ui-menubar .ui-button { float: left; font-weight: normal; border-top-width: 0 !important; border-bottom-width: 0 !important; margin: 0; outline: none; }
+.ui-menubar .ui-menubar-link { border-right: 1px dashed transparent; border-left: 1px dashed transparent; height: 30px;
+	margin: 0px;}
+
+.ui-menubar .ui-menu { width: auto; min-width: 120px;position: absolute; z-index: 9999; font-weight: normal; }
+
+.ui-widget-header {
+	padding:0px;
 }

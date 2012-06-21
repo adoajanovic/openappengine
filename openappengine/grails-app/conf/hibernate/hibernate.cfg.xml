@@ -29,6 +29,7 @@
 		
 		<mapping class='com.openappengine.model.fm.OhOrderHeader' />
 		<mapping class='com.openappengine.model.fm.OiOrderItem'/>
+		<mapping class='com.openappengine.model.fm.FmPayment'/>
 		
 		<mapping class='com.openappengine.model.ad.AdSequence'/>
 		
