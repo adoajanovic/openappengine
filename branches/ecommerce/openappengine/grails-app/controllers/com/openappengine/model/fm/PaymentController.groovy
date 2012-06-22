@@ -12,15 +12,15 @@ class PaymentController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [fmPaymentInstanceList: Payment.list(params), fmPaymentInstanceTotal: Payment.count()]
+        [fmPaymentInstanceList: FmPayment.list(params), fmPaymentInstanceTotal: FmPayment.count()]
     }
 
     def create() {
-        [fmPaymentInstance: new Payment(params)]
+        [fmPaymentInstance: new FmPayment(params)]
     }
 
     def save() {
-        def fmPaymentInstance = new Payment(params)
+        def fmPaymentInstance = new FmPayment(params)
         if (!fmPaymentInstance.save(flush: true)) {
             render(view: "create", model: [fmPaymentInstance: fmPaymentInstance])
             return
@@ -31,7 +31,7 @@ class PaymentController {
     }
 
     def show() {
-        def fmPaymentInstance = Payment.get(params.id)
+        def fmPaymentInstance = FmPayment.get(params.id)
         if (!fmPaymentInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'fmPayment.label', default: 'FmPayment'), params.id])
             redirect(action: "list")
@@ -42,7 +42,7 @@ class PaymentController {
     }
 
     def edit() {
-        def fmPaymentInstance = Payment.get(params.id)
+        def fmPaymentInstance = FmPayment.get(params.id)
         if (!fmPaymentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'fmPayment.label', default: 'FmPayment'), params.id])
             redirect(action: "list")
@@ -53,7 +53,7 @@ class PaymentController {
     }
 
     def update() {
-        def fmPaymentInstance = Payment.get(params.id)
+        def fmPaymentInstance = FmPayment.get(params.id)
         if (!fmPaymentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'fmPayment.label', default: 'FmPayment'), params.id])
             redirect(action: "list")
@@ -83,7 +83,7 @@ class PaymentController {
     }
 
     def delete() {
-        def fmPaymentInstance = Payment.get(params.id)
+        def fmPaymentInstance = FmPayment.get(params.id)
         if (!fmPaymentInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'fmPayment.label', default: 'FmPayment'), params.id])
             redirect(action: "list")

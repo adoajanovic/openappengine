@@ -1,7 +1,7 @@
 package com.openappengine.service.fm
 
 import com.openappengine.model.contract.Contract
-import com.openappengine.model.fm.Payment
+import com.openappengine.model.fm.FmPayment
 
 class PaymentService {
 	
@@ -13,31 +13,31 @@ class PaymentService {
 			throw new RuntimeException("Cannot create Pending Payment.")
 		}
 		
-		Payment payment = new Payment()
+		FmPayment payment = new FmPayment()
 		payment.amount = amount
 		payment.billingAccountId = partyExternalId
 		payment.contractExternalId = contractExternalId
 		payment.orderNumber = orderNumber
 		payment.partyExternalIdFrom = partyExternalId
-		payment.status = Payment.PENDING
+		payment.status = FmPayment.PENDING
 		payment.paymentNumber = sequenceGeneratorService.getNextSequenceNumber("Payment")
 		
 		payment.save()
     }
 	
 	def completePayment(String contractExternalId, String orderNumber, String partyExternalId, BigDecimal amount) {
-		Payment p = Payment.findByPaymentNumber(paymentNumber)
+		FmPayment p = FmPayment.findByPaymentNumber(paymentNumber)
 		if(p == null) {
 			throw new RuntimeException("No Pending Payment found.")
 		}
 		
-		Payment payment = new Payment()
+		FmPayment payment = new FmPayment()
 		payment.amount = amount
 		payment.billingAccountId = partyExternalId
 		payment.contractExternalId = contractExternalId
 		payment.orderNumber = orderNumber
 		payment.partyExternalIdFrom = partyExternalId
-		payment.status = Payment.COMPLETE
+		payment.status = FmPayment.COMPLETE
 		payment.paymentNumber = sequenceGeneratorService.getNextSequenceNumber("Payment")
 		
 		payment.save()

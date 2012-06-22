@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="FM_PAYMENT")
-public class Payment implements Serializable {
+public class FmPayment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
