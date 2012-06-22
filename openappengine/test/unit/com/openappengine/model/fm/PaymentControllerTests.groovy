@@ -6,7 +6,7 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(PaymentController)
-@Mock(Payment)
+@Mock(FmPayment)
 class PaymentControllerTests {
 
 
@@ -48,7 +48,7 @@ class PaymentControllerTests {
 
         assert response.redirectedUrl == '/fmPayment/show/1'
         assert controller.flash.message != null
-        assert Payment.count() == 1
+        assert FmPayment.count() == 1
     }
 
     void testShow() {
@@ -59,7 +59,7 @@ class PaymentControllerTests {
 
 
         populateValidParams(params)
-        def fmPayment = new Payment(params)
+        def fmPayment = new FmPayment(params)
 
         assert fmPayment.save() != null
 
@@ -78,7 +78,7 @@ class PaymentControllerTests {
 
 
         populateValidParams(params)
-        def fmPayment = new Payment(params)
+        def fmPayment = new FmPayment(params)
 
         assert fmPayment.save() != null
 
@@ -99,7 +99,7 @@ class PaymentControllerTests {
 
 
         populateValidParams(params)
-        def fmPayment = new Payment(params)
+        def fmPayment = new FmPayment(params)
 
         assert fmPayment.save() != null
 
@@ -143,17 +143,17 @@ class PaymentControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def fmPayment = new Payment(params)
+        def fmPayment = new FmPayment(params)
 
         assert fmPayment.save() != null
-        assert Payment.count() == 1
+        assert FmPayment.count() == 1
 
         params.id = fmPayment.id
 
         controller.delete()
 
-        assert Payment.count() == 0
-        assert Payment.get(fmPayment.id) == null
+        assert FmPayment.count() == 0
+        assert FmPayment.get(fmPayment.id) == null
         assert response.redirectedUrl == '/fmPayment/list'
     }
 }
