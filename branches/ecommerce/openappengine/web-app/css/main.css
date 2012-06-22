@@ -700,12 +700,7 @@ a.skip {
 	font: Tahoma;
 	font-size: 10.5px;
 	font-weight:bold;
-	color:#222;
-}
-
-#header_top_links a:link,a:visited,a:hover {
-	color: #FFF;
-	text-decoration: none;
+	height:20px;
 }
 
 .ui-menubar { list-style: none; margin: 0; padding-left: 0; }
@@ -720,4 +715,10 @@ a.skip {
 
 .ui-widget-header {
 	padding:0px;
+}
+
+.ui-menubar-link a:link {
+	font: Tahoma;
+	padding: 5px;
+	font-size: 15px;
 }
