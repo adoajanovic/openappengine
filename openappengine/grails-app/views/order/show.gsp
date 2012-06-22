@@ -99,9 +99,8 @@
 				<g:if test="${ohOrderHeaderInstance?.orderItems}">
 				<li class="fieldcontain">
 					<span id="orderItems-label" class="property-label"><g:message code="ohOrderHeader.orderItems.label" default="Order Items" /></span>
-					
 						<g:each in="${ohOrderHeaderInstance.orderItems}" var="o">
-						<span class="property-value" aria-labelledby="orderItems-label"><g:link controller="oiOrderItem" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="orderItems-label"><g:link controller="oiOrderItem" action="show" id="${o.orderItemId}">${o?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
