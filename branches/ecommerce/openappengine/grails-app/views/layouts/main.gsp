@@ -53,7 +53,7 @@
                 		//$("#menubarStatusUpdater").text("'" + ui.item.text() + "' menubar item selected");
                 	}
             	});
-				$("#menubar_ul").after($("<p aria-live='polite' id='menubarStatusUpdater'>&nbsp;</p>"));
+				//$("#menubar_ul").after($("<p aria-live='polite' id='menubarStatusUpdater'>&nbsp;</p>"));
 		    });
 		  </script>
 		
@@ -74,8 +74,8 @@
 			</div>
 		</div>
 
-		<div style="float: left; font: Tahoma;margin-bottom: 1em;">
-			<sec:ifAnyGranted roles="ROLE_ADMIN">
+		<div style="font: Tahoma;">
+				<!-- Menubar -->
 				<div id="menubar" style="float: left;">
 					<ul id="menubar_ul" aria-label="Sample Options">
 						<li><a href="#">Party</a>
@@ -95,13 +95,6 @@
 										</li>
 										--%>
 							</ul></li>
-						<li><a href="#">Order</a>
-							<ul aria-label="Order">
-								<li><g:link controller="order" action="create">New Order</g:link>
-								</li>
-								<li><g:link controller="order" action="list">View Orders</g:link>
-								</li>
-							</ul></li>
 						<li><a href="#">Contract</a>
 							<ul aria-label="Contract">
 								<li><g:link controller="contract" action="create">New Contract</g:link>
@@ -115,23 +108,53 @@
 							<ul aria-label="Financials">
 								<li><g:link controller="payment" action="list">View Payments</g:link>
 								</li>
+								<li><g:link controller="order" action="create">New Order</g:link>
+								</li>
+								<li><g:link controller="order" action="list">Find Orders</g:link>
+								</li>
 							</ul></li>	
+						<li><a href="#">Product</a>
+							<ul aria-label="Product">
+								<li><g:link controller="product" action="create">New Product</g:link>
+								</li>
+								<li><g:link controller="product" action="list">Find Product</g:link>
+								</li>
+								<li><g:link controller="product" action="list">Product Price</g:link>
+								</li>
+							</ul></li>
+						<li><a href="#">Tax</a>
+							<ul aria-label="Product">
+								<li><g:link controller="tax" action="list">Taxes</g:link>
+								</li>
+							</ul></li>			
 					</ul>
 				</div>
-			</sec:ifAnyGranted>
+				<!-- Menubar -->
+				
+				<!-- Spinner -->
+				<div id="spinner" class="spinner" style="display: none; float: right;margin-right: 20px;">
+					<g:message code="spinner.alt" default="Loading&hellip;" />
+				</div>
 		</div>
-
-		<br/>
-		<br/>
-	
+		
 		<div id="body-content">
+			<br/>
+			
+			<div>
+				<g:if test="${flash.message}">
+					<div class="message" role="status">${flash.message}</div>
+				</g:if>
+			</div>
+			
+			<br/>
+			<br/>
+			<br/>
+			
 			<g:layoutBody/>
 		</div>
 		
 		<div class="footer" role="contentinfo"></div>
-		
-		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-		
+
 		<g:javascript library="application"/>
 	    <r:layoutResources />
 	    

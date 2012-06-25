@@ -26,19 +26,10 @@ class PersonController {
 		def criteria = Person.createCriteria()
 		
 		def persons = criteria.list {
-			like("firstName", "${params.firstName}")
+			like("firstName", "${params.firstName}%")
 		}
 		
-		def results = persons?.collect {
-				[
-				 "partyId" : it.partyId,
-				 "firstName" : it.firstName,
-				 "lastName" : it.lastName,
-				 "externalId" : it.externalId,
-				 "partyType" : it.partyType
-				]
-		}
-		render results as JSON
+		[personInstanceList: persons, personInstanceTotal: persons.size()]
 	}
 	
 	def listJSON = {
