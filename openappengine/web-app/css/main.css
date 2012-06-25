@@ -167,11 +167,11 @@ img {
 }
 
 .spinner {
-	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
+	background: url(../images/ajax-loader.gif) no-repeat transparent;
 	height: 16px;
 	width: 16px;
 	padding: 0.5em;
-	position: absolute;
+	/* position: absolute; */
 	right: 0;
 	top: 0;
 	text-indent: -9999px;
@@ -378,6 +378,9 @@ fieldset.embedded legend {
 }
 
 .message {
+	font: Tahoma;
+	font-size: 11px;
+	float:left;
 	background: #f3f3ff;
 	border: 1px solid #b2d1ff;
 	color: #006dba;

@@ -5,70 +5,48 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		
-		<script>
-			$(function() {
-				$( "#slider-range-max" ).slider({
-					range: true,
-					min: 0,
-					max: 500,
-					values: [ 75, 300 ],
-					slide: function( event, ui ) {
-						$("#amount").val(ui.values[0] + " - " + ui.values[1]);
-					}
-				});
-				$("#amount").val($( "#slider-range-max" ).slider( "values", 0 ) + " - " + $( "#slider-range-max" ).slider( "values", 1 ));
-			});
-		
-			$(function() {
-				$('#searchForm').submit(function() {
-					$.ajax({
-                        type : "POST",
-                        url : '/openappengine/person/filter',
-                        data : {firstName:$('#firstName').val()},
-                        dataType : "json",
-                        success: function(result) {
-                        	$('#listing').html('');
-
-                        	$.each(result, function(i, person) {
-                               var d = '<tr>' 
-                               		   + '<td>'  + person.partyId + '</td>'
-		                               + '<td>' + person.firstName + '</td>'
-		                               + '<td>' + person.lastName + '</td>'
-		                               + '<td>' + person.externalId + '</td>'
-		                               + '<td>' + person.partyType + '</td>'
-		                               + '</tr>';
-                               	
-                        	   $(d).appendTo('#listing');
-                        	});
-	                    },
-	                    error : function() {
-                            alert("Sorry, The requested property could not be found.");
-               			}
-                	});
-					return false;
-				});
-			});
-			</script>
+		<title>
+			<g:message code="party.list.title" default="Party Manager"/>
+		</title>
 	</head>
 	<body>
-		<br/>
+		<div>
+			<h2>
+				Person Search
+			</h2>
+			<g:formRemote name="searchForm" on404="alert('not found!')" update="list-person"
+	              url="[action:'filter']">
+	            <table style="width:25%;">
+	            	<tr>
+	            		<td>
+	            			First Name:
+	            		</td>
+	            		<td>
+	            			<input id="firstName" name="firstName" type="text" />			
+	            		</td>
+	            	</tr>
+	            	<tr>
+	            		<td>
+	            			Last Name:
+	            		</td>
+	            		<td>
+	            			<input id="lastName" name="lastName" type="text" />			
+	            		</td>
+	            	</tr>
+	            	<tr>
+	            		<th colspan="2">
+	            			<input type="submit" value="Search" />			
+	            		</th>
+	            	</tr>
+	            </table>  
+				 
+				
+			</g:formRemote>
+		</div>
 		
-		<form id="searchForm">
-			First Name: <input id="firstName" name="firstName" type="text" />
-			<input id="searchButton" type="submit" value="search"/> <br/>
-			
-			<label for="amount">Range:</label>
-			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
-			<div id="slider-range-max" style="width:400px;"></div>
-		</form>
+		<br />
 		
 		<div id="list-person" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
 			<table>
 				<thead>
 					<tr>
