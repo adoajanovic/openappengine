@@ -5,23 +5,20 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<title>
+			OpenAppEngine | Contract# - ${contractInstance?.contractNumber}
+		</title>
 	</head>
 	<body>
 		<div id="show-contract" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
+			<h1>Contract# - ${contractInstance?.contractNumber}</h1>
+			
 			<ol class="property-list contract">
-				<g:if test="${contractInstance?.contractNumber}">
 					<li class="fieldcontain">
 						<span id="contractNumber-label" class="property-label"><g:message code="contract.contractNumber.label" default="Contract Number" /></span>
 						<span class="property-value" aria-labelledby="contractNumber-label"><g:fieldValue bean="${contractInstance}" field="contractNumber"/></span>
 					</li>
-				</g:if>
 				
-				<g:if test="${contractInstance?.partyId}">
 					<li class="fieldcontain">
 						<span id="partyId-label" class="property-label"><g:message code="contract.partyId.label" default="Party" /></span>
 						<span class="property-value" aria-labelledby="partyId-label">
@@ -29,28 +26,21 @@
 							${party.externalId + " - " + party.firstName + " " + party.lastName}
 						</span>
 					</li>
-				</g:if>
 			
-				<g:if test="${contractInstance?.fromDate}">
 					<li class="fieldcontain">
 						<span id="fromDate-label" class="property-label"><g:message code="contract.fromDate.label" default="From Date" /></span>
 						<span class="property-value" aria-labelledby="fromDate-label"><g:formatDate format="yyyy-MM-dd" date="${contractInstance?.fromDate}" /></span>
 					</li>
-				</g:if>
 				
-				<g:if test="${contractInstance?.toDate}">
 					<li class="fieldcontain">
 						<span id="toDate-label" class="property-label"><g:message code="contract.toDate.label" default="To Date" /></span>
 						<span class="property-value" aria-labelledby="toDate-label"><g:formatDate format="yyyy-MM-dd" date="${contractInstance?.toDate}" /></span>
 					</li>
-				</g:if>
 			
-				<g:if test="${contractInstance?.orderRecurrence}">
 					<li class="fieldcontain">
 						<span id="orderRecurrence-label" class="property-label"><g:message code="contract.orderRecurrence.label" default="Order Recurrence" /></span>
 						<span class="property-value" aria-labelledby="orderRecurrence-label"><g:fieldValue bean="${contractInstance}" field="orderRecurrence"/></span>
 					</li>
-				</g:if>
 				
 				<br /><br />
 				<g:if test="${contractInstance?.lineItems}">
@@ -83,7 +73,8 @@
 								</td>
 								<td>
 									<g:link controller="contractLineItem" action="show" id="${l.lineItemId}">
-										<img src="${resource(dir: 'images', file: 'edit.png')}" alt="Party" style="width: 16px;height: 16px;" />
+										<img src="${resource(dir: 'images/skin/icons', file: 'application_view_detail.png')}"
+											alt="View Details" class="icon" />
 									</g:link>
 								</td>
 							</tr>	

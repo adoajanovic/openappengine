@@ -53,7 +53,6 @@
                 		//$("#menubarStatusUpdater").text("'" + ui.item.text() + "' menubar item selected");
                 	}
             	});
-				//$("#menubar_ul").after($("<p aria-live='polite' id='menubarStatusUpdater'>&nbsp;</p>"));
 		    });
 		  </script>
 		
@@ -61,20 +60,21 @@
         <r:layoutResources />
 	</head>
 	<body>
-		
-		<div id="grailsLogo" role="banner">
-			<div id="header_stat" style="float: right; margin-right: 1em;">
-				<sec:ifNotLoggedIn>
-					<g:link controller="login" action="auth">Login</g:link>
-				</sec:ifNotLoggedIn>
-				<sec:ifLoggedIn>
-					   Welcome : <sec:username /> 
-					   |<g:link controller="logout" style="color:#EEE;">Log out</g:link>
-				</sec:ifLoggedIn>
+		<div id="wrap">
+			<div id="grailsLogo" role="banner">
+				<div id="header_stat" style="float: right; margin-right: 1em;">
+					<sec:ifNotLoggedIn>
+						<g:link controller="login" action="auth">Login</g:link>
+					</sec:ifNotLoggedIn>
+					<sec:ifLoggedIn>
+						   Welcome : <sec:username /> 
+						   |<g:link controller="logout" style="color:#EEE;">Log out</g:link>
+					</sec:ifLoggedIn>
+				</div>
 			</div>
-		</div>
-
-		<div style="font: Tahoma;">
+	
+			<div id="menu_status_bar" style="font: Tahoma;">
+				
 				<!-- Menubar -->
 				<div id="menubar" style="float: left;">
 					<ul id="menubar_ul" aria-label="Sample Options">
@@ -85,15 +85,15 @@
 								<li><g:link controller="person" action="list">Find Party</g:link>
 								</li>
 								<%--<li><a href="#">Recent Documents</a>
-											<ul>
-												<li><a href="#">Document 1</a></li>
-												<li><a href="#">Document 2</a></li>
-												<li><a href="#">Document 3</a></li>
-												<li><a href="#">Continuous Web Accessibility Monitoring</a></li>
-												<li><a href="#">Multimedia Transcription and Captioning</a></li>
-											</ul>
-										</li>
-										--%>
+												<ul>
+													<li><a href="#">Document 1</a></li>
+													<li><a href="#">Document 2</a></li>
+													<li><a href="#">Document 3</a></li>
+													<li><a href="#">Continuous Web Accessibility Monitoring</a></li>
+													<li><a href="#">Multimedia Transcription and Captioning</a></li>
+												</ul>
+											</li>
+											--%>
 							</ul></li>
 						<li><a href="#">Contract</a>
 							<ul aria-label="Contract">
@@ -103,7 +103,7 @@
 								</li>
 								<li><g:link controller="contract" action="list">Terminate Existing Contract</g:link>
 								</li>
-							</ul></li>	
+							</ul></li>
 						<li><a href="#">Financials</a>
 							<ul aria-label="Financials">
 								<li><g:link controller="payment" action="list">View Payments</g:link>
@@ -112,7 +112,7 @@
 								</li>
 								<li><g:link controller="order" action="list">Find Orders</g:link>
 								</li>
-							</ul></li>	
+							</ul></li>
 						<li><a href="#">Product</a>
 							<ul aria-label="Product">
 								<li><g:link controller="product" action="create">New Product</g:link>
@@ -124,39 +124,37 @@
 							</ul></li>
 						<li><a href="#">Tax</a>
 							<ul aria-label="Product">
-								<li><g:link controller="tax" action="list">Taxes</g:link>
-								</li>
-							</ul></li>			
+								<li><g:link controller="tax" action="list">Taxes</g:link></li>
+							</ul></li>
 					</ul>
 				</div>
 				<!-- Menubar -->
-				
+	
 				<!-- Spinner -->
-				<div id="spinner" class="spinner" style="display: none; float: right;margin-right: 20px;">
+				<div id="spinner" class="spinner"
+					style="display: none; float: right; margin-right: 40px;">
 					<g:message code="spinner.alt" default="Loading&hellip;" />
 				</div>
-		</div>
-		
-		<div id="body-content">
-			<br/>
-			
-			<div>
-				<g:if test="${flash.message}">
-					<div class="message" role="status">${flash.message}</div>
-				</g:if>
 			</div>
-			
-			<br/>
-			<br/>
-			<br/>
-			
-			<g:layoutBody/>
+	
+			<div id="body-content">
+				<br /><br />
+				
+				<g:if test="${flash.message}">
+					<div class="message" role="status">
+						${flash.message}
+					</div>
+				</g:if>
+	
+				<br /><br />
+	
+				<g:layoutBody />
+			</div>
+	
+			<div class="footer" role="contentinfo"></div>
+	
+			<g:javascript library="application" />
+			<r:layoutResources />
 		</div>
-		
-		<div class="footer" role="contentinfo"></div>
-
-		<g:javascript library="application"/>
-	    <r:layoutResources />
-	    
-		</body>
+	</body>
 </html>

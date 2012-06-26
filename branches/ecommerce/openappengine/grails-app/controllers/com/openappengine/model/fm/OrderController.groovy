@@ -18,6 +18,21 @@ class OrderController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [ohOrderHeaderInstanceList: OhOrderHeader.list(params), ohOrderHeaderInstanceTotal: OhOrderHeader.count()]
     }
+	
+	def filter() {
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def c  = OhOrderHeader.createCriteria()
+		def orders = c.list {
+			like("contractNumber", "${params.contractNumber}%")
+			like("externalId", "${params.orderNumber}%")
+		}
+		
+		if(orders?.size() != 0) {
+			flash.message = message(code: 'default.records_not_found.message')
+		}
+		
+		[ohOrderHeaderInstanceList: orders, ohOrderHeaderInstanceTotal: orders.size()]
+	}
 
     def create() {
         [ohOrderHeaderInstance: new OhOrderHeader(params)]

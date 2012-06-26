@@ -14,6 +14,22 @@ class PaymentController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [fmPaymentInstanceList: FmPayment.list(params), fmPaymentInstanceTotal: FmPayment.count()]
     }
+	
+	def filter() {
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def c  = FmPayment.createCriteria()
+		def payments = c.list {
+			like("paymentNumber", "${params.paymentNumber}%")
+			like("orderNumber", "${params.orderNumber}%")
+			like("contractExternalId", "${params.contractExternalId}%")
+		}
+		
+		if(payments?.size() != 0) {
+			flash.message = message(code: 'default.records_not_found.message')
+		}
+		
+		[fmPaymentInstanceList: payments, fmPaymentInstanceTotal: payments.size()]
+	}
 
     def create() {
         [fmPaymentInstance: new FmPayment(params)]

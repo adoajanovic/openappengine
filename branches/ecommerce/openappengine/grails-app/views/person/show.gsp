@@ -10,64 +10,57 @@
 	<body>
 		<a href="#show-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="show-person" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
+			<h1>
+				Party - <g:fieldValue bean="${personInstance}" field="externalId"/>
+			</h1>
 			<ol class="property-list person">
 			
-				<g:if test="${personInstance?.firstName}">
+					<li class="fieldcontain">
+						<span id="externalId-label" class="property-label"><g:message code="person.externalId.label" default="External Id" /></span>
+						<span class="property-value" aria-labelledby="externalId-label"><g:fieldValue bean="${personInstance}" field="externalId"/></span>
+					</li>
+			
 					<li class="fieldcontain">
 						<span id="firstName-label" class="property-label"><g:message code="person.firstName.label" default="First Name" /></span>
 						<span class="property-value" aria-labelledby="firstName-label"><g:fieldValue bean="${personInstance}" field="firstName"/></span>
 					</li>
-				</g:if>
 				
-				<g:if test="${personInstance?.middleName}">
 					<li class="fieldcontain">
 						<span id="middleName-label" class="property-label"><g:message code="person.middleName.label" default="Middle Name" /></span>
 						<span class="property-value" aria-labelledby="middleName-label"><g:fieldValue bean="${personInstance}" field="middleName"/></span>
 					</li>
-				</g:if>
 				
-				<g:if test="${personInstance?.lastName}">
 					<li class="fieldcontain">
 						<span id="lastName-label" class="property-label"><g:message code="person.lastName.label" default="Last Name" /></span>
 						<span class="property-value" aria-labelledby="lastName-label"><g:fieldValue bean="${personInstance}" field="lastName"/></span>
 					</li>
-				</g:if>
-				
-				<g:if test="${personInstance?.birthDate}">
+					
 					<li class="fieldcontain">
-						<span id="birthDate-label" class="property-label"><g:message code="person.birthDate.label" default="Birth Date" /></span>
-						<span class="property-value" aria-labelledby="birthDate-label"><g:formatDate date="${personInstance?.birthDate}" /></span>
+						<span id="suffix-label" class="property-label"><g:message code="person.suffix.label" default="Suffix" /></span>
+						<span class="property-value" aria-labelledby="suffix-label"><g:fieldValue bean="${personInstance}" field="suffix"/></span>
 					</li>
-				</g:if>
-			
-				<g:if test="${personInstance?.gender}">
+					
 					<li class="fieldcontain">
 						<span id="gender-label" class="property-label"><g:message code="person.gender.label" default="Gender" /></span>
 						<span class="property-value" aria-labelledby="gender-label"><g:fieldValue bean="${personInstance}" field="gender"/></span>
 					</li>
-				</g:if>
 				
-				<g:if test="${personInstance?.description}">
 					<li class="fieldcontain">
-						<span id="description-label" class="property-label"><g:message code="person.description.label" default="Description" /></span>
-						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${personInstance}" field="description"/></span>
+						<span id="birthDate-label" class="property-label"><g:message code="person.birthDate.label" default="Birth Date" /></span>
+						<span class="property-value" aria-labelledby="birthDate-label"><g:formatDate date="${personInstance?.birthDate}" /></span>
 					</li>
-				</g:if>
 			
-				<g:if test="${personInstance?.partyContactMechs}">
-				<li class="fieldcontain">
-						<span id="partyContactMechs-label" class="property-label"><g:message code="person.partyContactMechs.label" default="Party Contact Mechs" /></span>
-					
-						<g:each in="${personInstance.partyContactMechs}" var="p">
-						<span class="property-value" aria-labelledby="partyContactMechs-label"><g:link controller="partyContactMech" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
+			
+					<g:if test="${personInstance?.partyContactMechs}">
+					<li class="fieldcontain">
+							<span id="partyContactMechs-label" class="property-label"><g:message code="person.partyContactMechs.label" default="Party Contact Mechs" /></span>
+						
+							<g:each in="${personInstance.partyContactMechs}" var="p">
+							<span class="property-value" aria-labelledby="partyContactMechs-label"><g:link controller="partyContactMech" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+							</g:each>
+						
+					</li>
+					</g:if>
 			
 				<g:if test="${personInstance?.addresses}">
 				<li class="fieldcontain">

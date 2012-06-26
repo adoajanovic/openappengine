@@ -60,14 +60,6 @@
 	<g:jqDatePicker name="birthDate" value="${personInstance?.birthDate}" />
 </div>
 <div
-	class="fieldcontain ${hasErrors(bean: personInstance, field: 'description', 'error')} ">
-	<label for="description"> <g:message
-			code="person.description.label" default="Description" />
-
-	</label>
-	<g:textArea name="description" value="${personInstance?.description}" rows="5" cols="40"/>
-</div>
-<div
 	class="fieldcontain ${hasErrors(bean: personInstance, field: 'preferredCurrencyUom', 'error')} ">
 	<label for="preferredCurrencyUom"> <g:message
 			code="person.preferredCurrencyUom.label"

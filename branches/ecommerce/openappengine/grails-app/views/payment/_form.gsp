@@ -1,4 +1,4 @@
-<%@ page import="com.openappengine.model.fm.Payment" %>
+<%@ page import="com.openappengine.model.fm.FmPayment" %>
 
 <div class="fieldcontain ${hasErrors(bean: fmPaymentInstance, field: 'amount', 'error')} ">
 	<label for="amount">

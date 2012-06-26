@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 import com.openappengine.model.product.Product;
 import com.openappengine.services.contract.ContractCreationException;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 class ContractController {
 	
@@ -24,6 +25,20 @@ class ContractController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [contractInstanceList: Contract.list(params), contractInstanceTotal: Contract.count()]
     }
+	
+	def filter() {
+		def criteria = Contract.createCriteria()
+		
+		def contracts = criteria.list {
+			like("contractNumber", "${params.contractNumber}%")
+		}
+		
+		if(contracts?.size() != 0) {
+			flash.message = message(code: 'default.records_not_found.message')
+		}
+		
+		[contractInstanceList: contracts, contractInstanceTotal: contracts.size()]
+	}
 
     def create() {
 		String contractNumber = sequenceGeneratorService.getNextSequenceNumber("Contract")
@@ -113,6 +128,49 @@ class ContractController {
 
         [contractInstance: contractInstance]
     }
+	
+	def terminate() {
+		def contractInstance = Contract.get(params.id)
+		if (!contractInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contract.label', default: 'Contract'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		[contractInstance: contractInstance]
+	}
+	
+	def terminateContract() {
+		
+		if (!params.id) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contract.label', default: 'Contract'), params.id])
+			redirect(action: "terminate")
+			return
+		}
+		
+		if(!params.toDate) {
+			flash.message = message(code: 'contract.terminate.end_date_not_entered.message')
+			redirect(action: "terminate")
+			return
+		}
+		
+		def contractInstance = Contract.get(params.id)
+		Date toDate = Date.parse("MM/dd/yyyy", params.toDate)
+		contractInstance.toDate = toDate;
+		if(toDate.before(contractInstance.fromDate)) {
+			flash.message = message(code: 'contract.toDate_before_fromDate.message')
+			redirect(action: "terminate",model:[contractInstance:contractInstance])
+			return
+		}
+		
+		if(toDate.before(new Date()) || toDate.equals(new Date())) {
+			contractInstance.active = false
+		}
+		
+		contractInstance.save(flush:true)
+		flash.message = message(code: 'contract.terminated.message', args: [contractInstance.contractNumber, toDate])
+		redirect(action: "list")
+	}
 
     def edit() {
         def contractInstance = Contract.get(params.id)
