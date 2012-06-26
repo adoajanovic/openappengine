@@ -8,11 +8,34 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div id="list-contract" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
+			<div>
+				<g:formRemote name="searchForm" on404="alert('not found!')" update="list-contract"
+		              url="[action:'filter']" class="search-form">
+		            <table style="width:auto;">
+		            	<thead>
+							<tr>
+								<th colspan="6">
+										Contract Search
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Contract Number:</td>
+								<td><input id="contractNumber" name="contractNumber" type="text" /></td>
+			
+							</tr>
+							<tr>
+			            		<td colspan="6">
+			            			<input type="submit" value="Search" />			
+			            		</td>
+			            	</tr>
+						</tbody>
+		            </table>  
+				</g:formRemote>
+			</div>
+			
+			<div id="list-contract" class="content scaffold-list" role="main">
 			<table>
 				<thead>
 					<tr>
@@ -22,10 +45,11 @@
 						
 						<g:sortableColumn property="toDate" title="${message(code: 'contract.toDate.label', default: 'To Date')}" />
 					
-						<g:sortableColumn property="orderRecurrence" title="${message(code: 'contract.orderRecurrence.label', default: 'Order Recurrence')}" />
-					
 						<g:sortableColumn property="partyId" title="${message(code: 'contract.party.label', default: 'Party')}" />
 						
+						<g:sortableColumn property="active" title="${message(code: 'contract.active.label', default: 'Active')}" />
+						
+						<th/>
 						<th/>
 					</tr>
 				</thead>
@@ -39,16 +63,27 @@
 						
 						<td><g:formatDate date="${contractInstance.toDate}" format="yyyy-MM-dd"/></td>
 					
-						<td>${fieldValue(bean: contractInstance, field: "orderRecurrence")}</td>
-					
 						<td>
 							<g:set var="party" value="${com.openappengine.model.party.Party.findByExternalId(contractInstance.partyId)}" />
 							${party?.externalId + " - " + party?.firstName + " " + party?.lastName}
 						</td>
+						
+						<td>
+							<g:formatBoolean boolean="${contractInstance.active}" true="Yes" false="No"/>
+						</td>
 					
 						<td>
 							<g:link action="show" id="${contractInstance.contractId}">
-								<img src="${resource(dir: 'images', file: 'edit.png')}" alt="Party" style="width: 16px;height: 16px;" />
+								<img src="${resource(dir: 'images/skin/icons', file: 'application_view_detail.png')}"
+									title="View Details" alt="View Details" class="icon" />
+							</g:link>
+						</td>
+						
+						<td>	
+							<g:link action="terminate" id="${contractInstance.contractId}">
+								<img src="${resource(dir: 'images/skin/icons', file: 'application_delete.png')}"
+									title="Terminate"
+									alt="Terminate" class="icon" />
 							</g:link>
 						</td>
 					</tr>

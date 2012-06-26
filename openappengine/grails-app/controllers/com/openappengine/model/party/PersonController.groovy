@@ -27,6 +27,13 @@ class PersonController {
 		
 		def persons = criteria.list {
 			like("firstName", "${params.firstName}%")
+			like("middleName", "${params.middleName}%")
+			like("lastName", "${params.lastName}%")
+			like("externalId", "${params.externalId}%")
+		}
+		
+		if(persons?.size() != 0) {
+			flash.message = message(code: 'default.records_not_found.message')
 		}
 		
 		[personInstanceList: persons, personInstanceTotal: persons.size()]
@@ -83,17 +90,14 @@ class PersonController {
     }
 
     def show() {
-		String externalId = params.id
-		if(externalId != null) { 
-			def personInstance = Person.findByExternalId(externalId)
+		def personInstance = Person.get(params.id)
 			
-			if (!personInstance) {
-				flash.message = message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])
-				redirect(action: "list")
-				return
-			}
-			[personInstance: personInstance]
+		if (!personInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])
+			redirect(action: "list")
+			return
 		}
+		[personInstance: personInstance]
     }
 
     def edit() {

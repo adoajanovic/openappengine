@@ -8,10 +8,6 @@
 	</head>
 	<body>
 		<div id="create-ohOrderHeader" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
 			<g:hasErrors bean="${ohOrderHeaderInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${ohOrderHeaderInstance}" var="error">

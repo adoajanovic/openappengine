@@ -53,7 +53,8 @@ html * {
 }
 
 body {
-	font-size: 12px; background : #ffffff;
+	font-size: 12px;
+	background-color : #898989;
 	color: #333333;
 	margin: 0 auto;
 	/* max-width: 960px; */
@@ -62,11 +63,18 @@ body {
 	-moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
 	box-shadow: 0 0 0.3em #255b17;
-	background: #ffffff;
 }
 
 #body-content {
-	min-height: 600px;
+	padding: 1em;
+	height:auto;
+}
+
+#wrap {
+	width:900px;
+	height: auto;
+	margin:auto;
+	background-color:#FFFFFF;
 }
 
 #grailsLogo {
@@ -141,7 +149,11 @@ img {
 }
 
 .scaffold-list h1 {
-	border: none;
+	border-bottom: 1px solid #CCCCCC;
+	margin: 0.8em 1em 0.3em;
+	padding: 0 0.25em;
+	font-family: Tahoma;
+	font-size: 13px;
 }
 
 .scaffold-list td {
@@ -168,12 +180,13 @@ img {
 
 .spinner {
 	background: url(../images/ajax-loader.gif) no-repeat transparent;
-	height: 16px;
-	width: 16px;
+	height: 10px;
+	width: 50px;
 	padding: 0.5em;
 	/* position: absolute; */
 	right: 0;
 	top: 0;
+	margin-top:1em;
 	text-indent: -9999px;
 }
 
@@ -373,13 +386,13 @@ fieldset.embedded legend {
 .errors,.message {
 	font-size: 0.8em;
 	line-height: 2;
-	margin: 1em 2em;
+	/* margin: 1em 2em; */
 	padding: 0.25em;
 }
 
 .message {
 	font: Tahoma;
-	font-size: 11px;
+	font-size: 12px;
 	float:left;
 	background: #f3f3ff;
 	border: 1px solid #b2d1ff;
@@ -387,6 +400,7 @@ fieldset.embedded legend {
 	-moz-box-shadow: 0 0 0.25em #b2d1ff;
 	-webkit-box-shadow: 0 0 0.25em #b2d1ff;
 	box-shadow: 0 0 0.25em #b2d1ff;
+	width:100%;
 }
 
 .errors {
@@ -410,8 +424,7 @@ fieldset.embedded legend {
 }
 
 .message {
-	background: transparent url(../images/skin/information.png) 0.5em 50%
-		no-repeat;
+	background: transparent url(../images/skin/information.png) 0.5em no-repeat;
 	text-indent: 2.2em;
 }
 
@@ -609,7 +622,7 @@ th.desc a {
 	text-decoration: underline;
 }
 
-.buttons .delete,.buttons .edit,.buttons .save {
+.buttons .delete,.buttons .edit,.buttons .save,.buttons .view_details {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -627,6 +640,10 @@ th.desc a {
 
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
+}
+
+.buttons .view_details {
+	background-image: url(../images/skin/icons/application_view_detail.png);
 }
 
 a.skip {
@@ -724,4 +741,13 @@ a.skip {
 	font: Tahoma;
 	padding: 5px;
 	font-size: 15px;
+}
+
+.search-form table {
+	border:1px #DFD1D2 dashed;
+}
+
+.icon {
+	height: 16px;
+	width: 16px;
 }

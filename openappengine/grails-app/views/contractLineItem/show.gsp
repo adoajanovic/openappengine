@@ -10,9 +10,6 @@
 	<body>
 		<div id="show-contractLineItem" class="content scaffold-show" role="main">
 			<h1>Line Item </h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
 			<ol class="property-list contractLineItem">
 			
 				<g:if test="${contractLineItemInstance?.contract}">
