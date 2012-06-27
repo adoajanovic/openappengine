@@ -57,7 +57,7 @@ public class ContractLineItem implements Serializable {
 	private String status;
 	
 	@ManyToOne
-	@JoinColumn(name = "CN_CONTRACT_ID", unique = true, nullable = false)
+	@JoinColumn(name = "CN_CONTRACT_ID", nullable = false)
 	private Contract contract;
 	
 	@Temporal(TemporalType.DATE)
