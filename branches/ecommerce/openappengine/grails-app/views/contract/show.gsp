@@ -84,11 +84,11 @@
 				</g:if>
 			</ol>
 			
-			<g:form>
+			<g:form url="[controller:'contractLineItem',action:'create']" >
 				<fieldset class="buttons">
+					<g:hiddenField name="contract.contractId" value="${contractInstance?.contractId}" />
 					<g:hiddenField name="id" value="${contractInstance?.contractId}" />
-					<g:link class="edit" action="edit" id="${contractInstance?.contractId}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<input type="submit" value="${message(code: 'default.button.add_line_item.label', default: 'Add Line Item')}" >
 				</fieldset>
 			</g:form>
 		</div>

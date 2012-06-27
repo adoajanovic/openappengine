@@ -1,13 +1,15 @@
 <%@ page import="com.openappengine.model.contract.ContractLineItem" %>
 
-<g:hiddenField name="contract.id" value="${contractLineItemInstance?.contract?.contractId}" />
+<g:hiddenField name="contract.contractId" value="${contractLineItemInstance?.contract?.contractId}" />
 
 <div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'product', 'error')} ">
 	<label for="product">
 		<g:message code="contractLineItem.product.label" default="Product" />
 	</label>
-	<g:select name="pdProductId" from="${com.openappengine.model.product.Product.list()}" 
-			optionKey="pdProductId" optionValue="pdProductName" required="true" value="${contractLineItemInstance?.product?.pdProductId}" 
+	<g:select name="product.pdProductId" from="${com.openappengine.model.product.Product.list()}" noSelection="['':'']"
+			optionKey="pdProductId" optionValue="pdProductName" required="true" value="${contractLineItemInstance?.product?.pdProductId}"
+			onchange="${remoteFunction(action:'ajaxGetProductPrice',params:'\'id=\' + escape(this.value)', 
+            			onSuccess:'$("input#selectedAmouunt").val(data);')}" 
 			class="many-to-one"/>
 </div>
 
@@ -16,7 +18,7 @@
 		<g:message code="contract.fromDate.label" default="From Date" />
 		
 	</label>
-	<g:jqDatePicker id="lineItemFromDate" name="fromDate" value="${contractLineItemInstance?.fromDate}" />
+	<g:datePicker name="fromDate" value="${contractLineItemInstance?.fromDate}" precision="day" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'toDate', 'error')} ">
@@ -24,7 +26,7 @@
 		<g:message code="contract.toDate.label" default="To Date" />
 		
 	</label>
-	<g:jqDatePicker id="lineItemToDate" name="toDate" value="${contractLineItemInstance?.toDate}" />
+	<g:datePicker name="toDate" value="${contractLineItemInstance?.toDate}" precision="day" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'quantity', 'error')} ">
@@ -34,9 +36,10 @@
 	<g:field type="number" name="quantity" value="${fieldValue(bean: contractLineItemInstance, field: 'quantity')}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: contractLineItemInstance, field: 'selectedAmouunt', 'error')} ">
+<!--  TODO populate amount onchange from Product Prices -->
+<div class="fieldcontain">
 	<label for="selectedAmouunt">
-		<g:message code="contractLineItem.selectedAmouunt.label" default="Selected Amouunt" />
+		<g:message code="contractLineItem.selectedAmouunt.label" default="Price" />
 	</label>
-	<g:field type="number" name="selectedAmouunt" value="${fieldValue(bean: contractLineItemInstance, field: 'selectedAmouunt')}" />
+	<g:field type="number" name="selectedAmouunt" value="${params.price}" readonly="readonly" />
 </div>

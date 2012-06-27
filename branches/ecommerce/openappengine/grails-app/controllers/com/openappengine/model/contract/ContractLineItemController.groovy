@@ -1,9 +1,15 @@
 package com.openappengine.model.contract
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException
+
+import com.openappengine.model.product.Product;
+
 
 class ContractLineItemController {
 
+	def contractService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -16,18 +22,27 @@ class ContractLineItemController {
     }
 
     def create() {
+		def contractInstance = Contract.get(params.contract.contractId)
+		Date endDate = contractService.getMostRecentOrdersEndDate(contractInstance)
+		Date fromDate = endDate.plus(1)
+		params.fromDate = fromDate
+		params.toDate = Date.parse("yyyy-MM-dd", "9999-12-31")
         [contractLineItemInstance: new ContractLineItem(params)]
     }
 
     def save() {
+		def contractInstance = Contract.get(params.contract.contractId)
         def contractLineItemInstance = new ContractLineItem(params)
+		contractLineItemInstance.setContract(contractInstance)
+		contractLineItemInstance.status = "ACTIVE"
+		
         if (!contractLineItemInstance.save(flush: true)) {
             render(view: "create", model: [contractLineItemInstance: contractLineItemInstance])
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'contractLineItem.label', default: 'ContractLineItem'), contractLineItemInstance.id])
-        redirect(action: "show", id: contractLineItemInstance.id)
+		flash.message = message(code: 'default.created.message')
+        redirect(controller:"contract",action: "show", id: params.contract.contractId)
     }
 
     def show() {
@@ -100,4 +115,12 @@ class ContractLineItemController {
             redirect(action: "show", id: params.id)
         }
     }
+	
+	def ajaxGetProductPrice() {
+		def product = Product.get(params.id)
+		if(product) {
+			BigDecimal price = product.getProductPrice(new Date())
+			render price
+		}
+	}
 }

@@ -80,11 +80,13 @@
 						</td>
 						
 						<td>	
-							<g:link action="terminate" id="${contractInstance.contractId}">
-								<img src="${resource(dir: 'images/skin/icons', file: 'application_delete.png')}"
-									title="Terminate"
-									alt="Terminate" class="icon" />
-							</g:link>
+							<g:if test="${contractInstance.active}">
+								<g:link action="terminate" id="${contractInstance.contractId}">
+									<img src="${resource(dir: 'images/skin/icons', file: 'application_delete.png')}"
+										title="Terminate"
+										alt="Terminate" class="icon" />
+								</g:link>
+							</g:if>
 						</td>
 					</tr>
 				</g:each>

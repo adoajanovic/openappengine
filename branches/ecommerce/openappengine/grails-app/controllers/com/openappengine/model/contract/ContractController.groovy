@@ -49,7 +49,7 @@ class ContractController {
 	
 	def addLineItem() {
 		[lineItem : new ContractLineItem(params)]
-		redirect(action: "show")
+		redirect(controller:"contractLineItem",action: "show")
 	}
 	
 	def createOrder() {
@@ -144,30 +144,21 @@ class ContractController {
 		
 		if (!params.id) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contract.label', default: 'Contract'), params.id])
-			redirect(action: "terminate")
+			redirect(action: "list")
 			return
 		}
 		
 		if(!params.toDate) {
 			flash.message = message(code: 'contract.terminate.end_date_not_entered.message')
-			redirect(action: "terminate")
+			redirect(action: "terminate",model:[contractInstance:contractInstance])
 			return
 		}
 		
 		def contractInstance = Contract.get(params.id)
 		Date toDate = Date.parse("MM/dd/yyyy", params.toDate)
-		contractInstance.toDate = toDate;
-		if(toDate.before(contractInstance.fromDate)) {
-			flash.message = message(code: 'contract.toDate_before_fromDate.message')
-			redirect(action: "terminate",model:[contractInstance:contractInstance])
-			return
-		}
 		
-		if(toDate.before(new Date()) || toDate.equals(new Date())) {
-			contractInstance.active = false
-		}
+		contractService.terminateContract(contractInstance, toDate);
 		
-		contractInstance.save(flush:true)
 		flash.message = message(code: 'contract.terminated.message', args: [contractInstance.contractNumber, toDate])
 		redirect(action: "list")
 	}
