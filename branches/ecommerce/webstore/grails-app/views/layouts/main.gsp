@@ -65,7 +65,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<div id="header" class="header">
+		<div id="header" >
 			<div id="logo" class="logo">
 				<a href="index.html"><img
 					src="${resource(dir: 'images/site', file: 'logo.gif')}" alt=""
@@ -121,6 +121,10 @@
 		</div>
 
 		<div class="footer">
+			<div style="float: left;">
+				WebStore Version <g:meta name="app.version"/>
+			</div>
+			<br/><br/>
 			<div class="left_footer">
 				<img src="${resource(dir: 'images/site', file: 'footer_logo.gif')}"
 					alt="" title="" /><br /> <a
