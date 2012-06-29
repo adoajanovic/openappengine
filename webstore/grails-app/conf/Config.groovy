@@ -94,3 +94,11 @@ log4j = {
 
 //jquery
 grails.views.javascript.library="jquery"
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.openappengine.sec.SecUser'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.openappengine.sec.SecUserSecRole'
+grails.plugins.springsecurity.authority.className = 'com.openappengine.sec.SecRole'
+
+grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/login/auth'
+grails.plugins.springsecurity.auth.loginFormUrl = '/login/auth'

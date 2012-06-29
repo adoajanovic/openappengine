@@ -803,3 +803,7 @@ div.pagination span.disabled {
 #user .division {
 	display: inline;
 }
+
+.logout_icon {
+	background: url(../images/site/sign_out.png) no-repeat top center;	
+}

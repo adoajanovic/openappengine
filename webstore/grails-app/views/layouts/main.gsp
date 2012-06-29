@@ -74,9 +74,14 @@
 			
 			<div id="user">
 				<span class="division">
-					<a class="user" href="#">
-						<i class="icon-user icon-large"></i> <span>Sign In</span>
-					</a>
+					<sec:ifNotLoggedIn>
+						<g:link class="user" controller="login" action="auth">
+							<i class="icon-user icon-large"></i> <span>Sign In</span>	
+						</g:link>
+					</sec:ifNotLoggedIn>
+					<sec:ifLoggedIn>
+						   Welcome : <sec:username />
+					</sec:ifLoggedIn>
 				</span> 
 				<span class="sep">|</span> 
 				<span class="division"> 
@@ -99,6 +104,13 @@
 						<span id="curFlag"></span>
 						<span>English, USD</span> <span>
 					</a>
+				</span>
+				<span class="sep">|</span> 
+				<span id="logout" class="division">
+					<span class="logout_icon"></span>
+					<sec:ifLoggedIn>
+						   <g:link controller="logout" class="user">Log out</g:link>
+					</sec:ifLoggedIn>
 				</span>
 			</div>
 		</div>
