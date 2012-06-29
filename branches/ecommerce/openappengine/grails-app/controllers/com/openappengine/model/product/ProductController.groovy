@@ -1,7 +1,6 @@
 package com.openappengine.model.product
 
 import grails.converters.JSON
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
@@ -203,4 +202,12 @@ class ProductController {
             redirect(action: "show", id: params.id)
         }
     }
+	
+	def ajaxGetProductPrice() {
+		def product = Product.get(params.id)
+		if(product) {
+			BigDecimal price = product.getProductPrice(new Date())
+			render price
+		}
+	}
 }

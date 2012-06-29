@@ -3,10 +3,13 @@ package com.openappengine.model.fm
 import org.springframework.dao.DataIntegrityViolationException
 
 import com.openappengine.model.contract.Contract;
+import com.openappengine.model.product.Product
 
 class OrderController {
 	
 	def orderService
+	
+	def sequenceGeneratorService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -35,11 +38,14 @@ class OrderController {
 	}
 
     def create() {
-        [ohOrderHeaderInstance: new OhOrderHeader(params)]
+		String orderNumber = sequenceGeneratorService.getNextSequenceNumber("Order")
+		def ohOrderHeaderInstance= new OhOrderHeader(params)
+		ohOrderHeaderInstance.externalId = orderNumber
+        [ohOrderHeaderInstance: ohOrderHeaderInstance]
     }
 	
     def save() {
-        def ohOrderHeaderInstance = new OhOrderHeader(params)
+        def ohOrderHeaderInstance = bindOrder(params)
         if (!ohOrderHeaderInstance.save(flush: true)) {
             render(view: "create", model: [ohOrderHeaderInstance: ohOrderHeaderInstance])
             return
@@ -52,6 +58,25 @@ class OrderController {
 		
 		redirect(action: "show", id: ohOrderHeaderInstance.id)
     }
+	
+	def OhOrderHeader bindOrder(params)  {
+		def orderHeaderInstance = new OhOrderHeader()
+		
+		def count = params.itemCount.toInteger()
+		
+		for (int i=0; i<count; i++) {
+			def lineItem = new OiOrderItem()
+			lineItem.orderHeader = orderHeaderInstance
+			Product product = Product.get(params["lineItems["+i+"].productId"])
+			lineItem.product = product
+			
+			bindData(lineItem, params["lineItems["+i+"]"])
+			orderHeaderInstance.orderItems[i] = lineItem
+		}
+			  
+		orderHeaderInstance.properties = params
+		return orderHeaderInstance
+	}
 
     def show() {
         def ohOrderHeaderInstance = OhOrderHeader.get(params.id)

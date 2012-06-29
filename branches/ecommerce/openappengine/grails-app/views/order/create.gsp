@@ -1,13 +1,81 @@
-<%@ page import="com.openappengine.model.fm.OhOrderHeader" %>
+<%@ page import="com.openappengine.model.contract.Contract" %>
 <!doctype html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'ohOrderHeader.label', default: 'OhOrderHeader')}" />
+		<g:set var="entityName" value="${message(code: 'order.label', default: 'Order')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		
+		<script>
+			$(function() {
+				// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+				$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+				$( "#dialog-form" ).dialog({
+					autoOpen: false,
+					width : '500px',
+					height : 'auto',
+					modal: true,
+					buttons: {
+						Add: function() {
+							var count = parseInt(document.getElementById("itemCount").value);
+							
+							count++;
+							document.getElementById("itemCount").value = count;
+
+							var productId = $("#pdProductId").val();
+							var productName = "";
+
+							var response = $.ajax({ type: "GET",   
+		                        url: "/openappengine/product/getProduct/" + $("#pdProductId").val(),   
+		                        async: false
+		                      }).responseText;
+
+							$("#lineItems tbody").append("<tr>" +
+									"<td id='lineItems[" + (count-1) +"].productId'>" + response + "</td>" + 
+									"<td id='lineItems[" + (count-1) +"].quantity'>" + $("#quantity").val() + "</td>" +
+									"<td id='lineItems[" + (count-1) +"].lineTotalPrice'>" + $("#lineTotalPrice").val() + "</td>" +
+							"</tr>" );
+
+							$("#orderForm").append(
+									"<input type='hidden' name='lineItems[" + (count-1) +"].productId' value='" + $("#pdProductId").val() + "' />" +
+									"<input type='hidden' name='lineItems[" + (count-1) +"].quantity' value='" + $("#quantity").val() + "' />" +
+									"<input type='hidden' name='lineItems[" + (count-1) +"].lineTotalPrice' value='" + $("#lineTotalPrice").val() + "' />"
+							);
+
+														
+							$( this ).dialog( "close" );
+						},
+							
+						Cancel: function() {
+							$( this ).dialog( "close" );
+						}
+					},
+					close: function() {
+						$("#pdProductId").val("");
+						$("#lineTotalPrice").val("");
+					}
+				});
+
+				$("#addLineItem")
+					.click(function() {
+						$( "#dialog-form" ).dialog( "open" );
+				});
+			});
+
+			</script>
 	</head>
 	<body>
-		<div id="create-ohOrderHeader" class="content scaffold-create" role="main">
+		
+		<div id="dialog-form" title="Add Item">
+			<fieldset class="form">
+				<g:render template="/orderItem/form"/>
+			</fieldset>
+		</div>
+		
+		<br/>
+		
+		<div id="create-contract" class="content scaffold-create" role="main">
 			<g:hasErrors bean="${ohOrderHeaderInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${ohOrderHeaderInstance}" var="error">
@@ -15,25 +83,37 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			
+			<br/>
+			
+			<span style="margin-left: 4em;margin-top: 10em;">
+				<a id="addLineItem" href="#" style="width: 12px;height: 12px;" title="Add Line Item">
+					<img src="${resource(dir: 'images', file: 'add_item.png')}" alt="Add Line Item"/>
+				</a>
+			</span>
+			
+			<g:form name="orderForm" action="save" >
 				<fieldset class="form">
-					<div class="fieldcontain ${hasErrors(bean: ohOrderHeaderInstance, field: 'fromDate', 'error')} ">
-						<label for="toDate">
-							<g:message code="ohOrderHeader.toDate.label" default="From Date" />
-						</label>
-						<g:jqDatePicker name="toDate" value="${contractInstance?.fromDate}" />
-					</div>
+					<g:hiddenField name="itemCount" value="0" />
+					<g:render template="form"/>
 					
-					<div class="fieldcontain ${hasErrors(bean: ohOrderHeaderInstance, field: 'toDate', 'error')} ">
-						<label for="toDate">
-							<g:message code="ohOrderHeader.toDate.label" default="To Date" />
-						</label>
-						<g:jqDatePicker name="toDate" value="${contractInstance?.toDate}" />
-					</div>
+					<br/>
+					<table id="lineItems" style="font-size: 11px;font: Tahoma;border: 1px;border-color: #EEE;">
+                        <thead>
+                            <tr>
+                            	<th>Product</th>
+                            	<th>Quantity</th>
+                            	<th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	
+                        </tbody>
+                    </table>
 				</fieldset>
+				
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save"
-						value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
 		</div>

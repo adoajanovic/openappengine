@@ -41,6 +41,45 @@ class ContractService {
 	}
 	
 	@Transactional
+	def terminateContractLineItem(ContractLineItem lineItem,Date terminateDate) {
+		if(!lineItem) {
+			throw new RuntimeException("Contract Line Item cannot be null")
+		}
+		
+		def contract = lineItem.contract
+		if(!contract) {
+			throw new RuntimeException("No Contract found for Contract Line Item")
+		}
+		
+		if(!lineItem.active) {
+			log.warn("Contract already inactive.")
+			return
+		}
+		
+		def c = OhOrderHeader.createCriteria()
+		def orders = c.list{
+			eq("contractNumber",contract.contractNumber)
+			order("orderDate", "desc")
+		}
+		
+		if(!orders?.isEmpty()) {
+			OhOrderHeader oh = orders.get(0)
+			if(terminateDate.before(oh.toDate)) {
+				log.warn("Order has been invoiced for the mentioned end date. Cannot terminate contract at this date.")
+				terminateDate = oh.toDate
+			}
+		}
+		
+		lineItem.toDate = terminateDate
+		
+		if(terminateDate.before(new Date()) || terminateDate.equals(new Date())) {
+			lineItem.active = false
+		}
+		
+		lineItem.save(flush:true)
+	}
+	
+	@Transactional
 	def terminateContract(Contract contract, Date terminateDate) {
 		if(!contract) {
 			throw new RuntimeException("Contract cannot be null")	

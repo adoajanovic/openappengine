@@ -54,6 +54,7 @@
 								<th>Quantity</th>
 								<th>Status</th>
 								<th/>
+								<th/>
 							</tr>
 						</thead>
 						<tbody>
@@ -76,6 +77,15 @@
 										<img src="${resource(dir: 'images/skin/icons', file: 'application_view_detail.png')}"
 											alt="View Details" class="icon" />
 									</g:link>
+								</td>
+								<td>	
+									<g:if test="${l.active}">
+										<g:link action="terminate" controller="contractLineItem" id="${l.lineItemId}">
+											<img src="${resource(dir: 'images/skin/icons', file: 'application_delete.png')}"
+												title="Terminate"
+												alt="Terminate" class="icon" />
+										</g:link>
+									</g:if>
 								</td>
 							</tr>	
 						</g:each>

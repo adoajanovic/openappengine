@@ -34,7 +34,7 @@ class ContractLineItemController {
 		def contractInstance = Contract.get(params.contract.contractId)
         def contractLineItemInstance = new ContractLineItem(params)
 		contractLineItemInstance.setContract(contractInstance)
-		contractLineItemInstance.status = "ACTIVE"
+		contractLineItemInstance.initLineItem()
 		
         if (!contractLineItemInstance.save(flush: true)) {
             render(view: "create", model: [contractLineItemInstance: contractLineItemInstance])
@@ -55,6 +55,39 @@ class ContractLineItemController {
 
         [contractLineItemInstance: contractLineItemInstance]
     }
+	
+	def terminate() {
+		def contractLineItemInstance = ContractLineItem.get(params.id)
+		if (!contractLineItemInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contractLineItem.label', default: 'ContractLineItem'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		[contractLineItemInstance: contractLineItemInstance]
+	}
+	
+	def terminateContractLineItem() {
+		
+		if (!params.id) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'contractLineItem.label', default: 'Contract Line Item'), params.id])
+			redirect(action: "list")
+			return
+		}
+		
+		if(!params.toDate) {
+			flash.message = message(code: 'contractLineItem.terminate.end_date_not_entered.message')
+			redirect(action: "terminate",model:[contractInstance:contractInstance])
+			return
+		}
+		
+		def contractLineItemInstance = ContractLineItem.get(params.id)
+		
+		contractService.terminateContractLineItem(contractLineItemInstance, params.toDate);
+		
+		flash.message = message(code: 'contractLineItem.terminated.message', args: [contractLineItemInstance.contract.contractNumber, params.toDate.toString()])
+		redirect(controller:"contract",action: "list")
+	}
 
     def edit() {
         def contractLineItemInstance = ContractLineItem.get(params.id)
