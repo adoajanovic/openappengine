@@ -66,6 +66,7 @@ hr {
 #header,#footer {
 	clear: both;
 	display: block;
+	color:#FFFFFF;
 }
 
 #topbar,#bottombar,.serif {
@@ -768,6 +769,7 @@ div.pagination span.disabled {
 .footer {
 	height: 81px;
 	background: url(../images/site/footer_bg.jpg) no-repeat top center;
+		color: #797979;
 }
 
 .left_footer {
