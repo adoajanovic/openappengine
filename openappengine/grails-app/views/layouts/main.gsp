@@ -99,9 +99,7 @@
 							<ul aria-label="Contract">
 								<li><g:link controller="contract" action="create">New Contract</g:link>
 								</li>
-								<li><g:link controller="contract" action="list">View Existing Contract</g:link>
-								</li>
-								<li><g:link controller="contract" action="list">Terminate Existing Contract</g:link>
+								<li><g:link controller="contract" action="list">View Existing Contracts</g:link>
 								</li>
 							</ul></li>
 						<li><a href="#">Financials</a>
