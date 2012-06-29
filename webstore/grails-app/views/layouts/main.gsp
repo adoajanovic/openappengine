@@ -71,7 +71,7 @@
 					src="${resource(dir: 'images/site', file: 'logo.gif')}" alt=""
 					title="" border="0" /></a>
 			</div>
-
+			
 			<div id="user">
 				<span class="division">
 					<a class="user" href="#">
@@ -102,7 +102,8 @@
 				</span>
 			</div>
 		</div>
-
+		<br/><br/><br/><br/><br/><br/><br/><br/>
+		
 		<div class="center_content">
 			<g:layoutBody />
 		</div>

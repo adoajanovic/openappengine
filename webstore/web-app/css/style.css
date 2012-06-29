@@ -295,19 +295,20 @@ span.colors {
 
 /*------------------------------------center content--------------------*/
 .center_content {
-	width: 900px;
+	width: 1004px;
 	padding: 0px 0 0 0;
-	background: url(../images/site/center_bg.gif) no-repeat center top;
+	position: relative;
+	/* background: url(../images/site/center_bg.gif) no-repeat center top; */
 }
 
 .left_content {
-	width: 490px;
+	width: 500px;
 	float: left;
 	padding: 20px 0 20px 20px;
 }
 
 .right_content {
-	width: 370px;
+	width: 400px;
 	float: left;
 	padding: 20px 0 20px 20px;
 }

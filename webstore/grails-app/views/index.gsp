@@ -5,7 +5,12 @@
 <title>Web Store</title>
 </head>
 <body>
+	
 	<div>
+		<div id="flash" style="border: 1px #666 dotted;margin: 20px;">
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		</div>
 		<div class="left_content">
 
 			<div class="title">
@@ -283,7 +288,6 @@
 
 		</div>
 		<!--end of right content-->
-
 		<div class="clear"></div>
 	</div>
 	<!--end of center content-->
