@@ -7,7 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class PersonController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST",filter:"POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
 	def sequenceGeneratorService
 	
@@ -16,6 +16,27 @@ class PersonController {
     def index() {
         redirect(action: "list", params: params)
     }
+	
+	def searchDialog() {
+		
+	}
+	
+	def searchDialogResults() {
+		def criteria = Person.createCriteria()
+		
+		def persons = criteria.list {
+			like("firstName", "${params.firstName}%")
+			like("middleName", "${params.middleName}%")
+			like("lastName", "${params.lastName}%")
+			like("externalId", "${params.externalId}%")
+		}
+		
+		if(persons?.size() == 0) {
+			flash.message = message(code: 'default.records_not_found.message')
+		}
+		
+		[personInstanceList: persons, personInstanceTotal: persons.size()]
+	}
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)

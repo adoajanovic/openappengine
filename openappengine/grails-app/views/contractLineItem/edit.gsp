@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contractLineItem.label', default: 'ContractLineItem')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Contract | Contract# ${contractLineItemInstance?.contract?.contractNumber } | Edit Contract Line Item
+		</title>
 	</head>
 	<body>
 		<div id="edit-contractLineItem" class="content scaffold-edit" role="main">

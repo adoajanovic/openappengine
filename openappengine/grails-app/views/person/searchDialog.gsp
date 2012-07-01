@@ -3,23 +3,24 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-		<title>
-			Party | Search Party
-		</title>
+		<script type="text/javascript">
+			var $unique = $('input.unique');
+			$unique.click(function() {
+			    $unique.filter(':checked').not(this).removeAttr('checked');
+			});
+		</script>
 	</head>
 	<body>
 		<div>
 			<g:formRemote name="searchForm" on404="alert('not found!')" update="list-person"
-	              url="[action:'filter']" class="search-form">
-	            <table style="width:auto;">
+	              url="[action:'searchDialogResults',controller:'person']" class="search-form">
+	            <input type="hidden" name="partyExternalId" id="partyExternalId" />  	
+	            <table id="results" style="width:auto;">
 	            	<thead>
 						<tr>
 							<th colspan="6">
-								<h2>
-									Person Search
-								</h2>
+								Search
 							</th>
 						</tr>
 					</thead>
@@ -36,7 +37,7 @@
 						</tr>
 						<tr>
 							<td>External Id:</td>
-							<td><input id="externalId" name="externalId" type="text" /></td>
+							<td><input id="partyExternalId" name="externalId" type="text" /></td>
 						</tr>
 						<tr>
 		            		<td colspan="6">
@@ -50,10 +51,12 @@
 		
 		<br />
 		
-		<div id="list-person" class="content scaffold-list" role="main">
-			<table class="hor-minimalist">
+		<div id="list-person" class="content scaffold-list" style="font-size: 11px;font: Tahoma;" role="main">
+			<table>
 				<thead>
 					<tr>
+						<th/>
+						
 						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" />
 					
 						<g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}" />
@@ -69,6 +72,10 @@
 				<g:each in="${personInstanceList}" status="i" var="personInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
+						<td>
+							<input type='checkbox' name='select' value='${fieldValue(bean: personInstance, field: "externalId")}' class='unique'/>
+						</td>
+						
 						<td>${fieldValue(bean: personInstance, field: "firstName")}</td>
 					
 						<td>${fieldValue(bean: personInstance, field: "lastName")}</td>
@@ -89,9 +96,8 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${personInstanceTotal}" />
-			</div>
+			<div id="pagination" class="pagination">
+     		</div>
 		</div>
 	</body>
 </html>

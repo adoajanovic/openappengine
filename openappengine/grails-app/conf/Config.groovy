@@ -104,7 +104,6 @@ grails.plugins.springsecurity.auth.loginFormUrl = '/login/auth'
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
 	'/admin':         ['ROLE_ADMIN'],
-	'/person/*':         ['IS_AUTHENTICATED_REMEMBERED'],
 	'/post/followAjax':  ['ROLE_USER'],
 	'/post/addPostAjax': ['ROLE_USER', 'IS_AUTHENTICATED_FULLY']
 ]

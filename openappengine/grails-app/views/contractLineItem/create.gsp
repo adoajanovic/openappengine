@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contractLineItem.label', default: 'ContractLineItem')}" />
 		<title>
-			<g:message code="contractLineItem.add" default="Add Line Item"/>
+			Contract | Contract# ${contractLineItemInstance?.contract?.contractNumber } | Add Contract Line Item
 		</title>
 	</head>
 	<body>

@@ -17,8 +17,8 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.ui.menubar.css')}" type="text/css">
-
 		<link rel="stylesheet" href="${resource(dir: 'css/smoothness', file: 'jquery-ui-1.8.2.custom.css')}" type="text/css">
+		
 		<script src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>
 		<script src="${resource(dir: 'js/external', file: 'jquery.bgiframe-2.1.2.js')}"></script>
 		<script src="${resource(dir: 'js/external', file: 'jquery.tmpl.js')}"></script>
@@ -110,14 +110,14 @@
 								</li>
 								<li><g:link controller="order" action="list">Find Orders</g:link>
 								</li>
+								<li><g:link controller="order" action="orderStatusReport">Order Status Summary</g:link>
+								</li>
 							</ul></li>
 						<li><a href="#">Product</a>
 							<ul aria-label="Product">
 								<li><g:link controller="product" action="create">New Product</g:link>
 								</li>
 								<li><g:link controller="product" action="list">Find Product</g:link>
-								</li>
-								<li><g:link controller="product" action="list">Product Price</g:link>
 								</li>
 							</ul></li>
 						<li><a href="#">Tax</a>

@@ -6,7 +6,9 @@
 <meta name="layout" content="main">
 <g:set var="entityName"
 	value="${message(code: 'product.label', default: 'Product')}" />
-<title><g:message code="default.show.label" args="[entityName]" /></title>
+<title>
+	Product | Product ${productInstance?.pdProductName }
+</title>
 </head>
 <body>
 	<div id="show-product" class="content scaffold-show" role="main">

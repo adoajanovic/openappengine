@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException
 class ProductController {
 	
 	def sequenceGeneratorService
+	
+	def orderService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -205,9 +207,21 @@ class ProductController {
 	
 	def ajaxGetProductPrice() {
 		def product = Product.get(params.id)
+		
+		BigDecimal price = new BigDecimal(0.0)
+		BigDecimal taxPrice = new BigDecimal(0.0)
+		def aspectDate = new Date()
+		
 		if(product) {
-			BigDecimal price = product.getProductPrice(new Date())
-			render price
+			price = product.getProductPrice(aspectDate)
+			taxPrice = orderService.calculateTaxAmount(product, aspectDate)
 		}
+		
+		def jsonObj = [
+			"price" : price,
+			"tax" : taxPrice
+		]
+		
+		render jsonObj as JSON
 	}
 }

@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Party | Edit Party# ${personInstance?.externalId }
+		</title>
 	</head>
 	<body>
 		<div id="edit-person" class="content scaffold-edit" role="main">

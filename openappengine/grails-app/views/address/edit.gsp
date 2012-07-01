@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'address.label', default: 'Address')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Address Book
+		</title>
 	</head>
 	<body>
 		<div id="edit-address" class="content scaffold-edit" role="main">

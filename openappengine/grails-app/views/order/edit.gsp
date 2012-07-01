@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'ohOrderHeader.label', default: 'OhOrderHeader')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Order | Edit Order # <g:fieldValue bean="${ohOrderHeaderInstance}" field="externalId" />
+		</title>
 	</head>
 	<body>
 		<div id="edit-ohOrderHeader" class="content scaffold-edit" role="main">

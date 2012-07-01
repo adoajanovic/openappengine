@@ -1,9 +1,12 @@
 package com.openappengine.model.fm
 
+import grails.converters.JSON
+
 import org.springframework.dao.DataIntegrityViolationException
 
-import com.openappengine.model.contract.Contract;
+import com.openappengine.master.OrderStatus;
 import com.openappengine.model.product.Product
+import com.openappengine.util.DateUtils;
 
 class OrderController {
 	
@@ -18,19 +21,26 @@ class OrderController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [ohOrderHeaderInstanceList: OhOrderHeader.list(params), ohOrderHeaderInstanceTotal: OhOrderHeader.count()]
+		Date curDate = new Date()
+		curDate = org.apache.commons.lang.time.DateUtils.addMonths(curDate,-1)
+		params.fromDate = DateUtils.getFirstDayOfMonth(curDate)
+		params.toDate = DateUtils.getLastDayOfMonth(curDate)
+		params.status = "ALL"
+        filter()
     }
 	
 	def filter() {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		def c  = OhOrderHeader.createCriteria()
 		def orders = c.list {
-			like("contractNumber", "${params.contractNumber}%")
 			like("externalId", "${params.orderNumber}%")
+			if(params.status != "ALL") {
+				like("status", "${params.status}")
+			}
+			between("orderDate", params.fromDate, params.toDate)
 		}
 		
-		if(orders?.size() != 0) {
+		if(orders?.size() == 0) {
 			flash.message = message(code: 'default.records_not_found.message')
 		}
 		
@@ -38,14 +48,27 @@ class OrderController {
 	}
 
     def create() {
+    	def ohOrderHeaderInstance= new OhOrderHeader(params)
 		String orderNumber = sequenceGeneratorService.getNextSequenceNumber("Order")
-		def ohOrderHeaderInstance= new OhOrderHeader(params)
 		ohOrderHeaderInstance.externalId = orderNumber
+		ohOrderHeaderInstance.orderName = orderNumber
+		ohOrderHeaderInstance.entryDate = new Date()
+		ohOrderHeaderInstance.orderType = "SO"
+		ohOrderHeaderInstance.status = "NEW"
         [ohOrderHeaderInstance: ohOrderHeaderInstance]
     }
 	
-    def save() {
+	def addLineItem() {
+		def orderItem = new OiOrderItem(params)
+		orderItem.quantity = new BigDecimal(1.0)
+		[oiOrderItemInstance : orderItem]
+		render ""
+	}
+	
+    def invoiceOrder() {
         def ohOrderHeaderInstance = bindOrder(params)
+		ohOrderHeaderInstance.entryDate = new Date()
+		ohOrderHeaderInstance.status = "INVOICED"
         if (!ohOrderHeaderInstance.save(flush: true)) {
             render(view: "create", model: [ohOrderHeaderInstance: ohOrderHeaderInstance])
             return
@@ -53,14 +76,15 @@ class OrderController {
 
 		flash.message = message(code: 'default.created.message', args: [
 			message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'),
-			ohOrderHeaderInstance.id
+			ohOrderHeaderInstance.orderId
 		])
 		
-		redirect(action: "show", id: ohOrderHeaderInstance.id)
+		redirect(action: "show", id: ohOrderHeaderInstance.orderId)
     }
 	
 	def OhOrderHeader bindOrder(params)  {
-		def orderHeaderInstance = new OhOrderHeader()
+		def orderHeaderInstance = new OhOrderHeader(params)
+		orderHeaderInstance.partyNumber = orderHeaderInstance.billingAccountId 
 		
 		def count = params.itemCount.toInteger()
 		
@@ -69,7 +93,7 @@ class OrderController {
 			lineItem.orderHeader = orderHeaderInstance
 			Product product = Product.get(params["lineItems["+i+"].productId"])
 			lineItem.product = product
-			
+			lineItem.orderItemSequenceId = (i+1);
 			bindData(lineItem, params["lineItems["+i+"]"])
 			orderHeaderInstance.orderItems[i] = lineItem
 		}
@@ -88,6 +112,34 @@ class OrderController {
 
         [ohOrderHeaderInstance: ohOrderHeaderInstance]
     }
+	
+	def orderStatusReport() {
+		Date curDate = new Date()
+		curDate = org.apache.commons.lang.time.DateUtils.addMonths(curDate,-1)
+		params.fromDate = DateUtils.getFirstDayOfMonth(curDate)
+		params.toDate = DateUtils.getLastDayOfMonth(curDate)
+		params.status = "ALL"
+		orderStatusReportFilter()
+	}
+	
+	def orderStatusReportFilter() {
+		def c  = OhOrderHeader.createCriteria()
+		def orders = c.list {
+			if(params.status != "ALL") {
+				like("status", "${params.status}")
+			} else {
+				like("status", "%%")
+			}
+			between("orderDate", params.fromDate, params.toDate)
+		}
+		
+		if(orders?.size() == 0) {
+			flash.message = message(code: 'default.records_not_found.message')
+		}
+		
+		[ohOrderHeaderInstanceList: orders, ohOrderHeaderInstanceTotal: orders.size()]
+		
+	}
 
     def edit() {
         def ohOrderHeaderInstance = OhOrderHeader.get(params.id)
@@ -108,17 +160,6 @@ class OrderController {
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
-            if (ohOrderHeaderInstance.version > version) {
-                ohOrderHeaderInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader')] as Object[],
-                          "Another user has updated this OhOrderHeader while you were editing")
-                render(view: "edit", model: [ohOrderHeaderInstance: ohOrderHeaderInstance])
-                return
-            }
-        }
-
         ohOrderHeaderInstance.properties = params
 
         if (!ohOrderHeaderInstance.save(flush: true)) {
@@ -129,6 +170,66 @@ class OrderController {
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'), ohOrderHeaderInstance.id])
         redirect(action: "show", id: ohOrderHeaderInstance.id)
     }
+	
+	def cancel() {
+		def ohOrderHeaderInstance = OhOrderHeader.get(params.id)
+		if (!ohOrderHeaderInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		[ohOrderHeaderInstance: ohOrderHeaderInstance]
+	}
+	
+	def cancelOrder() {
+		def ohOrderHeaderInstance = OhOrderHeader.get(params.id)
+		if (!ohOrderHeaderInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		ohOrderHeaderInstance.status = OrderStatus.CANCELLED
+
+		if (!ohOrderHeaderInstance.save(flush: true)) {
+			redirect(action: "list")
+			return
+		}
+
+		flash.message = "Order #" + ohOrderHeaderInstance.externalId + " cancelled."
+		redirect(action: "show", id: ohOrderHeaderInstance.orderId)
+	}
+	
+	def complete() {
+		def ohOrderHeaderInstance = OhOrderHeader.get(params.id)
+		if (!ohOrderHeaderInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		[ohOrderHeaderInstance: ohOrderHeaderInstance]
+	}
+	
+	def completeOrder() {
+		def ohOrderHeaderInstance = OhOrderHeader.get(params.id)
+		if (!ohOrderHeaderInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ohOrderHeader.label', default: 'OhOrderHeader'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		ohOrderHeaderInstance.status = OrderStatus.CANCELLED
+
+		if (!ohOrderHeaderInstance.save(flush: true)) {
+			redirect(action: "list")
+			return
+		}
+
+		flash.message = "Order #" + ohOrderHeaderInstance.externalId + " cancelled."
+		redirect(action: "show", id: ohOrderHeaderInstance.orderId)
+	}
 
     def delete() {
         def ohOrderHeaderInstance = OhOrderHeader.get(params.id)

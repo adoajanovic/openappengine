@@ -1,6 +1,8 @@
 <head>
 <meta name='layout' content='main' />
-<title><g:message code="springSecurity.denied.title" /></title>
+	<title>
+		Access Denied
+	</title>
 </head>
 
 <body>

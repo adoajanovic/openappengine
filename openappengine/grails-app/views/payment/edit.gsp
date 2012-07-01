@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'fmPayment.label', default: 'FmPayment')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Payment | Edit Payment
+		</title>
 	</head>
 	<body>
 		<div id="edit-fmPayment" class="content scaffold-edit" role="main">
@@ -16,8 +18,7 @@
 			</ul>
 			</g:hasErrors>
 			<g:form method="post" >
-				<g:hiddenField name="id" value="${fmPaymentInstance?.id}" />
-				<g:hiddenField name="version" value="${fmPaymentInstance?.version}" />
+				<g:hiddenField name="id" value="${fmPaymentInstance?.paymentId}" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

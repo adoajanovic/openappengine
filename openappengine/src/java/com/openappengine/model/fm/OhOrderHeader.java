@@ -80,7 +80,7 @@ public class OhOrderHeader implements Serializable {
 	private String transactionId;
 	
 	@Column(name="OH_GRAND_TOTAL")
-	private BigDecimal grandTotal;
+	private BigDecimal grandTotal = new BigDecimal("0.0");
 	
 	@Column(name="OH_FROM_DATE")
 	@Temporal(TemporalType.DATE)
@@ -241,4 +241,23 @@ public class OhOrderHeader implements Serializable {
 		this.partyNumber = partyNumber;
 	}
 
+	public BigDecimal getOrderItemTotalUnitPrice() {
+		BigDecimal totalUnitPrice = new BigDecimal("0.0");
+		if(orderItems != null && !orderItems.isEmpty()) {
+			for (OiOrderItem orderItem : orderItems) {
+				totalUnitPrice = totalUnitPrice.add(orderItem.getUnitPrice()!=null?orderItem.getUnitPrice():new BigDecimal("0.0"));
+			}
+		}
+		return totalUnitPrice;
+	}
+	
+	public BigDecimal getOrderItemTotalTaxPrice() {
+		BigDecimal totalTaxPrice = new BigDecimal("0.0");
+		if(orderItems != null && !orderItems.isEmpty()) {
+			for (OiOrderItem orderItem : orderItems) {
+				totalTaxPrice = totalTaxPrice.add(orderItem.getTaxPrice() !=null?orderItem.getTaxPrice():new BigDecimal("0.0"));
+			}
+		}
+		return totalTaxPrice;
+	}
 }

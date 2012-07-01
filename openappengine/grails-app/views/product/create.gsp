@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>
+			Product | Create New Product
+		</title>
 	</head>
 	<body>
 		<div id="create-product" class="content scaffold-create" role="main">

@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'fmPayment.label', default: 'FmPayment')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>
+			Payment | Create New Payment
+		</title>
 	</head>
 	<body>
 		<div id="create-fmPayment" class="content scaffold-create" role="main">

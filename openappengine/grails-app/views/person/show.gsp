@@ -5,7 +5,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<title>
+			Party | Party# ${personInstance?.externalId }
+		</title>
 	</head>
 	<body>
 		<a href="#show-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

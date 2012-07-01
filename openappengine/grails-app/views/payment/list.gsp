@@ -6,13 +6,13 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'fmPayment.label', default: 'Payment')}" />
 		<title>
-			Financials | Payments
+			Payment | Search Payments
 		</title>
 	</head>
 	<body>
 		<g:render template="search"></g:render>
 	
-		<div id="list-fmPayment" class="content scaffold-list" role="main">
+		<div id="list-fmPayment" class="hor-minimalist content scaffold-list" role="main">
 			<table>
 				<thead>
 					<tr>
@@ -29,7 +29,7 @@
 					
 						<g:sortableColumn property="effectiveDate" title="${message(code: 'fmPayment.effectiveDate.label', default: 'Effective Date')}" />
 					
-						<th />
+						<th>View</th>
 					</tr>
 				</thead>
 				<tbody>

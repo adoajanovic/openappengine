@@ -5,10 +5,12 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contractLineItem.label', default: 'ContractLineItem')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title>
+			Contract | Contract# ${contractLineItemInstance?.contract?.contractNumber } | Add Contract Line Item
+		</title>
 	</head>
 	<body>
-		<div id="list-contractLineItem" class="content scaffold-list" role="main">
+		<div id="list-contractLineItem" class="hor-minimalist content scaffold-list" role="main">
 			<table>
 				<thead>
 					<tr>

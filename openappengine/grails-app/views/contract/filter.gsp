@@ -1,5 +1,5 @@
 <div id="list-contract" class="content scaffold-list" role="main">
-			<table>
+			<table class="hor-minimalist">
 				<thead>
 					<tr>
 						<g:sortableColumn property="contractNumber" title="${message(code: 'contract.contractNumber.label', default: 'Contract Number')}" />
@@ -12,8 +12,8 @@
 					
 						<g:sortableColumn property="partyId" title="${message(code: 'contract.party.label', default: 'Party')}" />
 						
-						<th/>
-						<th/>
+						<th>View </th>
+						<th>Terminate</th>
 					</tr>
 				</thead>
 				<tbody>
