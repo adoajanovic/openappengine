@@ -5,7 +5,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title>
+			Contract | Search Contracts
+		</title>
 	</head>
 	<body>
 			<div>
@@ -35,7 +37,7 @@
 				</g:formRemote>
 			</div>
 			
-			<div id="list-contract" class="content scaffold-list" role="main">
+			<div id="list-contract" class="hor-minimalist content scaffold-list" role="main">
 			<table>
 				<thead>
 					<tr>
@@ -49,8 +51,8 @@
 						
 						<g:sortableColumn property="active" title="${message(code: 'contract.active.label', default: 'Active')}" />
 						
-						<th/>
-						<th/>
+						<th>View </th>
+						<th>Terminate</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -1,5 +1,5 @@
 <div id="list-person" class="content scaffold-list" role="main">
-			<table>
+			<table class="hor-minimalist">
 				<thead>
 					<tr>
 						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" />

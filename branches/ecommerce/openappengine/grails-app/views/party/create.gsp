@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'party.label', default: 'Party')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>
+			Party | Create New Party
+		</title>
 	</head>
 	<body>
 		<div id="create-party" class="content scaffold-create" role="main">

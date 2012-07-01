@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'oiOrderItem.label', default: 'OiOrderItem')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title>
+			Order | Order # ${oiOrderItemInstance?.orderHeader?.externalId } | Edit Order Item
+		</title>
 	</head>
 	<body>
 		<a href="#edit-oiOrderItem" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
 		<title>
-			OpenAppEngine | Contract# - ${contractInstance?.contractNumber}
+			Contract | Terminate Contract# - ${contractInstance?.contractNumber}
 		</title>
 	</head>
 	<body>

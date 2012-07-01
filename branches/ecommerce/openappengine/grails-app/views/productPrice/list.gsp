@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div id="list-prodProductPrice" class="content scaffold-list" role="main">
-			<table>
+			<table class="hor-minimalist">
 				<thead>
 					<tr>
 					

@@ -20,8 +20,6 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.openappengine.model.product.ProdProductPrice;
-
 /**
  * @author hrishi
  *

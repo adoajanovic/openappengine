@@ -4,7 +4,9 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>
+			Contract | New Contract 
+		</title>
 		
 		<script>
 			$(function() {

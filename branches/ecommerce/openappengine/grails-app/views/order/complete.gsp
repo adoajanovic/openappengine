@@ -8,10 +8,13 @@
 <g:set var="entityName"
 	value="${message(code: 'ohOrderHeader.label', default: 'OhOrderHeader')}" />
 <title>
-	Order | Show Order # <g:fieldValue bean="${ohOrderHeaderInstance}" field="externalId" />
+	Order | Complete Order # <g:fieldValue bean="${ohOrderHeaderInstance}" field="externalId" />
 </title>
 </head>
 <body>
+	<h1>
+		Order # <g:fieldValue bean="${ohOrderHeaderInstance}" field="externalId" />
+	</h1>
 	<div id="show-ohOrderHeader" class="content scaffold-show" role="main">
 		<ol class="property-list ohOrderHeader">
 
@@ -69,19 +72,19 @@
 			<li class="fieldcontain"><span id="fromDate-label"
 				class="property-label"><g:message
 						code="ohOrderHeader.fromDate.label" default="From Date" /></span> <span
-				class="property-value" aria-labelledby="fromDate-label"><g:formatDate
+				class="property-value" aria-labelledby="fromDate-label"><g:formatDate format="yyyy-MM-dd"
 						date="${ohOrderHeaderInstance?.fromDate}" /></span></li>
 						
 			<li class="fieldcontain"><span id="toDate-label"
 				class="property-label"><g:message
 						code="ohOrderHeader.toDate.label" default="To Date" /></span> <span
-				class="property-value" aria-labelledby="toDate-label"><g:formatDate
+				class="property-value" aria-labelledby="toDate-label"><g:formatDate format="yyyy-MM-dd"
 						date="${ohOrderHeaderInstance?.toDate}" /></span></li>			
 
 			<li class="fieldcontain"><span id="orderDate-label"
 				class="property-label"><g:message
 						code="ohOrderHeader.orderDate.label" default="Order Date" /></span> <span
-				class="property-value" aria-labelledby="orderDate-label"><g:formatDate
+				class="property-value" aria-labelledby="orderDate-label"><g:formatDate format="yyyy-MM-dd"
 						date="${ohOrderHeaderInstance?.orderDate}" /></span></li>
 
 			<li class="fieldcontain"><span id="grandTotal-label"
@@ -128,5 +131,11 @@
 				</table></li>
 		</ol>
 	</div>
+	<g:form method="post" action="completeOrder" controller="order">
+				<g:hiddenField name="id" value="${ohOrderHeaderInstance?.orderId}" />
+				<fieldset class="buttons">
+					<g:actionSubmit class="Complete" action="completeOrder" value="${message(code: 'default.button.complete.label', default: 'Complete')}" formnovalidate="" />
+				</fieldset>
+	</g:form>
 </body>
 </html>

@@ -15,7 +15,7 @@
 					
 						<g:sortableColumn property="effectiveDate" title="${message(code: 'fmPayment.effectiveDate.label', default: 'Effective Date')}" />
 					
-						<th />
+						<th>View</th>
 					</tr>
 				</thead>
 				<tbody>

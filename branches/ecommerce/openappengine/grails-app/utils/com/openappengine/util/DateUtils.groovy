@@ -16,5 +16,24 @@ class DateUtils {
 		}
 		return false;
 	}
+	
+	public static Date getFirstDayOfMonth(Date dt) {
+		if(!dt) {
+			throw new RuntimeException("Input date cannot be null.")
+		}
+		
+		dt = org.apache.commons.lang.time.DateUtils.setDays(dt, 1)
+		return dt
+	}
+	
+	public static Date getLastDayOfMonth(Date dt) {
+		if(!dt) {
+			throw new RuntimeException("Input date cannot be null.")
+		}
+		
+		dt = org.apache.commons.lang.time.DateUtils.addMonths(dt, 1)
+		dt = org.apache.commons.lang.time.DateUtils.addDays(dt, -1)
+		return dt
+	}
 
 }
