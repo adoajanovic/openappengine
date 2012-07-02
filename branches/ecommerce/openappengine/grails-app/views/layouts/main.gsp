@@ -78,6 +78,38 @@
 				<!-- Menubar -->
 				<div id="menubar" style="float: left;">
 					<ul id="menubar_ul" aria-label="Sample Options">
+						<!-- 
+						<li><a href="#">Mega Menu</a>
+							<ul aria-label="Mega Menu" style="width: auto;">
+								<li>
+									<a href="#">
+										<div>
+								          <h3>Tabular Content Example</h3>
+								          <table class="hor-minimalist" id="tabular-content">
+								            <tr>
+								              <th style="width: 15px">ID</th>
+								              <th>Name</th>
+								              <th>Place</th>
+								              <th style="width: 60px">Number</th>
+								            </tr>
+								            <tr>
+								              <td>1</td><td>Shiva Shankara Sahoo</td><td>Parlakhemundi</td><td>6742266</td>
+								            </tr>
+								            <tr>
+								              <td>2</td><td>Ravi Nikam</td><td>Brussels</td><td>5669985</td>
+								            </tr>
+								            <tr>
+								              <td>3</td><td>John Doe</td><td>Olympus</td><td>8699552</td>
+								            </tr>
+								            <tr>
+								              <td>4</td><td>Don Joe</td><td>Sinki</td><td>8877556</td>
+								            </tr>
+								          </table>
+								        </div>
+									</a>
+								</li>
+							</ul></li>
+							 -->
 						<li><a href="#">Party</a>
 							<ul aria-label="Party">
 								<li><g:link controller="person" action="create">New Party</g:link>

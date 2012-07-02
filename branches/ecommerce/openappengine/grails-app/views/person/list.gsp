@@ -8,6 +8,15 @@
 		<title>
 			Party | Search Party
 		</title>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".step").click(function(event) {
+				  event.preventDefault();
+				  $('#list-person').load(this.href + ' #list-person');
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<div>
