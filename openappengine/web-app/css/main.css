@@ -788,3 +788,12 @@ a.skip {
 	color: #009;
 	background-color: #EEE;
 }
+
+/**
+	
+**/
+.step a {
+	color: #039;
+	border-bottom: 2px solid #6678b1;
+	background-color: #eee; 
+}

@@ -40,6 +40,9 @@ class PersonController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		//max = 10
+		//currentStep = 1
+		//total
         [personInstanceList: Person.list(params), personInstanceTotal: Person.count()]
     }
 	
