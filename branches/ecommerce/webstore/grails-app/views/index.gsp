@@ -86,7 +86,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="${resource(dir: 'images/site', file: 'thumb1.gif')}" alt=""
+							src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt=""
 							title="" class="thumb" border="0" /></a>
 					</div>
 				</div>
@@ -96,8 +96,8 @@
 					<div class="new_prod_bg">
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
-							alt="" title="" /></span> <a href="details.html"><img
-							src="images/site/thumb2.gif" alt="" title="" class="thumb"
+							alt="" title="" /></span> <a href="details.html">
+							<img src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt="" title="" class="thumb"
 							border="0" /></a>
 					</div>
 				</div>
@@ -108,7 +108,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="images/site/thumb3.gif" alt="" title="" class="thumb"
+							src="images/site/placeholder.jpg" alt="" title="" class="thumb"
 							border="0" /></a>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="images/site/thumb2.gif" alt="" title="" class="thumb"
+							src="images/site/placeholder.jpg" alt="" title="" class="thumb"
 							border="0" /></a>
 					</div>
 				</div>
@@ -130,7 +130,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="images/site/thumb3.gif" alt="" title="" class="thumb"
+							src="images/site/placeholder.jpg" alt="" title="" class="thumb"
 							border="0" /></a>
 					</div>
 				</div>
@@ -141,7 +141,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'new_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="${resource(dir: 'images/site', file: 'thumb1.gif')}" alt=""
+							src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt=""
 							title="" class="thumb" border="0" /></a>
 					</div>
 				</div>
@@ -215,7 +215,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'promo_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="${resource(dir: 'images/site', file: 'thumb1.gif')}" alt=""
+							src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt=""
 							title="" class="thumb" border="0" /></a>
 					</div>
 				</div>
@@ -226,7 +226,7 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'promo_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="${resource(dir: 'images/site', file: 'thumb2.gif')}" alt=""
+							src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt=""
 							title="" class="thumb" border="0" /></a>
 					</div>
 				</div>
@@ -237,52 +237,16 @@
 						<span class="new_icon"><img
 							src="${resource(dir: 'images/site', file: 'promo_icon.gif')}"
 							alt="" title="" /></span> <a href="details.html"><img
-							src="${resource(dir: 'images/site', file: 'thumb3.gif')}" alt=""
+							src="${resource(dir: 'images/site', file: 'placeholder.jpg')}" alt=""
 							title="" class="thumb" border="0" /></a>
 					</div>
 				</div>
 
 			</div>
 
+			<!-- Right Box -->
 			<div class="right_box">
-
-				<div class="title">
-					<span class="title_icon"><img src="images/site/bullet5.gif"
-						alt="" title="" /></span>Categories
-				</div>
-
-				<ul class="list">
-					<li><a href="#">accesories</a></li>
-					<li><a href="#">premium parts</a></li>
-					<li><a href="#">specials</a></li>
-					<li><a href="#">best deals</a></li>
-					<li><a href="#">accesories</a></li>
-					<li><a href="#">premium parts</a></li>
-					<li><a href="#">specials</a></li>
-					<li><a href="#">best deals</a></li>
-					<li><a href="#">accesories</a></li>
-					<li><a href="#">premium parts</a></li>
-					<li><a href="#">specials</a></li>
-				</ul>
-
-				<div class="title">
-					<span class="title_icon"><img
-						src="${resource(dir: 'images/site', file: 'bullet6.gif')}" alt=""
-						title="" /></span>Partners
-				</div>
-
-				<ul class="list">
-					<li><a href="#">accesories</a></li>
-					<li><a href="#">premium parts</a></li>
-					<li><a href="#">specials</a></li>
-					<li><a href="#">best deals</a></li>
-					<li><a href="#">accesories</a></li>
-					<li><a href="#">premium parts</a></li>
-					<li><a href="#">specials</a></li>
-					<li><a href="#">best deals</a></li>
-					<li><a href="#">accesories</a></li>
-				</ul>
-
+			
 			</div>
 
 

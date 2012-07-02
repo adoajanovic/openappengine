@@ -1,4 +1,4 @@
-package com.openappengine.sec
+package webstore.sec
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class LogoutController {

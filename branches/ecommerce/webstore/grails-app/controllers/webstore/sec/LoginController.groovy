@@ -1,4 +1,4 @@
-package com.openappengine.sec
+package webstore.sec
 
 import grails.converters.JSON
 
