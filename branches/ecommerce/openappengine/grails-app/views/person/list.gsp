@@ -8,15 +8,6 @@
 		<title>
 			Party | Search Party
 		</title>
-		
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$(".step").click(function(event) {
-				  event.preventDefault();
-				  $('#list-person').load(this.href + ' #list-person');
-				});
-			});
-		</script>
 	</head>
 	<body>
 		<div>
@@ -60,7 +51,7 @@
 		<br />
 		
 		<div id="list-person" class="content scaffold-list" role="main">
-			<table class="hor-minimalist">
+			<table id="personSearchResultsTbl" class="hor-minimalist">
 				<thead>
 					<tr>
 						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" />
@@ -98,9 +89,10 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${personInstanceTotal}" />
-			</div>
 		</div>
+
+		<ajax:paginate id="paginate" tableId="personSearchResultsTbl"
+			url="${createLink(controller:'person',action:'list')}"
+			totalRecords="${personInstanceTotal}" style="margin-left:30px;"/>
 	</body>
 </html>

@@ -41,7 +41,7 @@
 		<script src="${resource(dir: 'js/ui', file: 'jquery.ui.menu.js')}"></script>
 		<script src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
 		<!-- TODO -- Template -->
-		<script src="${resource(dir: 'js', file: 'jquery.tmpl.js')}"></script>
+		<script src="${resource(dir: 'js', file: 'pager.js')}"></script>
 		<script src="${resource(dir: 'js', file: 'jquery-ui.min.js')}"></script>
 		
 		 <script type="text/javascript">    
