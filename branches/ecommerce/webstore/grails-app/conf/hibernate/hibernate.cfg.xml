@@ -6,9 +6,9 @@
 <hibernate-configuration>
 
 	<session-factory>
-		<mapping class='webstore.product.Product' />
-		<mapping class='webstore.product.ProdProductPrice'/>
-		<mapping class='webstore.product.Product_Diamond'/>
+		<mapping class='com.openappengine.model.product.Product' />
+		<mapping class='com.openappengine.model.product.ProdProductPrice'/>
+		<mapping class='com.openappengine.model.product.ProductDiamond'/>
 		
 	</session-factory>
 

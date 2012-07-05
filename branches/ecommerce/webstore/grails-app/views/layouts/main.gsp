@@ -65,7 +65,9 @@
 </head>
 <body>
 	<div id="wrap">
-		<div id="header" >
+	
+		<!-- Header -->
+		<div id="header">
 			<div id="logo" class="logo">
 				<a href="index.html"><img
 					src="${resource(dir: 'images/site', file: 'logo.gif')}" alt=""
@@ -114,31 +116,13 @@
 				</span>
 			</div>
 		</div>
-		<br/><br/><br/><br/><br/><br/><br/><br/>
 		
-		<div class="center_content">
+		<!-- Main Content -->
+		<div id="content">
 			<g:layoutBody />
 		</div>
-
-		<div class="footer">
-			<div style="float: left;">
-				WebStore Version <g:meta name="app.version"/>
-			</div>
-			<br/><br/>
-			<div class="left_footer">
-				<img src="${resource(dir: 'images/site', file: 'footer_logo.gif')}"
-					alt="" title="" /><br /> <a
-					href="http://csscreme.com/freecsstemplates/" title="free templates"><img
-					src="${resource(dir: 'images/site', file: 'csscreme.gif')}"
-					alt="free templates" title="free templates" border="0" /></a>
-			</div>
-			<div class="right_footer">
-				<a href="#">home</a> <a href="#">about us</a> <a href="#">services</a>
-				<a href="#">privacy policy</a> <a href="#">contact us</a>
-
-			</div>
-		</div>
-
+		
+		
 		<div id="spinner" class="spinner" style="display: none;">
 			<g:message code="spinner.alt" default="Loading&hellip;" />
 		</div>
