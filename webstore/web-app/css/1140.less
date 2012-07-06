@@ -1,0 +1,257 @@
+/*
+* Constants
+*/
+@column-width: 60;
+@gutter-width: 20;
+@columns: 12;
+
+// Utility variable — you should never need to modify this
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+
+// Set @total-width to 100% for a fluid layout
+@total-width: @gridsystem-width;
+
+// Uncomment these two lines and the star-hack width/margin lines below to enable sub-pixel fix for IE6 & 7. See http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
+// @min-width: 960;
+// @correction: 0.5 / @min-width * 100 * 1%;
+
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix() {
+	*zoom:1;
+	
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+
+/**
+*   Rounded Division Borders
+**/
+.border-radius (@radius: 5px) {
+   border-radius: @radius;
+}
+
+/**
+*   Linear Gradient
+**/
+.linear-gradient (@start: #fff, @end: #ddd, @percent: 100%) {
+	   background: @start; /* Old */
+	   background: -moz-linear-gradient(top,  @start 0%, @end @percent); /* FF3.6+ */
+	   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(@percent,@end)); /* Chrome, Safari 4+ */
+	   background: -webkit-linear-gradient(top,  @start 0%,@end @percent); /* Chrome 10+, Safari 5.1+ */
+	   background: -o-linear-gradient(top,  @start 0%,@end @percent); /* Opera 11.10+ */
+	   background: -ms-linear-gradient(top,  @start 0%,@end @percent); /* IE 10+ */
+	   background: linear-gradient(top,  @start 0%,@end @percent); /* W3C */
+}
+
+
+//////////
+// GRID //
+//////////
+
+body {
+	width: 100%;
+	.clearfix;
+}
+
+.row(@columns:@columns) {
+	display: block;
+	width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width);
+	margin: 0 @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1);
+	// *width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width)-@correction;
+	// *margin: 0 @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1)-@correction;
+	.clearfix;
+}
+.column(@x,@columns:@columns) {
+	display: inline;
+	float: left;
+	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+	margin: 0 @total-width*((@gutter-width*.5)/@gridsystem-width);
+	// *width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width)-@correction;
+	// *margin: 0 @total-width*((@gutter-width*.5)/@gridsystem-width)-@correction;
+}
+/**/
+
+/* CSS Resets */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,q,small,strong,sub,sup,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+	{
+	border: 0;
+	margin: 0;
+	padding: 0
+}
+
+article,aside,figure,figure img,figcaption,hgroup,footer,header,nav,section,video,object
+	{
+	display: block
+}
+
+a img {
+	border: 0
+}
+
+figure {
+	position: relative
+}
+
+figure img {
+	width: 100%
+}
+
+/* ==================================================================================================================== */
+/* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
+/* ==================================================================================================================== */
+.container {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 45px;
+}
+
+.row {
+	width: 100%;
+	max-width: 1140px;
+	min-width: 755px;
+	margin-bottom: 2opx;
+}
+
+.onecol,.twocol,.threecol,.fourcol,.fivecol,.sixcol,.sevencol,.eightcol,.ninecol,.tencol,.elevencol,.twelvecol
+	{
+	margin-right: 3.8%;
+	float: left;
+	min-height: 1px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.row .onecol {
+	width: 4.85%;
+}
+
+.row .twocol {
+	width: 13.45%;
+}
+
+.row .threecol {
+	width: 22.05%;
+}
+
+.row .fourcol {
+	width: 30.75%;
+}
+
+.row .fivecol {
+	width: 39.45%;
+}
+
+.row .sixcol {
+	width: 48%;
+}
+
+.row .sevencol {
+	width: 56.75%;
+}
+
+.row .eightcol {
+	width: 65.4%;
+}
+
+.row .ninecol {
+	width: 74.05%;
+}
+
+.row .tencol {
+	width: 82.7%;
+}
+
+.row .elevencol {
+	width: 91.35%;
+}
+
+.row .twelvecol {
+	width: 100%;
+	float: left;
+}
+
+.last {
+	margin-right: 0px;
+}
+
+.clear {
+	clear: both;
+}
+
+/* Smaller screens */
+@media only screen and (max-width: 1023px) {
+	body {
+		font-size: 0.8em;
+		line-height: 1.5em;
+	}
+}
+
+/* Mobile */
+@media handheld , only screen and (max-width: 767px) {
+	body {
+		font-size: 16px;
+		-webkit-text-size-adjust: none;
+	}
+	.row,body,.container {
+		width: 100%;
+		min-width: 0;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	.row .onecol,.row .twocol,.row .threecol,.row .fourcol,.row .fivecol,.row .sixcol,.row .sevencol,.row .eightcol,.row .ninecol,.row .tencol,.row .elevencol,.row .twelvecol
+		{
+		width: auto;
+		float: none;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+section {
+	.column(4);
+	margin-bottom: 20px;
+}
+
+article {
+	.column(12);
+	margin-top: 20px;
+	margin-bottom: 20px;
+	.linear-gradient(#F2F3ED,#FFF,80%);
+	.border-radius(5px); 
+	min-height: 100px;
+	border: 1px;
+	border-style: dotted;
+}
+
+section #section {
+	min-height: 100px;
+	.linear-gradient(#F2F3ED,#FFF,80%);
+	.border-radius(5px);
+	border: 1px;
+	border-style: dotted;
+}
+
+section #search {
+	min-height: 100px;
+	.column(12);
+}
+
+.title {
+	color: #222;
+    display: inline;
+    font-family: Tahoma;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 21px;
+    text-align: center;
+}
