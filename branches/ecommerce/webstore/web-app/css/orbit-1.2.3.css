@@ -8,10 +8,6 @@
  
 /* PUT IN YOUR SLIDER ID AND SIZE TO MAKE LOAD BEAUTIFULLY
    ================================================== */
-.container {
-	
-}
-
 .top-banner-slider-content {
 	background: url('../images/site/home/banner/coffee.jpg') no-repeat center top;
 }
@@ -206,7 +202,7 @@ div.slider-nav span.left {
 	position: absolute;
 	z-index: 1000;
 	list-style: none;
-	bottom: -40px;
+	bottom: -60px;
 	left: 50%;
 	margin-left: -50px;
 	padding: 0;
@@ -218,7 +214,7 @@ div.slider-nav span.left {
 	cursor: pointer;
 	color: #999;
 	text-indent: -9999px;
-	background: url(../images/orbit/bullets.jpg) no-repeat 4px 0;
+	background: url(../images/orbit/bullets.jpg) transparent no-repeat 4px 0;
 	width: 13px;
 	height: 12px;
 	overflow: hidden;

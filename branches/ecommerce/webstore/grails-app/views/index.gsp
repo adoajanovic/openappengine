@@ -51,11 +51,54 @@
 			data-caption="#htmlCaption" /> <img
 			src="${resource(dir: 'images/site/home/banner', file: 'features.jpg')}" />
 	</div>
-	
 	<!-- Captions for Orbit -->
 	<span class="orbit-caption" id="htmlCaption"><strong>I'm
 		A Badass Caption:</strong> I can haz <a href="#">links</a>, <em>style</em>
 		or anything that is valid markup :)
 	</span>
+	
+	
+	<div class="container">
+		<div class="row">
+			<article>
+				<p>
+					Promos
+				</p>
+			</article>
+		</div>
+		
+		<div class="row">
+			<section>
+				<div id="section">
+					<!-- title -->
+					<span class="title">Featured Articles</span>
+					<div id="contents">
+						<br /><br /><br /><br />
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div id="section">
+					<!-- title -->
+					<span class="title">Featured Articles</span>
+					<div id="contents">
+						<br /><br /><br /><br />
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div id="section">
+					<!-- title -->
+					<span class="title">Featured Articles</span>
+					<div id="contents">
+						<br /><br /><br /><br />
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
 </body>
 </html>

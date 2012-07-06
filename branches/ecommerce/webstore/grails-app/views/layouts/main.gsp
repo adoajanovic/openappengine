@@ -16,30 +16,27 @@
 	type="image/x-icon">
 <link rel="apple-touch-icon"
 	href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}"
-	type="text/css">
-<%--<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		--%>
-<link rel="stylesheet"
-	href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
+<!-- The 1140px Grid - http://cssgrid.net/ -->
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: '1140.less')}" type="text/less" media="screen" />
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'common.less')}" type="text/less" media="screen" />
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'site.less')}" type="text/less" media="screen" />
 
 <!-- jquery -->
-<link rel="stylesheet"
-	href="${resource(dir: 'css/ui-lightness', file: 'jquery-ui-1.8.21.custom.css')}"
-	type="text/css">
-<link rel="stylesheet"
-	href="${resource(dir: 'css/ui-lightness', file: 'jquery-ui.min.css')}"
-	type="text/css">
-<link rel="stylesheet"
-	href="${resource(dir: 'css/ui-lightness', file: 'jquery.ui.menubar.css')}"
-	type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css/ui-lightness', file: 'jquery-ui-1.8.21.custom.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css/ui-lightness', file: 'jquery-ui.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css/ui-lightness', file: 'jquery.ui.menubar.css')}" type="text/css">
+
+<!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - 
+	Enables media queries in some unsupported browsers-->
+<script type="text/javascript" src="${resource(dir: 'js', file: 'css3-mediaqueries.js')}"></script>	
 
 <script src="${resource(dir: 'js', file: 'jquery-1.7.2.min.js')}"></script>
 <script src="${resource(dir: 'js', file: 'jquery-ui.min.js')}"></script>
-<script
-	src="${resource(dir: 'js/external', file: 'jquery.bgiframe-2.1.2.js')}"></script>
+<script src="${resource(dir: 'js', file: 'less-1.1.3.min.js')}" type="text/javascript"></script>
+<script src="${resource(dir: 'js/external', file: 'jquery.bgiframe-2.1.2.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.core.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.widget.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.datepicker.js')}"></script>
@@ -51,12 +48,6 @@
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.dialog.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.button.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
-<script src="${resource(dir: 'js/ui', file: 'jquery.ui.dataview.js')}"></script>
-<script src="${resource(dir: 'js/ui', file: 'jquery.ui.grid.js')}"></script>
-<script
-	src="${resource(dir: 'js/ui', file: 'jquery.ui.dataviewlocal.js')}"></script>
-<script
-	src="${resource(dir: 'js/ui', file: 'jquery.ui.autocomplete.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.slider.js')}"></script>
 <!-- jquery -->
 
