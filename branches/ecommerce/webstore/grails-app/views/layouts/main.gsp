@@ -29,8 +29,7 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Droid+Sans'
 	rel='stylesheet' type='text/css' />
-<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>	
 
 <!-- jquery -->
 <link rel="stylesheet"

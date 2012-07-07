@@ -71,48 +71,88 @@
 			style="padding-top: 5px; margin-top: 10px;">
 
 			<div class="row">
-				<section>
 					<div class="fourcol box-small">
 						<!-- title -->
-						<h3>Gemstones</h3>
+						<h2 class="title">
+							Gemstone
+						</h2>
 						<div id="content">
-							<br /> <br /> <br /> <br />
+							<div class="left" style="max-width: 200px;">
+								<ul class="ullist">
+									<li>
+										<a href="#">Gemstones</a></li>
+									<li>
+										<a href="#">Gemstones</a></li>	
+								</ul>
+							</div>
+							<div class="right">
+								<img
+									src="${resource(dir: 'images/site/home', file: 'gem-stones.jpg')}"
+									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+							</div>
 						</div>
 					</div>
-				</section>
 
-				<section>
 					<div class="fourcol box-small">
 						<!-- title -->
-						<h3>Jewelry</h3>
-						<div id="contents">
-							<br /> <br /> <br /> <br />
+						<h2 class="title">
+							Jewelry
+						</h2>
+						<div id="content">
+							<div class="left" style="max-width: 200px;">
+								<ul class="ullist">
+									<li>
+										<a href="#">Diamond Jewelry</a></li>
+									<li>
+										<a href="#">Gemstone Jewelry</a></li>
+									<li>
+										<a href="#">Artificial Jewelry</a></li>
+								</ul>
+							</div>
+							<div class="right">
+								<img
+									src="${resource(dir: 'images/site/home', file: 'Dia_Pendant_w_Chain.jpg')}"
+									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+							</div>
 						</div>
 					</div>
-				</section>
 
-				<section>
-					<div class="fourcol box-small">
+					<div class="fourcol last box-small">
 						<!-- title -->
-						<h3>Diamonds</h3>
-						<div id="contents">
-							<br /> <br /> <br /> <br />
+						<h2 class="title">
+							Diamonds
+						</h2>
+						<div id="content">
+							<div class="left" style="max-width: 200px;">
+								<ul class="ullist">
+									<li>
+										<a href="#">Search Diamonds</a></li>
+									<li>
+										<a href="#">Education</a></li>
+								</ul>
+							</div>
+							<div class="right">
+								<img
+									src="${resource(dir: 'images/site/home', file: 'Diamond_Bracelet.jpg')}"
+									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+							</div>
 						</div>
 					</div>
-				</section>
 
 			</div>
 
 			<div class="clearfix"></div>
+			
+			<hr/>
 
 			<div class="row" style="height:50px;">
-				<div class="fourcol" style="border: 1px solid #D9DCDC;">
+				<div class="fourcol">
 					<h3>Stock List</h3>
 					<div id="contents">
 						<br /> <br /> 
 					</div>
 				</div>
-				<div class="eightcol last" style="border: 1px solid #D9DCDC;">
+				<div class="eightcol last">
 					<h3>Diamond Search</h3>
 					<div id="contents">
 						<br /> <br /> 
