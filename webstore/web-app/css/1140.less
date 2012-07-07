@@ -62,7 +62,7 @@ body {
 .row(@columns:@columns) {
 	display: block;
 	width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width);
-	margin: 0 @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1);
+	margin: 20px @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1);
 	// *width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width)-@correction;
 	// *margin: 0 @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1)-@correction;
 	.clearfix;
@@ -106,16 +106,16 @@ figure img {
 /* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
 /* ==================================================================================================================== */
 .container {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 45px;
+	padding-top: 40px;
 }
 
 .row {
 	width: 100%;
 	max-width: 1140px;
 	min-width: 755px;
-	margin-bottom: 2opx;
+	margin-left: 1.5%;
+	margin-top: 1.5%;
+	margin-bottom: 1.5%;
 }
 
 .onecol,.twocol,.threecol,.fourcol,.fivecol,.sixcol,.sevencol,.eightcol,.ninecol,.tencol,.elevencol,.twelvecol
@@ -140,7 +140,7 @@ figure img {
 }
 
 .row .fourcol {
-	width: 30.75%;
+	.column(4);
 }
 
 .row .fivecol {
@@ -148,7 +148,7 @@ figure img {
 }
 
 .row .sixcol {
-	width: 48%;
+	.column(6);
 }
 
 .row .sevencol {
@@ -156,7 +156,7 @@ figure img {
 }
 
 .row .eightcol {
-	width: 65.4%;
+	.column(8);
 }
 
 .row .ninecol {
@@ -218,7 +218,7 @@ figure img {
 }
 
 section {
-	.column(4);
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
@@ -249,9 +249,32 @@ section #search {
 .title {
 	color: #222;
     display: inline;
-    font-family: Tahoma;
-    font-size: 16px;
     letter-spacing: 2px;
-    line-height: 21px;
     text-align: center;
+    padding: 5px 5px;
+    margin-bottom: 10px;
+}
+
+#top-bar {
+	height: 40px;
+	line-height: 1.1em;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 16px;
+	padding-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#top-bar-content {
+	float: left;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.box-small {
+    border: 1px solid #D9DCDC;
+    height: 158px;
+     margin: 5px 5px 0 0; 
+    /* .linear-gradient(#BDD8DA,#ECECEC,100%); */
+	/* .border-radius(5px); */
 }

@@ -4,52 +4,28 @@ HTML {
 
 body {
 	font-size: 11px;
-	color: #000000;
+	color:#666;
 	background: url("../images/site/body-bg.jpg") repeat-x scroll 0 0
 		#4C7094;
-	font-family: Tahoma;
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
+	font-size:13px;
+	line-height:1.6em;
 	margin: 0;
 	padding: 0;
-	text-align: center;
 }
 
-A {
-	color: #006699;
-	cursor: pointer;
-	text-decoration: none;
-}
-
-A:hover {
-	text-decoration: underline;
-}
-
-IMG {
-	border: medium none;
-}
-
-
-H1,H2,H3,H4,.heading,#topnav>UL>LI>A {
-	color: #152551;
-	font-family: CrimsonBNSmallCaps, Perpetua, Palatino, "Times New Roman",
-		Times, serif;
+h1,h2,h3,h4,.heading,#topnav>UL>LI>A {
+	clear: left;
+	color: #5c5a5a;
 	font-weight: 400;
+	margin: 0.7em 0;
+	font-family: 'PT Sans Narrow', sans-serif;
+	/* font-family: 'Yanone Kaffeesatz'; */
 }
 
-H1 A,H2 A,H3 A,H4 A {
-	color: inherit;
-}
-
-H2,#topnav>UL>LI>A {
-	font-size: 20px;
-}
-
-H3 {
-	font-size: 18px;
-}
-
-H4 {
-	font-size: 16px;
-}
+h1{font-size:2.6em;}
+h2{font-size:2.4em;}
+h3{font-size:1.3em;}
 
 #header, #footer {
     clear: both;
@@ -96,29 +72,28 @@ hr {
 
 #content {
     overflow: hidden;
-    width: 1000px;
-}
-#topbar,#bottombar,.serif {
-	font-family: CrimsonBN, Perpetua, Palatino, "Times New Roman", Times,
-		serif;
-	font-weight: 400;
+    width: inherit;
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    padding: 5px 5px;
 }
 
 .top-banner {
 	left: 2.5em;
-	height: 160px;
+	height: 120px;
 	overflow: hidden;
 }
 
 .top-banner div {
 	margin: 0 auto;
-	padding-top: 15px;
+	padding-top: 10px;
 	width: 1000px;
 }
 
 #header #user,#header #contact {
 	position: absolute;
-	right: 10px;
+	right: 50px;
 	text-align: right;
 }
 
@@ -135,6 +110,7 @@ hr {
 }
 
 #header a {
+	text-decoration: none;
 	color: #FFFFFF;
 }
 
@@ -143,7 +119,7 @@ hr {
 }
 
 #header a:hover span {
-	text-decoration: underline;
+	
 }
 
 #bottombar a {
@@ -192,5 +168,37 @@ a {
 #top-banner-slider {
 	float:left;
 	margin-top : 3.2em;
-	margin-left: 2.5em;
+	margin-left: 1.4em;
+	height: 300px;
+	max-height: 300px;
+	overflow: hidden;
 }
+
+#top-banner-slider img {
+	float:left;
+	height: 300px;
+	width: 960px;
+}
+
+/* Clearing fix */
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+
+/* Additional classes */
+.shadow{background:url("../images/site/shadow.png") top center no-repeat;}
+.clear{clear:both;}
+.left{float:left;}
+.right{float:right;}
+
+/* Main navigation menu */
+#nav{float:left;font-family:'Droid Sans',Verdana,Tahoma,sans-serif;text-align:center;}
+#nav ul{list-style:none;margin:5px 5px;}
+#nav ul li{background:none!important;display:inline-block;text-align:right;height:auto;line-height:25px;margin-bottom:0;margin-left:25px;position:relative;}
+#nav ul li a{color:#797777;display:block;font-size:12px;padding-top:0;text-transform:uppercase;}
+#nav ul li a:hover{color:#111;}
+#nav ul li a.current{color:#000;}
+
+/* Footer */
+#footer{clear:both;background-color:#fafafa;}
+#footer p{color:#777;font-size:12px;margin:0;padding:15px 30px;text-align:center;}
+#footer a{color:#777;}
+#footer a:hover{color:#333;}
