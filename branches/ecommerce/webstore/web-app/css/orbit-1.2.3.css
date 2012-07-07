@@ -28,18 +28,6 @@
 	color: #222;
 }
 
-#featured {
-	width: 940px;
-	height: 450px;
-	background: #000 url('../images/orbit/loading.gif') no-repeat center
-		center;
-	overflow: hidden;
-}
-
-#featured>img,#featured>div,#featured>a {
-	display: none;
-}
-
 /* CONTAINER
    ================================================== */
 div.orbit-wrapper {
@@ -153,6 +141,7 @@ div.timer:hover span.pause,span.pause.active {
 	display: none;
 	font-family: "HelveticaNeue", "Helvetica-Neue", Helvetica, Arial,
 		sans-serif;
+	overflow: hidden;
 }
 
 .orbit-wrapper .orbit-caption {
@@ -167,6 +156,7 @@ div.timer:hover span.pause,span.pause.active {
 	right: 0;
 	bottom: 0;
 	width: 100%;
+	margin-left: 1.4em;
 }
 
 /* DIRECTIONAL NAV
@@ -188,12 +178,12 @@ div.slider-nav span {
 
 div.slider-nav span.right {
 	background: url(../images/orbit/right-arrow.png);
-	right: -2.5em;
+	right: -1.4em;
 }
 
 div.slider-nav span.left {
 	background: url(../images/orbit/left-arrow.png);
-	left: 2.5em;
+	left: 1.4em;
 }
 
 /* BULLET NAV

@@ -8,7 +8,7 @@
 	<session-factory>
 		<mapping class='com.openappengine.model.product.Product' />
 		<mapping class='com.openappengine.model.product.ProdProductPrice'/>
-		<mapping class='com.openappengine.model.product.ProductDiamond'/>
+		<mapping class='com.openappengine.model.product.ProductCategory'/>
 		
 	</session-factory>
 
