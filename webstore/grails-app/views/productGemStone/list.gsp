@@ -70,7 +70,7 @@
 							</div>
 							<div class="right">
 								<img
-									src="${resource(dir: 'images/site/home', file: 'gem-stones.jpg')}"
+									src="${resource(dir: 'images/site/home', file: productGemStoneInstance.thumbImg )}"
 									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
 							</div>
 						</div>
