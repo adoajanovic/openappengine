@@ -66,10 +66,36 @@
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.slider.js')}"></script>
 
-<script src="${resource(dir: 'js', file: 'cufon-yui.js')}"></script>
-<script src="${resource(dir: 'js', file: 'Aller.font.js')}"></script>
-
-<!-- jquery -->
+<script type="text/javascript">
+			Cufon.replace('ul.oe_menu div a',{hover: true});
+			Cufon.replace('h1,h2,.oe_heading');
+		</script>
+        <style type="text/css">
+			span.reference{
+				position:fixed;
+				left:0px;
+				bottom:0px;
+				background:#000;
+				width:100%;
+				font-size:10px;
+				line-height:20px;
+				text-align:right;
+				height:20px;
+				-moz-box-shadow:-1px 0px 10px #000;
+				-webkit-box-shadow:-1px 0px 10px #000;
+				box-shadow:-1px 0px 10px #000;
+			}
+			span.reference a{
+				color:#aaa;
+				text-transform:uppercase;
+				text-decoration:none;
+				margin-right:10px;
+				
+			}
+			span.reference a:hover{
+				color:#ddd;
+			}
+		</style>
 
 <g:layoutHead />
 <r:layoutResources />
@@ -117,11 +143,13 @@
 
 		<div id="nav" class="clearfix">
 			<div class="oe_wrapper">
+				<!-- 
 				<div id="oe_overlay" class="oe_overlay"></div>
+				 -->
 				<ul id="oe_menu" class="oe_menu">
 					<!-- Gemstones -->
 					<li><a href="">Gemstones</a>
-						<div>
+						<div class="oe_menu_content">
 							<ul>
 								<li class="oe_heading">Summer 2011</li>
 								<li><a href="#">Milano</a></li>
@@ -152,7 +180,7 @@
 					
 					<!-- Jewelry -->	
 					<li><a href="">Jewelry</a>
-						<div style="left: -111px;">
+						<div class="oe_menu_content" style="left: -111px;">
 							<!-- -112px -->
 							<ul>
 								<li class="oe_heading">Fashion Shows</li>
@@ -182,7 +210,7 @@
 					
 					<!-- Diamonds -->		
 					<li><a href="">Diamonds</a>
-						<div style="left: -223px;">
+						<div class="oe_menu_content" style="left: -223px;">
 							<ul class="oe_full">
 								<li class="oe_heading">Fashion Fragrances</li>
 								<li><a href="#">Deálure</a></li>
@@ -193,7 +221,7 @@
 							</ul>
 						</div></li>
 					<li><a href="">Events</a>
-						<div style="left: -335px;">
+						<div class="oe_menu_content" style="left: -335px;">
 							<ul>
 								<li class="oe_heading">Shows 2010</li>
 								<li><a href="#">Milano</a></li>
@@ -221,7 +249,7 @@
 					
 					<!-- Build Your Own Jewelry -->	
 					<li><a href="">Build Your Own Jewelry</a>
-						<div style="left: -447px;">
+						<div class="oe_menu_content" style="left: -447px;">
 							<ul>
 								<li class="oe_heading">Europe</li>
 								<li><a href="#">Milano</a></li>
@@ -248,7 +276,7 @@
 					
 					<!-- Gifts -->	
 					<li><a href="">Gifts</a>
-						<div style="left: -559px;">
+						<div class="oe_menu_content" style="left: -559px;">
 							<ul>
 								<li class="oe_heading">Europe</li>
 								<li><a href="#">Milano</a></li>
@@ -275,7 +303,7 @@
 					
 					<!-- Education -->	
 					<li><a href="">Education</a>
-						<div style="left: -671px;">
+						<div class="oe_menu_content" style="left: -671px;">
 							<ul>
 								<li class="oe_heading">Europe</li>
 								<li><a href="#">Milano</a></li>
@@ -302,7 +330,7 @@
 					
 					<!-- Sale -->
 					<li><a href="">Sale</a>
-						<div style="left: -783px;">
+						<div  class="oe_menu_content" style="left: -783px;">
 							<ul>
 								<li class="oe_heading">Europe</li>
 								<li><a href="#">Milano</a></li>
@@ -331,7 +359,7 @@
 		</div>
 		
 		<!-- Main Content -->
-		<div id="content">
+		<div id="page-content">
 			<g:layoutBody />
 		</div>
 
@@ -341,34 +369,35 @@
 		
 		<script type="text/javascript">
             $(function() {
-				var $oe_menu		= $('#oe_menu');
+				var $oe_menu		= $('#oe_menu ');
 				var $oe_menu_items	= $oe_menu.children('li');
-				var $oe_overlay		= $('#oe_overlay');
+				//var $oe_overlay		= $('#oe_overlay');
 
                 $oe_menu_items.bind('mouseenter',function(){
 					var $this = $(this);
 					$this.addClass('slided selected');
-					$this.children('div').css('z-index','9999').stop(true,true).slideDown(200,function(){
-						$oe_menu_items.not('.slided').children('div').hide();
+					$this.children('div.oe_menu_content').css('z-index','9999').stop(true,true).slideDown(200,function(){
+						$oe_menu_items.not('.slided').children('div.oe_menu_content').hide();
 						$this.removeClass('slided');
 					});
 				}).bind('mouseleave',function(){
 					var $this = $(this);
-					$this.removeClass('selected').children('div').css('z-index','1');
+					$this.removeClass('selected').children('div.oe_menu_content').css('z-index','1');
 				});
 
 				$oe_menu.bind('mouseenter',function(){
 					var $this = $(this);
-					$oe_overlay.stop(true,true).fadeTo(200, 0.6);
-					$this.addClass('hovered');
+					//$oe_overlay.stop(true,true).fadeTo(200, 0.6);
+					//$this.addClass('hovered');
 				}).bind('mouseleave',function(){
 					var $this = $(this);
-					$this.removeClass('hovered');
-					$oe_overlay.stop(true,true).fadeTo(200, 0);
-					$oe_menu_items.children('div').hide();
+					//$this.removeClass('hovered');
+					//$oe_overlay.stop(true,true).fadeTo(200, 0);
+					$oe_menu_items.children('div.oe_menu_content').hide();
 				})
             });
         </script>
+        
 		<g:javascript library="application" />
 		<r:layoutResources />
 	</div>

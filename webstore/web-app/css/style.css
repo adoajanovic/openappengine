@@ -47,7 +47,7 @@ ul.ullist li>a {
 	color: #336699;
 	font-size: 13px;
 	text-decoration: none;
-	cursor: auto;
+	cursor: pointer;
 }
 
 #header, #footer {
@@ -93,7 +93,7 @@ hr {
 	margin: 5px 30px 10px;
 }
 
-#content {
+#page-content{
     overflow: hidden;
     width: inherit;
     display: block;
