@@ -59,6 +59,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${productGemStoneInstance?.detImg}">
+				<li class="fieldcontain">
+					<span id="detImg-label" class="property-label"><g:message code="productGemStone.detImg.label" default="Det Img" /></span>
+					
+						<span class="property-value" aria-labelledby="detImg-label"><g:fieldValue bean="${productGemStoneInstance}" field="detImg"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${productGemStoneInstance?.grade}">
 				<li class="fieldcontain">
 					<span id="grade-label" class="property-label"><g:message code="productGemStone.grade.label" default="Grade" /></span>
@@ -309,6 +318,15 @@
 					<span id="shape-label" class="property-label"><g:message code="productGemStone.shape.label" default="Shape" /></span>
 					
 						<span class="property-value" aria-labelledby="shape-label"><g:fieldValue bean="${productGemStoneInstance}" field="shape"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${productGemStoneInstance?.thumbImg}">
+				<li class="fieldcontain">
+					<span id="thumbImg-label" class="property-label"><g:message code="productGemStone.thumbImg.label" default="Thumb Img" /></span>
+					
+						<span class="property-value" aria-labelledby="thumbImg-label"><g:fieldValue bean="${productGemStoneInstance}" field="thumbImg"/></span>
 					
 				</li>
 				</g:if>
