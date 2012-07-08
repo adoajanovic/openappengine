@@ -7,7 +7,7 @@ class ProdProductPrice {
 	
 	String ppCurrencyUomId
 	Date ppFromDate
-	BigDecimal ppPrice
+	BigDecimal ppPrice = 0
 	Date ppToDate
 	
 	static belogsTo = [prodProduct : Product]
