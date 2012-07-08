@@ -80,7 +80,8 @@
 							<div class="left" style="max-width: 200px;">
 								<ul class="ullist">
 									<li>
-										<a href="#">Gemstones</a></li>
+										<g:link controller="ProductGemStone" action="list"> Gemstones </g:link>
+										</li>
 									<li>
 										<a href="#">Gemstones</a></li>	
 								</ul>
