@@ -46,6 +46,8 @@
 			</div>
 		</div>
 		
+		<hr/>
+		
 		<div style="padding-top: 5px;">
 			<div id="top-banner-slider">
 				<div class="top-banner-slider-content">
