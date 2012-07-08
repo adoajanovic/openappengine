@@ -35,12 +35,13 @@ ul.ullist {
 	padding: 0;
 }
 
-div > ul.list > li {
-	margin: 5px;
-	background-image: url("../images/site/next.gif");
+div > ul.ullist > li {
+	margin: 0px;
+	/* background-image: url("../images/site/next.gif") ;
 	background-repeat: no-repeat;
-	background-position: 0 .4em;
-	padding-left: .6em;
+	background-position: 0 .4em; */
+	list-style-type: square;
+	padding-left: .4em;
 }
 
 ul.ullist li>a {
@@ -95,7 +96,7 @@ hr {
 #page-content{
     overflow: hidden;
     width: inherit;
-    display: block;
+    display: inline;
     text-align: left;
     font-size: 12px;
     padding: 5px 5px;
