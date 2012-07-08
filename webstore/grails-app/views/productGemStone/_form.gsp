@@ -34,6 +34,14 @@
 	<g:textField name="cut" value="${productGemStoneInstance?.cut}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: productGemStoneInstance, field: 'detImg', 'error')} ">
+	<label for="detImg">
+		<g:message code="productGemStone.detImg.label" default="Det Img" />
+		
+	</label>
+	<g:textField name="detImg" value="${productGemStoneInstance?.detImg}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: productGemStoneInstance, field: 'grade', 'error')} ">
 	<label for="grade">
 		<g:message code="productGemStone.grade.label" default="Grade" />
@@ -256,6 +264,14 @@
 		
 	</label>
 	<g:textField name="shape" value="${productGemStoneInstance?.shape}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: productGemStoneInstance, field: 'thumbImg', 'error')} ">
+	<label for="thumbImg">
+		<g:message code="productGemStone.thumbImg.label" default="Thumb Img" />
+		
+	</label>
+	<g:textField name="thumbImg" value="${productGemStoneInstance?.thumbImg}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: productGemStoneInstance, field: 'traetement', 'error')} ">
