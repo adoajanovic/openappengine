@@ -5,7 +5,7 @@ HTML {
 body {
 	font-size: 11px;
 	color:#666;
-	background: url("../images/site/body-bg.jpg") repeat-x scroll 0 0
+	background: url("../images/site/bg_gradient_gray.png") repeat-x scroll 0 0
 		#4C7094;
 	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
 	font-size:13px;
@@ -13,6 +13,10 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
+a{color:#a54569;text-decoration:none;}
+a:hover{color:#333;text-decoration:none;}
+a img{border:none;}
 
 h1,h2,h3,h4,.heading,#topnav>UL>LI>A {
 	clear: left;
@@ -31,12 +35,19 @@ ul.ullist {
 	padding: 0;
 }
 
+div > ul.list > li {
+	margin: 5px;
+	background-image: url("../images/site/next.gif");
+	background-repeat: no-repeat;
+	background-position: 0 .4em;
+	padding-left: .6em;
+}
+
 ul.ullist li>a {
 	color: #336699;
 	font-size: 13px;
 	text-decoration: none;
-	margin: 0;
-	list-style: disc;
+	cursor: auto;
 }
 
 #header, #footer {
@@ -152,6 +163,11 @@ hr {
 	height: auto;
 	margin: auto;
 	background-color: #FFFFFF;
+	
+	/*Shadow*/
+	-webkit-box-shadow: 2px 2px  #CCC,  -1px 0 1px #666;   
+	-moz-box-shadow: 2px 2px  #CCC,  -2px 0 2px #666; 
+	box-shadow:2px 2px  #CCC,  -2px 0 2px #666; 
 }
 #user {
 	font-size: 11px;
@@ -166,6 +182,7 @@ hr {
 }
 
 #user a i {
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
 	font-size: 13px;
 }
 
@@ -199,14 +216,130 @@ hr {
 
 /* Main navigation menu */
 #nav{float:left;font-family:'Droid Sans',Verdana,Tahoma,sans-serif;text-align:center;}
-#nav ul{list-style:none;margin:5px 5px;}
+/* #nav ul{list-style:none;margin:5px 5px;}
 #nav ul li{background:none!important;display:inline-block;text-align:right;height:auto;line-height:25px;margin-bottom:0;margin-left:25px;position:relative;}
 #nav ul li a{color:#797777;display:block;font-size:12px;padding-top:0;text-transform:uppercase;}
 #nav ul li a:hover{color:#111;}
-#nav ul li a.current{color:#000;}
+#nav ul li a.current{color:#000;} */
+
+.oe_overlay{
+	background:#eee;
+	opacity:0;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+ul.oe_menu{
+	list-style:none;
+	height:50px;
+	position:relative;
+	margin:10px 0 0 20px;
+	width:inherit;
+	float:left;
+	clear:both;
+}
+ul.oe_menu > li{
+	width:112px;
+	height:40px;
+	padding-bottom:2px;
+	float:left;
+	position:relative;
+	border-right: 1px solid #D9DCDC;
+}
+ul.oe_menu > li:last-child {
+	border-right-style: none;
+}
+ul.oe_menu > li > a{
+	display:block;
+	background-color:#fff;
+	color:#000;
+	text-decoration:none;
+	font-family:'Droid Sans',Verdana,Tahoma,sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	width:90px;
+	height:30px;
+	padding:10px;
+	margin:1px;
+	/* text-shadow:0px 0px 1px #000; */
+	opacity:0.8;
+}
+ul.oe_menu > li > a:hover,
+ul.oe_menu > li.selected > a{
+	background:#fff;
+	color:#AA0114;
+	opacity:1.0;
+}
+.oe_wrapper ul.hovered > li > a{
+	background:#fff;
+	text-shadow:0px 0px 1px #FFF;
+}
+ul.oe_menu div{
+	position:absolute;
+	top:50px;
+	left:0px;
+	background:#fff;
+	width:800px;
+	height:180px;
+	padding:30px;
+	display:none;
+	
+	-webkit-box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC;   
+	-moz-box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC; 
+	box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC; 
+}
+ul.oe_menu div ul li a{
+	text-decoration:none;
+	color:#222;
+	padding:2px 2px 2px 4px;
+	margin:2px;
+	display:block;
+	font-size:12px;
+}
+ul.oe_menu div ul.oe_full{
+	width:100%;
+}
+ul.oe_menu div ul li a:hover{
+	background:#AA0114;
+	color:#eee;
+}
+ul.oe_menu li ul{
+	list-style:none;
+	float:left;
+	width: 150px;
+	margin-right:10px;
+}
+li.oe_heading{
+	color:#aaa;
+	font-size:16px;
+	margin-bottom:10px;
+	padding-bottom:6px;
+	border-bottom:1px solid #ddd;
+}
 
 /* Footer */
-#footer{clear:both;background-color:#fafafa;}
-#footer p{color:#777;font-size:12px;margin:0;padding:15px 30px;text-align:center;}
-#footer a{color:#777;}
-#footer a:hover{color:#333;}
+#footer {
+	clear: both;
+	background-color: #fafafa;
+	padding:10px;
+	margin-left: -2.5px;
+	margin-right: 4px;
+}
+
+#footer p {
+	color: #777;
+	font-size: 12px;
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+}
+
+#footer a {
+	color: #777;
+}
+
+#footer a:hover {
+	color: #333;
+}

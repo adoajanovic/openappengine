@@ -65,6 +65,10 @@
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.button.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.slider.js')}"></script>
+
+<script src="${resource(dir: 'js', file: 'cufon-yui.js')}"></script>
+<script src="${resource(dir: 'js', file: 'Aller.font.js')}"></script>
+
 <!-- jquery -->
 
 <g:layoutHead />
@@ -112,29 +116,265 @@
 
 
 		<div id="nav" class="clearfix">
-			<ul>
-				<li><a class="current" href="index.html">Default layout</a></li>
-				<li><a href="2-columns-left.html">2 columns (left)</a></li>
-				<li><a href="2-columns-right.html">2 columns (right)</a></li>
-				<li><a href="3-columns.html">3 columns</a></li>
-				<li><a href="full-width.html">Full width</a></li>
-			</ul>
+			<div class="oe_wrapper">
+				<div id="oe_overlay" class="oe_overlay"></div>
+				<ul id="oe_menu" class="oe_menu">
+					<!-- Gemstones -->
+					<li><a href="">Gemstones</a>
+						<div>
+							<ul>
+								<li class="oe_heading">Summer 2011</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Special Events</a></li>
+								<li><a href="#">Runway Show</a></li>
+								<li><a href="#">Overview</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Winter 2010</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">Behind the scenes</a></li>
+								<li><a href="#">Interview</a></li>
+								<li><a href="#">Photos</a></li>
+								<li><a href="#">Download</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Categories</li>
+								<li><a href="#">Casual</a></li>
+								<li><a href="#">Business</a></li>
+								<li><a href="#">Underwear</a></li>
+								<li><a href="#">Nature Pure</a></li>
+								<li><a href="#">Swimwear</a></li>
+								<li><a href="#">Evening</a></li>
+							</ul>
+						</div></li>
+					
+					<!-- Jewelry -->	
+					<li><a href="">Jewelry</a>
+						<div style="left: -111px;">
+							<!-- -112px -->
+							<ul>
+								<li class="oe_heading">Fashion Shows</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Events</li>
+								<li><a href="#">Fashion Party 2011</a></li>
+								<li><a href="#">Evening specials</a></li>
+								<li><a href="#">Fashion Day Milano</a></li>
+								<li><a href="#">Model Workshops</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Media</li>
+								<li><a href="#">Wallpapers</a></li>
+								<li><a href="#">Downloads</a></li>
+								<li><a href="#">Images</a></li>
+								<li><a href="#">Contest 2011</a></li>
+								<li><a href="#">Fashion Mania</a></li>
+								<li><a href="#">Green Earth Day</a></li>
+							</ul>
+						</div></li>
+					
+					<!-- Diamonds -->		
+					<li><a href="">Diamonds</a>
+						<div style="left: -223px;">
+							<ul class="oe_full">
+								<li class="oe_heading">Fashion Fragrances</li>
+								<li><a href="#">Deálure</a></li>
+								<li><a href="#">Violet Woman</a></li>
+								<li><a href="#">Deep Blue for Men</a></li>
+								<li><a href="#">New York, New York</a></li>
+								<li><a href="#">Illusion</a></li>
+							</ul>
+						</div></li>
+					<li><a href="">Events</a>
+						<div style="left: -335px;">
+							<ul>
+								<li class="oe_heading">Shows 2010</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Shows 2011</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Special Events</li>
+								<li><a href="#">Fashion Party 2011</a></li>
+								<li><a href="#">Fashion Countdown Party 2010</a></li>
+								<li><a href="#">Fashion Day Milano</a></li>
+								<li><a href="#">Model Workshops</a></li>
+							</ul>
+						</div></li>
+					
+					<!-- Build Your Own Jewelry -->	
+					<li><a href="">Build Your Own Jewelry</a>
+						<div style="left: -447px;">
+							<ul>
+								<li class="oe_heading">Europe</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Asia</li>
+								<li><a href="#">Hong Kong</a></li>
+								<li><a href="#">Tokio</a></li>
+								<li><a href="#">New Delhi</a></li>
+								<li><a href="#">Beijing</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">United States</li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">Los Angeles</a></li>
+								<li><a href="#">Seattle</a></li>
+								<li><a href="#">Miami</a></li>
+							</ul>
+						</div>
+					</li>
+					
+					<!-- Gifts -->	
+					<li><a href="">Gifts</a>
+						<div style="left: -559px;">
+							<ul>
+								<li class="oe_heading">Europe</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Asia</li>
+								<li><a href="#">Hong Kong</a></li>
+								<li><a href="#">Tokio</a></li>
+								<li><a href="#">New Delhi</a></li>
+								<li><a href="#">Beijing</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">United States</li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">Los Angeles</a></li>
+								<li><a href="#">Seattle</a></li>
+								<li><a href="#">Miami</a></li>
+							</ul>
+						</div>
+					</li>
+					
+					<!-- Education -->	
+					<li><a href="">Education</a>
+						<div style="left: -671px;">
+							<ul>
+								<li class="oe_heading">Europe</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Asia</li>
+								<li><a href="#">Hong Kong</a></li>
+								<li><a href="#">Tokio</a></li>
+								<li><a href="#">New Delhi</a></li>
+								<li><a href="#">Beijing</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">United States</li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">Los Angeles</a></li>
+								<li><a href="#">Seattle</a></li>
+								<li><a href="#">Miami</a></li>
+							</ul>
+						</div>
+					</li>
+					
+					<!-- Sale -->
+					<li><a href="">Sale</a>
+						<div style="left: -783px;">
+							<ul>
+								<li class="oe_heading">Europe</li>
+								<li><a href="#">Milano</a></li>
+								<li><a href="#">Paris</a></li>
+								<li><a href="#">Berlin</a></li>
+								<li><a href="#">London</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">Asia</li>
+								<li><a href="#">Hong Kong</a></li>
+								<li><a href="#">Tokio</a></li>
+								<li><a href="#">New Delhi</a></li>
+								<li><a href="#">Beijing</a></li>
+							</ul>
+							<ul>
+								<li class="oe_heading">United States</li>
+								<li><a href="#">New York</a></li>
+								<li><a href="#">Los Angeles</a></li>
+								<li><a href="#">Seattle</a></li>
+								<li><a href="#">Miami</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>
-
+		
 		<!-- Main Content -->
 		<div id="content">
 			<g:layoutBody />
 		</div>
 
-		<div id="footer" class="shadow">
-			<p>&copy; 2012 Your Name
-		</div>
-
 		<div id="spinner" class="spinner" style="display: none;">
 			<g:message code="spinner.alt" default="Loading&hellip;" />
 		</div>
+		
+		<script type="text/javascript">
+            $(function() {
+				var $oe_menu		= $('#oe_menu');
+				var $oe_menu_items	= $oe_menu.children('li');
+				var $oe_overlay		= $('#oe_overlay');
+
+                $oe_menu_items.bind('mouseenter',function(){
+					var $this = $(this);
+					$this.addClass('slided selected');
+					$this.children('div').css('z-index','9999').stop(true,true).slideDown(200,function(){
+						$oe_menu_items.not('.slided').children('div').hide();
+						$this.removeClass('slided');
+					});
+				}).bind('mouseleave',function(){
+					var $this = $(this);
+					$this.removeClass('selected').children('div').css('z-index','1');
+				});
+
+				$oe_menu.bind('mouseenter',function(){
+					var $this = $(this);
+					$oe_overlay.stop(true,true).fadeTo(200, 0.6);
+					$this.addClass('hovered');
+				}).bind('mouseleave',function(){
+					var $this = $(this);
+					$this.removeClass('hovered');
+					$oe_overlay.stop(true,true).fadeTo(200, 0);
+					$oe_menu_items.children('div').hide();
+				})
+            });
+        </script>
 		<g:javascript library="application" />
 		<r:layoutResources />
+	</div>
+	
+	<div id="footer" class="shadow">
+			<p>&copy; 2012 Your Name
 	</div>
 </body>
 </html>
