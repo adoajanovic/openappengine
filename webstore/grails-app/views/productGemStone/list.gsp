@@ -8,6 +8,15 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
+	
+	<div id="top-bar">
+			<div id="top-bar-content">
+				
+			</div>
+		</div>
+		
+		<div class="clearfix shadow"
+			style="padding-top: 5px; margin-top: 10px;">
 		<a href="#list-productGemStone" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
@@ -21,7 +30,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<table>
-				<thead>
+				<!--  thead>
 					<tr>
 					
 						<g:sortableColumn property="carat" title="${message(code: 'productGemStone.carat.label', default: 'Carat')}" />
@@ -37,30 +46,57 @@
 						<g:sortableColumn property="hardness" title="${message(code: 'productGemStone.hardness.label', default: 'Hardness')}" />
 					
 					</tr>
-				</thead>
+				</thead-->
 				<tbody>
+			
 				<g:each in="${productGemStoneInstanceList}" status="i" var="productGemStoneInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<div class="${(i % 3) == 0 ? 'even' : 'odd'}">
+					<div class="row">
+					<div class="fourcol box-small">
+						<!-- title -->
+						<h2 class="title">
+							${fieldValue(bean: productGemStoneInstance, field: "pdDescription")}
+						</h2>
+						<div id="content">
+							<div class="left" style="max-width: 200px;">
+								<ul class="ullist">
+									<li>
+										<g:link action="show" id="${productGemStoneInstance.id}">${fieldValue(bean: productGemStoneInstance, field: "pdProductName")}</g:link></td>
+									<li>
+										Grade : <a href="#">${fieldValue(bean: productGemStoneInstance, field: "grade")}</a></li>
+									<li><g:actionSubmit class="save" action="AddtoCart" value="Add to Cart" /></li>	
+									<li>${fieldValue(bean: productGemStoneInstance.prodProductPrices, field: "ppPrice")}</li>
+								</ul>
+							</div>
+							<div class="right">
+								<img
+									src="${resource(dir: 'images/site/home', file: 'gem-stones.jpg')}"
+									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+							</div>
+						</div>
+					</div>
 					
-						<td><g:link action="show" id="${productGemStoneInstance.id}">${fieldValue(bean: productGemStoneInstance, field: "carat")}</g:link></td>
+					<!-- 
+						${fieldValue(bean: productGemStoneInstance, field: "clarity")}
 					
-						<td>${fieldValue(bean: productGemStoneInstance, field: "clarity")}</td>
+						${fieldValue(bean: productGemStoneInstance, field: "color")}
 					
-						<td>${fieldValue(bean: productGemStoneInstance, field: "color")}</td>
+						${fieldValue(bean: productGemStoneInstance, field: "cut")}
 					
-						<td>${fieldValue(bean: productGemStoneInstance, field: "cut")}</td>
+						${fieldValue(bean: productGemStoneInstance, field: "grade")}
 					
-						<td>${fieldValue(bean: productGemStoneInstance, field: "grade")}</td>
-					
-						<td>${fieldValue(bean: productGemStoneInstance, field: "hardness")}</td>
-					
-					</tr>
+						${fieldValue(bean: productGemStoneInstance, field: "hardness")}
+					-->
+				  </div>
 				</g:each>
+				
 				</tbody>
+			
 			</table>
 			<div class="pagination">
 				<g:paginate total="${productGemStoneInstanceTotal}" />
 			</div>
+		</div>
 		</div>
 	</body>
 </html>
