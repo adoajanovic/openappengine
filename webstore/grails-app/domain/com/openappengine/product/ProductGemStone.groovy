@@ -14,6 +14,8 @@ class ProductGemStone extends Product{
 	String origin
 	String hardness
 	String traetement
+	String thumbImg
+	String detImg
 	
 
     static constraints = {
