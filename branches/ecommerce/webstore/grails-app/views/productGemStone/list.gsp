@@ -65,7 +65,7 @@
 									<li>
 										Grade : <a href="#">${fieldValue(bean: productGemStoneInstance, field: "grade")}</a></li>
 									<li><g:actionSubmit class="save" action="AddtoCart" value="Add to Cart" /></li>	
-									<li>${fieldValue(bean: productGemStoneInstance.prodProductPrices, field: "ppPrice")}</li>
+									<li>${productGemStoneInstance.prodProductPrices.ppPrice}</li>
 								</ul>
 							</div>
 							<div class="right">
