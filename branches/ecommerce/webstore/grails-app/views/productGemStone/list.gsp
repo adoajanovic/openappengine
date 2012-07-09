@@ -7,59 +7,68 @@
 <title>Gemstone</title>
 </head>
 <body>
-
-	<div class="row clearfix shadow" style="margin-top: 3.8em;">
-		<!--
-			TODO : Change inline style to css (class : productCategoryHeader) 
-		 -->
-		<div class="left sixcol">
-			<h1 class="list_header">
-				Featured Gemstones
-			</h1>
+	<div class="row">
+		<div class="left threecol product-filter">
+			<div class="row clearfix">
+				<h1 class="filter-heading">Narrow Results</h1>
+			</div>
+			
+			<hr />
+			
+			<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /><br /> <br /> 
 		</div>
-	</div>
 
-	<hr />
+		<!--
+			margin-left: -2.5em; : Provides more space in the list area 
+		 -->
+		<div class="right product-list-wrapper" style="margin-left: -2.5em;">
+			<div class="row clearfix">
+				<h1 class="promo-area">Featured Gemstones</h1>
+			</div>
 
-	<div id="list-productGemStone" class="content scaffold-list"
-		role="main">
-		<g:each in="${productGemStoneInstanceList}" status="i"
-			var="productGemStoneInstance">
-			<div class="${(i % 3) == 0 ? 'even' : 'odd'}">
-				<div class="row">
-					<div class="fourcol box-small">
-						<!-- title -->
-						<h2 class="title">
-							${fieldValue(bean: productGemStoneInstance, field: "pdDescription")}
-						</h2>
-						<div id="content">
-							<div class="left" style="max-width: 200px;">
-								<ul class="ullist">
-									<li><g:link action="show"
-											id="${productGemStoneInstance.id}">
-											${fieldValue(bean: productGemStoneInstance, field: "pdProductName")}
-										</g:link>
-										</td>
-									<li>Grade : <a href="#"> ${fieldValue(bean: productGemStoneInstance, field: "grade")}
-									</a></li>
-									<li><g:actionSubmit class="save" action="AddtoCart"
-											value="Add to Cart" /></li>
-									<li>
-										${productGemStoneInstance.prodProductPrices.ppPrice}
-									</li>
-								</ul>
-							</div>
-							<div class="right">
-								<img
-									src="${resource(dir: 'images/site/home', file: productGemStoneInstance.thumbImg )}"
-									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+			<hr />
+
+			<div id="product-list">
+				<g:each in="${productGemStoneInstanceList}" status="i"
+					var="productGemStoneInstance">
+					<div class="${(i % 3) == 0 ? '' : ''}">
+						<div class="row" style="width:100%">
+							<!--
+								padding-right: 25px; : add space between the products
+							 -->
+							<div class="threecol box-small" style="padding-right: 25px;">
+								<div id="content">
+									<img class="product-img"
+										src="${resource(dir: 'images/site/home', file: productGemStoneInstance.thumbImg )}" />
+									<!-- Product Name and Description -->
+									<div class='product-name'>
+										${fieldValue(bean: productGemStoneInstance, field: "pdDescription")}
+									</div>
+									<div>
+										<ul class="ullist">
+											<li>Grade : <a href="#"> ${fieldValue(bean: productGemStoneInstance, field: "grade")}
+											</a>
+											</li>
+											<li>
+												${productGemStoneInstance.prodProductPrices.ppPrice}
+											</li>
+										</ul>
+									</div>
+									<div class="add-to-cart">
+										<g:actionSubmit class="save" action="AddtoCart"
+											value="Add to Cart" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+				</g:each>
+				<div class="pagination">
+					<g:paginate total="${productGemStoneInstanceTotal}" />
 				</div>
-		</g:each>
-		<div class="pagination">
-			<g:paginate total="${productGemStoneInstanceTotal}" />
+			</div>
 		</div>
 	</div>
 </body>

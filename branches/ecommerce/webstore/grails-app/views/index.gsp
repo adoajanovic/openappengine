@@ -89,7 +89,7 @@
 							<div class="right">
 								<img
 									src="${resource(dir: 'images/site/home', file: 'gem-stones.jpg')}"
-									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+									class="categoryThumbImages" />
 							</div>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 							<div class="right">
 								<img
 									src="${resource(dir: 'images/site/home', file: 'Dia_Pendant_w_Chain.jpg')}"
-									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+									class="categoryThumbImages" />
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 							<div class="right">
 								<img
 									src="${resource(dir: 'images/site/home', file: 'Diamond_Bracelet.jpg')}"
-									style="width: 180px; height: 120px; padding: 5px; margin-top: 25px; display: block;" />
+									class="categoryThumbImages" />
 							</div>
 						</div>
 					</div>

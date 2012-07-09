@@ -36,11 +36,12 @@ ul.ullist {
 }
 
 div > ul.ullist > li {
-	margin: 0px;
+	/* margin: 0px; */
+	margin-left: 2em; 
 	/* background-image: url("../images/site/next.gif") ;
 	background-repeat: no-repeat;
 	background-position: 0 .4em; */
-	list-style-type: square;
+	list-style-type: circle;
 	padding-left: .4em;
 }
 
@@ -75,7 +76,8 @@ ul.ullist li>a {
 	border-style: none solid;
 	border-width: medium 1px;
 	color: #FFFFFF;
-	width: 1002px;
+	/* width: 1002px; */
+	width:auto;
 	height: 100px;
 	z-index: 100;
 }
@@ -159,7 +161,8 @@ hr {
 }
 
 #wrap {
-	width: 1002px;
+	/* width: 1002px; */
+	width: 1140px;
 	height: auto;
 	margin: auto;
 	background-color: #FFFFFF;
@@ -192,8 +195,8 @@ hr {
 
 #top-banner-slider {
 	float:left;
-	margin-top : 3.2em;
-	margin-left: 1.4em;
+	margin-top : 2.2em;
+	margin-left: 4.4em;
 	height: 300px;
 	max-height: 300px;
 	overflow: hidden;
@@ -202,7 +205,7 @@ hr {
 #top-banner-slider img {
 	float:left;
 	height: 300px;
-	width: 960px;
+	width: 1004px;
 }
 
 /* Clearing fix */
@@ -215,7 +218,7 @@ hr {
 .right{float:right;}
 
 /* Main navigation menu */
-#nav{float:left;font-family:'Droid Sans',Verdana,Tahoma,sans-serif;text-align:center;}
+#nav{float:left;font-family:'Droid Sans',Verdana,Tahoma,sans-serif;text-align:center;margin-bottom: 0.7em;}
 /* #nav ul{list-style:none;margin:5px 5px;}
 #nav ul li{background:none!important;display:inline-block;text-align:right;height:auto;line-height:25px;margin-bottom:0;margin-left:25px;position:relative;}
 #nav ul li a{color:#797777;display:block;font-size:12px;padding-top:0;text-transform:uppercase;}
@@ -286,10 +289,11 @@ ul.oe_menu div{
 	padding:30px;
 	display:none;
 	
-	-webkit-box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC;   
-	-moz-box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC; 
-	box-shadow: 1px 1px  #CCC,  -1px 0 1px #CCC; 
+	-webkit-box-shadow: 1px 1px  #666,  -2px 0 2px #eee;   
+	-moz-box-shadow: 1px 1px  #666,  -2px 0 2px #eee; 
+	box-shadow: 1px 1px  #666,  -2px 0 2px #eee;
 }
+
 ul.oe_menu div ul li a{
 	text-decoration:none;
 	color:#222;
@@ -324,8 +328,8 @@ li.oe_heading{
 	clear: both;
 	background-color: #fafafa;
 	padding:10px;
-	margin-left: -2.5px;
-	margin-right: 4px;
+	/* margin-left: 3.0px;
+	margin-right: 4px; */
 }
 
 #footer p {
@@ -342,16 +346,4 @@ li.oe_heading{
 
 #footer a:hover {
 	color: #333;
-}
-
-/**
-	Product Category Classes
-*/
-.product_category {
-
-}
-
-.list_header  {
-	margin-left: 10px;
-    margin-top: 30px;
 }

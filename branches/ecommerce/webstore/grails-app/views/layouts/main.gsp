@@ -359,7 +359,7 @@
 		</div>
 		
 		<!-- Main Content -->
-		<div id="page-content">
+		<div id="page-content" class="clearfix shadow">
 			<g:layoutBody />
 		</div>
 
