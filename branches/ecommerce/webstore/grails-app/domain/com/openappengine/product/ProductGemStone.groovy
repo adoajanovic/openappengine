@@ -17,7 +17,6 @@ class ProductGemStone extends Product{
 	String thumbImg
 	String detImg
 	
-
     static constraints = {
     }
 }
