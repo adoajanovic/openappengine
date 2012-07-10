@@ -3,6 +3,9 @@ package com.openappengine.product
 
 
 import org.junit.*
+
+import com.openappengine.model.product.ProdProductPrice
+
 import grails.test.mixin.*
 
 @TestFor(ProdProductPriceController)

@@ -2,6 +2,8 @@ package com.openappengine.product
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import com.openappengine.model.product.ProdProductPrice
+
 class ProdProductPriceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

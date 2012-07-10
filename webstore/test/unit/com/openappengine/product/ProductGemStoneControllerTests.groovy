@@ -3,11 +3,15 @@ package com.openappengine.product
 
 
 import org.junit.*
+
+import com.openappengine.model.product.ProdGemstone
+import com.openappengine.model.product.ProdGemstoneController
+
 import grails.test.mixin.*
 
-@TestFor(ProductGemStoneController)
-@Mock(ProductGemStone)
-class ProductGemStoneControllerTests {
+@TestFor(ProdGemstoneController)
+@Mock(ProdGemstone)
+class ProdGemstoneControllerTests {
 
 
     def populateValidParams(params) {
@@ -18,142 +22,142 @@ class ProductGemStoneControllerTests {
 
     void testIndex() {
         controller.index()
-        assert "/productGemStone/list" == response.redirectedUrl
+        assert "/ProdGemstone/list" == response.redirectedUrl
     }
 
     void testList() {
 
         def model = controller.list()
 
-        assert model.productGemStoneInstanceList.size() == 0
-        assert model.productGemStoneInstanceTotal == 0
+        assert model.ProdGemstoneInstanceList.size() == 0
+        assert model.ProdGemstoneInstanceTotal == 0
     }
 
     void testCreate() {
        def model = controller.create()
 
-       assert model.productGemStoneInstance != null
+       assert model.ProdGemstoneInstance != null
     }
 
     void testSave() {
         controller.save()
 
-        assert model.productGemStoneInstance != null
-        assert view == '/productGemStone/create'
+        assert model.ProdGemstoneInstance != null
+        assert view == '/ProdGemstone/create'
 
         response.reset()
 
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/productGemStone/show/1'
+        assert response.redirectedUrl == '/ProdGemstone/show/1'
         assert controller.flash.message != null
-        assert ProductGemStone.count() == 1
+        assert ProdGemstone.count() == 1
     }
 
     void testShow() {
         controller.show()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/productGemStone/list'
+        assert response.redirectedUrl == '/ProdGemstone/list'
 
 
         populateValidParams(params)
-        def productGemStone = new ProductGemStone(params)
+        def ProdGemstone = new ProdGemstone(params)
 
-        assert productGemStone.save() != null
+        assert ProdGemstone.save() != null
 
-        params.id = productGemStone.id
+        params.id = ProdGemstone.id
 
         def model = controller.show()
 
-        assert model.productGemStoneInstance == productGemStone
+        assert model.ProdGemstoneInstance == ProdGemstone
     }
 
     void testEdit() {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/productGemStone/list'
+        assert response.redirectedUrl == '/ProdGemstone/list'
 
 
         populateValidParams(params)
-        def productGemStone = new ProductGemStone(params)
+        def ProdGemstone = new ProdGemstone(params)
 
-        assert productGemStone.save() != null
+        assert ProdGemstone.save() != null
 
-        params.id = productGemStone.id
+        params.id = ProdGemstone.id
 
         def model = controller.edit()
 
-        assert model.productGemStoneInstance == productGemStone
+        assert model.ProdGemstoneInstance == ProdGemstone
     }
 
     void testUpdate() {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/productGemStone/list'
+        assert response.redirectedUrl == '/ProdGemstone/list'
 
         response.reset()
 
 
         populateValidParams(params)
-        def productGemStone = new ProductGemStone(params)
+        def ProdGemstone = new ProdGemstone(params)
 
-        assert productGemStone.save() != null
+        assert ProdGemstone.save() != null
 
         // test invalid parameters in update
-        params.id = productGemStone.id
+        params.id = ProdGemstone.id
         //TODO: add invalid values to params object
 
         controller.update()
 
-        assert view == "/productGemStone/edit"
-        assert model.productGemStoneInstance != null
+        assert view == "/ProdGemstone/edit"
+        assert model.ProdGemstoneInstance != null
 
-        productGemStone.clearErrors()
+        ProdGemstone.clearErrors()
 
         populateValidParams(params)
         controller.update()
 
-        assert response.redirectedUrl == "/productGemStone/show/$productGemStone.id"
+        assert response.redirectedUrl == "/ProdGemstone/show/$ProdGemstone.id"
         assert flash.message != null
 
         //test outdated version number
         response.reset()
-        productGemStone.clearErrors()
+        ProdGemstone.clearErrors()
 
         populateValidParams(params)
-        params.id = productGemStone.id
+        params.id = ProdGemstone.id
         params.version = -1
         controller.update()
 
-        assert view == "/productGemStone/edit"
-        assert model.productGemStoneInstance != null
-        assert model.productGemStoneInstance.errors.getFieldError('version')
+        assert view == "/ProdGemstone/edit"
+        assert model.ProdGemstoneInstance != null
+        assert model.ProdGemstoneInstance.errors.getFieldError('version')
         assert flash.message != null
     }
 
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/productGemStone/list'
+        assert response.redirectedUrl == '/ProdGemstone/list'
 
         response.reset()
 
         populateValidParams(params)
-        def productGemStone = new ProductGemStone(params)
+        def ProdGemstone = new ProdGemstone(params)
 
-        assert productGemStone.save() != null
-        assert ProductGemStone.count() == 1
+        assert ProdGemstone.save() != null
+        assert ProdGemstone.count() == 1
 
-        params.id = productGemStone.id
+        params.id = ProdGemstone.id
 
         controller.delete()
 
-        assert ProductGemStone.count() == 0
-        assert ProductGemStone.get(productGemStone.id) == null
-        assert response.redirectedUrl == '/productGemStone/list'
+        assert ProdGemstone.count() == 0
+        assert ProdGemstone.get(ProdGemstone.id) == null
+        assert response.redirectedUrl == '/ProdGemstone/list'
     }
 }

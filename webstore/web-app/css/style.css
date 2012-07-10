@@ -14,8 +14,8 @@ body {
 	padding: 0;
 }
 
-a{color:#a54569;text-decoration:none;}
-a:hover{color:#333;text-decoration:none;}
+a{color:#336699;text-decoration:none;}
+a:hover{color:#333;text-decoration:underline;}
 a img{border:none;}
 
 h1,h2,h3,h4,.heading,#topnav>UL>LI>A {
