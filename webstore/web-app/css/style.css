@@ -95,13 +95,17 @@ hr {
 	margin: 5px 30px 10px;
 }
 
-#page-content{
+#page-content {
     overflow: hidden;
     width: inherit;
     display: inline;
     text-align: left;
     font-size: 12px;
     padding: 5px 5px;
+}
+
+#page {
+	margin-top: 4em;
 }
 
 .top-banner {

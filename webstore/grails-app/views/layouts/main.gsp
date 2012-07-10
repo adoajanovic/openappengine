@@ -359,8 +359,10 @@
 		</div>
 		
 		<!-- Main Content -->
-		<div id="page-content" class="clearfix shadow">
-			<g:layoutBody />
+		<div id="page-content">
+			<div id="page" class="clearfix shadow">
+				<g:layoutBody />	
+			</div>
 		</div>
 
 		<div id="spinner" class="spinner" style="display: none;">
