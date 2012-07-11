@@ -6,12 +6,14 @@
 <hibernate-configuration>
 
 	<session-factory>
+		<!-- Product Schema -->
 		<mapping class='com.openappengine.model.product.Product' />
-		<mapping class='com.openappengine.model.product.ProdProductType' />
+		<mapping class='com.openappengine.model.product.ProductType' />
 		<mapping class='com.openappengine.model.product.ProdProductPrice'/>
 		<mapping class='com.openappengine.model.product.ProductCategory'/>
 		<mapping class='com.openappengine.model.product.ProdGemstone'/>
 		
+		<!-- Common Schema -->
 		<mapping class='com.openappengine.model.common.Image'/>
 	</session-factory>
 

@@ -19,6 +19,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.openappengine.model.common.Image;
+
 
 /**
  * The persistent class for the prod_product_category database table.
@@ -51,6 +53,10 @@ public class ProductCategory implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="PC_TO_DATE")
 	private Date toDate;
+    
+    @ManyToOne
+    @JoinColumn(name="PC_CATEGORY_IMAGE_ID")
+    private Image categoryImage; 
 
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="PC_PRODUCT_PARENT_CATEGORY_ID")
@@ -116,6 +122,14 @@ public class ProductCategory implements Serializable {
 
 	public void setChildCategories(Set<ProductCategory> childCategories) {
 		this.childCategories = childCategories;
+	}
+
+	public Image getCategoryImage() {
+		return categoryImage;
+	}
+
+	public void setCategoryImage(Image categoryImage) {
+		this.categoryImage = categoryImage;
 	}
 	
 }

@@ -1,5 +1,3 @@
-
-<%@ page import="com.openappengine.product.ProductGemStone"%>
 <!doctype html>
 <html>
 <head>
@@ -34,20 +32,23 @@
 			<div id="product-list">
 				<g:each in="${prodGemstoneInstanceList}" status="i"
 					var="productGemStoneInstance">
-					<div class="${(i % 3) == 0 ? '' : ''}">
-						<div class="row" style="width: 100%">
+							<g:if test="${(i % 3) == 0}">
+								<div class="row" style="width: 100%">
+							</g:if>
 							<!--
 								padding-right: 25px; : add space between the products
 							 -->
 							<div class="threecol box-small"
 								style="padding-right: 25px; border-right: 1px solid #D9DCDC;">
 								<div id="content">
-									<a href="#" class="product-box-link"> <img
+									<g:link action="show" id="${productGemStoneInstance.pdProductId}"
+											class="product-box-link">
+									<img
 										class="product-img"
 										alt="${productGemStoneInstance.pdProductName}"
 										title="${productGemStoneInstance.pdProductName}"
-										src="${resource(dir: 'images/site/home', file: productGemStoneInstance.imageUrl )}" />
-									</a>
+										src="${resource(dir: '/images/uploads/product', file: productGemStoneInstance?.smallImage?.imageUrl)}" />
+									</g:link>
 									
 									<!-- 
 										Product Tags (GIFs for individual tags to be displayed)
@@ -79,9 +80,16 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
+						<!--  -->
+							<g:if test="${(i % 3) == 0}">
+								</div>
+							</g:if>
+						<!--  -->	
 				</g:each>
+			</div>
+			
+			<div>
+				<g:paginate total="${prodGemstoneInstanceTotal}" />
 			</div>
 		</div>
 	</div>
