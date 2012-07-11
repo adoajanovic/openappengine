@@ -13,11 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.openappengine.model.common.Image;
 
 /**
  * The persistent class for the prod_product database table.
@@ -109,6 +112,22 @@ public class Product implements Serializable {
 	//bi-directional many-to-one association to ProdProductPrice
 	@OneToMany(mappedBy="prodProduct",cascade=CascadeType.ALL)
 	private List<ProdProductPrice> prodProductPrices;
+	
+	@ManyToOne
+    @JoinColumn(name="PD_SMALL_IMAGE_ID")
+    private Image smallImage;
+	
+	@ManyToOne
+    @JoinColumn(name="PD_MEDIUM_IMAGE_ID")
+    private Image mediumImage;
+	
+	@ManyToOne
+    @JoinColumn(name="PD_LARGE_IMAGE_ID")
+    private Image largeImage;
+	
+	@ManyToOne
+    @JoinColumn(name="PD_DETAIL_IMAGE_ID")
+    private Image detailImage;
 	
     public Product() {
     }
@@ -305,6 +324,38 @@ public class Product implements Serializable {
 		this.pdProductType = pdProductType;
 	}
 	
+	public Image getSmallImage() {
+		return smallImage;
+	}
+
+	public void setSmallImage(Image smallImage) {
+		this.smallImage = smallImage;
+	}
+
+	public Image getMediumImage() {
+		return mediumImage;
+	}
+
+	public void setMediumImage(Image mediumImage) {
+		this.mediumImage = mediumImage;
+	}
+
+	public Image getLargeImage() {
+		return largeImage;
+	}
+
+	public void setLargeImage(Image largeImage) {
+		this.largeImage = largeImage;
+	}
+
+	public Image getDetailImage() {
+		return detailImage;
+	}
+
+	public void setDetailImage(Image detailImage) {
+		this.detailImage = detailImage;
+	}
+
 	public BigDecimal getProductPrice(Date date) {
 		if(prodProductPrices != null && !prodProductPrices.isEmpty()) {
 			for (ProdProductPrice prodPrice : prodProductPrices) {

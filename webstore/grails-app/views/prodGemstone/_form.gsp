@@ -48,14 +48,6 @@
 	<g:textField name="hardness" value="${prodGemstoneInstance?.hardness}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: prodGemstoneInstance, field: 'imageUrl', 'error')} ">
-	<label for="imageUrl">
-		<g:message code="prodGemstone.imageUrl.label" default="Image Url" />
-		
-	</label>
-	<g:textField name="imageUrl" value="${prodGemstoneInstance?.imageUrl}" />
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: prodGemstoneInstance, field: 'origin', 'error')} ">
 	<label for="origin">
 		<g:message code="prodGemstone.origin.label" default="Origin" />
@@ -70,14 +62,6 @@
 		
 	</label>
 	<g:textField name="pdProductName" value="${prodGemstoneInstance?.pdProductName}" />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: prodGemstoneInstance, field: 'pdProductType', 'error')} ">
-	<label for="pdProductType">
-		<g:message code="prodGemstone.pdProductType.label" default="Pd Product Type" />
-		
-	</label>
-	<g:textField name="pdProductType" value="${prodGemstoneInstance?.pdProductType}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: prodGemstoneInstance, field: 'shape', 'error')} ">
