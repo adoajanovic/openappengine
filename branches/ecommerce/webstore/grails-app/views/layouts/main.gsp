@@ -66,10 +66,6 @@
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.observable.js')}"></script>
 <script src="${resource(dir: 'js/ui', file: 'jquery.ui.slider.js')}"></script>
 
-<script type="text/javascript">
-			Cufon.replace('ul.oe_menu div a',{hover: true});
-			Cufon.replace('h1,h2,.oe_heading');
-		</script>
         <style type="text/css">
 			span.reference{
 				position:fixed;
