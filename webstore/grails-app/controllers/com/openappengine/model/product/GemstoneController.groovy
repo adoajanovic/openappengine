@@ -14,8 +14,17 @@ class GemstoneController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 9, 9)
-        [prodGemstoneInstanceList: Gemstone.list(params), prodGemstoneInstanceTotal: Gemstone.count()]
+        params.max = 9
+		
+		def model = [prodGemstoneInstanceList: Gemstone.list(params), prodGemstoneInstanceTotal: Gemstone.count()]
+		
+		if (request.xhr) {
+			// ajax request
+			render(template: "grid", model: model)
+		} else {
+			model
+		}
+        
     }
 
     def create() {
