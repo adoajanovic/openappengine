@@ -5,7 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 import com.openappengine.model.common.Image
 
-class ProdGemstoneController {
+class GemstoneController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
@@ -15,15 +15,33 @@ class ProdGemstoneController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 9, 9)
-        [prodGemstoneInstanceList: ProdGemstone.list(params), prodGemstoneInstanceTotal: ProdGemstone.count()]
+        [prodGemstoneInstanceList: Gemstone.list(params), prodGemstoneInstanceTotal: Gemstone.count()]
     }
 
     def create() {
-        [prodGemstoneInstance: new ProdGemstone(params)]
+        [prodGemstoneInstance: new Gemstone(params)]
     }
 
     def save() {
-        def prodGemstoneInstance = new ProdGemstone(params)
+		def parent
+		if(!params.parentProductId) {
+			parent = ProductCategory.findByProductCategoryName("Gemstone")
+			if(!parent) {
+				parent = new ProductCategory()
+				parent.productCategoryName = "Gemstone"
+				parent.productCategoryDescription = "Gemstone"
+				parent.fromDate = new Date()
+				
+				parent.save(flush:true)
+			}
+			params.parentCategoryId = parent?.productCategoryId
+		} else {
+			parent = ProductCategory.get(params.parentCategoryId)
+		}
+		
+        def prodGemstoneInstance = new Gemstone(params)
+		prodGemstoneInstance.productCategory = parent
+		
         if (!prodGemstoneInstance.save(flush: true)) {
             render(view: "create", model: [prodGemstoneInstance: prodGemstoneInstance])
             return
@@ -35,6 +53,17 @@ class ProdGemstoneController {
 	
 	def upload = {
 		
+	}
+	
+	def viewDetails = {
+		def prodGemstoneInstance = Gemstone.get(params.id)
+		if (!prodGemstoneInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'prodGemstone.label', default: 'ProdGemstone'), params.id])
+			redirect(action: "list")
+			return
+		}
+
+		[prodGemstoneInstance: prodGemstoneInstance]
 	}
 	
 	def uploadImage = {
@@ -93,7 +122,7 @@ class ProdGemstoneController {
 					image.fromDate = new Date()
 					image.imageUrl = prefix + p.pdProductId + "_" + uploadedFileDetail.originalFilename
 					
-					uploadedFileDetail.transferTo( new File( userDir, uploadedFileDetail.originalFilename))
+					uploadedFileDetail.transferTo( new File( userDir, image.imageUrl))
 					
 					image.save(flush:true)
 
@@ -110,7 +139,7 @@ class ProdGemstoneController {
 	}
 
     def show() {
-        def prodGemstoneInstance = ProdGemstone.get(params.id)
+        def prodGemstoneInstance = Gemstone.get(params.id)
         if (!prodGemstoneInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'prodGemstone.label', default: 'ProdGemstone'), params.id])
             redirect(action: "list")
@@ -121,7 +150,7 @@ class ProdGemstoneController {
     }
 
     def edit() {
-        def prodGemstoneInstance = ProdGemstone.get(params.id)
+        def prodGemstoneInstance = Gemstone.get(params.id)
         if (!prodGemstoneInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'prodGemstone.label', default: 'ProdGemstone'), params.id])
             redirect(action: "list")
@@ -132,7 +161,7 @@ class ProdGemstoneController {
     }
 
     def update() {
-        def prodGemstoneInstance = ProdGemstone.get(params.id)
+        def prodGemstoneInstance = Gemstone.get(params.id)
         if (!prodGemstoneInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'prodGemstone.label', default: 'ProdGemstone'), params.id])
             redirect(action: "list")
@@ -162,7 +191,7 @@ class ProdGemstoneController {
     }
 
     def delete() {
-        def prodGemstoneInstance = ProdGemstone.get(params.id)
+        def prodGemstoneInstance = Gemstone.get(params.id)
         if (!prodGemstoneInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'prodGemstone.label', default: 'ProdGemstone'), params.id])
             redirect(action: "list")

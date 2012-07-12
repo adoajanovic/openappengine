@@ -1,4 +1,4 @@
-<%@ page import="com.openappengine.model.product.ProdGemstone" %>
+<%@ page import="com.openappengine.model.product.Gemstone" %>
 
 <div class="fieldcontain ${hasErrors(bean: prodGemstoneInstance, field: 'carat', 'error')} ">
 	<label for="carat">

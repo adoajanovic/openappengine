@@ -106,9 +106,6 @@ public class Product implements Serializable {
 	@Column(name="PD_WEIGHT_UOM_ID", length=20)
 	private String pdWeightUomId;
 
-	@Column(name="PD_PRODUCT_TYPE", length=50)
-	private String pdProductType;
-
 	//bi-directional many-to-one association to ProdProductPrice
 	@OneToMany(mappedBy="prodProduct",cascade=CascadeType.ALL)
 	private List<ProdProductPrice> prodProductPrices;
@@ -128,6 +125,14 @@ public class Product implements Serializable {
 	@ManyToOne
     @JoinColumn(name="PD_DETAIL_IMAGE_ID")
     private Image detailImage;
+	
+	@ManyToOne
+    @JoinColumn(name="PD_PRODUCT_TYPE_ID")
+    private ProductType productType;
+	
+	@ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name="PD_PRODUCT_CATEGORY_ID")
+    private ProductCategory productCategory;
 	
     public Product() {
     }
@@ -316,14 +321,6 @@ public class Product implements Serializable {
 		this.prodProductPrices = prodProductPrices;
 	}
 
-	public String getPdProductType() {
-		return pdProductType;
-	}
-
-	public void setPdProductType(String pdProductType) {
-		this.pdProductType = pdProductType;
-	}
-	
 	public Image getSmallImage() {
 		return smallImage;
 	}
@@ -366,5 +363,21 @@ public class Product implements Serializable {
 			}
 		}
 		return null;
+	}
+
+	public ProductCategory getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(ProductCategory productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 }

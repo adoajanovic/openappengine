@@ -1,4 +1,4 @@
-<%@ page import="com.openappengine.model.product.ProdGemstone" %>
+<%@ page import="com.openappengine.model.product.Gemstone" %>
 <!doctype html>
 <html>
 	<head>

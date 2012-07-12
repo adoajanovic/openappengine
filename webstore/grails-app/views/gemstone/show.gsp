@@ -1,5 +1,5 @@
 
-<%@ page import="com.openappengine.model.product.ProdGemstone" %>
+<%@ page import="com.openappengine.model.product.Gemstone" %>
 <!doctype html>
 <html>
 	<head>
@@ -182,15 +182,6 @@
 					<span id="pdProductName-label" class="property-label"><g:message code="prodGemstone.pdProductName.label" default="Pd Product Name" /></span>
 					
 						<span class="property-value" aria-labelledby="pdProductName-label"><g:fieldValue bean="${prodGemstoneInstance}" field="pdProductName"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${prodGemstoneInstance?.pdProductType}">
-				<li class="fieldcontain">
-					<span id="pdProductType-label" class="property-label"><g:message code="prodGemstone.pdProductType.label" default="Pd Product Type" /></span>
-					
-						<span class="property-value" aria-labelledby="pdProductType-label"><g:fieldValue bean="${prodGemstoneInstance}" field="pdProductType"/></span>
 					
 				</li>
 				</g:if>
