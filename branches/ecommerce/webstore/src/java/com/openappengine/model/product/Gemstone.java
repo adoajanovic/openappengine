@@ -20,7 +20,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  */
 @Entity(name="prod_product_gemstone")
 @PrimaryKeyJoinColumn(name="PD_PRODUCT_ID")
-public class ProdGemstone extends Product {
+public class Gemstone extends Product {
 	
 	private static final long serialVersionUID = 1L;
 	

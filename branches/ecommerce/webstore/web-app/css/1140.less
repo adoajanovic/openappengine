@@ -626,7 +626,7 @@ img.product-img {
 	height: 120px;
 	display: block;
 	padding: 5px;
-} 
+}
 
 .product-name {
 	font-family:'Droid Sans',Verdana,Tahoma,sans-serif;
@@ -634,19 +634,19 @@ img.product-img {
 }
 
 .product-tag {
-	border-top: 1px solid #D9DCDC;
-	border-bottom: 1px solid #D9DCDC;
-	border-right: 1px solid #D9DCDC;
-	border-style:dotted;
-	
 	font-size: 14px;
+	height:2em;
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
+	text-transform: uppercase;
+	background-color: #D3E397;
+	border: 1px solid #eee;
+	.border-radius(4px);
+	color:#666;
+	text-align: right;
+	max-width: 4em;
 }
 
 .product-tag .new{
-	border-left: 4px solid #336600;
-	font-family: Tahoma;
-	font-size: 13px;
-	text-align: center;
 	text-transform: uppercase;
 }
 
@@ -655,4 +655,54 @@ h1.filter-heading {
 	font-size: 14px;
 	display: inline-block;
 	margin-left: 2.7em;
+}
+
+
+/**
+  View Details
+**/
+.productDetImageBox {
+	min-height: 250px;
+	max-height: 300px;
+	
+	margin-top: 1.5em;
+	border: 1px solid #D9DCDC;
+}
+
+img.product-img-det {
+	width: 360px;
+	height: 240px;
+	display: block;
+	padding: 5px;
+	float: left;
+	margin-left: 40px;
+	margin-left: 20px;
+}
+
+.product_name_header {
+	font-size: 14px;
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
+	text-transform: uppercase;
+}
+
+.product_price {
+	font-size: 13px;
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
+	text-transform: uppercase;
+}
+
+.product_offers_tags {
+	
+}
+
+button.add_to_cart {
+	font-size: 14px;
+	height:2em;
+	font-family:'Droid Sans',Tahoma,Arial,sans-serif;
+	text-transform: uppercase;
+	background-color: #5E9DC8;
+	border: 1px solid #5E9DC8;
+	.border-radius(4px);
+	color:#EEE;
+	font-weight: bold;	
 }

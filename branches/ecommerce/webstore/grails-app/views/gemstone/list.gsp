@@ -41,7 +41,7 @@
 							<div class="threecol box-small"
 								style="padding-right: 25px; border-right: 1px solid #D9DCDC;">
 								<div id="content">
-									<g:link action="show" id="${productGemStoneInstance.pdProductId}"
+									<g:link action="viewDetails" id="${productGemStoneInstance.pdProductId}"
 											class="product-box-link">
 									<img
 										class="product-img"
@@ -63,15 +63,17 @@
 
 									<!-- Product Name and Description -->
 									<div class='product-name'>
-										<a href="#" class="product-box-link"> 
+										<g:link action="viewDetails" id="${productGemStoneInstance.pdProductId}"
+											class="product-box-link">
 											${fieldValue(bean: productGemStoneInstance, field: "pdProductName")}
-										</a>
+										</g:link>	
 									</div>
 									
 									<div class='product-name'>
-										<a href="#" class="product-box-link"> 
+										<g:link action="viewDetails" id="${productGemStoneInstance.pdProductId}"
+											class="product-box-link"> 
 											${fieldValue(bean: productGemStoneInstance, field: "pdDescription")}
-										</a>
+										</g:link>
 									</div>
 									
 									<!-- Product Name and Description -->

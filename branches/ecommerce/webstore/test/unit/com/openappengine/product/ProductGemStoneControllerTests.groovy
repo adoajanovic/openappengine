@@ -4,13 +4,13 @@ package com.openappengine.product
 
 import org.junit.*
 
-import com.openappengine.model.product.ProdGemstone
-import com.openappengine.model.product.ProdGemstoneController
+import com.openappengine.model.product.Gemstone
+import com.openappengine.model.product.GemstoneController
 
 import grails.test.mixin.*
 
-@TestFor(ProdGemstoneController)
-@Mock(ProdGemstone)
+@TestFor(GemstoneController)
+@Mock(Gemstone)
 class ProdGemstoneControllerTests {
 
 
@@ -52,7 +52,7 @@ class ProdGemstoneControllerTests {
 
         assert response.redirectedUrl == '/ProdGemstone/show/1'
         assert controller.flash.message != null
-        assert ProdGemstone.count() == 1
+        assert Gemstone.count() == 1
     }
 
     void testShow() {
@@ -63,7 +63,7 @@ class ProdGemstoneControllerTests {
 
 
         populateValidParams(params)
-        def ProdGemstone = new ProdGemstone(params)
+        def ProdGemstone = new Gemstone(params)
 
         assert ProdGemstone.save() != null
 
@@ -82,7 +82,7 @@ class ProdGemstoneControllerTests {
 
 
         populateValidParams(params)
-        def ProdGemstone = new ProdGemstone(params)
+        def ProdGemstone = new Gemstone(params)
 
         assert ProdGemstone.save() != null
 
@@ -103,7 +103,7 @@ class ProdGemstoneControllerTests {
 
 
         populateValidParams(params)
-        def ProdGemstone = new ProdGemstone(params)
+        def ProdGemstone = new Gemstone(params)
 
         assert ProdGemstone.save() != null
 
@@ -147,7 +147,7 @@ class ProdGemstoneControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def ProdGemstone = new ProdGemstone(params)
+        def ProdGemstone = new Gemstone(params)
 
         assert ProdGemstone.save() != null
         assert ProdGemstone.count() == 1

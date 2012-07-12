@@ -3,6 +3,7 @@ package com.openappengine.model.product;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,6 +59,9 @@ public class ProductType implements Serializable {
  
     @OneToMany(mappedBy="parentType")
     private Set<ProductType> childTypes = new HashSet<ProductType>();
+    
+    @OneToMany(mappedBy="productType",cascade=CascadeType.ALL)
+    private List<Product> products;
 
     public ProductType() {
     }
@@ -116,6 +120,14 @@ public class ProductType implements Serializable {
 
 	public void setChildTypes(Set<ProductType> childTypes) {
 		this.childTypes = childTypes;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 	
 }
